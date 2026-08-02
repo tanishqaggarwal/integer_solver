@@ -1,0 +1,78 @@
+baseline propagation done (1.0s), forced 5897
+baseline violated atoms (all bits 0): 4
+testing 255 control-bit single flips...
+  [IMPROVE] flip x_1263=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_1571=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_1858=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_2779=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_2793=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_2795=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_2800=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_3393=1 -> violated 3 (contra 13)
+   ...40/255 tested, 93s
+  [IMPROVE] flip x_5034=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_5277=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_5443=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_6395=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_6968=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_7007=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_7328=1 -> violated 3 (contra 13)
+  [IMPROVE] flip x_7378=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_7600=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_7931=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_10652=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_10951=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_11420=1 -> violated 3 (contra 3)
+   ...80/255 tested, 182s
+  [IMPROVE] flip x_15226=1 -> violated 3 (contra 14)
+  [IMPROVE] flip x_18132=1 -> violated 3 (contra 3)
+   ...120/255 tested, 271s
+  [IMPROVE] flip x_19038=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_19164=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_20716=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_22791=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_22971=1 -> violated 3 (contra 14)
+  [IMPROVE] flip x_24067=1 -> violated 3 (contra 3)
+   ...160/255 tested, 360s
+  [IMPROVE] flip x_26012=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_26947=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_27410=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_28410=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_29594=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_30060=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_30792=1 -> violated 3 (contra 4)
+   ...200/255 tested, 449s
+  [IMPROVE] flip x_31317=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_32076=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_32127=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_33091=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_33251=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_33898=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_34240=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_34371=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_34433=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_34903=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_36335=1 -> violated 3 (contra 13)
+   ...240/255 tested, 539s
+  [IMPROVE] flip x_37479=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_37503=1 -> violated 3 (contra 4)
+  [IMPROVE] flip x_37885=1 -> violated 3 (contra 3)
+  [IMPROVE] flip x_38421=1 -> violated 3 (contra 3)
+
+best 15 single flips (violated_atoms, bit, contra):
+   x_1263=1 -> 3 violated, 3 contra
+   x_1571=1 -> 3 violated, 3 contra
+   x_1858=1 -> 3 violated, 4 contra
+   x_2779=1 -> 3 violated, 3 contra
+   x_2793=1 -> 3 violated, 3 contra
+   x_2795=1 -> 3 violated, 3 contra
+   x_2800=1 -> 3 violated, 3 contra
+   x_3393=1 -> 3 violated, 13 contra
+   x_5034=1 -> 3 violated, 3 contra
+   x_5277=1 -> 3 violated, 3 contra
+   x_5443=1 -> 3 violated, 4 contra
+   x_6395=1 -> 3 violated, 4 contra
+   x_6968=1 -> 3 violated, 3 contra
+   x_7007=1 -> 3 violated, 3 contra
+   x_7328=1 -> 3 violated, 13 contra
+done 571s; wrote flip_results.json
