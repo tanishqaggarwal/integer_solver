@@ -93,3 +93,30 @@ modulus/additive/linear structure. It is intractable by every general method tri
 (SMT, propagation, local search, bit-blast, linear elimination). Best verified result
 stands at 39,013/39,031. Solving the kernel would require the generator's trapdoor or a
 problem-specific breakthrough.
+
+## Session 3 (mod-p / GF(2) attack — "find heuristics")
+- **All 256 core bits are genuinely free** (0 forced by pins; x_24550=1 is only a
+  conditional artifact of the bits=0 completion, and is the locally-best single choice).
+- **x_24550=1 loads TWO residues** (62388 into x_20659, 119182 into x_33718); the other
+  active residues (91416, 125787) are *derived*. Violated atom 27973's value is exactly
+  119182−91416 (two residues that must be made equal). No a+b=c or multiplicative relation
+  among the 4 active residues → no modulus.
+- **Boolean reduction** (x²→x for booleans, `bool_reduce.py`): forces 0 *main* bits
+  (main-bit constraints stay multi-variable even after reduction).
+- **GF(2) attack**: linearization rank 24515/34459 (`gf2_solve.py`); full GF(2) system as
+  CNF is SAT in **4 s** (`gf2_sat.py`) but incremental SAT proves **all 256 core bits are
+  FREE mod 2** (`gf2_forced.py`). GF(3) linearization even looser (88877 free monomials),
+  0 forced. ⇒ every relaxation loses the multiplicative structure that pins the bits.
+- **mod-P propagation** (`modp.py`, P=2⁶¹−1): faithful violated-atom proxy (5 vs Z's 4),
+  avoids big-int blow-up so many-bit states stay cheap. Enables `modp_search.py`
+  (complete pairs+triples over the 81 improving bits) — running.
+- **Big-int blow-up** is the search bottleneck in Z (2-bit states can reach 2000+ bits);
+  mod-P fixes that but per-eval is still ~1–4 s (Python loop over 46k atoms).
+
+### Verdict (session 3)
+Exhaustive: ~20 distinct methods (SMT, SAT, GF(2)/GF(3), linear algebra, boolean reduction,
+propagation variants, local/greedy/SA/pairs search, bit-blast analysis, modulus hunts,
+local-repair UNSAT). Every relaxation leaves the 256 core bits free; they are pinned only
+by exact integer consistency across a 91k-multiplication circuit. No trapdoor found. The
+core is, to the best of a broad standard toolkit, intractable without the generator's secret.
+Best verified result: 39,013/39,031.
