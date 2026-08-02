@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/user/integer_solver/solve_lab/z3_main.py", line 66, in <module>
+    main()
+  File "/home/user/integer_solver/solve_lab/z3_main.py", line 13, in main
+    atoms = [json.loads(l)['poly'] for l in open('solve_lab/atoms/poly_atoms.jsonl')]
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'solve_lab/atoms/poly_atoms.jsonl'
