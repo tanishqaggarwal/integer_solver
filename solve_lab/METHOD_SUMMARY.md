@@ -1,0 +1,63 @@
+# METHOD SUMMARY
+
+## Problem
+`EQUATIONS.txt`: 39,031 polynomial equations `= 0` over integer unknowns
+`x_0 … x_38747`. Find integers satisfying every equation exactly in ℤ.
+
+## Result
+**39,013 / 39,031 equations satisfied exactly** (verified, no floating point) by
+`best/best_partial_39013.json`. 18 equations remain, all tied to **4 atoms** in a
+single 256-bit densely-coupled core.
+
+## What produced the solution
+
+### 1. Structural reverse-engineering
+Parsed every equation with Python `ast` (`x_N` are valid identifiers). Each LHS,
+after stripping an outer scalar / square, is a **top-level `+`-chain** of terms
+`coef * atom`. Expanding each atom to a canonical integer polynomial (gcd-reduced,
+sign-normalized) shows the equations are **random linear combinations of 46,275
+shared "atoms"**, each atom reused ~10× on average. Therefore an assignment that
+makes **every atom vanish** satisfies every equation. (`poly_atoms.py`)
+
+Atom taxonomy: 20,090 linear (add/sub/copy/scalar/NOT), 25,468 degree-2
+(multiply/square/boolean), 717 degree-4. 3,484 boolean vars `x*(x−1)=0`; 1,103
+unit pins `x=1`; 865 "huge" atoms `bit*(x_B − HUGE_290bit) − s*x_C` (bit-gated
+constant/residue loads).
+
+### 2. Exact checker  (`checker.py`)
+Compiles each equation to a Python code object over an integer array and
+re-evaluates with big integers. `python3 checker.py <assignment.json>` →
+`satisfied k/39031`. Used to validate every candidate.
+
+### 3. Integer propagation  (`propagate.py`, `solve_forward2.py`)
+Direction-agnostic engine: whenever an atom reduces to a single unknown that is
+linear (or a solvable quadratic), solve it; propagate to fixpoint.
+- From the 1,103 unit pins → **5,897 variables forced** with zero choices.
+- Setting the 1,156 free boolean inputs to 0 and re-propagating solves the value
+  wires `x_B` through the huge atoms and computes all gates → **39,013/39,031**.
+
+### 4. Core isolation  (`analyze_core.py`, `main_component.py`)
+The residual splits into **one giant component (23,843 vars, 256 free bits)** plus
+~297 tiny components that are homogeneous (satisfied by zeros). The 4 open atoms
+are residue-consistency constraints (e.g. an add-gate whose two sides are pinned to
+different 290-bit residues). Their backward cone touches ~255 of the 256 bits
+(dense, cyclic) — no small local fix.
+
+## What did not crack the core
+- **z3 / SMT** on the component (23,843 vars, 28,386 nonlinear int constraints):
+  `unknown` after >15 min. Conflict-cone z3 (radius 3) engulfs the whole component
+  and also returns `unknown`. (`z3_main.py`, `cone_solve.py`)
+- **Single-bit flip search**: individual bit flips reduce violated atoms 4→3 but
+  introduce contradictions — bits are tightly coupled (need a consistent set).
+- **Boolean-forcing propagation** (`bit=1` when `s*x_C≠0`): cannot bootstrap — the
+  all-zeros state is itself a fixpoint; the witness is a non-trivial fixpoint.
+- Modulus hunt: gcd of the 514 huge constants = 1; the power chains
+  `x, x², x³` grow **unreduced** — it is not a single-modulus reduction.
+
+## Assessment
+The instance is an obfuscated arithmetic circuit whose 256-bit input is recoverable
+only by inverting a densely-coupled selection/consistency kernel — the deliberately
+hard core. 99.95% is solved deterministically and verifiably; the kernel resists
+general-purpose SMT and local search. Remaining avenues (multi-bit combinatorial
+search, exact GF(p) elimination + backtracking CP, or bit-blasted SAT) are listed
+in `RESUME.md`.

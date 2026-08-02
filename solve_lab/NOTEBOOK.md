@@ -45,3 +45,26 @@
 - `flip_search.py` single-bit flips (→ pair/triple if needed).
 - GF(p) linear elimination to find forced bits under consistency; backtracking CP.
 - background long z3.
+
+### Session 1 — core probes (definitive)
+- `flip_search.py`: 51 of 255 control bits improve violated-atoms 4→3; none reach <3.
+  Flips *move* the violated set (e.g. +x_1263 → atoms [8523,25964,44093]) rather than
+  removing them — rugged landscape.
+- `greedy_combine.py`: greedy multi-flip plateaus at 3 (no 2nd bit improves).
+- `enhanced_propagate.py` (Rule A: s·x_C≠0 ⇒ bit=1): cannot bootstrap; all-zeros is a
+  fixpoint, witness is a non-trivial fixpoint.
+- **Local-repair UNSAT proofs (z3):**
+  - Only 4 vars (x_1642,x_4028,x_6236,x_10466) are unique to the 18 failing eqs →
+    freeing just those: **UNSAT**.
+  - Freeing all 55 vars in the failing eqs + constraining the 5,357 equations that touch
+    them (rest fixed to near-solution): **UNSAT**.
+  ⇒ The near-solution is a valid 39,013/39,031 assignment but is **not locally
+  extendable** to a full solution; the 256-bit core must be solved globally.
+
+### Conclusion (session 1)
+99.95% solved deterministically and verified. The residual is a single 256-bit,
+densely-coupled, cyclic circuit-inversion kernel with no exploitable modulus/structure;
+it resists SMT (z3 unknown), conflict-cone decomposition, boolean-forcing propagation,
+and single/greedy bit-flip local search, and local repair is provably UNSAT. A full
+solve would require a purpose-built backtracking search / bit-blasted SAT (large,
+uncertain) — documented in RESUME.md. Best verified artifact: best/best_partial_39013.json.
