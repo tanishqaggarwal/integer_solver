@@ -7,3 +7,5 @@ cand_forward0.json
 cand_repair0.json
 violated_forward0.json
 cand_enhanced.json
+cand_boolreduce.json
+gf2_sat_model.json

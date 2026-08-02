@@ -1,0 +1,12 @@
+CNF built + base solve in 3s
+   tested 32/256, forced so far 0 (5s)
+   tested 64/256, forced so far 0 (6s)
+   tested 96/256, forced so far 0 (7s)
+   tested 128/256, forced so far 0 (8s)
+   tested 160/256, forced so far 0 (10s)
+   tested 192/256, forced so far 0 (11s)
+   tested 224/256, forced so far 0 (12s)
+   tested 256/256, forced so far 0 (13s)
+
+CORE BITS FORCED MOD 2: 0/256, values {}
+free-mod-2 core bits: 256  (14s)
