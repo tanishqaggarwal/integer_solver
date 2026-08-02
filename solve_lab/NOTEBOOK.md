@@ -68,3 +68,28 @@ it resists SMT (z3 unknown), conflict-cone decomposition, boolean-forcing propag
 and single/greedy bit-flip local search, and local repair is provably UNSAT. A full
 solve would require a purpose-built backtracking search / bit-blasted SAT (large,
 uncertain) — documented in RESUME.md. Best verified artifact: best/best_partial_39013.json.
+
+## Session 2 (continued attack on the 256-bit core)
+- **Multiplication density** (`main_component.py` follow-up): the main component has
+  **91,080 distinct wire×wire products over 17,042 wires** (10,815 squares). ⇒ full
+  bit-blast to SAT is infeasible (~10⁹ gates); the core is genuinely mult-heavy, not a
+  small computation hidden behind decoys.
+- **Linear consistency** (`linear_consistency.py`, exact GF(2⁶¹−1) Gaussian elim on all
+  20,090 linear atoms): system is **consistent** (0 inconsistent rows), rank 19,381.
+  199/256 core bits are pivots but **0 core bits are forced to a constant** by the linear
+  part ⇒ a full zero-all-atoms solution very likely exists, but the bits are pinned only
+  by the dense nonlinear coupling; linear elimination cannot shrink the core (product
+  wires dominate the free set).
+- **Residue structure**: only 4 residue-sized (~290-bit) distinct values in the near-
+  solution; no a+b=c relations among them — no additive shortcut.
+- **Pattern tests** (`pattern_test.py`): all-bits-0 (4 viol) remains best; all-bits-1 is
+  computationally pathological (unbounded product blow-up, doesn't evaluate).
+- Long complete-method z3 lottery (3600 s) left running in background.
+
+### Verdict (session 2)
+Full solution almost certainly exists (linear part consistent) but the 256-bit core is a
+purpose-built, multiplication-dense obfuscated-circuit inversion with no exploitable
+modulus/additive/linear structure. It is intractable by every general method tried
+(SMT, propagation, local search, bit-blast, linear elimination). Best verified result
+stands at 39,013/39,031. Solving the kernel would require the generator's trapdoor or a
+problem-specific breakthrough.
