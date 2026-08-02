@@ -1,0 +1,8 @@
+__pycache__/
+atoms/poly_atoms.jsonl
+atoms/gates.jsonl
+nonzero_at_zero.txt
+cand_propagate_then_zero.json
+cand_forward0.json
+cand_repair0.json
+violated_forward0.json

@@ -1,0 +1,43 @@
+{
+  "phase": "search",
+  "n_eqs": 39031,
+  "n_vars": 38748,
+  "n_forced": 5897,
+  "n_assigned": 38748,
+  "n_eqs_satisfied_by_partial": 39013,
+  "best_score": 39013,
+  "best_partial": "solve_lab/best/best_partial_39013.json",
+  "active_method": "single/multi bit-flip search over 256-bit core; background z3",
+  "structure": {
+    "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
+    "n_distinct_atoms": 46275,
+    "atom_reuse_mean": 10,
+    "linear_atoms": 20090,
+    "deg2_atoms": 25468,
+    "deg4_atoms": 717,
+    "boolean_vars": 3484,
+    "pins_all_value_1": 1103,
+    "huge_atoms": 865,
+    "huge_atom_form": "bit*(x_B - HUGE_290bit) - s*x_C ; bit=1 loads residue",
+    "core": "1 giant residual component: 23843 vars, 256 free bits; +297 tiny homogeneous comps",
+    "open_atoms": [27973, 27978, 41470, 45004],
+    "not_single_modulus": true
+  },
+  "n_eqs_failing": 18,
+  "failing_eqs": [4287,5468,7499,7513,13994,16616,18532,20026,21067,22249,23001,25684,27497,29108,29111,32874,35729,36563],
+  "next_actions": [
+    "flip_search.py: single-bit flips; extend to pairs/triples over ~255 control bits",
+    "GF(p) exact linear elimination -> which bits forced under residue-consistency; backtracking CP",
+    "long background z3 (qfnra-nlsat) lottery"
+  ],
+  "blocked": ["z3 NIA returns unknown on the 256-bit core; no small conflict cone (dense/cyclic)"],
+  "artifacts": {
+    "checker": "solve_lab/checker.py",
+    "verifier_cli": "python3 solve_lab/checker.py solve_lab/best/best_partial_39013.json",
+    "atoms": "solve_lab/atoms/poly_atoms.jsonl",
+    "best_partial": "solve_lab/best/best_partial_39013.json",
+    "failing": "solve_lab/best/failing_eqs.json",
+    "scripts": ["propagate.py","solve_forward2.py","analyze_core.py","main_component.py","z3_main.py","cone_solve.py","repair.py","flip_search.py"]
+  },
+  "updated_unix": 1754150000
+}
