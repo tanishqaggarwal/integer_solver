@@ -234,3 +234,20 @@ Directive: no SAT/SMT; design own heuristics from the circuit structure.
   `cluster_analyze.py`/`cluster_solve.py` bounded-cluster extraction. All plateau at 8–12 violated
   atoms because the correction ripples past pinned product/combo boundaries — consistent with the
   "global bit reconfiguration required" conclusion. Verified deliverable now **39,019/39,031**.
+
+## Session 5 cont. — CONFLUENT EVALUATOR built + validated (major tool)
+- Built a deterministic forward evaluator (`confluent_eval4.py`) = best's prov orientation
+  + override x_9770<-27973, x_3183<-27978, + **residue-load injection** for huge-atoms
+  (x_B = bit*(HUGE + s*x_C); best's prov leaves x_B=0 so naive eval never loads). Uses best's
+  acyclic eval-order with 9770/3183 moved to the end (they were computed BEFORE their input
+  x_35186 — a real ordering bug). VALIDATED: `forward_Z([])` exactly reproduces 39,019
+  (atoms 1817/30378/40782/44271, 0 non-divisible). This is confluent (no order-noise), unlike
+  propagation — a bit's effect is now its TRUE semantic effect.
+- With it, exactly **22 bits change the twist checks singly** — identical to the earlier BITS22.
+- `confluent_enum.py`: vectorized (numpy, chunked, 31-bit prime) enumeration of all **2^22**
+  patterns over those 22 bits. Result: **0 patterns zero both checks** (x_18274=x_9770 AND
+  x_17728=x_3183). Trustworthy (evaluator validated). ⇒ the witness needs a bit OUTSIDE the 22.
+- Backward cone of the check vars reaches ALL 255 control bits (via loads), but 233 of them have
+  ONLY product (pair+) effects — quadratic-in-bits. So the twist = 2 multilinear equations over
+  255 bits; 22 appear linearly, no linear-only solution. Next: search pairs/triples that activate
+  the right product (best is all-0 bits & 39,019, so the true 1-bit set is likely small).
