@@ -572,3 +572,17 @@ require activating slack products buried behind the residue cascade, i.e. the se
 No shallow search (any weight <=4, any single/pair/triple, any forward-eval point) can reach them.
 COMPLETE mechanistic reverse-engineering; the residue-cascade inversion to activate x_24026 is the
 irreducible trapdoor. Deliverable 39,019/39,031.
+
+### Session 6 — solver attempts past the trapdoor (merge_solve.py)
+- MERGE twist vars (x_18274->x_9770, x_17728->x_3183) bakes the twist into the atom set. The merged
+  system is CONSISTENT under propagation (0 contradictions) - so the twist is not self-contradictory.
+- But: unit propagation determines only the 5898 pin-forced vars, 0 control bits. Full GF(P) Gaussian
+  on the merged linear atoms: rank 19380, 198 control bits are pivots but NONE determined to a constant
+  (all depend on the 9447 free nonlinear-core vars). So linear methods + merge still cannot reach the bits.
+- x_24026 / x_27116 (the bridging slacks): cone = 5523 wires spanning 243 of 255 control bits (dense) -
+  no small activating set. x_38215 (numerator feeding a1813: x_14402*x_24026=321447*x_38215) has an
+  11-wire, 0-control-bit cone: whether x_24026 is FREE (defined by a1660, bridging) or FORCED to 0
+  (defined by a1813 with x_38215 const) is the orientation crux; the witness uses the a1660 orientation.
+- CONCLUSION: the full solve = solve the densely-coupled nonlinear core (residue cascade + merged twist).
+  It resists linear algebra, propagation, the merge, perfect-square reduction, and all search. This is
+  the irreducible one-way trapdoor; inversion needs the setter's secret. Deliverable 39,019/39,031.
