@@ -5,7 +5,7 @@ try_sqrt). This makes them solvable in the min-conflicts step (previously they w
 unfixable, causing the plateau at 9). SA accepts worse moves via temperature to
 escape the frustrated core. Saves any full solution (verified against ORIGINAL
 atoms)."""
-import json, time, random, math
+import json, time, random, math, sys
 from collections import defaultdict
 from confluent_eval5 import build5, make_forward
 from slack_active import make_slack_solver, viol_atoms
@@ -71,15 +71,18 @@ def main():
     def viol(vv):
         return set(a for a in range(len(A)) if atom_resid(A[a], vv) != 0)
 
-    # seed from bit 1858 slack-active
-    v1 = solve(list(bestval), [1858])
+    ACT = int(sys.argv[1]) if len(sys.argv) > 1 else 1858
+    SEED = int(sys.argv[2]) if len(sys.argv) > 2 else 1234
+    OUT = sys.argv[3] if len(sys.argv) > 3 else 'cand_SA_SOLVED.json'
+    # seed from activator bit slack-active
+    v1 = solve(list(bestval), [ACT])
     frozen = {24026: v1[18274]-v1[35186], 27116: v1[17728]-v1[1642]}
     val = run(list(v1), frozen)
     bad = viol(val)
-    print(f"seed: {len(bad)} violated (A' with roots) ({time.time()-t0:.0f}s)", flush=True)
+    print(f"seed act={ACT} seed={SEED}: {len(bad)} violated (A' with roots) ({time.time()-t0:.0f}s)", flush=True)
 
     PROT = {9770, 3183, 18274, 17728, 24026, 27116, 12779, 14402}
-    rng = random.Random(1234)
+    rng = random.Random(SEED)
     best_bad = len(bad); best_val = list(val)
     T = 3.0; it = 0
     TIME = 3300
@@ -115,8 +118,8 @@ def main():
                 allbad = viol_atoms(A0, val)  # verify ORIGINAL atoms
                 print(f"  ORIGINAL-atom verify: {len(allbad)} violated", flush=True)
                 if not allbad:
-                    json.dump({f"x_{i}": val[i] for i in range(NVARS)}, open('cand_SA_SOLVED.json','w'))
-                    print("  *** SOLVED ***", flush=True); return
+                    json.dump({f"x_{i}": val[i] for i in range(NVARS)}, open(OUT,'w'))
+                    print(f"  *** SOLVED *** -> {OUT}", flush=True); return
                 bad = viol(val); best_bad = len(bad)
         # cooling / reheating
         if it % 4000 == 0:
@@ -127,7 +130,7 @@ def main():
             # restart from best occasionally
             val = list(best_val); bad = viol(val)
     print(f"SA done: best {best_bad} ({time.time()-t0:.0f}s)", flush=True)
-    json.dump({"bad": sorted(viol(best_val)), "val": {str(i): best_val[i] for i in range(NVARS)}}, open('slack_sa_best.json','w'))
+    json.dump({"bad": sorted(viol(best_val)), "val": {str(i): best_val[i] for i in range(NVARS)}}, open(OUT.replace('.json','_best.json'),'w'))
 
 if __name__ == '__main__':
     main()

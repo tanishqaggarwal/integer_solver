@@ -681,3 +681,40 @@ core's 129 vars are entangled with the 39k satisfied atoms (changing a core var 
 satisfied one). Active attack: SA with square-roots (slack_sa.py) + exact solve of the core
 subsystem.  The witness genuinely differs from best_partial in x_12520/x_24245/x_23268/... and
 requires a coordinated (not local) move — consistent with a hard-but-satisfiable circuit.
+
+### Session 7 (cont.) — quantization is intrinsic; div-wire & slack escapes both bounded; SA grinds 18->6
+
+Confirmed the coprime-quantization exactly (linearity_233.py, subset_sum_probe.py):
+  x_9770 in g*Z, x_18274 in g2*Z, gcd(g,g2)=1     (single-bit deltas are all +/- base)
+  x_3183 in h*Z, x_17728 in h2*Z, gcd(h,h2)=2
+Single-bit deltas of every twist var equal +/-(its base), i.e. each var = base*(signed int).
+So the twist x_9770=x_18274 needs g*m=g2*m2 with gcd(g,g2)=1 => m multiple of g2 (~10^88)
+=> within the achievable small-|m| range, only m=0 (degenerate). Same for x_3183=x_17728
+(gcd 2, needs m' multiple of h2/2 ~10^88 => 0). This is the trapdoor's core.
+
+Div-wire ESCAPE (real but bounded): x_8821 = x_17810*x_27292 takes {-2,-1,0,1} (LINEAR in
+18 bits, disjoint from the ~193 numerator bits). Since x_18274 = x_6773/x_8821 and x_17728 =
+x_17233/x_8821 (div wires a4954/a13204), a nonunit x_8821 lets x_18274 escape g2*Z (24/300)
+and x_17728 escape h2*Z (30/300).  BUT the escaped values are x_17233/(+/-2) = (h2/2)*Z, and
+gcd(h, h2/2)=1 again => still degenerate for the twist.  x_17728 was a multiple of h (the
+22-side quantum) in 0/500 samples.  The numerators x_17233/x_6773 are quantized to base*Z at
+single-bit level and NONLINEAR for multi-bit (7/50 linear) => NOT a clean subset-sum, so the
+density-0.8 LLL attack does not directly apply.
+
+Re-orientation (reorient.py): forcing x_18274<-a11398 (linear gate x_6283+x_31434) and
+x_17728<-a11388 instead of the div wires stays a VALID evaluator (forward_Z([]) still violates
+only the twist-4) but makes x_18274 CONSTANT (1 value / 300).  The achievable set over VALID
+(all-atom) assignments is intrinsic; re-orienting cannot break the quantization.  Strong
+evidence the twist is a genuinely constructed one-way (knapsack/lattice) trapdoor.
+
+The witness therefore uses the SLACK (x_3183 = x_1642 + x_12779*x_27116 with a huge x_27116),
+and the difficulty is that a huge slack ripples into the verifier SQUARE checks (a40782=Q^2,
+a39550=Q^2, ...).  Q40782 is degree-2; at the twist-satisfying point its twist terms
+[39*(x_3183-x_17728), 6033033*(x_18274-x_9770), -42*x_9982, -x_26977] all vanish, leaving a
+LINEAR equation in the ripple vars (28*x_10783 - x_30323 - 477654111*x_24252 + 4*x_32039 +
+16*x_36641 + ...) = 0 that the ripple must satisfy exactly.
+
+SA in slack-active space with squares replaced by roots Q=0 (slack_sa.py): reduces 18 -> 6
+violated ([14440,23149,23151,23153,40782,44154] at last check; a39550 fixed).  Running a
+4-way multi-start fleet (activators 1858/26947/27512/5443).  This is the first search
+operating in the correct (slack-active, twist-holding) space; prior SA/GA were slack-OFF.
