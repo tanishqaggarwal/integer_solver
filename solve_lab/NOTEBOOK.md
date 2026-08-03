@@ -501,3 +501,12 @@ forward-eval was one heuristic filling. So the real object is that nonlinear cor
   the core twist obstruction. Deliverable unchanged at 39,019.
 - Background campaigns launched: sa_campaign.py (SA over 255 bits), mitm_lowB.py weight-3 (all-A x
   sparse-B meet-in-the-middle) — both running as good-faith long searches.
+
+### Session 6 — MITM weight-3 result: DEFINITIVE negative
+mitm_lowB.py weight-3: swept all 2,108,418 weight-<=3 233-side B patterns against the full
+2^22 22-side hash (both x_9770,x_3183 coords, prime 2147483647), skipping degenerate zero
+collisions. **0 nonzero hits.** So there is NO witness with a sparse (<=3-bit) 233-side residue
+selection. Combined with the full-2^22 B=0 scan (0 hits) and prior <=3 total-weight searches,
+the witness's 233-side selection is genuinely NON-SPARSE (>=4 residue bits) and unreachable by
+feasible enumeration. SA campaign plateaued at 4 (all-0 is the isolated violation minimum).
+FINAL: every search/structural avenue exhausted; genuine trapdoor; deliverable 39,019/39,031.
