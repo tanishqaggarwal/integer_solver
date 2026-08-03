@@ -586,3 +586,20 @@ irreducible trapdoor. Deliverable 39,019/39,031.
 - CONCLUSION: the full solve = solve the densely-coupled nonlinear core (residue cascade + merged twist).
   It resists linear algebra, propagation, the merge, perfect-square reduction, and all search. This is
   the irreducible one-way trapdoor; inversion needs the setter's secret. Deliverable 39,019/39,031.
+
+### Session 6 — slack activation traced (kernel_algebra.py, free_slack.py) — the coupling is exact
+- x_38215=0 and x_29437=0 are CONSTANTS. So a1813 (x_14402*x_24026=321447*x_38215) => x_14402*x_24026=0,
+  and a1815 => x_14402*x_27116=0. With a1657 (x_14402=1-x_12779): to get x_24026 != 0 (slack ON) need
+  x_14402=0 i.e. **x_12779=1** (set by single 22-side bits: 19520,2795,1858,5443,26947,37748,27512,...).
+- With x_12779=1, x_24026 is NOT a product but is LINEARLY pinned:
+    a23394: x_24026 = x_12520 - x_29798 ;  a23402: x_24026 = x_29798 - x_1628
+    a23391: x_29798 = x_23268 - x_36614 ;  a23395: x_12520 = x_24245 - x_23268
+  so x_24026 = x_24245 - 2*x_23268 + x_36614  (a linear form in deeper residue-network wires).
+- Setting bit 19520 alone: x_12779=1 but x_12520=x_29798=0 => x_24026=0 (slack still off), x_9770=0,
+  viol=15. Activating the slack needs the deep wires x_12520/x_29798 != 0 (coordinated 233-side bits).
+- COUPLING: x_12520 also appears in the degree-4 check a45004 (and x_29798 in a38195, both in a41470),
+  so driving x_24026 to the bridge value m2*g2 - m*g necessarily perturbs those big checks. The witness
+  must simultaneously (i) x_12779=1, (ii) x_24026 = x_18274 - x_35186 via the deep network, and (iii)
+  keep a45004/a38195/a41470/a40782 satisfied. That simultaneous coupled system over the residue network
+  IS the trapdoor. Complete to the finest level; the merged system is consistent (a solution exists) but
+  the coupled nonlinear inversion resists linear algebra, propagation, merge, squares, lattice, search.
