@@ -272,3 +272,4 @@ twist checks:
 (the correct circuit model incl. residue loading), pinned the obstruction to 2 high-degree
 multilinear check equations over 255 bits, and exhausted brute-force up to triples. The witness
 requires inverting the obfuscated selection kernel — unsolved, as across all prior sessions.
+- **quad3in22** (3-of-22 + 1 outside, 359k) → 0 hits. All brute-force up to quads exhausted; witness is >=4 bits in a degree->=3 system over 255 bits (circuit inversion). Unsolved.

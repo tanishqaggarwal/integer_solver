@@ -158,6 +158,14 @@ def main():
             for c in control:
                 if c != a and c != b: pats.add(frozenset([a, b, c]))
         search(list(pats), "trip2in22")
+    elif phase == 'quad3in22':
+        import itertools as it
+        out=[b for b in control if b not in set(BITS22)]
+        pats=set()
+        for a,b,c in it.combinations(BITS22,3):
+            for d in out: pats.add(frozenset([a,b,c,d]))
+        print("quad3in22 count:",len(pats))
+        search(list(pats),"quad3in22")
     elif phase == 'trip1in22':
         # 1 from 22, 2 from outside (activates a product of two pair-only bits, gated by a linear bit)
         out = [b for b in control if b not in set(BITS22)]
