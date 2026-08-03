@@ -7,7 +7,7 @@
  "n_eqs_satisfied_by_partial": 39019,
  "best_score": 39019,
  "best_partial": "solve_lab/best/best_partial_39019.json",
- "active_method": "Session 6: reduced ENTIRE obstruction to the twist match x_9770(A)=x_18274(B) & x_3183(A)=x_17728(B) (atom 40782 proven implied). 22-side enumerable (2^22); 233-side high-degree, shares linear denom x_8821. 233->target inversion is the trapdoor.",
+ "active_method": "Session 7: SLACK-ACTIVE breakthrough. Twist is asymmetric (only x_3183=x_17728 rigid; x_9770/x_18274 bridged by product slack x_20510*x_31302). Built slack-active evaluator (freeze x_24026/x_27116, x_12779=1) making BOTH twist halves hold by construction - reaches the witness state plain forward-eval cannot represent. SA-with-square-roots reduces the frustrated core 18->6. Confirmed intrinsic coprime quantization gcd(g,g2)=1, gcd(h,h2)=2; div-wire escape (x_8821 in {-2,-1,0,1}) real but lands on coprime (base/2)*Z; re-orientation to linear gates stays valid but freezes value (achievable set is intrinsic). Ripple subsystem not closed (46->27k vars in 3 rounds) - no XL, no cone. Witness needs a huge slack whose ripple exactly cancels in the verifier squares = the trapdoor.",
  "structure": {
   "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
   "n_distinct_atoms": 46275,
@@ -112,5 +112,15 @@
   "final_assessment": "Full solve = claw-find (A,B) with x_9770(A)=x_18274(B) & x_3183(A)=x_17728(B). 22-side enumerable+invertible (2^22); 233-side high-degree over 2^233, no linear/low-degree inversion, disjoint 290-bit residue pools, witness isolated in the integer-consistent variety. This is the deliberately-hard trapdoor; not crackable by enumeration/local/lattice/SMT. Deliverable: 39,019/39,031 exact.",
   "no_shortcut": "Confirmed rigid: x_26977=x_20510*x_31302 (atom 1816), x_9982 pinned 0 (atom 44272) - no slack to absorb the twist gap. No hidden modulus (gcd residues=1). No B=0, no small/linear/subset-sum/local solution. Claw-find between 2^22 (enumerable) and 2^233 (high-degree, non-invertible) needs 2^558 g-evals or the trapdoor.",
   "linalg255": "CORRECTED over all 255 bits (mod-P): rank 255/255, forces all bits=0. Witness is outside the linear neighborhood of all-0 => linear/lattice provably cannot reach it. Supersedes buggy session-5 slaved-B claim."
+ },
+ "session7": {
+  "slack_active": "freeze x_24026:=x_18274-x_35186, x_27116:=x_17728-x_1642 with x_12779=1 => twist holds; ~18 secondary atoms break from the ripple",
+  "core_reduction": "min-conflicts/SA reduce 18->6 broken; persistent core includes a40782=Q^2 (twist square) and a44154 sharing ripple monomials",
+  "quantization": "gcd(g,g2)=1 [x_9770,x_18274], gcd(h,h2)=2 [x_3183,x_17728]; every twist var = base*(signed int)",
+  "divwire_escape": "x_8821=x_17810*x_27292 in {-2,-1,0,1}; escaped x_18274/x_17728 land on (base/2)*Z, still coprime to 22-side quantum => degenerate",
+  "reorientation": "x_18274<-a11398, x_17728<-a11388 stays valid (39019) but x_18274 becomes constant => achievable set intrinsic",
+  "xl_infeasible": "ripple subsystem grows 46->14664->26954->27469 vars (194093 monomials) in 3 BFS rounds => globally coupled, no local solve",
+  "q40782_root": "degree-2, 38 terms; twist terms vanish under twist, leaving linear eq in ripple vars 28*x_10783 - x_30323 - 477654111*x_24252 + ... = 0 that needs a SMALL ripple",
+  "sa_fleet": "4 instances (activators 1858/26947/27512/5443) in slack-active space with roots; best 6 so far"
  }
 }
