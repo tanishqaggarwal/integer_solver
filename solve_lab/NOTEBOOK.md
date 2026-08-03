@@ -284,3 +284,18 @@ requires inverting the obfuscated selection kernel — unsolved, as across all p
   (was 0). The twist DECOUPLES: x_9770/x_3183 ← the 22 bits; x_18274/x_17728 ← ~232 other bits
   (largely disjoint). All prior bit-searches must be re-run with v5. This is the most promising
   lead of the session — the check x_9770 = x_18274 now has BOTH sides bit-movable.
+
+## Session 5 cont. — v5 search: twist pairs found, but cascade obstruction
+- With the fixed v5 evaluator, **all C(255,2) pairs** search: 3798 pairs zero the 3 twist checks
+  (survive both primes) — of form (232-mover bit, 22-bit): one sets x_18274, the other x_9770 to
+  match. So the twist IS bit-satisfiable (v4's 0-hits were the frozen-x_18274 artifact).
+- BUT every such pair BREAKS 32–43 OTHER atoms (Z-verified): the 232-mover's residue load
+  propagates and violates downstream gates. Via full propagation the best pair still gives 20
+  violated atoms (vs baseline 4). So fixing the twist cascades into a new, larger twist.
+- Key structural fact: **all-0 bits is the propagation MINIMUM (4 atoms = 39,019)**; every bit or
+  pair set (via propagation or v5) strictly increases violations. The true 0-violation input is a
+  specific bit pattern NOT reachable by local search/propagation from all-0 — this is the
+  deliberately hard circuit-inversion core. Each activated bit must be balanced by its consistent
+  partners across the whole 256-bit input; the cascade only terminates at the true input.
+- Net: v5 corrected the model and proved the twist is bit-satisfiable in isolation, but a full
+  witness needs the globally-consistent 256-bit input (circuit inversion), unsolved.
