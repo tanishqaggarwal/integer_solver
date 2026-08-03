@@ -251,3 +251,24 @@ Directive: no SAT/SMT; design own heuristics from the circuit structure.
   ONLY product (pair+) effects — quadratic-in-bits. So the twist = 2 multilinear equations over
   255 bits; 22 appear linearly, no linear-only solution. Next: search pairs/triples that activate
   the right product (best is all-0 bits & 39,019, so the true 1-bit set is likely small).
+
+## Session 5 cont. — exhaustive bit-subset search + degree finding
+Using the validated confluent evaluator (`pattern_search.py`, vectorized numpy over the
+checks' 19,339-wire backward cone, two 31-bit primes), searched for a bit set zeroing both
+twist checks:
+- **2^22** over the 22 linear-effect bits → 0.  **all C(255,2) pairs** → 0.
+- **triples with 2 of the 22** (55k) → 0.  **triples 1-of-22 + 2 outside** (595k) → 0.
+- best has all 255 control bits = 0 (verified), so "set bits to 1" is the correct search.
+- The free value-input DOF (e.g. x_31302 for x_26977 in check 1817) is blocked: x_20510 is
+  pinned to 0 by ~65 atoms, so check 1817 genuinely requires x_18274 = x_9770.
+- **Degree test**: the checks are NOT quadratic in the bits — some 22-bit triples deviate from
+  the quadratic prediction ⇒ degree ≥3 multilinear. So neither brute-force (≤3 bits) nor a
+  quadratic-form solve reaches the witness. This is high-degree circuit inversion = the intended
+  hard core. Witness = a specific multi-bit (≥4) pattern; the search space over the 255 relevant
+  bits with degree-≥3 coupling is not brute-forceable and not low-degree-solvable.
+
+### Session 5 net
+39,013 → **39,019 / 39,031** (verified in Z). Built + validated a confluent forward evaluator
+(the correct circuit model incl. residue loading), pinned the obstruction to 2 high-degree
+multilinear check equations over 255 bits, and exhausted brute-force up to triples. The witness
+requires inverting the obfuscated selection kernel — unsolved, as across all prior sessions.
