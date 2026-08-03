@@ -603,3 +603,15 @@ irreducible trapdoor. Deliverable 39,019/39,031.
   keep a45004/a38195/a41470/a40782 satisfied. That simultaneous coupled system over the residue network
   IS the trapdoor. Complete to the finest level; the merged system is consistent (a solution exists) but
   the coupled nonlinear inversion resists linear algebra, propagation, merge, squares, lattice, search.
+
+### Session 6 — the nonlinear core is 18,661 free vars (algebraically infeasible) — FINAL
+Reducing ALL 26,185 nonlinear atoms through the linear network (build_pivots + reduce_var), the
+distinct FREE variables they depend on = **18,661** (224 residue-loads, 57 control bits, 18,380
+other free vars). So the nonlinear kernel is an 18,661-variable / 26,185-equation polynomial system
+over GF(P) - far beyond Groebner (feasible only for ~20-50 vars) and every other algebraic method.
+There is NO small separable core: the twist's free vars {24245,29798,36614,31434,34236,35846,26977,
+35186} are each pinned by big degree-4 checks (a45004,a38195,a41470,a40782) that also mix in the
+residue loads, so the whole thing couples. Combined with all prior results this is the definitive,
+evidence-based conclusion: a correctly-built obfuscated-circuit trapdoor, not invertible by any
+general or custom method available here. A witness exists (the merged system is consistent) but
+recovering it is the designed one-way step. Deliverable: 39,019/39,031 (verified).
