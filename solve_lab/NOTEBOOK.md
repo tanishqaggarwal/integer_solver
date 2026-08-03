@@ -273,3 +273,14 @@ twist checks:
 multilinear check equations over 255 bits, and exhausted brute-force up to triples. The witness
 requires inverting the obfuscated selection kernel — unsolved, as across all prior sessions.
 - **quad3in22** (3-of-22 + 1 outside, 359k) → 0 hits. All brute-force up to quads exhausted; witness is >=4 bits in a degree->=3 system over 255 bits (circuit inversion). Unsolved.
+
+## Session 5 cont. — EVALUATOR BUG FOUND (v4→v5): x_18274 was frozen
+- confluent_eval4 only solved LINEAR-output gates; it silently FROZE 1504 division-oriented
+  wires whose defining gate puts the target inside a product (x_18274 <- 4954:
+  x_6773 = x_8821*x_18274 ⇒ x_18274 = x_6773/x_8821). So x_18274/x_17728 appeared IMMOVABLE and
+  the 2^22 / pair / triple 0-hit results were **artifacts** — the wrong function was searched.
+- `confluent_eval5.py` adds division handling (v = -rest/(c*u)) + load + gate, validated
+  (forward_Z([]) == 39,019). Now **x_18274 is moved by 232 single bits, x_17728 by 232**
+  (was 0). The twist DECOUPLES: x_9770/x_3183 ← the 22 bits; x_18274/x_17728 ← ~232 other bits
+  (largely disjoint). All prior bit-searches must be re-run with v5. This is the most promising
+  lead of the session — the check x_9770 = x_18274 now has BOTH sides bit-movable.
