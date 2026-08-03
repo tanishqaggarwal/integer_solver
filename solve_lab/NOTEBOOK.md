@@ -152,3 +152,19 @@ completeness exercise (rule out low-Hamming witnesses).
   last complete-search avenue.
 - Pairs-only accurate mod-P search over the 81 improving bits (3240 pairs) running as the
   final completeness sweep.
+
+## Session 4 cont. — CRITICAL DOF CORRECTION
+- The true degrees of freedom are NOT 256 bits. The main component has **256 bits PLUS
+  ~4,945 genuinely-free value-inputs** (never a clean target, not huge-atom x_B, undetermined
+  even with all bits set; 4,930 feed products). All prior bit-only searches (flip/greedy/SA/
+  WalkSAT/pairs) were searching a **256-dim projection** of a ~5,200-dim problem → that is why
+  they could not reach the witness.
+- The 11 free value-inputs that ARE nonzero in the near-solution are **all residues** (HUGE
+  constants): x_18274=91416.., x_3143=62388.., x_5528=119182.., x_12912=125787.., etc. So each
+  free value-input takes a value in {0} ∪ {514 residues}.
+- Component budget: 23,843 vars, 27,105 atoms → ~5,201 free vars (bits+value-inputs) pinned by
+  ~8,463 consistency atoms ⇒ over-determined, unique witness. z3 returns "unknown" (not UNSAT)
+  ⇒ likely satisfiable but undecided by SMT on the nonlinearity.
+- Implication: the correct search space is a ~5,200-var integer/residue-selection problem, far
+  larger than 256 bits. Still over-determined and mult-dense; no tractable method found, but the
+  framing (residue-or-0 per value-input) is the accurate one for any future attack.
