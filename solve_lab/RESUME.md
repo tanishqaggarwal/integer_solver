@@ -45,11 +45,23 @@ the mod-P solver for any linearity/degree probing.
    SAME HUGE residues => matching becomes combinatorial, not brute 2^233.
 3. MITM/lattice via x_8821 (the linear coordinate on the 233 side) — see NOTEBOOK Session 6.
 
-## Do NOT redo
+## Exhausted this session (do NOT redo)
 - SAT/SMT (user directive: custom heuristics only; z3/cvc5 return unknown anyway).
 - v4 evaluator / anything freezing x_18274 (fixed in v5).
-- The lossy-eval "232-part slaved / rank 233" reduction (Session 5) — shown UNRELIABLE this session.
-- Local search / greedy / pairs / triples from all-0 — all plateau (all-0 is the local min = 4 atoms).
+- Linear algebra / lattice: `linalg255.py` (CORRECT, over all 255 bits, mod-P) has RANK 255/255
+  and forces ALL bits = 0. The witness (!= all-0) is OUTSIDE the linear neighborhood of all-0, so
+  linear/lattice/subset-sum provably cannot reach it. Supersedes the Session-5 "slaved-B" claim.
+- B=0: ruled out (full 2^22 scan, 0 matches).
+- Modulus (gcd residues=1), residue-lattice relation (none), slack vars (x_26977/x_9982 rigid).
+- Local search / greedy / SA / pairs / triples from all-0 — all plateau (all-0 is the local min).
+
+## The ONE remaining avenue (unimplemented)
+A custom NONLINEAR solver / backward circuit-inversion: pin x_18274=N1, x_17728=N2 for a chosen
+(N1,N2) from the 2^22 table S, and propagate/search backward through the 233-side acyclic circuit
+(residue-load selects + product/sum gates) to determine the bits. Big build, uncertain (z3 failed
+the analogous forward CSP). This is the only path not proven dead — everything else is exhausted.
+The instance is a genuine obfuscated-circuit trapdoor; a full witness likely needs the setter's
+secret or a cryptanalytic break of the specific 233-side residue circuit.
 
 ## Git
 Branch `claude/read-prompt-5t2raw`. Commit+push after meaningful experiments.
