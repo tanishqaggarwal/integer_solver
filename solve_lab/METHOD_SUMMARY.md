@@ -78,3 +78,31 @@ in `RESUME.md`.
 - `bit_flip_screen.py`: every single control-bit flip keeps violated atoms ≥6 (baseline
   4); propagation is non-confluent so single flips only relocate the twist. Confirms the
   kernel is quadratic-in-bits (needs a coordinated multi-bit set), matching prior sessions.
+
+## Session 6 addendum — complete reduction of the obstruction
+Re-verified the obstruction with an artifact-free model (`confluent_eval5`, mod-P) and
+reduced it to a single clean statement.
+
+- **The entire remaining obstruction = a twist match.** Mod-P, the ONLY atoms that ever
+  float (for any bit setting) are the twist family; forcing `x_18274:=x_9770` and
+  `x_17728:=x_3183` zeros all 4 open atoms including the 741-term cascade 40782
+  (`test_40782.py`). So a solution ⇔ control bits with
+  `x_9770(A)=x_18274(B)` and `x_3183(A)=x_17728(B)`.
+- **Clean decoupling.** `x_9770,x_3183` depend ONLY on 22 control bits (`BITS22`);
+  `x_18274,x_17728` depend ONLY on the other 233 bits (same 211-bit support). Disjoint.
+- **Shared small denominator.** `x_18274=x_6773/x_8821`, `x_17728=x_17233/x_8821`.
+  `x_8821 = 1 − Σ(18 specific bits)` is a *small integer*, exactly linear in the bits;
+  the numerators `x_6773,x_17233` are high-degree (deep huge=huge−0 residue chains).
+- **Disjoint residue pools.** The 22 bits gate 44 distinct ~290-bit residues; the 233
+  bits gate 466; **zero overlap** — the two sides reach the common target through
+  different residue arithmetic (the engineered coincidence).
+- **Why it is hard.** 22-side is fully enumerable (2^22) and invertible; the 233-side is
+  a high-degree map over 2^233 with no linear/low-degree inversion, and the witness must
+  additionally lie in the 233-side's *integer-consistent variety* (all division wires
+  exact — most B leave it, which is why every local move breaks 30+ atoms). Matching the
+  two is a claw-find that needs the setter's trapdoor.
+
+**Deliverable:** `best/best_partial_39019.json` — **39,019 / 39,031** exact in ℤ. The full
+solve reduces to inverting the 233-side residue circuit onto a 22-side-reachable target;
+that inversion is the open problem. Reusable model + probes in `solve_lab/` (confluent_eval5,
+diag, test_40782, test_ratio, deg233, residue_pool, tab22, verify_frame).

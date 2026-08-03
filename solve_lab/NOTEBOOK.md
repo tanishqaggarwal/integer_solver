@@ -388,3 +388,19 @@ New scripts this session: diag.py twist_struct.py test_lin.py test_additive.py t
 trace_cascade.py extract_huge.py test_40782.py test_ratio.py deg233.py degree_probe.py tab22.py
 Next tracks: (a) full S table + structure of S (moduli/factors); (b) residue-pool identity
 between the two sides; (c) MITM/lattice via the x_8821 linear coordinate.
+
+### Session 6 caveat (verify_frame.py) — reduction is mod-P / at consistent points
+For RANDOM bit settings the integer forward-eval floats ~1132 different atoms (150-423 per
+test), NOT just the twist. Reason: Z division wires x_v=num/den go non-integer for arbitrary
+B, so forward-eval leaves a stale value and that atom breaks. Consequences:
+- MOD-P the reduction is exact: mod-P forward-eval always fires (division invertible), so the
+  ONLY floating atoms are the twist family — for ANY B. So "twist match mod P" <=> "all atoms 0
+  mod P". The Session-6 structural facts (decoupling, x_8821 linear, denominators) are all mod-P
+  and remain valid.
+- In Z a full solution needs BOTH (i) the twist match AND (ii) every division wire on the 233-
+  side exact (internal integer-consistency, which all-0 satisfies but most B break). test_40782's
+  "twist ⇒ all 4 zero" was evaluated at the all-0-consistent state, so it shows the twist is the
+  binding constraint GIVEN internal consistency — not that any twist-matching B solves in Z.
+- Net: witness B* lies in the "integer-consistent variety" of the 233-side AND hits a 22-side
+  target. That variety (+ high-degree map + disjoint 290-bit residue pools) is the trapdoor.
+  This is why every local bit move breaks 30+ atoms (it leaves the consistent variety).
