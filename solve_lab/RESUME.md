@@ -4,16 +4,28 @@
 Best verified partial: **39,019 / 39,031** equations (exact in ℤ).
 File: `best/best_partial_39019.json`. Verify: `python3 checker.py best/best_partial_39019.json`.
 
-## THE problem is now fully reduced (Session 6)
-The entire remaining obstruction (4 atoms: 1817, 30378, 40782, 44271) reduces to **just two
-equations**:
-```
-    x_9770(A) = x_18274(B)      and      x_3183(A) = x_17728(B)
-```
-(atom 40782 is *implied* by these — proven in `test_40782.py`).
+## TRAPDOOR MECHANISM — fully reverse-engineered (Session 6, read NOTEBOOK Session 6 tail)
+The obstruction (atoms 1817,30378,40782,44271) is the twist x_9770=x_18274 & x_3183=x_17728.
+KEY: the confluent forward-eval QUANTIZES both sides to COPRIME units and ZEROS the slack
+products, so it can NEVER represent the (feasible) witness — this is why every forward-eval
+search (SA/mitm/greedy/pairs/enum/local) plateaued. Specifically:
+- Under forward-eval: x_9770=m*g, x_3183=m'*h, x_18274=m2*g2, x_17728=m2'*h2 (g=119182..,
+  g2=91416..; gcd(g,g2)=1, gcd(h,h2)=2). Rigid twist => degenerate 0 only. (codewords.py, quant_structure.py)
+- BUT the wire DEFS carry product slacks: x_9770 = x_35186(=m*g) + x_3368, x_3368=x_12779*x_24026;
+  x_3183 = x_1642(=m'*h) + x_10466, x_10466=x_12779*x_27116. Both gated by x_12779=x_23380*x_36336.
+- forward-eval sets x_12779=0 (slacks off) -> quantization. The WITNESS activates x_12779 (22-side
+  bit pairs give x_12779=2) AND x_24026/x_27116 (deeper, via x_38215) so
+      x_9770 = m*g + x_12779*x_24026 = x_18274 = m2*g2   (bridges the coprime gap).
+- So the TRUE solve = search WITH the slacks active. With slacks on, x_9770 is NOT limited to 27
+  values and CAN equal x_18274; the decoupling (x_9770<-22 only) is a slacks-OFF artifact.
 
-- `A` = the 22 control bits `BITS22` (drive x_9770, x_3183 only). **Fully enumerable: 2^22.**
-- `B` = the other 233 control bits (drive x_18274, x_17728 only). 2^233 — the hard side.
+NEXT-STEP for a solver: build an evaluator/search that DRIVES x_12779, x_24026, x_27116 nonzero
+(find their activating bit cascades: x_12779<-{1858,2795,5443,10652,19520,26947,27512,30104,...},
+x_24026<-x_38215<-...), then solve m*g + x_12779*x_24026 = x_18274(B) (coupled product match).
+Do NOT rely on the all-0 forward-eval regime — it structurally excludes the witness.
+
+## Earlier (still true) reduction
+- `A` = the 22 control bits `BITS22`; `B` = the other 233 bits.
 - `x_18274 = x_6773/x_8821`, `x_17728 = x_17233/x_8821` (SHARED denominator x_8821).
 - `x_8821` is **exactly linear** in the 233 bits; numerators are high-degree.
 - best_partial_39019 sets ALL 255 control bits = 0.
