@@ -1,3 +1,5 @@
 model built (22s), free_vi=4945
 iter 0: |F|=0 -> unsat (32s)
   core adds [13467, 13780, 29071, 29561]; |F| now 4
+iter 1: |F|=4 -> unknown (636s)
+unknown/timeout — stopping

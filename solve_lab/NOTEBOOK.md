@@ -168,3 +168,28 @@ completeness exercise (rule out low-Hamming witnesses).
 - Implication: the correct search space is a ~5,200-var integer/residue-selection problem, far
   larger than 256 bits. Still over-determined and mult-dense; no tractable method found, but the
   framing (residue-or-0 per value-input) is the accurate one for any future attack.
+
+## Session 4 cont. — UNSAT-CORE localization (valid progress) + z3 SAT-search blocker
+- **z3 with all "free value-inputs" = 0 (bits free, everything else free) is UNSAT in 25-30s.**
+  The **unsat core is only 4 value-inputs**: {x_13467, x_13780, x_29071, x_29561}. So the
+  witness must set at least one of these nonzero. (Caveat: the "free value-inputs" set (4945)
+  is overcounted — my clean-target detector missed sum-form definitions like
+  `x_29071 = x_25916 + x_28986`, so several are determinable wires, not true inputs. But the
+  UNSAT is real: z3 is free to adjust ALL other wires and still cannot satisfy the system with
+  those vars pinned to 0.)
+- **Iterative implicit-hitting-set** (`z3_iter.py`/`z3_iter2.py`/`z3_subst.py`): free the core
+  vars, re-solve; grow via new cores until SAT. Sound in principle.
+- **BLOCKER**: z3 finds UNSAT cores fast but **cannot construct a SAT model** — every SAT-check
+  iteration (freeing even 4 value-inputs, residue domain or unbounded, substituted or not)
+  runs >10 min without deciding. The 122k big×big products make model *construction*
+  intractable for z3, even though refutation is fast. This is the crux limit: refutation-easy,
+  satisfaction-hard.
+
+### Standing conclusion
+The instance is a large nonlinear integer system (obfuscated mult-dense arithmetic circuit).
+z3 can refute constrained sub-instances quickly but cannot synthesize a satisfying assignment
+for the residual; no relaxation, decomposition, incremental path, modulus, or search has closed
+it across ~30 distinct methods. The unsat-core localization is the most promising lead for any
+future work (it shrinks "which inputs matter"), but requires a SAT-model synthesizer that
+handles the product structure (a purpose-built one, not general SMT). Verified deliverable
+remains 39,013/39,031.
