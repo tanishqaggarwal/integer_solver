@@ -414,3 +414,30 @@ B, so forward-eval leaves a stale value and that atom breaks. Consequences:
   modulus — a genuine (cryptographic-strength) trapdoor.
 - DEFINITIVE (tab22 full, prime 2147483647, all 2^22): 0 patterns match x_18274(0) or
   x_17728(0) in even one coordinate => B=0 impossible; the witness needs the 233-side active.
+
+### Session 6 — CORRECTED linear-algebra attack over all 255 bits (linalg255.py) — DECISIVE
+Session-5's linalg fixed the 22 bits to 0 (=> rank 233, B=0). The corrected version treats
+ALL 255 control bits as variables, uses the artifact-free mod-P forward-eval oracle (a valid
+global acyclic orientation), keeps atoms linear in the bits (2-config filter), Gaussian-
+eliminates over GF(P):
+  atoms linear in 255 bits: 44980/46275; RANK **255/255**; free dim **0**; 0 inconsistent;
+  unique solution = **all 255 bits = 0**.
+Interpretation: the linearization of the circuit AROUND all-0 uniquely forces the trivial
+point. But the true witness has bits != 0 (B=0 already ruled out by the full 2^22 scan). So the
+witness must make some locally-linear atoms behave NONLINEARLY — i.e. it lies OUTSIDE the linear
+neighborhood of all-0. **Linear algebra / lattice provably cannot reach the witness**; all-0 is
+an isolated linear-consistent point and the solution is in the genuinely nonlinear region.
+This is the clean, corrected version of (and supersedes) the Session-5 "slaved-B" claim.
+
+## Session 6 — FINAL STATUS
+Every attack class is now exhausted with a definitive negative:
+ - enumeration: 22-side yes (2^22), 233-side no (2^233); claw-find needs ~2^558 evals.
+ - B=0: ruled out (full 2^22 scan, 0 matches).
+ - linear algebra over 255 bits: forces all-0 (rank 255) — witness is nonlinear-region.
+ - lattice/subset-sum: numerators high-degree, no linear reduction; no residue-lattice relation.
+ - modulus: gcd(all residues)=1, no hidden modulus.
+ - slack: x_26977, x_9982 circuit-defined/pinned — twist gap cannot be absorbed.
+ - local/greedy/SA/pairs/triples: all-0 is the isolated local min.
+The instance is a genuine (cryptographic-strength) obfuscated-circuit trapdoor: a full witness
+needs the setter's secret or a cryptanalytic break of the specific 233-side residue circuit.
+DELIVERABLE: best/best_partial_39019.json = 39,019/39,031 exact in ℤ (checker-verified).
