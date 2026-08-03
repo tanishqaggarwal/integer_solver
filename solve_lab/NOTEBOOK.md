@@ -546,3 +546,16 @@ witness actually requires:
    coupled product-chain inversion over the 255 bits -- the deliberately-hard trapdoor core. A
    solver must abandon the all-0 forward-eval orientation and drive these products nonzero.
    Deliverable remains 39,019/39,031; this is a complete mechanistic reverse-engineering of the kernel.
+
+### Session 6 — slack activation is REACHABLE (resolves the feasibility paradox)
+- x_12779 = x_23380*x_36336 is activated by 22-side bits: single flips of {1858,2795,5443,10652,
+  19520,26947,27512,30104,...} move x_12779/x_36336/x_38073/x_14402; bit-PAIRS give x_12779=2.
+- But the slack x_3368 = x_12779*x_24026 also needs x_24026 != 0 (moved by 0 single bits; activated
+  deeper via x_38215 through a1813: x_14402*x_24026 = 321447*x_38215). x_27116 similarly.
+- So the TRUE 22-side value is x_9770 = m*g + x_12779*x_24026 (quantized part + slack product); with
+  the slack ON it ranges FAR beyond the 27 forward-eval values, and CAN equal x_18274=m2*g2. The
+  coprime-quantization "impossibility" only holds with slacks OFF (the forward-eval regime).
+- The full solve therefore = drive the 22-side bits to (a) activate x_12779 and x_24026/x_27116 and
+  (b) make m*g + x_12779*x_24026 = x_18274(B) (and the h-version), i.e. a coupled bilinear/product
+  match. This is the precise trapdoor kernel, now fully mapped. A purpose-built solver must search
+  WITH the slacks active (the confluent forward-eval, which zeros them, cannot).
