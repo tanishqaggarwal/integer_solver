@@ -1,6 +1,11 @@
 # RESUME — read this first
 
-## Status: 39,013 / 39,031 equations satisfied exactly in Z (99.95%). 18 equations open.
+## Status: 39,019 / 39,031 equations satisfied exactly in Z (99.97%). 12 equations open.
+## (was 39,013; Session 5 improved it by fixing gates 27973/27978 — see NOTEBOOK Session 5.)
+## Best file: best/best_partial_39019.json. Remaining 4 atoms: 1817, 30378, 40782, 44271.
+## Remaining obstruction is GLOBAL: two circuit subtrees must produce equal values
+## (x_23268 = x_6616+x_21092  vs  x_18274 = x_15690−x_26870−x_34150, tied by check gate 1817);
+## best differs by D=27766…; closing it needs a global bit reconfiguration, not a local repair.
 
 ## What this instance actually is
 `EQUATIONS.txt` (39,031 equations, vars x_0..x_38747) is an **obfuscated arithmetic

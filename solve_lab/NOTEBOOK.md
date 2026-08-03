@@ -193,3 +193,44 @@ it across ~30 distinct methods. The unsat-core localization is the most promisin
 future work (it shrinks "which inputs matter"), but requires a SAT-model synthesizer that
 handles the product structure (a purpose-built one, not general SMT). Verified deliverable
 remains 39,013/39,031.
+
+## Session 5 — custom orientation analysis → **39,019/39,031** (improved from 39,013)
+Directive: no SAT/SMT; design own heuristics from the circuit structure.
+
+### Root-cause of the 4 violated atoms (fully reverse-engineered)
+- The 4 violated atoms reduce to **2 primitive gate residuals**: 27973 `x_9770 = x_35186 + x_3368`
+  and 27978 `x_3183 = x_1642 + x_10466`. Atoms 41470 (= −1·Σ residuals, contains 27973) and
+  45004 (= (Σ residuals)², contains 27978) are **redundant combinations** — they vanish once the
+  primitives hold.
+- Every *other* gate feeding these is already consistent (verified 26/28 local gates OK). Only
+  `x_9770` and `x_3183` carry wrong values: `propagate` defined them from the 741-monomial
+  **combination** atom 40782 (and 30378) in the wrong topological order, *before* their true
+  sum-gates could fire — so 27973/27978 were left unmatched.
+- **Fix that works**: set `x_9770 = x_35186+x_3368 = 119182…`, `x_3183 = x_1642+x_10466 = 62388…`.
+  This satisfies 27973/27978/41470/45004. Net **39,019/39,031** (was 39,013). New best saved:
+  `best/best_partial_39019.json`; failing eqs → `best/failing_eqs_39019.json` (12 lines).
+
+### Why it can't (locally) go to 39,031 — the twist
+- After the fix, exactly **4 atoms** remain: 1817 `x_18274 = x_9770`, 30378/44271 `x_17728 = x_3183`,
+  and the compensation combo 40782. Because `x_8821 = 1`, the chains
+  `x_9770 = x_18274 = x_6773` and `x_3183 = x_17728 = x_17233` are **identity-linked** and must
+  all move together to the new values.
+- But `x_18274`/`x_17728` are heavy fan-out inputs. Moving them forces `x_26517 = x_6773+x_34150`,
+  `x_15690 = x_26517+x_26870`, … and the delta D = 27766… must be absorbed at a boundary that is
+  **pinned**: `x_26977=0` (product 1816, since `x_20510=0`), `x_26870=x_6283·x_16160` (product),
+  `x_15690`/`x_21092` (combos 44129/45064). D cannot be absorbed locally → it must propagate into
+  those combos' inputs, i.e., a **global bit reconfiguration**.
+- Equivalent framing: two subtrees must agree — `x_23268 = x_6616+x_21092` (=119182…) must equal
+  `x_18274 = x_15690−x_26870−x_34150` (=91416…), mediated by check gate 1817. best makes them
+  differ by D. Reaching 39,031 = finding bits that make the two subtrees equal.
+- Confirmed local-optimum: every single identity-group move (`{18274,6773}`, `{17728,17233}`,
+  both) *increases* failures (→38,990/38,996/39,000). 39,019 is a strict local max under local moves.
+
+### Custom methods built this session (all no-SAT/SMT; scripts in solve_lab/)
+- `prim_solve.py` primitives-only re-derivation; `match_solve.py` max bipartite matching
+  (gate↔var); `full_forward.py`/`override_iterate.py` product-priority matching + iterate-to-
+  fixpoint; `cone_fix.py`/`cone_fix2.py` surgical forward-cone recompute; `augment_repair.py`
+  value-driven augmenting re-orientation; `chain_prop.py` delta chain-propagation;
+  `cluster_analyze.py`/`cluster_solve.py` bounded-cluster extraction. All plateau at 8–12 violated
+  atoms because the correction ripples past pinned product/combo boundaries — consistent with the
+  "global bit reconfiguration required" conclusion. Verified deliverable now **39,019/39,031**.

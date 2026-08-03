@@ -4,10 +4,10 @@
  "n_vars": 38748,
  "n_forced": 5897,
  "n_assigned": 38748,
- "n_eqs_satisfied_by_partial": 39013,
- "best_score": 39013,
- "best_partial": "solve_lab/best/best_partial_39013.json",
- "active_method": "accurate mod-P pairs/triples search over improving bits (running); ~25 methods exhausted",
+ "n_eqs_satisfied_by_partial": 39019,
+ "best_score": 39019,
+ "best_partial": "solve_lab/best/best_partial_39019.json",
+ "active_method": "custom orientation/matching analysis (no SAT/SMT); 39019 is local-max under local moves; remaining obstruction = global bit reconfiguration to equate two subtrees (x_23268 vs x_15690 chain via check gate 1817)",
  "structure": {
   "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
   "n_distinct_atoms": 46275,
@@ -21,33 +21,27 @@
   "huge_atom_form": "bit*(x_B - HUGE_290bit) - s*x_C ; bit=1 loads residue",
   "core": "1 giant residual component: 23843 vars, 256 free bits; +297 tiny homogeneous comps",
   "open_atoms": [
-   27973,
-   27978,
-   41470,
-   45004
+   1817,
+   30378,
+   40782,
+   44271
   ],
   "not_single_modulus": true
  },
- "n_eqs_failing": 18,
+ "n_eqs_failing": 12,
  "failing_eqs": [
-  4287,
-  5468,
-  7499,
-  7513,
-  13994,
-  16616,
-  18532,
-  20026,
-  21067,
-  22249,
-  23001,
-  25684,
-  27497,
-  29108,
-  29111,
-  32874,
-  35729,
-  36563
+  165,
+  2368,
+  5035,
+  5613,
+  5990,
+  14447,
+  18957,
+  26459,
+  27483,
+  27515,
+  29180,
+  35073
  ],
  "core_probes": {
   "single_bit_flip": "51 bits improve 4->3 violated atoms, none reach <3; flipping moves violations to different atoms (rugged landscape)",
@@ -88,5 +82,15 @@
   "huge_atoms": "exact affine x_B=s*x_C+HUGE (no modulus)",
   "bitblast": "122221 ungated big*big products -> infeasible",
   "methods_tried": "~25 (SMT, SAT, GF2/GF3, linear algebra, boolean reduction, propagation/RuleA, local/greedy/SA/WalkSAT/pairs/triples search, modulus hunts, local-repair UNSAT, fast DAG eval)"
+ },
+ "prev_best": {
+  "score": 39013,
+  "file": "solve_lab/best/best_partial_39013.json",
+  "open_atoms": [
+   27973,
+   27978,
+   41470,
+   45004
+  ]
  }
 }
