@@ -315,3 +315,15 @@ requires inverting the obfuscated selection kernel — unsolved, as across all p
   the true 0-violation input is an ISOLATED point (all-0 is the local min, high-degree multilinear
   coupling, no linear/quadratic reduction, no descent path). Finding it = inverting the obfuscated
   selection kernel — the deliberately hard core. Deliverable stands at 39,019/39,031.
+
+## Session 5 cont. — LINEAR-ALGEBRA BREAKTHROUGH: 232-part is slaved to the 22-part
+- The twist residual is LINEAR in the 232 x_18274-side bits (verified: pair deltas add exactly).
+- `linalg_attack.py`: computed each atom's GF(P) response to the 232 bits; 45,267/46,275 atoms are
+  linear in them. Built the linear system from linear atoms only -> **rank 233/233, 0 inconsistent
+  rows**. So over the 232 bits the consistency atoms UNIQUELY DETERMINE the 232-part given the
+  22-part. At 22=0 the unique solution is 232=all-0 (=best, twist still violated).
+- Consequence: the 232 control bits are NOT free — they are slaved (B(A) = M^{-1}·(-base(A))) to
+  the 22 nonlinear bits. The real degrees of freedom = **just the 22 bits**. My earlier 2^22
+  enumeration used 232=0 (wrong) -> found nothing; the correct enumeration must use 232=B(A).
+- Next: enumerate 2^22 patterns A over the 22 bits; for each solve the linear system for B(A) and
+  require B(A) in {0,1}^233 (strong filter — only the true A gives a 0/1 solution), then verify.
