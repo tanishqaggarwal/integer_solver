@@ -61,3 +61,20 @@ hard core. 99.95% is solved deterministically and verifiably; the kernel resists
 general-purpose SMT and local search. Remaining avenues (multi-bit combinatorial
 search, exact GF(p) elimination + backtracking CP, or bit-blasted SAT) are listed
 in `RESUME.md`.
+
+## Session 5 addendum — improved to 39,019/39,031 (custom, no SAT/SMT)
+- Reverse-engineered the 4 open atoms to 2 primitive sum-gates (27973, 27978) that
+  propagation defined out-of-order from a 741-monomial combination atom. Setting
+  x_9770/x_3183 to their gate-correct values → **39,019/39,031** (was 39,013).
+- The remaining 4 atoms (1817, 30378, 40782, 44271) demand `x_18274=x_9770`,
+  `x_17728=x_3183`. Because `x_8821=1`, these are identity-linked chains whose delta
+  D=27766… must be absorbed at a **pinned** boundary (product 1816 forces x_26977=0;
+  combos 44129/45064 pin x_15690/x_21092). Every local repair (matching, product-
+  priority orientation, forward-cone recompute, value-driven augmentation, chain
+  propagation, cluster solve — all in solve_lab/) plateaus at 8–12 violated atoms.
+- Equivalent obstruction: two combo-computed subtrees must agree —
+  `x_23268 = x_6616+x_21092` vs `x_18274 = x_15690−x_26870−x_34150` — differing by D.
+  Both combos depend on ~all 256 bits; closing needs a global bit reconfiguration.
+- `bit_flip_screen.py`: every single control-bit flip keeps violated atoms ≥6 (baseline
+  4); propagation is non-confluent so single flips only relocate the twist. Confirms the
+  kernel is quadratic-in-bits (needs a coordinated multi-bit set), matching prior sessions.
