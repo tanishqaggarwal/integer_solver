@@ -58,11 +58,11 @@ def main():
     res = json.load(open('flip_results.json'))
     improving = [b for (v,b,nc) in res if v <= 4]
     control = json.load(open('control_bits.json'))
-    combos = list(itertools.combinations(improving, 2))
-    combos += [c for c in itertools.combinations(improving, 3)]
+    combos = list(itertools.combinations(improving, 2))  # PAIRS ONLY for feedback
     print(f"improving={len(improving)} combos(pairs+triples)={len(combos)}", flush=True)
     nproc = 4
-    chunks = [combos[i::nproc*40] for i in range(nproc*40)]
+    NC=200
+    chunks = [combos[i*len(combos)//NC:(i+1)*len(combos)//NC] for i in range(NC)]
     t0 = time.time(); found = []
     with mp.Pool(nproc, initializer=init, maxtasksperchild=8) as pool:
         for ci, r in enumerate(pool.imap_unordered(work, chunks)):

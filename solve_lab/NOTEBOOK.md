@@ -142,3 +142,13 @@ no incremental/cascade path, and no tractable relaxation. Search is bounded by ~
 gradientless global landscape. This is an intentionally hard obfuscated-circuit inversion.
 Deliverable stands at 39,013/39,031 verified. Accurate pair/triple searches continue as a
 completeness exercise (rule out low-Hamming witnesses).
+
+## Session 4 cont. — DPLL/backtracking ruled out
+- **Partial assignments give NO early conflicts**: setting 5/20/50/128 (or all 256) control
+  bits to decided values and propagating (without zero-filling value-wires) yields **0
+  contradictions** every time (~13k–15k vars determined). Contradictions appear only after
+  the ~25k free value-wires are all zero-filled. ⇒ conflicts are purely global; a
+  CDCL/DPLL search over the bits gets no pruning and degenerates to 2^256. This closes the
+  last complete-search avenue.
+- Pairs-only accurate mod-P search over the 81 improving bits (3240 pairs) running as the
+  final completeness sweep.
