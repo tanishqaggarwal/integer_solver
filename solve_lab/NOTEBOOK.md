@@ -465,3 +465,25 @@ atoms, not just the twist. all-0 is the ONLY point where the v5 orientation floa
   so the witness needs a real circuit solve, not this heuristic. A better global orientation
   (one that stays consistent under bit changes) would give a valid oracle but still leaves the
   2^233 claw-find. Net: genuine hard trapdoor; deliverable stands at 39,019/39,031.
+
+### Session 6 — localizing the obstruction via full LINEAR elimination (linsolve_full/twist_core)
+Corrected oracle understanding: `prop_oracle.py` shows CORRECT mod-P propagation leaves
+x_9770/x_18274 UNDETERMINED (they are free vars of a ~23.8k-var coupled core); the v5
+forward-eval was one heuristic filling. So the real object is that nonlinear core.
+- Full GF(P) Gaussian on all 20090 linear atoms (`linsolve_full.py`): linear RANK 19381,
+  0 inconsistent; ~19367 vars free w.r.t. the linear system (the residue VALUES, which the
+  nonlinear load/product atoms determine). So the true DOF are the nonlinear atoms.
+- `twist_core.py`: the twist vars reduce (mod P) to a FEW core wires:
+    x_18274 ~ combo{x_31434, x_34236, x_35846};  x_9770 ~ same 3 + x_26977;
+    x_17728 ~ combo{x_27912, x_28035};           x_3183 ~ same 2 + {x_6236, x_10466}.
+  (mod-P coeffs carry 1/3 factors — GF(P) artifacts, not the Z relation; the SUPPORT is the
+  takeaway.)
+- Tracing those core wires to their defining atoms exposes the ESSENTIAL NONLINEARITY:
+    x_35846^2 = x_3002   (square!)      x_28035^2 = x_36228  (square!)
+    x_31434  = x_7101 / x_28035  (product/div)   x_26977 = x_20510*x_31302 (product)
+    x_34236  = x_12293 + x_25804 (sum)   x_6236/x_10466/x_27912 = products.
+  => the obstruction is a system of QUADRATIC / SQUARE-ROOT constraints over ~290-bit
+  integers (x=+-sqrt(HUGE)), exactly the "huge power chains x,x^2 grow unreduced" note.
+  This is the trapdoor kernel: matching two subtrees each built from squares/products of
+  ~290-bit residues. Genuinely hard; no linear/lattice handle (confirmed) — needs solving
+  the quadratic system over Z (setter's trapdoor or heavy cryptanalysis).
