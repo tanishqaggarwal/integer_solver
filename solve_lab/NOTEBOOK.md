@@ -299,3 +299,19 @@ requires inverting the obfuscated selection kernel — unsolved, as across all p
   partners across the whole 256-bit input; the cascade only terminates at the true input.
 - Net: v5 corrected the model and proved the twist is bit-satisfiable in isolation, but a full
   witness needs the globally-consistent 256-bit input (circuit inversion), unsolved.
+
+## Session 5 cont. — purpose-built searches (v5-based); witness confirmed isolated
+- `greedy_v5.py`: parallel greedy constraint-repair over bits using the CORRECT v5 model
+  (violations = real consistency-check failures). Seeded from a twist-pair (27 viol): **every**
+  single-bit addition INCREASES violations (min 31) → strict local minimum. Confirms the witness
+  is isolated: no descent path from the twist-fixing neighborhood.
+- Decomposition-match tried: `x_18274` / `x_17728` are NOT linear in the 232 bits (specific pairs
+  deviate) — quadratic+ coupling, so the twist-match is quadratic feasibility, not subset-sum.
+- Orientation fix tried: `confluent_eval6.py` forces product-forward orientation to kill the
+  cascade (products define outputs). It does NOT reproduce 39,019 (16 violations, worse than v5's
+  4) and is cyclic — best's orientation is closer to the true circuit than naive product-forward,
+  and no clean orientation is both all-0-consistent and cascade-free.
+- Conclusion (with the corrected v5 model): the twist is bit-satisfiable but every fix cascades;
+  the true 0-violation input is an ISOLATED point (all-0 is the local min, high-degree multilinear
+  coupling, no linear/quadratic reduction, no descent path). Finding it = inverting the obfuscated
+  selection kernel — the deliberately hard core. Deliverable stands at 39,019/39,031.
