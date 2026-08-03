@@ -1,58 +1,55 @@
-# RESUME — read this first
+# RESUME — read me first
 
-## Status: 39,019 / 39,031 equations satisfied exactly in Z (99.97%). 12 equations open.
-## (was 39,013; Session 5 improved it by fixing gates 27973/27978 — see NOTEBOOK Session 5.)
-## Best file: best/best_partial_39019.json. Remaining 4 atoms: 1817, 30378, 40782, 44271.
-## Remaining obstruction is GLOBAL: two circuit subtrees must produce equal values
-## (x_23268 = x_6616+x_21092  vs  x_18274 = x_15690−x_26870−x_34150, tied by check gate 1817);
-## best differs by D=27766…; closing it needs a global bit reconfiguration, not a local repair.
+## Status
+Best verified partial: **39,019 / 39,031** equations (exact in ℤ).
+File: `best/best_partial_39019.json`. Verify: `python3 checker.py best/best_partial_39019.json`.
 
-## What this instance actually is
-`EQUATIONS.txt` (39,031 equations, vars x_0..x_38747) is an **obfuscated arithmetic
-circuit**. Every equation is `outer_scalar * (Σ c_k · atom_k)` or `(Σ c_k·atom_k)^2`,
-set = 0, where the `atom_k` are **shared gate residuals** reused ~10× across equations
-(46,275 distinct atoms). Any assignment that makes **every atom = 0** satisfies every
-equation — that is the intended solution.
+## THE problem is now fully reduced (Session 6)
+The entire remaining obstruction (4 atoms: 1817, 30378, 40782, 44271) reduces to **just two
+equations**:
+```
+    x_9770(A) = x_18274(B)      and      x_3183(A) = x_17728(B)
+```
+(atom 40782 is *implied* by these — proven in `test_40782.py`).
 
-Atom vocabulary (all must vanish):
-- add/sub/copy/scalar gates: `x_a-(x_b+x_c)`, `x_a-(x_b-x_c)`, `x_a-s*x_b`  (linear)
-- multiply / square gates:   `x_a-x_b*x_c`, `x_a-x_b*x_b`
-- NOT gates:                 `x_a-(1-x_b)`
-- boolean gates:             `x_a*(x_a-1)` → 3,484 bit variables
-- constant pins:             1,103 vars pinned to **1**
-- huge (bit-gated) atoms:    `bit*(x_B - HUGE) - s*x_C`, HUGE ≈ 287-296 bits (514 distinct).
-  bit=1 ⇒ x_B = HUGE + s*x_C (loads a residue); bit=0 ⇒ x_C = 0.
+- `A` = the 22 control bits `BITS22` (drive x_9770, x_3183 only). **Fully enumerable: 2^22.**
+- `B` = the other 233 control bits (drive x_18274, x_17728 only). 2^233 — the hard side.
+- `x_18274 = x_6773/x_8821`, `x_17728 = x_17233/x_8821` (SHARED denominator x_8821).
+- `x_8821` is **exactly linear** in the 233 bits; numerators are high-degree.
+- best_partial_39019 sets ALL 255 control bits = 0.
+- twist eqs: 1817 = 6033033*(x_9770-x_18274)+x_26977; 44271 = x_3183-x_17728;
+  30378 = x_3183-x_9982-x_17728. (x_26977, x_9982 identically 0.)
 
-## How the current solution was built  (deterministic, ~6 s)
-1. Integer propagation from the 1,103 pins → 5,897 vars forced (no choices).  `propagate.py`
-2. Set the 1,156 free **boolean** inputs to 0; propagate (this SOLVES the value-wires
-   x_B via the huge atoms).  Then zero-fill remaining. `solve_forward2.py`
-3. Result `cand_forward2.json` == `best/best_partial_39013.json`: 39,013/39,031.
+## How to evaluate (the correct model)
+`confluent_eval5.build5()` -> (A_atoms, kind, info, seq, bestval, ncyc). Build `seq`:
+```python
+order = json.load(open('eval_order.json'))['order']
+defset = set(v for v in kind if kind[v] != 'const')
+seq = [v for v in order if v in defset and v not in (9770,3183)]
+seq += [v for v in (9770,3183) if v in defset]
+seq += [v for v in defset if v not in set(order) and v not in (9770,3183)]
+```
+`make_forward(kind,info,seq,bestval)` -> Z solver `solve(list(bestval), setbits)`;
+`make_forward(...,mod=P)` -> mod-P solver. forward_Z([]) violates exactly {1817,30378,40782,44271}.
+The forward-eval satisfies every ORIENTED gate/load/div atom by construction for ANY bit set;
+only the twist "check" atoms float — so it is a valid oracle for x_9770/x_3183/x_18274/x_17728.
+NOTE: integer forward-eval is *lossy* (leaves a stale value when a division isn't exact) — use
+the mod-P solver for any linearity/degree probing.
 
-## The open core (why 18 remain)
-Residual after propagation = **one giant component of 23,843 vars with 256 free bits**
-(+ ~297 tiny components already satisfied by zeros). The 18 failing equations come from
-**4 unsatisfied atoms** (27973, 27978, 41470, 45004) — residue-consistency constraints
-(e.g. add-gate `x_9770 = x_35186 + x_3368` where the two sides are pinned to *different*
-290-bit residues). The 4 atoms' backward cone touches ~255 of the 256 bits (dense, cyclic),
-so there is no small local fix. z3 on the component (28k nonlinear int constraints) returns
-`unknown`; conflict-cone z3 at radius 3 engulfs the component and also fails.
-
-## Highest-EV next experiments (in order)
-1. `flip_search.py` — single control-bit flips, re-propagate, count violations (running/last run
-   → `flip_results.json`). If any single/￼pair flip drops violations to 0 → full solve. Extend to
-   pair/triple flips over the ~255 control bits if singles don't close it.
-2. Exact linear solve over GF(p) of all 20,090 linear atoms to see which bits become **forced**
-   once residue-consistency is imposed (constraint propagation WITH the 4 consistency atoms as
-   drivers + backtracking).
-3. Long z3 with `qfnra-nlsat`/bounds as a lottery ticket (background).
-
-## Verify anything
-    python3 solve_lab/checker.py solve_lab/best/best_partial_39013.json
-(loads assignment, exact integer re-eval of all 39,031 eqs; missing vars→0.)
+## Highest-EV next experiments
+1. `runs/tab22_full.log` — full 2^22 (x_9770,x_3183) mod two 31-bit primes; saves
+   tab22_9770_{p}.npy / tab22_3183_{p}.npy. When done: confirm B=0 fails; hash S and inspect
+   structure (common factors, moduli). S then lets you INVERT the 22-side in O(1) (lookup).
+2. Residue-pool identity: `extract_huge.py` -> huge_network.json (865 huge atoms; 512 simple
+   loads bit*(x_B-HUGE)=s*x_C). Check whether x_9770(A) and x_18274(B) are combinations of the
+   SAME HUGE residues => matching becomes combinatorial, not brute 2^233.
+3. MITM/lattice via x_8821 (the linear coordinate on the 233 side) — see NOTEBOOK Session 6.
 
 ## Do NOT redo
-- Parsing / atom extraction (atoms/poly_atoms.jsonl is canonical, gcd/sign-normalized).
-- The modulus hunt (gcd of the 514 huge constants = 1; the huge power-chains x^2,x^3 are
-  NOT reduced — this is not a single-modulus reduction).
-- Treating it as a named crypto instance — work the circuit.
+- SAT/SMT (user directive: custom heuristics only; z3/cvc5 return unknown anyway).
+- v4 evaluator / anything freezing x_18274 (fixed in v5).
+- The lossy-eval "232-part slaved / rank 233" reduction (Session 5) — shown UNRELIABLE this session.
+- Local search / greedy / pairs / triples from all-0 — all plateau (all-0 is the local min = 4 atoms).
+
+## Git
+Branch `claude/read-prompt-5t2raw`. Commit+push after meaningful experiments.

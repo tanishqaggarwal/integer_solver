@@ -1,0 +1,2641 @@
+linear atoms 45267/46275 (105s)
+pivot atoms 233 (need 233) (106s)
+M inverted (106s)
+testing 1794 small 22-subsets (106s)
+  0/1 B for A=(): 0 232-bits set
+  0/1 B for A=(1782,): 0 232-bits set
+  0/1 B for A=(1858,): 0 232-bits set
+  0/1 B for A=(2795,): 0 232-bits set
+  0/1 B for A=(3483,): 0 232-bits set
+  0/1 B for A=(2800,): 0 232-bits set
+  0/1 B for A=(5443,): 0 232-bits set
+  0/1 B for A=(10652,): 0 232-bits set
+  0/1 B for A=(19520,): 0 232-bits set
+  0/1 B for A=(21188,): 0 232-bits set
+  0/1 B for A=(21588,): 0 232-bits set
+  0/1 B for A=(23634,): 0 232-bits set
+  0/1 B for A=(27512,): 0 232-bits set
+  0/1 B for A=(26947,): 0 232-bits set
+  0/1 B for A=(29682,): 0 232-bits set
+  0/1 B for A=(30104,): 0 232-bits set
+  0/1 B for A=(30596,): 0 232-bits set
+  0/1 B for A=(30658,): 0 232-bits set
+  0/1 B for A=(30792,): 0 232-bits set
+  0/1 B for A=(33251,): 0 232-bits set
+  0/1 B for A=(37748,): 0 232-bits set
+  0/1 B for A=(37885,): 0 232-bits set
+  0/1 B for A=(38116,): 0 232-bits set
+  0/1 B for A=(1782, 1858): 0 232-bits set
+  0/1 B for A=(1782, 2795): 0 232-bits set
+  0/1 B for A=(1782, 2800): 0 232-bits set
+  0/1 B for A=(1782, 3483): 0 232-bits set
+  0/1 B for A=(1782, 10652): 0 232-bits set
+  0/1 B for A=(1782, 19520): 0 232-bits set
+  0/1 B for A=(1782, 21188): 0 232-bits set
+  0/1 B for A=(1782, 23634): 0 232-bits set
+  0/1 B for A=(1782, 21588): 0 232-bits set
+  0/1 B for A=(1782, 5443): 0 232-bits set
+  0/1 B for A=(1782, 26947): 0 232-bits set
+  0/1 B for A=(1782, 30104): 0 232-bits set
+  0/1 B for A=(1782, 27512): 0 232-bits set
+  0/1 B for A=(1782, 29682): 0 232-bits set
+  0/1 B for A=(1782, 30596): 0 232-bits set
+  0/1 B for A=(1782, 30658): 0 232-bits set
+  0/1 B for A=(1782, 30792): 0 232-bits set
+  0/1 B for A=(1782, 33251): 0 232-bits set
+  0/1 B for A=(1782, 37885): 0 232-bits set
+  0/1 B for A=(1782, 37748): 0 232-bits set
+  0/1 B for A=(1858, 2795): 0 232-bits set
+  0/1 B for A=(1858, 2800): 0 232-bits set
+  0/1 B for A=(1782, 38116): 0 232-bits set
+  0/1 B for A=(1858, 3483): 0 232-bits set
+  0/1 B for A=(1858, 5443): 0 232-bits set
+  0/1 B for A=(1858, 19520): 0 232-bits set
+  0/1 B for A=(1858, 10652): 0 232-bits set
+  0/1 B for A=(1858, 21188): 0 232-bits set
+  0/1 B for A=(1858, 21588): 0 232-bits set
+  0/1 B for A=(1858, 26947): 0 232-bits set
+  0/1 B for A=(1858, 27512): 0 232-bits set
+  0/1 B for A=(1858, 23634): 0 232-bits set
+  0/1 B for A=(1858, 29682): 0 232-bits set
+  0/1 B for A=(1858, 30596): 0 232-bits set
+  0/1 B for A=(1858, 30104): 0 232-bits set
+  0/1 B for A=(1858, 30792): 0 232-bits set
+  0/1 B for A=(1858, 37748): 0 232-bits set
+  0/1 B for A=(1858, 30658): 0 232-bits set
+  0/1 B for A=(1858, 38116): 0 232-bits set
+  0/1 B for A=(1858, 33251): 0 232-bits set
+  0/1 B for A=(2795, 3483): 0 232-bits set
+  0/1 B for A=(2795, 2800): 0 232-bits set
+  0/1 B for A=(2795, 10652): 0 232-bits set
+  0/1 B for A=(2795, 5443): 0 232-bits set
+  0/1 B for A=(1858, 37885): 0 232-bits set
+  0/1 B for A=(2795, 19520): 0 232-bits set
+  0/1 B for A=(2795, 21188): 0 232-bits set
+  0/1 B for A=(2795, 21588): 0 232-bits set
+  0/1 B for A=(2795, 23634): 0 232-bits set
+  0/1 B for A=(2795, 27512): 0 232-bits set
+  0/1 B for A=(2795, 26947): 0 232-bits set
+  0/1 B for A=(2795, 29682): 0 232-bits set
+  0/1 B for A=(2795, 30596): 0 232-bits set
+  0/1 B for A=(2795, 30658): 0 232-bits set
+  0/1 B for A=(2795, 30104): 0 232-bits set
+  0/1 B for A=(2795, 30792): 0 232-bits set
+  0/1 B for A=(2795, 33251): 0 232-bits set
+  0/1 B for A=(2795, 37748): 0 232-bits set
+  0/1 B for A=(2795, 37885): 0 232-bits set
+  0/1 B for A=(2795, 38116): 0 232-bits set
+  0/1 B for A=(2800, 3483): 0 232-bits set
+  0/1 B for A=(2800, 10652): 0 232-bits set
+  0/1 B for A=(2800, 5443): 0 232-bits set
+  0/1 B for A=(2800, 19520): 0 232-bits set
+  0/1 B for A=(2800, 21188): 0 232-bits set
+  0/1 B for A=(2800, 21588): 0 232-bits set
+  0/1 B for A=(2800, 27512): 0 232-bits set
+  0/1 B for A=(2800, 23634): 0 232-bits set
+  0/1 B for A=(2800, 29682): 0 232-bits set
+  0/1 B for A=(2800, 26947): 0 232-bits set
+  0/1 B for A=(2800, 30104): 0 232-bits set
+  0/1 B for A=(2800, 30658): 0 232-bits set
+  0/1 B for A=(2800, 30596): 0 232-bits set
+  0/1 B for A=(2800, 37748): 0 232-bits set
+  0/1 B for A=(2800, 30792): 0 232-bits set
+  0/1 B for A=(2800, 33251): 0 232-bits set
+  0/1 B for A=(2800, 38116): 0 232-bits set
+  0/1 B for A=(2800, 37885): 0 232-bits set
+  0/1 B for A=(3483, 19520): 0 232-bits set
+  0/1 B for A=(3483, 10652): 0 232-bits set
+  0/1 B for A=(3483, 5443): 0 232-bits set
+  0/1 B for A=(3483, 21588): 0 232-bits set
+  0/1 B for A=(3483, 21188): 0 232-bits set
+  0/1 B for A=(3483, 26947): 0 232-bits set
+  0/1 B for A=(3483, 27512): 0 232-bits set
+  0/1 B for A=(3483, 23634): 0 232-bits set
+  0/1 B for A=(3483, 30104): 0 232-bits set
+  0/1 B for A=(3483, 30596): 0 232-bits set
+  0/1 B for A=(3483, 29682): 0 232-bits set
+  0/1 B for A=(3483, 30792): 0 232-bits set
+  0/1 B for A=(3483, 33251): 0 232-bits set
+  0/1 B for A=(3483, 30658): 0 232-bits set
+  0/1 B for A=(3483, 37885): 0 232-bits set
+  0/1 B for A=(3483, 38116): 0 232-bits set
+  0/1 B for A=(5443, 19520): 0 232-bits set
+  0/1 B for A=(3483, 37748): 0 232-bits set
+  0/1 B for A=(5443, 21188): 0 232-bits set
+  0/1 B for A=(5443, 21588): 0 232-bits set
+  0/1 B for A=(5443, 10652): 0 232-bits set
+  0/1 B for A=(5443, 26947): 0 232-bits set
+  0/1 B for A=(5443, 27512): 0 232-bits set
+  0/1 B for A=(5443, 23634): 0 232-bits set
+  0/1 B for A=(5443, 30104): 0 232-bits set
+  0/1 B for A=(5443, 30596): 0 232-bits set
+  0/1 B for A=(5443, 29682): 0 232-bits set
+  0/1 B for A=(5443, 30792): 0 232-bits set
+  0/1 B for A=(5443, 30658): 0 232-bits set
+  0/1 B for A=(5443, 33251): 0 232-bits set
+  0/1 B for A=(5443, 37748): 0 232-bits set
+  0/1 B for A=(5443, 38116): 0 232-bits set
+  0/1 B for A=(5443, 37885): 0 232-bits set
+  0/1 B for A=(10652, 21188): 0 232-bits set
+  0/1 B for A=(10652, 23634): 0 232-bits set
+  0/1 B for A=(10652, 21588): 0 232-bits set
+  0/1 B for A=(10652, 19520): 0 232-bits set
+  0/1 B for A=(10652, 27512): 0 232-bits set
+  0/1 B for A=(10652, 26947): 0 232-bits set
+  0/1 B for A=(10652, 29682): 0 232-bits set
+  0/1 B for A=(10652, 30658): 0 232-bits set
+  0/1 B for A=(10652, 30596): 0 232-bits set
+  0/1 B for A=(10652, 33251): 0 232-bits set
+  0/1 B for A=(10652, 30104): 0 232-bits set
+  0/1 B for A=(10652, 37748): 0 232-bits set
+  0/1 B for A=(10652, 30792): 0 232-bits set
+  0/1 B for A=(10652, 38116): 0 232-bits set
+  0/1 B for A=(19520, 21588): 0 232-bits set
+  0/1 B for A=(10652, 37885): 0 232-bits set
+  0/1 B for A=(19520, 26947): 0 232-bits set
+  0/1 B for A=(19520, 21188): 0 232-bits set
+  0/1 B for A=(19520, 27512): 0 232-bits set
+  0/1 B for A=(19520, 23634): 0 232-bits set
+  0/1 B for A=(19520, 30658): 0 232-bits set
+  0/1 B for A=(19520, 30104): 0 232-bits set
+  0/1 B for A=(19520, 29682): 0 232-bits set
+  0/1 B for A=(19520, 33251): 0 232-bits set
+  0/1 B for A=(19520, 30596): 0 232-bits set
+  0/1 B for A=(19520, 37748): 0 232-bits set
+  0/1 B for A=(19520, 38116): 0 232-bits set
+  0/1 B for A=(19520, 30792): 0 232-bits set
+  0/1 B for A=(19520, 37885): 0 232-bits set
+  0/1 B for A=(21188, 27512): 0 232-bits set
+  0/1 B for A=(21188, 23634): 0 232-bits set
+  0/1 B for A=(21188, 21588): 0 232-bits set
+  0/1 B for A=(21188, 30596): 0 232-bits set
+  0/1 B for A=(21188, 30658): 0 232-bits set
+  0/1 B for A=(21188, 26947): 0 232-bits set
+  0/1 B for A=(21188, 29682): 0 232-bits set
+  0/1 B for A=(21188, 30104): 0 232-bits set
+  0/1 B for A=(21188, 33251): 0 232-bits set
+  0/1 B for A=(21188, 37748): 0 232-bits set
+  0/1 B for A=(21188, 30792): 0 232-bits set
+  0/1 B for A=(21588, 26947): 0 232-bits set
+  0/1 B for A=(21588, 30104): 0 232-bits set
+  0/1 B for A=(21188, 37885): 0 232-bits set
+  0/1 B for A=(21588, 27512): 0 232-bits set
+  0/1 B for A=(21188, 38116): 0 232-bits set
+  0/1 B for A=(21588, 23634): 0 232-bits set
+  0/1 B for A=(21588, 30596): 0 232-bits set
+  0/1 B for A=(21588, 29682): 0 232-bits set
+  0/1 B for A=(21588, 30792): 0 232-bits set
+  0/1 B for A=(21588, 37885): 0 232-bits set
+  0/1 B for A=(21588, 33251): 0 232-bits set
+  0/1 B for A=(21588, 30658): 0 232-bits set
+  0/1 B for A=(23634, 27512): 0 232-bits set
+  0/1 B for A=(21588, 37748): 0 232-bits set
+  0/1 B for A=(23634, 29682): 0 232-bits set
+  0/1 B for A=(21588, 38116): 0 232-bits set
+  0/1 B for A=(23634, 26947): 0 232-bits set
+  0/1 B for A=(23634, 30792): 0 232-bits set
+  0/1 B for A=(23634, 30596): 0 232-bits set
+  0/1 B for A=(23634, 30104): 0 232-bits set
+  0/1 B for A=(23634, 37885): 0 232-bits set
+  0/1 B for A=(23634, 38116): 0 232-bits set
+  0/1 B for A=(23634, 30658): 0 232-bits set
+  0/1 B for A=(23634, 33251): 0 232-bits set
+  0/1 B for A=(26947, 29682): 0 232-bits set
+  0/1 B for A=(23634, 37748): 0 232-bits set
+  ...200/1794 (167s)
+  0/1 B for A=(26947, 30104): 0 232-bits set
+  0/1 B for A=(26947, 30596): 0 232-bits set
+  0/1 B for A=(26947, 27512): 0 232-bits set
+  0/1 B for A=(26947, 37748): 0 232-bits set
+  0/1 B for A=(26947, 30792): 0 232-bits set
+  0/1 B for A=(26947, 37885): 0 232-bits set
+  0/1 B for A=(26947, 30658): 0 232-bits set
+  0/1 B for A=(26947, 33251): 0 232-bits set
+  0/1 B for A=(27512, 29682): 0 232-bits set
+  0/1 B for A=(27512, 30658): 0 232-bits set
+  0/1 B for A=(26947, 38116): 0 232-bits set
+  0/1 B for A=(27512, 33251): 0 232-bits set
+  0/1 B for A=(27512, 30104): 0 232-bits set
+  0/1 B for A=(27512, 30596): 0 232-bits set
+  0/1 B for A=(27512, 37748): 0 232-bits set
+  0/1 B for A=(27512, 30792): 0 232-bits set
+  0/1 B for A=(27512, 38116): 0 232-bits set
+  0/1 B for A=(29682, 30658): 0 232-bits set
+  0/1 B for A=(29682, 30104): 0 232-bits set
+  0/1 B for A=(29682, 30596): 0 232-bits set
+  0/1 B for A=(27512, 37885): 0 232-bits set
+  0/1 B for A=(29682, 33251): 0 232-bits set
+  0/1 B for A=(29682, 37748): 0 232-bits set
+  0/1 B for A=(29682, 30792): 0 232-bits set
+  0/1 B for A=(30104, 30658): 0 232-bits set
+  0/1 B for A=(30104, 30792): 0 232-bits set
+  0/1 B for A=(29682, 37885): 0 232-bits set
+  0/1 B for A=(29682, 38116): 0 232-bits set
+  0/1 B for A=(30104, 30596): 0 232-bits set
+  0/1 B for A=(30104, 37885): 0 232-bits set
+  0/1 B for A=(30104, 37748): 0 232-bits set
+  0/1 B for A=(30596, 33251): 0 232-bits set
+  0/1 B for A=(30596, 37748): 0 232-bits set
+  0/1 B for A=(30104, 33251): 0 232-bits set
+  0/1 B for A=(30104, 38116): 0 232-bits set
+  0/1 B for A=(30596, 38116): 0 232-bits set
+  0/1 B for A=(30596, 37885): 0 232-bits set
+  0/1 B for A=(30596, 30658): 0 232-bits set
+  0/1 B for A=(30596, 30792): 0 232-bits set
+  0/1 B for A=(30658, 37748): 0 232-bits set
+  0/1 B for A=(30658, 38116): 0 232-bits set
+  0/1 B for A=(30658, 30792): 0 232-bits set
+  0/1 B for A=(30658, 33251): 0 232-bits set
+  0/1 B for A=(30792, 37885): 0 232-bits set
+  0/1 B for A=(30792, 37748): 0 232-bits set
+  0/1 B for A=(30792, 33251): 0 232-bits set
+  0/1 B for A=(30658, 37885): 0 232-bits set
+  0/1 B for A=(33251, 37885): 0 232-bits set
+  0/1 B for A=(33251, 37748): 0 232-bits set
+  0/1 B for A=(30792, 38116): 0 232-bits set
+  0/1 B for A=(37885, 38116): 0 232-bits set
+  0/1 B for A=(33251, 38116): 0 232-bits set
+  0/1 B for A=(1782, 1858, 2795): 0 232-bits set
+  0/1 B for A=(1782, 1858, 3483): 0 232-bits set
+  0/1 B for A=(37748, 37885): 0 232-bits set
+  0/1 B for A=(37748, 38116): 0 232-bits set
+  0/1 B for A=(1782, 1858, 19520): 0 232-bits set
+  0/1 B for A=(1782, 1858, 2800): 0 232-bits set
+  0/1 B for A=(1782, 1858, 10652): 0 232-bits set
+  0/1 B for A=(1782, 1858, 5443): 0 232-bits set
+  0/1 B for A=(1782, 1858, 23634): 0 232-bits set
+  0/1 B for A=(1782, 1858, 21188): 0 232-bits set
+  0/1 B for A=(1782, 1858, 30104): 0 232-bits set
+  0/1 B for A=(1782, 1858, 27512): 0 232-bits set
+  0/1 B for A=(1782, 1858, 21588): 0 232-bits set
+  0/1 B for A=(1782, 1858, 30658): 0 232-bits set
+  0/1 B for A=(1782, 1858, 29682): 0 232-bits set
+  0/1 B for A=(1782, 1858, 26947): 0 232-bits set
+  0/1 B for A=(1782, 1858, 30792): 0 232-bits set
+  0/1 B for A=(1782, 1858, 37748): 0 232-bits set
+  0/1 B for A=(1782, 1858, 30596): 0 232-bits set
+  0/1 B for A=(1782, 1858, 33251): 0 232-bits set
+  0/1 B for A=(1782, 2795, 3483): 0 232-bits set
+  0/1 B for A=(1782, 2795, 2800): 0 232-bits set
+  0/1 B for A=(1782, 1858, 37885): 0 232-bits set
+  0/1 B for A=(1782, 1858, 38116): 0 232-bits set
+  0/1 B for A=(1782, 2795, 19520): 0 232-bits set
+  0/1 B for A=(1782, 2795, 21188): 0 232-bits set
+  0/1 B for A=(1782, 2795, 5443): 0 232-bits set
+  0/1 B for A=(1782, 2795, 10652): 0 232-bits set
+  0/1 B for A=(1782, 2795, 27512): 0 232-bits set
+  0/1 B for A=(1782, 2795, 21588): 0 232-bits set
+  0/1 B for A=(1782, 2795, 26947): 0 232-bits set
+  0/1 B for A=(1782, 2795, 23634): 0 232-bits set
+  0/1 B for A=(1782, 2795, 30596): 0 232-bits set
+  0/1 B for A=(1782, 2795, 30792): 0 232-bits set
+  0/1 B for A=(1782, 2795, 29682): 0 232-bits set
+  0/1 B for A=(1782, 2795, 30104): 0 232-bits set
+  0/1 B for A=(1782, 2795, 37748): 0 232-bits set
+  0/1 B for A=(1782, 2795, 30658): 0 232-bits set
+  0/1 B for A=(1782, 2795, 37885): 0 232-bits set
+  0/1 B for A=(1782, 2795, 38116): 0 232-bits set
+  0/1 B for A=(1782, 2800, 5443): 0 232-bits set
+  0/1 B for A=(1782, 2795, 33251): 0 232-bits set
+  0/1 B for A=(1782, 2800, 3483): 0 232-bits set
+  0/1 B for A=(1782, 2800, 21188): 0 232-bits set
+  0/1 B for A=(1782, 2800, 21588): 0 232-bits set
+  0/1 B for A=(1782, 2800, 10652): 0 232-bits set
+  0/1 B for A=(1782, 2800, 19520): 0 232-bits set
+  0/1 B for A=(1782, 2800, 23634): 0 232-bits set
+  0/1 B for A=(1782, 2800, 29682): 0 232-bits set
+  0/1 B for A=(1782, 2800, 30658): 0 232-bits set
+  0/1 B for A=(1782, 2800, 27512): 0 232-bits set
+  0/1 B for A=(1782, 2800, 26947): 0 232-bits set
+  0/1 B for A=(1782, 2800, 30792): 0 232-bits set
+  0/1 B for A=(1782, 2800, 30596): 0 232-bits set
+  0/1 B for A=(1782, 2800, 30104): 0 232-bits set
+  0/1 B for A=(1782, 2800, 33251): 0 232-bits set
+  0/1 B for A=(1782, 2800, 38116): 0 232-bits set
+  0/1 B for A=(1782, 3483, 19520): 0 232-bits set
+  0/1 B for A=(1782, 2800, 37885): 0 232-bits set
+  0/1 B for A=(1782, 2800, 37748): 0 232-bits set
+  0/1 B for A=(1782, 3483, 5443): 0 232-bits set
+  0/1 B for A=(1782, 3483, 21188): 0 232-bits set
+  0/1 B for A=(1782, 3483, 21588): 0 232-bits set
+  0/1 B for A=(1782, 3483, 10652): 0 232-bits set
+  0/1 B for A=(1782, 3483, 29682): 0 232-bits set
+  0/1 B for A=(1782, 3483, 23634): 0 232-bits set
+  0/1 B for A=(1782, 3483, 30104): 0 232-bits set
+  0/1 B for A=(1782, 3483, 26947): 0 232-bits set
+  0/1 B for A=(1782, 3483, 27512): 0 232-bits set
+  0/1 B for A=(1782, 3483, 30658): 0 232-bits set
+  0/1 B for A=(1782, 3483, 30596): 0 232-bits set
+  0/1 B for A=(1782, 3483, 30792): 0 232-bits set
+  0/1 B for A=(1782, 3483, 38116): 0 232-bits set
+  0/1 B for A=(1782, 3483, 33251): 0 232-bits set
+  0/1 B for A=(1782, 3483, 37748): 0 232-bits set
+  0/1 B for A=(1782, 5443, 19520): 0 232-bits set
+  0/1 B for A=(1782, 3483, 37885): 0 232-bits set
+  0/1 B for A=(1782, 5443, 21188): 0 232-bits set
+  0/1 B for A=(1782, 5443, 10652): 0 232-bits set
+  0/1 B for A=(1782, 5443, 26947): 0 232-bits set
+  0/1 B for A=(1782, 5443, 29682): 0 232-bits set
+  0/1 B for A=(1782, 5443, 21588): 0 232-bits set
+  0/1 B for A=(1782, 5443, 23634): 0 232-bits set
+  0/1 B for A=(1782, 5443, 27512): 0 232-bits set
+  0/1 B for A=(1782, 5443, 30658): 0 232-bits set
+  0/1 B for A=(1782, 5443, 30596): 0 232-bits set
+  0/1 B for A=(1782, 5443, 30104): 0 232-bits set
+  0/1 B for A=(1782, 5443, 30792): 0 232-bits set
+  0/1 B for A=(1782, 5443, 37885): 0 232-bits set
+  0/1 B for A=(1782, 5443, 38116): 0 232-bits set
+  0/1 B for A=(1782, 10652, 21188): 0 232-bits set
+  0/1 B for A=(1782, 5443, 33251): 0 232-bits set
+  0/1 B for A=(1782, 5443, 37748): 0 232-bits set
+  0/1 B for A=(1782, 10652, 23634): 0 232-bits set
+  0/1 B for A=(1782, 10652, 19520): 0 232-bits set
+  0/1 B for A=(1782, 10652, 26947): 0 232-bits set
+  0/1 B for A=(1782, 10652, 21588): 0 232-bits set
+  0/1 B for A=(1782, 10652, 30104): 0 232-bits set
+  0/1 B for A=(1782, 10652, 30658): 0 232-bits set
+  0/1 B for A=(1782, 10652, 27512): 0 232-bits set
+  0/1 B for A=(1782, 10652, 29682): 0 232-bits set
+  0/1 B for A=(1782, 10652, 30792): 0 232-bits set
+  0/1 B for A=(1782, 10652, 33251): 0 232-bits set
+  0/1 B for A=(1782, 10652, 30596): 0 232-bits set
+  0/1 B for A=(1782, 10652, 37748): 0 232-bits set
+  0/1 B for A=(1782, 19520, 21188): 0 232-bits set
+  0/1 B for A=(1782, 19520, 21588): 0 232-bits set
+  0/1 B for A=(1782, 19520, 27512): 0 232-bits set
+  0/1 B for A=(1782, 10652, 37885): 0 232-bits set
+  0/1 B for A=(1782, 10652, 38116): 0 232-bits set
+  0/1 B for A=(1782, 19520, 26947): 0 232-bits set
+  0/1 B for A=(1782, 19520, 29682): 0 232-bits set
+  0/1 B for A=(1782, 19520, 30104): 0 232-bits set
+  0/1 B for A=(1782, 19520, 23634): 0 232-bits set
+  0/1 B for A=(1782, 19520, 37748): 0 232-bits set
+  0/1 B for A=(1782, 19520, 33251): 0 232-bits set
+  0/1 B for A=(1782, 19520, 30596): 0 232-bits set
+  0/1 B for A=(1782, 19520, 30658): 0 232-bits set
+  0/1 B for A=(1782, 19520, 30792): 0 232-bits set
+  0/1 B for A=(1782, 19520, 38116): 0 232-bits set
+  0/1 B for A=(1782, 21188, 21588): 0 232-bits set
+  0/1 B for A=(1782, 19520, 37885): 0 232-bits set
+  0/1 B for A=(1782, 21188, 29682): 0 232-bits set
+  0/1 B for A=(1782, 21188, 30104): 0 232-bits set
+  0/1 B for A=(1782, 21188, 30658): 0 232-bits set
+  0/1 B for A=(1782, 21188, 23634): 0 232-bits set
+  0/1 B for A=(1782, 21188, 27512): 0 232-bits set
+  0/1 B for A=(1782, 21188, 26947): 0 232-bits set
+  0/1 B for A=(1782, 21188, 33251): 0 232-bits set
+  0/1 B for A=(1782, 21188, 30792): 0 232-bits set
+  0/1 B for A=(1782, 21188, 30596): 0 232-bits set
+  0/1 B for A=(1782, 21588, 23634): 0 232-bits set
+  0/1 B for A=(1782, 21588, 26947): 0 232-bits set
+  0/1 B for A=(1782, 21188, 37748): 0 232-bits set
+  0/1 B for A=(1782, 21188, 37885): 0 232-bits set
+  0/1 B for A=(1782, 21188, 38116): 0 232-bits set
+  0/1 B for A=(1782, 21588, 29682): 0 232-bits set
+  0/1 B for A=(1782, 21588, 30104): 0 232-bits set
+  0/1 B for A=(1782, 21588, 27512): 0 232-bits set
+  0/1 B for A=(1782, 21588, 33251): 0 232-bits set
+  0/1 B for A=(1782, 21588, 37748): 0 232-bits set
+  0/1 B for A=(1782, 21588, 30596): 0 232-bits set
+  0/1 B for A=(1782, 21588, 30658): 0 232-bits set
+  0/1 B for A=(1782, 21588, 30792): 0 232-bits set
+  0/1 B for A=(1782, 23634, 26947): 0 232-bits set
+  0/1 B for A=(1782, 21588, 38116): 0 232-bits set
+  0/1 B for A=(1782, 21588, 37885): 0 232-bits set
+  0/1 B for A=(1782, 23634, 30596): 0 232-bits set
+  ...400/1794 (169s)
+  0/1 B for A=(1782, 23634, 30658): 0 232-bits set
+  0/1 B for A=(1782, 23634, 27512): 0 232-bits set
+  0/1 B for A=(1782, 23634, 29682): 0 232-bits set
+  0/1 B for A=(1782, 23634, 33251): 0 232-bits set
+  0/1 B for A=(1782, 23634, 30104): 0 232-bits set
+  0/1 B for A=(1782, 23634, 37748): 0 232-bits set
+  0/1 B for A=(1782, 26947, 27512): 0 232-bits set
+  0/1 B for A=(1782, 23634, 30792): 0 232-bits set
+  0/1 B for A=(1782, 26947, 30104): 0 232-bits set
+  0/1 B for A=(1782, 26947, 30596): 0 232-bits set
+  0/1 B for A=(1782, 23634, 37885): 0 232-bits set
+  0/1 B for A=(1782, 23634, 38116): 0 232-bits set
+  0/1 B for A=(1782, 26947, 29682): 0 232-bits set
+  0/1 B for A=(1782, 26947, 30792): 0 232-bits set
+  0/1 B for A=(1782, 26947, 33251): 0 232-bits set
+  0/1 B for A=(1782, 26947, 30658): 0 232-bits set
+  0/1 B for A=(1782, 26947, 37748): 0 232-bits set
+  0/1 B for A=(1782, 27512, 30104): 0 232-bits set
+  0/1 B for A=(1782, 26947, 37885): 0 232-bits set
+  0/1 B for A=(1782, 27512, 29682): 0 232-bits set
+  0/1 B for A=(1782, 27512, 30792): 0 232-bits set
+  0/1 B for A=(1782, 26947, 38116): 0 232-bits set
+  0/1 B for A=(1782, 27512, 30658): 0 232-bits set
+  0/1 B for A=(1782, 27512, 30596): 0 232-bits set
+  0/1 B for A=(1782, 27512, 37885): 0 232-bits set
+  0/1 B for A=(1782, 27512, 37748): 0 232-bits set
+  0/1 B for A=(1782, 29682, 30104): 0 232-bits set
+  0/1 B for A=(1782, 29682, 30658): 0 232-bits set
+  0/1 B for A=(1782, 27512, 33251): 0 232-bits set
+  0/1 B for A=(1782, 27512, 38116): 0 232-bits set
+  0/1 B for A=(1782, 29682, 37748): 0 232-bits set
+  0/1 B for A=(1782, 29682, 33251): 0 232-bits set
+  0/1 B for A=(1782, 29682, 30792): 0 232-bits set
+  0/1 B for A=(1782, 29682, 30596): 0 232-bits set
+  0/1 B for A=(1782, 30104, 30596): 0 232-bits set
+  0/1 B for A=(1782, 30104, 30658): 0 232-bits set
+  0/1 B for A=(1782, 29682, 38116): 0 232-bits set
+  0/1 B for A=(1782, 30104, 30792): 0 232-bits set
+  0/1 B for A=(1782, 30104, 37748): 0 232-bits set
+  0/1 B for A=(1782, 29682, 37885): 0 232-bits set
+  0/1 B for A=(1782, 30104, 37885): 0 232-bits set
+  0/1 B for A=(1782, 30596, 30658): 0 232-bits set
+  0/1 B for A=(1782, 30596, 37748): 0 232-bits set
+  0/1 B for A=(1782, 30104, 33251): 0 232-bits set
+  0/1 B for A=(1782, 30596, 30792): 0 232-bits set
+  0/1 B for A=(1782, 30596, 37885): 0 232-bits set
+  0/1 B for A=(1782, 30104, 38116): 0 232-bits set
+  0/1 B for A=(1782, 30596, 38116): 0 232-bits set
+  0/1 B for A=(1782, 30658, 33251): 0 232-bits set
+  0/1 B for A=(1782, 30596, 33251): 0 232-bits set
+  0/1 B for A=(1782, 30658, 37748): 0 232-bits set
+  0/1 B for A=(1782, 30792, 33251): 0 232-bits set
+  0/1 B for A=(1782, 30658, 37885): 0 232-bits set
+  0/1 B for A=(1782, 30792, 37885): 0 232-bits set
+  0/1 B for A=(1782, 30658, 30792): 0 232-bits set
+  0/1 B for A=(1782, 30658, 38116): 0 232-bits set
+  0/1 B for A=(1782, 30792, 38116): 0 232-bits set
+  0/1 B for A=(1782, 30792, 37748): 0 232-bits set
+  0/1 B for A=(1782, 33251, 37885): 0 232-bits set
+  0/1 B for A=(1782, 37748, 38116): 0 232-bits set
+  0/1 B for A=(1782, 33251, 37748): 0 232-bits set
+  0/1 B for A=(1858, 2795, 2800): 0 232-bits set
+  0/1 B for A=(1782, 33251, 38116): 0 232-bits set
+  0/1 B for A=(1782, 37748, 37885): 0 232-bits set
+  0/1 B for A=(1858, 2795, 3483): 0 232-bits set
+  0/1 B for A=(1858, 2795, 10652): 0 232-bits set
+  0/1 B for A=(1782, 37885, 38116): 0 232-bits set
+  0/1 B for A=(1858, 2795, 21588): 0 232-bits set
+  0/1 B for A=(1858, 2795, 23634): 0 232-bits set
+  0/1 B for A=(1858, 2795, 5443): 0 232-bits set
+  0/1 B for A=(1858, 2795, 21188): 0 232-bits set
+  0/1 B for A=(1858, 2795, 19520): 0 232-bits set
+  0/1 B for A=(1858, 2795, 27512): 0 232-bits set
+  0/1 B for A=(1858, 2795, 29682): 0 232-bits set
+  0/1 B for A=(1858, 2795, 26947): 0 232-bits set
+  0/1 B for A=(1858, 2795, 33251): 0 232-bits set
+  0/1 B for A=(1858, 2795, 30792): 0 232-bits set
+  0/1 B for A=(1858, 2795, 30104): 0 232-bits set
+  0/1 B for A=(1858, 2795, 30596): 0 232-bits set
+  0/1 B for A=(1858, 2795, 37748): 0 232-bits set
+  0/1 B for A=(1858, 2795, 30658): 0 232-bits set
+  0/1 B for A=(1858, 2795, 38116): 0 232-bits set
+  0/1 B for A=(1858, 2795, 37885): 0 232-bits set
+  0/1 B for A=(1858, 2800, 10652): 0 232-bits set
+  0/1 B for A=(1858, 2800, 21188): 0 232-bits set
+  0/1 B for A=(1858, 2800, 5443): 0 232-bits set
+  0/1 B for A=(1858, 2800, 23634): 0 232-bits set
+  0/1 B for A=(1858, 2800, 3483): 0 232-bits set
+  0/1 B for A=(1858, 2800, 19520): 0 232-bits set
+  0/1 B for A=(1858, 2800, 26947): 0 232-bits set
+  0/1 B for A=(1858, 2800, 21588): 0 232-bits set
+  0/1 B for A=(1858, 2800, 29682): 0 232-bits set
+  0/1 B for A=(1858, 2800, 30658): 0 232-bits set
+  0/1 B for A=(1858, 2800, 33251): 0 232-bits set
+  0/1 B for A=(1858, 2800, 30104): 0 232-bits set
+  0/1 B for A=(1858, 2800, 27512): 0 232-bits set
+  0/1 B for A=(1858, 2800, 30596): 0 232-bits set
+  0/1 B for A=(1858, 2800, 30792): 0 232-bits set
+  0/1 B for A=(1858, 2800, 37748): 0 232-bits set
+  0/1 B for A=(1858, 2800, 37885): 0 232-bits set
+  0/1 B for A=(1858, 3483, 21188): 0 232-bits set
+  0/1 B for A=(1858, 2800, 38116): 0 232-bits set
+  0/1 B for A=(1858, 3483, 19520): 0 232-bits set
+  0/1 B for A=(1858, 3483, 5443): 0 232-bits set
+  0/1 B for A=(1858, 3483, 21588): 0 232-bits set
+  0/1 B for A=(1858, 3483, 23634): 0 232-bits set
+  0/1 B for A=(1858, 3483, 10652): 0 232-bits set
+  0/1 B for A=(1858, 3483, 30596): 0 232-bits set
+  0/1 B for A=(1858, 3483, 30104): 0 232-bits set
+  0/1 B for A=(1858, 3483, 30792): 0 232-bits set
+  0/1 B for A=(1858, 3483, 26947): 0 232-bits set
+  0/1 B for A=(1858, 3483, 27512): 0 232-bits set
+  0/1 B for A=(1858, 3483, 29682): 0 232-bits set
+  0/1 B for A=(1858, 3483, 30658): 0 232-bits set
+  0/1 B for A=(1858, 3483, 37748): 0 232-bits set
+  0/1 B for A=(1858, 3483, 33251): 0 232-bits set
+  0/1 B for A=(1858, 3483, 38116): 0 232-bits set
+  0/1 B for A=(1858, 5443, 21188): 0 232-bits set
+  0/1 B for A=(1858, 5443, 21588): 0 232-bits set
+  0/1 B for A=(1858, 3483, 37885): 0 232-bits set
+  0/1 B for A=(1858, 5443, 23634): 0 232-bits set
+  0/1 B for A=(1858, 5443, 10652): 0 232-bits set
+  0/1 B for A=(1858, 5443, 19520): 0 232-bits set
+  0/1 B for A=(1858, 5443, 27512): 0 232-bits set
+  0/1 B for A=(1858, 5443, 26947): 0 232-bits set
+  0/1 B for A=(1858, 5443, 30104): 0 232-bits set
+  0/1 B for A=(1858, 5443, 30792): 0 232-bits set
+  0/1 B for A=(1858, 5443, 37748): 0 232-bits set
+  0/1 B for A=(1858, 5443, 29682): 0 232-bits set
+  0/1 B for A=(1858, 5443, 30596): 0 232-bits set
+  0/1 B for A=(1858, 5443, 33251): 0 232-bits set
+  0/1 B for A=(1858, 5443, 30658): 0 232-bits set
+  0/1 B for A=(1858, 5443, 38116): 0 232-bits set
+  0/1 B for A=(1858, 10652, 21588): 0 232-bits set
+  0/1 B for A=(1858, 5443, 37885): 0 232-bits set
+  0/1 B for A=(1858, 10652, 26947): 0 232-bits set
+  0/1 B for A=(1858, 10652, 19520): 0 232-bits set
+  0/1 B for A=(1858, 10652, 27512): 0 232-bits set
+  0/1 B for A=(1858, 10652, 21188): 0 232-bits set
+  0/1 B for A=(1858, 10652, 23634): 0 232-bits set
+  0/1 B for A=(1858, 10652, 30104): 0 232-bits set
+  0/1 B for A=(1858, 10652, 30658): 0 232-bits set
+  0/1 B for A=(1858, 10652, 37748): 0 232-bits set
+  0/1 B for A=(1858, 10652, 29682): 0 232-bits set
+  0/1 B for A=(1858, 10652, 37885): 0 232-bits set
+  0/1 B for A=(1858, 10652, 30596): 0 232-bits set
+  0/1 B for A=(1858, 10652, 38116): 0 232-bits set
+  0/1 B for A=(1858, 10652, 30792): 0 232-bits set
+  0/1 B for A=(1858, 10652, 33251): 0 232-bits set
+  0/1 B for A=(1858, 19520, 21588): 0 232-bits set
+  0/1 B for A=(1858, 19520, 26947): 0 232-bits set
+  0/1 B for A=(1858, 19520, 21188): 0 232-bits set
+  0/1 B for A=(1858, 19520, 30596): 0 232-bits set
+  0/1 B for A=(1858, 19520, 30104): 0 232-bits set
+  0/1 B for A=(1858, 19520, 23634): 0 232-bits set
+  0/1 B for A=(1858, 19520, 30792): 0 232-bits set
+  0/1 B for A=(1858, 19520, 27512): 0 232-bits set
+  0/1 B for A=(1858, 19520, 29682): 0 232-bits set
+  0/1 B for A=(1858, 19520, 33251): 0 232-bits set
+  0/1 B for A=(1858, 19520, 30658): 0 232-bits set
+  0/1 B for A=(1858, 19520, 37885): 0 232-bits set
+  0/1 B for A=(1858, 21188, 23634): 0 232-bits set
+  0/1 B for A=(1858, 19520, 37748): 0 232-bits set
+  0/1 B for A=(1858, 21188, 27512): 0 232-bits set
+  0/1 B for A=(1858, 19520, 38116): 0 232-bits set
+  0/1 B for A=(1858, 21188, 29682): 0 232-bits set
+  0/1 B for A=(1858, 21188, 21588): 0 232-bits set
+  0/1 B for A=(1858, 21188, 26947): 0 232-bits set
+  0/1 B for A=(1858, 21188, 30596): 0 232-bits set
+  0/1 B for A=(1858, 21188, 37885): 0 232-bits set
+  0/1 B for A=(1858, 21188, 30792): 0 232-bits set
+  0/1 B for A=(1858, 21188, 30104): 0 232-bits set
+  0/1 B for A=(1858, 21188, 30658): 0 232-bits set
+  0/1 B for A=(1858, 21188, 38116): 0 232-bits set
+  0/1 B for A=(1858, 21188, 37748): 0 232-bits set
+  0/1 B for A=(1858, 21188, 33251): 0 232-bits set
+  0/1 B for A=(1858, 21588, 23634): 0 232-bits set
+  0/1 B for A=(1858, 21588, 29682): 0 232-bits set
+  0/1 B for A=(1858, 21588, 30658): 0 232-bits set
+  0/1 B for A=(1858, 21588, 26947): 0 232-bits set
+  0/1 B for A=(1858, 21588, 30792): 0 232-bits set
+  0/1 B for A=(1858, 21588, 27512): 0 232-bits set
+  0/1 B for A=(1858, 21588, 30104): 0 232-bits set
+  0/1 B for A=(1858, 21588, 30596): 0 232-bits set
+  0/1 B for A=(1858, 21588, 33251): 0 232-bits set
+  0/1 B for A=(1858, 21588, 37885): 0 232-bits set
+  0/1 B for A=(1858, 23634, 29682): 0 232-bits set
+  0/1 B for A=(1858, 21588, 37748): 0 232-bits set
+  0/1 B for A=(1858, 23634, 30104): 0 232-bits set
+  0/1 B for A=(1858, 23634, 26947): 0 232-bits set
+  0/1 B for A=(1858, 23634, 30596): 0 232-bits set
+  0/1 B for A=(1858, 21588, 38116): 0 232-bits set
+  0/1 B for A=(1858, 23634, 27512): 0 232-bits set
+  0/1 B for A=(1858, 23634, 30792): 0 232-bits set
+  0/1 B for A=(1858, 23634, 37748): 0 232-bits set
+  0/1 B for A=(1858, 23634, 30658): 0 232-bits set
+  0/1 B for A=(1858, 26947, 29682): 0 232-bits set
+  0/1 B for A=(1858, 23634, 33251): 0 232-bits set
+  0/1 B for A=(1858, 26947, 27512): 0 232-bits set
+  0/1 B for A=(1858, 23634, 37885): 0 232-bits set
+  ...600/1794 (171s)
+  0/1 B for A=(1858, 23634, 38116): 0 232-bits set
+  0/1 B for A=(1858, 26947, 30596): 0 232-bits set
+  0/1 B for A=(1858, 26947, 37748): 0 232-bits set
+  0/1 B for A=(1858, 26947, 37885): 0 232-bits set
+  0/1 B for A=(1858, 26947, 30104): 0 232-bits set
+  0/1 B for A=(1858, 26947, 30792): 0 232-bits set
+  0/1 B for A=(1858, 26947, 30658): 0 232-bits set
+  0/1 B for A=(1858, 27512, 29682): 0 232-bits set
+  0/1 B for A=(1858, 26947, 33251): 0 232-bits set
+  0/1 B for A=(1858, 26947, 38116): 0 232-bits set
+  0/1 B for A=(1858, 27512, 30104): 0 232-bits set
+  0/1 B for A=(1858, 27512, 30792): 0 232-bits set
+  0/1 B for A=(1858, 27512, 30596): 0 232-bits set
+  0/1 B for A=(1858, 27512, 30658): 0 232-bits set
+  0/1 B for A=(1858, 27512, 37748): 0 232-bits set
+  0/1 B for A=(1858, 27512, 38116): 0 232-bits set
+  0/1 B for A=(1858, 27512, 33251): 0 232-bits set
+  0/1 B for A=(1858, 29682, 30658): 0 232-bits set
+  0/1 B for A=(1858, 27512, 37885): 0 232-bits set
+  0/1 B for A=(1858, 29682, 30104): 0 232-bits set
+  0/1 B for A=(1858, 29682, 30792): 0 232-bits set
+  0/1 B for A=(1858, 29682, 30596): 0 232-bits set
+  0/1 B for A=(1858, 29682, 37885): 0 232-bits set
+  0/1 B for A=(1858, 29682, 37748): 0 232-bits set
+  0/1 B for A=(1858, 29682, 33251): 0 232-bits set
+  0/1 B for A=(1858, 30104, 30792): 0 232-bits set
+  0/1 B for A=(1858, 30104, 30596): 0 232-bits set
+  0/1 B for A=(1858, 29682, 38116): 0 232-bits set
+  0/1 B for A=(1858, 30104, 30658): 0 232-bits set
+  0/1 B for A=(1858, 30104, 37748): 0 232-bits set
+  0/1 B for A=(1858, 30104, 33251): 0 232-bits set
+  0/1 B for A=(1858, 30104, 37885): 0 232-bits set
+  0/1 B for A=(1858, 30596, 33251): 0 232-bits set
+  0/1 B for A=(1858, 30104, 38116): 0 232-bits set
+  0/1 B for A=(1858, 30596, 30658): 0 232-bits set
+  0/1 B for A=(1858, 30596, 37885): 0 232-bits set
+  0/1 B for A=(1858, 30596, 30792): 0 232-bits set
+  0/1 B for A=(1858, 30596, 38116): 0 232-bits set
+  0/1 B for A=(1858, 30596, 37748): 0 232-bits set
+  0/1 B for A=(1858, 30658, 37748): 0 232-bits set
+  0/1 B for A=(1858, 30658, 38116): 0 232-bits set
+  0/1 B for A=(1858, 30658, 30792): 0 232-bits set
+  0/1 B for A=(1858, 30658, 37885): 0 232-bits set
+  0/1 B for A=(1858, 30658, 33251): 0 232-bits set
+  0/1 B for A=(1858, 30792, 37885): 0 232-bits set
+  0/1 B for A=(1858, 30792, 33251): 0 232-bits set
+  0/1 B for A=(1858, 33251, 37748): 0 232-bits set
+  0/1 B for A=(1858, 30792, 38116): 0 232-bits set
+  0/1 B for A=(1858, 33251, 38116): 0 232-bits set
+  0/1 B for A=(1858, 30792, 37748): 0 232-bits set
+  0/1 B for A=(1858, 37748, 38116): 0 232-bits set
+  0/1 B for A=(1858, 33251, 37885): 0 232-bits set
+  0/1 B for A=(2795, 2800, 10652): 0 232-bits set
+  0/1 B for A=(1858, 37748, 37885): 0 232-bits set
+  0/1 B for A=(2795, 2800, 3483): 0 232-bits set
+  0/1 B for A=(1858, 37885, 38116): 0 232-bits set
+  0/1 B for A=(2795, 2800, 21188): 0 232-bits set
+  0/1 B for A=(2795, 2800, 5443): 0 232-bits set
+  0/1 B for A=(2795, 2800, 23634): 0 232-bits set
+  0/1 B for A=(2795, 2800, 19520): 0 232-bits set
+  0/1 B for A=(2795, 2800, 27512): 0 232-bits set
+  0/1 B for A=(2795, 2800, 21588): 0 232-bits set
+  0/1 B for A=(2795, 2800, 30658): 0 232-bits set
+  0/1 B for A=(2795, 2800, 30104): 0 232-bits set
+  0/1 B for A=(2795, 2800, 26947): 0 232-bits set
+  0/1 B for A=(2795, 2800, 29682): 0 232-bits set
+  0/1 B for A=(2795, 2800, 33251): 0 232-bits set
+  0/1 B for A=(2795, 2800, 30596): 0 232-bits set
+  0/1 B for A=(2795, 2800, 37748): 0 232-bits set
+  0/1 B for A=(2795, 3483, 5443): 0 232-bits set
+  0/1 B for A=(2795, 2800, 30792): 0 232-bits set
+  0/1 B for A=(2795, 2800, 37885): 0 232-bits set
+  0/1 B for A=(2795, 3483, 21188): 0 232-bits set
+  0/1 B for A=(2795, 3483, 19520): 0 232-bits set
+  0/1 B for A=(2795, 2800, 38116): 0 232-bits set
+  0/1 B for A=(2795, 3483, 26947): 0 232-bits set
+  0/1 B for A=(2795, 3483, 10652): 0 232-bits set
+  0/1 B for A=(2795, 3483, 27512): 0 232-bits set
+  0/1 B for A=(2795, 3483, 21588): 0 232-bits set
+  0/1 B for A=(2795, 3483, 30104): 0 232-bits set
+  0/1 B for A=(2795, 3483, 23634): 0 232-bits set
+  0/1 B for A=(2795, 3483, 29682): 0 232-bits set
+  0/1 B for A=(2795, 3483, 30658): 0 232-bits set
+  0/1 B for A=(2795, 3483, 33251): 0 232-bits set
+  0/1 B for A=(2795, 3483, 30596): 0 232-bits set
+  0/1 B for A=(2795, 5443, 10652): 0 232-bits set
+  0/1 B for A=(2795, 3483, 30792): 0 232-bits set
+  0/1 B for A=(2795, 3483, 38116): 0 232-bits set
+  0/1 B for A=(2795, 3483, 37748): 0 232-bits set
+  0/1 B for A=(2795, 5443, 21188): 0 232-bits set
+  0/1 B for A=(2795, 3483, 37885): 0 232-bits set
+  0/1 B for A=(2795, 5443, 23634): 0 232-bits set
+  0/1 B for A=(2795, 5443, 27512): 0 232-bits set
+  0/1 B for A=(2795, 5443, 21588): 0 232-bits set
+  0/1 B for A=(2795, 5443, 19520): 0 232-bits set
+  0/1 B for A=(2795, 5443, 30104): 0 232-bits set
+  0/1 B for A=(2795, 5443, 26947): 0 232-bits set
+  0/1 B for A=(2795, 5443, 30596): 0 232-bits set
+  0/1 B for A=(2795, 5443, 29682): 0 232-bits set
+  0/1 B for A=(2795, 5443, 33251): 0 232-bits set
+  0/1 B for A=(2795, 10652, 19520): 0 232-bits set
+  0/1 B for A=(2795, 5443, 37885): 0 232-bits set
+  0/1 B for A=(2795, 5443, 30658): 0 232-bits set
+  0/1 B for A=(2795, 5443, 30792): 0 232-bits set
+  0/1 B for A=(2795, 5443, 37748): 0 232-bits set
+  0/1 B for A=(2795, 10652, 21188): 0 232-bits set
+  0/1 B for A=(2795, 5443, 38116): 0 232-bits set
+  0/1 B for A=(2795, 10652, 21588): 0 232-bits set
+  0/1 B for A=(2795, 10652, 29682): 0 232-bits set
+  0/1 B for A=(2795, 10652, 30104): 0 232-bits set
+  0/1 B for A=(2795, 10652, 30596): 0 232-bits set
+  0/1 B for A=(2795, 10652, 23634): 0 232-bits set
+  0/1 B for A=(2795, 10652, 26947): 0 232-bits set
+  0/1 B for A=(2795, 10652, 27512): 0 232-bits set
+  0/1 B for A=(2795, 10652, 33251): 0 232-bits set
+  0/1 B for A=(2795, 10652, 37885): 0 232-bits set
+  0/1 B for A=(2795, 10652, 30658): 0 232-bits set
+  0/1 B for A=(2795, 10652, 30792): 0 232-bits set
+  0/1 B for A=(2795, 19520, 21188): 0 232-bits set
+  0/1 B for A=(2795, 10652, 37748): 0 232-bits set
+  0/1 B for A=(2795, 19520, 21588): 0 232-bits set
+  0/1 B for A=(2795, 10652, 38116): 0 232-bits set
+  0/1 B for A=(2795, 19520, 27512): 0 232-bits set
+  0/1 B for A=(2795, 19520, 30104): 0 232-bits set
+  0/1 B for A=(2795, 19520, 23634): 0 232-bits set
+  0/1 B for A=(2795, 19520, 26947): 0 232-bits set
+  0/1 B for A=(2795, 19520, 29682): 0 232-bits set
+  0/1 B for A=(2795, 19520, 30658): 0 232-bits set
+  0/1 B for A=(2795, 19520, 30792): 0 232-bits set
+  0/1 B for A=(2795, 19520, 30596): 0 232-bits set
+  0/1 B for A=(2795, 19520, 38116): 0 232-bits set
+  0/1 B for A=(2795, 19520, 33251): 0 232-bits set
+  0/1 B for A=(2795, 21188, 21588): 0 232-bits set
+  0/1 B for A=(2795, 19520, 37748): 0 232-bits set
+  0/1 B for A=(2795, 21188, 26947): 0 232-bits set
+  0/1 B for A=(2795, 19520, 37885): 0 232-bits set
+  0/1 B for A=(2795, 21188, 23634): 0 232-bits set
+  0/1 B for A=(2795, 21188, 29682): 0 232-bits set
+  0/1 B for A=(2795, 21188, 30596): 0 232-bits set
+  0/1 B for A=(2795, 21188, 27512): 0 232-bits set
+  0/1 B for A=(2795, 21188, 33251): 0 232-bits set
+  0/1 B for A=(2795, 21188, 37748): 0 232-bits set
+  0/1 B for A=(2795, 21188, 30104): 0 232-bits set
+  0/1 B for A=(2795, 21188, 30658): 0 232-bits set
+  0/1 B for A=(2795, 21188, 37885): 0 232-bits set
+  0/1 B for A=(2795, 21188, 30792): 0 232-bits set
+  0/1 B for A=(2795, 21188, 38116): 0 232-bits set
+  0/1 B for A=(2795, 21588, 23634): 0 232-bits set
+  0/1 B for A=(2795, 21588, 29682): 0 232-bits set
+  0/1 B for A=(2795, 21588, 30596): 0 232-bits set
+  0/1 B for A=(2795, 21588, 26947): 0 232-bits set
+  0/1 B for A=(2795, 21588, 30792): 0 232-bits set
+  0/1 B for A=(2795, 21588, 27512): 0 232-bits set
+  0/1 B for A=(2795, 21588, 30104): 0 232-bits set
+  0/1 B for A=(2795, 21588, 33251): 0 232-bits set
+  0/1 B for A=(2795, 21588, 30658): 0 232-bits set
+  0/1 B for A=(2795, 21588, 37885): 0 232-bits set
+  0/1 B for A=(2795, 21588, 37748): 0 232-bits set
+  0/1 B for A=(2795, 23634, 27512): 0 232-bits set
+  0/1 B for A=(2795, 21588, 38116): 0 232-bits set
+  0/1 B for A=(2795, 23634, 26947): 0 232-bits set
+  0/1 B for A=(2795, 23634, 30596): 0 232-bits set
+  0/1 B for A=(2795, 23634, 30658): 0 232-bits set
+  0/1 B for A=(2795, 23634, 30104): 0 232-bits set
+  0/1 B for A=(2795, 23634, 29682): 0 232-bits set
+  0/1 B for A=(2795, 23634, 37748): 0 232-bits set
+  0/1 B for A=(2795, 23634, 37885): 0 232-bits set
+  0/1 B for A=(2795, 23634, 30792): 0 232-bits set
+  0/1 B for A=(2795, 23634, 33251): 0 232-bits set
+  0/1 B for A=(2795, 26947, 29682): 0 232-bits set
+  0/1 B for A=(2795, 23634, 38116): 0 232-bits set
+  0/1 B for A=(2795, 26947, 27512): 0 232-bits set
+  0/1 B for A=(2795, 26947, 30104): 0 232-bits set
+  0/1 B for A=(2795, 26947, 33251): 0 232-bits set
+  0/1 B for A=(2795, 26947, 30792): 0 232-bits set
+  0/1 B for A=(2795, 26947, 37885): 0 232-bits set
+  0/1 B for A=(2795, 26947, 30658): 0 232-bits set
+  0/1 B for A=(2795, 26947, 30596): 0 232-bits set
+  0/1 B for A=(2795, 26947, 38116): 0 232-bits set
+  0/1 B for A=(2795, 26947, 37748): 0 232-bits set
+  0/1 B for A=(2795, 27512, 30104): 0 232-bits set
+  0/1 B for A=(2795, 27512, 30792): 0 232-bits set
+  0/1 B for A=(2795, 27512, 29682): 0 232-bits set
+  0/1 B for A=(2795, 27512, 37748): 0 232-bits set
+  0/1 B for A=(2795, 27512, 30596): 0 232-bits set
+  0/1 B for A=(2795, 27512, 37885): 0 232-bits set
+  0/1 B for A=(2795, 27512, 30658): 0 232-bits set
+  0/1 B for A=(2795, 27512, 33251): 0 232-bits set
+  0/1 B for A=(2795, 29682, 30104): 0 232-bits set
+  0/1 B for A=(2795, 29682, 30792): 0 232-bits set
+  0/1 B for A=(2795, 27512, 38116): 0 232-bits set
+  0/1 B for A=(2795, 29682, 30658): 0 232-bits set
+  0/1 B for A=(2795, 29682, 30596): 0 232-bits set
+  0/1 B for A=(2795, 29682, 37885): 0 232-bits set
+  0/1 B for A=(2795, 29682, 37748): 0 232-bits set
+  0/1 B for A=(2795, 29682, 33251): 0 232-bits set
+  0/1 B for A=(2795, 30104, 30596): 0 232-bits set
+  0/1 B for A=(2795, 30104, 33251): 0 232-bits set
+  0/1 B for A=(2795, 29682, 38116): 0 232-bits set
+  0/1 B for A=(2795, 30104, 30792): 0 232-bits set
+  ...800/1794 (173s)
+  0/1 B for A=(2795, 30104, 37885): 0 232-bits set
+  0/1 B for A=(2795, 30104, 30658): 0 232-bits set
+  0/1 B for A=(2795, 30104, 37748): 0 232-bits set
+  0/1 B for A=(2795, 30104, 38116): 0 232-bits set
+  0/1 B for A=(2795, 30596, 33251): 0 232-bits set
+  0/1 B for A=(2795, 30596, 30792): 0 232-bits set
+  0/1 B for A=(2795, 30596, 30658): 0 232-bits set
+  0/1 B for A=(2795, 30658, 30792): 0 232-bits set
+  0/1 B for A=(2795, 30596, 38116): 0 232-bits set
+  0/1 B for A=(2795, 30596, 37748): 0 232-bits set
+  0/1 B for A=(2795, 30658, 37885): 0 232-bits set
+  0/1 B for A=(2795, 30596, 37885): 0 232-bits set
+  0/1 B for A=(2795, 30658, 38116): 0 232-bits set
+  0/1 B for A=(2795, 30658, 33251): 0 232-bits set
+  0/1 B for A=(2795, 30792, 37748): 0 232-bits set
+  0/1 B for A=(2795, 30658, 37748): 0 232-bits set
+  0/1 B for A=(2795, 30792, 33251): 0 232-bits set
+  0/1 B for A=(2795, 30792, 38116): 0 232-bits set
+  0/1 B for A=(2795, 33251, 37885): 0 232-bits set
+  0/1 B for A=(2795, 30792, 37885): 0 232-bits set
+  0/1 B for A=(2795, 33251, 37748): 0 232-bits set
+  0/1 B for A=(2795, 33251, 38116): 0 232-bits set
+  0/1 B for A=(2795, 37885, 38116): 0 232-bits set
+  0/1 B for A=(2795, 37748, 38116): 0 232-bits set
+  0/1 B for A=(2800, 3483, 10652): 0 232-bits set
+  0/1 B for A=(2795, 37748, 37885): 0 232-bits set
+  0/1 B for A=(2800, 3483, 5443): 0 232-bits set
+  0/1 B for A=(2800, 3483, 21588): 0 232-bits set
+  0/1 B for A=(2800, 3483, 23634): 0 232-bits set
+  0/1 B for A=(2800, 3483, 21188): 0 232-bits set
+  0/1 B for A=(2800, 3483, 19520): 0 232-bits set
+  0/1 B for A=(2800, 3483, 29682): 0 232-bits set
+  0/1 B for A=(2800, 3483, 30104): 0 232-bits set
+  0/1 B for A=(2800, 3483, 26947): 0 232-bits set
+  0/1 B for A=(2800, 3483, 27512): 0 232-bits set
+  0/1 B for A=(2800, 3483, 30792): 0 232-bits set
+  0/1 B for A=(2800, 3483, 33251): 0 232-bits set
+  0/1 B for A=(2800, 3483, 30596): 0 232-bits set
+  0/1 B for A=(2800, 3483, 30658): 0 232-bits set
+  0/1 B for A=(2800, 5443, 19520): 0 232-bits set
+  0/1 B for A=(2800, 3483, 38116): 0 232-bits set
+  0/1 B for A=(2800, 3483, 37748): 0 232-bits set
+  0/1 B for A=(2800, 5443, 10652): 0 232-bits set
+  0/1 B for A=(2800, 3483, 37885): 0 232-bits set
+  0/1 B for A=(2800, 5443, 21588): 0 232-bits set
+  0/1 B for A=(2800, 5443, 23634): 0 232-bits set
+  0/1 B for A=(2800, 5443, 21188): 0 232-bits set
+  0/1 B for A=(2800, 5443, 26947): 0 232-bits set
+  0/1 B for A=(2800, 5443, 27512): 0 232-bits set
+  0/1 B for A=(2800, 5443, 30596): 0 232-bits set
+  0/1 B for A=(2800, 5443, 30792): 0 232-bits set
+  0/1 B for A=(2800, 5443, 30104): 0 232-bits set
+  0/1 B for A=(2800, 5443, 29682): 0 232-bits set
+  0/1 B for A=(2800, 5443, 37748): 0 232-bits set
+  0/1 B for A=(2800, 5443, 30658): 0 232-bits set
+  0/1 B for A=(2800, 5443, 37885): 0 232-bits set
+  0/1 B for A=(2800, 5443, 33251): 0 232-bits set
+  0/1 B for A=(2800, 10652, 23634): 0 232-bits set
+  0/1 B for A=(2800, 10652, 21188): 0 232-bits set
+  0/1 B for A=(2800, 5443, 38116): 0 232-bits set
+  0/1 B for A=(2800, 10652, 19520): 0 232-bits set
+  0/1 B for A=(2800, 10652, 27512): 0 232-bits set
+  0/1 B for A=(2800, 10652, 21588): 0 232-bits set
+  0/1 B for A=(2800, 10652, 29682): 0 232-bits set
+  0/1 B for A=(2800, 10652, 26947): 0 232-bits set
+  0/1 B for A=(2800, 10652, 30658): 0 232-bits set
+  0/1 B for A=(2800, 10652, 30104): 0 232-bits set
+  0/1 B for A=(2800, 10652, 33251): 0 232-bits set
+  0/1 B for A=(2800, 10652, 30596): 0 232-bits set
+  0/1 B for A=(2800, 10652, 37748): 0 232-bits set
+  0/1 B for A=(2800, 10652, 30792): 0 232-bits set
+  0/1 B for A=(2800, 19520, 21188): 0 232-bits set
+  0/1 B for A=(2800, 10652, 37885): 0 232-bits set
+  0/1 B for A=(2800, 19520, 23634): 0 232-bits set
+  0/1 B for A=(2800, 10652, 38116): 0 232-bits set
+  0/1 B for A=(2800, 19520, 27512): 0 232-bits set
+  0/1 B for A=(2800, 19520, 21588): 0 232-bits set
+  0/1 B for A=(2800, 19520, 30104): 0 232-bits set
+  0/1 B for A=(2800, 19520, 26947): 0 232-bits set
+  0/1 B for A=(2800, 19520, 29682): 0 232-bits set
+  0/1 B for A=(2800, 19520, 30658): 0 232-bits set
+  0/1 B for A=(2800, 19520, 30596): 0 232-bits set
+  0/1 B for A=(2800, 19520, 33251): 0 232-bits set
+  0/1 B for A=(2800, 19520, 38116): 0 232-bits set
+  0/1 B for A=(2800, 19520, 30792): 0 232-bits set
+  0/1 B for A=(2800, 21188, 21588): 0 232-bits set
+  0/1 B for A=(2800, 19520, 37748): 0 232-bits set
+  0/1 B for A=(2800, 21188, 26947): 0 232-bits set
+  0/1 B for A=(2800, 19520, 37885): 0 232-bits set
+  0/1 B for A=(2800, 21188, 23634): 0 232-bits set
+  0/1 B for A=(2800, 21188, 29682): 0 232-bits set
+  0/1 B for A=(2800, 21188, 30596): 0 232-bits set
+  0/1 B for A=(2800, 21188, 27512): 0 232-bits set
+  0/1 B for A=(2800, 21188, 33251): 0 232-bits set
+  0/1 B for A=(2800, 21188, 30104): 0 232-bits set
+  0/1 B for A=(2800, 21188, 37748): 0 232-bits set
+  0/1 B for A=(2800, 21188, 38116): 0 232-bits set
+  0/1 B for A=(2800, 21188, 30658): 0 232-bits set
+  0/1 B for A=(2800, 21588, 26947): 0 232-bits set
+  0/1 B for A=(2800, 21188, 30792): 0 232-bits set
+  0/1 B for A=(2800, 21588, 27512): 0 232-bits set
+  0/1 B for A=(2800, 21188, 37885): 0 232-bits set
+  0/1 B for A=(2800, 21588, 30104): 0 232-bits set
+  0/1 B for A=(2800, 21588, 23634): 0 232-bits set
+  0/1 B for A=(2800, 21588, 30596): 0 232-bits set
+  0/1 B for A=(2800, 21588, 33251): 0 232-bits set
+  0/1 B for A=(2800, 21588, 37885): 0 232-bits set
+  0/1 B for A=(2800, 21588, 29682): 0 232-bits set
+  0/1 B for A=(2800, 21588, 30658): 0 232-bits set
+  0/1 B for A=(2800, 21588, 38116): 0 232-bits set
+  0/1 B for A=(2800, 21588, 30792): 0 232-bits set
+  0/1 B for A=(2800, 23634, 26947): 0 232-bits set
+  0/1 B for A=(2800, 21588, 37748): 0 232-bits set
+  0/1 B for A=(2800, 23634, 30104): 0 232-bits set
+  0/1 B for A=(2800, 23634, 30658): 0 232-bits set
+  0/1 B for A=(2800, 23634, 27512): 0 232-bits set
+  0/1 B for A=(2800, 23634, 29682): 0 232-bits set
+  0/1 B for A=(2800, 23634, 30596): 0 232-bits set
+  0/1 B for A=(2800, 23634, 33251): 0 232-bits set
+  0/1 B for A=(2800, 23634, 37748): 0 232-bits set
+  0/1 B for A=(2800, 23634, 30792): 0 232-bits set
+  0/1 B for A=(2800, 23634, 37885): 0 232-bits set
+  0/1 B for A=(2800, 26947, 30104): 0 232-bits set
+  0/1 B for A=(2800, 26947, 29682): 0 232-bits set
+  0/1 B for A=(2800, 26947, 30658): 0 232-bits set
+  0/1 B for A=(2800, 23634, 38116): 0 232-bits set
+  0/1 B for A=(2800, 26947, 27512): 0 232-bits set
+  0/1 B for A=(2800, 26947, 30792): 0 232-bits set
+  0/1 B for A=(2800, 26947, 30596): 0 232-bits set
+  0/1 B for A=(2800, 26947, 37748): 0 232-bits set
+  0/1 B for A=(2800, 27512, 29682): 0 232-bits set
+  0/1 B for A=(2800, 26947, 33251): 0 232-bits set
+  0/1 B for A=(2800, 27512, 30596): 0 232-bits set
+  0/1 B for A=(2800, 26947, 37885): 0 232-bits set
+  0/1 B for A=(2800, 26947, 38116): 0 232-bits set
+  0/1 B for A=(2800, 27512, 33251): 0 232-bits set
+  0/1 B for A=(2800, 27512, 30658): 0 232-bits set
+  0/1 B for A=(2800, 27512, 30104): 0 232-bits set
+  0/1 B for A=(2800, 27512, 37748): 0 232-bits set
+  0/1 B for A=(2800, 27512, 30792): 0 232-bits set
+  0/1 B for A=(2800, 29682, 30104): 0 232-bits set
+  0/1 B for A=(2800, 29682, 30658): 0 232-bits set
+  0/1 B for A=(2800, 27512, 38116): 0 232-bits set
+  0/1 B for A=(2800, 27512, 37885): 0 232-bits set
+  0/1 B for A=(2800, 29682, 33251): 0 232-bits set
+  0/1 B for A=(2800, 29682, 30596): 0 232-bits set
+  0/1 B for A=(2800, 29682, 37748): 0 232-bits set
+  0/1 B for A=(2800, 29682, 30792): 0 232-bits set
+  0/1 B for A=(2800, 30104, 30596): 0 232-bits set
+  0/1 B for A=(2800, 30104, 30792): 0 232-bits set
+  0/1 B for A=(2800, 29682, 37885): 0 232-bits set
+  0/1 B for A=(2800, 30104, 37748): 0 232-bits set
+  0/1 B for A=(2800, 29682, 38116): 0 232-bits set
+  0/1 B for A=(2800, 30104, 37885): 0 232-bits set
+  0/1 B for A=(2800, 30104, 30658): 0 232-bits set
+  0/1 B for A=(2800, 30104, 33251): 0 232-bits set
+  0/1 B for A=(2800, 30596, 33251): 0 232-bits set
+  0/1 B for A=(2800, 30596, 30658): 0 232-bits set
+  0/1 B for A=(2800, 30104, 38116): 0 232-bits set
+  0/1 B for A=(2800, 30596, 30792): 0 232-bits set
+  0/1 B for A=(2800, 30658, 30792): 0 232-bits set
+  0/1 B for A=(2800, 30658, 33251): 0 232-bits set
+  0/1 B for A=(2800, 30596, 38116): 0 232-bits set
+  0/1 B for A=(2800, 30596, 37748): 0 232-bits set
+  0/1 B for A=(2800, 30596, 37885): 0 232-bits set
+  0/1 B for A=(2800, 30658, 38116): 0 232-bits set
+  0/1 B for A=(2800, 30658, 37885): 0 232-bits set
+  0/1 B for A=(2800, 30792, 38116): 0 232-bits set
+  0/1 B for A=(2800, 30792, 33251): 0 232-bits set
+  0/1 B for A=(2800, 33251, 37748): 0 232-bits set
+  0/1 B for A=(2800, 30658, 37748): 0 232-bits set
+  0/1 B for A=(2800, 30792, 37748): 0 232-bits set
+  0/1 B for A=(2800, 30792, 37885): 0 232-bits set
+  0/1 B for A=(2800, 33251, 37885): 0 232-bits set
+  0/1 B for A=(2800, 37748, 38116): 0 232-bits set
+  0/1 B for A=(3483, 5443, 19520): 0 232-bits set
+  0/1 B for A=(2800, 33251, 38116): 0 232-bits set
+  0/1 B for A=(2800, 37748, 37885): 0 232-bits set
+  0/1 B for A=(3483, 5443, 10652): 0 232-bits set
+  0/1 B for A=(2800, 37885, 38116): 0 232-bits set
+  0/1 B for A=(3483, 5443, 21188): 0 232-bits set
+  0/1 B for A=(3483, 5443, 21588): 0 232-bits set
+  0/1 B for A=(3483, 5443, 30104): 0 232-bits set
+  0/1 B for A=(3483, 5443, 30596): 0 232-bits set
+  0/1 B for A=(3483, 5443, 23634): 0 232-bits set
+  0/1 B for A=(3483, 5443, 26947): 0 232-bits set
+  0/1 B for A=(3483, 5443, 30658): 0 232-bits set
+  0/1 B for A=(3483, 5443, 27512): 0 232-bits set
+  0/1 B for A=(3483, 5443, 29682): 0 232-bits set
+  0/1 B for A=(3483, 5443, 30792): 0 232-bits set
+  0/1 B for A=(3483, 5443, 37885): 0 232-bits set
+  0/1 B for A=(3483, 5443, 33251): 0 232-bits set
+  0/1 B for A=(3483, 10652, 21188): 0 232-bits set
+  0/1 B for A=(3483, 10652, 21588): 0 232-bits set
+  0/1 B for A=(3483, 5443, 37748): 0 232-bits set
+  0/1 B for A=(3483, 5443, 38116): 0 232-bits set
+  0/1 B for A=(3483, 10652, 19520): 0 232-bits set
+  0/1 B for A=(3483, 10652, 27512): 0 232-bits set
+  0/1 B for A=(3483, 10652, 26947): 0 232-bits set
+  0/1 B for A=(3483, 10652, 23634): 0 232-bits set
+  ...1000/1794 (175s)
+  0/1 B for A=(3483, 10652, 30596): 0 232-bits set
+  0/1 B for A=(3483, 10652, 30792): 0 232-bits set
+  0/1 B for A=(3483, 10652, 30658): 0 232-bits set
+  0/1 B for A=(3483, 10652, 30104): 0 232-bits set
+  0/1 B for A=(3483, 10652, 29682): 0 232-bits set
+  0/1 B for A=(3483, 10652, 37748): 0 232-bits set
+  0/1 B for A=(3483, 10652, 37885): 0 232-bits set
+  0/1 B for A=(3483, 19520, 23634): 0 232-bits set
+  0/1 B for A=(3483, 10652, 33251): 0 232-bits set
+  0/1 B for A=(3483, 10652, 38116): 0 232-bits set
+  0/1 B for A=(3483, 19520, 26947): 0 232-bits set
+  0/1 B for A=(3483, 19520, 27512): 0 232-bits set
+  0/1 B for A=(3483, 19520, 21188): 0 232-bits set
+  0/1 B for A=(3483, 19520, 21588): 0 232-bits set
+  0/1 B for A=(3483, 19520, 30596): 0 232-bits set
+  0/1 B for A=(3483, 19520, 30658): 0 232-bits set
+  0/1 B for A=(3483, 19520, 30104): 0 232-bits set
+  0/1 B for A=(3483, 19520, 29682): 0 232-bits set
+  0/1 B for A=(3483, 19520, 37885): 0 232-bits set
+  0/1 B for A=(3483, 19520, 37748): 0 232-bits set
+  0/1 B for A=(3483, 19520, 30792): 0 232-bits set
+  0/1 B for A=(3483, 19520, 33251): 0 232-bits set
+  0/1 B for A=(3483, 21188, 23634): 0 232-bits set
+  0/1 B for A=(3483, 21188, 26947): 0 232-bits set
+  0/1 B for A=(3483, 19520, 38116): 0 232-bits set
+  0/1 B for A=(3483, 21188, 21588): 0 232-bits set
+  0/1 B for A=(3483, 21188, 30104): 0 232-bits set
+  0/1 B for A=(3483, 21188, 29682): 0 232-bits set
+  0/1 B for A=(3483, 21188, 27512): 0 232-bits set
+  0/1 B for A=(3483, 21188, 33251): 0 232-bits set
+  0/1 B for A=(3483, 21188, 30596): 0 232-bits set
+  0/1 B for A=(3483, 21188, 30658): 0 232-bits set
+  0/1 B for A=(3483, 21188, 38116): 0 232-bits set
+  0/1 B for A=(3483, 21188, 37748): 0 232-bits set
+  0/1 B for A=(3483, 21188, 30792): 0 232-bits set
+  0/1 B for A=(3483, 21588, 27512): 0 232-bits set
+  0/1 B for A=(3483, 21188, 37885): 0 232-bits set
+  0/1 B for A=(3483, 21588, 29682): 0 232-bits set
+  0/1 B for A=(3483, 21588, 23634): 0 232-bits set
+  0/1 B for A=(3483, 21588, 30596): 0 232-bits set
+  0/1 B for A=(3483, 21588, 26947): 0 232-bits set
+  0/1 B for A=(3483, 21588, 30104): 0 232-bits set
+  0/1 B for A=(3483, 21588, 30792): 0 232-bits set
+  0/1 B for A=(3483, 21588, 37748): 0 232-bits set
+  0/1 B for A=(3483, 21588, 30658): 0 232-bits set
+  0/1 B for A=(3483, 21588, 33251): 0 232-bits set
+  0/1 B for A=(3483, 23634, 27512): 0 232-bits set
+  0/1 B for A=(3483, 23634, 26947): 0 232-bits set
+  0/1 B for A=(3483, 21588, 37885): 0 232-bits set
+  0/1 B for A=(3483, 21588, 38116): 0 232-bits set
+  0/1 B for A=(3483, 23634, 30596): 0 232-bits set
+  0/1 B for A=(3483, 23634, 30658): 0 232-bits set
+  0/1 B for A=(3483, 23634, 30104): 0 232-bits set
+  0/1 B for A=(3483, 23634, 37748): 0 232-bits set
+  0/1 B for A=(3483, 23634, 29682): 0 232-bits set
+  0/1 B for A=(3483, 23634, 30792): 0 232-bits set
+  0/1 B for A=(3483, 23634, 37885): 0 232-bits set
+  0/1 B for A=(3483, 26947, 27512): 0 232-bits set
+  0/1 B for A=(3483, 23634, 33251): 0 232-bits set
+  0/1 B for A=(3483, 26947, 30658): 0 232-bits set
+  0/1 B for A=(3483, 26947, 30596): 0 232-bits set
+  0/1 B for A=(3483, 23634, 38116): 0 232-bits set
+  0/1 B for A=(3483, 26947, 29682): 0 232-bits set
+  0/1 B for A=(3483, 26947, 33251): 0 232-bits set
+  0/1 B for A=(3483, 26947, 30104): 0 232-bits set
+  0/1 B for A=(3483, 26947, 37748): 0 232-bits set
+  0/1 B for A=(3483, 26947, 30792): 0 232-bits set
+  0/1 B for A=(3483, 27512, 29682): 0 232-bits set
+  0/1 B for A=(3483, 26947, 37885): 0 232-bits set
+  0/1 B for A=(3483, 27512, 30792): 0 232-bits set
+  0/1 B for A=(3483, 27512, 30596): 0 232-bits set
+  0/1 B for A=(3483, 26947, 38116): 0 232-bits set
+  0/1 B for A=(3483, 27512, 30104): 0 232-bits set
+  0/1 B for A=(3483, 27512, 37748): 0 232-bits set
+  0/1 B for A=(3483, 27512, 30658): 0 232-bits set
+  0/1 B for A=(3483, 27512, 37885): 0 232-bits set
+  0/1 B for A=(3483, 27512, 33251): 0 232-bits set
+  0/1 B for A=(3483, 29682, 30596): 0 232-bits set
+  0/1 B for A=(3483, 29682, 30792): 0 232-bits set
+  0/1 B for A=(3483, 27512, 38116): 0 232-bits set
+  0/1 B for A=(3483, 29682, 30104): 0 232-bits set
+  0/1 B for A=(3483, 29682, 37748): 0 232-bits set
+  0/1 B for A=(3483, 29682, 37885): 0 232-bits set
+  0/1 B for A=(3483, 29682, 30658): 0 232-bits set
+  0/1 B for A=(3483, 29682, 33251): 0 232-bits set
+  0/1 B for A=(3483, 30104, 30792): 0 232-bits set
+  0/1 B for A=(3483, 30104, 30658): 0 232-bits set
+  0/1 B for A=(3483, 29682, 38116): 0 232-bits set
+  0/1 B for A=(3483, 30104, 30596): 0 232-bits set
+  0/1 B for A=(3483, 30104, 38116): 0 232-bits set
+  0/1 B for A=(3483, 30104, 37885): 0 232-bits set
+  0/1 B for A=(3483, 30104, 33251): 0 232-bits set
+  0/1 B for A=(3483, 30596, 30792): 0 232-bits set
+  0/1 B for A=(3483, 30104, 37748): 0 232-bits set
+  0/1 B for A=(3483, 30596, 33251): 0 232-bits set
+  0/1 B for A=(3483, 30596, 30658): 0 232-bits set
+  0/1 B for A=(3483, 30596, 38116): 0 232-bits set
+  0/1 B for A=(3483, 30596, 37748): 0 232-bits set
+  0/1 B for A=(3483, 30658, 33251): 0 232-bits set
+  0/1 B for A=(3483, 30658, 37885): 0 232-bits set
+  0/1 B for A=(3483, 30596, 37885): 0 232-bits set
+  0/1 B for A=(3483, 30658, 30792): 0 232-bits set
+  0/1 B for A=(3483, 30792, 33251): 0 232-bits set
+  0/1 B for A=(3483, 30792, 37748): 0 232-bits set
+  0/1 B for A=(3483, 30658, 37748): 0 232-bits set
+  0/1 B for A=(3483, 30658, 38116): 0 232-bits set
+  0/1 B for A=(3483, 30792, 38116): 0 232-bits set
+  0/1 B for A=(3483, 33251, 37748): 0 232-bits set
+  0/1 B for A=(3483, 30792, 37885): 0 232-bits set
+  0/1 B for A=(3483, 37748, 37885): 0 232-bits set
+  0/1 B for A=(3483, 37748, 38116): 0 232-bits set
+  0/1 B for A=(3483, 33251, 37885): 0 232-bits set
+  0/1 B for A=(3483, 33251, 38116): 0 232-bits set
+  0/1 B for A=(5443, 10652, 21588): 0 232-bits set
+  0/1 B for A=(5443, 10652, 21188): 0 232-bits set
+  0/1 B for A=(3483, 37885, 38116): 0 232-bits set
+  0/1 B for A=(5443, 10652, 19520): 0 232-bits set
+  0/1 B for A=(5443, 10652, 27512): 0 232-bits set
+  0/1 B for A=(5443, 10652, 29682): 0 232-bits set
+  0/1 B for A=(5443, 10652, 23634): 0 232-bits set
+  0/1 B for A=(5443, 10652, 26947): 0 232-bits set
+  0/1 B for A=(5443, 10652, 30658): 0 232-bits set
+  0/1 B for A=(5443, 10652, 30792): 0 232-bits set
+  0/1 B for A=(5443, 10652, 30104): 0 232-bits set
+  0/1 B for A=(5443, 10652, 37885): 0 232-bits set
+  0/1 B for A=(5443, 10652, 30596): 0 232-bits set
+  0/1 B for A=(5443, 10652, 33251): 0 232-bits set
+  0/1 B for A=(5443, 10652, 38116): 0 232-bits set
+  0/1 B for A=(5443, 19520, 21588): 0 232-bits set
+  0/1 B for A=(5443, 10652, 37748): 0 232-bits set
+  0/1 B for A=(5443, 19520, 21188): 0 232-bits set
+  0/1 B for A=(5443, 19520, 27512): 0 232-bits set
+  0/1 B for A=(5443, 19520, 30104): 0 232-bits set
+  0/1 B for A=(5443, 19520, 23634): 0 232-bits set
+  0/1 B for A=(5443, 19520, 29682): 0 232-bits set
+  0/1 B for A=(5443, 19520, 26947): 0 232-bits set
+  0/1 B for A=(5443, 19520, 30658): 0 232-bits set
+  0/1 B for A=(5443, 19520, 30792): 0 232-bits set
+  0/1 B for A=(5443, 19520, 30596): 0 232-bits set
+  0/1 B for A=(5443, 19520, 38116): 0 232-bits set
+  0/1 B for A=(5443, 19520, 37748): 0 232-bits set
+  0/1 B for A=(5443, 21188, 21588): 0 232-bits set
+  0/1 B for A=(5443, 19520, 33251): 0 232-bits set
+  0/1 B for A=(5443, 19520, 37885): 0 232-bits set
+  0/1 B for A=(5443, 21188, 26947): 0 232-bits set
+  0/1 B for A=(5443, 21188, 29682): 0 232-bits set
+  0/1 B for A=(5443, 21188, 23634): 0 232-bits set
+  0/1 B for A=(5443, 21188, 30658): 0 232-bits set
+  0/1 B for A=(5443, 21188, 30104): 0 232-bits set
+  0/1 B for A=(5443, 21188, 27512): 0 232-bits set
+  0/1 B for A=(5443, 21188, 30792): 0 232-bits set
+  0/1 B for A=(5443, 21188, 30596): 0 232-bits set
+  0/1 B for A=(5443, 21188, 37748): 0 232-bits set
+  0/1 B for A=(5443, 21188, 37885): 0 232-bits set
+  0/1 B for A=(5443, 21188, 38116): 0 232-bits set
+  0/1 B for A=(5443, 21588, 23634): 0 232-bits set
+  0/1 B for A=(5443, 21188, 33251): 0 232-bits set
+  0/1 B for A=(5443, 21588, 30596): 0 232-bits set
+  0/1 B for A=(5443, 21588, 26947): 0 232-bits set
+  0/1 B for A=(5443, 21588, 27512): 0 232-bits set
+  0/1 B for A=(5443, 21588, 30104): 0 232-bits set
+  0/1 B for A=(5443, 21588, 29682): 0 232-bits set
+  0/1 B for A=(5443, 21588, 30792): 0 232-bits set
+  0/1 B for A=(5443, 21588, 37748): 0 232-bits set
+  0/1 B for A=(5443, 21588, 30658): 0 232-bits set
+  0/1 B for A=(5443, 23634, 26947): 0 232-bits set
+  0/1 B for A=(5443, 23634, 27512): 0 232-bits set
+  0/1 B for A=(5443, 21588, 33251): 0 232-bits set
+  0/1 B for A=(5443, 21588, 37885): 0 232-bits set
+  0/1 B for A=(5443, 23634, 30104): 0 232-bits set
+  0/1 B for A=(5443, 23634, 30596): 0 232-bits set
+  0/1 B for A=(5443, 21588, 38116): 0 232-bits set
+  0/1 B for A=(5443, 23634, 29682): 0 232-bits set
+  0/1 B for A=(5443, 23634, 30792): 0 232-bits set
+  0/1 B for A=(5443, 23634, 37748): 0 232-bits set
+  0/1 B for A=(5443, 23634, 30658): 0 232-bits set
+  0/1 B for A=(5443, 26947, 29682): 0 232-bits set
+  0/1 B for A=(5443, 23634, 33251): 0 232-bits set
+  0/1 B for A=(5443, 26947, 27512): 0 232-bits set
+  0/1 B for A=(5443, 23634, 37885): 0 232-bits set
+  0/1 B for A=(5443, 23634, 38116): 0 232-bits set
+  0/1 B for A=(5443, 26947, 30596): 0 232-bits set
+  0/1 B for A=(5443, 26947, 30104): 0 232-bits set
+  0/1 B for A=(5443, 26947, 37885): 0 232-bits set
+  0/1 B for A=(5443, 26947, 30792): 0 232-bits set
+  0/1 B for A=(5443, 26947, 30658): 0 232-bits set
+  0/1 B for A=(5443, 27512, 29682): 0 232-bits set
+  0/1 B for A=(5443, 26947, 33251): 0 232-bits set
+  0/1 B for A=(5443, 26947, 37748): 0 232-bits set
+  0/1 B for A=(5443, 27512, 30104): 0 232-bits set
+  0/1 B for A=(5443, 27512, 30658): 0 232-bits set
+  0/1 B for A=(5443, 26947, 38116): 0 232-bits set
+  0/1 B for A=(5443, 27512, 30596): 0 232-bits set
+  0/1 B for A=(5443, 27512, 37748): 0 232-bits set
+  0/1 B for A=(5443, 27512, 37885): 0 232-bits set
+  0/1 B for A=(5443, 27512, 30792): 0 232-bits set
+  0/1 B for A=(5443, 27512, 33251): 0 232-bits set
+  0/1 B for A=(5443, 29682, 30658): 0 232-bits set
+  0/1 B for A=(5443, 29682, 30596): 0 232-bits set
+  0/1 B for A=(5443, 27512, 38116): 0 232-bits set
+  ...1200/1794 (177s)
+  0/1 B for A=(5443, 29682, 30104): 0 232-bits set
+  0/1 B for A=(5443, 29682, 30792): 0 232-bits set
+  0/1 B for A=(5443, 29682, 37748): 0 232-bits set
+  0/1 B for A=(5443, 30104, 30792): 0 232-bits set
+  0/1 B for A=(5443, 30104, 30658): 0 232-bits set
+  0/1 B for A=(5443, 29682, 33251): 0 232-bits set
+  0/1 B for A=(5443, 29682, 37885): 0 232-bits set
+  0/1 B for A=(5443, 29682, 38116): 0 232-bits set
+  0/1 B for A=(5443, 30104, 33251): 0 232-bits set
+  0/1 B for A=(5443, 30104, 37748): 0 232-bits set
+  0/1 B for A=(5443, 30104, 30596): 0 232-bits set
+  0/1 B for A=(5443, 30596, 30792): 0 232-bits set
+  0/1 B for A=(5443, 30104, 37885): 0 232-bits set
+  0/1 B for A=(5443, 30596, 37885): 0 232-bits set
+  0/1 B for A=(5443, 30596, 37748): 0 232-bits set
+  0/1 B for A=(5443, 30596, 30658): 0 232-bits set
+  0/1 B for A=(5443, 30596, 33251): 0 232-bits set
+  0/1 B for A=(5443, 30104, 38116): 0 232-bits set
+  0/1 B for A=(5443, 30658, 30792): 0 232-bits set
+  0/1 B for A=(5443, 30596, 38116): 0 232-bits set
+  0/1 B for A=(5443, 30658, 33251): 0 232-bits set
+  0/1 B for A=(5443, 30792, 37748): 0 232-bits set
+  0/1 B for A=(5443, 30792, 37885): 0 232-bits set
+  0/1 B for A=(5443, 30792, 33251): 0 232-bits set
+  0/1 B for A=(5443, 30658, 37885): 0 232-bits set
+  0/1 B for A=(5443, 30792, 38116): 0 232-bits set
+  0/1 B for A=(5443, 30658, 37748): 0 232-bits set
+  0/1 B for A=(5443, 30658, 38116): 0 232-bits set
+  0/1 B for A=(5443, 33251, 37885): 0 232-bits set
+  0/1 B for A=(5443, 37748, 37885): 0 232-bits set
+  0/1 B for A=(10652, 19520, 21188): 0 232-bits set
+  0/1 B for A=(5443, 33251, 37748): 0 232-bits set
+  0/1 B for A=(10652, 19520, 21588): 0 232-bits set
+  0/1 B for A=(5443, 33251, 38116): 0 232-bits set
+  0/1 B for A=(5443, 37885, 38116): 0 232-bits set
+  0/1 B for A=(5443, 37748, 38116): 0 232-bits set
+  0/1 B for A=(10652, 19520, 23634): 0 232-bits set
+  0/1 B for A=(10652, 19520, 27512): 0 232-bits set
+  0/1 B for A=(10652, 19520, 30658): 0 232-bits set
+  0/1 B for A=(10652, 19520, 26947): 0 232-bits set
+  0/1 B for A=(10652, 19520, 30792): 0 232-bits set
+  0/1 B for A=(10652, 19520, 33251): 0 232-bits set
+  0/1 B for A=(10652, 19520, 29682): 0 232-bits set
+  0/1 B for A=(10652, 19520, 30596): 0 232-bits set
+  0/1 B for A=(10652, 19520, 30104): 0 232-bits set
+  0/1 B for A=(10652, 19520, 38116): 0 232-bits set
+  0/1 B for A=(10652, 19520, 37885): 0 232-bits set
+  0/1 B for A=(10652, 19520, 37748): 0 232-bits set
+  0/1 B for A=(10652, 21188, 27512): 0 232-bits set
+  0/1 B for A=(10652, 21188, 21588): 0 232-bits set
+  0/1 B for A=(10652, 21188, 23634): 0 232-bits set
+  0/1 B for A=(10652, 21188, 29682): 0 232-bits set
+  0/1 B for A=(10652, 21188, 26947): 0 232-bits set
+  0/1 B for A=(10652, 21188, 30596): 0 232-bits set
+  0/1 B for A=(10652, 21188, 30104): 0 232-bits set
+  0/1 B for A=(10652, 21188, 37885): 0 232-bits set
+  0/1 B for A=(10652, 21188, 30792): 0 232-bits set
+  0/1 B for A=(10652, 21188, 30658): 0 232-bits set
+  0/1 B for A=(10652, 21188, 33251): 0 232-bits set
+  0/1 B for A=(10652, 21588, 23634): 0 232-bits set
+  0/1 B for A=(10652, 21188, 37748): 0 232-bits set
+  0/1 B for A=(10652, 21588, 26947): 0 232-bits set
+  0/1 B for A=(10652, 21588, 30104): 0 232-bits set
+  0/1 B for A=(10652, 21188, 38116): 0 232-bits set
+  0/1 B for A=(10652, 21588, 30792): 0 232-bits set
+  0/1 B for A=(10652, 21588, 29682): 0 232-bits set
+  0/1 B for A=(10652, 21588, 27512): 0 232-bits set
+  0/1 B for A=(10652, 21588, 30658): 0 232-bits set
+  0/1 B for A=(10652, 21588, 30596): 0 232-bits set
+  0/1 B for A=(10652, 21588, 37748): 0 232-bits set
+  0/1 B for A=(10652, 23634, 26947): 0 232-bits set
+  0/1 B for A=(10652, 21588, 33251): 0 232-bits set
+  0/1 B for A=(10652, 23634, 29682): 0 232-bits set
+  0/1 B for A=(10652, 21588, 37885): 0 232-bits set
+  0/1 B for A=(10652, 21588, 38116): 0 232-bits set
+  0/1 B for A=(10652, 23634, 30658): 0 232-bits set
+  0/1 B for A=(10652, 23634, 27512): 0 232-bits set
+  0/1 B for A=(10652, 23634, 30104): 0 232-bits set
+  0/1 B for A=(10652, 23634, 37748): 0 232-bits set
+  0/1 B for A=(10652, 23634, 30596): 0 232-bits set
+  0/1 B for A=(10652, 23634, 38116): 0 232-bits set
+  0/1 B for A=(10652, 23634, 30792): 0 232-bits set
+  0/1 B for A=(10652, 26947, 27512): 0 232-bits set
+  0/1 B for A=(10652, 23634, 33251): 0 232-bits set
+  0/1 B for A=(10652, 23634, 37885): 0 232-bits set
+  0/1 B for A=(10652, 26947, 30658): 0 232-bits set
+  0/1 B for A=(10652, 26947, 29682): 0 232-bits set
+  0/1 B for A=(10652, 26947, 30104): 0 232-bits set
+  0/1 B for A=(10652, 26947, 37748): 0 232-bits set
+  0/1 B for A=(10652, 26947, 37885): 0 232-bits set
+  0/1 B for A=(10652, 26947, 30792): 0 232-bits set
+  0/1 B for A=(10652, 26947, 30596): 0 232-bits set
+  0/1 B for A=(10652, 27512, 29682): 0 232-bits set
+  0/1 B for A=(10652, 26947, 33251): 0 232-bits set
+  0/1 B for A=(10652, 27512, 30104): 0 232-bits set
+  0/1 B for A=(10652, 27512, 30792): 0 232-bits set
+  0/1 B for A=(10652, 26947, 38116): 0 232-bits set
+  0/1 B for A=(10652, 27512, 30658): 0 232-bits set
+  0/1 B for A=(10652, 27512, 37748): 0 232-bits set
+  0/1 B for A=(10652, 27512, 30596): 0 232-bits set
+  0/1 B for A=(10652, 27512, 33251): 0 232-bits set
+  0/1 B for A=(10652, 27512, 37885): 0 232-bits set
+  0/1 B for A=(10652, 29682, 30104): 0 232-bits set
+  0/1 B for A=(10652, 29682, 33251): 0 232-bits set
+  0/1 B for A=(10652, 27512, 38116): 0 232-bits set
+  0/1 B for A=(10652, 29682, 30596): 0 232-bits set
+  0/1 B for A=(10652, 29682, 30658): 0 232-bits set
+  0/1 B for A=(10652, 29682, 37885): 0 232-bits set
+  0/1 B for A=(10652, 29682, 37748): 0 232-bits set
+  0/1 B for A=(10652, 29682, 30792): 0 232-bits set
+  0/1 B for A=(10652, 30104, 30792): 0 232-bits set
+  0/1 B for A=(10652, 29682, 38116): 0 232-bits set
+  0/1 B for A=(10652, 30104, 33251): 0 232-bits set
+  0/1 B for A=(10652, 30104, 30596): 0 232-bits set
+  0/1 B for A=(10652, 30104, 37885): 0 232-bits set
+  0/1 B for A=(10652, 30104, 30658): 0 232-bits set
+  0/1 B for A=(10652, 30104, 38116): 0 232-bits set
+  0/1 B for A=(10652, 30596, 33251): 0 232-bits set
+  0/1 B for A=(10652, 30104, 37748): 0 232-bits set
+  0/1 B for A=(10652, 30596, 30658): 0 232-bits set
+  0/1 B for A=(10652, 30596, 38116): 0 232-bits set
+  0/1 B for A=(10652, 30596, 37885): 0 232-bits set
+  0/1 B for A=(10652, 30596, 30792): 0 232-bits set
+  0/1 B for A=(10652, 30596, 37748): 0 232-bits set
+  0/1 B for A=(10652, 30658, 37748): 0 232-bits set
+  0/1 B for A=(10652, 30658, 37885): 0 232-bits set
+  0/1 B for A=(10652, 30658, 30792): 0 232-bits set
+  0/1 B for A=(10652, 30792, 37748): 0 232-bits set
+  0/1 B for A=(10652, 30658, 33251): 0 232-bits set
+  0/1 B for A=(10652, 30792, 37885): 0 232-bits set
+  0/1 B for A=(10652, 30658, 38116): 0 232-bits set
+  0/1 B for A=(10652, 30792, 33251): 0 232-bits set
+  0/1 B for A=(10652, 33251, 38116): 0 232-bits set
+  0/1 B for A=(10652, 33251, 37748): 0 232-bits set
+  0/1 B for A=(10652, 30792, 38116): 0 232-bits set
+  0/1 B for A=(19520, 21188, 21588): 0 232-bits set
+  0/1 B for A=(10652, 33251, 37885): 0 232-bits set
+  0/1 B for A=(10652, 37885, 38116): 0 232-bits set
+  0/1 B for A=(10652, 37748, 37885): 0 232-bits set
+  0/1 B for A=(19520, 21188, 29682): 0 232-bits set
+  0/1 B for A=(10652, 37748, 38116): 0 232-bits set
+  0/1 B for A=(19520, 21188, 26947): 0 232-bits set
+  0/1 B for A=(19520, 21188, 23634): 0 232-bits set
+  0/1 B for A=(19520, 21188, 30596): 0 232-bits set
+  0/1 B for A=(19520, 21188, 30792): 0 232-bits set
+  0/1 B for A=(19520, 21188, 27512): 0 232-bits set
+  0/1 B for A=(19520, 21188, 37748): 0 232-bits set
+  0/1 B for A=(19520, 21188, 30104): 0 232-bits set
+  0/1 B for A=(19520, 21188, 37885): 0 232-bits set
+  0/1 B for A=(19520, 21188, 30658): 0 232-bits set
+  0/1 B for A=(19520, 21588, 23634): 0 232-bits set
+  0/1 B for A=(19520, 21188, 33251): 0 232-bits set
+  0/1 B for A=(19520, 21588, 27512): 0 232-bits set
+  0/1 B for A=(19520, 21588, 30104): 0 232-bits set
+  0/1 B for A=(19520, 21188, 38116): 0 232-bits set
+  0/1 B for A=(19520, 21588, 26947): 0 232-bits set
+  0/1 B for A=(19520, 21588, 30658): 0 232-bits set
+  0/1 B for A=(19520, 21588, 30792): 0 232-bits set
+  0/1 B for A=(19520, 21588, 29682): 0 232-bits set
+  0/1 B for A=(19520, 21588, 30596): 0 232-bits set
+  0/1 B for A=(19520, 21588, 37885): 0 232-bits set
+  0/1 B for A=(19520, 21588, 38116): 0 232-bits set
+  0/1 B for A=(19520, 21588, 33251): 0 232-bits set
+  0/1 B for A=(19520, 23634, 27512): 0 232-bits set
+  0/1 B for A=(19520, 23634, 29682): 0 232-bits set
+  0/1 B for A=(19520, 21588, 37748): 0 232-bits set
+  0/1 B for A=(19520, 23634, 26947): 0 232-bits set
+  0/1 B for A=(19520, 23634, 30658): 0 232-bits set
+  0/1 B for A=(19520, 23634, 30104): 0 232-bits set
+  0/1 B for A=(19520, 23634, 30792): 0 232-bits set
+  0/1 B for A=(19520, 23634, 37885): 0 232-bits set
+  0/1 B for A=(19520, 23634, 30596): 0 232-bits set
+  0/1 B for A=(19520, 26947, 27512): 0 232-bits set
+  0/1 B for A=(19520, 23634, 38116): 0 232-bits set
+  0/1 B for A=(19520, 23634, 33251): 0 232-bits set
+  0/1 B for A=(19520, 23634, 37748): 0 232-bits set
+  0/1 B for A=(19520, 26947, 30596): 0 232-bits set
+  0/1 B for A=(19520, 26947, 30658): 0 232-bits set
+  0/1 B for A=(19520, 26947, 29682): 0 232-bits set
+  0/1 B for A=(19520, 26947, 37748): 0 232-bits set
+  0/1 B for A=(19520, 26947, 37885): 0 232-bits set
+  0/1 B for A=(19520, 26947, 30104): 0 232-bits set
+  0/1 B for A=(19520, 26947, 33251): 0 232-bits set
+  0/1 B for A=(19520, 26947, 30792): 0 232-bits set
+  0/1 B for A=(19520, 27512, 30104): 0 232-bits set
+  0/1 B for A=(19520, 27512, 29682): 0 232-bits set
+  0/1 B for A=(19520, 26947, 38116): 0 232-bits set
+  0/1 B for A=(19520, 27512, 33251): 0 232-bits set
+  0/1 B for A=(19520, 27512, 37748): 0 232-bits set
+  0/1 B for A=(19520, 27512, 30596): 0 232-bits set
+  0/1 B for A=(19520, 27512, 30658): 0 232-bits set
+  0/1 B for A=(19520, 27512, 30792): 0 232-bits set
+  0/1 B for A=(19520, 27512, 38116): 0 232-bits set
+  0/1 B for A=(19520, 29682, 30104): 0 232-bits set
+  0/1 B for A=(19520, 27512, 37885): 0 232-bits set
+  0/1 B for A=(19520, 29682, 37748): 0 232-bits set
+  0/1 B for A=(19520, 29682, 33251): 0 232-bits set
+  0/1 B for A=(19520, 29682, 30658): 0 232-bits set
+  0/1 B for A=(19520, 29682, 38116): 0 232-bits set
+  0/1 B for A=(19520, 29682, 30596): 0 232-bits set
+  ...1400/1794 (180s)
+  0/1 B for A=(19520, 30104, 30596): 0 232-bits set
+  0/1 B for A=(19520, 29682, 30792): 0 232-bits set
+  0/1 B for A=(19520, 29682, 37885): 0 232-bits set
+  0/1 B for A=(19520, 30104, 30792): 0 232-bits set
+  0/1 B for A=(19520, 30104, 37748): 0 232-bits set
+  0/1 B for A=(19520, 30596, 30658): 0 232-bits set
+  0/1 B for A=(19520, 30104, 30658): 0 232-bits set
+  0/1 B for A=(19520, 30104, 33251): 0 232-bits set
+  0/1 B for A=(19520, 30104, 38116): 0 232-bits set
+  0/1 B for A=(19520, 30596, 33251): 0 232-bits set
+  0/1 B for A=(19520, 30596, 30792): 0 232-bits set
+  0/1 B for A=(19520, 30104, 37885): 0 232-bits set
+  0/1 B for A=(19520, 30658, 30792): 0 232-bits set
+  0/1 B for A=(19520, 30658, 33251): 0 232-bits set
+  0/1 B for A=(19520, 30658, 37885): 0 232-bits set
+  0/1 B for A=(19520, 30596, 37885): 0 232-bits set
+  0/1 B for A=(19520, 30596, 38116): 0 232-bits set
+  0/1 B for A=(19520, 30596, 37748): 0 232-bits set
+  0/1 B for A=(19520, 30658, 38116): 0 232-bits set
+  0/1 B for A=(19520, 30658, 37748): 0 232-bits set
+  0/1 B for A=(19520, 30792, 33251): 0 232-bits set
+  0/1 B for A=(19520, 33251, 38116): 0 232-bits set
+  0/1 B for A=(19520, 33251, 37748): 0 232-bits set
+  0/1 B for A=(19520, 30792, 38116): 0 232-bits set
+  0/1 B for A=(19520, 30792, 37885): 0 232-bits set
+  0/1 B for A=(19520, 30792, 37748): 0 232-bits set
+  0/1 B for A=(19520, 37748, 37885): 0 232-bits set
+  0/1 B for A=(19520, 33251, 37885): 0 232-bits set
+  0/1 B for A=(19520, 37885, 38116): 0 232-bits set
+  0/1 B for A=(21188, 21588, 27512): 0 232-bits set
+  0/1 B for A=(19520, 37748, 38116): 0 232-bits set
+  0/1 B for A=(21188, 21588, 23634): 0 232-bits set
+  0/1 B for A=(21188, 21588, 30104): 0 232-bits set
+  0/1 B for A=(21188, 21588, 30596): 0 232-bits set
+  0/1 B for A=(21188, 21588, 26947): 0 232-bits set
+  0/1 B for A=(21188, 21588, 29682): 0 232-bits set
+  0/1 B for A=(21188, 21588, 30792): 0 232-bits set
+  0/1 B for A=(21188, 21588, 30658): 0 232-bits set
+  0/1 B for A=(21188, 21588, 33251): 0 232-bits set
+  0/1 B for A=(21188, 23634, 26947): 0 232-bits set
+  0/1 B for A=(21188, 21588, 37748): 0 232-bits set
+  0/1 B for A=(21188, 23634, 29682): 0 232-bits set
+  0/1 B for A=(21188, 21588, 37885): 0 232-bits set
+  0/1 B for A=(21188, 23634, 30104): 0 232-bits set
+  0/1 B for A=(21188, 21588, 38116): 0 232-bits set
+  0/1 B for A=(21188, 23634, 27512): 0 232-bits set
+  0/1 B for A=(21188, 23634, 30658): 0 232-bits set
+  0/1 B for A=(21188, 23634, 33251): 0 232-bits set
+  0/1 B for A=(21188, 23634, 30596): 0 232-bits set
+  0/1 B for A=(21188, 23634, 38116): 0 232-bits set
+  0/1 B for A=(21188, 23634, 30792): 0 232-bits set
+  0/1 B for A=(21188, 26947, 29682): 0 232-bits set
+  0/1 B for A=(21188, 23634, 37748): 0 232-bits set
+  0/1 B for A=(21188, 23634, 37885): 0 232-bits set
+  0/1 B for A=(21188, 26947, 27512): 0 232-bits set
+  0/1 B for A=(21188, 26947, 30104): 0 232-bits set
+  0/1 B for A=(21188, 26947, 30658): 0 232-bits set
+  0/1 B for A=(21188, 26947, 38116): 0 232-bits set
+  0/1 B for A=(21188, 26947, 37885): 0 232-bits set
+  0/1 B for A=(21188, 26947, 30596): 0 232-bits set
+  0/1 B for A=(21188, 26947, 30792): 0 232-bits set
+  0/1 B for A=(21188, 26947, 33251): 0 232-bits set
+  0/1 B for A=(21188, 27512, 29682): 0 232-bits set
+  0/1 B for A=(21188, 26947, 37748): 0 232-bits set
+  0/1 B for A=(21188, 27512, 30104): 0 232-bits set
+  0/1 B for A=(21188, 27512, 33251): 0 232-bits set
+  0/1 B for A=(21188, 27512, 37885): 0 232-bits set
+  0/1 B for A=(21188, 27512, 30596): 0 232-bits set
+  0/1 B for A=(21188, 27512, 30658): 0 232-bits set
+  0/1 B for A=(21188, 27512, 30792): 0 232-bits set
+  0/1 B for A=(21188, 27512, 38116): 0 232-bits set
+  0/1 B for A=(21188, 27512, 37748): 0 232-bits set
+  0/1 B for A=(21188, 29682, 30104): 0 232-bits set
+  0/1 B for A=(21188, 29682, 30792): 0 232-bits set
+  0/1 B for A=(21188, 29682, 33251): 0 232-bits set
+  0/1 B for A=(21188, 29682, 37885): 0 232-bits set
+  0/1 B for A=(21188, 29682, 30596): 0 232-bits set
+  0/1 B for A=(21188, 29682, 38116): 0 232-bits set
+  0/1 B for A=(21188, 29682, 30658): 0 232-bits set
+  0/1 B for A=(21188, 29682, 37748): 0 232-bits set
+  0/1 B for A=(21188, 30104, 33251): 0 232-bits set
+  0/1 B for A=(21188, 30104, 37885): 0 232-bits set
+  0/1 B for A=(21188, 30104, 30596): 0 232-bits set
+  0/1 B for A=(21188, 30104, 30658): 0 232-bits set
+  0/1 B for A=(21188, 30104, 38116): 0 232-bits set
+  0/1 B for A=(21188, 30104, 37748): 0 232-bits set
+  0/1 B for A=(21188, 30104, 30792): 0 232-bits set
+  0/1 B for A=(21188, 30596, 33251): 0 232-bits set
+  0/1 B for A=(21188, 30596, 30658): 0 232-bits set
+  0/1 B for A=(21188, 30596, 30792): 0 232-bits set
+  0/1 B for A=(21188, 30658, 30792): 0 232-bits set
+  0/1 B for A=(21188, 30596, 37748): 0 232-bits set
+  0/1 B for A=(21188, 30658, 33251): 0 232-bits set
+  0/1 B for A=(21188, 30596, 38116): 0 232-bits set
+  0/1 B for A=(21188, 30658, 37885): 0 232-bits set
+  0/1 B for A=(21188, 30596, 37885): 0 232-bits set
+  0/1 B for A=(21188, 30792, 33251): 0 232-bits set
+  0/1 B for A=(21188, 30792, 37885): 0 232-bits set
+  0/1 B for A=(21188, 30658, 37748): 0 232-bits set
+  0/1 B for A=(21188, 30658, 38116): 0 232-bits set
+  0/1 B for A=(21188, 30792, 37748): 0 232-bits set
+  0/1 B for A=(21188, 33251, 37885): 0 232-bits set
+  0/1 B for A=(21188, 33251, 37748): 0 232-bits set
+  0/1 B for A=(21188, 30792, 38116): 0 232-bits set
+  0/1 B for A=(21588, 23634, 26947): 0 232-bits set
+  0/1 B for A=(21188, 37885, 38116): 0 232-bits set
+  0/1 B for A=(21188, 33251, 38116): 0 232-bits set
+  0/1 B for A=(21188, 37748, 37885): 0 232-bits set
+  0/1 B for A=(21188, 37748, 38116): 0 232-bits set
+  0/1 B for A=(21588, 23634, 30104): 0 232-bits set
+  0/1 B for A=(21588, 23634, 29682): 0 232-bits set
+  0/1 B for A=(21588, 23634, 27512): 0 232-bits set
+  0/1 B for A=(21588, 23634, 33251): 0 232-bits set
+  0/1 B for A=(21588, 23634, 37748): 0 232-bits set
+  0/1 B for A=(21588, 23634, 30596): 0 232-bits set
+  0/1 B for A=(21588, 23634, 38116): 0 232-bits set
+  0/1 B for A=(21588, 23634, 30658): 0 232-bits set
+  0/1 B for A=(21588, 23634, 30792): 0 232-bits set
+  0/1 B for A=(21588, 26947, 27512): 0 232-bits set
+  0/1 B for A=(21588, 23634, 37885): 0 232-bits set
+  0/1 B for A=(21588, 26947, 30104): 0 232-bits set
+  0/1 B for A=(21588, 26947, 30792): 0 232-bits set
+  0/1 B for A=(21588, 26947, 29682): 0 232-bits set
+  0/1 B for A=(21588, 26947, 37748): 0 232-bits set
+  0/1 B for A=(21588, 26947, 30596): 0 232-bits set
+  0/1 B for A=(21588, 26947, 30658): 0 232-bits set
+  0/1 B for A=(21588, 26947, 37885): 0 232-bits set
+  0/1 B for A=(21588, 26947, 33251): 0 232-bits set
+  0/1 B for A=(21588, 27512, 29682): 0 232-bits set
+  0/1 B for A=(21588, 27512, 33251): 0 232-bits set
+  0/1 B for A=(21588, 27512, 30658): 0 232-bits set
+  0/1 B for A=(21588, 26947, 38116): 0 232-bits set
+  0/1 B for A=(21588, 27512, 30104): 0 232-bits set
+  0/1 B for A=(21588, 27512, 30596): 0 232-bits set
+  0/1 B for A=(21588, 27512, 37748): 0 232-bits set
+  0/1 B for A=(21588, 27512, 30792): 0 232-bits set
+  0/1 B for A=(21588, 27512, 37885): 0 232-bits set
+  0/1 B for A=(21588, 29682, 30792): 0 232-bits set
+  0/1 B for A=(21588, 29682, 33251): 0 232-bits set
+  0/1 B for A=(21588, 27512, 38116): 0 232-bits set
+  0/1 B for A=(21588, 29682, 30658): 0 232-bits set
+  0/1 B for A=(21588, 29682, 37748): 0 232-bits set
+  0/1 B for A=(21588, 29682, 30104): 0 232-bits set
+  0/1 B for A=(21588, 29682, 30596): 0 232-bits set
+  0/1 B for A=(21588, 29682, 37885): 0 232-bits set
+  0/1 B for A=(21588, 30104, 30658): 0 232-bits set
+  0/1 B for A=(21588, 30104, 37748): 0 232-bits set
+  0/1 B for A=(21588, 30104, 30596): 0 232-bits set
+  0/1 B for A=(21588, 29682, 38116): 0 232-bits set
+  0/1 B for A=(21588, 30104, 37885): 0 232-bits set
+  0/1 B for A=(21588, 30104, 33251): 0 232-bits set
+  0/1 B for A=(21588, 30104, 30792): 0 232-bits set
+  0/1 B for A=(21588, 30104, 38116): 0 232-bits set
+  0/1 B for A=(21588, 30596, 33251): 0 232-bits set
+  0/1 B for A=(21588, 30596, 30658): 0 232-bits set
+  0/1 B for A=(21588, 30658, 30792): 0 232-bits set
+  0/1 B for A=(21588, 30596, 30792): 0 232-bits set
+  0/1 B for A=(21588, 30596, 38116): 0 232-bits set
+  0/1 B for A=(21588, 30596, 37748): 0 232-bits set
+  0/1 B for A=(21588, 30658, 37748): 0 232-bits set
+  0/1 B for A=(21588, 30596, 37885): 0 232-bits set
+  0/1 B for A=(21588, 30658, 38116): 0 232-bits set
+  0/1 B for A=(21588, 30792, 37748): 0 232-bits set
+  0/1 B for A=(21588, 30658, 33251): 0 232-bits set
+  0/1 B for A=(21588, 30658, 37885): 0 232-bits set
+  0/1 B for A=(21588, 33251, 37748): 0 232-bits set
+  0/1 B for A=(21588, 30792, 38116): 0 232-bits set
+  0/1 B for A=(21588, 30792, 37885): 0 232-bits set
+  0/1 B for A=(21588, 30792, 33251): 0 232-bits set
+  0/1 B for A=(21588, 37748, 37885): 0 232-bits set
+  0/1 B for A=(21588, 33251, 37885): 0 232-bits set
+  0/1 B for A=(21588, 33251, 38116): 0 232-bits set
+  0/1 B for A=(23634, 26947, 29682): 0 232-bits set
+  0/1 B for A=(21588, 37748, 38116): 0 232-bits set
+  0/1 B for A=(23634, 26947, 30596): 0 232-bits set
+  0/1 B for A=(23634, 26947, 30658): 0 232-bits set
+  0/1 B for A=(21588, 37885, 38116): 0 232-bits set
+  0/1 B for A=(23634, 26947, 27512): 0 232-bits set
+  0/1 B for A=(23634, 26947, 30104): 0 232-bits set
+  0/1 B for A=(23634, 26947, 37748): 0 232-bits set
+  0/1 B for A=(23634, 26947, 33251): 0 232-bits set
+  0/1 B for A=(23634, 26947, 30792): 0 232-bits set
+  0/1 B for A=(23634, 27512, 30104): 0 232-bits set
+  0/1 B for A=(23634, 26947, 37885): 0 232-bits set
+  0/1 B for A=(23634, 27512, 30596): 0 232-bits set
+  0/1 B for A=(23634, 26947, 38116): 0 232-bits set
+  0/1 B for A=(23634, 27512, 30792): 0 232-bits set
+  0/1 B for A=(23634, 27512, 29682): 0 232-bits set
+  0/1 B for A=(23634, 27512, 30658): 0 232-bits set
+  0/1 B for A=(23634, 27512, 38116): 0 232-bits set
+  0/1 B for A=(23634, 27512, 37748): 0 232-bits set
+  0/1 B for A=(23634, 27512, 37885): 0 232-bits set
+  0/1 B for A=(23634, 29682, 30658): 0 232-bits set
+  0/1 B for A=(23634, 27512, 33251): 0 232-bits set
+  0/1 B for A=(23634, 29682, 37748): 0 232-bits set
+  0/1 B for A=(23634, 29682, 33251): 0 232-bits set
+  0/1 B for A=(23634, 29682, 30596): 0 232-bits set
+  0/1 B for A=(23634, 29682, 30104): 0 232-bits set
+  0/1 B for A=(23634, 29682, 38116): 0 232-bits set
+  0/1 B for A=(23634, 30104, 30596): 0 232-bits set
+  ...1600/1794 (182s)
+  0/1 B for A=(23634, 29682, 30792): 0 232-bits set
+  0/1 B for A=(23634, 29682, 37885): 0 232-bits set
+  0/1 B for A=(23634, 30104, 33251): 0 232-bits set
+  0/1 B for A=(23634, 30104, 37748): 0 232-bits set
+  0/1 B for A=(23634, 30104, 30658): 0 232-bits set
+  0/1 B for A=(23634, 30104, 30792): 0 232-bits set
+  0/1 B for A=(23634, 30596, 30792): 0 232-bits set
+  0/1 B for A=(23634, 30596, 30658): 0 232-bits set
+  0/1 B for A=(23634, 30104, 37885): 0 232-bits set
+  0/1 B for A=(23634, 30104, 38116): 0 232-bits set
+  0/1 B for A=(23634, 30596, 37748): 0 232-bits set
+  0/1 B for A=(23634, 30596, 37885): 0 232-bits set
+  0/1 B for A=(23634, 30596, 33251): 0 232-bits set
+  0/1 B for A=(23634, 30658, 37885): 0 232-bits set
+  0/1 B for A=(23634, 30658, 37748): 0 232-bits set
+  0/1 B for A=(23634, 30596, 38116): 0 232-bits set
+  0/1 B for A=(23634, 30792, 33251): 0 232-bits set
+  0/1 B for A=(23634, 30658, 30792): 0 232-bits set
+  0/1 B for A=(23634, 30658, 33251): 0 232-bits set
+  0/1 B for A=(23634, 30792, 37748): 0 232-bits set
+  0/1 B for A=(23634, 30658, 38116): 0 232-bits set
+  0/1 B for A=(23634, 30792, 38116): 0 232-bits set
+  0/1 B for A=(23634, 30792, 37885): 0 232-bits set
+  0/1 B for A=(23634, 33251, 37885): 0 232-bits set
+  0/1 B for A=(23634, 33251, 38116): 0 232-bits set
+  0/1 B for A=(23634, 33251, 37748): 0 232-bits set
+  0/1 B for A=(26947, 27512, 29682): 0 232-bits set
+  0/1 B for A=(23634, 37748, 38116): 0 232-bits set
+  0/1 B for A=(23634, 37748, 37885): 0 232-bits set
+  0/1 B for A=(26947, 27512, 30104): 0 232-bits set
+  0/1 B for A=(23634, 37885, 38116): 0 232-bits set
+  0/1 B for A=(26947, 27512, 30658): 0 232-bits set
+  0/1 B for A=(26947, 27512, 30596): 0 232-bits set
+  0/1 B for A=(26947, 27512, 37748): 0 232-bits set
+  0/1 B for A=(26947, 27512, 38116): 0 232-bits set
+  0/1 B for A=(26947, 27512, 30792): 0 232-bits set
+  0/1 B for A=(26947, 27512, 37885): 0 232-bits set
+  0/1 B for A=(26947, 27512, 33251): 0 232-bits set
+  0/1 B for A=(26947, 29682, 30658): 0 232-bits set
+  0/1 B for A=(26947, 29682, 30596): 0 232-bits set
+  0/1 B for A=(26947, 29682, 30104): 0 232-bits set
+  0/1 B for A=(26947, 29682, 37885): 0 232-bits set
+  0/1 B for A=(26947, 29682, 30792): 0 232-bits set
+  0/1 B for A=(26947, 29682, 33251): 0 232-bits set
+  0/1 B for A=(26947, 29682, 38116): 0 232-bits set
+  0/1 B for A=(26947, 29682, 37748): 0 232-bits set
+  0/1 B for A=(26947, 30104, 33251): 0 232-bits set
+  0/1 B for A=(26947, 30104, 37748): 0 232-bits set
+  0/1 B for A=(26947, 30104, 30658): 0 232-bits set
+  0/1 B for A=(26947, 30104, 30596): 0 232-bits set
+  0/1 B for A=(26947, 30104, 30792): 0 232-bits set
+  0/1 B for A=(26947, 30104, 38116): 0 232-bits set
+  0/1 B for A=(26947, 30596, 30658): 0 232-bits set
+  0/1 B for A=(26947, 30104, 37885): 0 232-bits set
+  0/1 B for A=(26947, 30596, 37885): 0 232-bits set
+  0/1 B for A=(26947, 30596, 30792): 0 232-bits set
+  0/1 B for A=(26947, 30596, 38116): 0 232-bits set
+  0/1 B for A=(26947, 30658, 33251): 0 232-bits set
+  0/1 B for A=(26947, 30596, 33251): 0 232-bits set
+  0/1 B for A=(26947, 30596, 37748): 0 232-bits set
+  0/1 B for A=(26947, 30658, 37885): 0 232-bits set
+  0/1 B for A=(26947, 30658, 30792): 0 232-bits set
+  0/1 B for A=(26947, 30792, 37748): 0 232-bits set
+  0/1 B for A=(26947, 30658, 38116): 0 232-bits set
+  0/1 B for A=(26947, 30658, 37748): 0 232-bits set
+  0/1 B for A=(26947, 30792, 37885): 0 232-bits set
+  0/1 B for A=(26947, 33251, 37748): 0 232-bits set
+  0/1 B for A=(26947, 30792, 33251): 0 232-bits set
+  0/1 B for A=(26947, 37748, 37885): 0 232-bits set
+  0/1 B for A=(26947, 30792, 38116): 0 232-bits set
+  0/1 B for A=(26947, 37748, 38116): 0 232-bits set
+  0/1 B for A=(26947, 33251, 37885): 0 232-bits set
+  0/1 B for A=(26947, 33251, 38116): 0 232-bits set
+  0/1 B for A=(27512, 29682, 30104): 0 232-bits set
+  0/1 B for A=(26947, 37885, 38116): 0 232-bits set
+  0/1 B for A=(27512, 29682, 30658): 0 232-bits set
+  0/1 B for A=(27512, 29682, 30792): 0 232-bits set
+  0/1 B for A=(27512, 29682, 30596): 0 232-bits set
+  0/1 B for A=(27512, 29682, 38116): 0 232-bits set
+  0/1 B for A=(27512, 29682, 37748): 0 232-bits set
+  0/1 B for A=(27512, 29682, 33251): 0 232-bits set
+  0/1 B for A=(27512, 30104, 30792): 0 232-bits set
+  0/1 B for A=(27512, 29682, 37885): 0 232-bits set
+  0/1 B for A=(27512, 30104, 33251): 0 232-bits set
+  0/1 B for A=(27512, 30104, 30596): 0 232-bits set
+  0/1 B for A=(27512, 30104, 37885): 0 232-bits set
+  0/1 B for A=(27512, 30104, 30658): 0 232-bits set
+  0/1 B for A=(27512, 30596, 30658): 0 232-bits set
+  0/1 B for A=(27512, 30104, 37748): 0 232-bits set
+  0/1 B for A=(27512, 30596, 33251): 0 232-bits set
+  0/1 B for A=(27512, 30596, 30792): 0 232-bits set
+  0/1 B for A=(27512, 30104, 38116): 0 232-bits set
+  0/1 B for A=(27512, 30658, 30792): 0 232-bits set
+  0/1 B for A=(27512, 30658, 33251): 0 232-bits set
+  0/1 B for A=(27512, 30596, 37748): 0 232-bits set
+  0/1 B for A=(27512, 30596, 37885): 0 232-bits set
+  0/1 B for A=(27512, 30658, 37885): 0 232-bits set
+  0/1 B for A=(27512, 30596, 38116): 0 232-bits set
+  0/1 B for A=(27512, 30658, 37748): 0 232-bits set
+  0/1 B for A=(27512, 30658, 38116): 0 232-bits set
+  0/1 B for A=(27512, 30792, 37885): 0 232-bits set
+  0/1 B for A=(27512, 33251, 38116): 0 232-bits set
+  0/1 B for A=(27512, 33251, 37885): 0 232-bits set
+  0/1 B for A=(27512, 30792, 37748): 0 232-bits set
+  0/1 B for A=(27512, 30792, 33251): 0 232-bits set
+  0/1 B for A=(27512, 30792, 38116): 0 232-bits set
+  0/1 B for A=(27512, 37748, 38116): 0 232-bits set
+  0/1 B for A=(27512, 33251, 37748): 0 232-bits set
+  0/1 B for A=(27512, 37748, 37885): 0 232-bits set
+  0/1 B for A=(29682, 30104, 30792): 0 232-bits set
+  0/1 B for A=(27512, 37885, 38116): 0 232-bits set
+  0/1 B for A=(29682, 30104, 37748): 0 232-bits set
+  0/1 B for A=(29682, 30104, 30596): 0 232-bits set
+  0/1 B for A=(29682, 30104, 30658): 0 232-bits set
+  0/1 B for A=(29682, 30104, 37885): 0 232-bits set
+  0/1 B for A=(29682, 30104, 33251): 0 232-bits set
+  0/1 B for A=(29682, 30596, 30658): 0 232-bits set
+  0/1 B for A=(29682, 30596, 37748): 0 232-bits set
+  0/1 B for A=(29682, 30596, 33251): 0 232-bits set
+  0/1 B for A=(29682, 30104, 38116): 0 232-bits set
+  0/1 B for A=(29682, 30658, 30792): 0 232-bits set
+  0/1 B for A=(29682, 30596, 30792): 0 232-bits set
+  0/1 B for A=(29682, 30596, 38116): 0 232-bits set
+  0/1 B for A=(29682, 30658, 33251): 0 232-bits set
+  0/1 B for A=(29682, 30658, 37885): 0 232-bits set
+  0/1 B for A=(29682, 30596, 37885): 0 232-bits set
+  0/1 B for A=(29682, 30792, 37885): 0 232-bits set
+  0/1 B for A=(29682, 30658, 37748): 0 232-bits set
+  0/1 B for A=(29682, 30792, 37748): 0 232-bits set
+  0/1 B for A=(29682, 30792, 33251): 0 232-bits set
+  0/1 B for A=(29682, 30658, 38116): 0 232-bits set
+  0/1 B for A=(29682, 33251, 37748): 0 232-bits set
+  0/1 B for A=(29682, 30792, 38116): 0 232-bits set
+  0/1 B for A=(29682, 37885, 38116): 0 232-bits set
+  0/1 B for A=(29682, 33251, 38116): 0 232-bits set
+  0/1 B for A=(29682, 37748, 38116): 0 232-bits set
+  0/1 B for A=(29682, 33251, 37885): 0 232-bits set
+  0/1 B for A=(29682, 37748, 37885): 0 232-bits set
+  0/1 B for A=(30104, 30596, 37748): 0 232-bits set
+  0/1 B for A=(30104, 30596, 30792): 0 232-bits set
+  0/1 B for A=(30104, 30596, 37885): 0 232-bits set
+  0/1 B for A=(30104, 30596, 30658): 0 232-bits set
+  0/1 B for A=(30104, 30596, 33251): 0 232-bits set
+  0/1 B for A=(30104, 30658, 30792): 0 232-bits set
+  0/1 B for A=(30104, 30596, 38116): 0 232-bits set
+  0/1 B for A=(30104, 30658, 37748): 0 232-bits set
+  0/1 B for A=(30104, 30792, 33251): 0 232-bits set
+  0/1 B for A=(30104, 30658, 33251): 0 232-bits set
+  0/1 B for A=(30104, 30658, 38116): 0 232-bits set
+  0/1 B for A=(30104, 30658, 37885): 0 232-bits set
+  0/1 B for A=(30104, 30792, 37885): 0 232-bits set
+  0/1 B for A=(30104, 30792, 37748): 0 232-bits set
+  0/1 B for A=(30104, 33251, 37885): 0 232-bits set
+  0/1 B for A=(30104, 30792, 38116): 0 232-bits set
+  0/1 B for A=(30104, 33251, 37748): 0 232-bits set
+  0/1 B for A=(30104, 37885, 38116): 0 232-bits set
+  0/1 B for A=(30596, 30658, 30792): 0 232-bits set
+  0/1 B for A=(30104, 33251, 38116): 0 232-bits set
+  0/1 B for A=(30104, 37748, 37885): 0 232-bits set
+  0/1 B for A=(30104, 37748, 38116): 0 232-bits set
+  0/1 B for A=(30596, 30658, 37748): 0 232-bits set
+  0/1 B for A=(30596, 30658, 37885): 0 232-bits set
+  0/1 B for A=(30596, 30658, 33251): 0 232-bits set
+  0/1 B for A=(30596, 30658, 38116): 0 232-bits set
+  0/1 B for A=(30596, 30792, 37885): 0 232-bits set
+  0/1 B for A=(30596, 30792, 33251): 0 232-bits set
+  0/1 B for A=(30596, 30792, 38116): 0 232-bits set
+  0/1 B for A=(30596, 30792, 37748): 0 232-bits set
+  0/1 B for A=(30596, 33251, 38116): 0 232-bits set
+  0/1 B for A=(30596, 37748, 38116): 0 232-bits set
+  0/1 B for A=(30596, 33251, 37748): 0 232-bits set
+  0/1 B for A=(30658, 30792, 33251): 0 232-bits set
+  0/1 B for A=(30596, 33251, 37885): 0 232-bits set
+  0/1 B for A=(30596, 37748, 37885): 0 232-bits set
+  0/1 B for A=(30658, 30792, 37748): 0 232-bits set
+  0/1 B for A=(30658, 30792, 38116): 0 232-bits set
+  0/1 B for A=(30596, 37885, 38116): 0 232-bits set
+  0/1 B for A=(30658, 30792, 37885): 0 232-bits set
+  0/1 B for A=(30658, 37748, 37885): 0 232-bits set
+  0/1 B for A=(30658, 33251, 38116): 0 232-bits set
+  0/1 B for A=(30658, 33251, 37748): 0 232-bits set
+  0/1 B for A=(30658, 33251, 37885): 0 232-bits set
+  0/1 B for A=(30792, 33251, 37748): 0 232-bits set
+  0/1 B for A=(30658, 37748, 38116): 0 232-bits set
+  0/1 B for A=(30792, 33251, 37885): 0 232-bits set
+  0/1 B for A=(30658, 37885, 38116): 0 232-bits set
+  0/1 B for A=(33251, 37748, 37885): 0 232-bits set
+  0/1 B for A=(30792, 37748, 38116): 0 232-bits set
+  0/1 B for A=(30792, 33251, 38116): 0 232-bits set
+  0/1 B for A=(30792, 37748, 37885): 0 232-bits set
+  0/1 B for A=(30792, 37885, 38116): 0 232-bits set
+  0/1 B for A=(33251, 37885, 38116): 0 232-bits set
+  0/1 B for A=(33251, 37748, 38116): 0 232-bits set
+  0/1 B for A=(37748, 37885, 38116): 0 232-bits set
+0/1 candidates: 1794 (184s)
+  Z-verify []...: 4 violated
+  Z-verify [1782]...: 37 violated
+  Z-verify [1858]...: 18 violated
+  Z-verify [2795]...: 18 violated
+  Z-verify [3483]...: 27 violated
+  Z-verify [2800]...: 35 violated
+  Z-verify [5443]...: 18 violated
+  Z-verify [10652]...: 16 violated
+  Z-verify [19520]...: 15 violated
+  Z-verify [21188]...: 26 violated
+  Z-verify [21588]...: 24 violated
+  Z-verify [23634]...: 20 violated
+  Z-verify [27512]...: 15 violated
+  Z-verify [26947]...: 12 violated
+  Z-verify [29682]...: 22 violated
+  Z-verify [30104]...: 16 violated
+  Z-verify [30596]...: 35 violated
+  Z-verify [30658]...: 17 violated
+  Z-verify [30792]...: 22 violated
+  Z-verify [33251]...: 34 violated
+  Z-verify [37748]...: 18 violated
+  Z-verify [37885]...: 22 violated
+  Z-verify [38116]...: 26 violated
+  Z-verify [1782, 1858]...: 51 violated
+  Z-verify [1782, 2795]...: 51 violated
+  Z-verify [1782, 2800]...: 59 violated
+  Z-verify [1782, 3483]...: 53 violated
+  Z-verify [1782, 10652]...: 49 violated
+  Z-verify [1782, 19520]...: 48 violated
+  Z-verify [1782, 21188]...: 52 violated
+  Z-verify [1782, 23634]...: 46 violated
+  Z-verify [1782, 21588]...: 50 violated
+  Z-verify [1782, 5443]...: 51 violated
+  Z-verify [1782, 26947]...: 45 violated
+  Z-verify [1782, 30104]...: 49 violated
+  Z-verify [1782, 27512]...: 48 violated
+  Z-verify [1782, 29682]...: 48 violated
+  Z-verify [1782, 30596]...: 59 violated
+  Z-verify [1782, 30658]...: 50 violated
+  Z-verify [1782, 30792]...: 48 violated
+  Z-verify [1782, 33251]...: 58 violated
+  Z-verify [1782, 37885]...: 48 violated
+  Z-verify [1782, 37748]...: 51 violated
+  Z-verify [1858, 2795]...: 32 violated
+  Z-verify [1858, 2800]...: 50 violated
+  Z-verify [1782, 38116]...: 47 violated
+  Z-verify [1858, 3483]...: 41 violated
+  Z-verify [1858, 5443]...: 34 violated
+  Z-verify [1858, 19520]...: 29 violated
+  Z-verify [1858, 10652]...: 30 violated
+  Z-verify [1858, 21188]...: 40 violated
+  Z-verify [1858, 21588]...: 38 violated
+  Z-verify [1858, 26947]...: 28 violated
+  Z-verify [1858, 27512]...: 29 violated
+  Z-verify [1858, 23634]...: 34 violated
+  Z-verify [1858, 29682]...: 36 violated
+  Z-verify [1858, 30596]...: 50 violated
+  Z-verify [1858, 30104]...: 32 violated
+  Z-verify [1858, 30792]...: 36 violated
+  Z-verify [1858, 37748]...: 32 violated
+  Z-verify [1858, 30658]...: 31 violated
+  Z-verify [1858, 38116]...: 40 violated
+  Z-verify [1858, 33251]...: 49 violated
+  Z-verify [2795, 3483]...: 41 violated
+  Z-verify [2795, 2800]...: 50 violated
+  Z-verify [2795, 10652]...: 31 violated
+  Z-verify [2795, 5443]...: 32 violated
+  Z-verify [1858, 37885]...: 36 violated
+  Z-verify [2795, 19520]...: 31 violated
+  Z-verify [2795, 21188]...: 40 violated
+  Z-verify [2795, 21588]...: 38 violated
+  Z-verify [2795, 23634]...: 34 violated
+  Z-verify [2795, 27512]...: 30 violated
+  Z-verify [2795, 26947]...: 26 violated
+  Z-verify [2795, 29682]...: 36 violated
+  Z-verify [2795, 30596]...: 50 violated
+  Z-verify [2795, 30658]...: 25 violated
+  Z-verify [2795, 30104]...: 29 violated
+  Z-verify [2795, 30792]...: 36 violated
+  Z-verify [2795, 33251]...: 49 violated
+  Z-verify [2795, 37748]...: 33 violated
+  Z-verify [2795, 37885]...: 36 violated
+  Z-verify [2795, 38116]...: 40 violated
+  Z-verify [2800, 3483]...: 52 violated
+  Z-verify [2800, 10652]...: 48 violated
+  Z-verify [2800, 5443]...: 50 violated
+  Z-verify [2800, 19520]...: 47 violated
+  Z-verify [2800, 21188]...: 51 violated
+  Z-verify [2800, 21588]...: 49 violated
+  Z-verify [2800, 27512]...: 47 violated
+  Z-verify [2800, 23634]...: 45 violated
+  Z-verify [2800, 29682]...: 47 violated
+  Z-verify [2800, 26947]...: 44 violated
+  Z-verify [2800, 30104]...: 48 violated
+  Z-verify [2800, 30658]...: 49 violated
+  Z-verify [2800, 30596]...: 40 violated
+  Z-verify [2800, 37748]...: 50 violated
+  Z-verify [2800, 30792]...: 47 violated
+  Z-verify [2800, 33251]...: 40 violated
+  Z-verify [2800, 38116]...: 43 violated
+  Z-verify [2800, 37885]...: 47 violated
+  Z-verify [3483, 19520]...: 38 violated
+  Z-verify [3483, 10652]...: 39 violated
+  Z-verify [3483, 5443]...: 41 violated
+  Z-verify [3483, 21588]...: 48 violated
+  Z-verify [3483, 21188]...: 36 violated
+  Z-verify [3483, 26947]...: 35 violated
+  Z-verify [3483, 27512]...: 38 violated
+  Z-verify [3483, 23634]...: 28 violated
+  Z-verify [3483, 30104]...: 39 violated
+  Z-verify [3483, 30596]...: 52 violated
+  Z-verify [3483, 29682]...: 46 violated
+  Z-verify [3483, 30792]...: 28 violated
+  Z-verify [3483, 33251]...: 51 violated
+  Z-verify [3483, 30658]...: 40 violated
+  Z-verify [3483, 37885]...: 30 violated
+  Z-verify [3483, 38116]...: 42 violated
+  Z-verify [5443, 19520]...: 29 violated
+  Z-verify [3483, 37748]...: 41 violated
+  Z-verify [5443, 21188]...: 40 violated
+  Z-verify [5443, 21588]...: 38 violated
+  Z-verify [5443, 10652]...: 30 violated
+  Z-verify [5443, 26947]...: 29 violated
+  Z-verify [5443, 27512]...: 29 violated
+  Z-verify [5443, 23634]...: 34 violated
+  Z-verify [5443, 30104]...: 33 violated
+  Z-verify [5443, 30596]...: 50 violated
+  Z-verify [5443, 29682]...: 36 violated
+  Z-verify [5443, 30792]...: 36 violated
+  Z-verify [5443, 30658]...: 31 violated
+  Z-verify [5443, 33251]...: 49 violated
+  Z-verify [5443, 37748]...: 32 violated
+  Z-verify [5443, 38116]...: 40 violated
+  Z-verify [5443, 37885]...: 36 violated
+  Z-verify [10652, 21188]...: 38 violated
+  Z-verify [10652, 23634]...: 32 violated
+  Z-verify [10652, 21588]...: 36 violated
+  Z-verify [10652, 19520]...: 28 violated
+  Z-verify [10652, 27512]...: 20 violated
+  Z-verify [10652, 26947]...: 24 violated
+  Z-verify [10652, 29682]...: 34 violated
+  Z-verify [10652, 30658]...: 30 violated
+  Z-verify [10652, 30596]...: 48 violated
+  Z-verify [10652, 33251]...: 47 violated
+  Z-verify [10652, 30104]...: 28 violated
+  Z-verify [10652, 37748]...: 41 violated
+  Z-verify [10652, 30792]...: 34 violated
+  Z-verify [10652, 38116]...: 38 violated
+  Z-verify [19520, 21588]...: 35 violated
+  Z-verify [10652, 37885]...: 33 violated
+  Z-verify [19520, 26947]...: 23 violated
+  Z-verify [19520, 21188]...: 37 violated
+  Z-verify [19520, 27512]...: 27 violated
+  Z-verify [19520, 23634]...: 31 violated
+  Z-verify [19520, 30658]...: 31 violated
+  Z-verify [19520, 30104]...: 24 violated
+  Z-verify [19520, 29682]...: 33 violated
+  Z-verify [19520, 33251]...: 46 violated
+  Z-verify [19520, 30596]...: 47 violated
+  Z-verify [19520, 37748]...: 30 violated
+  Z-verify [19520, 38116]...: 37 violated
+  Z-verify [19520, 30792]...: 33 violated
+  Z-verify [19520, 37885]...: 33 violated
+  Z-verify [21188, 27512]...: 37 violated
+  Z-verify [21188, 23634]...: 27 violated
+  Z-verify [21188, 21588]...: 47 violated
+  Z-verify [21188, 30596]...: 51 violated
+  Z-verify [21188, 30658]...: 39 violated
+  Z-verify [21188, 26947]...: 34 violated
+  Z-verify [21188, 29682]...: 45 violated
+  Z-verify [21188, 30104]...: 38 violated
+  Z-verify [21188, 33251]...: 50 violated
+  Z-verify [21188, 37748]...: 40 violated
+  Z-verify [21188, 30792]...: 29 violated
+  Z-verify [21588, 26947]...: 32 violated
+  Z-verify [21588, 30104]...: 36 violated
+  Z-verify [21188, 37885]...: 29 violated
+  Z-verify [21588, 27512]...: 35 violated
+  Z-verify [21188, 38116]...: 41 violated
+  Z-verify [21588, 23634]...: 25 violated
+  Z-verify [21588, 30596]...: 49 violated
+  Z-verify [21588, 29682]...: 28 violated
+  Z-verify [21588, 30792]...: 27 violated
+  Z-verify [21588, 37885]...: 27 violated
+  Z-verify [21588, 33251]...: 48 violated
+  Z-verify [21588, 30658]...: 37 violated
+  Z-verify [23634, 27512]...: 31 violated
+  Z-verify [21588, 37748]...: 38 violated
+  Z-verify [23634, 29682]...: 23 violated
+  Z-verify [21588, 38116]...: 39 violated
+  Z-verify [23634, 26947]...: 28 violated
+  Z-verify [23634, 30792]...: 32 violated
+  Z-verify [23634, 30596]...: 45 violated
+  Z-verify [23634, 30104]...: 32 violated
+  Z-verify [23634, 37885]...: 31 violated
+  Z-verify [23634, 38116]...: 35 violated
+  Z-verify [23634, 30658]...: 33 violated
+  Z-verify [23634, 33251]...: 44 violated
+  Z-verify [26947, 29682]...: 30 violated
+  Z-verify [23634, 37748]...: 34 violated
+  Z-verify [26947, 30104]...: 21 violated
+  Z-verify [26947, 30596]...: 44 violated
+  Z-verify [26947, 27512]...: 23 violated
+  Z-verify [26947, 37748]...: 26 violated
+  Z-verify [26947, 30792]...: 30 violated
+  Z-verify [26947, 37885]...: 30 violated
+  Z-verify [26947, 30658]...: 25 violated
+  Z-verify [26947, 33251]...: 43 violated
+  Z-verify [27512, 29682]...: 33 violated
+  Z-verify [27512, 30658]...: 29 violated
+  Z-verify [26947, 38116]...: 34 violated
+  Z-verify [27512, 33251]...: 46 violated
+  Z-verify [27512, 30104]...: 27 violated
+  Z-verify [27512, 30596]...: 47 violated
+  Z-verify [27512, 37748]...: 41 violated
+  Z-verify [27512, 30792]...: 33 violated
+  Z-verify [27512, 38116]...: 37 violated
+  Z-verify [29682, 30658]...: 35 violated
+  Z-verify [29682, 30104]...: 34 violated
+  Z-verify [29682, 30596]...: 47 violated
+  Z-verify [27512, 37885]...: 33 violated
+  Z-verify [29682, 33251]...: 46 violated
+  Z-verify [29682, 37748]...: 36 violated
+  Z-verify [29682, 30792]...: 25 violated
+  Z-verify [30104, 30658]...: 29 violated
+  Z-verify [30104, 30792]...: 34 violated
+  Z-verify [29682, 37885]...: 25 violated
+  Z-verify [29682, 38116]...: 37 violated
+  Z-verify [30104, 30596]...: 48 violated
+  Z-verify [30104, 37885]...: 34 violated
+  Z-verify [30104, 37748]...: 30 violated
+  Z-verify [30596, 33251]...: 33 violated
+  Z-verify [30596, 37748]...: 50 violated
+  Z-verify [30104, 33251]...: 47 violated
+  Z-verify [30104, 38116]...: 38 violated
+  Z-verify [30596, 38116]...: 45 violated
+  Z-verify [30596, 37885]...: 47 violated
+  Z-verify [30596, 30658]...: 49 violated
+  Z-verify [30596, 30792]...: 47 violated
+  Z-verify [30658, 37748]...: 32 violated
+  Z-verify [30658, 38116]...: 39 violated
+  Z-verify [30658, 30792]...: 35 violated
+  Z-verify [30658, 33251]...: 48 violated
+  Z-verify [30792, 37885]...: 34 violated
+  Z-verify [30792, 37748]...: 36 violated
+  Z-verify [30792, 33251]...: 46 violated
+  Z-verify [30658, 37885]...: 35 violated
+  Z-verify [33251, 37885]...: 46 violated
+  Z-verify [33251, 37748]...: 49 violated
+  Z-verify [30792, 38116]...: 37 violated
+  Z-verify [37885, 38116]...: 37 violated
+  Z-verify [33251, 38116]...: 45 violated
+  Z-verify [1782, 1858, 2795]...: 65 violated
+  Z-verify [1782, 1858, 3483]...: 67 violated
+  Z-verify [37748, 37885]...: 35 violated
+  Z-verify [37748, 38116]...: 40 violated
+  Z-verify [1782, 1858, 19520]...: 62 violated
+  Z-verify [1782, 1858, 2800]...: 74 violated
+  Z-verify [1782, 1858, 10652]...: 63 violated
+  Z-verify [1782, 1858, 5443]...: 67 violated
+  Z-verify [1782, 1858, 23634]...: 60 violated
+  Z-verify [1782, 1858, 21188]...: 66 violated
+  Z-verify [1782, 1858, 30104]...: 65 violated
+  Z-verify [1782, 1858, 27512]...: 62 violated
+  Z-verify [1782, 1858, 21588]...: 64 violated
+  Z-verify [1782, 1858, 30658]...: 64 violated
+  Z-verify [1782, 1858, 29682]...: 62 violated
+  Z-verify [1782, 1858, 26947]...: 61 violated
+  Z-verify [1782, 1858, 30792]...: 62 violated
+  Z-verify [1782, 1858, 37748]...: 65 violated
+  Z-verify [1782, 1858, 30596]...: 74 violated
+  Z-verify [1782, 1858, 33251]...: 73 violated
+  Z-verify [1782, 2795, 3483]...: 67 violated
+  Z-verify [1782, 2795, 2800]...: 74 violated
+  Z-verify [1782, 1858, 37885]...: 62 violated
+  Z-verify [1782, 1858, 38116]...: 61 violated
+  Z-verify [1782, 2795, 19520]...: 64 violated
+  Z-verify [1782, 2795, 21188]...: 66 violated
+  Z-verify [1782, 2795, 5443]...: 65 violated
+  Z-verify [1782, 2795, 10652]...: 64 violated
+  Z-verify [1782, 2795, 27512]...: 63 violated
+  Z-verify [1782, 2795, 21588]...: 64 violated
+  Z-verify [1782, 2795, 26947]...: 59 violated
+  Z-verify [1782, 2795, 23634]...: 60 violated
+  Z-verify [1782, 2795, 30596]...: 74 violated
+  Z-verify [1782, 2795, 30792]...: 62 violated
+  Z-verify [1782, 2795, 29682]...: 62 violated
+  Z-verify [1782, 2795, 30104]...: 62 violated
+  Z-verify [1782, 2795, 37748]...: 66 violated
+  Z-verify [1782, 2795, 30658]...: 58 violated
+  Z-verify [1782, 2795, 37885]...: 62 violated
+  Z-verify [1782, 2795, 38116]...: 61 violated
+  Z-verify [1782, 2800, 5443]...: 74 violated
+  Z-verify [1782, 2795, 33251]...: 73 violated
+  Z-verify [1782, 2800, 3483]...: 76 violated
+  Z-verify [1782, 2800, 21188]...: 75 violated
+  Z-verify [1782, 2800, 21588]...: 73 violated
+  Z-verify [1782, 2800, 10652]...: 72 violated
+  Z-verify [1782, 2800, 19520]...: 71 violated
+  Z-verify [1782, 2800, 23634]...: 69 violated
+  Z-verify [1782, 2800, 29682]...: 71 violated
+  Z-verify [1782, 2800, 30658]...: 73 violated
+  Z-verify [1782, 2800, 27512]...: 71 violated
+  Z-verify [1782, 2800, 26947]...: 68 violated
+  Z-verify [1782, 2800, 30792]...: 71 violated
+  Z-verify [1782, 2800, 30596]...: 64 violated
+  Z-verify [1782, 2800, 30104]...: 72 violated
+  Z-verify [1782, 2800, 33251]...: 64 violated
+  Z-verify [1782, 2800, 38116]...: 66 violated
+  Z-verify [1782, 3483, 19520]...: 64 violated
+  Z-verify [1782, 2800, 37885]...: 71 violated
+  Z-verify [1782, 2800, 37748]...: 74 violated
+  Z-verify [1782, 3483, 5443]...: 67 violated
+  Z-verify [1782, 3483, 21188]...: 62 violated
+  Z-verify [1782, 3483, 21588]...: 74 violated
+  Z-verify [1782, 3483, 10652]...: 65 violated
+  Z-verify [1782, 3483, 29682]...: 72 violated
+  Z-verify [1782, 3483, 23634]...: 61 violated
+  Z-verify [1782, 3483, 30104]...: 65 violated
+  Z-verify [1782, 3483, 26947]...: 61 violated
+  Z-verify [1782, 3483, 27512]...: 64 violated
+  Z-verify [1782, 3483, 30658]...: 66 violated
+  Z-verify [1782, 3483, 30596]...: 76 violated
+  Z-verify [1782, 3483, 30792]...: 61 violated
+  Z-verify [1782, 3483, 38116]...: 63 violated
+  Z-verify [1782, 3483, 33251]...: 75 violated
+  Z-verify [1782, 3483, 37748]...: 67 violated
+  Z-verify [1782, 5443, 19520]...: 62 violated
+  Z-verify [1782, 3483, 37885]...: 63 violated
+  Z-verify [1782, 5443, 21188]...: 66 violated
+  Z-verify [1782, 5443, 10652]...: 63 violated
+  Z-verify [1782, 5443, 26947]...: 62 violated
+  Z-verify [1782, 5443, 29682]...: 62 violated
+  Z-verify [1782, 5443, 21588]...: 64 violated
+  Z-verify [1782, 5443, 23634]...: 60 violated
+  Z-verify [1782, 5443, 27512]...: 62 violated
+  Z-verify [1782, 5443, 30658]...: 64 violated
+  Z-verify [1782, 5443, 30596]...: 74 violated
+  Z-verify [1782, 5443, 30104]...: 66 violated
+  Z-verify [1782, 5443, 30792]...: 62 violated
+  Z-verify [1782, 5443, 37885]...: 62 violated
+  Z-verify [1782, 5443, 38116]...: 61 violated
+  Z-verify [1782, 10652, 21188]...: 64 violated
+  Z-verify [1782, 5443, 33251]...: 73 violated
+  Z-verify [1782, 5443, 37748]...: 65 violated
+  Z-verify [1782, 10652, 23634]...: 58 violated
+  Z-verify [1782, 10652, 19520]...: 61 violated
+  Z-verify [1782, 10652, 26947]...: 57 violated
+  Z-verify [1782, 10652, 21588]...: 62 violated
+  Z-verify [1782, 10652, 30104]...: 61 violated
+  Z-verify [1782, 10652, 30658]...: 63 violated
+  Z-verify [1782, 10652, 27512]...: 53 violated
+  Z-verify [1782, 10652, 29682]...: 60 violated
+  Z-verify [1782, 10652, 30792]...: 60 violated
+  Z-verify [1782, 10652, 33251]...: 71 violated
+  Z-verify [1782, 10652, 30596]...: 72 violated
+  Z-verify [1782, 10652, 37748]...: 74 violated
+  Z-verify [1782, 19520, 21188]...: 63 violated
+  Z-verify [1782, 19520, 21588]...: 61 violated
+  Z-verify [1782, 19520, 27512]...: 60 violated
+  Z-verify [1782, 10652, 37885]...: 59 violated
+  Z-verify [1782, 10652, 38116]...: 59 violated
+  Z-verify [1782, 19520, 26947]...: 56 violated
+  Z-verify [1782, 19520, 29682]...: 59 violated
+  Z-verify [1782, 19520, 30104]...: 57 violated
+  Z-verify [1782, 19520, 23634]...: 57 violated
+  Z-verify [1782, 19520, 37748]...: 63 violated
+  Z-verify [1782, 19520, 33251]...: 70 violated
+  Z-verify [1782, 19520, 30596]...: 71 violated
+  Z-verify [1782, 19520, 30658]...: 64 violated
+  Z-verify [1782, 19520, 30792]...: 59 violated
+  Z-verify [1782, 19520, 38116]...: 58 violated
+  Z-verify [1782, 21188, 21588]...: 73 violated
+  Z-verify [1782, 19520, 37885]...: 59 violated
+  Z-verify [1782, 21188, 29682]...: 71 violated
+  Z-verify [1782, 21188, 30104]...: 64 violated
+  Z-verify [1782, 21188, 30658]...: 65 violated
+  Z-verify [1782, 21188, 23634]...: 60 violated
+  Z-verify [1782, 21188, 27512]...: 63 violated
+  Z-verify [1782, 21188, 26947]...: 60 violated
+  Z-verify [1782, 21188, 33251]...: 74 violated
+  Z-verify [1782, 21188, 30792]...: 62 violated
+  Z-verify [1782, 21188, 30596]...: 75 violated
+  Z-verify [1782, 21588, 23634]...: 58 violated
+  Z-verify [1782, 21588, 26947]...: 58 violated
+  Z-verify [1782, 21188, 37748]...: 66 violated
+  Z-verify [1782, 21188, 37885]...: 62 violated
+  Z-verify [1782, 21188, 38116]...: 62 violated
+  Z-verify [1782, 21588, 29682]...: 54 violated
+  Z-verify [1782, 21588, 30104]...: 62 violated
+  Z-verify [1782, 21588, 27512]...: 61 violated
+  Z-verify [1782, 21588, 33251]...: 72 violated
+  Z-verify [1782, 21588, 37748]...: 64 violated
+  Z-verify [1782, 21588, 30596]...: 73 violated
+  Z-verify [1782, 21588, 30658]...: 63 violated
+  Z-verify [1782, 21588, 30792]...: 60 violated
+  Z-verify [1782, 23634, 26947]...: 54 violated
+  Z-verify [1782, 21588, 38116]...: 60 violated
+  Z-verify [1782, 21588, 37885]...: 60 violated
+  Z-verify [1782, 23634, 30596]...: 69 violated
+  Z-verify [1782, 23634, 30658]...: 59 violated
+  Z-verify [1782, 23634, 27512]...: 57 violated
+  Z-verify [1782, 23634, 29682]...: 56 violated
+  Z-verify [1782, 23634, 33251]...: 68 violated
+  Z-verify [1782, 23634, 30104]...: 58 violated
+  Z-verify [1782, 23634, 37748]...: 60 violated
+  Z-verify [1782, 26947, 27512]...: 56 violated
+  Z-verify [1782, 23634, 30792]...: 58 violated
+  Z-verify [1782, 26947, 30104]...: 54 violated
+  Z-verify [1782, 26947, 30596]...: 68 violated
+  Z-verify [1782, 23634, 37885]...: 57 violated
+  Z-verify [1782, 23634, 38116]...: 56 violated
+  Z-verify [1782, 26947, 29682]...: 56 violated
+  Z-verify [1782, 26947, 30792]...: 56 violated
+  Z-verify [1782, 26947, 33251]...: 67 violated
+  Z-verify [1782, 26947, 30658]...: 58 violated
+  Z-verify [1782, 26947, 37748]...: 59 violated
+  Z-verify [1782, 27512, 30104]...: 60 violated
+  Z-verify [1782, 26947, 37885]...: 56 violated
+  Z-verify [1782, 27512, 29682]...: 59 violated
+  Z-verify [1782, 27512, 30792]...: 59 violated
+  Z-verify [1782, 26947, 38116]...: 55 violated
+  Z-verify [1782, 27512, 30658]...: 62 violated
+  Z-verify [1782, 27512, 30596]...: 71 violated
+  Z-verify [1782, 27512, 37885]...: 59 violated
+  Z-verify [1782, 27512, 37748]...: 74 violated
+  Z-verify [1782, 29682, 30104]...: 60 violated
+  Z-verify [1782, 29682, 30658]...: 61 violated
+  Z-verify [1782, 27512, 33251]...: 70 violated
+  Z-verify [1782, 27512, 38116]...: 58 violated
+  Z-verify [1782, 29682, 37748]...: 62 violated
+  Z-verify [1782, 29682, 33251]...: 70 violated
+  Z-verify [1782, 29682, 30792]...: 58 violated
+  Z-verify [1782, 29682, 30596]...: 71 violated
+  Z-verify [1782, 30104, 30596]...: 72 violated
+  Z-verify [1782, 30104, 30658]...: 62 violated
+  Z-verify [1782, 29682, 38116]...: 58 violated
+  Z-verify [1782, 30104, 30792]...: 60 violated
+  Z-verify [1782, 30104, 37748]...: 63 violated
+  Z-verify [1782, 29682, 37885]...: 58 violated
+  Z-verify [1782, 30104, 37885]...: 60 violated
+  Z-verify [1782, 30596, 30658]...: 73 violated
+  Z-verify [1782, 30596, 37748]...: 74 violated
+  Z-verify [1782, 30104, 33251]...: 71 violated
+  Z-verify [1782, 30596, 30792]...: 71 violated
+  Z-verify [1782, 30596, 37885]...: 71 violated
+  Z-verify [1782, 30104, 38116]...: 59 violated
+  Z-verify [1782, 30596, 38116]...: 68 violated
+  Z-verify [1782, 30658, 33251]...: 72 violated
+  Z-verify [1782, 30596, 33251]...: 57 violated
+  Z-verify [1782, 30658, 37748]...: 65 violated
+  Z-verify [1782, 30792, 33251]...: 70 violated
+  Z-verify [1782, 30658, 37885]...: 61 violated
+  Z-verify [1782, 30792, 37885]...: 60 violated
+  Z-verify [1782, 30658, 30792]...: 61 violated
+  Z-verify [1782, 30658, 38116]...: 60 violated
+  Z-verify [1782, 30792, 38116]...: 58 violated
+  Z-verify [1782, 30792, 37748]...: 62 violated
+  Z-verify [1782, 33251, 37885]...: 70 violated
+  Z-verify [1782, 37748, 38116]...: 61 violated
+  Z-verify [1782, 33251, 37748]...: 73 violated
+  Z-verify [1858, 2795, 2800]...: 64 violated
+  Z-verify [1782, 33251, 38116]...: 68 violated
+  Z-verify [1782, 37748, 37885]...: 61 violated
+  Z-verify [1858, 2795, 3483]...: 55 violated
+  Z-verify [1858, 2795, 10652]...: 45 violated
+  Z-verify [1782, 37885, 38116]...: 58 violated
+  Z-verify [1858, 2795, 21588]...: 52 violated
+  Z-verify [1858, 2795, 23634]...: 48 violated
+  Z-verify [1858, 2795, 5443]...: 48 violated
+  Z-verify [1858, 2795, 21188]...: 54 violated
+  Z-verify [1858, 2795, 19520]...: 45 violated
+  Z-verify [1858, 2795, 27512]...: 44 violated
+  Z-verify [1858, 2795, 29682]...: 50 violated
+  Z-verify [1858, 2795, 26947]...: 42 violated
+  Z-verify [1858, 2795, 33251]...: 63 violated
+  Z-verify [1858, 2795, 30792]...: 50 violated
+  Z-verify [1858, 2795, 30104]...: 45 violated
+  Z-verify [1858, 2795, 30596]...: 64 violated
+  Z-verify [1858, 2795, 37748]...: 47 violated
+  Z-verify [1858, 2795, 30658]...: 39 violated
+  Z-verify [1858, 2795, 38116]...: 54 violated
+  Z-verify [1858, 2795, 37885]...: 50 violated
+  Z-verify [1858, 2800, 10652]...: 62 violated
+  Z-verify [1858, 2800, 21188]...: 65 violated
+  Z-verify [1858, 2800, 5443]...: 66 violated
+  Z-verify [1858, 2800, 23634]...: 59 violated
+  Z-verify [1858, 2800, 3483]...: 66 violated
+  Z-verify [1858, 2800, 19520]...: 61 violated
+  Z-verify [1858, 2800, 26947]...: 60 violated
+  Z-verify [1858, 2800, 21588]...: 63 violated
+  Z-verify [1858, 2800, 29682]...: 61 violated
+  Z-verify [1858, 2800, 30658]...: 63 violated
+  Z-verify [1858, 2800, 33251]...: 54 violated
+  Z-verify [1858, 2800, 30104]...: 64 violated
+  Z-verify [1858, 2800, 27512]...: 61 violated
+  Z-verify [1858, 2800, 30596]...: 54 violated
+  Z-verify [1858, 2800, 30792]...: 61 violated
+  Z-verify [1858, 2800, 37748]...: 64 violated
+  Z-verify [1858, 2800, 37885]...: 61 violated
+  Z-verify [1858, 3483, 21188]...: 50 violated
+  Z-verify [1858, 2800, 38116]...: 58 violated
+  Z-verify [1858, 3483, 19520]...: 52 violated
+  Z-verify [1858, 3483, 5443]...: 57 violated
+  Z-verify [1858, 3483, 21588]...: 62 violated
+  Z-verify [1858, 3483, 23634]...: 42 violated
+  Z-verify [1858, 3483, 10652]...: 53 violated
+  Z-verify [1858, 3483, 30596]...: 66 violated
+  Z-verify [1858, 3483, 30104]...: 55 violated
+  Z-verify [1858, 3483, 30792]...: 42 violated
+  Z-verify [1858, 3483, 26947]...: 51 violated
+  Z-verify [1858, 3483, 27512]...: 52 violated
+  Z-verify [1858, 3483, 29682]...: 60 violated
+  Z-verify [1858, 3483, 30658]...: 54 violated
+  Z-verify [1858, 3483, 37748]...: 55 violated
+  Z-verify [1858, 3483, 33251]...: 65 violated
+  Z-verify [1858, 3483, 38116]...: 56 violated
+  Z-verify [1858, 5443, 21188]...: 56 violated
+  Z-verify [1858, 5443, 21588]...: 54 violated
+  Z-verify [1858, 3483, 37885]...: 44 violated
+  Z-verify [1858, 5443, 23634]...: 50 violated
+  Z-verify [1858, 5443, 10652]...: 46 violated
+  Z-verify [1858, 5443, 19520]...: 45 violated
+  Z-verify [1858, 5443, 27512]...: 45 violated
+  Z-verify [1858, 5443, 26947]...: 44 violated
+  Z-verify [1858, 5443, 30104]...: 48 violated
+  Z-verify [1858, 5443, 30792]...: 52 violated
+  Z-verify [1858, 5443, 37748]...: 48 violated
+  Z-verify [1858, 5443, 29682]...: 52 violated
+  Z-verify [1858, 5443, 30596]...: 66 violated
+  Z-verify [1858, 5443, 33251]...: 65 violated
+  Z-verify [1858, 5443, 30658]...: 47 violated
+  Z-verify [1858, 5443, 38116]...: 56 violated
+  Z-verify [1858, 10652, 21588]...: 50 violated
+  Z-verify [1858, 5443, 37885]...: 52 violated
+  Z-verify [1858, 10652, 26947]...: 40 violated
+  Z-verify [1858, 10652, 19520]...: 42 violated
+  Z-verify [1858, 10652, 27512]...: 34 violated
+  Z-verify [1858, 10652, 21188]...: 52 violated
+  Z-verify [1858, 10652, 23634]...: 46 violated
+  Z-verify [1858, 10652, 30104]...: 44 violated
+  Z-verify [1858, 10652, 30658]...: 44 violated
+  Z-verify [1858, 10652, 37748]...: 55 violated
+  Z-verify [1858, 10652, 29682]...: 48 violated
+  Z-verify [1858, 10652, 37885]...: 47 violated
+  Z-verify [1858, 10652, 30596]...: 62 violated
+  Z-verify [1858, 10652, 38116]...: 52 violated
+  Z-verify [1858, 10652, 30792]...: 48 violated
+  Z-verify [1858, 10652, 33251]...: 61 violated
+  Z-verify [1858, 19520, 21588]...: 49 violated
+  Z-verify [1858, 19520, 26947]...: 39 violated
+  Z-verify [1858, 19520, 21188]...: 51 violated
+  Z-verify [1858, 19520, 30596]...: 61 violated
+  Z-verify [1858, 19520, 30104]...: 40 violated
+  Z-verify [1858, 19520, 23634]...: 45 violated
+  Z-verify [1858, 19520, 30792]...: 47 violated
+  Z-verify [1858, 19520, 27512]...: 41 violated
+  Z-verify [1858, 19520, 29682]...: 47 violated
+  Z-verify [1858, 19520, 33251]...: 60 violated
+  Z-verify [1858, 19520, 30658]...: 45 violated
+  Z-verify [1858, 19520, 37885]...: 47 violated
+  Z-verify [1858, 21188, 23634]...: 41 violated
+  Z-verify [1858, 19520, 37748]...: 44 violated
+  Z-verify [1858, 21188, 27512]...: 51 violated
+  Z-verify [1858, 19520, 38116]...: 51 violated
+  Z-verify [1858, 21188, 29682]...: 59 violated
+  Z-verify [1858, 21188, 21588]...: 61 violated
+  Z-verify [1858, 21188, 26947]...: 50 violated
+  Z-verify [1858, 21188, 30596]...: 65 violated
+  Z-verify [1858, 21188, 37885]...: 43 violated
+  Z-verify [1858, 21188, 30792]...: 43 violated
+  Z-verify [1858, 21188, 30104]...: 54 violated
+  Z-verify [1858, 21188, 30658]...: 53 violated
+  Z-verify [1858, 21188, 38116]...: 55 violated
+  Z-verify [1858, 21188, 37748]...: 54 violated
+  Z-verify [1858, 21188, 33251]...: 64 violated
+  Z-verify [1858, 21588, 23634]...: 39 violated
+  Z-verify [1858, 21588, 29682]...: 42 violated
+  Z-verify [1858, 21588, 30658]...: 51 violated
+  Z-verify [1858, 21588, 26947]...: 48 violated
+  Z-verify [1858, 21588, 30792]...: 41 violated
+  Z-verify [1858, 21588, 27512]...: 49 violated
+  Z-verify [1858, 21588, 30104]...: 52 violated
+  Z-verify [1858, 21588, 30596]...: 63 violated
+  Z-verify [1858, 21588, 33251]...: 62 violated
+  Z-verify [1858, 21588, 37885]...: 41 violated
+  Z-verify [1858, 23634, 29682]...: 37 violated
+  Z-verify [1858, 21588, 37748]...: 52 violated
+  Z-verify [1858, 23634, 30104]...: 48 violated
+  Z-verify [1858, 23634, 26947]...: 44 violated
+  Z-verify [1858, 23634, 30596]...: 59 violated
+  Z-verify [1858, 21588, 38116]...: 53 violated
+  Z-verify [1858, 23634, 27512]...: 45 violated
+  Z-verify [1858, 23634, 30792]...: 46 violated
+  Z-verify [1858, 23634, 37748]...: 48 violated
+  Z-verify [1858, 23634, 30658]...: 47 violated
+  Z-verify [1858, 26947, 29682]...: 46 violated
+  Z-verify [1858, 23634, 33251]...: 58 violated
+  Z-verify [1858, 26947, 27512]...: 39 violated
+  Z-verify [1858, 23634, 37885]...: 45 violated
+  Z-verify [1858, 23634, 38116]...: 49 violated
+  Z-verify [1858, 26947, 30596]...: 60 violated
+  Z-verify [1858, 26947, 37748]...: 42 violated
+  Z-verify [1858, 26947, 37885]...: 46 violated
+  Z-verify [1858, 26947, 30104]...: 37 violated
+  Z-verify [1858, 26947, 30792]...: 46 violated
+  Z-verify [1858, 26947, 30658]...: 41 violated
+  Z-verify [1858, 27512, 29682]...: 47 violated
+  Z-verify [1858, 26947, 33251]...: 59 violated
+  Z-verify [1858, 26947, 38116]...: 50 violated
+  Z-verify [1858, 27512, 30104]...: 43 violated
+  Z-verify [1858, 27512, 30792]...: 47 violated
+  Z-verify [1858, 27512, 30596]...: 61 violated
+  Z-verify [1858, 27512, 30658]...: 43 violated
+  Z-verify [1858, 27512, 37748]...: 55 violated
+  Z-verify [1858, 27512, 38116]...: 51 violated
+  Z-verify [1858, 27512, 33251]...: 60 violated
+  Z-verify [1858, 29682, 30658]...: 49 violated
+  Z-verify [1858, 27512, 37885]...: 47 violated
+  Z-verify [1858, 29682, 30104]...: 50 violated
+  Z-verify [1858, 29682, 30792]...: 39 violated
+  Z-verify [1858, 29682, 30596]...: 61 violated
+  Z-verify [1858, 29682, 37885]...: 39 violated
+  Z-verify [1858, 29682, 37748]...: 50 violated
+  Z-verify [1858, 29682, 33251]...: 60 violated
+  Z-verify [1858, 30104, 30792]...: 50 violated
+  Z-verify [1858, 30104, 30596]...: 64 violated
+  Z-verify [1858, 29682, 38116]...: 51 violated
+  Z-verify [1858, 30104, 30658]...: 45 violated
+  Z-verify [1858, 30104, 37748]...: 46 violated
+  Z-verify [1858, 30104, 33251]...: 63 violated
+  Z-verify [1858, 30104, 37885]...: 50 violated
+  Z-verify [1858, 30596, 33251]...: 47 violated
+  Z-verify [1858, 30104, 38116]...: 54 violated
+  Z-verify [1858, 30596, 30658]...: 63 violated
+  Z-verify [1858, 30596, 37885]...: 61 violated
+  Z-verify [1858, 30596, 30792]...: 61 violated
+  Z-verify [1858, 30596, 38116]...: 60 violated
+  Z-verify [1858, 30596, 37748]...: 64 violated
+  Z-verify [1858, 30658, 37748]...: 46 violated
+  Z-verify [1858, 30658, 38116]...: 53 violated
+  Z-verify [1858, 30658, 30792]...: 49 violated
+  Z-verify [1858, 30658, 37885]...: 49 violated
+  Z-verify [1858, 30658, 33251]...: 62 violated
+  Z-verify [1858, 30792, 37885]...: 48 violated
+  Z-verify [1858, 30792, 33251]...: 60 violated
+  Z-verify [1858, 33251, 37748]...: 63 violated
+  Z-verify [1858, 30792, 38116]...: 51 violated
+  Z-verify [1858, 33251, 38116]...: 60 violated
+  Z-verify [1858, 30792, 37748]...: 50 violated
+  Z-verify [1858, 37748, 38116]...: 54 violated
+  Z-verify [1858, 33251, 37885]...: 60 violated
+  Z-verify [2795, 2800, 10652]...: 63 violated
+  Z-verify [1858, 37748, 37885]...: 49 violated
+  Z-verify [2795, 2800, 3483]...: 66 violated
+  Z-verify [1858, 37885, 38116]...: 51 violated
+  Z-verify [2795, 2800, 21188]...: 65 violated
+  Z-verify [2795, 2800, 5443]...: 64 violated
+  Z-verify [2795, 2800, 23634]...: 59 violated
+  Z-verify [2795, 2800, 19520]...: 63 violated
+  Z-verify [2795, 2800, 27512]...: 62 violated
+  Z-verify [2795, 2800, 21588]...: 63 violated
+  Z-verify [2795, 2800, 30658]...: 57 violated
+  Z-verify [2795, 2800, 30104]...: 61 violated
+  Z-verify [2795, 2800, 26947]...: 58 violated
+  Z-verify [2795, 2800, 29682]...: 61 violated
+  Z-verify [2795, 2800, 33251]...: 54 violated
+  Z-verify [2795, 2800, 30596]...: 54 violated
+  Z-verify [2795, 2800, 37748]...: 65 violated
+  Z-verify [2795, 3483, 5443]...: 55 violated
+  Z-verify [2795, 2800, 30792]...: 61 violated
+  Z-verify [2795, 2800, 37885]...: 61 violated
+  Z-verify [2795, 3483, 21188]...: 50 violated
+  Z-verify [2795, 3483, 19520]...: 54 violated
+  Z-verify [2795, 2800, 38116]...: 58 violated
+  Z-verify [2795, 3483, 26947]...: 49 violated
+  Z-verify [2795, 3483, 10652]...: 54 violated
+  Z-verify [2795, 3483, 27512]...: 53 violated
+  Z-verify [2795, 3483, 21588]...: 62 violated
+  Z-verify [2795, 3483, 30104]...: 52 violated
+  Z-verify [2795, 3483, 23634]...: 42 violated
+  Z-verify [2795, 3483, 29682]...: 60 violated
+  Z-verify [2795, 3483, 30658]...: 48 violated
+  Z-verify [2795, 3483, 33251]...: 65 violated
+  Z-verify [2795, 3483, 30596]...: 66 violated
+  Z-verify [2795, 5443, 10652]...: 45 violated
+  Z-verify [2795, 3483, 30792]...: 42 violated
+  Z-verify [2795, 3483, 38116]...: 56 violated
+  Z-verify [2795, 3483, 37748]...: 56 violated
+  Z-verify [2795, 5443, 21188]...: 54 violated
+  Z-verify [2795, 3483, 37885]...: 44 violated
+  Z-verify [2795, 5443, 23634]...: 48 violated
+  Z-verify [2795, 5443, 27512]...: 44 violated
+  Z-verify [2795, 5443, 21588]...: 52 violated
+  Z-verify [2795, 5443, 19520]...: 45 violated
+  Z-verify [2795, 5443, 30104]...: 46 violated
+  Z-verify [2795, 5443, 26947]...: 43 violated
+  Z-verify [2795, 5443, 30596]...: 64 violated
+  Z-verify [2795, 5443, 29682]...: 50 violated
+  Z-verify [2795, 5443, 33251]...: 63 violated
+  Z-verify [2795, 10652, 19520]...: 44 violated
+  Z-verify [2795, 5443, 37885]...: 50 violated
+  Z-verify [2795, 5443, 30658]...: 39 violated
+  Z-verify [2795, 5443, 30792]...: 50 violated
+  Z-verify [2795, 5443, 37748]...: 47 violated
+  Z-verify [2795, 10652, 21188]...: 53 violated
+  Z-verify [2795, 5443, 38116]...: 54 violated
+  Z-verify [2795, 10652, 21588]...: 51 violated
+  Z-verify [2795, 10652, 29682]...: 49 violated
+  Z-verify [2795, 10652, 30104]...: 42 violated
+  Z-verify [2795, 10652, 30596]...: 63 violated
+  Z-verify [2795, 10652, 23634]...: 47 violated
+  Z-verify [2795, 10652, 26947]...: 39 violated
+  Z-verify [2795, 10652, 27512]...: 35 violated
+  Z-verify [2795, 10652, 33251]...: 62 violated
+  Z-verify [2795, 10652, 37885]...: 48 violated
+  Z-verify [2795, 10652, 30658]...: 38 violated
+  Z-verify [2795, 10652, 30792]...: 49 violated
+  Z-verify [2795, 19520, 21188]...: 53 violated
+  Z-verify [2795, 10652, 37748]...: 55 violated
+  Z-verify [2795, 19520, 21588]...: 51 violated
+  Z-verify [2795, 10652, 38116]...: 53 violated
+  Z-verify [2795, 19520, 27512]...: 43 violated
+  Z-verify [2795, 19520, 30104]...: 40 violated
+  Z-verify [2795, 19520, 23634]...: 47 violated
+  Z-verify [2795, 19520, 26947]...: 39 violated
+  Z-verify [2795, 19520, 29682]...: 49 violated
+  Z-verify [2795, 19520, 30658]...: 38 violated
+  Z-verify [2795, 19520, 30792]...: 49 violated
+  Z-verify [2795, 19520, 30596]...: 63 violated
+  Z-verify [2795, 19520, 38116]...: 53 violated
+  Z-verify [2795, 19520, 33251]...: 62 violated
+  Z-verify [2795, 21188, 21588]...: 61 violated
+  Z-verify [2795, 19520, 37748]...: 46 violated
+  Z-verify [2795, 21188, 26947]...: 48 violated
+  Z-verify [2795, 19520, 37885]...: 49 violated
+  Z-verify [2795, 21188, 23634]...: 41 violated
+  Z-verify [2795, 21188, 29682]...: 59 violated
+  Z-verify [2795, 21188, 30596]...: 65 violated
+  Z-verify [2795, 21188, 27512]...: 52 violated
+  Z-verify [2795, 21188, 33251]...: 64 violated
+  Z-verify [2795, 21188, 37748]...: 55 violated
+  Z-verify [2795, 21188, 30104]...: 51 violated
+  Z-verify [2795, 21188, 30658]...: 47 violated
+  Z-verify [2795, 21188, 37885]...: 43 violated
+  Z-verify [2795, 21188, 30792]...: 43 violated
+  Z-verify [2795, 21188, 38116]...: 55 violated
+  Z-verify [2795, 21588, 23634]...: 39 violated
+  Z-verify [2795, 21588, 29682]...: 42 violated
+  Z-verify [2795, 21588, 30596]...: 63 violated
+  Z-verify [2795, 21588, 26947]...: 46 violated
+  Z-verify [2795, 21588, 30792]...: 41 violated
+  Z-verify [2795, 21588, 27512]...: 50 violated
+  Z-verify [2795, 21588, 30104]...: 49 violated
+  Z-verify [2795, 21588, 33251]...: 62 violated
+  Z-verify [2795, 21588, 30658]...: 45 violated
+  Z-verify [2795, 21588, 37885]...: 41 violated
+  Z-verify [2795, 21588, 37748]...: 53 violated
+  Z-verify [2795, 23634, 27512]...: 46 violated
+  Z-verify [2795, 21588, 38116]...: 53 violated
+  Z-verify [2795, 23634, 26947]...: 42 violated
+  Z-verify [2795, 23634, 30596]...: 59 violated
+  Z-verify [2795, 23634, 30658]...: 41 violated
+  Z-verify [2795, 23634, 30104]...: 45 violated
+  Z-verify [2795, 23634, 29682]...: 37 violated
+  Z-verify [2795, 23634, 37748]...: 49 violated
+  Z-verify [2795, 23634, 37885]...: 45 violated
+  Z-verify [2795, 23634, 30792]...: 46 violated
+  Z-verify [2795, 23634, 33251]...: 58 violated
+  Z-verify [2795, 26947, 29682]...: 44 violated
+  Z-verify [2795, 23634, 38116]...: 49 violated
+  Z-verify [2795, 26947, 27512]...: 38 violated
+  Z-verify [2795, 26947, 30104]...: 34 violated
+  Z-verify [2795, 26947, 33251]...: 57 violated
+  Z-verify [2795, 26947, 30792]...: 44 violated
+  Z-verify [2795, 26947, 37885]...: 44 violated
+  Z-verify [2795, 26947, 30658]...: 33 violated
+  Z-verify [2795, 26947, 30596]...: 58 violated
+  Z-verify [2795, 26947, 38116]...: 48 violated
+  Z-verify [2795, 26947, 37748]...: 41 violated
+  Z-verify [2795, 27512, 30104]...: 41 violated
+  Z-verify [2795, 27512, 30792]...: 48 violated
+  Z-verify [2795, 27512, 29682]...: 48 violated
+  Z-verify [2795, 27512, 37748]...: 55 violated
+  Z-verify [2795, 27512, 30596]...: 62 violated
+  Z-verify [2795, 27512, 37885]...: 48 violated
+  Z-verify [2795, 27512, 30658]...: 37 violated
+  Z-verify [2795, 27512, 33251]...: 61 violated
+  Z-verify [2795, 29682, 30104]...: 47 violated
+  Z-verify [2795, 29682, 30792]...: 39 violated
+  Z-verify [2795, 27512, 38116]...: 52 violated
+  Z-verify [2795, 29682, 30658]...: 43 violated
+  Z-verify [2795, 29682, 30596]...: 61 violated
+  Z-verify [2795, 29682, 37885]...: 39 violated
+  Z-verify [2795, 29682, 37748]...: 51 violated
+  Z-verify [2795, 29682, 33251]...: 60 violated
+  Z-verify [2795, 30104, 30596]...: 61 violated
+  Z-verify [2795, 30104, 33251]...: 60 violated
+  Z-verify [2795, 29682, 38116]...: 51 violated
+  Z-verify [2795, 30104, 30792]...: 47 violated
+  Z-verify [2795, 30104, 37885]...: 47 violated
+  Z-verify [2795, 30104, 30658]...: 36 violated
+  Z-verify [2795, 30104, 37748]...: 44 violated
+  Z-verify [2795, 30104, 38116]...: 51 violated
+  Z-verify [2795, 30596, 33251]...: 47 violated
+  Z-verify [2795, 30596, 30792]...: 61 violated
+  Z-verify [2795, 30596, 30658]...: 57 violated
+  Z-verify [2795, 30658, 30792]...: 43 violated
+  Z-verify [2795, 30596, 38116]...: 60 violated
+  Z-verify [2795, 30596, 37748]...: 65 violated
+  Z-verify [2795, 30658, 37885]...: 43 violated
+  Z-verify [2795, 30596, 37885]...: 61 violated
+  Z-verify [2795, 30658, 38116]...: 47 violated
+  Z-verify [2795, 30658, 33251]...: 56 violated
+  Z-verify [2795, 30792, 37748]...: 51 violated
+  Z-verify [2795, 30658, 37748]...: 40 violated
+  Z-verify [2795, 30792, 33251]...: 60 violated
+  Z-verify [2795, 30792, 38116]...: 51 violated
+  Z-verify [2795, 33251, 37885]...: 60 violated
+  Z-verify [2795, 30792, 37885]...: 48 violated
+  Z-verify [2795, 33251, 37748]...: 64 violated
+  Z-verify [2795, 33251, 38116]...: 60 violated
+  Z-verify [2795, 37885, 38116]...: 51 violated
+  Z-verify [2795, 37748, 38116]...: 55 violated
+  Z-verify [2800, 3483, 10652]...: 64 violated
+  Z-verify [2795, 37748, 37885]...: 50 violated
+  Z-verify [2800, 3483, 5443]...: 66 violated
+  Z-verify [2800, 3483, 21588]...: 73 violated
+  Z-verify [2800, 3483, 23634]...: 59 violated
+  Z-verify [2800, 3483, 21188]...: 61 violated
+  Z-verify [2800, 3483, 19520]...: 63 violated
+  Z-verify [2800, 3483, 29682]...: 71 violated
+  Z-verify [2800, 3483, 30104]...: 64 violated
+  Z-verify [2800, 3483, 26947]...: 60 violated

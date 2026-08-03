@@ -7,7 +7,7 @@
  "n_eqs_satisfied_by_partial": 39019,
  "best_score": 39019,
  "best_partial": "solve_lab/best/best_partial_39019.json",
- "active_method": "custom orientation/matching analysis (no SAT/SMT); 39019 is local-max under local moves; remaining obstruction = global bit reconfiguration to equate two subtrees (x_23268 vs x_15690 chain via check gate 1817)",
+ "active_method": "Session 6: reduced ENTIRE obstruction to the twist match x_9770(A)=x_18274(B) & x_3183(A)=x_17728(B) (atom 40782 proven implied). 22-side enumerable (2^22); 233-side high-degree, shares linear denom x_8821. 233->target inversion is the trapdoor.",
  "structure": {
   "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
   "n_distinct_atoms": 46275,
@@ -51,9 +51,10 @@
   "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
  },
  "next_actions": [
-  "Backtracking CDCL-modulo-propagation search over the 256 bits (propagation engine as theory) \u2014 large build, uncertain",
-  "Bit-blasted SAT of the arithmetic (millions of clauses) \u2014 large build",
-  "Long background z3 with qfnra-nlsat / different tactics \u2014 lottery"
+  "Complete full 2^22 tab (runs/tab22_full.log) -> materialise S={(x_9770,x_3183)}, confirm B=0 fails, inspect S structure (moduli/factors)",
+  "Look for residue-pool identity: are x_9770(A) and x_18274(B) built from the same HUGE constants?",
+  "MITM/lattice using x_8821 (linear) as a coordinate on the 233 side",
+  "Deliverable holds at 39,019/39,031"
  ],
  "blocked": [
   "z3 NIA returns unknown on the 256-bit core; no small conflict cone (dense/cyclic); local repair proven UNSAT; general SMT + local search insufficient. Core appears intractable by general methods (obfuscated-circuit-inversion kernel); witness exists by construction but likely needs the setter's trapdoor or heavy cryptanalysis."
@@ -75,7 +76,7 @@
    "flip_search.py"
   ]
  },
- "updated_unix": 1754150000,
+ "updated_unix": 1754250000,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -92,5 +93,21 @@
    41470,
    45004
   ]
+ },
+ "session6": {
+  "reduction": "obstruction == twist only: x_9770=x_18274 AND x_3183=x_17728 (atom 40782 implied, verified test_40782.py)",
+  "twist_atoms": {
+   "1817": "6033033*(x_9770-x_18274)+x_26977 (x_26977==0)",
+   "44271": "x_3183-x_17728",
+   "30378": "x_3183-x_9982-x_17728 (x_9982==0)"
+  },
+  "decoupling": "x_9770,x_3183 <- 22 bits only; x_18274,x_17728 <- 233 bits only (same 211 support)",
+  "denominator": "x_18274=x_6773/x_8821, x_17728=x_17233/x_8821; x_8821 EXACTLY LINEAR in 233 bits; numerators high-degree",
+  "targets_at_B0": {
+   "x_18274_0": "91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002",
+   "x_17728_0": "125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626"
+  },
+  "B0_ruled_out": "22-side cannot hit fixed 290-bit target (0 matches in first 64k; full 2^22 running)",
+  "correction": "Session-5 rank-233/slaved-B claim used lossy-eval linearity filter; NOT reliable. Wires are genuinely nonlinear (mod-P confirmed)."
  }
 }

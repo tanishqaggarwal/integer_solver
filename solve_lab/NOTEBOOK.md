@@ -327,3 +327,64 @@ requires inverting the obfuscated selection kernel — unsolved, as across all p
   enumeration used 232=0 (wrong) -> found nothing; the correct enumeration must use 232=B(A).
 - Next: enumerate 2^22 patterns A over the 22 bits; for each solve the linear system for B(A) and
   require B(A) in {0,1}^233 (strong filter — only the true A gives a 0/1 solution), then verify.
+
+## Session 6 — CLEAN REDUCTION: entire obstruction = the twist match (2 equations)
+Corrects several earlier lossy-forward-eval conclusions. All facts below re-verified
+with confluent_eval5 (Z and mod-P). Scripts: diag.py, twist_struct.py, test_lin.py,
+test_additive.py, extract_huge.py, test_40782.py, test_ratio.py, deg233.py, tab22.py.
+
+### The 4 obstruction atoms (at best=all-0), exact structure
+- atom 1817 : 6033033*x_9770 - 6033033*x_18274 + x_26977 = 0   (x_26977 identically 0)
+- atom 44271: x_3183 - x_17728 = 0
+- atom 30378: x_3183 - x_9982 - x_17728 = 0                      (x_9982 identically 0)
+- atom 40782: big cascade check, 52 vars, deg 2-4, 741 terms, NO control bits.
+
+### atom 40782 is IMPLIED by the twist (test_40782.py, decisive)
+Forcing x_18274:=x_9770 and x_17728:=x_3183 in the all-0 state makes ALL FOUR
+residuals (1817,30378,40782,44271) become exactly 0. So the ENTIRE remaining
+obstruction is exactly:
+        x_9770(A) = x_18274(B)   AND   x_3183(A) = x_17728(B)
+Nothing else. (40782's 52 vars: 6 only-22-side, 2 only-233-side, 44 constants;
+two of them, x_24252 & x_36641, are fixed ~250-digit constants, x_25471=1.)
+
+### Clean decoupling (diag.py / test_lin.py)
+- x_9770, x_3183 : moved ONLY by the 22 bits (19 and 21 of them). 0 of the 233.
+- x_18274, x_17728: moved ONLY by the 233 bits (211 each; SAME 211-bit support). 0 of 22.
+The two sides are functions of DISJOINT bit sets, coupled only by the 2 equations.
+BITS22 = [1782,1858,2795,2800,3483,5443,10652,19520,21188,21588,23634,26947,27512,
+          29682,30104,30596,30658,30792,33251,37748,37885,38116]; bits233 = control - BITS22.
+
+### Denominator structure (test_ratio.py / deg233.py) — KEY
+- x_18274 = x_6773 / x_8821 ;  x_17728 = x_17233 / x_8821   (SHARED denominator x_8821)
+- x_8821 is EXACTLY LINEAR in the 233 bits (mod-P Mobius deg2=deg3=deg4 = 0). A subset-sum.
+- x_6773, x_17233 (numerators) are HIGH-degree in the 233 bits.
+- So the targets are: x_6773 = N1*x_8821 and x_17233 = N2*x_8821 with N1=x_9770(A),
+  N2=x_3183(A). Numerators high-degree => not linearizable directly.
+
+### Degrees
+- x_9770, x_3183 : high-degree multilinear in the 22 bits (deg>=4). The 22-side is
+  fully ENUMERABLE (2^22 = 4.2M) via its cone (7520 wires, 258 div).
+- x_18274/x_17728: high-degree in the 233 bits; 2^233 NOT enumerable and no
+  linear/low-degree inversion found.
+
+### B=0 (all 233 bits off) essentially ruled out
+best_partial_39019 already has ALL 255 control bits = 0. Solving would need
+x_9770(A)=x_18274(0)=91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002
+x_3183(A)=x_17728(0)=125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626
+via the 22 bits alone. First 64k patterns: 0 single-coord matches mod two primes
+(expected ~0 for a 290-bit target over 2^22). Full 2^22 scan launched (runs/tab22_full.log)
+to settle this and to materialise the complete achievable set S = {(x_9770(A),x_3183(A))}.
+
+### Correction to Session-5 "232-part slaved / rank 233" claim
+That used a linearity filter built on the LOSSY integer forward-eval; the wires are in
+fact genuinely nonlinear, so that reduction (and "B forced to 0") is NOT reliable. The
+robust facts are those above, re-checked mod-P (artifact-free).
+
+### Where it stands
+A crisp 2-equation match between a fully-enumerable 22-bit side and a high-degree
+233-bit side sharing linear denominator x_8821. The 233->target inversion is the
+deliberately-hard trapdoor. Deliverable stands at 39,019/39,031 (verified exact in Z).
+New scripts this session: diag.py twist_struct.py test_lin.py test_additive.py test_linP.py
+trace_cascade.py extract_huge.py test_40782.py test_ratio.py deg233.py degree_probe.py tab22.py
+Next tracks: (a) full S table + structure of S (moduli/factors); (b) residue-pool identity
+between the two sides; (c) MITM/lattice via the x_8821 linear coordinate.
