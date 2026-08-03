@@ -4,6 +4,25 @@
 Best verified partial: **39,019 / 39,031** equations (exact in ℤ).
 File: `best/best_partial_39019.json`. Verify: `python3 checker.py best/best_partial_39019.json`.
 
+## SESSION 7 — SLACK-ACTIVE SOLVER BUILT; obstruction reduced to R=0 (read NOTEBOOK Session 7 tail)
+The slack-active evaluator EXISTS now: `slack_active.py` (freeze x_24026:=x_18274-x_35186,
+x_27116:=x_17728-x_1642 with x_12779=1 via a single 22-side bit e.g. 1858). It makes BOTH twist
+halves hold by construction — the state plain forward-eval cannot represent. Activating the
+slack ripples into ~18 verifier CHECK atoms; SA-with-square-roots (`slack_sa.py`, replaces the
+deg-4 squares a40782/a39550 by their deg-2 roots Q=0 via `check_square.try_sqrt`) drives the
+frustrated core 18 -> 6. Run the 4-way fleet: `python3 slack_sa.py <activator> <seed> <out.json>`
+with activators in {1858,26947,27512,30104,5443,...}.
+CRISP OBSTRUCTION: for verifier square a40782, satisfying it AND a1817 reduces to R=0 where
+R = 28*x_10783 + (ripple terms), x_10783=x_16644*x_17301, all fixed by the RIGID 3183-slack
+(a44271: x_3183=x_17728, so x_27116=x_17728-x_1642 is pinned). The continuous knobs x_24026 and
+the FREE var x_31302 (df=None) CANNOT change R (Q40782 slope in x_24026 is 0 once a1817 held).
+So the witness = a DISCRETE 233/22-bit choice whose rigid-slack ripple self-annihilates in every
+verifier square (a knapsack). The div-wire escape (x_8821=x_17810*x_27292 in {-2,-1,0,1}) lets
+x_18274/x_17728 leave their g2/h2 lattice but only onto (base/2)*Z, still coprime => degenerate.
+NEXT: keep the slack-active SA fleet running; or attack R_i=0 across the 530 squares as a system
+(linearize ripple monomials); or find the setter's 233-bit knapsack solution (LLL blocked by
+numerator nonlinearity — 7/50 linear). NOTE: single 22-side bits give x_12779=1 (not 2).
+
 ## TRAPDOOR MECHANISM — fully reverse-engineered (Session 6, read NOTEBOOK Session 6 tail)
 The obstruction (atoms 1817,30378,40782,44271) is the twist x_9770=x_18274 & x_3183=x_17728.
 KEY: the confluent forward-eval QUANTIZES both sides to COPRIME units and ZEROS the slack
