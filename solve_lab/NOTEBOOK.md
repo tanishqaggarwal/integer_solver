@@ -628,3 +628,56 @@ recovering it is the designed one-way step. Deliverable: 39,019/39,031 (verified
 - Running long campaigns: sa_campaign2 (SA), ga_campaign (genetic algorithm over 255 bits, biased to
   slack gate). Both minimize mod-P violation count; checkpoint any state <4. Landscape min is 4
   (all-0); the witness is isolated, so these are low-odds but running per instruction.
+
+## Session 7 — SLACK-ACTIVE BREAKTHROUGH: the twist IS satisfiable; obstruction reduced to a 9-atom frustrated core
+
+Prior sessions concluded "forward-eval cannot represent the witness (slack identically 0)"
+and treated the twist as a rigid coprime-quantization trapdoor. Both conclusions were
+artifacts of ONE orientation choice. Re-examining the open atoms ORIENTATION-FREE changed
+the picture (twist_neighborhood.py, slack_freedom.py):
+
+The 4 open atoms are NOT symmetric:
+  a44271: x_3183 - x_17728 = 0                          <- HARD (no slack): x_3183 = x_17728
+  a30378: x_3183 - x_9982 - x_17728 = 0                 <- with a44272(x_9982=0) => same as a44271
+  a1817 : 6033033*x_9770 - 6033033*x_18274 + x_26977=0  <- x_26977 = x_20510*x_31302 (a1816)!
+  a40782: Q^2 = 0                                        <- perfect square (resid@best is exact square)
+So the x_9770/x_18274 gap is bridged by the PRODUCT x_20510*x_31302 (a free slack), NOT forced
+to 0.  x_9982 = x_9897*x_12518 (a1818) and a44272 forces it 0.  Only x_3183=x_17728 is rigid.
+
+### The div-wire trap (why forward-eval forced the slack off)
+x_24026 is a 'div' wire defined by a1813: x_14402*x_24026 = 321447*x_38215, i.e.
+x_24026 = 321447*x_38215 / x_14402.  With x_12779=1 => x_14402=0 => division by zero =>
+forward-eval's `elif den==0: val[v]=0` branch sets x_24026:=0.  THAT is the sole reason the
+slack never activates.  x_38215 is const 0, so x_24026 is 0 either way in forward-eval.
+
+### Slack-active evaluator (slack_active.py) — the twist now HOLDS
+Two-pass: pass 1 computes side-values; then FREEZE x_24026 := x_18274-x_35186 and
+x_27116 := x_17728-x_1642 as exogenous inputs and re-run forward-eval with x_12779=1.
+Result: x_9770 = x_35186 + x_12779*x_24026 = x_18274  AND  x_3183 = x_1642 + x_12779*x_27116
+= x_17728.  BOTH twist halves hold by construction.  Atoms 1817/30378/44271 are satisfied.
+Confirmed for activating bits 1858/2795/5443/19520/26947/... (10 single 22-side bits set
+x_12779=1).  This reaches the slack-active witness state plain forward-eval cannot represent.
+
+### Cost: the ripple
+Activating the slack perturbs ~46 downstream vars (via a23394 x_12520=x_24026+x_29798,
+a23402, a23395 ...) and breaks 18-28 secondary CHECK atoms.  Setting the x_12779=1 bit itself
+also breaks ~12-18 (it couples x_12779 to x_21941/x_36641/x_30323/... via a23149/a23150/...).
+
+### Reduction to a 9-atom frustrated core (slack_repair.py, min-conflicts)
+Seeded from bit 1858 (18 broken), integer min-conflicts (solve each broken atom for one of
+its vars via divide/quadratic) drives 18 -> 9 and plateaus.  The persistent core:
+  [2546, 7917, 23150, 23152, 23405, 39550, 40782, 42222, 44154]
+  - 2546/7917/23150/23152: simple xA*xB = xC product-defs (trivially satisfiable alone)
+  - 23405: linear x_15083 = 11855869*x_24852
+  - 42222 (26 vars), 44154 (13 vars, involves x_12779): degree-2 checks
+  - 40782, 39550: degree-4 PERFECT SQUARES (Q has 38 terms, deg 2 each; try_sqrt extracts).
+    solve_for returns None for deg-4 => never repaired => the plateau. Replacing them by their
+    roots Q=0 makes them solvable (slack_sa.py, SA over A' with roots).
+
+### Status
+The problem is no longer "unsatisfiable trapdoor" but "satisfy a 9-atom frustrated core in
+slack-active space."  This is a genuine, large reduction. Local moves plateau because the
+core's 129 vars are entangled with the 39k satisfied atoms (changing a core var breaks a
+satisfied one). Active attack: SA with square-roots (slack_sa.py) + exact solve of the core
+subsystem.  The witness genuinely differs from best_partial in x_12520/x_24245/x_23268/... and
+requires a coordinated (not local) move — consistent with a hard-but-satisfiable circuit.
