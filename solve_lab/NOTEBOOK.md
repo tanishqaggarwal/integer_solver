@@ -441,3 +441,27 @@ Every attack class is now exhausted with a definitive negative:
 The instance is a genuine (cryptographic-strength) obfuscated-circuit trapdoor: a full witness
 needs the setter's secret or a cryptanalytic break of the specific 233-side residue circuit.
 DELIVERABLE: best/best_partial_39019.json = 39,019/39,031 exact in ℤ (checker-verified).
+
+### Session 6 — IMPORTANT self-correction on forward-eval validity
+Tested (mod-P): setting ANY control bit — 22-side OR 233-side — breaks 24-300 non-twist
+atoms, not just the twist. all-0 is the ONLY point where the v5 orientation floats just the
+4 twist checks. Consequence for honesty:
+- The v5 confluent forward-eval is a valid oracle ONLY at (and infinitesimally near) all-0.
+  For any nonzero bit pattern it satisfies its ORIENTED atoms but violates many CHECK atoms,
+  i.e. it produces an assignment that is NOT a consistent circuit state.
+- Therefore x_9770(A), x_18274(B) computed by forward-eval for nonzero A/B are HEURISTIC
+  values of a local model, NOT the true circuit values. The Session-6 "enumerable 22-side",
+  "decoupling", and "claw-find" framing describes this local model near all-0, and does NOT
+  by itself give the global witness.
+- What remains SOLID and verified: (i) best_partial_39019 satisfies 39,019/39,031 exactly;
+  (ii) at all-0 exactly 4 atoms fail, with exact definitions
+       1817: 6033033*(x_9770-x_18274)+x_26977;  44271: x_3183-x_17728;
+       30378: x_3183-x_9982-x_17728;  40782: 741-term cascade (implied by the other 3 at all-0);
+  (iii) x_26977=x_20510*x_31302 (atom 1816), x_9982 pinned 0 (atom 44272) — the obstruction is
+       the rigid twist relation; (iv) all-0 is an isolated locally-consistent point (every bit
+       move leaves it); (v) the 290-bit residues have no shared modulus.
+- TRUE problem = full nonlinear CSP over the 46,275 atoms (obfuscated-circuit inversion). The
+  forward-eval cannot represent the witness even at the correct bits (wrong orientation there),
+  so the witness needs a real circuit solve, not this heuristic. A better global orientation
+  (one that stays consistent under bit changes) would give a valid oracle but still leaves the
+  2^233 claw-find. Net: genuine hard trapdoor; deliverable stands at 39,019/39,031.
