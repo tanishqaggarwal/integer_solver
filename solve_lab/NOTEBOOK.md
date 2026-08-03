@@ -404,3 +404,13 @@ B, so forward-eval leaves a stale value and that atom breaks. Consequences:
 - Net: witness B* lies in the "integer-consistent variety" of the 233-side AND hits a 22-side
   target. That variety (+ high-degree map + disjoint 290-bit residue pools) is the trapdoor.
   This is why every local bit move breaks 30+ atoms (it leaves the consistent variety).
+
+### Session 6 — residue/modulus probe (residue_probe.py): no algebraic shortcut
+- gcd(all 510 residues)=1; gcd(D1, all residues)=1; gcd(D1,D2)=1 where D1=x_9770-x_18274
+  (294 bit), D2=x_3183-x_17728 (295 bit) are the two twist gaps at all-0.
+- No residue divides D1; largest gcd(D1, any residue)=39. Small-prime signatures of the
+  four targets look unstructured. => NO hidden single modulus, no clean residue-lattice
+  relation between the two sides. The 290-bit residues are effectively random with no shared
+  modulus — a genuine (cryptographic-strength) trapdoor.
+- DEFINITIVE (tab22 full, prime 2147483647, all 2^22): 0 patterns match x_18274(0) or
+  x_17728(0) in even one coordinate => B=0 impossible; the witness needs the 233-side active.

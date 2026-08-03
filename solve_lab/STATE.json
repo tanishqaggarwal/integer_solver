@@ -107,7 +107,9 @@
    "x_18274_0": "91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002",
    "x_17728_0": "125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626"
   },
-  "B0_ruled_out": "22-side cannot hit fixed 290-bit target (0 matches in first 64k; full 2^22 running)",
-  "correction": "Session-5 rank-233/slaved-B claim used lossy-eval linearity filter; NOT reliable. Wires are genuinely nonlinear (mod-P confirmed)."
+  "B0_ruled_out": "DEFINITIVE: full 2^22 scan (prime 2147483647) found 0 patterns matching x_18274(0) or x_17728(0) in even one coordinate. B=0 impossible; witness needs 233-side active.",
+  "correction": "Session-5 rank-233/slaved-B claim used lossy-eval linearity filter; NOT reliable. Wires are genuinely nonlinear (mod-P confirmed).",
+  "final_assessment": "Full solve = claw-find (A,B) with x_9770(A)=x_18274(B) & x_3183(A)=x_17728(B). 22-side enumerable+invertible (2^22); 233-side high-degree over 2^233, no linear/low-degree inversion, disjoint 290-bit residue pools, witness isolated in the integer-consistent variety. This is the deliberately-hard trapdoor; not crackable by enumeration/local/lattice/SMT. Deliverable: 39,019/39,031 exact.",
+  "no_shortcut": "Confirmed rigid: x_26977=x_20510*x_31302 (atom 1816), x_9982 pinned 0 (atom 44272) - no slack to absorb the twist gap. No hidden modulus (gcd residues=1). No B=0, no small/linear/subset-sum/local solution. Claw-find between 2^22 (enumerable) and 2^233 (high-degree, non-invertible) needs 2^558 g-evals or the trapdoor."
  }
 }

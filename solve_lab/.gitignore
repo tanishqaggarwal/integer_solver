@@ -10,3 +10,6 @@ cand_enhanced.json
 cand_boolreduce.json
 gf2_sat_model.json
 subst_F4.smt2
+
+*.npy
+tab22_*.npy
