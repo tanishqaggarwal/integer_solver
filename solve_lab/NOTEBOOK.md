@@ -487,3 +487,17 @@ forward-eval was one heuristic filling. So the real object is that nonlinear cor
   This is the trapdoor kernel: matching two subtrees each built from squares/products of
   ~290-bit residues. Genuinely hard; no linear/lattice handle (confirmed) — needs solving
   the quadratic system over Z (setter's trapdoor or heavy cryptanalysis).
+
+### Session 6 — perfect-square structure of the verifier checks (check_square.py)
+- 530 of 5936 degree>=2 atoms are PERFECT SQUARES: 458 = (degree-2 form)^2, 72 = (linear form)^2.
+  So those checks are Q^2=0 <=> Q=0, halving their degree. atom 40782 = Q_40782^2 (Q deg-2, 38
+  terms) and 41285 = Q_41285^2 (Q deg-2, 42 terms, satisfied at best).
+- Q_40782 combines BOTH twist cores: -6033033*(x_9770-x_18274) + 39*(x_3183-x_17728) - x_26977
+  - 42*x_9982 + [18 product terms] + [linear terms]. It's ONE combined (weaker) equation, not a
+  replacement for the two separate twist atoms 1817/44271.
+- The 72 (linear)^2 hidden constraints add ZERO rank (redundant with the existing linear system);
+  no new linkage between the 22-side and 233-side. (linsolve_plus.py)
+- Net: nice structural insight (the verifier is ~9% squared forms) but no exploitable reduction of
+  the core twist obstruction. Deliverable unchanged at 39,019.
+- Background campaigns launched: sa_campaign.py (SA over 255 bits), mitm_lowB.py weight-3 (all-A x
+  sparse-B meet-in-the-middle) — both running as good-faith long searches.

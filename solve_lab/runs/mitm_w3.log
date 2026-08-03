@@ -1,0 +1,6 @@
+loaded 22-side table 4194304 (0s)
+built hash 285 (1s)
+233-cone 16520 wires (696 div) (42s)
+sweeping 2108418 B-patterns (weight<= 3) (52s)
+  ...20000/2108418 (105s)
+  ...220000/2108418 (259s)
