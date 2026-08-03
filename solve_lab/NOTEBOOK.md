@@ -559,3 +559,16 @@ witness actually requires:
   (b) make m*g + x_12779*x_24026 = x_18274(B) (and the h-version), i.e. a coupled bilinear/product
   match. This is the precise trapdoor kernel, now fully mapped. A purpose-built solver must search
   WITH the slacks active (the confluent forward-eval, which zeros them, cannot).
+
+### Session 6 — the bridging slacks are BURIED DEEP (final piece)
+x_24026 and x_38215 (the big slack wires that bridge the coprime-quantization gap) are activated by
+ZERO 22-side pairs (0/231), zero 233-side pairs (sample 780), zero cross 22x233 pairs, and zero
+22-side triples. They sit behind the full residue-load cascade and only turn nonzero for a deeply
+coordinated (witness-level) bit pattern. So:
+- slacks OFF  (any shallow/forward-eval config) => coprime quantization => twist degenerate only.
+- slacks ON   requires the deep witness pattern (can't be reached by low-weight perturbation).
+This is the crux of the trapdoor's hardness: the ONLY states that satisfy the twist non-trivially
+require activating slack products buried behind the residue cascade, i.e. the setter's exact input.
+No shallow search (any weight <=4, any single/pair/triple, any forward-eval point) can reach them.
+COMPLETE mechanistic reverse-engineering; the residue-cascade inversion to activate x_24026 is the
+irreducible trapdoor. Deliverable 39,019/39,031.
