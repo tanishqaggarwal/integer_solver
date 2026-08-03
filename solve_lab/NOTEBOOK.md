@@ -510,3 +510,39 @@ selection. Combined with the full-2^22 B=0 scan (0 hits) and prior <=3 total-wei
 the witness's 233-side selection is genuinely NON-SPARSE (>=4 residue bits) and unreachable by
 feasible enumeration. SA campaign plateaued at 4 (all-0 is the isolated violation minimum).
 FINAL: every search/structural avenue exhausted; genuine trapdoor; deliverable 39,019/39,031.
+
+### Session 6 — TRAPDOOR MECHANISM fully reverse-engineered (the key result)
+Why every forward-eval search (SA, mitm, greedy, pairs, enum22, local) was DOOMED, and what the
+witness actually requires:
+
+1. QUANTIZATION (codewords.py, quant_structure.py): under the confluent forward-eval, each twist
+   wire is quantized to integer multiples of its all-0 value:
+     x_9770 = m*g    (g=119182..., 296b, m in 27 vals {-9..27})
+     x_3183 = m'*h   (h=62388...,  295b, m' in 45 vals)
+     x_18274= m2*g2  (g2=91416..., 296b)
+     x_17728= m2'*h2 (h2=125787..., 296b)
+   with gcd(g,g2)=1 and gcd(h,h2)=2. The RIGID twist (x_9770=x_18274, x_3183=x_17728) then forces
+   ALL FOUR to 0 (coprime units + small multipliers) -> only the degenerate (0,0,0,0), which fails
+   ~300 other atoms. Since the instance is FEASIBLE, the forward-eval family CANNOT contain the
+   witness. That is the root cause of every search plateau.
+
+2. THE SLACKS. The wire DEFINITIONS carry product-slack terms the forward-eval zeros:
+     a27973: x_9770  = x_35186 + x_3368 ,  x_3368  = x_12779 * x_24026   (a1660)
+     a27978: x_3183  = x_1642  + x_10466,  x_10466 = x_12779 * x_27116   (a27976)
+     a1817 : ... + x_26977 ,               x_26977 = x_20510 * x_31302   (a1816)
+     a30378: ... - x_9982  ,               x_9982  = x_9897  * x_12518   (a1818)
+   x_35186=m*g (the quantized part), x_3368 the slack. Both x_3368 and x_10466 are GATED by the
+   single wire x_12779 = x_23380*x_36336 (a1652), which is 0 at best (x_36336=0).
+
+3. THE WITNESS activates x_12779 (=> x_36336!=0 => a cascade down to specific control bits) so the
+   slacks become nonzero and BRIDGE the coprime-quantization gap:
+     x_3368  = x_18274 - x_35186 = m2*g2 - m*g
+     x_10466 = x_17728 - x_1642  = m2'*h2 - m'*h
+   i.e. the twist is satisfiable at a NONZERO value only by turning on the slack products. The
+   forward-eval, which orients these products to 0, structurally cannot reach that state.
+
+4. CONSEQUENCE / PATH: the true solve = activate the slack cascade (x_12779 -> x_36336 -> ... ->
+   bits) AND make x_24026, x_27116 (etc.) hit the ~296-bit gap values (m2*g2-m*g)/const. This is a
+   coupled product-chain inversion over the 255 bits -- the deliberately-hard trapdoor core. A
+   solver must abandon the all-0 forward-eval orientation and drive these products nonzero.
+   Deliverable remains 39,019/39,031; this is a complete mechanistic reverse-engineering of the kernel.
