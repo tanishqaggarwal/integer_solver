@@ -718,3 +718,20 @@ SA in slack-active space with squares replaced by roots Q=0 (slack_sa.py): reduc
 violated ([14440,23149,23151,23153,40782,44154] at last check; a39550 fixed).  Running a
 4-way multi-start fleet (activators 1858/26947/27512/5443).  This is the first search
 operating in the correct (slack-active, twist-holding) space; prior SA/GA were slack-OFF.
+
+### Session 7 (cont.) — why the continuous slack knobs cannot fix the verifier square (crisp result)
+x_24026 (9770-side slack) and x_31302 (df=None, a genuinely FREE variable) are the
+only continuous knobs; x_27116 is pinned by the RIGID a44271 (x_3183=x_17728).
+Write Q40782 = -6033033*x_9770 + 6033033*x_18274 - x_26977 + R, where R = 28*x_10783
++ (other ripple terms) is independent of x_9770 and x_26977. Then:
+  a1817:      x_26977 = 6033033*(x_18274 - x_9770)
+  Q40782=0:   x_26977 = 6033033*(x_18274 - x_9770) + R
+Both hold  <=>  R = 0.  R is fixed entirely by the rigid 3183-side slack ripple
+(x_10783 = x_16644*x_17301 ~ 10^272 at the slack-active state) and is UNAFFECTED by
+x_24026 or x_31302 (verified: Q40782 is linear in x_24026 with slope 0 once a1817 is
+maintained). So no continuous freedom can satisfy the verifier square -- only a
+DISCRETE bit-setting whose ripple self-cancels (R=0). Finding such a setting is the
+knapsack/lattice inversion the trapdoor protects; the 4-way slack-active SA fleet
+searches exactly this (best 6/39031-atoms-in-A' so far). This is the tightest
+statement of the obstruction: the witness = a 233/22-bit choice making the rigid
+3183-slack ripple self-annihilate inside every verifier square.
