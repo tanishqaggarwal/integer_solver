@@ -615,3 +615,16 @@ residue loads, so the whole thing couples. Combined with all prior results this 
 evidence-based conclusion: a correctly-built obfuscated-circuit trapdoor, not invertible by any
 general or custom method available here. A witness exists (the merged system is consistent) but
 recovering it is the designed one-way step. Deliverable: 39,019/39,031 (verified).
+
+### Session 6 — extended exploration (3-hr campaign): more new methods, all negative
+- GF(2)/2-adic: GF(2) linear rank on the atoms = 19381 (same as GF(P)); 198 control bits are pivots,
+  0 determined to a constant. Mod 2 the residue products remain (boolean circuit = SAT); no help.
+- Bridge linearity (bridge_linear.py): with the slack gate ON (x_12779=1 via a 22-bit), x_24026 and
+  x_9770 are LINEAR in the 233 bits but their coefficients are all zero (x_24026 stays 0; needs
+  weight>=4 coordinated activation). x_18274 stays nonlinear. So no subset-sum handle even slack-on.
+- Factoring the quantization units: g=89*155682971*(243b), g2=2*79*1625329252399*(250b),
+  h=2^2*3229*134807*(250b), h2=2*3^2*28843*14272028233*(240b), D1=3*13*3343*(250b), D2=2*19*71*(250b).
+  Distinct small factors, distinct large cofactors, NO shared large prime -> no hidden modulus.
+- Running long campaigns: sa_campaign2 (SA), ga_campaign (genetic algorithm over 255 bits, biased to
+  slack gate). Both minimize mod-P violation count; checkpoint any state <4. Landscape min is 4
+  (all-0); the witness is isolated, so these are low-odds but running per instruction.

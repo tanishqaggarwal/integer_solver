@@ -1,0 +1,4 @@
+init best 22 (43s)
+  gen 111: NEW BEST 4 bits=[] (62s)
+  gen 500: best 4, pop-min 4 (126s)
+  gen 1000: best 4, pop-min 4 (208s)
