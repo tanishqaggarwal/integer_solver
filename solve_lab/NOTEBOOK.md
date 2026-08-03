@@ -120,3 +120,25 @@ local-repair UNSAT). Every relaxation leaves the 256 core bits free; they are pi
 by exact integer consistency across a 91k-multiplication circuit. No trapdoor found. The
 core is, to the best of a broad standard toolkit, intractable without the generator's secret.
 Best verified result: 39,013/39,031.
+
+## Session 4 (2-hour deep push — fast eval, accurate search, cascade tests)
+- **Fast DAG evaluator** (`fast_walk.py`/`fast_walk2.py`, order-replay, cached inv, 0.14–0.28s):
+  ~20x faster but hits alternate all-zero fixpoints inside cyclic sub-components
+  (baseline 20 vs propagation's 4) → not accurate enough to validate the witness.
+- **Witness is a global set, not incremental**: dense random 76-bit assignment → 320 mod-P
+  violations (vs 5 at all-0). Seeded Rule-A (`modp_ruleA.py`): a single seed bit forces
+  ONLY itself — no cascade, because products need BOTH operands nonzero (chicken-and-egg).
+- **mod-P propagation** (`modp.py`): accurate (5 vs 4), no blow-up; powers `modp_pairs2.py`
+  (accurate complete pairs+triples over the 81 improving bits) — running.
+- **Huge atoms are exact affine gates** `x_B = s·x_C + HUGE` (not modular reductions) →
+  residues are random offsets, no modulus.
+- **Bit-blast reconfirmed infeasible**: 122,221 ungated big×big (~290-bit) products in the
+  main component.
+
+### Verdict (session 4)
+~25 distinct methods now tried. The 256-bit core is pinned only by exact integer consistency
+across a mult-dense affine-gated circuit; it has no modulus/additive/linear/GF(p) structure,
+no incremental/cascade path, and no tractable relaxation. Search is bounded by ~4s/eval and a
+gradientless global landscape. This is an intentionally hard obfuscated-circuit inversion.
+Deliverable stands at 39,013/39,031 verified. Accurate pair/triple searches continue as a
+completeness exercise (rule out low-Hamming witnesses).
