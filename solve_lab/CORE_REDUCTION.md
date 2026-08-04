@@ -41,3 +41,25 @@ Both control gates are DIFFERENCES with a free-input side:
 - REMAINING obstacle 2: M2 mod-6672769 condition (L2/p % 6672769 = 645924); tunable via the
   QUOTIENT parts of x_29322 (d) and x_3558 (m): 10159099·s'+6926539·t' ≡ 0 mod 6672769,
   where s'=S/p, t'=T/p are functions of d,m. 2 knobs, 1 quadratic mod-6672769 condition → solvable.
+
+## Quadrant analysis (this session, continued)
+The MUX control gates: x_7715 = OR(x_8599,x_21839), x_34554 = OR(x_25956,x_7304),
+x_15298 = x_7715·x_34554. The override {24601:1,2081:1} forces x_15298=1 (quadrant 1,1).
+
+- **Quadrant (1,1)** (x_15298=1): forward_construct → 39,013. Core = M1=M2=M3=0 ⟺ S,T≡0 mod p.
+  Sparse-witness null-space solve (30, then 149, 902, 6114 inputs) is INCONSISTENT even across
+  the full coupling closure — S,T residues are LINEARLY PINNED by the constraining wiring.
+- **Quadrant (0,0)** (x_15298=0, all activators off): greedy → 39,006 (27 fail). The core loses
+  its x_15298·load terms and reduces to a SMALLER gadget set:
+    G1 = x_24468 − C1 − 12354891·x_34243,   G2 = x_18956 − C2 − x_32237,
+    x_2300=0, x_9274=0, and a g_complex over {x_12186,x_14853,x_22162}.
+  BUT Dixon/accumulate still ripples globally (27→118 fail) — same multi-role coupling.
+
+## Conclusion on the core
+The 20 verifier squares E²=0 are present in BOTH quadrants (different E). The control variables
+(x_24468,x_18956,x_12186,x_14853,x_16742,…) are MULTI-ROLE: each appears in ~40 equations, so
+setting them to satisfy the core ripples through the wiring. The sparse wiring-satisfying
+solution is unique (rank 30), pinning the residues. No local move (up to the full closure)
+reaches the core. This is the irreducible trapdoor: solving it appears to need either the
+setter's witness or a global nonlinear solver beyond greedy/Dixon/null-space perturbation.
+Best verified partial remains 39,013/39,033.
