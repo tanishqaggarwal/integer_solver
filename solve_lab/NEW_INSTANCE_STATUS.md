@@ -52,3 +52,23 @@ product multipliers (x_29356, …) to hit the two check residues mod V0 while th
 is handled by the free partners; or (c) recognition that this instance encodes a
 factoring-hard verifier, in which case it is not solvable by local repair without the
 trapdoor secret. Progress and tooling are committed; the 39,005/39,033 partial is real.
+
+
+## DECISIVE UPDATE — the twist is global, not local
+
+Setting the *natural* flow values (x_18956=BIGCONST, x_22820=BIGCONST//V0, the mod-V0
+remainders, and the chain-2 analogs; see best/new_instance_partial_39007.json) zeros the
+entire spine and reaches **39,007 / 39,033** — only the two verifier checks 40907/44255
+(plus two resid-1 chain-3 atoms) remain. But the check residuals are ~2^300 and can only be
+cancelled by products of already-huge variables (x_33469, x_24453 ~2^256), whose multipliers
+then become huge and appear in *further* checks. Measuring the closure of this cancellation:
+
+    closure from the 6 remaining atoms = 31,211 atoms / 26,915 variables
+
+i.e. satisfying the checks requires re-deriving ~27k variables consistently — essentially
+inverting the whole circuit. This is the intended trapdoor hardness. In the previously
+solved instance the wire was FREE, which kept the twist LOCAL (224 vars); here the wire is
+PINNED to V0, which makes the same twist GLOBAL. Local repair / linear solving cannot reach
+it, and the exact linear systems blow up (entries ~2^256 compound through elimination).
+Conclusion: this instance is solvable only with the setter's message (the consistent global
+assignment), not by the local-construction method that cracked the free-wire instance.
