@@ -1,0 +1,8 @@
+base (1,0) 39018: sat=39018 nfail=15 S%p!=0=True T%p!=0=False
+candidate boolvars in failing cones: 255
+  [0/255] x_47: sat=38990 S0=False T0=False [2s]
+  [40/255] x_4381: sat=39000 S0=False T0=True [62s]
+  [80/255] x_11368: sat=39012 S0=False T0=False [121s]
+  [120/255] x_18022: sat=38989 S0=False T0=False [184s]
+  [160/255] x_24134: sat=39006 S0=True T0=True [240s]
+  [200/255] x_30823: sat=39000 S0=False T0=True [295s]
