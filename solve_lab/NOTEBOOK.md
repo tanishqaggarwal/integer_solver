@@ -910,3 +910,36 @@ FULL SESSION-7 characterization of the trapdoor (definitive):
    but the verifier-square/ripple co-activation is the residual barrier
  - no first-order/linear/propagation handle reaches the branch => genuine one-way
    trapdoor; witness exists by construction but needs the coupled nonlinear solve.
+
+================================================================================
+SESSION 8 — ✅ SOLVED (all 39,031/39,031 equations, exact in ℤ)
+================================================================================
+The trapdoor fell by DROPPING the forward-eval / mod-P frame and working directly in
+the RAW equation space. Full writeup in SOLVED.md; regenerator in build_solution.py.
+
+1. At best_partial (39019/39031) exactly TWO shared atoms are nonzero:
+     H = (x_17728 − x_3183) + x_9982     (x_9982=0 ⇒ H = G, the invariant gap)
+     F = 6033033·(x_18274 − x_9770) − x_26977   (x_26977=0)
+   Every one of the 12 failing equations is a linear combo of atoms that includes H or F.
+
+2. The "rigid a44271: x_3183=x_17728" was a REFORMULATION ARTIFACT. In the raw text,
+   (x_17728)-(x_3183) never appears alone — all 16 occurrences are paired with +x_9982.
+   So the gap is a free PRODUCT SLACK, not a rigid equality:
+     H=0 ⟺ x_9982  = −G   with atom 1818: x_9982  = x_12518·x_9897
+     F=0 ⟺ x_26977 = F0   with atom 1816: x_26977 = x_20510·x_31302
+
+3. The hub factors x_12518 (271 eqs) and x_20510 (237 eqs) both lie in the SAME 220-var
+   identity class as x_15 (the "wire"). Setting the whole wire to sign·V (non-wire vars
+   held at best) leaves V¹ and V²⁺ coefficients EXACTLY zero in all 5233 touched atoms —
+   integer-exact, not just mod P. The wire is a genuinely free parameter.
+
+4. Direct construction (V=1): wire member → its sign; the two rare partners (each in only
+   2 atoms) → x_9897=−G, x_31302=F0; slack outputs x_9982=−G, x_26977=F0; rest = best.
+   Satisfies 1818,1816,H,F and the verifier square a40782=Q² (Q→0). Checker: 39031/39031.
+   x_12779 and x_24026 stay 0 — the div-wire / dirty-bits / x_12779≥2 saga was never needed.
+
+WHY PRIOR SESSIONS MISSED IT: they searched the confluent forward-eval orientation (which
+quantizes both twist sides to coprime units and zeros the slack products — literally cannot
+represent the witness) and chased control-bit settings. The witness is not reachable by
+propagation from the V=0 branch, but it IS a one-line algebraic construction once you read
+the slacks off the raw equations and note the wire is quiet.

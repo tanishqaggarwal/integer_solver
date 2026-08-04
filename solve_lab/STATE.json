@@ -1,13 +1,13 @@
 {
- "phase": "search",
+ "phase": "SOLVED",
  "n_eqs": 39031,
  "n_vars": 38748,
  "n_forced": 5897,
  "n_assigned": 38748,
- "n_eqs_satisfied_by_partial": 39019,
- "best_score": 39019,
- "best_partial": "solve_lab/best/best_partial_39019.json",
- "active_method": "Session 7: SLACK-ACTIVE breakthrough. Twist is asymmetric (only x_3183=x_17728 rigid; x_9770/x_18274 bridged by product slack x_20510*x_31302). Built slack-active evaluator (freeze x_24026/x_27116, x_12779=1) making BOTH twist halves hold by construction - reaches the witness state plain forward-eval cannot represent. SA-with-square-roots reduces the frustrated core 18->6. Confirmed intrinsic coprime quantization gcd(g,g2)=1, gcd(h,h2)=2; div-wire escape (x_8821 in {-2,-1,0,1}) real but lands on coprime (base/2)*Z; re-orientation to linear gates stays valid but freezes value (achievable set is intrinsic). Ripple subsystem not closed (46->27k vars in 3 rounds) - no XL, no cone. Witness needs a huge slack whose ripple exactly cancels in the verifier squares = the trapdoor.",
+ "n_eqs_satisfied_by_partial": 39031,
+ "best_score": 39031,
+ "best_partial": "solve_lab/best/SOLUTION.json",
+ "active_method": "SOLVED (Session 8). Direct construction in the RAW equation space. At best_partial only 2 atoms nonzero: H=(x_17728-x_3183)+x_9982 and F=6033033*(x_18274-x_9770)-x_26977. Both are PRODUCT SLACKS: H via x_9982=x_12518*x_9897, F via x_26977=x_20510*x_31302. The gap x_17728-x_3183 is NOT rigid (always paired with +x_9982 in raw eqs). Hubs x_12518,x_20510 are in the 220-var identity wire (=x_15); the wire is EXACTLY quiet (V^1 and V^2+ coefs vanish in every atom, integer). Set wire=sign*V (V=1) + partners x_9897=-G, x_31302=F0, and x_9982=-G, x_26977=F0. All 39031 eqs satisfied. See SOLVED.md, build_solution.py.",
  "structure": {
   "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
   "n_distinct_atoms": 46275,
@@ -20,29 +20,11 @@
   "huge_atoms": 865,
   "huge_atom_form": "bit*(x_B - HUGE_290bit) - s*x_C ; bit=1 loads residue",
   "core": "1 giant residual component: 23843 vars, 256 free bits; +297 tiny homogeneous comps",
-  "open_atoms": [
-   1817,
-   30378,
-   40782,
-   44271
-  ],
+  "open_atoms": [],
   "not_single_modulus": true
  },
- "n_eqs_failing": 12,
- "failing_eqs": [
-  165,
-  2368,
-  5035,
-  5613,
-  5990,
-  14447,
-  18957,
-  26459,
-  27483,
-  27515,
-  29180,
-  35073
- ],
+ "n_eqs_failing": 0,
+ "failing_eqs": [],
  "core_probes": {
   "single_bit_flip": "51 bits improve 4->3 violated atoms, none reach <3; flipping moves violations to different atoms (rugged landscape)",
   "greedy_multiflip": "plateaus at 3; adding a 2nd bit never improves below 3",
@@ -128,5 +110,6 @@
   "invariant": "the collision gap G=63398753350954830538284979531311478224817569395477016427713014637060524103217265241016814 (=x_17728-x_3183) is CONSERVED: every reformulation (twist atoms / slack-active R / x_8821 web / x_12390-x_14494) relocates the SAME G to different vars, none eliminates it",
   "joint_solve_fails": "a44129 x_24089-dependence cancels (c1=c2=0); free var cannot absorb G",
   "conclusion": "G is zeroed only by a NATIVE 22/233 collision, forbidden by coprime quantization (gcd 2, tiny coprime images, 0 nonzero collisions/3500 samples) => robust one-way trapdoor requiring knapsack inversion"
- }
+ },
+ "solution": "solve_lab/best/SOLUTION.json (repo root SOLUTION.json); 38748 vars, 2954 nonzero; verify: python3 checker.py best/SOLUTION.json"
 }

@@ -1,8 +1,20 @@
 # RESUME — read me first
 
-## Status
-Best verified partial: **39,019 / 39,031** equations (exact in ℤ).
-File: `best/best_partial_39019.json`. Verify: `python3 checker.py best/best_partial_39019.json`.
+## ✅ SOLVED — all 39,031 / 39,031 equations satisfied exactly in ℤ
+Solution: `best/SOLUTION.json` (also repo root `SOLUTION.json`), 38,748 vars, 2,954 nonzero.
+Verify: `python3 checker.py best/SOLUTION.json` → `RESULT: OK`.
+Reproduce: `python3 build_solution.py`. Full writeup: **`SOLVED.md`**.
+
+The twist reduced to activating two product-slacks (H: x_9982=x_12518·x_9897=−G;
+F: x_26977=x_20510·x_31302=F0). The hubs x_12518/x_20510 sit in a 220-var identity wire
+that is *exactly quiet*, so it is a free parameter; set wire=sign·1 and the two rare
+partners x_9897=−G, x_31302=F0. Direct algebraic construction, no search. The earlier
+forward-eval framing (control bits, div-wire, x_12779≥2, dirty bits, high-dim co-activation)
+was an artifact of the orientation — none of it was needed.
+
+---
+## (historical) prior best partial
+Best verified partial was **39,019 / 39,031** (`best/best_partial_39019.json`).
 
 ## SESSION 7 — SLACK-ACTIVE SOLVER BUILT; obstruction reduced to R=0 (read NOTEBOOK Session 7 tail)
 The slack-active evaluator EXISTS now: `slack_active.py` (freeze x_24026:=x_18274-x_35186,
