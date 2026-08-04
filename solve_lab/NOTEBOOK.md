@@ -815,3 +815,29 @@ construction ensures each escape source is itself a 0-gate; the witness needs a
 GLOBAL escape orientation (cascade of gates nonzero) that no local freeze reaches.
 Note: x_18274!=0 IS compatible with x_12779=2 (39/61 samples); ~7053 free vars exist
 but the load-active ones all multiply 0-gates.
+
+### Session 7 (cont.) — CORE BREAKTHROUGH: escape cascade grounds at free var x_15
+Tracing the "must be nonzero" requirement for x_24026 (slack) backward through the
+confluent defining atoms (cascade_trace.py) reveals a LINEAR CHAIN of equalities:
+  x_24026 <- x_38215 = x_30077*x_37917 ; x_37917=x_2524=x_9849=x_20564=x_3221=
+  x_18850=x_4384=x_414 = x_15  (FREE var, df=None)
+And ALL THREE slack cascades ground at the SAME free var x_15:
+  9770 slack:  x_38215 = x_30077*x_15     (x_30077 free)
+  3183 slack:  x_29437 = x_15*x_31807     (x_31807 free)
+  9770 a1817:  x_26977 = x_20510*x_31302 = x_15*x_31302  (x_31302 free; x_20510=x_15)
+So the slack IS forward-eval-activatable by SETTING x_15 (forward-eval kept x_37917
+==0 only because x_15=0 at best). This overturns "forward-eval cannot represent the
+witness" -- it CAN, via the free vars.
+
+Consequence: at x_12779=2 (x_14402=-1) forward-eval computes x_24026=-321447*x_38215
+=-321447*x_30077*x_15 correctly; x_3368=2*x_24026; x_9770=x_35186-642894*x_30077*x_15.
+So the twist x_9770=x_18274 needs only  x_18274 == x_35186 (mod 642894), and
+x_3183=x_17728 needs x_17728==x_1642 (mod 2). BOTH ARE REACHABLE (mod_reach.py:
+61/387 x_12779=2 states satisfy both; 0 is in the image mod 642894 and mod each prime
+factor 2,3,7,15307). The twist is a MODULAR match (~20-bit), NOT a 296-bit collision!
+On a mod-satisfying state: freeze x_24026=(x_18274-x_35186)/2, x_27116=(x_17728-x_1642)
+/2; set x_15=1, x_30077=(x_35186-x_18274)/642894, x_31807=(x_1642-x_17728)/2 -> twist
+holds EXACTLY, a1813/a1815 SATISFIED, x_26977=0. Remaining breakage = pure ripple /
+verifier-square residuals R_i (free_activate4.py searches mod-states for min |R|).
+This is the real, tractable core: find a mod-satisfying state whose ripple self-
+cancels, OR tune the ripple via additional free vars.
