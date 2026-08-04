@@ -72,3 +72,21 @@ PINNED to V0, which makes the same twist GLOBAL. Local repair / linear solving c
 it, and the exact linear systems blow up (entries ~2^256 compound through elimination).
 Conclusion: this instance is solvable only with the setter's message (the consistent global
 assignment), not by the local-construction method that cracked the free-wire instance.
+
+## FRESH FIRST-PRINCIPLES ANALYSIS (no prior framing)
+
+Treating the system as a raw polynomial object:
+- Linear subsystem rank 19,406 / 28,837 vars; iterated linear+constant closure pins only
+  6,683 / 38,748 vars — NO linear collapse.
+- 8,581 "input" (never-gate-output) vars; they carry **0 independent linear constraints**
+  (Schur complement of the linear system onto the inputs is empty).
+- Every atom LINEARIZES by substituting gate outputs for products, EXCEPT the 768 perfect-
+  square verifier atoms. So the entire nonlinearity = product-consistency (auto-satisfied by
+  forward-eval) + the 768 verifier squares.
+- => the problem is exactly: choose the 8,581 free inputs so the 768 verifier squares hold.
+  This is circuit inversion; there is no linear leverage on the inputs.
+- Irreducible obstruction (independently re-derived): at inputs=0 all verifier squares hold
+  and only the LINEAR gap atoms fail; satisfying a gap forces an input to carry
+  BIGCONST mod V0 ≈ 2^256 (since V0 ∤ BIGCONST), and that same input feeds the verifier,
+  breaking it. Linear gaps and nonlinear verifier pull the inputs oppositely; the V0-remainder
+  is unabsorbable. Confirms the pinned-wire hardness from pure algebra.
