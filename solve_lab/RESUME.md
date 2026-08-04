@@ -1,5 +1,29 @@
 # RESUME — read me first
 
+## ⚠️ CURRENT (re-randomized) INSTANCE — NOT solved; identified as a secp256k1 GF(p) trapdoor
+The EQUATIONS.txt in the repo is a NEW re-randomized instance (39,033 eqs). Full analysis in
+**`NEW_INSTANCE_STATUS.md`** (read it). Best verified partial: **39,007 / 39,033**
+(`best/new_instance_partial_39007.json`; `python3 checker.py best/new_instance_partial_39007.json`).
+
+Definitive findings (exhaustive):
+- Gate DAG fully ACYCLIC; forward-eval from free inputs satisfies all wiring automatically.
+- The ONE large identity wire (220 vars) is PINNED to **p = 2^256-2^32-977 = secp256k1 field
+  prime** (x_26064=p, appears 13x); it is the twist multiplier. No free wire exists (unlike the
+  solved instance, whose wire was FREE — that was the whole solve).
+- The remaining obstruction is a **256-bit boolean codeword message** (disjoint 178+78-bit cones
+  of control bits x_7715,x_34554). x_9274=OR(controls)=1 is FORCED, so activation is mandatory.
+- Each set bit triggers a huge additive load; the GF(p) load matrix over the 256 bits is FULL
+  RANK (no bit self-cancellation). Data can absorb mod p but the ℤ-lift imposes p-divisibility
+  carries -> every wrong-message data solve is ℤ-inconsistent (SNF pivot=p); iterative repair
+  diverges (27->300+). Inhomogeneous GF(p) message solve inconsistent (rank 3). No small vinegar
+  linearization (21,922 vars bilinear). => structured GF(p) codeword/MQ; needs the setter secret.
+- Key tools: build_twist.py (activate+route MUX), newton2.py (simultaneous absorber solve),
+  p_message.py (GF(p) message solve), scc.py, localize.py, scan_bits.py, p in huge_consts.json.
+- Untried heavy attack: lattice/LLL on the mod-p codeword (standard, likely resisted by design).
+
+---
+# RESUME — read me first
+
 ## ✅ SOLVED — all 39,031 / 39,031 equations satisfied exactly in ℤ
 Solution: `best/SOLUTION.json` (also repo root `SOLUTION.json`), 38,748 vars, 2,954 nonzero.
 Verify: `python3 checker.py best/SOLUTION.json` → `RESULT: OK`.
