@@ -235,3 +235,29 @@ The bits span only **rank 3** of the 27 conditions mod p and the target is NOT i
 (inconsistent) — the failures are data-driven (chains/loads), which in turn are ℤ-inconsistent via
 p-divisibility. Bits can't fix the mod-p side; data can't fix the ℤ-quotient side. This closes the
 last linear-algebra escape and re-confirms the secp256k1 GF(p) codeword hardness.
+
+## BREAKTHROUGH-2: the failing system is Q-CONSISTENT — obstruction is double-width integer lift
+
+Major progress via exact rational analysis (rational_solve.py, int_solve.py):
+- The 27 build_twist failing equations form a system that is **CONSISTENT over Q** (rank 27/48
+  handles, 21 free dimensions). The obstruction to a full solution is purely the **integer lift**.
+- The forced constants are **double-width packings**: C1 = 789486214152·p + r1, C2 =
+  1086320452253·p + r2 (40-bit quotient · p + 256-bit remainder). The circuit UNPACKS them using
+  the p-wire: products like x_25758 = x_10603·x_33612 with x_10603 ∈ wire (=p) give p·x_33612, so
+  a chain x_12186 = x_23927 + p·x_33612 = C1 splits into remainder x_23927 ≡ r1 (mod p) and free
+  quotient x_33612. Confirmed the forced-constant equations also have free quotients: x_24468 =
+  C1 + x_22399·x_11436 with x_22399 ∈ wire ⇒ x_24468 = C1 + p·x_11436 (quotient x_11436 free);
+  likewise x_18956 = C2 + p·s via x_7497 = 8863713·s.
+- SNF-with-transforms (int_solve.py) on the 27×48 integer system: **feasible=False**, with **13
+  invariant factors = p·(small 2-power)** whose transformed RHS c satisfies c ≢ 0 mod p
+  (gcd(c,D) is only a small power of 2). So there are exactly **13 independent mod-p remainder-
+  alignment conditions** the current routing does not satisfy.
+- Quotients (wire-products) give only p-MULTIPLES → cannot change residues mod p. The remainders
+  are FIXED by the forced constants. So the 13 conditions depend only on the routing = the message.
+  The x_7715-cone bits move only rank-3 of these mod p (p_message.py) ⇒ this activation/quadrant
+  cannot align them; a different routing (quadrant/message) is required.
+
+Net: this reframes the core from "opaque MQ" to a concrete, well-understood **13-dimensional
+mod-p alignment problem** on the routing. Tools: rational_solve.py (Q-consistency + non-integer
+handles), int_solve.py (SNF integer solve + obstruction diagnosis). Next: test alternate quadrants
+/activations for a routing that satisfies the 13 conditions mod p.
