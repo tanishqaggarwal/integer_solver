@@ -858,3 +858,22 @@ appearing broken. Also: the mod-twist reduction stands (x_18274==x_35186 mod 642
 reachable per-prime via CRT; free_activate4/mod_reach). Old freeze approach (4-core,
 invariant gap G) remains the tightest concrete state; reconcile G with the mod
 constraint next.
+
+### Session 7 (cont.) — the escape is a 220-var WIRE V, decoupled from best at 1st order
+union_identities.py: union-find over all 3707 two-term identity/negation atoms
+(c1*x_a+c2*x_b=0, |c1|=|c2|) finds ONE giant class of 220 variables all = x_15 (=V,
+all +sign) -- a single obfuscated "wire" renamed 220 times. It is the ONLY large
+class (all others size<=2). (x_3183 & x_17728 are merged too -- that's the twist atom
+a44271.) The wire = escape master V; the slack needs V!=0 (x_38215=x_30077*x_15).
+wire_analysis.py: the wire appears in 5233 atoms, up to degree 4 (V^4 in the deg-4
+verifier squares). Substituting wire->V with all NON-wire vars at best_partial and
+using the deg-2 square ROOTS:
+  - 0 atoms FORCE V=0 (none is linear-only c1*V=0) -> V!=0 not trivially blocked
+  - 0 atoms DEMAND a nonzero V either: every wire V-term is V*x_other or V^2*x_other
+    where x_other=0 at best, so ALL V-coefficients vanish at best_partial.
+=> The wire V is DECOUPLED from best_partial at first order. best_partial sits on the
+V=0 branch (39019 atoms); the witness is on a SEPARATE V!=0 nonlinear branch where V
+and its coupling-partner vars (currently 0) co-activate. This is exactly why every
+local repair / perturbation of best_partial was UNSAT: the witness is not a
+perturbation of best -- it is a different branch. The trapdoor = find the co-activated
+(V, partners) branch; no first-order/linear handle from best reaches it.
