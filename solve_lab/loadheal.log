@@ -1,0 +1,15 @@
+after set loads: 39009/39033 (24 fail)
+rnd 0: 24 now, 24 accum, 50 handles, rank 16
+rnd 1: 41 now, 64 accum, 110 handles, rank 37
+rnd 2: 18 now, 82 accum, 142 handles, rank 48
+rnd 3: 26 now, 108 accum, 205 handles, rank 67
+rnd 4: 17 now, 125 accum, 227 handles, rank 73
+rnd 5: 25 now, 147 accum, 231 handles, rank 75
+rnd 6: 130 now, 220 accum, 279 handles, rank 94
+rnd 7: 48 now, 233 accum, 279 handles, rank 94
+rnd 8: 107 now, 269 accum, 301 handles, rank 102
+rnd 9: 111 now, 284 accum, 312 handles, rank 105
+rnd 10: 121 now, 296 accum, 323 handles, rank 108
+rnd 11: 134 now, 311 accum, 333 handles, rank 112
+rnd 12: 117 now, 322 accum, 340 handles, rank 115
+rnd 13: 131 now, 337 accum, 355 handles, rank 119
