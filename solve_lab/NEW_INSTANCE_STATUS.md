@@ -261,3 +261,24 @@ Net: this reframes the core from "opaque MQ" to a concrete, well-understood **13
 mod-p alignment problem** on the routing. Tools: rational_solve.py (Q-consistency + non-integer
 handles), int_solve.py (SNF integer solve + obstruction diagnosis). Next: test alternate quadrants
 /activations for a routing that satisfies the 13 conditions mod p.
+
+## Extraction status: feasibility confirmed, full assignment not yet extracted
+
+With quadrant (1,1) integer-feasible, tried multiple extraction methods:
+- Dixon p-adic solver (dixon_solve.py) makes the integer solve FAST (no 2^300 SNF blowup). But
+  linearized accumulating iteration DIVERGES (27→149 fail): moving remainder/quotient handles by
+  ~2^255 activates gate outputs that turn on previously-zero products, breaking distant equations
+  (nonlinear ripple). The full coupling closure is large (~27k vars) — too big for one linear solve.
+- Constructive load-absorption (constructive.py): the (1,1) failures are activator LOADS
+  (x_2081·(x_6418−HUGE) ⇒ x_6418=HUGE) plus forced-constant checks needing double-width unpacking.
+  Greedy per-gadget free-input setting plateaus at 33 fail — it absorbs loads but can't do the
+  remainder/quotient split (x_rem=val mod p, x_quot=val//p via wire-products) that the checks need.
+
+Diagnosis: the remaining work is a STAGED solve — (A) solve for the remainder free inputs mod p
+(GF(p) linear, no ripple since values <p), then (B) lift the quotients (integer). The nonlinear
+corrections (handle·handle products) must be pinned to 0 to keep each stage linear. This is a
+well-defined path; the feasibility guarantees a solution exists. Tools added: dixon_solve.py
+(fast p-adic), constructive.py (load absorption), config_test.py (feasibility scan).
+
+KEY TAKEAWAY: the instance is NOT an unsolvable trapdoor — quadrant (1,1) is provably integer-
+feasible. Full extraction is an engineering task (staged mod-p + lift, or bounded global Dixon).
