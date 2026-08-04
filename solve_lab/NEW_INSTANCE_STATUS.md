@@ -282,3 +282,21 @@ well-defined path; the feasibility guarantees a solution exists. Tools added: di
 
 KEY TAKEAWAY: the instance is NOT an unsolvable trapdoor — quadrant (1,1) is provably integer-
 feasible. Full extraction is an engineering task (staged mod-p + lift, or bounded global Dixon).
+
+## Coupling scale: the twist spans the whole circuit (34k eqs) — extraction needs forward-construction
+Measured the twist coupling component (BFS over the equation-sharing graph, excluding the p-wire &
+message bits): **34,050 equations / 35,020 variables / 7,427 free-input handles** — essentially the
+entire circuit. So the full assignment cannot be extracted by any bounded local linear solve; it
+requires the setter's scalable route: forward-evaluate from the correct free inputs, computing each
+double-width remainder/quotient in topological order. My constructive/iterative solvers plateau
+because they don't yet perform the (remainder = target mod p, quotient = target//p) split via the
+wire-products at each check. That is the concrete remaining engineering task.
+
+SESSION SUMMARY (this is genuine, large progress that OVERTURNS the earlier "hard trapdoor" verdict):
+1. Trapdoor identified: secp256k1 GF(p) obfuscated circuit; wire pinned to p=2^256-2^32-977.
+2. Failing system is Q-CONSISTENT (not infeasible); obstruction was the integer/double-width lift.
+3. Forced constants are p-packings C=q*p+r, unpacked via wire(=p) products (free quotients, fixed
+   remainders); config_test proved quadrant (1,1) is INTEGER-FEASIBLE (0 obstructions) — the
+   previously-blocking 13 mod-p conditions were a wrong-routing artifact.
+4. Remaining: a robust topological forward-construction (with the mod-p/quotient split) to realize
+   the known-feasible assignment across the 34k-eq coupling. Best VERIFIED partial: 39,007/39,033.
