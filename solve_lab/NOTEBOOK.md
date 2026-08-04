@@ -841,3 +841,20 @@ holds EXACTLY, a1813/a1815 SATISFIED, x_26977=0. Remaining breakage = pure rippl
 verifier-square residuals R_i (free_activate4.py searches mod-states for min |R|).
 This is the real, tractable core: find a mod-satisfying state whose ripple self-
 cancels, OR tune the ripple via additional free vars.
+
+### Session 7 (cont.) — x_15 is a HUB; escape = ~15 chain vars all equal to one value V
+Verified activation works (twist holds when run() is applied on top of solve(bestval,S)
+so bits are set -- earlier free_activate3/4 had this bug). BUT the escape cascade vars
+x_15,x_414,x_4384,x_18850,x_3221,x_20564,x_9849,x_2524,x_37917,x_22447,x_2322,x_7815,
+x_21260,x_31902,x_20510 are ALL forced EQUAL (gate chain) and are HUBS: 49-88 atoms
+each, 1033 atom-slots total. Setting x_15!=0 (required for slack, since x_38215=
+x_30077*x_37917=x_30077*x_15) breaks ~350 atoms. So free-var activation is MORE
+disruptive than the old freeze-x_24026 hack (18 broken -> 4-core). The escape is a
+GLOBAL state: ~15 hub vars all = witness value V, consistent across 1033 atom-slots.
+KEY next attack: MERGE the chain (x_414=x_4384=...=x_20510=x_15=V, one unknown) into
+the system, substitute, and solve the reduced system for V + the twist -- this could
+collapse the 350 ripple since the atoms then constrain V consistently rather than
+appearing broken. Also: the mod-twist reduction stands (x_18274==x_35186 mod 642894
+reachable per-prime via CRT; free_activate4/mod_reach). Old freeze approach (4-core,
+invariant gap G) remains the tightest concrete state; reconcile G with the mod
+constraint next.
