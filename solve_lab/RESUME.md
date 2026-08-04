@@ -1,9 +1,25 @@
 # RESUME — read me first
 
-## ⚠️ CURRENT (re-randomized) INSTANCE — NOT solved; identified as a secp256k1 GF(p) trapdoor
+## ⚠️ CURRENT (re-randomized) INSTANCE — 39,013/39,033; core REDUCED but not cracked
 The EQUATIONS.txt in the repo is a NEW re-randomized instance (39,033 eqs). Full analysis in
-**`NEW_INSTANCE_STATUS.md`** (read it). Best verified partial: **39,007 / 39,033**
-(`best/new_instance_partial_39013.json`).
+**`NEW_INSTANCE_STATUS.md`** and **`CORE_REDUCTION.md`** (read both). Best verified partial:
+**39,013 / 39,033** (`best/new_instance_partial_39013.json`, quadrant (1,1)).
+
+### BREAKTHROUGH (latest session): the 20-equation core is fully reduced.
+All 20 remaining verifier squares = integer combos of three monsters M1,M2,M3, wiring-defined by
+two base gates S=x_35389, T=x_6671. Core ⟺ M1=M2=M3=0 ⟺ **S≡0 and T≡0 mod p** (quadrant 1,1),
+then set private quotient handles x_30317,x_2936,x_5146. See CORE_REDUCTION.md for the full chain
+down to control differences x_29322=x_14853-x_12186, x_3558=x_24908-x_16742.
+
+### OBSTRUCTION (well-characterized): residues are pinned.
+The sparse wiring solution is unique (only 30 slack inputs nonzero, rank 30). Sparse-witness
+null-space solves up to the FULL closure (6,114 inputs, 7,119 constraints) are INCONSISTENT —
+S,T residues are linearly pinned by the wiring; no local move reaches the core. Both quadrants
+(1,1) and (0,0) have the SAME 20 hard squares via different branches; multi-role control
+variables couple the core to the whole system. Remaining paths: a global nonlinear solver
+(basin-hopping / large mod-p Gaussian) or the setter's witness. NEXT: try a global linear solve
+from the all-zero (0,0) point (cleaner linearization: all products vanish → residue conditions
+become linear), or re-attempt with a genuinely different activator/quadrant that unpins S,T.
 
 Definitive findings (exhaustive):
 - Gate DAG fully ACYCLIC; forward-eval from free inputs satisfies all wiring automatically.
