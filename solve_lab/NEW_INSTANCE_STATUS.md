@@ -171,3 +171,30 @@ Tools added: scc.py, localize.py, coupling.py, build_twist.py, scan_bits.py, new
 examine_fail.py. Best verified partial remains best/new_instance_partial_39007.json (39,007).
 Next probes: smaller x_34554 activation region (78 bits, quadrant (0,1)); multi-bit
 load-cancelling combinations; per-bit load-target absorbability ranking.
+
+## CRYPTOGRAPHIC IDENTIFICATION — the trapdoor is built on secp256k1
+
+Instrumenting the absorber linear-solve's SNF, the pivot that blocks integer consistency at
+eq[15299] is exactly **d = 115792089237316195423570985008687907853269984665640564039457584007908834671663
+= 2²⁵⁶ − 2³² − 977 = the secp256k1 base-field prime p** (Bitcoin's curve). Confirmed:
+- The pinned "wire" value V0 = x_26064 = x_23917 = **p** (the field prime), appearing as a
+  literal 13× via `(x_26064 − p)` gadgets, and used as the twist multiplier.
+- So the circuit computes **GF(p) field arithmetic**; the twist multiplies by p, making the
+  hard constraints congruences mod p, with the integer equations tracking the quotients.
+- The forced constants C1,C2 (~2²⁹⁶ > p) are double-width (a·p + b packings), and eq56-style
+  checks force x_18956 ≡ C2, x_24468 ≡ C1 (mod p) plus exact-quotient conditions.
+
+Consequence for solving:
+- The naive absorber solve (fix control bits, solve data linearly) is **inconsistent over ℤ**
+  precisely because a residual is non-zero mod p; it can only be fixed by the correct message
+  bits, whose loads are additive but must jointly cancel mod p AND carry correctly.
+- Iterative Gauss-Seidel / Jacobi absorption **diverges** (27→300+ fails): the absorbers are
+  densely, non-gated coupled — the hallmark of the intended codeword hardness.
+- The best partial's 26 failing roots are **0/26 ≡ 0 mod p**, so it does not even satisfy the
+  field-level (mod-p) constraints — the message is genuinely the setter's secret codeword.
+
+This is the same family as the previously SOLVED instance; the sole structural change is the
+multiplier wire being **pinned to p** (vs a FREE wire before). The free wire is what made the
+old twist local & linearizable; pinning to the secp256k1 prime turns it into a GF(p) codeword
+problem. Remaining hope for a non-brute-force solve: a vinegar/UOV linearization (fix a small
+hub set → linear), currently under measurement. Verified best partial unchanged: 39,007/39,033.
