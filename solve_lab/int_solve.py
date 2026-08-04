@@ -23,7 +23,7 @@ for pp in A:
         if c2==0 and c1!=0 and (-c0)%c1==0 and not pinned[v]: val[v]=(-c0)//c1; pinned[v]=True
 gate_out=set(t for t,_,_ in gates); freeinp=set(v for v in range(NVARS) if v not in gate_out)
 boolbits=set(json.load(open('boolbits.json'))['boolvars'])
-override={22106:1, 16742:C2, 12186:C1, 24468:C1, 18956:C2}
+override={24601:1, 2081:1, 30213:C2, 22162:C1, 24468:C1, 18956:C2}
 for v,x in override.items(): val[v]=x; pinned[v]=True
 handles=sorted(freeinp - boolbits - set(override)); hset=set(handles)
 cand=defaultdict(list)
@@ -68,10 +68,14 @@ def forward():
     ns['v']=val
     for k,t in enumerate(order): val[t]=eval(gcode[k],ns)
 forward(); ns['v']=val
-F=[i for i in range(len(lines)) if eval(eqcode[i],ns)!=0]
-print(f"failing: {len(F)}", flush=True)
+Ffail=[i for i in range(len(lines)) if eval(eqcode[i],ns)!=0]
+print(f"failing: {len(Ffail)}", flush=True)
+# handles = free inputs in the FAILING eqs; then solve ALL equations that touch those handles
+H=sorted(set().union(*[eqvars[i]&hset for i in Ffail]))
+Hset=set(H)
+F=[i for i in range(len(lines)) if eqvars[i]&Hset]
+print(f"handles {len(H)}; equations touching handles (full local system): {len(F)}", flush=True)
 rootcode={i:compile(VAR.sub(r'v[\1]',ast.unparse(inner_src(lines[i].rsplit('=',1)[0]))),'<e>','eval') for i in F}
-H=sorted(set().union(*[eqvars[i]&hset for i in F]))
 base={i:eval(rootcode[i],ns) for i in F}
 Jac=[[0]*len(H) for _ in F]
 for j,h in enumerate(H):
