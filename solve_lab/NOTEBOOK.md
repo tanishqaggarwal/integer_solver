@@ -890,3 +890,23 @@ solve seeded from V!=0 -- set the wire, then for each check atom with one unknow
 partner, solve+propagate; measure how many partners get pinned and whether it
 converges (extends merge_solve which stalled at 5898 from pins alone). The mod-twist
 reduction (x_18274==x_35186 mod 642894, reachable per-prime) is the other live handle.
+
+### Session 7 (cont.) — propagation-solve stalls: escape is high-dimensional, not (bits,V)
+propagate_wire.py: merged the 220-wire->x_15 and twist, seeded ALL 255 control bits +
+x_15=V, propagated over GF(P) (linear + product/div, 1-unknown -> assign). Determined
+only 14703/38748 with 0 contradictions and stalled. (Generic propagation is weaker
+than the confluent orientation, which determines the ~31695 non-free vars; but the
+point stands:) the ~7053 free vars are genuine inputs, NOT determined by (bits,V) via
+propagation. The check atoms (~11k) constrain them to an effective ~256-dim solution
+space, but NONLINEARLY -- so the witness is a high-dimensional co-activation of V +
+~thousands of free partner vars, reachable only by solving the coupled nonlinear
+system, not by propagation or perturbation from best_partial (V=0 branch).
+FULL SESSION-7 characterization of the trapdoor (definitive):
+ - obstruction = twist collision x_9770=x_18274 & x_3183=x_17728
+ - the slack that bridges it grounds at a single free var x_15, aliased 220x (a "wire")
+ - x_15=V is decoupled from best at 1st order (best is the V=0 branch); witness is a
+   separate V!=0 branch co-activating ~3707 free partner vars
+ - twist reduces to a modular match (x_18274==x_35186 mod 642894) reachable per-prime,
+   but the verifier-square/ripple co-activation is the residual barrier
+ - no first-order/linear/propagation handle reaches the branch => genuine one-way
+   trapdoor; witness exists by construction but needs the coupled nonlinear solve.
