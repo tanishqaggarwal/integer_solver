@@ -320,3 +320,17 @@ FINAL SESSION STATUS:
   methods stall on the MQ coupling at whole-circuit scale.
 - Best VERIFIED partial unchanged: 39,007/39,033 (best/new_instance_partial_39007.json).
 - Tools: config_test.py, dixon_solve.py, stage_a.py, int_solve.py, rational_solve.py, constructive.py.
+
+## CORE REDUCED: only 20 quadratic equations; the rest is fully LINEAR
+Creative reduction (additivity test across all 39,033 eqs under the 56 twist handles):
+- The 27 (1,1) failing CHECKS are FULLY LINEAR in all 56 handles (0 quadratic pairs) — every
+  product in them has a fixed factor (control bit =1, or wire =p).
+- Across the ENTIRE system, only **20 equations are quadratic** (verifier squares where two loads
+  multiply). All other ~39,000 equations are linear in the handles.
+- The loads are DETERMINED constants (x_load = HUGE from each load gadget x_act·(x_load−HUGE)), so
+  the 20 quadratic checks AUTO-HOLD at the setter's constants — they are checks, not free MQ.
+=> The whole extraction is a LINEAR forward-construction: set each free input to its determined
+gadget value in topological order (with the double-width r=target mod p, q=target//p split), and
+the 20 quadratic checks are satisfied automatically. My earlier constructive solvers oscillated
+only because they set free inputs in the wrong order and re-set them. Building the ordered
+constructor now. Best verified partial 39,007/39,033.
