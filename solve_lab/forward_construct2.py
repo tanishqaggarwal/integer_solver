@@ -161,17 +161,18 @@ for it in range(400):
     if it%20==0 or len(F)<40: print(f"iter {it}: {len(lines)-len(F)}/{len(lines)} ({len(F)} fail); determined free={len(determined)}", flush=True)
     if not F: print("SOLVED!"); break
     changed=False
-    if resolve_followers(): changed=True   # resolve core followers as soon as targets final
     for i in F:
         for t in flat(rootast(i)):
             if evn(t)!=0 and try_set(t): changed=True
-    forward()
     if not changed:
-        if PENDING:  # last-resort: resolve remaining followers even if not fully final
+        # sweep stuck: resolve deferred core followers (x_12186<-x_14853, x_16742<-x_24908)
+        # once their targets are final, then let the sweep continue to heal downstream.
+        if PENDING:
             for f,t in list(FOLLOW.items()):
                 if f in PENDING: forward(); val[f]=val[t]; determined.add(f); PENDING.discard(f)
             forward(); changed=True; continue
         print(f"  no ready free input to set; stuck at {len(F)} fail"); break
+    forward()
 ns['v']=val
 F=[i for i in range(len(lines)) if eval(eqcode[i],ns)!=0]
 print(f"FINAL: {len(lines)-len(F)}/{len(lines)} ({len(F)} fail): {F[:20]}", flush=True)
