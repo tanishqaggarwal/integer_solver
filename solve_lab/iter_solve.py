@@ -133,22 +133,20 @@ def solve_local(H, F):
     forward()
     return True, rk
 forward(); ns['v']=val
-H=set()
-for it in range(10):
+Faccum=set()
+for it in range(20):
     ns['v']=val
     Ffail=[i for i in range(len(lines)) if eval(eqcode[i],ns)!=0]
     print(f"iter {it}: {len(lines)-len(Ffail)}/{len(lines)} ({len(Ffail)} fail)", flush=True)
     if not Ffail:
         print("SOLVED!"); break
-    # accumulate handles from failing eqs
-    newH=set().union(*[eqvars[i]&hbase for i in Ffail])
-    H |= newH
-    Hlist=sorted(H)
-    Ffull=[i for i in range(len(lines)) if eqvars[i] & H]
-    print(f"  handles={len(Hlist)}, local system={len(Ffull)} eqs", flush=True)
-    ok,rk=solve_local(Hlist, Ffull)
+    Faccum |= set(Ffail)
+    Flist=sorted(Faccum)
+    H=sorted(set().union(*[eqvars[i]&hbase for i in Flist]))
+    print(f"  accumulated system: {len(Flist)} eqs, {len(H)} handles", flush=True)
+    ok,rk=solve_local(H, Flist)
     if not ok:
-        print(f"  infeasible at this scope (rank issue); stopping"); break
+        print(f"  infeasible at this scope (rank {rk}); stopping"); break
 ns['v']=val
 Ffail=[i for i in range(len(lines)) if eval(eqcode[i],ns)!=0]
 print(f"FINAL: {len(lines)-len(Ffail)}/{len(lines)} ({len(Ffail)} fail): {Ffail[:20]}", flush=True)
