@@ -47,12 +47,26 @@ for i in LOAD12:
 corecone=free_cone(35389)|free_cone(6671)|{35389,6671}
 protect=loadcone|corecone|QUOT|{22152,33462,12186,14853,16742,24908}
 print(f"load-cone frees: {len(loadcone)}, core-cone frees: {len(corecone)}, protect total: {len(protect)}")
-# candidate handles: free inputs feeding the broken eqs, minus protect
+# candidate handles: free inputs feeding ANY affected eq (broken + satisfied-touched-by-broken-cone),
+# minus protect. Broaden beyond just broken-eq frees.
 Hset=set()
 for i in cur:
     for var in eqvars[i]:
         Hset|=free_cone(var)
         if var in freeinp: Hset.add(var)
+# also frees appearing directly in broken eqs (not just via cone)
+directfree=set()
+for i in cur:
+    directfree|=(eqvars[i]&freeinp)
 H=sorted(Hset-protect)
-print(f"candidate non-load-cone handles: {len(H)}")
-json.dump({'broken':sorted(cur),'handles':H,'loadcone':sorted(loadcone)}, open('agentC_healdix.json','w'))
+print(f"candidate non-load-cone handles: {len(H)}  (direct-in-broken frees: {len(directfree-protect)})")
+# how many satisfied eqs does each handle touch (want low = clean)
+eqbyvar=defaultdict(set)
+for i in range(NEQ):
+    for var in eqvars[i]: eqbyvar[var].add(i)
+satset=set(range(NEQ))-cur
+clean=[h for h in H if len(eqbyvar[h]&satset)==0]
+print(f"handles touching ZERO satisfied eqs (clean): {len(clean)}")
+lowtouch=sorted(H, key=lambda h: len(eqbyvar[h]&satset))
+print(f"lowest-touch handles: {[(h,len(eqbyvar[h]&satset)) for h in lowtouch[:15]]}")
+json.dump({'broken':sorted(cur),'handles':H,'clean':clean,'loadcone':sorted(loadcone)}, open('agentC_healdix.json','w'))
