@@ -351,3 +351,14 @@ REDUCTION ACHIEVED (this is the creative core-reduction requested):
   topological forward-construction over an acyclic free-input dependency DAG.
 Tools: forward_construct.py (topological constructor), plus the earlier feasibility/analysis suite.
 Best verified partial 39,007/39,033.
+
+## NEW BEST 39,013/39,033 — forward-constructor solves all LINEAR eqs; core = the 20 quadratic
+forward_construct.py (with "0-valued free inputs are final" readiness) topologically solves every
+LINEAR equation, reaching **39,013/39,033** (checker-verified; best/new_instance_partial_39013.json).
+The 20 remaining failures ARE exactly the 20 quadratic verifier squares
+[2071,4573,7123,7469,11854,13660,15299,16622,17726,21382,22093,25480,25539,28653,29437,31061,32894,32916,34517,34892].
+Control bits stay boolean (x_7715=x_34554=x_15298=1). The blocker: the greedy constructor sets some
+free inputs to double-width HUGE values that, through products, cascade to ~2^911 in gate outputs
+(x_11150,x_25739,x_37758), breaking the quadratic squares. The setter keeps these bounded (one factor
+small). So the final step is bounding the double-width flow (set quotient/remainder splits, not full
+HUGE values) so the 20 quadratic squares hold. Core is now a concrete 20-equation quadratic residue.

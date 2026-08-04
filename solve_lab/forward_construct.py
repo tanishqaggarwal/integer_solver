@@ -99,7 +99,7 @@ FAILVARS=set()  # free inputs in currently-failing equations (may still change)
 # a gadget-term t can determine free input v iff: v in freeinp, not determined, and the term's OTHER
 # free-input dependencies are all FINAL (determined, or 0-and-not-in-a-failing-eq). Then set v.
 def dep_final(w):
-    return w in determined or (val[w]==0 and w not in FAILVARS)
+    return w in determined or val[w]==0
 def try_set(t):
     frees=[v for v in gvars(t) if v in freeinp and v not in determined]
     if not frees: return False
