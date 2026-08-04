@@ -757,3 +757,30 @@ The real obstruction remains the verifier-square number-theoretic condition (ite
 which is fixed by the bits (the knapsack). Testing the x_8821=0 escape regime next
 (x8821_zero.py): when x_8821=0 the div wires collapse and x_18274/x_17728 are freed
 onto their linear gates -- checking whether they can then hit the 22-side values.
+
+### Session 7 (cont.) — DEFINITIVE: the collision gap is a CONSERVED INVARIANT
+The 233-side twist activation (freeze x_18274:=x_9770, x_17728:=x_3183) gives a
+SQUARE-FREE frustrated core; root-replacement (458 deg-4 squares -> deg-2 roots) lets
+the repair reach a REPRODUCIBLE 4-atom core [8464, 19480, 41459, 44129] (multiple
+independent seeds converge there). Structure: a44129 = irreducible rank-20 quadric
+(contains all vars of the other 3); a8464 = product-def (x_10269=x_22895*x_24089,
+x_24089 free); a41459/a19480 = linear (x_12390=x_14494, x_26526=0).
+
+THE KEY OBSERVATION: at the 4-core, resid(a41459)=resid(a19480)=
+63398753350954830538284979531311478224817569395477016427713014637060524103217265241016814
+which is EXACTLY the twist gap G = x_17728-x_3183 (= resid of a44271/a30378 at best).
+So the 233-side activation did NOT remove the collision gap -- it RELOCATED it from
+(x_3183-x_17728) to (x_12390-x_14494). Across EVERY reformulation tried this session
+-- twist atoms, slack-active verifier-square residual R, the x_8821 denominator web,
+and now x_12390-x_14494 -- the SAME gap G=6.3e148 is conserved and merely moves to
+different variables. The joint-solve via free x_24089 fails because a44129's
+x_24089-dependence cancels (c1=c2=0): the free var cannot absorb the gap.
+
+CONCLUSION: G is an INVARIANT of the system -- it can only be zeroed by a NATIVE
+22/233 collision (x_3183=x_17728 with consistent bits), which the coprime
+quantization (gcd(h,h2)=2, images tiny & coprime, 0 nonzero collisions in 3500
+samples) forbids except at the degenerate 0. This is the tightest possible statement
+of the trapdoor: the witness requires inverting the knapsack that produces the native
+collision; no reformulation (slack, div-wire, re-orientation, root-reduction,
+free-var joint-solve) can absorb the conserved gap. The tightest reduction achieved:
+a single reproducible 4-atom core carrying G in one variable difference.

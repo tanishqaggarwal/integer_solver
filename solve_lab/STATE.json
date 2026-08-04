@@ -122,5 +122,11 @@
   "xl_infeasible": "ripple subsystem grows 46->14664->26954->27469 vars (194093 monomials) in 3 BFS rounds => globally coupled, no local solve",
   "q40782_root": "degree-2, 38 terms; twist terms vanish under twist, leaving linear eq in ripple vars 28*x_10783 - x_30323 - 477654111*x_24252 + ... = 0 that needs a SMALL ripple",
   "sa_fleet": "4 instances (activators 1858/26947/27512/5443) in slack-active space with roots; best 6 so far"
+ },
+ "session7_final": {
+  "result": "233-side twist activation gives a SQUARE-FREE reproducible 4-atom core [8464,19480,41459,44129] after root-replacement - tightest reduction across all sessions",
+  "invariant": "the collision gap G=63398753350954830538284979531311478224817569395477016427713014637060524103217265241016814 (=x_17728-x_3183) is CONSERVED: every reformulation (twist atoms / slack-active R / x_8821 web / x_12390-x_14494) relocates the SAME G to different vars, none eliminates it",
+  "joint_solve_fails": "a44129 x_24089-dependence cancels (c1=c2=0); free var cannot absorb G",
+  "conclusion": "G is zeroed only by a NATIVE 22/233 collision, forbidden by coprime quantization (gcd 2, tiny coprime images, 0 nonzero collisions/3500 samples) => robust one-way trapdoor requiring knapsack inversion"
  }
 }

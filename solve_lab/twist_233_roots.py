@@ -102,6 +102,8 @@ def main():
         if len(bad)<best_bad:
             best_bad=len(bad)
             print(f"  it {it}: NEW BEST {best_bad}: {sorted(bad)} (T={T:.2f}, {time.time()-t0:.0f}s)", flush=True)
+            if best_bad<=8:
+                json.dump({"bad":sorted(bad),"val":{str(i):val[i] for i in range(NVARS)}}, open(OUT.replace('.json','_ckpt.json'),'w'))
             if best_bad==0:
                 allbad=viol_atoms(load_atoms(),val)
                 print(f"  full verify: {len(allbad)}", flush=True)
