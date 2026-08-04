@@ -94,11 +94,13 @@ for hop in range(12):
     ea={Hidx[12186]:1}; eb={Hidx[14853]:1}; ec={Hidx[16742]:1}
     rJe=sparse_rank(Jrows, extra_rows=[ea,eb,ec])
     achievable=rJe-rJ
-    # individual
-    rJa=sparse_rank(Jrows,[ea]); rJb=sparse_rank(Jrows,[eb]); rJc=sparse_rank(Jrows,[ec])
-    print(f"hop {hop}: handles={NH}, cons={len(cons)}, rank(J)={rJ}, achievable(da,db,dc) dim={achievable} "
-          f"[a:{rJa-rJ} b:{rJb-rJ} c:{rJc-rJ}] converged={converged} ({time.time()-t0:.0f}s)", flush=True)
+    extra=""
+    if converged or NH>7000:
+        rJa=sparse_rank(Jrows,[ea]); rJb=sparse_rank(Jrows,[eb]); rJc=sparse_rank(Jrows,[ec])
+        extra=f" [a:{rJa-rJ} b:{rJb-rJ} c:{rJc-rJ}]"
+    print(f"hop {hop}: handles={NH}, cons={len(cons)}, rank(J)={rJ}, achievable(da,db,dc) dim={achievable}"
+          f"{extra} converged={converged} ({time.time()-t0:.0f}s)", flush=True)
     if converged: break
     H=comp
-    if NH>2200:
+    if NH>9000:
         print("handle cap reached; stopping"); break

@@ -11,7 +11,23 @@ two base gates S=x_35389, T=x_6671. Core ⟺ M1=M2=M3=0 ⟺ **S≡0 and T≡0 mo
 then set private quotient handles x_30317,x_2936,x_5146. See CORE_REDUCTION.md for the full chain
 down to control differences x_29322=x_14853-x_12186, x_3558=x_24908-x_16742.
 
-### OBSTRUCTION (well-characterized): residues are pinned.
+### WIRE ESCAPE (the actionable path — read METHODOLOGY.md + CORE_REDUCTION.md's wire section)
+Agent B PROVED the wire=p mod-p system is a rigid isolated point: rank(J_sat)=3035/3036 active
+cols, null space dim 1, 19/20 core conditions directly contradict the wiring. The ~5547 "dead"
+free inputs feed ONLY products against the p-wire (wire=p≡0 mod p → wire·handle≡0). This is WHY
+the witness is unreachable on the wire=p branch.
+THE ESCAPE: the 220-var identity wire (root 38100, forced to p by x_26064's single-var atom) is,
+per METHODOLOGY.md, only "meant to vanish" — the witness lives on the wire≠p branch. Set the whole
+wire = sign·1: then wire·handle = handle ≢ 0 mod p, ACTIVATING all ~5547 quotient handles → a huge
+new null space. Core collapses: M1=L1+x_30317→x_30317=−L1 (trivial), M3→x_2936=537773·L3 (trivial),
+M2→x_5146=L2/6672769 (needs 6672769|L2 — a 2^23 modulus; L2 mod 6672769 is message-controllable:
+4239005 at 39013, 2032135 at 39018). Only ~13 "active unpackings" break (wire members as standalone
+terms + (x_26064−p) checks + wire·x_31342 products): [8429,11166,11915,12594,23869,25313,26785,
+31400,32300,36106,36767,37257]. NEXT: build the wire=1 global solve over the activated handles
+(Dixon lift), heal the 13, set L2≡0 mod 6672769, verify. Agents B (wire=1 consistency via
+tangent-linear) and E (wire=1 construction) are on it. Best partial: 39,018 (best_agentD_39018.json).
+
+### OBSTRUCTION on the wire=p branch (superseded by the escape above): residues are pinned.
 The sparse wiring solution is unique (only 30 slack inputs nonzero, rank 30). Sparse-witness
 null-space solves up to the FULL closure (6,114 inputs, 7,119 constraints) are INCONSISTENT —
 S,T residues are linearly pinned by the wiring; no local move reaches the core. Both quadrants
