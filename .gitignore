@@ -7,3 +7,5 @@ solve_lab/runs/image_size.log
 solve_lab/runs/x8821.log
 solve_lab/runs/slack_resid*.log
 solve_lab/cand_*.json
+solve_lab/*_solved.json
+solve_lab/natural.json
