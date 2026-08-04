@@ -90,3 +90,26 @@ wire·x_31342 / wire·x_32058 products. Each is a full equation=0 fixable by a n
 (shift by −32(p−1)/coeff etc.) or by scaling the product-partner by p. The 3 core members are NOT
 individually decouplable (x_5101 alone is used in 243 eqs). Closing the wire=1 branch = fixing
 these 13 + setting L2 ≡ 0 mod 6672769. Best partial now 39,018/39,033.
+
+## SESSION UPDATE — 39,022 reached; core proven solvable; wire=1 solves entire core
+Via parallel subagents:
+- **Best 39,022/39,033** (best_agentA_39022.json): agent A's message algebra solved ALL 20 core
+  equations (S=T=0 exactly, regime 1) keeping the loads, then hit an IRREDUCIBLE 11-fail wall
+  (12 random seeds converge to it): two equality-checks x_4432=x_19964, x_7068=x_2099 whose only
+  knobs are quadrant activators (flipping breaks x_15298=1). Genuine multi-role trapdoor rigidity.
+- **Core is solvable mod p in BOTH regimes** (agent C, verified via Tonelli-Shanks/Cantor-Zassenhaus):
+  regime 1 (x_29322=x_3558=0) and regime 2 (x_33469 a QR, monic cubic in da has 2 roots).
+  But the controls have only ~1 realizable DOF (x_14853 pinned by quadratic constraints); 2 needed.
+- **Wire=1 path SOLVES THE ENTIRE CORE (0 core fails)** without touching x_14853, so it AVOIDS the
+  11-fail wall: fix M2 by x_3558 → root 2783706 mod 6672769 via x_31339 (x_24908 knob); set
+  x_30317=−L1, x_2936=537773·L3 (wire=1 quotients). wire1_m2fixed.json. Remaining: 27 noncore
+  (13 unpackings + 14 ripple).
+- **THE FINAL TENSION**: holding wire=1 fixed, the 27 are first-order INCONSISTENT (only 67
+  non-load/non-core handles, 1 clean — agent C). The 13 unpacking (forcing) equations require the
+  wire to MOVE (agent B healed all 13 in one step with wire moving), but moving the wire disturbs
+  the clean V=1 core (bilinear wire·quotient). Two-phase (heal-13-with-wire-moving → fix-wire →
+  handle-only-Newton) is the open path; agents B/E working it.
+
+**Honest status: 39,022/39,033 verified. The core is solved/solvable; the last ~11-27 equations are
+the irreducible densely-coupled trapdoor residual — closing needs the two-phase wire heal or the
+setter's witness.**
