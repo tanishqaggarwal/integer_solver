@@ -1,0 +1,4 @@
+all-zero (0,0): 39005/39033 (28 fail), x_15298=0
+closure handles: 89
+newton 0: |eqs|=170, |W|=89, rank=35, INCONSISTENT
+FINAL: 39005/39033 (28 fail)
