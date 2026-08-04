@@ -877,3 +877,16 @@ and its coupling-partner vars (currently 0) co-activate. This is exactly why eve
 local repair / perturbation of best_partial was UNSAT: the witness is not a
 perturbation of best -- it is a different branch. The trapdoor = find the co-activated
 (V, partners) branch; no first-order/linear handle from best reaches it.
+
+### Session 7 (cont.) — the escape co-activates V + ~3707 FREE partner vars
+partner analysis (squares->roots): the 220-var wire V couples (shares a monomial)
+with 3785 distinct NON-wire vars; 3707 of them are FREE (df=None) and 3769/3785 are 0
+at best_partial. So the witness is a SEPARATE branch that sets V!=0 AND ~3707 free
+partner vars nonzero, co-activated so all 5233 wire atoms hold. best_partial (V=0, all
+partners 0) is the degenerate branch. This is a large nonlinear CSP over ~3707 free
+inputs -- the trapdoor. Total free vars = 7053; effective freedom ~256 bits (the
+partners are cross-constrained by the ~11k check atoms). NEXT ATTACK: propagation-
+solve seeded from V!=0 -- set the wire, then for each check atom with one unknown free
+partner, solve+propagate; measure how many partners get pinned and whether it
+converges (extends merge_solve which stalled at 5898 from pins alone). The mod-twist
+reduction (x_18274==x_35186 mod 642894, reachable per-prime) is the other live handle.
