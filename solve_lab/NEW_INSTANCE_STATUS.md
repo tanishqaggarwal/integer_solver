@@ -113,3 +113,17 @@ The pessimistic "global/unsolvable" conclusion was WRONG. Working the raw equati
   the genuine trapdoor core ("256-bit core"): the bits load huge values (linear in bits),
   the verifier checks them (quadratic). Best full partial remains 39007/39033 (natural.json);
   the inversion demonstrably solves the twist but the codeword search remains.
+
+## Creative reduction: single-clean-bit routing (12 -> 5 broken)
+- Insight: x_15298=x_7715*x_34554 is NOT needed. Since x_23597=1 at base, x_34606=x_7715, so
+  BOTH gaps route through x_7715's products alone: x_37892=x_7715*x_16742 (x_16742=BIGCONST),
+  x_13682=x_7715*x_12186 (x_12186=H2). Activating just x_7715 halves the load-bit cascade.
+- Forcing activation through a CLEAN bit (x_36314, whose absorbers avoid the deg-4 verifier
+  squares) + achieve3/4/5.py reduces the broken set to 5 atoms (39004/39033).
+- IRREDUCIBLE COUPLING (the MQ): the clean bit's load absorbers (e.g. x_14282, x_34734) are
+  SHARED between their load atom AND a verifier check (atom 42167), which also carries the
+  twist's huge gap-vars. Each absorber is over-determined: it must both absorb the bit's load
+  AND satisfy the verifier. Consistency requires the RIGHT bit pattern = the 256-bit codeword.
+- Even the "cleanest" bits have absorbers in 7+ atoms; no isolated activation exists. So the
+  reduction bottoms out at the same MQ core, now sharply localized: choose activation bits so
+  that {load-absorption} and {verifier checks} agree. Best partial remains 39007/39033.
