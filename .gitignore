@@ -1,2 +1,9 @@
 solve_lab/runs/slack_sa*.log
 solve_lab/runs/degenerate.log
+solve_lab/runs/ga_campaign.log
+solve_lab/runs/twist_*.log
+solve_lab/runs/core_solve*.log
+solve_lab/runs/image_size.log
+solve_lab/runs/x8821.log
+solve_lab/runs/slack_resid*.log
+solve_lab/cand_*.json
