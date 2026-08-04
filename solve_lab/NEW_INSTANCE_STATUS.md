@@ -376,3 +376,12 @@ SESSION NET (major, compounding progress):
 - Core reduced from whole-circuit to exactly 20 quadratic squares = a localized mod-p codeword on
   the message. Solving those 20 (a small MQ / codeword over the message bits) completes the solve.
 Tools: forward_construct.py, config_test.py, dixon_solve.py, rational_solve.py, int_solve.py.
+
+## Monster mechanism identified; the 20 quadratic are the irreducible trapdoor core
+The 2^911 blowups trace to 32 difference-square gates y^2 with y = (load − partner) (e.g.
+x_17925=(x_6418−x_31861)^2). Naively tying partner=load breaks the linear solution (partners carry
+their own constraints), so the 20 quadratic squares encode a genuine simultaneous condition: choose
+the message/data so ALL the difference-squares and product terms cancel at once. That is exactly the
+localized codeword. Net: the trapdoor is reduced from 34,050 coupled equations to a sharp
+20-equation quadratic residue, but those 20 remain the hard core (require the setter's witness).
+FINAL best verified: 39,013/39,033.
