@@ -1,0 +1,28 @@
+free: 8583; determined(nonzero): 30; undetermined(zero): 8547
+undetermined in x_24908 cone(+controls): 90
+movers among undetermined-cone: 41
+  x_91: 3558=True 29322=False breaks=37
+  x_1203: 3558=True 29322=False breaks=36
+  x_2441: 3558=True 29322=False breaks=37
+  x_2460: 3558=True 29322=False breaks=38
+  x_3420: 3558=True 29322=False breaks=37
+  x_3545: 3558=True 29322=False breaks=36
+  x_3591: 3558=True 29322=False breaks=36
+  x_4701: 3558=True 29322=False breaks=36
+  x_5090: 3558=True 29322=False breaks=31
+  x_6312: 3558=True 29322=False breaks=36
+  x_7142: 3558=True 29322=False breaks=35
+  x_8370: 3558=True 29322=False breaks=37
+  x_8487: 3558=True 29322=False breaks=36
+  x_9260: 3558=True 29322=False breaks=36
+  x_10513: 3558=True 29322=False breaks=33
+  x_10836: 3558=True 29322=False breaks=34
+  x_11189: 3558=True 29322=False breaks=39
+  x_13710: 3558=True 29322=False breaks=34
+  x_17083: 3558=True 29322=False breaks=37
+  x_17378: 3558=True 29322=False breaks=39
+  x_20564: 3558=True 29322=False breaks=38
+  x_20837: 3558=True 29322=False breaks=38
+  x_21103: 3558=True 29322=False breaks=37
+  x_21112: 3558=True 29322=False breaks=38
+  x_21702: 3558=True 29322=False breaks=36
