@@ -784,3 +784,22 @@ of the trapdoor: the witness requires inverting the knapsack that produces the n
 collision; no reformulation (slack, div-wire, re-orientation, root-reduction,
 free-var joint-solve) can absorb the conserved gap. The tightest reduction achieved:
 a single reproducible 4-atom core carrying G in one variable difference.
+
+### Session 7 (cont.) — campaign round: x_24026-activation DEAD, LLL inapplicable
+Exploration-queue round (activate_x12779_2.py, cond_linearity.py):
+1. x_24026 ACTIVATION is structurally BLOCKED. The div-by-zero forcing x_24026=0
+   occurs only at x_12779=1 (x_14402=0); at x_12779=2..5 forward-eval computes
+   x_24026=321447*x_38215/x_14402 CORRECTLY -- BUT x_38215 = x_37917*x_30077 is
+   IDENTICALLY 0 in forward-eval (image {0} over 400 high-weight samples; x_12779
+   reaches {0,1,2,3,4,5}). So x_24026=0 regardless of x_12779. The 9770-side slack is
+   un-activatable in forward-eval; the witness needs x_38215!=0 (an escape state).
+2. LLL is INAPPLICABLE: x_17233 (num of x_17728) is nonlinear even CONDITIONAL on
+   holding the 18 x_8821 bits fixed (9/40 linear; x_6773 5/40). Single-bit deltas are
+   +/-base but multi-bit combinations are nonlinear (numerator loads interact via
+   products). So the twist target is NOT a linear subset-sum -- it is base*f(bits)
+   with f a nonlinear boolean fn of SMALL image (~12 values). No rich linear
+   structure for lattice reduction; the density-0.65 subset-sum does not exist.
+3. Homotopy/continuous relaxation: infeasible (38748 vars, ~10^250 values exceed
+   float precision; exact "continuous" is meaningless for the discrete escape).
+Every queue method reconfirms: the witness is a forward-eval-unreachable escape state
+requiring the native collision / knapsack inversion the construction protects.
