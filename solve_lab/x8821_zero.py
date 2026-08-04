@@ -43,12 +43,12 @@ def main():
     found0=0; img18=set(); img17=set(); hit=[]
     # collect 22-side x_9770/x_3183 achievable values
     v9770=set(); v3183=set()
-    for _ in range(1500):
+    for _ in range(120):
         k=1+rnd()%len(b22); S=sorted(set(b22[rnd()%len(b22)] for _ in range(k)))
         v=solve(list(bestval),S); v9770.add(v[9770]); v3183.add(v[3183])
     print(f"22-side: |x_9770 image|={len(v9770)}, |x_3183 image|={len(v3183)}", flush=True)
 
-    for _ in range(3000):
+    for _ in range(400):
         k=1+rnd()%22; S=sorted(set(b233[rnd()%len(b233)] for _ in range(k)))
         v=solve(list(bestval),S)
         if v[8821]==0:

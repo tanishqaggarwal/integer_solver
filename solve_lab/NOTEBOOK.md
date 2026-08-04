@@ -735,3 +735,25 @@ knapsack/lattice inversion the trapdoor protects; the 4-way slack-active SA flee
 searches exactly this (best 6/39031-atoms-in-A' so far). This is the tightest
 statement of the obstruction: the witness = a 233/22-bit choice making the rigid
 3183-slack ripple self-annihilate inside every verifier square.
+
+### Session 7 (cont.) — CREATIVE structural attacks on the kernel internals
+Non-standard probes (factor_squares/degree_test/constant_mining/x8821_zero):
+1. Verifier square roots do NOT factor into linear forms: Q40782 quadratic-form rank
+   30 (of 53), Q39550 rank 38 -> genuine irreducible quadrics, no linear disjunction.
+2. Numerators x_6773(->x_18274)/x_17233(->x_17728) are >degree-2 in the 233 bits
+   (deg-2 model fits only ~50-63%); low-order interactions PRESERVE quantization
+   (all pair-interactions are multiples of the base g2/h2), so escape from g2*Z/h2*Z
+   is only via HIGH-degree bit interactions + the div-wire (/x_8821).
+3. R=0 reduction of the twist square a40782 (x_12779=1, twist held): using
+   x_10783 = 14474367*x_12779*x_24252 (a23153) and x_30323 = x_12779*x_32039 (a23151),
+   Q40782 residual R = -72372835*x_24252 + 3*x_32039 + 16*x_36641. With x_24252=a43825
+   a perfect square (2025=45^2,729=27^2 => x_24252 = Q'^2 >= 0), R=0 demands
+   72372835*Q'^2 = 3*x_32039 + 16*x_36641 -- a hard number-theoretic (square) condition
+   on ripple vars. At slack-active state x_24252 ~ 10^250 but R=0 needs ~10^141.
+4. x_16644, x_18950, x_31302, x_16644 are FREE vars (df=None) -> the broken product
+   CHECK atoms a23152 (x_16644*x_17301=x_10783), a23150 (x_16320*x_18950=x_30323) are
+   satisfiable by setting the free factor; they are NOT the real obstruction.
+The real obstruction remains the verifier-square number-theoretic condition (item 3),
+which is fixed by the bits (the knapsack). Testing the x_8821=0 escape regime next
+(x8821_zero.py): when x_8821=0 the div wires collapse and x_18274/x_17728 are freed
+onto their linear gates -- checking whether they can then hit the 22-side values.
