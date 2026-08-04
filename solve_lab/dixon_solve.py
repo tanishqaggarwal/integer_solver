@@ -148,17 +148,23 @@ def solve_step(H, F):
     forward()
     return True,r
 forward(); ns['v']=val
+fixed=set()   # topological rounds: never re-solve a fixed handle (keeps 20 quadratic eqs linear)
 Faccum=set()
-for it in range(25):
+for it in range(40):
     ns['v']=val
     Ffail=[i for i in range(len(lines)) if eval(eqcode[i],ns)!=0]
-    print(f"iter {it}: {len(lines)-len(Ffail)}/{len(lines)} ({len(Ffail)} fail)", flush=True)
+    print(f"iter {it}: {len(lines)-len(Ffail)}/{len(lines)} ({len(Ffail)} fail); fixed={len(fixed)}", flush=True)
     if not Ffail: print("SOLVED!"); break
     Faccum |= set(Ffail); Flist=sorted(Faccum)
-    H=sorted(set().union(*[eqvars[i]&hbase for i in Flist]))
-    print(f"  system: {len(Flist)} eqs, {len(H)} handles", flush=True)
-    ok,r=solve_step(H, Flist)
+    allH=set().union(*[eqvars[i]&hbase for i in Flist])
+    H=sorted(allH-fixed)
+    if not H:
+        print(f"  no new handles for {len(Ffail)} failing (fixed conflict); stop"); break
+    Ftarget=[i for i in Flist if (eqvars[i]&set(H))]
+    print(f"  round: {len(Ftarget)} eqs, {len(H)} new handles", flush=True)
+    ok,r=solve_step(H, Ftarget)
     if not ok: print(f"  Dixon failed (rank {r})"); break
+    fixed|=set(H)
 ns['v']=val
 Ffail=[i for i in range(len(lines)) if eval(eqcode[i],ns)!=0]
 print(f"FINAL: {len(lines)-len(Ffail)}/{len(lines)} ({len(Ffail)} fail): {Ffail[:20]}", flush=True)
