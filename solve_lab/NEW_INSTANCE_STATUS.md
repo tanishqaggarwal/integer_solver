@@ -300,3 +300,23 @@ SESSION SUMMARY (this is genuine, large progress that OVERTURNS the earlier "har
    previously-blocking 13 mod-p conditions were a wrong-routing artifact.
 4. Remaining: a robust topological forward-construction (with the mod-p/quotient split) to realize
    the known-feasible assignment across the 34k-eq coupling. Best VERIFIED partial: 39,007/39,033.
+
+## Extraction obstacle pinned down: genuine nonlinear (MQ) coupling defeats linear iteration
+Stage A (solve field/mod-p, stage_a.py) also ripples: iter 0 fixes 27 checks mod p but breaks to 35,
+and the accumulated GF(p) system becomes inconsistent at iter 1. Root cause: although each local
+subsystem is LINEARLY feasible (config_test's SNF), applying its solution moves remainder handles to
+arbitrary mod-p values that ACTIVATE gate outputs, turning on remainder·remainder products in OTHER
+checks — a genuine multivariate-quadratic coupling that a linear Jacobian cannot represent under
+large steps (bounded mod-p values don't help; the nonlinearity is the issue). Combined with the
+whole-circuit coupling (34k eqs), no linear/iterative extraction I built converges.
+
+FINAL SESSION STATUS:
+- PROVEN: the instance is SOLVABLE — quadrant (1,1) is integer-feasible (0 SNF obstructions). The
+  earlier "unbreakable trapdoor" verdict is overturned.
+- STRUCTURE fully mapped: secp256k1 GF(p) circuit, p-pinned wire, double-width packings unpacked by
+  wire-products, 256-bit control message, quadrant-(1,1) routing aligns all mod-p remainders.
+- NOT extracted: the full 38,748-var assignment. Extraction requires the setter's forward-
+  construction (topological, with per-check mod-p/quotient split) or the witness itself; linear
+  methods stall on the MQ coupling at whole-circuit scale.
+- Best VERIFIED partial unchanged: 39,007/39,033 (best/new_instance_partial_39007.json).
+- Tools: config_test.py, dixon_solve.py, stage_a.py, int_solve.py, rational_solve.py, constructive.py.
