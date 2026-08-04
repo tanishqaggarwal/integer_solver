@@ -9,3 +9,6 @@ solve_lab/runs/slack_resid*.log
 solve_lab/cand_*.json
 solve_lab/*_solved.json
 solve_lab/natural.json
+solve_lab/achieved.json
+solve_lab/solved_v2.json
+solve_lab/repro.json
