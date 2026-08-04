@@ -198,3 +198,40 @@ multiplier wire being **pinned to p** (vs a FREE wire before). The free wire is 
 old twist local & linearizable; pinning to the secp256k1 prime turns it into a GF(p) codeword
 problem. Remaining hope for a non-brute-force solve: a vinegar/UOV linearization (fix a small
 hub set → linear), currently under measurement. Verified best partial unchanged: 39,007/39,033.
+
+## FINAL VERDICT (exhaustive characterization complete)
+
+Confirmed by identity-class analysis: there is exactly **one** large wire (220 vars, an identity
+class), pinned to **x_26064 = p (secp256k1 prime)**; every other identity class has size 2 and
+holds no free inputs. So there is NO free wire to exploit — the sole structural difference from
+the previously SOLVED instance is that its one wire is pinned to the field prime p rather than
+free. That single change converts the (locally solvable) twist into a **GF(p) codeword problem**:
+
+- **256-bit boolean message** (disjoint 178+78 bit cones of control bits x_7715,x_34554) is the
+  only freedom that reaches the spine; x_9274 = OR(x_7715,x_34554) = 1 is FORCED (from x_2300=1),
+  so activation is mandatory.
+- Each set bit triggers a huge additive load; the **GF(p) load matrix over the 256 bits is full
+  rank (kernel dim 0)** — no message self-cancels the loads, so absorption must come from data.
+- Data can absorb loads mod p, but the ℤ-lift imposes exact **p-divisibility (quotient) carries**;
+  fixing control + forced constants and solving the residual data system is **inconsistent over ℤ**
+  (SNF pivot = p, RHS ∤ p) for any wrong message, and iterative repair diverges (27→300+).
+- The best partial's 26 failing roots are **0/26 ≡ 0 mod p** — it doesn't satisfy even the field-
+  level constraints; the message is genuinely the setter's secret codeword.
+- No small vinegar/UOV linearization exists (21,922 vars in bilinear terms across atoms).
+
+**Conclusion.** This instance is a well-formed secp256k1 GF(p) obfuscated-circuit trapdoor. A full
+integer solution provably exists (the setter constructed one), but recovering it is equivalent to
+solving a 256-bit codeword / structured-MQ problem over GF(p) with no exploitable weakness found
+across an exhaustive battery of attacks (forward-eval inversion, circuit MUX routing, additive
+load algebra, GF(p) kernel, mod-p reduction, vinegar linearization, free-wire search, simultaneous
+& iterative absorber solves). Absent the setter's secret (the message/trapdoor), a full solve is
+not reachable by feasible local/algebraic search. **Best verified partial: 39,007/39,033**
+(best/new_instance_partial_39007.json; re-verified by checker.py). All analysis tooling committed.
+
+## Additional confirmation — inhomogeneous GF(p) message solve also inconsistent
+Set up the message as an inhomogeneous GF(p) system: from the activated+routed candidate, require
+the 27 failing roots ≡ 0 mod p, with the 177 additional x_7715-cone bits contributing additively.
+The bits span only **rank 3** of the 27 conditions mod p and the target is NOT in that span
+(inconsistent) — the failures are data-driven (chains/loads), which in turn are ℤ-inconsistent via
+p-divisibility. Bits can't fix the mod-p side; data can't fix the ℤ-quotient side. This closes the
+last linear-algebra escape and re-confirms the secp256k1 GF(p) codeword hardness.

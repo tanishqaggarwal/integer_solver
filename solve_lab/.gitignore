@@ -13,3 +13,23 @@ subst_F4.smt2
 
 *.npy
 tab22_*.npy
+twist_solved.json
+twist_fails.json
+achieved*.json
+absorb_solved.json
+newton*_solved.json
+pmsg_solved.json
+rootsys.json
+linsys.json
+sccs.json
+coupling.json
+fails_39007.json
+data_handles.json
+act7715.json
+boolbits.json
+handle_class.json
+scan_result.json
+msg_sol.json
+p_msg.json
+gfp_kernel.json
+partial_check.json
