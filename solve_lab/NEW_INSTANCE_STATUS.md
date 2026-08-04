@@ -127,3 +127,47 @@ The pessimistic "global/unsolvable" conclusion was WRONG. Working the raw equati
 - Even the "cleanest" bits have absorbers in 7+ atoms; no isolated activation exists. So the
   reduction bottoms out at the same MQ core, now sharply localized: choose activation bits so
   that {load-absorption} and {verifier checks} agree. Best partial remains 39007/39033.
+
+## DEFINITIVE STRUCTURAL MAP (this session) — the core is a 256-bit load-absorption message
+
+Re-derived the whole instance from the raw equations, treating it as a fresh object:
+
+1. **The gate DAG is fully ACYCLIC** (Tarjan SCC: 36,418 vars, 0 cycles, 0 self-loops).
+   Every gadget has canonical form `(output − f(inputs))`, so orientation is *readable*, not
+   guessed. Forward-eval from any free-input choice satisfies **every wiring equation
+   automatically** (each gadget = 0 ⇒ each E = 0 ⇒ c·E=0 and E²=0 hold).
+
+2. **The only obstruction is the 1,841 join points** (vars defined by ≥2 gadgets that must
+   agree) plus square-only vars. Localizing the 28 all-zero failures: culprits are
+   `x_2300` (=1 pinned AND =x_9274 ⇒ **x_9274=OR(x_7715,x_34554)=1 forced** — why all-zero
+   fails), `x_24468=C1` & `x_18956=C2` (huge ~2^296 forced constants, C1/C2 in huge_consts.json).
+
+3. **The twist is a MUX** on two control bits (x_7715,x_34554). Quadrant selectors
+   x_15298=AND, x_34606=x_7715·(1−x_34554), x_5647=x_34554·(1−x_7715). Product gates route
+   data. With control **(1,0)**: x_37892 = x_16742, x_13682 = x_12186 (free inputs route
+   DIRECTLY to the two forced constants — clean, no huge products). So set x_16742=C2,
+   x_12186=C1. Symmetric routes exist for (0,1) via x_24908,x_14853 and (1,1) via x_30213,x_22162.
+
+4. **The 256-bit message.** The spine's backward cone (2,411 vars) contains exactly **256 free
+   boolean bits** = the *disjoint* union of x_7715's cone (178 bits) and x_34554's cone (78
+   bits); the two cones share 0 inputs. All 178 bits single-flip-activate x_7715 (it is
+   effectively a giant OR). The bits reach the spine ONLY through the 2 control values.
+
+5. **Why activation isn't free — LOADS.** Each message bit appears in verifier squares of the
+   form (e.g. eq84) `x_a·x_b = bit·(x_load − HUGE)`. With bit=0 the square is satisfied by
+   zeroing a product (trivial — this is why all-zero passes all squares). With bit=1 it forces
+   a **huge load** x_load ≈ HUGE that must be absorbed downstream. Every quadrant's data input
+   is shared across 31–48 squares, so setting it perturbs them all.
+
+6. **Measured hardness.** Best single-bit activation = 39,007/39,033 (x_22106), same as the
+   natural partial. Fixing the activation bits and solving the residual failing equations as a
+   **linear system in the free data/absorber inputs is INCONSISTENT** (SNF: no integer
+   solution) — proving that no data choice repairs a wrong message; the 256 bits must be
+   exactly the setter's codeword. Confirmed genuine MQ/codeword trapdoor (matches the
+   pinned-wire hardness: here the twist multiplier wire is pinned to V0, unlike the solved
+   free-wire instance).
+
+Tools added: scc.py, localize.py, coupling.py, build_twist.py, scan_bits.py, newton.py,
+examine_fail.py. Best verified partial remains best/new_instance_partial_39007.json (39,007).
+Next probes: smaller x_34554 activation region (78 bits, quadrant (0,1)); multi-bit
+load-cancelling combinations; per-bit load-target absorbability ranking.
