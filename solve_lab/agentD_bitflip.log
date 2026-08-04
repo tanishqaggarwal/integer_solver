@@ -6,3 +6,8 @@ candidate boolvars in failing cones: 255
   [120/255] x_18022: sat=38989 S0=False T0=False [184s]
   [160/255] x_24134: sat=39006 S0=True T0=True [240s]
   [200/255] x_30823: sat=39000 S0=False T0=True [295s]
+  [240/255] x_36044: sat=39012 S0=False T0=False [354s]
+
+IMPROVED flips (sat>39018): []
+flips driving S or T to 0: [(542, True, True, 39006), (853, True, True, 39006), (1357, True, True, 38981), (1413, True, True, 38871), (1502, True, True, 38989), (1685, True, True, 39006), (1695, True, True, 38987), (1931, True, True, 38999), (2055, True, True, 39001), (2143, True, True, 38978), (2229, True, True, 39006), (2527, True, True, 39006), (2779, True, True, 39006), (3216, True, True, 39003), (3320, True, True, 38991), (3414, True, True, 38989), (4279, True, True, 38961), (4362, True, True, 39006), (4940, True, True, 39006), (5148, True, True, 39006)]
+scanned 255 single flips in 374s

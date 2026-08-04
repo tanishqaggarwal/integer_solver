@@ -63,3 +63,30 @@ solution is unique (rank 30), pinning the residues. No local move (up to the ful
 reaches the core. This is the irreducible trapdoor: solving it appears to need either the
 setter's witness or a global nonlinear solver beyond greedy/Dixon/null-space perturbation.
 Best verified partial remains 39,013/39,033.
+
+## THE WIRE ESCAPE (methodology-derived breakthrough)
+Read METHODOLOGY.md (root): the previously-solved instance was cracked by recognizing the
+forward-evaluator CANNOT express the witness — the escape is a FREE identity-wire parameter set
+via product-slacks. The new instance's core M1,M2,M3 ARE product-slacks:
+  M1 = L1 + x_5101·x_30317,  M2 = L2 − 6672769·x_32017·x_5146,  M3 = 537773·L3 − x_26789·x_2936
+where x_5101,x_32017,x_26789 are all in the 220-var identity wire (root 38100), forced to p by a
+single-var atom on x_26064.
+
+KEY: if the wire = V=1 instead of p, the core becomes TRIVIAL:
+  M1 → x_30317 = −L1   (any L1!)
+  M3 → x_2936 = 537773·L3   (any L3!)
+  M2 → x_5146 = L2/6672769   (needs only 6672769 | L2 — a 2^23 modulus, NOT the 256-bit one)
+The entire "L ≡ 0 mod p" (256-bit) obstruction VANISHES.
+
+VIABILITY CONFIRMED: L2 mod 6672769 is message-controllable (4239005 at the 39013 config,
+2032135 at the 39018 config) — S,T mod p are pinned but their quotient parts S//p,T//p are free,
+and L2 = 10159099·S + 6926539·T. So a targeted null-space move can set L2 ≡ 0 mod 6672769.
+
+REMAINING OBSTRUCTION: freeing the whole wire to 1 breaks ~13 "active" unpacking equations
+[8429,11166,11915,12594,23869,25313,26785,31400,32300,36106,36767,37257] — the wire members are
+p-multipliers in ~243–283 equations each, but only ~13 have NONZERO partners in the sparse
+solution. Those 13 contain wire members as standalone terms, (x_26064−p) load-checks, and
+wire·x_31342 / wire·x_32058 products. Each is a full equation=0 fixable by a non-wire handle
+(shift by −32(p−1)/coeff etc.) or by scaling the product-partner by p. The 3 core members are NOT
+individually decouplable (x_5101 alone is used in 243 eqs). Closing the wire=1 branch = fixing
+these 13 + setting L2 ≡ 0 mod 6672769. Best partial now 39,018/39,033.
