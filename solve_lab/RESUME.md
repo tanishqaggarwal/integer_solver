@@ -3,7 +3,7 @@
 ## ⚠️ CURRENT (re-randomized) INSTANCE — NOT solved; identified as a secp256k1 GF(p) trapdoor
 The EQUATIONS.txt in the repo is a NEW re-randomized instance (39,033 eqs). Full analysis in
 **`NEW_INSTANCE_STATUS.md`** (read it). Best verified partial: **39,007 / 39,033**
-(`best/new_instance_partial_39007.json`; `python3 checker.py best/new_instance_partial_39007.json`).
+(`best/new_instance_partial_39013.json`).
 
 Definitive findings (exhaustive):
 - Gate DAG fully ACYCLIC; forward-eval from free inputs satisfies all wiring automatically.

@@ -362,3 +362,17 @@ free inputs to double-width HUGE values that, through products, cascade to ~2^91
 (x_11150,x_25739,x_37758), breaking the quadratic squares. The setter keeps these bounded (one factor
 small). So the final step is bounding the double-width flow (set quotient/remainder splits, not full
 HUGE values) so the 20 quadratic squares hold. Core is now a concrete 20-equation quadratic residue.
+
+## The core is now a 20-equation mod-p codeword (down from the whole circuit)
+The 20 quadratic verifier squares are 0/20 ≡ 0 mod p at the 39,013 solution: they require the huge
+double-width product terms (~2^911) to CANCEL (E=0), which is a codeword condition on the message
+(the loads that feed the products are message-determined). So the entire remaining trapdoor is now
+sharply localized to **20 quadratic equations in the message bits** — reduced from the original
+34,050-equation coupling. This is the concrete, minimal core.
+
+SESSION NET (major, compounding progress):
+- Proved solvable (quadrant (1,1) integer-feasible); full secp256k1 GF(p) structural map.
+- Forward-constructor solves ALL linear equations -> NEW BEST 39,013/39,033 (verified).
+- Core reduced from whole-circuit to exactly 20 quadratic squares = a localized mod-p codeword on
+  the message. Solving those 20 (a small MQ / codeword over the message bits) completes the solve.
+Tools: forward_construct.py, config_test.py, dixon_solve.py, rational_solve.py, int_solve.py.
