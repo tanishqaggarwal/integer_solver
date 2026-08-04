@@ -90,3 +90,26 @@ Treating the system as a raw polynomial object:
   BIGCONST mod V0 ≈ 2^256 (since V0 ∤ BIGCONST), and that same input feeds the verifier,
   breaking it. Linear gaps and nonlinear verifier pull the inputs oppositely; the V0-remainder
   is unabsorbable. Confirms the pinned-wire hardness from pure algebra.
+
+## BREAKTHROUGH (Session, 7hr mandate): twist mechanism cracked via circuit inversion
+
+The pessimistic "global/unsolvable" conclusion was WRONG. Working the raw equations:
+- The 2 verifier checks (40907/44255) are each a linear combo of the SAME 17-gate sub-
+  circuit; they vanish iff those gates hold. The gaps route into FACTORABLE product gates
+  (x_38045=x_15298*x_22162, x_10156=x_15298*x_30213).
+- Recursive circuit inversion (achieve2.py): activate x_15298=1 (boolean OR-gate tree), set
+  value inputs x_30213=BIGCONST, x_22162=H2. This makes x_37892=BIGCONST, x_13682=H2 and
+  FIXES THE ENTIRE MAIN TWIST — gaps 602/1465 AND both hard checks 40907/44255. Verified:
+  those atoms go to 0.
+
+## Remaining core: the 256-bit message codeword
+- x_15298's activation tree has 256 free-input leaves, ALL 'load bits' (free inputs with a
+  >10^40 coefficient). Activating x_15298 REQUIRES setting >=2 load bits (one per OR-tree
+  for x_7715, x_34554); each triggers a huge load (HUGE*bit).
+- Each load atom (coef*x_A + HUGE*bit - bit*absorber) is absorbed by a FREE-INPUT absorber
+  (x_38460, x_27466, ...). BUT those absorbers reappear in verifier squares (e.g. atom
+  18081 = x_38460*x_c, needing x_c=0), coupling back into the deg-2 verifier.
+- => the 256 load bits + their absorbers must jointly satisfy the verifier squares. This is
+  the genuine trapdoor core ("256-bit core"): the bits load huge values (linear in bits),
+  the verifier checks them (quadratic). Best full partial remains 39007/39033 (natural.json);
+  the inversion demonstrably solves the twist but the codeword search remains.

@@ -136,9 +136,6 @@ while q:
 VAR = re.compile(r'x_(\d+)')
 code = {t: compile(VAR.sub(r'v[\1]', gates_all[definer[t]][1]), '<r>', 'eval') for t in order}
 ns = {'__builtins__': {}}
-for t in order:
-    ns['v'] = val; val[t] = eval(code[t], ns)
-json.dump({f"x_{i}": val[i] for i in range(NVARS)}, open('achieved.json','w'))
 def ev(poly):
     s=0
     for m,c in poly.items():
@@ -146,5 +143,30 @@ def ev(poly):
         for x in m: z*=val[x]
         s+=z
     return s
+avar = [atom_vars(A[i]) for i in range(len(A))]
+# iterative forward-eval + load-absorption: each broken load atom is absorbed by setting a
+# free-input variable (the load absorber) to satisfy it.
+freeset = set(v for v in range(NVARS) if v not in targets_set) - set(setfree) - set(pin)  # absorbers only
+for it in range(60):
+    for t in order:
+        ns['v'] = val; val[t] = eval(code[t], ns)
+    changed = False
+    for ai in range(len(A)):
+        r = ev(A[ai])
+        if r == 0: continue
+        for v in avar[ai]:
+            if v not in freeset or v in pin: continue
+            d = 0; lin = True
+            for m, c in A[ai].items():
+                if v in m:
+                    if m.count(v) >= 2: lin = False; break
+                    z = c
+                    for x in m:
+                        if x != v: z *= val[x]
+                    d += z
+            if lin and d != 0 and r % d == 0:
+                val[v] -= r // d; changed = True; break
+    if not changed: break
 nz=[i for i in range(len(A)) if ev(A[i])!=0]
-print(f"nonzero atoms: {len(nz)} -> {nz[:24]}", flush=True)
+json.dump({f"x_{i}": val[i] for i in range(NVARS)}, open('achieved.json','w'))
+print(f"after {it+1} repair rounds: nonzero atoms: {len(nz)} -> {nz[:24]}", flush=True)
