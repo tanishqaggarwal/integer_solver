@@ -803,3 +803,15 @@ Exploration-queue round (activate_x12779_2.py, cond_linearity.py):
    float precision; exact "continuous" is meaningless for the discrete escape).
 Every queue method reconfirms: the witness is a forward-eval-unreachable escape state
 requiring the native collision / knapsack inversion the construction protects.
+
+### Session 7 (cont.) — escape-source activation (x_12779=2) also blocked
+NEW: at x_12779=2 (x_14402=-1) forward-eval computes x_24026=-321447*x_38215
+CORRECTLY (no div-by-zero) -- so the slack CAN activate consistently IF x_38215!=0.
+But x_38215=x_37917*x_30077 with x_37917==0 identically (image {0}); likewise x_29437
+=x_7815*x_31807 with x_7815==0. x_37917/x_7815 are GATES (can't freeze without
+breaking their atoms), and x_30077/x_31807 are free but multiply the 0-gates. So the
+9770/3183-side slacks are un-activatable at EVERY x_12779 value in forward-eval. The
+construction ensures each escape source is itself a 0-gate; the witness needs a
+GLOBAL escape orientation (cascade of gates nonzero) that no local freeze reaches.
+Note: x_18274!=0 IS compatible with x_12779=2 (39/61 samples); ~7053 free vars exist
+but the load-active ones all multiply 0-gates.
