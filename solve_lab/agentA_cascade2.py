@@ -26,9 +26,9 @@ def count(v):
 
 # additive-knob cache
 _knob = {}
-def free_cone(root, limit=600):
+def free_cone(root):
     seen=set(); st=[root]
-    while st and len(seen)<limit:
+    while st:
         u=st.pop()
         if u in seen: continue
         seen.add(u)
@@ -67,40 +67,40 @@ queue = deque([16742, 12186])
 cur = count(v)
 print(f"start: {NEQ-len(cur)}/{NEQ} ({len(cur)} fail)")
 
-processed = set()
+aligned_gates = set()
+best = (len(cur), None)
 rounds = 0
-while queue and rounds < 4000:
+while queue and rounds < 20000:
     rounds += 1
     f = queue.popleft()
     fval = v[f]
-    # gate partners across all eqs containing f (broken or not - align to keep checks)
+    # gate partners across all eqs containing f (align to keep the equality checks)
     partners = set()
     for i in eqs_with(f):
         partners |= partners_in(i, f)
     for G in partners:
-        if G in freeinp: continue      # only gates
-        if v[G] == fval: continue       # already aligned
+        if G in freeinp or G in aligned_gates: continue   # only gates, once
+        if v[G] == fval: continue                          # already aligned
         w, d = additive_knob(v, G)
         if w is None: continue
-        if w in assigned and assigned[w] != v[w]:
-            pass
         old = v[w]
         v[w] = old + d * (fval - v[G])
         forward(v); set_quot(v)
         if v[G] != fval:
-            v[w] = old; forward(v); set_quot(v); continue   # knob didn't achieve target
-        new = count(v)
-        if len(new) <= len(cur) + 30:   # accept (may temporarily rise; cascade fixes)
-            cur = new
-            if w not in assigned:
-                assigned[w] = v[w]; queue.append(w)
-        else:
-            v[w] = old; forward(v); set_quot(v)
-    if rounds % 20 == 0 or len(cur) < 12:
-        print(f" round {rounds}: {NEQ-len(cur)}/{NEQ} ({len(cur)} fail) qlen={len(queue)} assigned={len(assigned)}", flush=True)
+            v[w] = old; forward(v); set_quot(v); continue   # knob didn't hit target
+        aligned_gates.add(G)
+        cur = count(v)
+        if w not in assigned:
+            assigned[w] = v[w]; queue.append(w)
+        if len(cur) < best[0]:
+            best = (len(cur), [x for x in v])
+    if rounds % 25 == 0 or len(cur) < 14:
+        print(f" round {rounds}: {NEQ-len(cur)}/{NEQ} ({len(cur)} fail) best={NEQ-best[0]} qlen={len(queue)} assigned={len(assigned)}", flush=True)
     if not cur:
-        print("ALL SOLVED!"); break
+        print("ALL SOLVED!"); best = (0, [x for x in v]); break
 
+# restore best state
+if best[1] is not None: v = best[1]
 cur = count(v)
 print(f"FINAL: {NEQ-len(cur)}/{NEQ} ({len(cur)} fail): {sorted(cur)}")
 print(f"S,T0={v[35389]%p==0},{v[6671]%p==0}  assigned={len(assigned)} free inputs")

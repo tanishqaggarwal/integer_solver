@@ -152,6 +152,7 @@ class Env:
         self.override = data.get('override', DEFAULT_OVERRIDE)
         self.gate_out = set(data['gate_out'])
         self.valp = [0] * NVARS  # mod p values
+        self.forced = {}         # var -> value (treated as a mod-p CONSTANT, gradient 0)
 
     def set_from_solution(self, sol_int):
         """sol_int: dict var->int (full). Set free inputs' valp; pins/override applied."""
@@ -178,7 +179,11 @@ class Env:
 
     def forward(self):
         vp = self.valp
+        forced = self.forced
+        if forced:
+            for v, x in forced.items(): vp[v] = x % p
         for t, pol in self.gate_poly:
+            if forced and t in forced: continue
             s = 0
             for m, c in pol.items():
                 term = c
@@ -215,7 +220,12 @@ class Env:
         grad = [None] * NVARS
         for v in self.freeset:
             grad[v] = {v: 1}
+        for v in self.forced:
+            grad[v] = {}   # forced constant -> zero gradient
         for t, pol in self.gate_poly:
+            if t in self.forced:
+                grad[t] = {}
+                continue
             g = {}
             self._accum_poly_grad(pol, g, grad, vp)
             grad[t] = {k: c for k, c in g.items() if c}

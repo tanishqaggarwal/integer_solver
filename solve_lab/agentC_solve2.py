@@ -38,8 +38,9 @@ def affected_eqs(h):
     for k in downstream_ks(h): aff|=eqbyvar.get(order[k],set())
     return aff
 # closure
+HOPS=int(sys.argv[2]) if len(sys.argv)>2 else 10
 H=set(CONTROLS); cons=set()
-for _hop in range(8):
+for _hop in range(HOPS):
     newcons=set()
     for h in H: newcons|=(affected_eqs(h)-F0)
     cons=newcons
@@ -221,6 +222,21 @@ for it in range(12):
         print("  achievable dim < 2, cannot solve conic; stop"); break
     sols=solve_and_move(projb,nullb)
     print(f"  quadratic solutions: {len(sols)}", flush=True)
+    # MEASURE raw breakage of each solution (ignore conflicts) for reporting
+    for si,(da,db,dc,fm) in enumerate(sols):
+        snap={h:val[h] for h in H}
+        for h in H: val[h]=val[h]+fm[h]
+        forward(); ns['v']=val
+        if val[11150]%p==0: val[30317]=-(val[11150]//p)
+        if (537773*val[37758])%p==0: val[2936]=(537773*val[37758])//p
+        if val[25739]%(6672769*p)==0: val[5146]=val[25739]//(6672769*p)
+        forward(); ns['v']=val
+        Fm=[i for i in range(len(lines)) if eval(eqcode[i],ns)!=0]
+        cc=[i for i in Fm if i in CORE]; ncc=[i for i in Fm if i not in CORE]
+        print(f"  [raw sol {si}] sat={len(lines)-len(Fm)}/{len(lines)} core-fail={len(cc)} noncore-fail={len(ncc)} "
+              f"S%p={val[35389]%p==0} T%p={val[6671]%p==0} x33469_QR={is_qr(val[33469]%p)}")
+        for h in H: val[h]=snap[h]
+        forward(); ns['v']=val
     applied=False
     for (da,db,dc,fm) in sols:
         moved=set(h for h in H if fm[h]!=0)
