@@ -218,13 +218,14 @@ class Env:
         Exact mod-p Jacobian of forward-eval wrt free inputs."""
         vp = self.valp
         grad = [None] * NVARS
+        jac_free = getattr(self, 'jac_free', set())
         for v in self.freeset:
             grad[v] = {v: 1}
         for v in self.forced:
-            grad[v] = {}   # forced constant -> zero gradient
+            grad[v] = {v: 1} if v in jac_free else {}   # forced-but-solvable -> column; else constant
         for t, pol in self.gate_poly:
             if t in self.forced:
-                grad[t] = {}
+                grad[t] = {t: 1} if t in jac_free else {}
                 continue
             g = {}
             self._accum_poly_grad(pol, g, grad, vp)
