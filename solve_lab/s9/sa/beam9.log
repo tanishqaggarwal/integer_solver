@@ -1,0 +1,5 @@
+state sa/best.json failing 9 [6816, 8124, 9421, 12231, 12270, 12350, 14584, 22044, 29125]
+candidate vars: 67
+depth 1: 67 states, best k=0 must=1 X=[1329] sub=()  5s
+depth 2: 496 states, best k=0 must=1 X=[1329, 17325] sub=()  60s
+depth 3: 490 states, best k=0 must=2 X=[1329, 9413, 17325] sub=()  139s

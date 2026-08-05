@@ -1,0 +1,5 @@
+state ../best/new_instance_partial_39022.json failing 11 [2554, 6816, 8124, 8680, 9421, 12231, 12270, 12350, 14584, 22044, 29125]
+candidate vars: 75
+depth 1: 75 states  best k=1 must=0 X=[28730] sub=(2554,)  evals=75 13s
+  (mod-P only; no integer solution: row 0: 7770466449737654502156530764170750815699497747598164814130631591406718978 )
+depth 2: 882 states  best k=1 must=0 X=[9413, 28730] sub=(2554,)  evals=891 202s

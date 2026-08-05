@@ -1,0 +1,16 @@
+state ../best/new_instance_partial_39022.json failing 11 [2554, 6816, 8124, 8680, 9421, 12231, 12270, 12350, 14584, 22044, 29125]
+|X| = 29 [9413, 17325, 642, 28730, 29854, 31864, 23754, 1844, 35619, 29305, 9629, 1329, 10903, 6947, 21574, 33168, 1613, 950, 6090, 2892, 15120, 28355, 18253, 35531, 10422, 37720, 23642, 11099, 37413]
+touched 38 must 27 cand 11 [2554, 6816, 8124, 8680, 9421, 12231, 12270, 12350, 14584, 22044, 29125]
+k=11: 1 subsets, none  0s
+k=10: 11 subsets, none  0s
+k=9: 55 subsets, none  0s
+k=8: 165 subsets, none  2s
+k=7: 330 subsets, none  3s
+k=6: 462 subsets, none  6s
+k=5: 462 subsets, none  8s
+k=4: 330 subsets, none  10s
+k=3: 165 subsets, none  10s
+k=2: 1 subsets, HIT  10s
+fixed subset (2554, 6816)
+VERIFIED failing: 9 [8124, 8680, 9421, 12231, 12270, 12350, 14584, 22044, 29125]
+saved sa/maxfix_v0.json

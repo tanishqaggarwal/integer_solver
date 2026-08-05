@@ -1,8 +1,19 @@
 # RESUME — read me first
 
-## STATUS (session 9): best verified **39,022 / 39,033** — and now *proved* locally optimal
-Deliverable: `best/new_instance_partial_39022.json`
-Verify: `python3 checker.py best/new_instance_partial_39022.json` → `satisfied 39022/39033 (11 failing)`
+## STATUS (session 9): best verified **39,024 / 39,033**
+Deliverable: `best/new_instance_partial_39024.json`
+Verify: `python3 checker.py best/new_instance_partial_39024.json` → `satisfied 39024/39033 (9 failing)`
+Independent check: `python3 s9/verify_ast.py best/new_instance_partial_39024.json` (AST walk, no eval/regex).
+Failing lines: `[9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
+
+> **RETRACTED:** an earlier version of this file claimed 39,022 was a proved local optimum.
+> That was wrong — see `S9_STRUCTURE.md` section 6. The proof assumed every atom outside the
+> defect set must vanish. **It must not.** An equation is zero iff its *linear combination of
+> atoms* is zero, so any atom whose whole equation footprint already lies inside the failing set
+> is a FREE knob. Atom 22230 (`x_28730 − x_17499·x_9413`) is exactly that — `x_9413` and
+> `x_28730` appear in no other atom — which frees `x_28730` from the lattice `p·ℤ`. Extending
+> along the `35754…35762` ladder gives 5 knobs over 13 equations, 4 of them simultaneously
+> zeroable: 11 + 2 − 4 = 9 failing. **Work in EQUATION space, not atom space.**
 **Read `S9_STRUCTURE.md` first** — it supersedes the older analyses below on every point of conflict.
 
 ### The 60-second version

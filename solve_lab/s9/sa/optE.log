@@ -1,0 +1,14 @@
+state sa/state10.json failing 10 [2554, 6816, 8124, 9421, 12231, 12270, 12350, 14584, 22044, 29125]
+|X|=12 |E|=18 currently failing in E: 10 [2554, 6816, 8124, 9421, 12231, 12270, 12350, 14584, 22044, 29125]
+  k=18: none
+  k=17: none
+  k=16: none
+  k=15: none
+  k=14: none
+  k=13: none
+  k=12: none
+  k=11: none
+  k=10: none
+max satisfiable in E: 9/18  (72s)
+VERIFIED failing: 9 [9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+saved sa/optE.json

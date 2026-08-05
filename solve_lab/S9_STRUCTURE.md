@@ -1,7 +1,12 @@
-# Session 9 — the obstruction, fully characterised (and a proof that 39,022 is a local optimum)
+# Session 9 — the obstruction fully characterised, and the deliverable improved to 39,024
 
-Verified deliverable unchanged: **39,022 / 39,033**
-(`best/new_instance_partial_39022.json`, `python3 checker.py best/new_instance_partial_39022.json`).
+Verified deliverable: **39,024 / 39,033** — `best/new_instance_partial_39024.json`
+(`python3 checker.py best/new_instance_partial_39024.json`, and independently
+`python3 s9/verify_ast.py best/new_instance_partial_39024.json`).
+Failing lines: `[9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
+It differs from the previous 39,022 partial in **five variables**: `x_642, x_9413, x_28730,
+x_29854, x_31864`. Sections 1-5 and 7-10 below describe the 39,022 branch and remain accurate;
+**section 6 records a retracted claim and the idea that superseded it — read it first.**
 
 This session re-derived the instance from scratch with an independent toolchain (`s9/`), corrected a
 methodological error that had been distorting every previous Jacobian-based attack, and **proved**
@@ -118,48 +123,65 @@ forcing `x_15298 = x_7715·x_34554 = 0`: `x_2081` and `x_24601` — the two know
 activators. Both are strictly worse locally (17 and 19 nonzero residuals vs 4). No single flip
 reduces the residual count below the current 4.
 
-## 6. NEW: 39,022 is provably optimal for this defect structure
+## 6. ~~39,022 is provably optimal~~ — **RETRACTED, AND SUPERSEDED: the answer is 39,024**
 
-The handles absorb exactly the `p`-multiples, so the reachable defect values are
-**`A ∈ D1 + pℤ`** and **`B ∈ D2 + pℤ`** — and nothing else:
+> **This section originally claimed 39,022 was a local optimum. That claim was WRONG and the
+> deliverable is now `best/new_instance_partial_39024.json` = 39,024/39,033 (9 failing).**
+> Verified twice, by `checker.py` and by an independent AST-walk verifier (`s9/verify_ast.py`,
+> no `eval`, no `compile`, no regex substitution). Failing lines:
+> `[9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
 
-* `x_17325` shifts `A` by `7376877p`; `x_9413` shifts `B` by `p`.
-* `x_7068` may additionally move by any multiple of `p` (the mirror handle `x_30163` absorbs it);
-  likewise `x_4432` via `x_11052`. Non-multiples of `p` break a 12–16-equation mirror atom.
+### The error
 
-Every failing equation evaluates to `m·(c₁A + c₂B)` (all other atoms vanish), so it can be rescued
-only if `c₁·D1 + c₂·D2 ≡ 0 (mod p)`. Computed for all nine linear failing equations:
+The old argument assumed the reachable defects were `A ∈ D1 + pℤ` and `B ∈ D2 + pℤ` "and nothing
+else", because `x_28730 = x_17499·x_9413 = p·x_9413` is p-quantised. **That silently assumed atom
+22230 (`x_28730 − x_17499·x_9413`) must stay zero.** It does not have to.
 
-| eq | c₁ | c₂ | `c₁D1+c₂D2 mod p` = 0? |
+An equation is zero iff its *linear combination of atoms* vanishes — not iff every atom vanishes.
+So **any atom whose entire equation footprint already lies inside the failing set is a free knob.**
+Atom 22230 is exactly that: `x_9413` and `x_28730` occur in **no other atom of the instance**, and
+22230 appears only in 10 of the 11 already-failing equations. Breaking it costs nothing and makes
+`x_28730` — hence `B` — a *free integer*, not a member of `D2 + pℤ`.
+
+Four atoms have zero footprint outside the failing set:
+
+| atom | expression | equations | clean equations touched |
 |---|---|---|---|
-| 2554 | 1 | −16 | no |
-| 6816 | −15 | −12 | no |
-| 8124 | 36 | −38 | no |
-| 9421 | 13 | 1 | no |
-| 12231 | 18 | 8 | no |
-| 12270 | −31 | 6 | no |
-| 12350 | −23 | 29 | no |
-| 14584 | 17 | −33 | no |
-| 22044 | −24 | −29 | no |
+| 22229 | `x_7068 − x_2099 − 7376877·x_642` | 9 | 0 |
+| 22230 | `x_28730 − x_17499·x_9413` | 10 | **0** ← missed originally |
+| 22231 | `x_4432 − x_19964 − x_28730` | 10 | 0 |
+| 37887 | square, root = 22231 | 1 | 0 |
 
-None can vanish: the required ratio is `−c₁/c₂` (a rational with numerator and denominator ≤ 40)
-while the actual `D2/D1 mod p = 29086885819837044927165644576879200888791656444895144487473726012333934270214`
-is a full 256-bit residue. The remaining two equations (8680, 29125) need `B = 0` **exactly**,
-impossible since `B ≡ D2 ≢ 0 (mod p)`.
+### The construction that reaches 39,024
 
-And every alternative placement of the two defects is strictly worse:
+Extending the knob set along the ladder `35754…35762` (the gate outputs `x_29854`, `x_31864`,
+`x_642`, whose whole equation footprint is the 11 failing equations plus only `{9123, 18673}`)
+gives 5 knobs over 13 affected equations, of which **4 are simultaneously zeroable** over ℤ:
+`11 + 2 − 4 = 9` failing. The witness differs from the old partial in exactly **five** variables —
+`x_642, x_9413, x_28730, x_29854, x_31864` — with no bit flips, no ripple and the core untouched.
 
-| placement | failing equations |
-|---|---|
-| **22229 + 22231 (+37887)  — current** | **11** |
-| 22229 + 3578 | 23 |
-| 29539 (+40826) + 22231 (+37887) | 24 |
-| 3576 + 22231 (+37887) | 24 |
-| 22229 + 7930 (+41512) | 25 |
-| 29539 (+40826) + 7930 (+41512) | 29 |
+### What survives of the old argument
 
-> **Conclusion: 39,022/39,033 is a local optimum, not merely the best found. Any improvement
-> requires satisfying `x_7068 ≡ K1` and `x_4432 ≡ K2 (mod p)` outright — i.e. cracking the core.**
+Only the narrow part: *if* one insists every atom outside the defect set vanishes, then the nine
+linear failing equations need `c₁D1 + c₂D2 ≡ 0 (mod p)` and none qualifies. That is still true —
+it is simply not the right constraint. The lesson is the general one: **work in equation space,
+not atom space.**
+
+### Is 9 the wall?
+
+Exhaustively, within the region `S = FAILS ∪ {9123, 18673}` and all 8 variables whose footprint
+lies inside `S` (`642, 1329, 9413, 10903, 17325, 28730, 29854, 31864`): **0 of 1287 5-subsets and
+0 of 1716 6-subsets are integer-solvable**, so at most 4 equations can be zeroed there and 9 is
+optimal *for that region*. The achievable atom-value lattice carries exactly four mod-p
+congruences against 8 atom degrees of freedom; the binding resource is the number of mod-p-acting
+knobs whose footprint stays inside `S`, which is exactly 4. Two independent beam searches (primal
+over knob sets to depth 8, dual over equation sets to |S| ≤ 19) both plateau at 9.
+**Outside that region 9-optimality is evidence, not proof.**
+
+Separately and exhaustively measured: over all 7,273 free inputs, exactly **6** move `(D1, D2)`
+mod p (`x_2081, x_4287, x_6418, x_9413, x_12553, x_17325`) and every one breaks other checks; and
+all 254 single bit flips score 32–41 failing equations (minimum 32). So the bit/pin route does not
+reach the defect — but that is proved only for single bits, not arbitrary subsets.
 
 ## 7. Tooling added (`s9/`, all regenerable)
 
