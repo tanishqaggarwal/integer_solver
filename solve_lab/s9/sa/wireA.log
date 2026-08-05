@@ -1,0 +1,10 @@
+state sa/base9.json failing 9 [9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+seeded |X| = 6 [17499, 36136, 32015, 14466, 36734, 25119]
+|X| = 70
+|E| = 330 failing inside E: 9 (build 0s)
+iter 1: |S|=311 unsat=19 0s
+iter 2: |S|=314 unsat=16 0s
+iter 3: |S|=317 unsat=13 0s
+iter 6: |S|=321 unsat=9 0s
+78955 passes; best |S|=321/330 -> 9 unsatisfied
+EXACT-Z verified failing: 9 [8124, 9123, 12231, 12270, 12350, 14584, 18673, 22044, 29125]

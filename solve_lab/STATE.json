@@ -43,10 +43,9 @@
     "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
   },
   "next_actions": [
-    "Beat 9. Generalise the knob principle: search over sacrificed equation sets S, with knobs = all variables/atoms whose equation footprint is contained in S, PLUS free inputs moved with the gate ripple (which keeps equations outside S intact). Certificate-guided branch-and-bound over S in EQUATION space (s9/chain2/bb.py does this in atom space; port it).",
-    "9-optimality is proved exhaustively only inside S = FAILS union {9123,18673}; outside it only two beam searches support it.",
-    "Bit/pin route: single bits all measured (32-41 failing, min 32) but arbitrary bit SUBSETS are unexplored.",
-    "Quadrant x_2081=0 / x_24601=0 re-solve with the corrected model."
+    "Attack the closed-form identity in S9_STRUCTURE.md section 12: make the residue x_24601 pins onto x_22649 agree with the residue the branch obligation forces on x_9118. Both sides are computable from the instance. This is a single scalar condition, not a search.",
+    "Enumerate every bit/among the 512 pins that moves EITHER of those two residues; a quadrant where they coincide would finish the instance.",
+    "Deliverable holds at 39,024/39,033 (9 failing)."
   ],
   "blocked": [
     "Improving past 39,022 provably requires satisfying x_7068 = K1 and x_4432 = K2 mod p outright, i.e. cracking the core; mod-p linear solve over all free inputs is inconsistent at fixed bits even with the corrected square-root model."
@@ -69,7 +68,7 @@
     ],
     "session9_writeup": "solve_lab/S9_STRUCTURE.md"
   },
-  "updated_unix": 1785968613,
+  "updated_unix": 1785972247,
   "session4": {
     "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
     "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -172,6 +171,15 @@
       "quadrant_agent": "x_2081=0 branch fully reconstructed -> 39,021 (12 failing), quad/best_quadrant_39021.json; x_24601=0 -> 27; both -> 43. On that branch the x_8599 reroute closes BOTH setter pins 688/1618 outright (new) but the second core costs ~26 eqs (best 30). Their rigidity argument reuses the retracted atom-space assumption, so 12 is not established as that branch wall.",
       "sa_agent": "still running at last check, retargeted to the 39,024 baseline",
       "my_checks": "no variable/atom has footprint inside the current 9 failing eqs; sacrificing pins 3576/3578 costs 26-28 eqs for 8-10 knobs; atom-space BnB finds no relaxation set of cost <=26; A,B first-order rigid mod p (solver sanity-checked)"
+    },
+    "closed_form_lock": {
+      "output_wire": "x_12186 = x_22649 (mod p) exactly 1:1; x_22649 is a FREE input; found by s9/modtrace.py (mod-p symbolic cone)",
+      "chain1_killable": "moving {x_22649, x_22152, x_14853, x_7068} by the same delta = K1 - x_12186 sets atom 22229 = 0 while keeping the core u = 0. First time chain 1 has been killed. s9/chain1.py -> 21 failing, only atoms 22231/37887/31670 nonzero.",
+      "the_pin": "atom 31670 = x_24601*(x_22152 - 126767545623909574255290391153759363968073470399639361054829680359428658595949132261910506) = 7550763*p*x_105 pins the output wire to EXACTLY the original x_12186, which differs from K1 by D1.",
+      "mux_branch": "x_4287=1 selects x_2099=x_9118 and x_19964=x_8731 (free) instead of the pinned x_6418/x_12553, making atoms 22229 AND 22231 both zero simultaneously for the first time (s9/mux.py).",
+      "branch_obligation": "x_4287=1 lights loads x_2239,x_31731,x_9106 which are 3 combinations of 2 base quantities x_4306,x_27177 (verified exactly), so the obligation is x_4306=x_27177=0 mod p. SOLVABLE by a 2x2 solve on (x_9118,x_8731). d(x_27177)/d(x_8731)=0, so x_9118 mod p is UNIQUELY determined = 33371159155735472537534252650716501592825364489306217536352743247010353604716.",
+      "the_mismatch": "the mirror+core chain forces x_9118 = x_12186 mod p, pinned to 82007976112976807461901870199198737303514020147647909878034348606308756230357 (x_24601=1) or 0 (x_24601=0). Neither equals the obligation value. THIS mismatch is the trapdoor, now in closed form.",
+      "best_on_branch": "34 failing (s9/mux3_out.json) vs 9 on the current branch"
     }
   }
 }

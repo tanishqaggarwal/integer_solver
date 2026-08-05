@@ -344,3 +344,99 @@ Proved exhaustively only inside `S = FAILS ∪ {9123, 18673}` (0 of 1287 5-subse
 marginal-cost table showing the next mod-p knob costs +2 equations for +1 dof. **Not a proof** —
 and given that this session's earlier optimality claim was wrong for exactly this kind of reason,
 treat it as a working hypothesis.
+
+---
+
+## 12. The lock in closed form (the deepest result of the session)
+
+Deliverable still **39,024 / 39,033**. What follows does not beat it, but it replaces "the core is a
+wall" with an exact statement of *what* the setter arranged, derived rather than searched.
+
+### 12.1 The circuit's output wire is a single free input
+
+`s9/modtrace.py` walks the gate DAG keeping only the monomials that survive mod p (dropping products
+against the p-wire and against currently-zero variables). Applied to `x_12186` it collapses a
+~20-deep cone to one chain, terminating at
+
+> **`x_12186 ≡ x_22649 (mod p)`, and `x_22649` is a FREE INPUT — it drives `x_12186` exactly 1:1.**
+
+Confirmed numerically (+1, +2, +1000 all give `dx_12186 = +δ`). Its only disturbances are atom 2423
+(`12604395·(x_22649 − x_29524) − x_9899`), the core, and two composites.
+
+### 12.2 Chain 1 can be killed outright — a first
+
+`x_29524` is driven 1:1 by the free input `x_22152`. So moving
+`{x_22649, x_22152, x_14853, x_7068}` by the *same* δ = K1 − x_12186 drives the computed value to the
+pinned constant while holding the core's control difference `u = x_29322` at **0**:
+
+```
+x_12186 = K1  ✓   x_14853 = K1  ✓   x_7068 = K1  ✓   u = 0  ✓   atom 22229 (A) = 0  ✓
+```
+
+Only 3 atoms remain nonzero (`s9/chain1.py`): 22231 (chain 2), 37887 (its square), and the load pin
+**31670**, which is what stops it:
+
+```
+31670 :  x_24601·(x_22152 − 126767545623909574255290391153759363968073470399639361054829680359428658595949132261910506) = 7550763·x_29309,   x_29309 = p·x_105
+```
+
+The constant is **exactly the original `x_12186`**. So the bit `x_24601` pins the circuit's output
+wire to a value that differs from `K1` by precisely `D1`. That is the trapdoor, stated exactly.
+
+### 12.3 The MUX branch makes BOTH defects vanish
+
+`x_2099` and `x_19964` are outputs of a 2-bit MUX on `(b1, b2) = (x_4287, x_2081)`:
+
+```
+x_2099  = b1(1−b2)·x_31861 + b2(1−b1)·x_6418  + b1b2·x_9118
+x_19964 = b1(1−b2)·x_14865 + b2(1−b1)·x_12553 + b1b2·x_8731
+```
+
+At `(0,1)` they read the *pinned* `x_6418`, `x_12553`. **Setting `x_4287 = 1` selects `x_9118`,
+`x_8731` — free inputs.** Then C1 and C2 close by construction:
+
+> **atoms 22229 = 0 AND 22231 = 0 simultaneously — the first time both defects have ever vanished.**
+
+### 12.4 The branch's price, and why it still does not close
+
+`x_4287 = 1` lights `x_21279 = 1`, activating three loads (atoms 19088, 22233, 22235) on
+`x_2239, x_31731, x_9106`. Those are **three combinations of two base quantities** — the same
+3-from-2 shape as L1/L2/L3 from S,T (verified exactly):
+
+```
+x_2239  = 3494591·x_27177 + 14240157·x_4306
+x_31731 = 15964591·x_27177 + 13881285·x_4306
+x_9106  = 7204959·x_27177 + 6822253·x_4306
+```
+
+so the whole obligation is **`x_4306 ≡ 0` and `x_27177 ≡ 0 (mod p)`**, where
+
+```
+x_4306  = (x_8731 + x_14865)(x_6418 − x_31861) − (x_12553 − x_14865)(x_31861 − x_9118)
+```
+
+and it **is solvable**: a 2×2 mod-p solve on `(x_9118, x_8731)` zeroes both (verified,
+`s9/mux2.py`, `s9/mux3.py` — reaches 6 nonzero atoms). Structural fact: `∂x_27177/∂x_8731 = 0`, so
+`x_27177` depends on `x_9118` alone, which **determines `x_9118` mod p uniquely**:
+
+```
+x_9118  must be  33371159155735472537534252650716501592825364489306217536352743247010353604716   (mod p)
+```
+
+But the mirror + core chain forces `x_9118 ≡ x_7068 ≡ x_14853 ≡ x_12186`, and `x_12186` is pinned by
+§12.2 to `82007976112976807461901870199198737303514020147647909878034348606308756230357` when
+`x_24601 = 1`, or to `0` when `x_24601 = 0`. **Neither matches.** Checked directly.
+
+> **That mismatch is the trapdoor.** Every reachable branch pins the circuit's output wire to a
+> constant, while the branch's own obligation pins the verified value to a different one. The
+> setter's witness must live where the two agree — which needs the secret, or a genuine break of
+> the pinned residue.
+
+Best measured on this branch: **34 failing** (`s9/mux3_out.json`), versus 9 on the current one.
+
+### 12.5 What this changes for a future attack
+The target is now a single scalar identity, not a search: make the residue that `x_24601`'s pin
+puts on `x_22649` agree with the residue the branch obligation puts on `x_9118`. Both sides are
+computable in closed form from the instance (§12.2, §12.4). Any further progress should attack that
+identity — e.g. other bits that move either residue, or a quadrant where the two pins coincide —
+rather than searching assignments.

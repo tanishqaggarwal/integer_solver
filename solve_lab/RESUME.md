@@ -60,6 +60,22 @@ The core's other branch (`A·c² ≡ B² mod p`) is **CLOSED**: it needs `A` to 
 `A` is fixed by the pins and is a non-residue for both reachable `x_12186` residues (a ~50% sample
 of shifts *would* be residues — the setter's pin of `x_14853` to `K1` is what closes it).
 
+### THE LOCK, IN CLOSED FORM (read S9_STRUCTURE.md section 12)
+`x_12186 ≡ x_22649 (mod p)` exactly 1:1 and `x_22649` is FREE — it is the circuit's output wire
+(found with `s9/modtrace.py`). Moving `{x_22649, x_22152, x_14853, x_7068}` together by
+`δ = K1 − x_12186` **kills chain 1 outright** (atom 22229 = 0) while holding the core's `u = 0`.
+What stops it is load pin **31670**, gated by bit `x_24601`, which pins the output wire to exactly
+the original `x_12186` — a constant differing from `K1` by precisely `D1`.
+
+Flipping the MUX control **`x_4287 = 1`** makes `x_2099`/`x_19964` read the FREE inputs
+`x_9118`/`x_8731` instead of the pinned `x_6418`/`x_12553`, so **atoms 22229 AND 22231 are both
+zero simultaneously** — the first time. Its price is three new loads that collapse (3-from-2) to
+`x_4306 ≡ x_27177 ≡ 0 (mod p)`, which IS solvable — but `∂x_27177/∂x_8731 = 0`, so `x_9118` mod p
+is uniquely forced to `33371159155735472537534252650716501592825364489306217536352743247010353604716`,
+while the mirror+core chain needs it to equal the pinned `x_12186`
+(`82007976…230357` if `x_24601=1`, or `0` if `x_24601=0`). **Neither matches — that mismatch IS the
+trapdoor.** Any further attack should target that single scalar identity, not search assignments.
+
 ### Do NOT redo
 - Greedy ripple-repair from the canonical orientation (converges to the core in 3 rounds, 39,013).
 - Single-bit flips: all 1,156 boolean free inputs scanned; only `x_2081`, `x_24601` deactivate the
