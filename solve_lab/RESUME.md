@@ -1,10 +1,17 @@
 # RESUME — read me first
 
-## STATUS (session 9): best verified **39,024 / 39,033**
-Deliverable: `best/new_instance_partial_39024.json`
-Verify: `python3 checker.py best/new_instance_partial_39024.json` → `satisfied 39024/39033 (9 failing)`
+## STATUS (session 9): best verified **39,026 / 39,033**
+Deliverable: `best/new_instance_partial_39026.json`
+Verify: `python3 checker.py best/new_instance_partial_39026.json` → `satisfied 39026/39033 (7 failing)`
 Independent check: `python3 s9/verify_ast.py best/new_instance_partial_39024.json` (AST walk, no eval/regex).
-Failing lines: `[9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
+Failing lines: `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
+
+**How 39,026 was reached:** use EFFECTIVE footprints, not syntactic ones — a variable multiplied by a
+currently-zero variable has no effect. That admits `x_9118` and `x_8731` as knobs, and by CRT
+(`gcd(5113045, p) = 1`; `x_8731` moves atom 35761 in steps of 1) two of the four binding congruences
+dissolve: lattice invariant factors go `[1,1,P,1,P,1,P,7376877P]` → `[1,1,P,1,1,1,1,7376877P]`,
+so max-simultaneously-zeroable rises 4 → 6 and failing drops 9 → 7. Exhaustive over all 2^13
+subsets: no 7-subset is integer-solvable, so 7 is optimal for this defect placement.
 
 > **RETRACTED:** an earlier version of this file claimed 39,022 was a proved local optimum.
 > That was wrong — see `S9_STRUCTURE.md` section 6. The proof assumed every atom outside the

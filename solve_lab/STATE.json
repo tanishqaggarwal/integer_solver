@@ -4,10 +4,10 @@
   "n_vars": 38748,
   "n_forced": 5897,
   "n_assigned": 38748,
-  "n_eqs_satisfied_by_partial": 39024,
-  "best_score": 39024,
-  "best_partial": "solve_lab/best/new_instance_partial_39024.json",
-  "active_method": "Session 9 final: 39,024/39,033. Key idea -- atoms need NOT all vanish; an equation is zero iff its LINEAR COMBINATION of atoms is zero, so any atom whose entire equation footprint lies inside the already-failing set is a free knob. Atom 22230 = x_28730 - x_17499*x_9413 is such an atom (x_9413, x_28730 appear in no other atom), freeing x_28730 from p*Z. With the 35754..35762 ladder: 5 knobs over 13 equations, 4 simultaneously zeroable over Z => 11 + 2 - 4 = 9 failing. Witness differs from the 39,022 partial in exactly 5 variables: x_642, x_9413, x_28730, x_29854, x_31864. Verified by checker.py and an independent AST-walk verifier.",
+  "n_eqs_satisfied_by_partial": 39026,
+  "best_score": 39026,
+  "best_partial": "solve_lab/best/new_instance_partial_39026.json",
+  "active_method": "39,026/39,033 (7 failing). EFFECTIVE-footprint knobs: a variable multiplied by a currently-zero variable has no real effect, so its usable footprint is far smaller than its syntactic one. That admits x_9118 and x_8731 as knobs alongside the 8 syntactic ones. By CRT (gcd(5113045,p)=1, and x_8731 moves atom 35761 in steps of 1) two of the four binding congruences dissolve: the achievable atom-value lattice goes from invariant factors [1,1,P,1,P,1,P,7376877P] (C=4, maxzero=4, 9 failing) to [1,1,P,1,1,1,1,7376877P] (C=2, maxzero=6, 7 failing). Exhaustive over all 2^13 subsets of S13: max simultaneously zeroable = 6; no 7-subset is integer-solvable.",
   "structure": {
     "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
     "n_distinct_atoms": 46275,
@@ -23,10 +23,8 @@
     "open_atoms": [],
     "not_single_modulus": true
   },
-  "n_eqs_failing": 9,
+  "n_eqs_failing": 7,
   "failing_eqs": [
-    9123,
-    9421,
     12231,
     12270,
     12350,
@@ -52,9 +50,9 @@
   ],
   "artifacts": {
     "checker": "solve_lab/checker.py",
-    "verifier_cli": "python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39022.json",
+    "verifier_cli": "python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json",
     "atoms": "solve_lab/atoms/poly_atoms.jsonl",
-    "best_partial": "solve_lab/best/new_instance_partial_39022.json",
+    "best_partial": "solve_lab/best/new_instance_partial_39026.json",
     "failing": "solve_lab/best/failing_eqs.json",
     "scripts": [
       "propagate.py",
@@ -69,7 +67,7 @@
     "session9_writeup": "solve_lab/S9_STRUCTURE.md",
     "reduced_problem": "solve_lab/REDUCED_PROBLEM.md"
   },
-  "updated_unix": 1785972535,
+  "updated_unix": 1785973912,
   "session4": {
     "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
     "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -188,6 +186,7 @@
       "algebraic_kernel": "6 unknowns mod p and 2 quadratic forms: S=A*u^2-w^2, T=B*u-w*c; L1,L2,L3 are fixed integer combinations; requirement S=T=0 mod p plus one condition mod 6672769. Eliminating w gives u^2*(A*c^2-B^2)=0, so the second branch is a pure Legendre-symbol condition (open iff A is a QR mod p).",
       "annealer_verdict": "NOT suitable. (a) a QUBO must encode 256-bit modular arithmetic: ~65k binaries per modular multiply, >=4 multiplies in the kernel, 1e5-1e6 logical binaries before minor-embedding. (b) FATAL: the objective needs ~512 bits of coupler dynamic range; annealers deliver ~4-6 effective bits after analog control error. (c) no low-precision combinatorial residue exists to peel off (see combinatorial_content). Write-up: solve_lab/REDUCED_PROBLEM.md",
       "recommended": "Legendre/QR search for a configuration flipping the symbol of A; LLL/CVP on the accessible knobs (never run); or the closed-form identity of S9_STRUCTURE.md section 12."
-    }
+    },
+    "effective_footprint": "census over all 38,748 variables: syntactic footprint 771,576 var-equation incidences vs effective 599,740 (22.3% smaller); 25,250 variables strictly gain, 3,289 are pure no-ops. Surviving congruences are exactly the two original core ones (y22230+y22231 = D2 mod P, y22229+7376877*y35762 = D1 mod 7376877P). Of all 38,748 variables only 25 move a surviving congruence and the cheapest costs 10 extra equations (best achievable >= 14), so 7 is the floor for this placement and going lower requires the trapdoor itself."
   }
 }
