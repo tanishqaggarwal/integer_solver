@@ -1,0 +1,33 @@
+[0/178] a7=24601: sat=39016 core=14 noncore=3 S0=False T0=False [2s]
+[10/178] a7=16688: sat=39016 core=14 noncore=3 S0=False T0=False [16s]
+[20/178] a7=25150: sat=39016 core=14 noncore=3 S0=False T0=False [31s]
+[30/178] a7=33951: sat=39016 core=14 noncore=3 S0=False T0=False [45s]
+[40/178] a7=26078: sat=39016 core=14 noncore=3 S0=False T0=False [61s]
+[50/178] a7=1746: sat=39016 core=14 noncore=3 S0=False T0=False [76s]
+[60/178] a7=10428: sat=38992 core=14 noncore=27 S0=False T0=False [92s]
+[70/178] a7=19074: sat=39016 core=14 noncore=3 S0=False T0=False [107s]
+[80/178] a7=35835: sat=39016 core=14 noncore=3 S0=False T0=False [123s]
+[90/178] a7=3414: sat=39016 core=14 noncore=3 S0=False T0=False [138s]
+[100/178] a7=20356: sat=39016 core=14 noncore=3 S0=False T0=False [154s]
+[110/178] a7=4362: sat=39016 core=14 noncore=3 S0=False T0=False [171s]
+[120/178] a7=21305: sat=39016 core=14 noncore=3 S0=False T0=False [185s]
+[130/178] a7=5584: sat=39016 core=14 noncore=3 S0=False T0=False [200s]
+[140/178] a7=14039: sat=38994 core=14 noncore=25 S0=False T0=False [215s]
+[150/178] a7=22579: sat=39016 core=14 noncore=3 S0=False T0=False [229s]
+[160/178] a7=7029: sat=39002 core=14 noncore=17 S0=False T0=False [244s]
+[170/178] a7=24136: sat=39016 core=14 noncore=3 S0=False T0=False [260s]
+
+DISTRIBUTION of satisfied counts: {39016: 137, 39003: 3, 39002: 3, 39001: 4, 39000: 2, 38999: 2, 38998: 3, 38997: 1, 38994: 1, 38992: 3, 38991: 1, 38988: 2, 38987: 2, 38986: 2, 38985: 1, 38981: 1, 38974: 1, 38973: 1, 38971: 1, 38970: 1, 38967: 1, 38959: 2, 38953: 1, 38900: 1, 38881: 1}
+TOP 10 configs:
+  10:a7=24601: sat=39016 core=14 noncore=3 S0=False T0=False
+  10:a7=16411: sat=39016 core=14 noncore=3 S0=False T0=False
+  10:a7=47: sat=39016 core=14 noncore=3 S0=False T0=False
+  10:a7=112: sat=39016 core=14 noncore=3 S0=False T0=False
+  10:a7=8319: sat=39016 core=14 noncore=3 S0=False T0=False
+  10:a7=24734: sat=39016 core=14 noncore=3 S0=False T0=False
+  10:a7=24774: sat=39016 core=14 noncore=3 S0=False T0=False
+  10:a7=16688: sat=39016 core=14 noncore=3 S0=False T0=False
+  10:a7=33099: sat=39016 core=14 noncore=3 S0=False T0=False
+  10:a7=24912: sat=39016 core=14 noncore=3 S0=False T0=False
+
+BEST: 39016  saved table agentD_scan_10.json  [270s]

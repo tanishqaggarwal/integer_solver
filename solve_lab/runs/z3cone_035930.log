@@ -1,0 +1,4 @@
+cone: 3280 vars (178 value-inputs, 243 bits); residues 514
+z3: 3280 vars, 12467 constraints built (26s); solving...
+z3 result: unsat (27s)
+UNSAT: witness changes vars outside this cone, or value-inputs aren't residue-or-0

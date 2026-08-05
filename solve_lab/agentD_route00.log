@@ -1,0 +1,18 @@
+quad 00: scanning 81 routings
+  [0] ('0', '0', '0', '0'): sat=39005 core=12 noncore=16 S0=True T0=True *BEST* [0s]
+  [5] ('0', '0', 'C1', 'C2'): sat=39006 core=14 noncore=13 S0=True T0=True *BEST* [2s]
+
+TOP 12 routings for quad 00:
+  ('0', '0', 'C1', 'C2'): sat=39006 core=14 noncore=13 S0=True T0=True
+  ('C2', '0', 'C1', 'C2'): sat=39005 core=14 noncore=14 S0=True T0=True
+  ('C1', '0', 'C1', 'C2'): sat=39005 core=14 noncore=14 S0=True T0=True
+  ('0', '0', '0', '0'): sat=39005 core=12 noncore=16 S0=True T0=True
+  ('C2', 'C2', 'C1', 'C2'): sat=39004 core=14 noncore=15 S0=True T0=True
+  ('C2', 'C1', 'C1', 'C2'): sat=39004 core=14 noncore=15 S0=True T0=True
+  ('C1', 'C2', 'C1', 'C2'): sat=39004 core=14 noncore=15 S0=True T0=True
+  ('C1', 'C1', 'C1', 'C2'): sat=39004 core=14 noncore=15 S0=True T0=True
+  ('0', 'C2', 'C1', 'C2'): sat=39004 core=14 noncore=15 S0=True T0=True
+  ('0', 'C1', 'C1', 'C2'): sat=39004 core=14 noncore=15 S0=True T0=True
+  ('0', '0', 'C1', '0'): sat=38999 core=17 noncore=17 S0=True T0=True
+  ('0', '0', '0', 'C2'): sat=38999 core=20 noncore=14 S0=True T0=True
+BEST: (39006, ('0', '0', 'C1', 'C2'))  [23s]

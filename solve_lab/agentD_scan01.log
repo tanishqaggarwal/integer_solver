@@ -1,0 +1,23 @@
+[0/78] a34=2081: sat=39016 core=14 noncore=3 S0=False T0=False [2s]
+[10/78] a34=16586: sat=38988 core=14 noncore=31 S0=False T0=False [14s]
+[20/78] a34=16827: sat=39016 core=14 noncore=3 S0=False T0=False [27s]
+[30/78] a34=6821: sat=39001 core=14 noncore=18 S0=False T0=False [39s]
+[40/78] a34=37862: sat=39016 core=14 noncore=3 S0=False T0=False [52s]
+[50/78] a34=21702: sat=39016 core=14 noncore=3 S0=False T0=False [64s]
+[60/78] a34=3545: sat=39016 core=14 noncore=3 S0=False T0=False [77s]
+[70/78] a34=24365: sat=38949 core=14 noncore=70 S0=False T0=False [91s]
+
+DISTRIBUTION of satisfied counts: {39016: 48, 39003: 11, 39002: 2, 39001: 2, 38999: 4, 38994: 1, 38993: 1, 38992: 1, 38990: 1, 38989: 1, 38988: 2, 38987: 1, 38975: 1, 38967: 1, 38949: 1}
+TOP 10 configs:
+  01:a34=2081: sat=39016 core=14 noncore=3 S0=False T0=False
+  01:a34=22562: sat=39016 core=14 noncore=3 S0=False T0=False
+  01:a34=28713: sat=39016 core=14 noncore=3 S0=False T0=False
+  01:a34=20564: sat=39016 core=14 noncore=3 S0=False T0=False
+  01:a34=22623: sat=39016 core=14 noncore=3 S0=False T0=False
+  01:a34=34974: sat=39016 core=14 noncore=3 S0=False T0=False
+  01:a34=6312: sat=39016 core=14 noncore=3 S0=False T0=False
+  01:a34=8370: sat=39016 core=14 noncore=3 S0=False T0=False
+  01:a34=4287: sat=39016 core=14 noncore=3 S0=False T0=False
+  01:a34=37147: sat=39016 core=14 noncore=3 S0=False T0=False
+
+BEST: 39016  saved table agentD_scan_01.json  [100s]

@@ -1,0 +1,8 @@
+cone 1887, wires 1865 (2s)
+  p=2147483647 0/4194304 hits=0 (7s)
+  p=2147483647 1048576/4194304 hits=0 (112s)
+  p=2147483647 2097152/4194304 hits=0 (217s)
+  p=2147483647 3145728/4194304 hits=0 (321s)
+prime 2147483647: 0 hits (423s)
+common hits: 0
+wrote confluent_enum_hits.json (423s)

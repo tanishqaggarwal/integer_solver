@@ -1,0 +1,5 @@
+candidate pool: 51 improving bits; baseline viol=4
+start viol=4 atoms=[27973, 27978, 41470, 45004]
+step 0: +x_1263=1 -> viol=3 atoms=[8523, 25964, 44093]  (111s)
+step 1: no improvement (best 4); stop
+chosen bits: [1263], final viol 3

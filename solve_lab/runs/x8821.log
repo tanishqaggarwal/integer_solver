@@ -1,0 +1,9 @@
+x_8821 base=1, moved by 18 bits
+22-side: |x_9770 image|=20, |x_3183 image|=18
+x_8821=0 settings found: 123/3000
+  true x_18274 image at x_8821=0: 1 distinct; sample [0]
+  true x_17728 image at x_8821=0: 1 distinct
+  true x_18274(x_8821=0) ∩ x_9770(22) = 1: [0]
+  true x_17728(x_8821=0) ∩ x_3183(22) = 1: [0]
+  true x_18274 escaping g2*Z: 0/1; true x_17728 escaping h2*Z: 0/1
+done (86s)

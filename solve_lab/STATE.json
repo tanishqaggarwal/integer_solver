@@ -1,0 +1,132 @@
+{
+  "phase": "SOLVED",
+  "n_eqs": 39031,
+  "n_vars": 38748,
+  "n_forced": 5897,
+  "n_assigned": 38748,
+  "n_eqs_satisfied_by_partial": 39031,
+  "best_score": 39031,
+  "best_partial": "solve_lab/best/SOLUTION.json",
+  "active_method": "SOLVED (Session 8). Direct construction in the RAW equation space. At best_partial only 2 atoms nonzero: H=(x_17728-x_3183)+x_9982 and F=6033033*(x_18274-x_9770)-x_26977. Both are PRODUCT SLACKS: H via x_9982=x_12518*x_9897, F via x_26977=x_20510*x_31302. The gap x_17728-x_3183 is NOT rigid (always paired with +x_9982 in raw eqs). Hubs x_12518,x_20510 are in the 220-var identity wire (=x_15); the wire is EXACTLY quiet (V^1 and V^2+ coefs vanish in every atom, integer). Set wire=sign*V (V=1) + partners x_9897=-G, x_31302=F0, and x_9982=-G, x_26977=F0. All 39031 eqs satisfied. See SOLVED.md, build_solution.py.",
+  "structure": {
+    "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
+    "n_distinct_atoms": 46275,
+    "atom_reuse_mean": 10,
+    "linear_atoms": 20090,
+    "deg2_atoms": 25468,
+    "deg4_atoms": 717,
+    "boolean_vars": 3484,
+    "pins_all_value_1": 1103,
+    "huge_atoms": 865,
+    "huge_atom_form": "bit*(x_B - HUGE_290bit) - s*x_C ; bit=1 loads residue",
+    "core": "1 giant residual component: 23843 vars, 256 free bits; +297 tiny homogeneous comps",
+    "open_atoms": [],
+    "not_single_modulus": true
+  },
+  "n_eqs_failing": 0,
+  "failing_eqs": [],
+  "core_probes": {
+    "single_bit_flip": "51 bits improve 4->3 violated atoms, none reach <3; flipping moves violations to different atoms (rugged landscape)",
+    "greedy_multiflip": "plateaus at 3; adding a 2nd bit never improves below 3",
+    "boolean_forcing_prop": "cannot bootstrap (all-zeros is a fixpoint)",
+    "local_repair_4vars": "UNSAT (z3): the 4 vars unique to failing eqs cannot fix them",
+    "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
+  },
+  "next_actions": [
+    "Complete full 2^22 tab (runs/tab22_full.log) -> materialise S={(x_9770,x_3183)}, confirm B=0 fails, inspect S structure (moduli/factors)",
+    "Look for residue-pool identity: are x_9770(A) and x_18274(B) built from the same HUGE constants?",
+    "MITM/lattice using x_8821 (linear) as a coordinate on the 233 side",
+    "Deliverable holds at 39,019/39,031"
+  ],
+  "blocked": [
+    "z3 NIA returns unknown on the 256-bit core; no small conflict cone (dense/cyclic); local repair proven UNSAT; general SMT + local search insufficient. Core appears intractable by general methods (obfuscated-circuit-inversion kernel); witness exists by construction but likely needs the setter's trapdoor or heavy cryptanalysis."
+  ],
+  "artifacts": {
+    "checker": "solve_lab/checker.py",
+    "verifier_cli": "python3 solve_lab/checker.py solve_lab/best/best_partial_39013.json",
+    "atoms": "solve_lab/atoms/poly_atoms.jsonl",
+    "best_partial": "solve_lab/best/best_partial_39013.json",
+    "failing": "solve_lab/best/failing_eqs.json",
+    "scripts": [
+      "propagate.py",
+      "solve_forward2.py",
+      "analyze_core.py",
+      "main_component.py",
+      "z3_main.py",
+      "cone_solve.py",
+      "repair.py",
+      "flip_search.py"
+    ]
+  },
+  "updated_unix": 1754250000,
+  "session4": {
+    "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
+    "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
+    "huge_atoms": "exact affine x_B=s*x_C+HUGE (no modulus)",
+    "bitblast": "122221 ungated big*big products -> infeasible",
+    "methods_tried": "~25 (SMT, SAT, GF2/GF3, linear algebra, boolean reduction, propagation/RuleA, local/greedy/SA/WalkSAT/pairs/triples search, modulus hunts, local-repair UNSAT, fast DAG eval)"
+  },
+  "prev_best": {
+    "score": 39013,
+    "file": "solve_lab/best/best_partial_39013.json",
+    "open_atoms": [
+      27973,
+      27978,
+      41470,
+      45004
+    ]
+  },
+  "session6": {
+    "reduction": "obstruction == twist only: x_9770=x_18274 AND x_3183=x_17728 (atom 40782 implied, verified test_40782.py)",
+    "twist_atoms": {
+      "1817": "6033033*(x_9770-x_18274)+x_26977 (x_26977==0)",
+      "44271": "x_3183-x_17728",
+      "30378": "x_3183-x_9982-x_17728 (x_9982==0)"
+    },
+    "decoupling": "x_9770,x_3183 <- 22 bits only; x_18274,x_17728 <- 233 bits only (same 211 support)",
+    "denominator": "x_18274=x_6773/x_8821, x_17728=x_17233/x_8821; x_8821 EXACTLY LINEAR in 233 bits; numerators high-degree",
+    "targets_at_B0": {
+      "x_18274_0": "91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002",
+      "x_17728_0": "125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626"
+    },
+    "B0_ruled_out": "DEFINITIVE: full 2^22 scan (prime 2147483647) found 0 patterns matching x_18274(0) or x_17728(0) in even one coordinate. B=0 impossible; witness needs 233-side active.",
+    "correction": "Session-5 rank-233/slaved-B claim used lossy-eval linearity filter; NOT reliable. Wires are genuinely nonlinear (mod-P confirmed).",
+    "final_assessment": "Full solve = claw-find (A,B) with x_9770(A)=x_18274(B) & x_3183(A)=x_17728(B). 22-side enumerable+invertible (2^22); 233-side high-degree over 2^233, no linear/low-degree inversion, disjoint 290-bit residue pools, witness isolated in the integer-consistent variety. This is the deliberately-hard trapdoor; not crackable by enumeration/local/lattice/SMT. Deliverable: 39,019/39,031 exact.",
+    "no_shortcut": "Confirmed rigid: x_26977=x_20510*x_31302 (atom 1816), x_9982 pinned 0 (atom 44272) - no slack to absorb the twist gap. No hidden modulus (gcd residues=1). No B=0, no small/linear/subset-sum/local solution. Claw-find between 2^22 (enumerable) and 2^233 (high-degree, non-invertible) needs 2^558 g-evals or the trapdoor.",
+    "linalg255": "CORRECTED over all 255 bits (mod-P): rank 255/255, forces all bits=0. Witness is outside the linear neighborhood of all-0 => linear/lattice provably cannot reach it. Supersedes buggy session-5 slaved-B claim."
+  },
+  "session7": {
+    "slack_active": "freeze x_24026:=x_18274-x_35186, x_27116:=x_17728-x_1642 with x_12779=1 => twist holds; ~18 secondary atoms break from the ripple",
+    "core_reduction": "min-conflicts/SA reduce 18->6 broken; persistent core includes a40782=Q^2 (twist square) and a44154 sharing ripple monomials",
+    "quantization": "gcd(g,g2)=1 [x_9770,x_18274], gcd(h,h2)=2 [x_3183,x_17728]; every twist var = base*(signed int)",
+    "divwire_escape": "x_8821=x_17810*x_27292 in {-2,-1,0,1}; escaped x_18274/x_17728 land on (base/2)*Z, still coprime to 22-side quantum => degenerate",
+    "reorientation": "x_18274<-a11398, x_17728<-a11388 stays valid (39019) but x_18274 becomes constant => achievable set intrinsic",
+    "xl_infeasible": "ripple subsystem grows 46->14664->26954->27469 vars (194093 monomials) in 3 BFS rounds => globally coupled, no local solve",
+    "q40782_root": "degree-2, 38 terms; twist terms vanish under twist, leaving linear eq in ripple vars 28*x_10783 - x_30323 - 477654111*x_24252 + ... = 0 that needs a SMALL ripple",
+    "sa_fleet": "4 instances (activators 1858/26947/27512/5443) in slack-active space with roots; best 6 so far"
+  },
+  "session7_final": {
+    "result": "233-side twist activation gives a SQUARE-FREE reproducible 4-atom core [8464,19480,41459,44129] after root-replacement - tightest reduction across all sessions",
+    "invariant": "the collision gap G=63398753350954830538284979531311478224817569395477016427713014637060524103217265241016814 (=x_17728-x_3183) is CONSERVED: every reformulation (twist atoms / slack-active R / x_8821 web / x_12390-x_14494) relocates the SAME G to different vars, none eliminates it",
+    "joint_solve_fails": "a44129 x_24089-dependence cancels (c1=c2=0); free var cannot absorb G",
+    "conclusion": "G is zeroed only by a NATIVE 22/233 collision, forbidden by coprime quantization (gcd 2, tiny coprime images, 0 nonzero collisions/3500 samples) => robust one-way trapdoor requiring knapsack inversion"
+  },
+  "solution": "solve_lab/best/SOLUTION.json (repo root SOLUTION.json); 38748 vars, 2954 nonzero; verify: python3 checker.py best/SOLUTION.json",
+  "new_instance": {
+    "phase": "analyzed-hard",
+    "n_eqs": 39033,
+    "best_partial_score": 39007,
+    "best_partial": "best/new_instance_partial_39007.json",
+    "identification": "GF(p) arithmetic-circuit trapdoor; wire pinned to p=2^256-2^32-977",
+    "core": "256-bit boolean codeword message; full-rank loads; p-divisibility coupling",
+    "verdict": "full solution exists by construction; not reachable by feasible local/algebraic search without setter secret",
+    "tools": [
+      "build_twist.py",
+      "newton2.py",
+      "p_message.py",
+      "scc.py",
+      "localize.py",
+      "scan_bits.py"
+    ]
+  }
+}

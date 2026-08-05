@@ -1,0 +1,35 @@
+start: 38991/39033; non-core broken=23: [3408, 3841, 4134, 4526, 5069, 7276, 15440, 15724, 15927, 21600, 22139, 22825, 27289, 27999, 28718, 29305, 31134, 31269, 32463, 33195, 36387, 36390, 38888]
+round 0: 23 broken, 30 handles (min ripple 0)
+  applied rank 6; S%p=True, T%p=True
+round 1: 45 broken, 43 handles (min ripple 0)
+  applied rank 11; S%p=True, T%p=True
+round 2: 57 broken, 57 handles (min ripple 0)
+  applied rank 14; S%p=True, T%p=True
+round 3: 62 broken, 66 handles (min ripple 0)
+  applied rank 17; S%p=True, T%p=True
+round 4: 68 broken, 83 handles (min ripple 0)
+  applied rank 21; S%p=True, T%p=True
+round 5: 78 broken, 94 handles (min ripple 0)
+  applied rank 27; S%p=True, T%p=True
+round 6: 102 broken, 105 handles (min ripple 0)
+  applied rank 30; S%p=True, T%p=True
+round 7: 101 broken, 116 handles (min ripple 0)
+  applied rank 33; S%p=True, T%p=True
+round 8: 102 broken, 105 handles (min ripple 0)
+  applied rank 30; S%p=True, T%p=True
+round 9: 101 broken, 116 handles (min ripple 0)
+  applied rank 33; S%p=True, T%p=True
+round 10: 102 broken, 105 handles (min ripple 0)
+  applied rank 30; S%p=True, T%p=True
+round 11: 101 broken, 116 handles (min ripple 0)
+  applied rank 33; S%p=True, T%p=True
+round 12: 102 broken, 105 handles (min ripple 0)
+  applied rank 30; S%p=True, T%p=True
+round 13: 101 broken, 116 handles (min ripple 0)
+  applied rank 33; S%p=True, T%p=True
+round 14: 102 broken, 105 handles (min ripple 0)
+  applied rank 30; S%p=True, T%p=True
+FINAL: 38914/39033 (119 fail)
+core fail: [2071, 7123, 7469, 13660, 15299, 16622, 17726, 21382, 22093, 25480, 25539, 28653, 29437, 31061, 32894, 32916, 34517, 34892]
+non-core fail: [54, 525, 656, 1008, 1558, 2230, 2295, 3168, 3408, 3841, 4134, 5022, 5069, 5732, 6006, 6501, 7796, 9865, 10203, 10369, 10750, 10778, 11567, 11759, 12265, 13297, 14679, 15440, 15724, 15927, 16332, 16671, 16966, 17089, 17714, 18052, 18679, 19201, 19410, 19896, 20507, 20668, 20817, 21544, 21690, 21715, 22212, 22218, 22315, 22537, 23037, 23080, 23105, 23277, 24165, 24343, 24838, 25293, 25425, 25428, 25502, 25718, 26358, 26362, 26807, 27289, 27374, 27785, 27867, 27999, 28810, 28923, 30965, 31342, 32049, 32269, 32504, 32549, 33030, 33216, 33306, 33630, 33992, 34090, 34208, 34507, 34523, 34624, 35176, 35461, 36390, 36542, 36798, 36958, 36993, 36995, 37054, 37500, 38029, 38888, 39024]
+S%p=0, T%p=0, L2/p%6672769=645924

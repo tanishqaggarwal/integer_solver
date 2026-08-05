@@ -1,0 +1,5 @@
+Rule-A baseline (no seed): 5 viol, 17 contra (4s)
+  seed x_106: viol=8, forced 1 bits, contra 8 (7s)
+  seed x_710: viol=7, forced 1 bits, contra 7 (14s)
+  seed x_865: viol=6, forced 1 bits, contra 6 (18s)
+  seed x_1365: viol=5, forced 1 bits, contra 5 (32s)
