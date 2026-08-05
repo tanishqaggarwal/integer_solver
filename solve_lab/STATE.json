@@ -69,7 +69,7 @@
     ],
     "session9_writeup": "solve_lab/S9_STRUCTURE.md"
   },
-  "updated_unix": 1785968401,
+  "updated_unix": 1785968613,
   "session4": {
     "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
     "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -166,6 +166,12 @@
     "activation_branch": "x_8599=1 (88 of 1156 boolean free inputs do it, keeping x_21839=1) reroutes x_12186 from the computed x_30454 to the FREE input x_5096, so x_12186 mod p becomes free. Setting x_5096=K1 and x_14853=x_12186 gives u=w=S=T=L1=0 exactly: the original core (19297/19299/30984) is satisfied SIMULTANEOUSLY with C1/C2 for the first time. But x_38170=x_8599*x_21839 becomes 1, lighting a SECOND core of identical shape (26733/28438/32342; loads x_21202=11598153S'+16335423T', x_32453=4677103S'+15469317T'; S'=A'u'^2-w'^2, T'=B'u'-w'c'; u'=x_18123=x_30454-x_10261, w'=x_17576=x_16787-x_25199). That second core IS zeroable: ~90 boolean free inputs shift u' and w' by exact complements mod p (u'+delta=p and w'+delta'=p exactly). Two-bit constructions (e.g. x_2527 + x_1502) leave BOTH cores clean, residual = 11 atoms that are ALL activated load pins + mirrors 21617/26731/37662. Closing those pins moves variables in the first core cone and re-lights it (11->16->13, stalls, 63 failing eqs). Obstruction conserved through the activation route too; the pin/mirror cascade is the real invariant.",
     "second_branch_closed": "Core second branch A*c^2=B^2 mod p requires A to be a quadratic residue. A is FIXED by the pins (x_22162 pinned atom 1618, x_30213 atom 688, x_14853 forced to K1 by mirror+C1) and is a NON-residue for both reachable x_12186 residues (current and 0). Sampling shows ~50% of x_14853 shifts would make it a QR, so the branch is generically open and closed here precisely by the setter pinning x_14853 to K1. CLOSED.",
     "RETRACTION": "The earlier \"39,022 is provably optimal\" claim is WITHDRAWN. It assumed atom 22230 must stay zero. Only the narrow statement survives: IF every atom outside the defect set must vanish, THEN no failing equation can be cancelled. That is the wrong constraint -- work in equation space.",
-    "equation_space_principle": "An equation is m*(sum_a c_a * y_a) (or its square), so it vanishes iff the atom combination vanishes. 42,267 atoms vs 39,033 equations => a large kernel. Atoms whose equation footprint is contained in the sacrificed set are free knobs. This is the lever that produced 39,024 and the frame for any further gain."
+    "equation_space_principle": "An equation is m*(sum_a c_a * y_a) (or its square), so it vanishes iff the atom combination vanishes. 42,267 atoms vs 39,033 equations => a large kernel. Atoms whose equation footprint is contained in the sacrificed set are free knobs. This is the lever that produced 39,024 and the frame for any further gain.",
+    "agent_round": {
+      "pins_agent": "found and I verified the 39,024 construction; catalogued 512 load pins on 256 gate-bits; pin conflict graph EMPTY (all 256 bits on + all 512 pins closed = 0 pin violations); all 254 single bit flips score 32-41 failing (min 32); exactly 6 of 7273 free inputs move (D1,D2) mod p and all break other checks",
+      "quadrant_agent": "x_2081=0 branch fully reconstructed -> 39,021 (12 failing), quad/best_quadrant_39021.json; x_24601=0 -> 27; both -> 43. On that branch the x_8599 reroute closes BOTH setter pins 688/1618 outright (new) but the second core costs ~26 eqs (best 30). Their rigidity argument reuses the retracted atom-space assumption, so 12 is not established as that branch wall.",
+      "sa_agent": "still running at last check, retargeted to the 39,024 baseline",
+      "my_checks": "no variable/atom has footprint inside the current 9 failing eqs; sacrificing pins 3576/3578 costs 26-28 eqs for 8-10 knobs; atom-space BnB finds no relaxation set of cost <=26; A,B first-order rigid mod p (solver sanity-checked)"
+    }
   }
 }

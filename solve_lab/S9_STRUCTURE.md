@@ -287,3 +287,60 @@ each activation triggers. That cascade — not the core — is the object a futu
 
 None beats 11 — consistent with the local-optimality proof in §6, which applies to *any* state whose
 defect reduces to the same two congruences.
+
+---
+
+## 11. Parallel-agent round: the 39,024 construction, the other quadrant, and what is left
+
+Three agents ran concurrently against the 39,022 baseline.
+
+### 11.1 The win (39,024) — equation-space knobs
+Described in §6 above. Catalogue built along the way: the instance has **512 load pins on 256
+gate-bits** (2 per bit) — these bits *are* the 256-bit message. Every pinned input `x_B` and every
+handle `h` is free and distinct, so **the pin conflict graph is empty**: setting all 256 bits to 1
+and closing all 512 pins leaves 0 of 512 pin atoms violated. The stall in `pinclose.py` was never a
+pin-variable collision; the cost is entirely downstream. Full single-bit sweep: all 254 off-bits
+score **32–41 failing equations (min 32)** end-to-end, so the bit route does not approach 9.
+
+Exhaustively measured: over all 7,273 free inputs, exactly **6** move `(D1, D2)` mod p —
+`x_2081, x_4287, x_6418, x_9413, x_12553, x_17325` — and every one breaks other check atoms.
+`x_9413` and `x_17325` are precisely the two that the 39,024 construction exploits, because their
+atoms' footprints lie inside the failing set.
+
+### 11.2 The other quadrant — measured, and one equation worse
+Full re-construction on `x_2081 = 0` (core deactivated) reaches **39,021 / 39,033 (12 failing)**,
+`s9/quad/best_quadrant_39021.json`. `x_24601 = 0` reaches 27 failing; both bits 0 reaches 43 (and
+additionally violates the forced OR-gate `x_9274`). The branch is structurally *cleaner* — 2
+residual atoms instead of 3, and the setter pins 688/1618 are reachable there, unlike C1/C2 here —
+but the defect terminates on atoms 31670/31672 whose residues are rigid, and the reachable
+`(m₁₉, m₃₀) ∈ [0,168] × [0,89]` bit box contains **no** configuration making either residue 0 or
+cancelling any of the 12 equations. Notable side result: on that branch the `x_8599` reroute closes
+**both setter pins 688 and 1618 outright** — a state never previously reached — but the second core
+costs ~26 equations, so the best there is 30.
+
+> Caveat: the quadrant analysis used the atom-space rigidity argument that §6 retracts, so "12 is
+> the wall" on that branch is *not* established. It starts 3 equations behind, so it was not chased.
+
+### 11.3 Additional negative checks (this session, verified)
+- **No variable and no atom has its entire equation footprint inside the current 9 failing
+  equations** — the free-knob well at this state is dry. The best single equation to re-admit is
+  6816, which unlocks only 3 knobs (`x_1329, x_10903, x_29854`, the last already used).
+- **Sacrificing the load pins to unlock the mod-p movers does not pay**: adding `eq(3576)` and/or
+  `eq(3578)` grows `S` to 26–28 equations while yielding only 8–10 footprint-contained knobs
+  (and still not `x_6418`/`x_12553`), so 18–20 equations would have to be zeroed to beat 9.
+- Certificate-guided branch-and-bound in *atom* space: **no relaxation set of cost ≤ 26** makes the
+  mod-p system consistent (2,573 nodes explored, `s9/chain2/bb.py`).
+- Direct computation: in the atom-space formulation `A` and `B` are **first-order rigid mod p** —
+  none of `(δ_{x7068}, δ_{x4432}) = (1,0), (0,1), (1,1)` is reachable (`s9/chain2/ab.py`). The
+  solver was sanity-checked: the homogeneous system is consistent with 1,728 pivots and it does
+  find genuinely free directions (`x_33612`, `x_3387`).
+- Equation-space first-order solve over free-input ripple directions is inconsistent both with and
+  without the square-root rows (`s9/kernel/eqspace.py`, `eqspace2.py`) — the 39,024 gain comes from
+  *deliberately breaking confined atoms*, which that formulation does not model.
+
+### 11.4 Standing status of "is 9 optimal?"
+Proved exhaustively only inside `S = FAILS ∪ {9123, 18673}` (0 of 1287 5-subsets and 0 of 1716
+6-subsets integer-solvable). Outside that region the support is two saturated beam searches plus a
+marginal-cost table showing the next mod-p knob costs +2 equations for +1 dof. **Not a proof** —
+and given that this session's earlier optimality claim was wrong for exactly this kind of reason,
+treat it as a working hypothesis.
