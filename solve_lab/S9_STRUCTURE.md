@@ -440,3 +440,66 @@ puts on `x_22649` agree with the residue the branch obligation puts on `x_9118`.
 computable in closed form from the instance (§12.2, §12.4). Any further progress should attack that
 identity — e.g. other bits that move either residue, or a quadrant where the two pins coincide —
 rather than searching assignments.
+
+---
+
+## 13. Deliverable 39,026, and the complete quadrant map
+
+**Verified deliverable: `best/new_instance_partial_39026.json` = 39,026/39,033 (7 failing:
+`[12231, 12270, 12350, 14584, 18673, 22044, 29125]`).** Checked by `checker.py` and by the
+independent AST verifier. 28 variables differ from the 39,024 witness.
+
+### 13.1 How the last two equations fell: effective vs syntactic footprints
+
+Every knob census up to now asked *which equations mention a variable*. That is too conservative:
+a variable multiplied by a currently-**zero** variable has no effect at all, and one moved with the
+gate-preserving ripple only disturbs the check atoms it actually reaches. Census over all 38,748
+variables: effective footprint is **22.3 % smaller** than syntactic (599,740 vs 771,576
+variable–equation incidences); **25,250** variables strictly gain and **3,289** are pure no-ops.
+
+That admits `x_9118` and `x_8731` as knobs beside the eight syntactic ones, and by CRT
+(`gcd(5113045, p) = 1`; `x_8731` moves atom 35761 in steps of 1) **two of the four binding
+congruences dissolve**:
+
+| knob set | lattice invariant factors | congruences | max zeroable | failing |
+|---|---|---|---|---|
+| 8 syntactic | `[1,1,P,1,P,1,P,7376877·P]` | 4 | 4 | 9 |
+| **10 effective** | `[1,1,P,1,1,1,1,7376877·P]` | **2** | **6** | **7** |
+
+Exhaustive over all 2¹³ subsets of the sacrificed region: max simultaneously zeroable is 6 and no
+7-subset is integer-solvable, so **7 is optimal for this defect placement**. The two survivors are
+exactly the original core congruences; of all 38,748 variables only **25** move either, the cheapest
+costing 10 extra equations (best achievable ≥ 14). Going below 7 needs the trapdoor, not a search.
+
+### 13.2 The quadrant map — every branch violates something
+
+The instance has three relevant control bits: the MUX pair `(b1, b2) = (x_4287, x_2081)` and the
+output-wire pin bit `x_24601`. Measured end-to-end:
+
+| configuration | A (22229) | B (22231) | core | what breaks instead | failing |
+|---|---|---|---|---|---|
+| `b1=0, b2=1, x_24601=1` (**current**) | ≠0 | ≠0 | dead (`u=w=0`) | the two defects themselves | **7** |
+| `b1=0, b2=1, x_24601=1` + chain-1 kill | **0** | ≠0 | dead | output-wire pin 31670 | 21 |
+| `b1=1, b2=1` (MUX flip) | **0** | **0** | live | branch obligation forces `x_9118` to a residue ≠ the pinned one | 34 |
+| `b1=0, b2=0, x_24601=0` | **0** | **0** | **dead** (`x_15298=0`) | setter pins 688/1618 demand values from wires that are dead there | 28–31 |
+| `x_2081=0` alone | — | — | dead | mirror/pin chain | 12 |
+| `x_24601=0` alone | — | — | — | — | 27 |
+
+> **This is the trapdoor, completely mapped: it is a covering design. Each branch satisfies some
+> pins and kills the wires the others need. No reachable configuration satisfies all of them, and
+> the conserved quantity is not any single residue — it is the *mismatch* itself, which relocates
+> between the defect atoms, the output-wire pin, the branch obligation, and the setter pins.**
+
+On the all-zero branch the position is the sharpest ever reached — `A = B = 0`, `x_15298 = 0`,
+`u = w = 0`, the forced OR gate `x_9274 = 1` satisfied — with only the two setter pins 688/1618
+left. Their carriers `x_24468`, `x_18956` *are* movable there (by `x_14393`/`x_14853` and by four
+free inputs respectively), but the boolean needed to satisfy the OR gate lights its own two load
+pins, and closing those cascades (31 → 45 failing). That trade is the remaining obstacle on that
+branch.
+
+### 13.3 Standing recommendation
+Both remaining congruences are `D1` and `D2` mod p. Everything measured says they cannot be moved
+cheaply from inside any single branch. The productive question is now cross-branch: find a
+configuration in which the setter pins that a branch *keeps* are simultaneously satisfiable with
+the wires that branch keeps *alive* — a covering/exact-cover question over the 256 gate-bits and
+their 512 pins, informed by the quadrant map above rather than by local search.

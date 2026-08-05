@@ -41,9 +41,10 @@
     "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
   },
   "next_actions": [
-    "Attack the closed-form identity in S9_STRUCTURE.md section 12: make the residue x_24601 pins onto x_22649 agree with the residue the branch obligation forces on x_9118. Both sides are computable from the instance. This is a single scalar condition, not a search.",
-    "Enumerate every bit/among the 512 pins that moves EITHER of those two residues; a quadrant where they coincide would finish the instance.",
-    "Deliverable holds at 39,024/39,033 (9 failing)."
+    "Cross-branch covering search: find a configuration where the setter pins a branch KEEPS are simultaneously satisfiable with the wires that branch keeps ALIVE. This is an exact-cover question over the 256 gate-bits and their 512 pins, informed by session9.quadrant_map -- not local search.",
+    "On the all-zero branch only pins 688/1618 remain and their carriers x_24468/x_18956 are movable (by x_14393/x_14853 and four free inputs). The blocker is that satisfying the forced OR gate x_9274=1 requires a boolean whose own two load pins cascade. Look for a cheaper OR witness.",
+    "7 is exhaustively optimal for the current defect placement (no 7-subset of the 13-equation region is integer-solvable).",
+    "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing)."
   ],
   "blocked": [
     "Improving past 39,022 provably requires satisfying x_7068 = K1 and x_4432 = K2 mod p outright, i.e. cracking the core; mod-p linear solve over all free inputs is inconsistent at fixed bits even with the corrected square-root model."
@@ -67,7 +68,7 @@
     "session9_writeup": "solve_lab/S9_STRUCTURE.md",
     "reduced_problem": "solve_lab/REDUCED_PROBLEM.md"
   },
-  "updated_unix": 1785973912,
+  "updated_unix": 1785974229,
   "session4": {
     "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
     "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -187,6 +188,13 @@
       "annealer_verdict": "NOT suitable. (a) a QUBO must encode 256-bit modular arithmetic: ~65k binaries per modular multiply, >=4 multiplies in the kernel, 1e5-1e6 logical binaries before minor-embedding. (b) FATAL: the objective needs ~512 bits of coupler dynamic range; annealers deliver ~4-6 effective bits after analog control error. (c) no low-precision combinatorial residue exists to peel off (see combinatorial_content). Write-up: solve_lab/REDUCED_PROBLEM.md",
       "recommended": "Legendre/QR search for a configuration flipping the symbol of A; LLL/CVP on the accessible knobs (never run); or the closed-form identity of S9_STRUCTURE.md section 12."
     },
-    "effective_footprint": "census over all 38,748 variables: syntactic footprint 771,576 var-equation incidences vs effective 599,740 (22.3% smaller); 25,250 variables strictly gain, 3,289 are pure no-ops. Surviving congruences are exactly the two original core ones (y22230+y22231 = D2 mod P, y22229+7376877*y35762 = D1 mod 7376877P). Of all 38,748 variables only 25 move a surviving congruence and the cheapest costs 10 extra equations (best achievable >= 14), so 7 is the floor for this placement and going lower requires the trapdoor itself."
+    "effective_footprint": "census over all 38,748 variables: syntactic footprint 771,576 var-equation incidences vs effective 599,740 (22.3% smaller); 25,250 variables strictly gain, 3,289 are pure no-ops. Surviving congruences are exactly the two original core ones (y22230+y22231 = D2 mod P, y22229+7376877*y35762 = D1 mod 7376877P). Of all 38,748 variables only 25 move a surviving congruence and the cheapest costs 10 extra equations (best achievable >= 14), so 7 is the floor for this placement and going lower requires the trapdoor itself.",
+    "quadrant_map": {
+      "b1=0,b2=1,x24601=1 (current)": "A,B nonzero; core dead; 7 failing -- DELIVERABLE",
+      "chain-1 killed": "A=0, B nonzero, core dead; blocked by output-wire pin 31670; 21 failing",
+      "b1=1,b2=1 (MUX flip)": "A=B=0; branch obligation forces x_9118 to a residue incompatible with the pinned output wire; 34 failing",
+      "b1=0,b2=0,x24601=0 (all-zero)": "A=B=0 AND core dead (x_15298=0) AND forced OR gate satisfied; only setter pins 688/1618 remain, whose carriers ARE movable, but the boolean needed for the OR lights its own load pins and closing them cascades; 28-31 failing",
+      "conclusion": "the trapdoor is a COVERING design: each branch satisfies some pins and kills the wires the others need. The conserved quantity is the mismatch itself, which relocates between the defect atoms, the output-wire pin, the branch obligation, and the setter pins."
+    }
   }
 }
