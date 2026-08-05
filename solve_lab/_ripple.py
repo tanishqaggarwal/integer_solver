@@ -1,14 +1,37 @@
-import heal_harness as H, re
+import heal_harness as H
+from collections import defaultdict
 p=H.p
-VAR=re.compile(r'x_(\d+)')
 d=H.loadd('best_agentA_39022.json')
 for v in H.freeinp: H.val[v]=d.get(v,0)
 H.forward()
-lines=[L for L in open('../EQUATIONS.txt').read().split('\n') if L.strip()]
-# find eqs containing x_7068 and x_4432
-for tgt in [7068,4432]:
-    eqs=[i for i in range(len(lines)) if tgt in H.eqvars[i]]
-    F=set([2554, 6816, 8124, 8680, 9421, 12231, 12270, 12350, 14584, 22044, 29125])
-    inF=[e for e in eqs if e in F]; notF=[e for e in eqs if e not in F]
-    print(f"x_{tgt}: appears in {len(eqs)} eqs; {len(inF)} failing, {len(notF)} currently-satisfied: {notF}")
-# For x_7068's currently-satisfied eqs, what free vars do they share, and are they also G1/G2-like?
+F0=set(H.fails())
+# equations each free var appears in (directly via eqvars)
+eqof=defaultdict(list)
+for i,vs in enumerate(H.eqvars):
+    for v in vs: eqof[v].append(i)
+targets=[6418,7068,4432,12553,17325,9413,2099,19964,642,28730]
+for v in targets:
+    eqs=eqof[v]
+    infail=[i for i in eqs if i in F0]
+    print(f"x_{v}: appears in {len(eqs)} equations directly; {len(infail)} are in the 11-fail set: {infail}")
+# But eqvars only counts DIRECT appearance. The free vars also feed equations via gates.
+# Find equations whose value depends on each free var (via descendants reaching eq vars).
+desc=defaultdict(set)  # free var -> set of all variables it influences (itself + gate descendants)
+for t in H.order:
+    fa=H.anc[t]&H.freeinp
+    for f in fa: desc[f].add(t)
+for f in H.freeinp: desc[f].add(f)
+# eq depends on free f if any eqvar is in desc[f]
+eqdep=defaultdict(set)
+var_to_eqs=defaultdict(list)
+for i,vs in enumerate(H.eqvars):
+    for v in vs: var_to_eqs[v].append(i)
+print("\n--- full (through-gate) equation dependence ---")
+for v in targets:
+    influenced=desc[v]
+    eqs=set()
+    for w in influenced:
+        eqs.update(var_to_eqs.get(w,[]))
+    infail=sorted(eqs&F0); nonfail=sorted(eqs-F0)
+    print(f"x_{v}: influences {len(eqs)} eqs total; {len(infail)} fail {infail}; {len(nonfail)} currently-SAT")
+    if len(nonfail)<=40: print(f"    SAT eqs (ripple): {nonfail}")
