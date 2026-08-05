@@ -32,6 +32,23 @@ pin `x_6418`, `x_12553` to. Everything else in the 39,033 equations is already e
    (none), and eqs 8680/29125 need `B = 0` exactly (impossible). All six alternative defect
    placements cost 23–29 failing equations vs 11. **Improving the score requires cracking the core.**
 
+### BIGGEST NEW LEAD (session 9): the core is NOT a wall — both cores can be zeroed
+`x_8599 = 1` (88 of the 1,156 boolean free inputs do it, keeping `x_21839 = 1`) reroutes
+`x_12186` from the computed `x_30454` to the **free input `x_5096`**. Set `x_5096 := K1`,
+`x_14853 := x_12186`, let the gates close C1/C2 → `u = w = S = T = L1 = 0` exactly: **the core
+(19297/19299/30984) is satisfied simultaneously with C1 and C2 for the first time.**
+It lights a second core of identical shape (26733/28438/32342, gated by `x_38170`), and *that one
+is zeroable too*: ~90 boolean free inputs shift its controls by exact complements mod p
+(`u' + δ = p` and `w' + δ' = p` exactly). Two-bit constructions (e.g. `x_2527` + `x_1502`,
+`s9/construct3.py`) leave **both cores clean**, with the entire residual being activated load pins.
+Closing those pins moves variables in the first core's cone and re-lights it (11→16→13, stalls).
+**So the real invariant is the pin/mirror cascade, not the core.** Attack that next:
+enumerate each bit's pin set and search for a bit subset whose pins are jointly satisfiable.
+
+The core's other branch (`A·c² ≡ B² mod p`) is **CLOSED**: it needs `A` to be a quadratic residue;
+`A` is fixed by the pins and is a non-residue for both reachable `x_12186` residues (a ~50% sample
+of shifts *would* be residues — the setter's pin of `x_14853` to `K1` is what closes it).
+
 ### Do NOT redo
 - Greedy ripple-repair from the canonical orientation (converges to the core in 3 rounds, 39,013).
 - Single-bit flips: all 1,156 boolean free inputs scanned; only `x_2081`, `x_24601` deactivate the
@@ -42,11 +59,13 @@ pin `x_6418`, `x_12553` to. Everything else in the 39,033 equations is already e
   with the corrected root model (270-row certificate).
 
 ### Next experiments, in priority order
-1. Is the second core branch reachable? Decide whether `x_19083` (= `x_6361 + x_23758`) and
-   `x_24908` are genuinely rigid mod p. If either moves, `A·c² ≡ B²` opens the core.
-2. Full forward re-construction on the `x_2081 = 0` / `x_24601 = 0` quadrant using the corrected
-   root-based residual model (never done).
-3. Two-bit flip scan (~667k pairs, a few hours; single flips take ~1 s for all 1,156).
+1. **The pin/mirror cascade** (see the lead above) — with both cores now zeroable this is the only
+   remaining invariant. Per activated bit, enumerate its load pins `bit·(x_B − HUGE) = s·x_C`, then
+   search for a bit subset whose pins are jointly satisfiable (exact-cover over the pinned free
+   inputs). `s9/pinclose.py` is the naive greedy version and it stalls; the set-cover view is new.
+2. `s9/construct3.py` reached both-cores-clean; extend it rather than restarting.
+3. Full two-bit flip scan (~667k pairs). Session 9 only ran 88x14 = 1,232 targeted pairs.
+4. Quadrant re-solve at `x_2081 = 0` / `x_24601 = 0` with the corrected root-based residual model.
 
 ### Toolchain (`s9/`, self-contained, caches regenerable)
 `cd solve_lab/s9 && python3 atomize.py && python3 poly.py && python3 gates.py && python3 fwd.py`

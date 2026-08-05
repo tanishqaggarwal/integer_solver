@@ -45,10 +45,10 @@
     "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
   },
   "next_actions": [
-    "Decide whether x_19083 (=x_6361+x_23758) and x_24908 are rigid mod p; if either moves, the second core branch A*c^2=B^2 opens the core",
-    "Full forward re-construction on the x_2081=0 / x_24601=0 quadrant with the corrected root-based residual model",
-    "Two-bit flip scan (~667k pairs; single flips over all 1156 bits take ~1s total)",
-    "Deliverable holds at 39,022/39,033 and is proved locally optimal"
+    "Attack the PIN/MIRROR CASCADE, not the core: with both cores zeroable (see session9.activation_branch), the invariant is the set of load pins each activated bit lights. Enumerate, per bit, its pin set and search for a bit subset whose pins are jointly satisfiable (set-cover / exact-cover over pinned free inputs).",
+    "Two-bit scan was restricted to 88 x 14 pairs; run the full ~667k boolean pair scan with the corrected root model.",
+    "Full forward re-construction on the x_2081=0 / x_24601=0 quadrant (core deactivated outright) with the root model.",
+    "Deliverable holds at 39,022/39,033 and is proved locally optimal (see S9_STRUCTURE.md section 6)."
   ],
   "blocked": [
     "Improving past 39,022 provably requires satisfying x_7068 = K1 and x_4432 = K2 mod p outright, i.e. cracking the core; mod-p linear solve over all free inputs is inconsistent at fixed bits even with the corrected square-root model."
@@ -71,7 +71,7 @@
     ],
     "session9_writeup": "solve_lab/S9_STRUCTURE.md"
   },
-  "updated_unix": 1785965059,
+  "updated_unix": 1785965630,
   "session4": {
     "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
     "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -164,6 +164,8 @@
     "bit_scan": "all 1156 boolean free inputs flipped; only x_2081 and x_24601 set x_15298=0 (deactivate core), both worse (17/19 residuals vs 4)",
     "modp_solve": "sparse Gaussian elimination mod p over 4884 effective columns / 13159 nnz: INCONSISTENT at S0 and S1 (270-row certificate)",
     "optimality_proof": "D2/D1 mod p = 29086885819837044927165644576879200888791656444895144487473726012333934270214 (full 256-bit); required ratios are -c1/c2 with |c|<=40 => no failing equation can be cancelled",
-    "tools": "s9/{harness,atomize,poly,gates,fwd,ripple,repair,drive,cone,sens,jac,jac2,newton,roots,modsolve,cert,bits,bitscan,movevar,state0,jcheck}.py"
+    "tools": "s9/{harness,atomize,poly,gates,fwd,ripple,repair,drive,cone,sens,jac,jac2,newton,roots,modsolve,cert,bits,bitscan,movevar,state0,jcheck}.py",
+    "activation_branch": "x_8599=1 (88 of 1156 boolean free inputs do it, keeping x_21839=1) reroutes x_12186 from the computed x_30454 to the FREE input x_5096, so x_12186 mod p becomes free. Setting x_5096=K1 and x_14853=x_12186 gives u=w=S=T=L1=0 exactly: the original core (19297/19299/30984) is satisfied SIMULTANEOUSLY with C1/C2 for the first time. But x_38170=x_8599*x_21839 becomes 1, lighting a SECOND core of identical shape (26733/28438/32342; loads x_21202=11598153S'+16335423T', x_32453=4677103S'+15469317T'; S'=A'u'^2-w'^2, T'=B'u'-w'c'; u'=x_18123=x_30454-x_10261, w'=x_17576=x_16787-x_25199). That second core IS zeroable: ~90 boolean free inputs shift u' and w' by exact complements mod p (u'+delta=p and w'+delta'=p exactly). Two-bit constructions (e.g. x_2527 + x_1502) leave BOTH cores clean, residual = 11 atoms that are ALL activated load pins + mirrors 21617/26731/37662. Closing those pins moves variables in the first core cone and re-lights it (11->16->13, stalls, 63 failing eqs). Obstruction conserved through the activation route too; the pin/mirror cascade is the real invariant.",
+    "second_branch_closed": "Core second branch A*c^2=B^2 mod p requires A to be a quadratic residue. A is FIXED by the pins (x_22162 pinned atom 1618, x_30213 atom 688, x_14853 forced to K1 by mirror+C1) and is a NON-residue for both reachable x_12186 residues (current and 0). Sampling shows ~50% of x_14853 shifts would make it a QR, so the branch is generically open and closed here precisely by the setter pinning x_14853 to K1. CLOSED."
   }
 }

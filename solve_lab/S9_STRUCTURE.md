@@ -184,3 +184,84 @@ Rebuild caches: `cd s9 && python3 atomize.py && python3 poly.py && python3 gates
    (root-based) residual model.
 3. **Two-bit flips.** The single-flip scan is cheap (~1 s for all 1,156); the ~667k pairs are a few
    hours and were never run.
+
+---
+
+## 9. The activation branch: both cores satisfied simultaneously (new, and the deepest point reached)
+
+The core is blocked because `u = x_29322 = x_14853 − x_12186` must be `≡ 0 (mod p)` while `x_14853`
+is pinned to `K1` and `x_12186` is not. **`x_12186` can be freed.** Its definition chain is
+
+```
+x_12186 = x_23927 + x_25758,  x_25758 = x_10603·x_33612 = p·x_33612      (x_10603 = p)
+x_23927 = x_7429 + x_26835,   x_26835 = x_38170·x_5096,  x_38170 = x_8599·x_21839
+x_7429  = x_26865 + x_14192,  x_14192 = x_2754·x_30454,  x_2754  = x_21839·x_4549,  x_4549 = 1−x_8599
+```
+
+With `x_8599 = 0` (current) the MUX routes `x_12186 ← x_30454`, a computed value. **Set `x_8599 = 1`**
+(keeping `x_21839 = 1`) and it routes `x_12186 ← x_5096` instead — and `x_5096` is a *free input*.
+88 of the 1,156 boolean free inputs do this (`s9/find8599.py`, `hits8599.pkl`).
+
+Then setting `x_5096 := K1`, `x_14853 := x_12186`, and letting the canonical gates close C1/C2 gives
+
+> **u = w = S = T = L1 = 0 exactly — the original core (atoms 19297/19299/30984) is satisfied
+> simultaneously with C1 and C2 for the first time in this instance.**
+
+Residual after that step: 9 atoms, none of them the core (`s9/construct.py`, `construct2.py`).
+
+### The obstruction regenerates one level up
+
+Activating `x_8599` sets `x_38170 = 1`, which lights three atoms of *exactly the same shape*:
+
+```
+26733 : x_38170·x_21202 + x_11831          x_11831 = x_30022·x_5669
+28438 : x_38170·x_15286 − 2264251·x_9216   x_9216  = x_17952·x_14485
+32342 : x_38170·x_32453 − x_23535          x_23535 = x_38571·x_18963
+```
+
+and the loads decompose identically to L1/L2/L3:
+
+```
+x_21202 = 11598153·S' + 16335423·T'     x_32453 = 4677103·S' + 15469317·T'
+S' = x_25614 = A'·u'² − w'²             T' = x_34220 = B'·u' − w'·c'
+u' = x_18123 = x_30454 − x_10261        w' = x_17576 = x_16787 − x_25199
+A' = x_32629 = x_21344 + x_24453        B' = x_16088 = x_21589 + x_25199   c' = x_33852 = x_10261 − x_5096
+```
+
+**This second core is zeroable.** A class of ~90 boolean free inputs shifts `u'` and `w'` by deltas
+that are *exact complements mod p*:
+
+```
+u' = 82007976112976807461901870199198737303514020147647909878034348606308756230357
+δ  = 33784113124339387961669114809489170549755964517992654161423235401600078441306   u' + δ = p  exactly
+w' = 37841415183514949237467304684128824427406379377151921996714091976892367869714
+δ' = 77950674053801246186103680324559083425863605288488642042743492031016466801949   w' + δ' = p exactly
+```
+
+So a two-bit construction (`s9/construct3.py`, 1,232 pairs tried) reaches states where **both cores
+are clean simultaneously** — e.g. `(x_2527, x_1502)`: residual = 11 atoms, *all of them activated
+load pins* `bit·(x_B − HUGE) = s·x_C` plus the mirrors 21617/26731/37662. No core atom remains.
+
+### Why it still does not close
+
+Each activated bit lights its own load pins, which pin further free inputs to setter constants.
+Satisfying those pins (`s9/pinclose.py`) moves variables that lie in the *first* core's cone, so the
+core re-lights: the closure loop runs 11 → 16 → 13 and stalls with no pin-style repair available
+(63 failing equations). The obstruction is conserved through the activation route as well — it is
+relocated, not removed.
+
+**This is nevertheless the deepest structural point reached on this instance:** the core is not an
+inviolable wall (it can be zeroed, twice), and the real invariant is the *pin/mirror cascade* that
+each activation triggers. That cascade — not the core — is the object a future attack should target.
+
+## 10. Score accounting for the new states
+
+| state | residual atoms | failing equations |
+|---|---|---|
+| **best partial (unchanged deliverable)** | 3 | **11** |
+| branch activation, one bit (`x_2527`) | 9 | 65 |
+| two-bit, both cores clean (`x_2527`,`x_1502`) | 11 | 70 |
+| after pin-closure iteration | 13 | 63 |
+
+None beats 11 — consistent with the local-optimality proof in §6, which applies to *any* state whose
+defect reduces to the same two congruences.

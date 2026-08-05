@@ -1012,3 +1012,34 @@ is a full 256-bit residue. And all six alternative placements cost 23–29 equat
 cracking the core.** Strategies A/A1/A2/B1/B2 measured 39,002–39,013, consistent with this.
 
 **Deliverable unchanged and re-verified: 39,022/39,033.** Writeup in `S9_STRUCTURE.md`.
+
+### Session 9 addendum — the activation branch (both cores zeroed)
+
+After the local-optimality proof I went after the one door §3 had opened. Result: **the core is not
+a wall.**
+
+- `x_12186` is only pinned mod p because the MUX routes it from the computed `x_30454`. Setting
+  `x_8599 = 1` (88 of the 1,156 boolean free inputs do it while keeping `x_21839 = 1`;
+  `s9/find8599.py`) reroutes it to the **free input `x_5096`**. With `x_5096 := K1`,
+  `x_14853 := x_12186`, and the gates closing C1/C2, we get `u = w = S = T = L1 = 0` exactly —
+  atoms 19297/19299/30984 clean, together with C1 and C2. First time on this instance.
+- Cost: `x_38170 = x_8599·x_21839` turns on, lighting a second core of identical algebraic shape
+  (26733/28438/32342), loads `x_21202 = 11598153·S' + 16335423·T'`, `x_32453 = 4677103·S' + 15469317·T'`,
+  `S' = A'u'² − w'²`, `T' = B'u' − w'c'`, `u' = x_18123 = x_30454 − x_10261`,
+  `w' = x_17576 = x_16787 − x_25199`.
+- That second core is **also** zeroable: ~90 boolean free inputs shift `u'` and `w'` by deltas that
+  are exact complements mod p (`u' + δ = p`, `w' + δ' = p`, both exactly — checked, not approximated).
+- Two-bit constructions (`s9/construct3.py`, 1,232 targeted pairs) reach states where **both cores
+  are simultaneously clean**, e.g. `(x_2527, x_1502)`: 11 residual atoms, every one an activated load
+  pin or a mirror (21617/26731/37662).
+- Closing the pins (`s9/pinclose.py`: set the pinned free input to its HUGE constant, ripple, repeat)
+  runs 11 → 16 → 13 and stalls — the pin fixes move variables inside the first core's cone and
+  re-light it. 63 failing equations.
+
+Conclusion: the obstruction is conserved through the activation route too, but it has moved. The
+invariant is no longer "the core"; it is the **pin/mirror cascade** each activated bit triggers.
+That reframes the next attack as an exact-cover problem over bits and their pinned free inputs —
+a combinatorial object, not an algebraic wall. Recorded as next_action #1.
+
+Score accounting (none beats the deliverable, as §6's proof predicts):
+partial 3 atoms/11 eqs · one-bit activation 9/65 · two-bit both-cores-clean 11/70 · pin-closure 13/63.
