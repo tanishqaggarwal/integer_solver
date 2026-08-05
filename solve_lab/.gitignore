@@ -42,3 +42,8 @@ s9/out_*.json
 s9/repair_out.json
 s9/ripple_out.json
 s9/fails.json
+
+# oversized agent logs
+solve_lab/s9/sa/hits.jsonl
+solve_lab/s9/*/*.log
+solve_lab/s9/**/*.jsonl
