@@ -60,6 +60,15 @@ The core's other branch (`A·c² ≡ B² mod p`) is **CLOSED**: it needs `A` to 
 `A` is fixed by the pins and is a non-residue for both reachable `x_12186` residues (a ~50% sample
 of shifts *would* be residues — the setter's pin of `x_14853` to `K1` is what closes it).
 
+### PROBLEM SIZE / SOLVER SUITABILITY → read `REDUCED_PROBLEM.md`
+Irreducible residual = **2 congruences mod p** (512 bits). MEASURED: only **2 of 1,156** boolean
+free inputs move those residues (the two MUX controls) and their deltas are identical → **rank 1 of
+2** over GF(p); only 4 of ~6,117 integer free inputs move them, all pinned mod p in a complete
+solution. **The 256-bit message is decoupled from the verification — there is no subset-sum kernel.**
+So the hardness is arithmetic, not combinatorial: quantum annealers are the wrong machine (needs
+~10⁵–10⁶ logical binaries and ~512 bits of coupler dynamic range vs ~4–6 effective bits available).
+Right tools: Legendre/QR conditions, LLL/CVP, or the §12 identity.
+
 ### THE LOCK, IN CLOSED FORM (read S9_STRUCTURE.md section 12)
 `x_12186 ≡ x_22649 (mod p)` exactly 1:1 and `x_22649` is FREE — it is the circuit's output wire
 (found with `s9/modtrace.py`). Moving `{x_22649, x_22152, x_14853, x_7068}` together by

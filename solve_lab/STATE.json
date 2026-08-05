@@ -66,9 +66,10 @@
       "repair.py",
       "flip_search.py"
     ],
-    "session9_writeup": "solve_lab/S9_STRUCTURE.md"
+    "session9_writeup": "solve_lab/S9_STRUCTURE.md",
+    "reduced_problem": "solve_lab/REDUCED_PROBLEM.md"
   },
-  "updated_unix": 1785972247,
+  "updated_unix": 1785972535,
   "session4": {
     "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
     "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -180,6 +181,13 @@
       "branch_obligation": "x_4287=1 lights loads x_2239,x_31731,x_9106 which are 3 combinations of 2 base quantities x_4306,x_27177 (verified exactly), so the obligation is x_4306=x_27177=0 mod p. SOLVABLE by a 2x2 solve on (x_9118,x_8731). d(x_27177)/d(x_8731)=0, so x_9118 mod p is UNIQUELY determined = 33371159155735472537534252650716501592825364489306217536352743247010353604716.",
       "the_mismatch": "the mirror+core chain forces x_9118 = x_12186 mod p, pinned to 82007976112976807461901870199198737303514020147647909878034348606308756230357 (x_24601=1) or 0 (x_24601=0). Neither equals the obligation value. THIS mismatch is the trapdoor, now in closed form.",
       "best_on_branch": "34 failing (s9/mux3_out.json) vs 9 on the current branch"
+    },
+    "residual_problem_size": {
+      "irreducible": "2 congruences mod p=2^256-2^32-977 (512 bits of constraint): D1 = x_7068-x_2099-7376877*x_642 = 0 and D2 = x_4432-x_19964-x_28730 = 0",
+      "combinatorial_content": "MEASURED: of 1156 boolean free inputs only 2 (x_2081, x_4287, the MUX controls) move (D1,D2) mod p, and their deltas are IDENTICAL -> rank 1 of 2 over GF(p). Of ~6117 integer free inputs only 4 move them (x_6418, x_12553, x_9413, x_17325), all pinned mod p or pure p-multiples in a complete solution. The 256-bit message is provably DECOUPLED from the verification residues: there is no subset-sum/knapsack kernel.",
+      "algebraic_kernel": "6 unknowns mod p and 2 quadratic forms: S=A*u^2-w^2, T=B*u-w*c; L1,L2,L3 are fixed integer combinations; requirement S=T=0 mod p plus one condition mod 6672769. Eliminating w gives u^2*(A*c^2-B^2)=0, so the second branch is a pure Legendre-symbol condition (open iff A is a QR mod p).",
+      "annealer_verdict": "NOT suitable. (a) a QUBO must encode 256-bit modular arithmetic: ~65k binaries per modular multiply, >=4 multiplies in the kernel, 1e5-1e6 logical binaries before minor-embedding. (b) FATAL: the objective needs ~512 bits of coupler dynamic range; annealers deliver ~4-6 effective bits after analog control error. (c) no low-precision combinatorial residue exists to peel off (see combinatorial_content). Write-up: solve_lab/REDUCED_PROBLEM.md",
+      "recommended": "Legendre/QR search for a configuration flipping the symbol of A; LLL/CVP on the accessible knobs (never run); or the closed-form identity of S9_STRUCTURE.md section 12."
     }
   }
 }
