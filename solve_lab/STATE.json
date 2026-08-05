@@ -1,13 +1,13 @@
 {
-  "phase": "SOLVED",
-  "n_eqs": 39031,
+  "phase": "algebra",
+  "n_eqs": 39033,
   "n_vars": 38748,
   "n_forced": 5897,
   "n_assigned": 38748,
-  "n_eqs_satisfied_by_partial": 39031,
-  "best_score": 39031,
-  "best_partial": "solve_lab/best/SOLUTION.json",
-  "active_method": "SOLVED (Session 8). Direct construction in the RAW equation space. At best_partial only 2 atoms nonzero: H=(x_17728-x_3183)+x_9982 and F=6033033*(x_18274-x_9770)-x_26977. Both are PRODUCT SLACKS: H via x_9982=x_12518*x_9897, F via x_26977=x_20510*x_31302. The gap x_17728-x_3183 is NOT rigid (always paired with +x_9982 in raw eqs). Hubs x_12518,x_20510 are in the 220-var identity wire (=x_15); the wire is EXACTLY quiet (V^1 and V^2+ coefs vanish in every atom, integer). Set wire=sign*V (V=1) + partners x_9897=-G, x_31302=F0, and x_9982=-G, x_26977=F0. All 39031 eqs satisfied. See SOLVED.md, build_solution.py.",
+  "n_eqs_satisfied_by_partial": 39022,
+  "best_score": 39022,
+  "best_partial": "solve_lab/best/new_instance_partial_39022.json",
+  "active_method": "Session 9: independent re-derivation + proof of local optimality. Obstruction = exactly 2 congruences mod p=2^256-2^32-977 (secp256k1): x_7068 = K1 and x_4432 = K2 mod p, with free quotient handles x_17325 (step 7376877p) and x_9413 (step p). Reachable defects are A in D1+pZ, B in D2+pZ; each failing equation is m*(c1*A+c2*B) and needs c1*D1+c2*D2 = 0 mod p (none of 9 qualify; eqs 8680/29125 need B=0 exactly). All 6 alternative defect placements cost 23-29 eqs vs 11. Hence 39,022 is a LOCAL OPTIMUM.",
   "structure": {
     "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
     "n_distinct_atoms": 46275,
@@ -23,8 +23,20 @@
     "open_atoms": [],
     "not_single_modulus": true
   },
-  "n_eqs_failing": 0,
-  "failing_eqs": [],
+  "n_eqs_failing": 11,
+  "failing_eqs": [
+    2554,
+    6816,
+    8124,
+    8680,
+    9421,
+    12231,
+    12270,
+    12350,
+    14584,
+    22044,
+    29125
+  ],
   "core_probes": {
     "single_bit_flip": "51 bits improve 4->3 violated atoms, none reach <3; flipping moves violations to different atoms (rugged landscape)",
     "greedy_multiflip": "plateaus at 3; adding a 2nd bit never improves below 3",
@@ -33,19 +45,19 @@
     "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
   },
   "next_actions": [
-    "Complete full 2^22 tab (runs/tab22_full.log) -> materialise S={(x_9770,x_3183)}, confirm B=0 fails, inspect S structure (moduli/factors)",
-    "Look for residue-pool identity: are x_9770(A) and x_18274(B) built from the same HUGE constants?",
-    "MITM/lattice using x_8821 (linear) as a coordinate on the 233 side",
-    "Deliverable holds at 39,019/39,031"
+    "Decide whether x_19083 (=x_6361+x_23758) and x_24908 are rigid mod p; if either moves, the second core branch A*c^2=B^2 opens the core",
+    "Full forward re-construction on the x_2081=0 / x_24601=0 quadrant with the corrected root-based residual model",
+    "Two-bit flip scan (~667k pairs; single flips over all 1156 bits take ~1s total)",
+    "Deliverable holds at 39,022/39,033 and is proved locally optimal"
   ],
   "blocked": [
-    "z3 NIA returns unknown on the 256-bit core; no small conflict cone (dense/cyclic); local repair proven UNSAT; general SMT + local search insufficient. Core appears intractable by general methods (obfuscated-circuit-inversion kernel); witness exists by construction but likely needs the setter's trapdoor or heavy cryptanalysis."
+    "Improving past 39,022 provably requires satisfying x_7068 = K1 and x_4432 = K2 mod p outright, i.e. cracking the core; mod-p linear solve over all free inputs is inconsistent at fixed bits even with the corrected square-root model."
   ],
   "artifacts": {
     "checker": "solve_lab/checker.py",
-    "verifier_cli": "python3 solve_lab/checker.py solve_lab/best/best_partial_39013.json",
+    "verifier_cli": "python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39022.json",
     "atoms": "solve_lab/atoms/poly_atoms.jsonl",
-    "best_partial": "solve_lab/best/best_partial_39013.json",
+    "best_partial": "solve_lab/best/new_instance_partial_39022.json",
     "failing": "solve_lab/best/failing_eqs.json",
     "scripts": [
       "propagate.py",
@@ -56,9 +68,10 @@
       "cone_solve.py",
       "repair.py",
       "flip_search.py"
-    ]
+    ],
+    "session9_writeup": "solve_lab/S9_STRUCTURE.md"
   },
-  "updated_unix": 1754250000,
+  "updated_unix": 1785965059,
   "session4": {
     "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
     "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -128,5 +141,29 @@
       "localize.py",
       "scan_bits.py"
     ]
+  },
+  "session9": {
+    "model": {
+      "atoms": 42267,
+      "gates": 31475,
+      "free_inputs": 7273,
+      "boolean_free_inputs": 1156,
+      "checks": 10792,
+      "square_checks": 783,
+      "nonzero_atoms_at_best": [
+        22229,
+        22231,
+        37887
+      ],
+      "validation": "atom decomposition re-evaluated exactly against all 39033 raw equations, 0 mismatches"
+    },
+    "obstruction": "x_7068 = K1 (mod p) and x_4432 = K2 (mod p); K1,K2 are the load-gate pins of x_6418,x_12553 (atoms 3576/3578)",
+    "core": "M1=x_15298*L1+x_4007, M2=x_15298*L2-6672769*x_29804, M3=537773*x_15298*L3-x_35605; L1=8646263S+1073965T, L2=10159099S+6926539T, L3=8272701S+5921311T; S=A*u^2-w^2, T=B*u-w*c; u=x_29322=x_14853-x_12186, w=x_3558=x_24908-x_16742, A=x_33469=x_22162+x_12186+x_14853+x_24453, c=x_1326=x_12186-x_22162, B=x_27713=x_30213+x_16742",
+    "core_second_branch": "NEW: core <=> S=T=0 mod p <=> u^2*(A*c^2-B^2)=0, so EITHER u=w=0 OR A*c^2=B^2 mod p. The second branch was never recorded before; blocked only by mod-p pins on x_22162 (atom 1618), x_30213 (atom 688), x_16742 (atom 26731). Highest-EV open door.",
+    "methodological_bug": "783 check atoms are perfect squares E^2; at the partial E=0 so a finite-difference row for E^2 is quadratic (c^2 d^2), not linear. Any Jacobian/Newton/null-space attack that used the square itself solved the wrong system. s9/roots.py extracts all 783 roots (699 deg-2, 84 deg-1). After the fix the mod-p inconsistency moved off the spurious square 42245 onto the genuine core atom 19297.",
+    "bit_scan": "all 1156 boolean free inputs flipped; only x_2081 and x_24601 set x_15298=0 (deactivate core), both worse (17/19 residuals vs 4)",
+    "modp_solve": "sparse Gaussian elimination mod p over 4884 effective columns / 13159 nnz: INCONSISTENT at S0 and S1 (270-row certificate)",
+    "optimality_proof": "D2/D1 mod p = 29086885819837044927165644576879200888791656444895144487473726012333934270214 (full 256-bit); required ratios are -c1/c2 with |c|<=40 => no failing equation can be cancelled",
+    "tools": "s9/{harness,atomize,poly,gates,fwd,ripple,repair,drive,cone,sens,jac,jac2,newton,roots,modsolve,cert,bits,bitscan,movevar,state0,jcheck}.py"
   }
 }

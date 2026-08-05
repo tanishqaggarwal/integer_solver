@@ -943,3 +943,72 @@ quantizes both twist sides to coprime units and zeros the slack products — lit
 represent the witness) and chased control-bit settings. The witness is not reachable by
 propagation from the V=0 branch, but it IS a one-line algebraic construction once you read
 the slacks off the raw equations and note the wire is quiet.
+
+---
+
+## Session 9 — independent re-derivation, a Jacobian bug, and a local-optimality proof
+
+**Start:** ran the start-of-session ritual. `checker.py best/new_instance_partial_39022.json` →
+`39022/39033 (11 failing)`, fails `[2554,6816,8124,8680,9421,12231,12270,12350,14584,22044,29125]`.
+Deliverable confirmed before touching anything.
+
+**Rebuilt the model from scratch** (`s9/`, independent of all prior tooling, whose `atoms/gates.jsonl`
+intermediate no longer exists). `atomize.py` decomposes each equation into `(coeff, atom)` pairs and
+**validates by exact integer re-evaluation on all 39,033 equations — 0 mismatches**. 42,267 atoms;
+degree histogram {1: 19780, 2: 21788, 4: 699}. Exactly **3 atoms nonzero** at the partial:
+22229, 22231, 37887 (the last a square whose root contains 22231) → the obstruction is 2 scalars.
+
+**Canonical gate orientation from syntax** (`gates.py`): output = first bare-variable top-level
+additive term. 31,475 gates / 7,273 free inputs / 10,792 checks. Validated: over all 7,273 unit
+perturbations the forward ripple leaves **0** gates unsatisfied (`jcheck.py`).
+
+**Identified the obstruction exactly.** `x_28599 = x_17499 = x_26064 = p = 2^256−2^32−977`
+(secp256k1) exactly ⇒ `x_642 = p·x_17325`, `x_28730 = p·x_9413`, so the two atoms are the congruences
+`x_7068 ≡ x_2099` and `x_4432 ≡ x_19964` mod p. Backward cones show `x_2099`/`x_19964` are 2-bit MUX
+outputs (controls `x_4287=0`, `x_2081=1`) resolving to free inputs `x_6418`/`x_12553`, which load
+gates 3576/3578 pin to constants K1/K2. So: **`x_7068 ≡ K1`, `x_4432 ≡ K2` (mod p)**.
+`gcd(15804267, 7376877p) = 3` and `3 | D1`, so the pin side is Bézout-solvable — only p-divisibility bites.
+
+**Mapped the conserved obstruction.** Canonical repair (`x_7068:=K1`, `x_4432:=K2`) ripples through
+only **115 variables** and relocates the defect to mirror congruences 29539/7930
+(`x_14853 ≡ x_1308` with `x_1308 = x_7068` identically; `x_24548 ≡ x_25442`). Repairing those with
+the free leaves breaks the core M1/M2/M3 (19297/19299/30984). Derived the core exactly:
+`L1 = 8646263S+1073965T`, `L2 = 10159099S+6926539T`, `L3 = 8272701S+5921311T`,
+`S = A·u²−w²`, `T = B·u−w·c`. Core ⟺ `S ≡ T ≡ 0 mod p`.
+
+**New: the core has a second branch.** Eliminating `w` from `T ≡ 0` and substituting into `S ≡ 0`
+gives `u²·(A·c² − B²) ≡ 0`. So it is *not* only `u ≡ w ≡ 0` — `A·c² ≡ B² (mod p)` frees `u`
+entirely. Blocked in practice by the mod-p pins on `x_22162` (atom 1618), `x_30213` (688),
+`x_16742` (26731). Not previously recorded anywhere in this notebook; left open deliberately.
+
+**Bug found in the Jacobian methodology.** First mod-p solve (all 7,273 free inputs, sparse
+Gaussian elimination) reported INCONSISTENT at atom 42245 — which is a *perfect square*. At the
+partial its root `E = 0`, so a finite-difference row for `E²` is `c²δ²`, quadratic, not linear.
+783 check atoms are squares. `roots.py` extracts all their degree-2 roots (699 deg-2 + 84 deg-1,
+none left over); `jac2.py` rebuilds on roots. The inconsistency then moves to atom **19297** — the
+genuine core. Every earlier Jacobian/Newton/null-space conclusion in this notebook should be
+re-checked against this: they may have been reading the artefact.
+
+**Newton at a non-degenerate point.** At `u = 0` the core's gradient vanishes identically (S,T are
+quadratic in u,w), so linearising at S0 is uninformative. Built S1 (both mirrors repaired, `u ≠ 0`)
+and re-solved — still inconsistent at 19297, certificate now spanning 270 rows. Barrier is real and
+correctly located.
+
+**Bit scan.** 1,156 boolean free inputs (only 2 currently set). Flipped each (`bitscan.py`, ~1 s
+total): exactly **two** — `x_2081`, `x_24601` — deactivate the core by forcing
+`x_15298 = x_7715·x_34554 = 0`. Both are strictly worse locally (17 and 19 nonzero residuals vs 4).
+These are the two known "quadrant" activators, now confirmed independently and exhaustively.
+
+**Local-optimality proof (the session's main deliverable).** The handles absorb exactly the
+p-multiples, so reachable defects are `A ∈ D1+pℤ`, `B ∈ D2+pℤ` — `x_7068` may also move by any
+multiple of p (mirror handle `x_30163` absorbs it), non-multiples break a 12–16-equation atom.
+Every failing equation is `m·(c₁A + c₂B)` with all other atoms zero, so it vanishes only if
+`c₁·D1 + c₂·D2 ≡ 0 mod p`. Checked all nine linear ones — none. Eqs 8680 and 29125 need `B = 0`
+exactly, impossible. Required ratios are `−c₁/c₂` with `|c| ≤ 40`; the actual
+`D2/D1 mod p = 29086885819837044927165644576879200888791656444895144487473726012333934270214`
+is a full 256-bit residue. And all six alternative placements cost 23–29 equations vs 11
+(22229+22231+37887 = 11; 22229+3578 = 23; 29539+22231 = 24; 3576+22231 = 24; 22229+7930 = 25;
+29539+7930 = 29). **Therefore 39,022/39,033 is a local optimum, and any improvement requires
+cracking the core.** Strategies A/A1/A2/B1/B2 measured 39,002–39,013, consistent with this.
+
+**Deliverable unchanged and re-verified: 39,022/39,033.** Writeup in `S9_STRUCTURE.md`.

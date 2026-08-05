@@ -1,5 +1,64 @@
 # RESUME — read me first
 
+## STATUS (session 9): best verified **39,022 / 39,033** — and now *proved* locally optimal
+Deliverable: `best/new_instance_partial_39022.json`
+Verify: `python3 checker.py best/new_instance_partial_39022.json` → `satisfied 39022/39033 (11 failing)`
+**Read `S9_STRUCTURE.md` first** — it supersedes the older analyses below on every point of conflict.
+
+### The 60-second version
+Exactly **3 atoms** are nonzero at the partial (22229, 22231, and the square 37887 whose root
+contains 22231). Since `x_28599 = x_17499 = p = 2^256−2^32−977` (secp256k1 prime) exactly, the
+entire residual system is two congruences:
+
+    x_7068 ≡ K1 (mod p)      and      x_4432 ≡ K2 (mod p)
+
+with `x_17325`, `x_9413` as free quotient handles and `K1, K2` the constants that atoms 3576/3578
+pin `x_6418`, `x_12553` to. Everything else in the 39,033 equations is already exact in ℤ.
+
+### Three results from session 9 that change the picture
+1. **METHODOLOGICAL BUG FOUND — re-check anything built on a Jacobian.** 783 check atoms are
+   perfect squares `E²`; at the partial `E = 0`, so a finite-difference row for `E²` is *quadratic*
+   (`c²δ²`), not linear. Feeding squares into a linear/Newton/null-space solve solves the wrong
+   system. `s9/roots.py` extracts all 783 roots. After the fix the reported mod-p inconsistency
+   moved off a *spurious* square (42245) and onto the *genuine* core atom (19297). Earlier
+   sessions' "inconsistent Jacobian" verdicts were reading the artefact.
+2. **The core has a SECOND branch, never previously recorded.** Core ⟺ `S ≡ T ≡ 0 mod p`, and
+   eliminating `w` gives `u²·(A·c² − B²) ≡ 0`. So it is *not* only `u ≡ w ≡ 0`: the alternative
+   `A·c² ≡ B² (mod p)` frees `u` completely. Blocked only by the mod-p pins on `x_22162`,
+   `x_30213`, `x_16742`. **This is the one door opened and not closed — start here.**
+3. **39,022 is a local optimum, proved (not just observed).** Handles absorb exactly the
+   p-multiples, so the reachable defects are `A ∈ D1+pℤ`, `B ∈ D2+pℤ`. Each failing equation is
+   `m·(c₁A + c₂B)`, so it can vanish only if `c₁D1 + c₂D2 ≡ 0 mod p` — checked for all nine
+   (none), and eqs 8680/29125 need `B = 0` exactly (impossible). All six alternative defect
+   placements cost 23–29 failing equations vs 11. **Improving the score requires cracking the core.**
+
+### Do NOT redo
+- Greedy ripple-repair from the canonical orientation (converges to the core in 3 rounds, 39,013).
+- Single-bit flips: all 1,156 boolean free inputs scanned; only `x_2081`, `x_24601` deactivate the
+  core (`x_15298 = 0`), both strictly worse locally (17/19 residuals vs 4).
+- Repairing via `x_7068`/`x_4432`/`x_6418`/`x_12553` (strategies A/A1/A2/B1/B2 in `s9/drive.py`):
+  39,002–39,013, all worse than 39,022.
+- Mod-p linear solve over all 7,273 free inputs at fixed bits — inconsistent at S0 *and* S1 even
+  with the corrected root model (270-row certificate).
+
+### Next experiments, in priority order
+1. Is the second core branch reachable? Decide whether `x_19083` (= `x_6361 + x_23758`) and
+   `x_24908` are genuinely rigid mod p. If either moves, `A·c² ≡ B²` opens the core.
+2. Full forward re-construction on the `x_2081 = 0` / `x_24601 = 0` quadrant using the corrected
+   root-based residual model (never done).
+3. Two-bit flip scan (~667k pairs, a few hours; single flips take ~1 s for all 1,156).
+
+### Toolchain (`s9/`, self-contained, caches regenerable)
+`cd solve_lab/s9 && python3 atomize.py && python3 poly.py && python3 gates.py && python3 fwd.py`
+then e.g. `python3 state0.py`, `python3 drive.py A`, `python3 bitscan.py`, `python3 newton.py`.
+`atomize.py` validates the whole decomposition against the raw file (0 mismatches over 39,033 eqs).
+
+### Git
+Branch `claude/read-prompt-324ju4`.
+
+---
+# RESUME — read me first
+
 ## ⚠️ CURRENT (re-randomized) INSTANCE — 39,013/39,033; core REDUCED but not cracked
 The EQUATIONS.txt in the repo is a NEW re-randomized instance (39,033 eqs). Full analysis in
 **`NEW_INSTANCE_STATUS.md`** and **`CORE_REDUCTION.md`** (read both). Best verified partial:

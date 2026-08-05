@@ -33,3 +33,12 @@ msg_sol.json
 p_msg.json
 gfp_kernel.json
 partial_check.json
+
+# session 9 regenerable caches (rebuild: cd s9 && python3 atomize.py && python3 poly.py && python3 gates.py && python3 fwd.py)
+s9/*.pkl
+s9/S0.json
+s9/S1.json
+s9/out_*.json
+s9/repair_out.json
+s9/ripple_out.json
+s9/fails.json
