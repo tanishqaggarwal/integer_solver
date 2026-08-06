@@ -147,3 +147,6 @@ s10/au_*.json
 s10/bn_*.json
 s10/jm_*.json
 s10/runs/
+
+# resumable sweep checkpoints (regenerable; see s10/chunk.py)
+s10/*.jsonl
