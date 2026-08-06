@@ -2,3 +2,6 @@
   ...0/256 5s
   NEW BEST gate-bit x_1931: 15 failing, atoms [16239, 16241, 31161]
   ...20/256 164s
+  ...40/256 304s
+  NEW BEST gate-bit x_5090: 10 failing, atoms [25572, 36275]
+  ...60/256 441s

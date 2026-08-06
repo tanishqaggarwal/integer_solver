@@ -581,3 +581,70 @@ Together with §14.2 that closes the branch:
 > The design is self-referential: the only bit that unlocks the setter pins is the bit whose own
 > pins the unlocking chain must violate. That is why the branch stalls at 17 failing with three
 > atoms — and it is a much sharper statement than "search failed".
+
+---
+
+## 15. Second-order freedom, and a link-by-link audit of the lock
+
+Deliverable unchanged: **39,026 / 39,033**. This section closes the last idea I had, rigorously.
+
+### 15.1 The blind spot: dormant product gates
+Every census, Jacobian and driver-enumeration in this campaign is **single-variable**. That is
+structurally blind to a *dormant product gate*: a monomial `x_i·x_j` with both factors currently
+zero. Moving either factor alone gives `0·δ = 0`, so no linear analysis sees it; moving **both**
+injects `δ_i·δ_j`. At the 39,026 witness there are **81,681** strictly dormant monomials (both
+factors exactly 0 — not merely `0 mod p`, which the p-wire also satisfies), **2,042** of them with
+both factors free inputs.
+
+Scanning all 2,042: exactly **2** change the residues `(D1, D2) mod p`, and both are the MUX
+control `x_4287` paired with `x_31861`/`x_14865` — i.e. the MUX flip already known from §12.3.
+So the second-order freedom exists in bulk but does not reach the residues.
+
+Also worth recording: at the 39,026 witness **`D2 ≡ 0 (mod p)` already** — atom 22231 is exactly
+zero. The whole remaining obstruction is the *single* congruence `A = atom 22229 ≡ 0`, i.e.
+`x_7068 ≡ K1 (mod p)`.
+
+### 15.2 The chain that pins `x_7068`, audited link by link
+
+```
+pin 31670 -> x_22152 -> x_29524 -> (2423) -> x_22649 -> x_12186 -> (core u=0)
+          -> x_14853 -> (mirror 29539) -> x_1308 = x_7068 -> A
+```
+
+`s9/linkaudit.py` reports each link's handle and its granularity:
+
+| link | handle | structure | granularity |
+|---|---|---|---|
+| 31670 | `x_29309 = x_105·x_3915` | `x_3915 = p` (wire), `x_105` free | **p** |
+| 2423 | `x_9899 = x_14466·x_14768` | `x_14466 = p`, `x_14768` free | **p** |
+| 22772 | `x_13595 = x_2121·x_11648` | **both factors 0 — dormant!** | *unquantised* |
+| 26729 | `x_25758 = x_10603·x_33612` | `x_10603 = p`, `x_33612` free | **p** |
+| 29539 | `x_29967 = x_11360·x_30163` | `x_11360 = p`, `x_30163` free | **p** |
+| 22229 | `x_642 = x_17325·x_28599` | `x_28599 = p`, `x_17325` free | **7376877·p** |
+
+Every link is p-quantised — **except one**. Link 22772 carries a genuinely dormant handle, and
+activating it would let `x_29524` shift by an arbitrary amount, breaking the chain and giving
+`x_7068 ≡ K1` outright.
+
+### 15.3 The one dormant link, and its guard
+`x_2121 = x_38144·x_13636` with `x_13636 = x_24601 = 1`, so `x_2121 = x_38144`. Setting
+`x_38144 = 1` does exactly what is wanted, and both at once:
+
+* `x_8211 = x_13636·(1 − x_38144)` collapses to 0, **disconnecting** the pinned `x_22152` from
+  `x_29524`;
+* `x_13595 = x_2121·x_11648 = x_11648` activates, **connecting** the FREE input `x_11648`.
+
+Executed (`s9/dormsolve.py`): `x_12186 = K1`, `x_7068 = K1`, `u = 0` — the chain is broken exactly
+as predicted. But `x_38144` is held by atom **32288 = `x_38144 − 0`**: a *bare* single-variable
+pin, no product, no handle, nothing to absorb. It costs 11 equations and can never be satisfied
+with `x_38144 = 1`.
+
+> **The setter put a handle-free constant pin on the one select that would have opened the chain.**
+> That is the last brick. Every other link is p-quantised; this one is nailed shut directly.
+
+### 15.4 What this establishes
+The lock is now verified *link by link* rather than inferred from failed searches: there is exactly
+one non-rigid link in the chain that pins `x_7068`, and it is guarded by a bare pin. Combined with
+§14.4 (the all-zero branch's mirror chain is forced, one driver per step) and §13.1 (7 is
+exhaustively optimal for the current defect placement), the instance's resistance is characterised
+at the level of individual gates.

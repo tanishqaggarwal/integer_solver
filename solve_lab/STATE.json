@@ -68,7 +68,7 @@
     "session9_writeup": "solve_lab/S9_STRUCTURE.md",
     "reduced_problem": "solve_lab/REDUCED_PROBLEM.md"
   },
-  "updated_unix": 1785975772,
+  "updated_unix": 1785976621,
   "session4": {
     "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
     "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -202,6 +202,8 @@
       "closure": "the mirror chain terminates on atoms 23824/23826, which are the two load pins of x_47 ITSELF -- the gate-bit needed to satisfy the forced OR gate. Only the 256 gate-bits can satisfy x_9274=1 (all 900 pin-free booleans fail, verified exhaustively), every gate-bit pins two inputs, and the chain runs through exactly those inputs.",
       "open_question": "is there a gate-bit whose pinned pair is disjoint from its own mirror chain? s9/solve_branch.py parameterises the pipeline by the gate-bit, making this a finite 256-way check.",
       "forced_chain": "every chain target has EXACTLY ONE non-boolean 1:1 driver (x_18956<-x_16742, x_24468<-x_14681, x_19083<-x_38667, x_24483<-x_29851, x_28922<-x_25477, x_37571<-x_30709, x_462<-x_24221; x_24221 and x_25477 are self-driving free inputs). No alternative routing exists. Combined with (1) only gate-bits can satisfy the forced OR gate, and (2) only x_47 makes the setter-pin drivers live, the branch is closed rigorously: the only bit that unlocks the setter pins is the bit whose own pins the unlocking chain must violate."
-    }
+    },
+    "dormant_gates": "single-variable analysis is blind to dormant product gates x_i*x_j with both factors exactly 0: moving either alone gives 0, moving both injects d_i*d_j. At the 39,026 witness there are 81,681 strictly dormant monomials, 2,042 with both factors free. Scanning all of them: only 2 move (D1,D2) mod p and both are the already-known MUX flip. Also: D2 = 0 mod p already at 39,026, so the entire remaining obstruction is the single congruence A = atom 22229 = 0, i.e. x_7068 = K1 mod p.",
+    "link_audit": "audited every link of the chain pinning x_7068 (s9/linkaudit.py). Handles: 31670 -> p*x_105; 2423 -> p*x_14768; 22772 -> x_2121*x_11648 (DORMANT, unquantised); 26729 -> p*x_33612; 29539 -> p*x_30163; 22229 -> 7376877*p*x_17325. Exactly ONE link is not p-quantised. Activating it (x_38144 = 1) both disconnects the pinned x_22152 from x_29524 and connects the free x_11648, and executing it does give x_12186 = x_7068 = K1 with u = 0. But x_38144 is held by atom 32288 = \"x_38144 - 0\", a BARE single-variable pin with no handle (11 equations). The setter put a handle-free constant pin on the one select that would have opened the chain."
   }
 }
