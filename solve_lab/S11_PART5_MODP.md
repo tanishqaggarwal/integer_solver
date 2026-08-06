@@ -242,3 +242,37 @@ and the three MUX channels are U*V (checkpoint, 4 failing checks), (1-U)*V (39,0
 failing checks) and U*(1-V) (reachable by turning x2081 off, never explored).  A mod-p forward
 evaluation costs 0.08 s, so roughly 40,000 bit patterns per hour can be scored exactly — which is
 the tool this needs, and it did not exist before today.
+
+## 17. The subset-sum hope is closed too
+
+§6 found the bits non-additive but left an obvious escape: the mismatch was only in x1308, whose
+dependence runs through `x3896 = x7304*x25956` and the OR-trees — i.e. through the channel and
+mirror INDICATORS, which are boolean functions of which trees have a bit on.  Restricted to bits
+that leave U, V, x3896 and x38170 unchanged, the map might still be affine in the loaded
+constants, and then choosing the bit pattern would be a subset-sum in GF(p) rather than a
+2^256 walk.
+
+`s11/gmp34.py` tests exactly that: bits that provably leave all seven indicators fixed, probed in
+pairs against the sum of the singles, on eleven quantities including the three that channel B's
+obstruction needs (x12000, x12926, x21364):
+
+    additive pairs: 0        non-additive: 36
+
+Every pair mismatches, and it mismatches on x1308, x12000, x12926, x21364 — the mirror residuals
+themselves.  So the circuit genuinely multiplies the loaded constants together; the bit
+dependence is not affine even inside a fixed channel.  There is no linear shortcut, and the
+remaining freedom is a real 2^256 search over the message.
+
+## 18. Honest summary
+
+This does **not** show the instance is unsatisfiable — it was presumably generated from a
+witness, and that witness is a bit pattern we have not found.  What it does show, by exact
+computation over the whole instance rather than over a neighbourhood:
+
+* the obstruction is four numbers in GF(p), and everything continuous has been tried against them;
+* the only remaining freedom is the 256 message bits, and they move discretely, non-additively,
+  and with no useful gradient;
+* 39,026 is optimal at this base for the entire continuous structure, gate purchases included.
+
+The tooling to attack the discrete search now exists and is fast (0.08 s per exact global
+evaluation, full response matrices cached).  That is the handover.
