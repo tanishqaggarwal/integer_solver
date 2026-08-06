@@ -73,7 +73,7 @@
   "s11_theta": "solve_lab/s11/theta_solveB.json",
   "s11_part2": "solve_lab/S11_PART2.md"
  },
- "updated_unix": 1786021804,
+ "updated_unix": 1786023366,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -322,6 +322,8 @@
   "deficit": 2,
   "deficit_mechanism": "two topological control collisions: a14445+a34580 share only x_33129; a27139+a33796 share only x_37088",
   "best_branch": "U=0,V=1 with bits (490,91)",
-  "absorbing_cost_in_branch": 15
+  "absorbing_cost_in_branch": 15,
+  "deficit_proof": "bipartite matching: 14 constraints, max matching 12, deficit 2; Hall violator 9 constraints vs 8 controls (s11/hall.py)",
+  "bits_boolean": "proved: a1430 = x_490^2 - x_490, one per each of the 256 message bits"
  }
 }

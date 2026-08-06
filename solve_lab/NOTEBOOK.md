@@ -1570,3 +1570,23 @@ score.
 **Next lever:** find a channel whose 2-deficit can be absorbed by two 1-equation checks
 (there are many such checks; that would score ~39,031), or find a second non-bit control
 reaching x_10170 or x_6858. `s11/last4.py` currently returns none.
+
+### Session 11, Part III — the deficit is a theorem, not an observation
+
+`s11/boolform.py`: every one of the 256 message bits carries an explicit boolean check
+`b^2 - b = 0` (13-14 equations each), so bits are NOT continuous controls. That closes the one
+loophole that would have dissolved the deficit.
+
+`s11/hall.py`: maximum bipartite matching between the 14 live constraints of the (490,91)
+branch and their non-bit controls (from the exhaustive 7,273-input scan) gives
+**matching 12, DEFICIT = 2**, with unmatched = the two mirror residuals, and an explicit
+**Hall violator**: 9 constraints over 8 controls.
+
+`s11/pairprice.py`: absorber pricing — cheapest pair a688+a1618 = 15 equations, mirror trio = 15.
+`s11/compensate.py`: no atom has an equation-footprint proportional to any absorber.
+`s11/realise3.py`: constrained equation-space solve over the full 173-equation region with 26
+exact-linear handles returns NONE.
+
+Net: the branch floor is 15 (achieved, verified 39,018). The checkpoint's 7 wins because its
+absorber — the x_2099 ladder — occupies only 7 equations. Score is decided by the absorber's
+equation footprint, and the deficit itself is 2 in every channel examined.

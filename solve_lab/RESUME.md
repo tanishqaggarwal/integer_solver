@@ -29,6 +29,26 @@ Session-11 best in a NEW branch, independently verified: `s11/data/finish3_named
    absorbing set: in the (490,91) branch the cheapest is the mirror trio at **15** equations; in
    the checkpoint's channel it is the `x_2099` ladder at **7**. Cheapness of the absorber decides.
 
+
+### PART III (same session): the deficit is PROVED = 2 (bipartite matching)
+- **Bits are genuinely boolean**: `a1430 = x_490^2 - x_490` and one such check for EVERY one of
+  the 256 message bits (13-14 equations each). So they are not continuous controls -- this
+  closes the one loophole that would have removed the deficit outright (`s11/boolform.py`).
+- **Maximum matching over the constraint/control graph** (all 7,273 free inputs scanned, bits
+  removed): **14 constraints, matching 12, DEFICIT = 2** (`s11/hall.py`). Unmatched: the two
+  mirror residuals. Explicit **Hall violator**: 9 constraints
+  `{a14445,a21050,a26839,a29539,a34580,a40065,a688,mirror3719,mirror25118}` whose whole control
+  neighbourhood is only 8 variables `{14515,16441,18751,19750,28955,31339,33129,33708}`.
+- **Absorbers priced** (`s11/pairprice.py`): cheapest pair `a688+a1618` = 15 equations, mirror
+  trio = 15. So 15 is the branch floor -- achieved and verified (39,018).
+- No single-atom equation-space compensation exists (`s11/compensate.py`: 0 proportional
+  shadows for any absorber), and the constrained equation-space solve over the full
+  173-equation region with 26 exact-linear handles returns NONE (`s11/realise3.py`).
+
+> The obstruction is now a THEOREM about this instance, not an observation: a Hall violator of
+> size 9 over 8 controls. The score is decided entirely by the price of the absorbing set --
+> 15 in the (490,91) branch, 7 in the checkpoint's channel.
+
 ### Do NOT redo
 - The clean all-zero frame, the MUX/OR-tree decode, `a40608 = (W-C)^2`, the core rank-2
   reduction, the cubic, the 8640431 CRT step, the channel taxonomy, the control scans.

@@ -132,3 +132,70 @@ Measured exactly: **15 failing equations, score 39,018**, verified by `checker.p
     python3 closehit2.py      # -> 2 bad
     python3 last4.py          # exhaustive control scan -> the two collisions
     cd .. && python3 checker.py s11/data/finish3_named.json   # 39018/39033
+
+---
+
+## 8. Part III — the deficit is exactly 2, PROVED by bipartite matching
+
+Everything above is constructive. This section proves the obstruction rather than observing it.
+
+**Bits are genuinely boolean.** `s11/boolform.py` finds explicit checks
+`a1430 = x_490² − x_490`, `a1431 = x_12095² − x_12095`, … — one for **every** one of the 256
+message bits, each living in 13–14 equations. So the bits are *not* continuous controls; a
+non-boolean bit costs 13–14 equations. (This closes the one loophole that would have removed
+the deficit outright.)
+
+**The constraint/control bipartite graph** (`s11/hall.py`), built from the exhaustive scan of
+all 7,273 free inputs with the bits removed:
+
+    a688   -> [19750]              a1618  -> [14853]            a29539 -> [14515]
+    a26731 -> [16742]              a7881  -> [2751]             a21050 -> [16441]
+    a26839 -> [18751]              a40065 -> [28955]
+    a14445 -> [18751, 33129]       a34580 -> [33129, 33708]
+    a27139 -> [2751, 37088]        a33796 -> [31339, 37088]
+    mirror3719  -> [14515, 16441, 28955, 31339, 33708]
+    mirror25118 -> [14515, 16441, 19750, 28955, 31339, 33708]
+
+    constraints = 14      MAXIMUM MATCHING = 12      DEFICIT = 2
+    unmatched: mirror3719, mirror25118
+
+**Hall violator** — 9 constraints whose entire control neighbourhood is only 8 variables:
+
+    {a14445, a21050, a26839, a29539, a34580, a40065, a688, mirror3719, mirror25118}
+      -> {14515, 16441, 18751, 19750, 28955, 31339, 33129, 33708}
+
+> **This is the trapdoor, stated exactly.** Not "the system looks rigid", not "7 is an
+> invariant" — a Hall violator of size 9 over 8 controls in the constraint/control incidence
+> graph, verified against every free input in the instance.
+
+**Pricing the absorbers** (`s11/pairprice.py`). Two constraints must be left unsatisfied; the
+cost is the number of equations their atoms occupy:
+
+    a40065 10 | a688 11 | a29539 12 | a21050 12 | a26839 12 | a33796 12
+    a34580 13 | a1618 14 | a14445 14 | a27139 14 | a26731 16 | a7881 18
+    cheapest PAIR by union:  a688 + a1618 = 15      mirror trio = 15
+
+so the branch floor is **15 failing equations** — exactly what was achieved and verified
+(39,018). Also checked (`s11/compensate.py`): no atom in the instance has an equation-footprint
+proportional to any of these absorbers, so single-atom equation-space compensation is
+unavailable; and the constrained equation-space solve over the full 173-equation region with
+26 exact-linear handles (`s11/realise3.py`) returns **NONE**.
+
+## 9. Why the 39,026 checkpoint still wins
+
+The deficit is 2 in every channel examined. What differs is the **price of the absorbing set**:
+
+| channel | absorber | cost |
+|---|---|---|
+| U=0,V=1 bits (490,91) | mirror trio, or a688+a1618 | **15** |
+| U=V=1 `ab=cd=0` (the checkpoint) | the `x_2099` ladder, 7 atoms | **7** |
+
+The checkpoint is better not because its deficit is smaller but because its two unsatisfiable
+constraints happen to live in atoms occupying only seven equations between them. Sessions 9–10
+proved 7 optimal for that placement by exhaustive subset enumeration; this session independently
+explains *why* a deficit exists at all.
+
+> **The single most useful next question:** is there a channel whose 2-deficit is absorbed by
+> constraints occupying fewer than 7 equations? Cost is driven entirely by the absorber's
+> equation footprint, and the instance contains many 1-equation checks — but none of them sits
+> in the tight set of any channel examined so far.
