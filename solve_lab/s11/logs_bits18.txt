@@ -1,4 +1,4 @@
-scanned 256 single-bit messages (32s)
+scanned 256 single-bit messages (33s)
   distribution: {15: 1, 17: 3, 19: 3, 21: 5, 22: 7, 23: 15, 24: 48, 25: 44, 26: 60, 27: 47, 28: 17, 29: 3, 30: 3}
   best:
     x 24601 tree B U=1 V=0  failing checks mod p =  15  [688, 1618, 7930, 21617, 25676, 29539]
@@ -21,7 +21,7 @@ scanned 256 single-bit messages (32s)
     x 35062 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 5988, 7930, 10506]
     x 38643 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
     x   438 tree C U=0 V=1  failing checks mod p =  23  [688, 1618, 2423, 7930, 10506, 21617]
-   0/32640 best=26 (0s)
-   4000/32640 best=10 (522s)
-   8000/32640 best=4 (1049s)
-   12000/32640 best=4 (1570s)
+checkpoint message (where y was derived): 7 knobs with an effect; certificate annihilates [0, 0, 0, 0, 0, 5] of them
+sibling message {x4287,x24601}: 7 knobs with an effect; certificate annihilates [0, 0, 0, 0, 0, 5] of them
+sibling message {x13195,x24601}: 7 knobs with an effect; certificate annihilates [0, 0, 0, 0, 0, 5] of them
+{x24601} (channel C): 7 knobs with an effect; certificate annihilates [7, 7, 2, 3, 7, 7] of them

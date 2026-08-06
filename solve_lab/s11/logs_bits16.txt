@@ -27,3 +27,8 @@ enumerating 8474 C-subsets of weight <= 3
    1500/8474 distinct=232 (99s)
    3000/8474 distinct=302 (199s)
    4500/8474 distinct=330 (298s)
+   6000/8474 distinct=338 (400s)
+   7500/8474 distinct=338 (505s)
+done (574s): 338 distinct inv5 values over 8474 subsets
+  most common values and their multiplicity: [('142844272226..', 2672), ('193138302388..', 230), ('726152826061..', 125), ('218660179177..', 125), ('993669850620..', 125), ('408151299612..', 125)]
+  zero found: 0 []

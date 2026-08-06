@@ -10,8 +10,20 @@ A certificate y satisfies `y . J = 0` over every continuous knob, so
 
         INV_y  =  sum_a  y_a * r_a          (r = check residues)
 
-is **constant under every continuous move**.  Verified directly: 39 of 40 random single-knob
-perturbations leave all six invariants bit-for-bit unchanged (`s11/bits10.py`).
+is **constant under every continuous move**.  At the state where y was derived this is true by
+construction; the question that matters is whether it survives a change of message.
+
+Two tests, and the second is the honest one.  `s11/bits10.py` found 39 of 40 random perturbations
+leaving the invariants unchanged — but that is mostly vacuous, because most knobs do not touch
+the certificate rows at all.  `s11/bits19.py` redoes it properly, sampling 150 *live* knobs at the
+exact derivation state and at sibling messages reached by swapping the C bit and its two loads:
+
+    gmp16_base (where y was derived) : 2 knobs have an effect; all 6 certificates annihilate both
+    sibling x2081 -> x4287           : 1 knob  has an effect; all 6 annihilate it
+    sibling x2081 -> x13195          : 1 knob  has an effect; all 6 annihilate it
+
+So the certificates do carry to neighbouring messages.  The evidence is thin (only 1-2 live knobs
+touch those rows at all), so treat cross-message validity as *supported, not proved*.
 
 A full solve needs every r_a = 0, hence needs every invariant to vanish.  So the search objective
 stops being "how many checks fail" — a signal that plateaued at 4 and gave no gradient — and
@@ -32,8 +44,18 @@ alone, independent of the other 219 bits.  And in the channel-C regime (V=0), in
 
 ## 3. Invariant 5 is highly degenerate
 
-Enumerating C-subsets of weight <= 3 (`s11/bits16.py`), inv5 takes only ~300 distinct values over
-3,000 subsets — nothing like a random GF(p) function.  Whatever it measures, it collapses.
+Exhaustive over C-subsets of weight <= 3 (`s11/bits16.py`) and random over all weights
+(`s11/bits17.py`):
+
+    8,474 subsets of weight <= 3 :  338 distinct values;  one value hit 2,672 times
+    1,600 random, all weights    :   82 distinct values;  one value hit 1,063 times
+    per weight class             :  ~15-28 distinct values each
+    zero: never, in ~10,000 evaluations
+
+So inv5 is roughly 25-to-1 degenerate — nothing like a random GF(p) function.  That is a real
+structural handle, and it also means the sampled image is small enough that the absence of zero is
+informative rather than a needle-in-a-haystack artefact — though 10,000 of 2^37 subsets is still
+a small sample, so it is a signal, not a proof.
 
 ## 4. The bit landscape, mapped exactly
 

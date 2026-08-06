@@ -21,7 +21,11 @@ scanned 256 single-bit messages (32s)
     x 35062 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 5988, 7930, 10506]
     x 38643 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
     x   438 tree C U=0 V=1  failing checks mod p =  23  [688, 1618, 2423, 7930, 10506, 21617]
-   0/32640 best=26 (0s)
-   4000/32640 best=10 (522s)
-   8000/32640 best=4 (1049s)
-   12000/32640 best=4 (1570s)
+   0 distinct=1 (0s)
+   400 distinct=40 (27s)
+   800 distinct=55 (55s)
+   1200 distinct=64 (84s)
+1600 random C-subsets of all weights: 82 distinct inv5 values (113s)
+  top multiplicities: [1063, 112, 112, 105, 13]
+  distinct values by subset weight (sample): {0: 1, 1: 15, 2: 26, 3: 24, 4: 28, 5: 23, 6: 18, 7: 14, 8: 10, 9: 9, 10: 9, 11: 11}
+  zero found: 0
