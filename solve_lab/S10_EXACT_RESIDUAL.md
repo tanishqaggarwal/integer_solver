@@ -1315,3 +1315,80 @@ To beat 39,026 the gadget cluster must be solved **whole** — its members cost
 10–15 equations each, so no partial fix competes with 7. The cluster's closure has
 full column rank and one obstruction. What remains is a genuine break of that
 obstruction, not a cheaper door.
+
+## 59. The full closure — and a gap in §55 worth naming
+
+§55 grew the column set only from the rows that *witnessed* the inconsistency.
+That is not the honest fixed point: a free input touching **any** row of the
+system is a repair freedom. Iterating both directions (`s10/closure3.py`):
+
+```
+it0: rows  572  cols 134
+it1: rows 1333  cols 441
+it2: rows 1558  cols 632
+...
+it6: rows 1655  cols 707      <- fixed point
+rank 707 of 707 columns;  KERNEL DIMENSION 0;  still inconsistent
+witnesses: 33929, 40068, 40390, 40969, 41400, 41507, 41827, 41842, 42117, 42226
+```
+
+Full **column** rank with 1,655 rows: every free input the residual can reach is
+completely pinned by the checks. There is no slack anywhere in the reachable
+space — and the witness set now reaches `a33929`, i.e. into the *second* gadget
+cluster. This supersedes the 128 × 79 closure of session 10 and the 579 × 142 of
+§55; both were sub-closures.
+
+## 60. What insisting on the cluster actually costs
+
+Which rows witness an inconsistency is decided entirely by pivot order, so the
+elimination can be *steered*. Order rows by decreasing cost and the cheap ones
+fall through as witnesses (`s10/closure4.py`, `s10/closure5.py`), where
+`cost(c) = |equations of c not already failing|`:
+
+```
+rows ordered cheapest-last          -> witnesses {21617, 29539, 37662, 40826}, cost 24
+   (the four failing atoms have cost 0 -- this just recovers the current state)
+
+failing rows FORCED to be pivots    -> witnesses {31932, 31934, 31936, 39032, 39034,
+   9591, 31940, 33184, 40511, 40577, 40604, 40806, 41400, 41507, 41827, 42245}
+   union of their equations: 52
+```
+
+> **Insisting on the gadget cluster costs at least 52 equations — score ≤ 38,981.**
+> Against a give-up price of 7, the cluster is not merely unaffordable, it is
+> unaffordable by a factor of seven.
+
+## 61. The obstruction is branch-independent
+
+All four MUX branches, each run to a fixed point of the enriched engine
+(`s10/engine.py br00 | br01 | b11`, and the canonical `(1,0)`):
+
+```
+(1,0)  39,009      residual  21617, 29539  (+ shadows)
+(1,1)  38,994      residual  19088, 21617, 22233, 22235, 29539, 37887 (+ shadows)
+(0,1)  39,002      residual  21617, 29539, 35759 (+ shadows)
+(0,0)  38,986      residual  15462, 15464, 21617, 29539, 35759, 36602 (+ shadows)
+```
+
+Every branch lands on **the same two cluster gadgets**. `x_2081 = 0` does unpin
+`x_6418` (it makes `a3576` trivial), which was exactly the rigidity that blocked
+the `a29539` Newton move — and it still does not help, because the branch pays
+more elsewhere than it frees.
+
+## 62. Final position after session 11
+
+```
+delivered (give up the p-quantisation group)             39,026   [verified]
+canonical frame, enriched moves                          39,009
+canonical frame, beam over enriched moves                39,016
+frame 2 (p-group zeroed exactly over Z, then repaired)   39,009
+branches (1,1) / (0,1) / (0,0), fully re-solved     38,994 / 39,002 / 38,986
+insisting on the cluster (cost-ordered elimination)      <= 38,981
+full closure                       1655 x 707, rank 707, kernel 0, inconsistent
+```
+
+The instance is a single forced trade between the p-quantisation group (7) and the
+gadget cluster (24). **39,026 takes the cheaper side, and every alternative is now
+priced above it.** What would beat it is not a cheaper door but a break of the one
+obstruction functional — and that functional lives in a closure with no kernel at
+all, which is the sharpest statement of the wall this instance has yet produced.

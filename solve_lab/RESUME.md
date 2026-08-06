@@ -54,6 +54,20 @@ instance offers exactly one trade:
 7. **All seven residual checks are zeroable exactly and simultaneously**
    (`s10/construct.py`, verified over ℤ) — the cost simply moves to the cluster.
 
+### Session 11 addendum — every alternative is now priced above 7
+* **Full closure**: 1,655 rows x 707 cols, rank 707, **kernel dimension 0**, inconsistent
+  (`s10/closure3.py`). Every free input the residual can reach is completely pinned.
+  This supersedes both the 128x79 of session 10 and the 579x142 of Part XI §55 — both
+  were sub-closures (they grew columns only from the *witness* rows).
+* **Price of insisting on the cluster**: force the failing rows to be pivots and the
+  cost-ordered elimination hands back a 16-row witness set spanning **52 equations**
+  (`s10/closure5.py`) — score <= 38,981. The cluster is unaffordable by a factor of 7.
+* **Branch-independent**: all four MUX branches, each run to a fixed point of the
+  enriched engine, land on the same two cluster gadgets — 39,009 / 38,994 / 39,002 /
+  38,986 for (1,0) / (1,1) / (0,1) / (0,0). `x_2081 = 0` does unpin `x_6418` (making
+  `a3576` trivial), the exact rigidity that blocked the `a29539` Newton move, and it
+  still does not pay.
+
 ### Next actions
 1. The cluster must be solved **whole** — members cost 10–15 equations each, so no
    partial fix competes with 7. Attack the single obstruction functional of the

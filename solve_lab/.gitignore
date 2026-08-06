@@ -113,3 +113,7 @@ s10/engine_*.json
 s10/ENGINE_*.json
 s10/absorb_*.json
 s10/newton_*.json
+
+s10/wit4.json
+s10/wit5.json
+s10/bool_*.json

@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1785999734,
+ "updated_unix": 1786000705,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -350,6 +350,39 @@
    "frame2_pgroup_zeroed_then_repaired": 39009,
    "branch_1_1_resolved": 38994
   },
-  "verified": "python3 checker.py best/new_instance_partial_39026.json -> satisfied 39026/39033 (7 failing)"
+  "verified": "python3 checker.py best/new_instance_partial_39026.json -> satisfied 39026/39033 (7 failing)",
+  "full_closure": {
+   "rows": 1655,
+   "cols": 707,
+   "rank": 707,
+   "kernel_dim": 0,
+   "inconsistent": true,
+   "note": "supersedes the 128x79 (session 10) and 579x142 (Part XI \u00a755) sub-closures; those grew columns only from the witness rows, not from every row",
+   "witnesses": [
+    33929,
+    40068,
+    40390,
+    40969,
+    41400,
+    41507,
+    41827,
+    41842,
+    42117,
+    42226
+   ]
+  },
+  "price_of_the_cluster": {
+   "method": "steer the elimination: force the failing rows to be pivots, order the rest by decreasing cost (s10/closure5.py)",
+   "witness_rows": 16,
+   "equations": 52,
+   "score_ceiling": 38981
+  },
+  "branches": {
+   "(1,0)": 39009,
+   "(1,1)": 38994,
+   "(0,1)": 39002,
+   "(0,0)": 38986,
+   "note": "all four converge to the SAME two cluster gadgets; the obstruction is branch-independent"
+  }
  }
 }

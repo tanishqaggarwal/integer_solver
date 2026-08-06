@@ -78,9 +78,10 @@ def run(v, tag, iters=60, budget=2400):
 
 if __name__ == '__main__':
     which = sys.argv[1]
-    if which == 'b11':
+    if which.startswith('br'):
         base = L.load(os.path.join(HERE, 'forward_state.json'))
-        v = list(base); v[2081] = 1; v[4287] = 1; ad.fwd(v, rounds=6)
+        v = list(base); v[2081] = int(which[2]); v[4287] = int(which[3])
+        ad.fwd(v, rounds=6)
     else:
         v = L.load(os.path.join(HERE, which))
     run(v, os.path.basename(which).replace('.json', ''))
