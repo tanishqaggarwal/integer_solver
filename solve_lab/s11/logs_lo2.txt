@@ -1,0 +1,7 @@
+finish3_named.json: broken atoms=[26719, 26721, 26723]
+  movable atoms=42  objective equations=53  failing=15  knobs=26
+  affine knobs with effect: 26  non-affine: 0
+    drop 0: infeasible (0s)
+    drop 1: infeasible (4s)
+    drop 2: infeasible (27s)
+    drop 3: infeasible (126s)

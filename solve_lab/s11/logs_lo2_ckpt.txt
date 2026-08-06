@@ -1,0 +1,13 @@
+new_instance_partial_39026.json: broken atoms=[22229, 22230, 35758, 35759, 35760, 35761, 35762]
+  movable atoms=33  objective equations=39  failing=7  knobs=11
+  affine knobs with effect: 11  non-affine: 0
+    drop 0: infeasible (0s)
+    drop 1: infeasible (0s)
+    drop 2: infeasible (0s)
+    drop 3: infeasible (0s)
+    drop 4: infeasible (1s)
+    drop 5: infeasible (1s)
+    drop 6: infeasible (1s)
+    drop 7: FEASIBLE (1s)
+  MINIMUM local failures = 7  drop [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+APPLIED -> failing=7 score=39026  broken atoms=[22229, 22230, 35758, 35759, 35760, 35761, 35762]
