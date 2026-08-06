@@ -2324,3 +2324,69 @@ and **none** of the 24 atoms appearing in the seven failing equations occurs
 exclusively in failing equations — each also sits in 3–10 satisfied ones. So no atom
 can be turned on to cancel inside a failing equation without breaking a satisfied
 one.
+
+---
+
+# Part XXII — boolean atoms as carriers: closed by a sign argument
+
+Part XVII flagged a genuinely unswept opening: `x² − x = x(x−1)` is **not** forced to
+zero over ℤ, so a boolean atom is a legitimate nonzero carrier, and blocks of them
+with negative deficiency exist. It is now swept and closed — by an argument I did
+not anticipate.
+
+## 111. Census
+
+```
+3,484 boolean atoms, all exactly c*(x^2 - x):  c = 1 (2,340), c = -2 (1,144)
+NONE is a gate -- every one is a pure check atom, sitting in 2..21 equations
+3,484 distinct variables: 1,156 free inputs, 2,328 gate outputs
+syntactic clean carriers: 0   (every boolean var appears in >= 1 other atom)
+operational clean carriers: 318 of 1,156  (the other atoms they touch re-solve)
+```
+
+Exact optima by max-closure/min-cut rather than greedy: over all boolean atoms the
+minimum deficiency is **−29** (376 atoms in 347 equations, one connected component).
+But over **free-variable** boolean atoms it is **0** — maxflow = 1,156 is a perfect
+matching, so Hall's condition holds and **no free-only block can ever have negative
+deficiency**. Rank deficiency is much larger than combinatorial (the free zero-core
+has nullity 53; the −29 block, 122), so rational kernels are abundant.
+
+## 112. Non-negativity kills it, not the triangular-number filter
+
+`x(x−1) ≥ 0` for every integer `x`, so each carrier's value `t_a = val_a / c_a`
+must be **non-negative**. That binds long before any `k(k−1)` representability test:
+
+> **An exact rational Phase-1 simplex proves the free-variable cone is TRIVIAL.**
+> No nonempty set of free boolean atoms can be nonzero with all of its equations
+> satisfied — the 53-dimensional kernel is entirely sign-mixed. Every free boolean
+> variable really is confined to `{0,1}`, for a reason that has nothing to do with
+> the boolean atom itself.
+
+Pairwise, exactly over all 8,237 sharing pairs: a shared equation cancels only if
+`t_a/t_b` equals *its own* coefficient ratio, so **at most 2 shared equations can
+ever cancel** (88 pairs achieve 2; 6,959 achieve 1) — even for pairs sharing 18
+equations. 5,411 pairs do admit a realisable `k(k−1)` ratio, but the best costs 11.
+
+## 113. And they cannot reach the residual anyway
+
+* **Zero boolean atoms appear in any of the seven failing equations.**
+* The ancestor closure of the residual is 39 variables with 2 booleans; of *all*
+  atoms in the seven failing equations, 151 variables with **4** booleans —
+  `x_2081, x_4287, x_11368, x_13195`, the known quadrant bits.
+* Exhaustive sweep of those four at **non-boolean** values (6,717 assignments:
+  singles and pairs over −6..8, triples −3..5, quads −2..4) gives best **39,026** —
+  the current values. Constructively, each key bit at `x ∈ {2, −1, 3}` breaks
+  **9–21 non-boolean atoms** while turning on only its own boolean atom.
+* All 1,156 free boolean variables set to `x = 2`: scores 39,007–39,018, minimum
+  cost 8 (`a13485`/`x_24844`). **Not one ever repaired any of the seven baseline
+  failures.** Best pair 11, best triple 10. Checker-verified: the best carrier state
+  is the original seven failures **plus exactly `a13485`'s eight equations**.
+
+## 114. A methodology note worth keeping
+
+The 39,026 partial is **off-manifold** — gate atoms `22229, 22230, 35758, 35761,
+35762` are deliberately nonzero — so a plain `ad.fwd` repairs them and drops the
+score to 38,996. Any experiment starting from the deliverable must use a
+block-preserving forward evaluation (the `frame2`/`frame3` detachments, or an
+equivalent `fwdb`). Several earlier measurements were frame-dependent for exactly
+this reason.
