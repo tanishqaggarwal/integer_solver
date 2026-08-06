@@ -1653,3 +1653,22 @@ whose sole integrality obstruction is a single factor of p = 2^256 - 2^32 - 977.
 ten sessions circled as p-quantisation / conserved obstruction / deficit of 2 / "7 is an
 invariant" — one invariant factor, the same everywhere. A full solve requires removing the p,
 i.e. reaching a state whose failing right-hand side is already p-divisible.
+
+### Session 11, Part VIII — the p-factor cannot be removed locally (`s11/ip14.py`, `ip15.py`, `ip18.py`)
+
+A full solve needs a state whose failing right-hand side is p-divisible (then the single factor
+of p in the invariant is absorbed). That is a GF(p) question, hence cheap — but it must be asked
+inside moves that keep the satisfied equations satisfied.
+
+- ip14 (all variables, no constraint): solvable at all three states — but meaningless, since it
+  uses quadratic variables and ignores the preservation requirement.
+- ip15 shows why: applying the unconstrained GF(p) step at closehit2 takes 28 failing to 6,097
+  (satisfied equations become nonzero multiples of p).
+- ip18 asks it properly, inside the integer kernel of the collateral block:
+    checkpoint 130x69, kernel dim 2  -> Stage A NOT solvable
+    39018      245x152, kernel dim 10 -> Stage A NOT solvable
+  and no subset works either — not even one failing value can be made p-divisible while
+  preserving the rest.
+
+Loop closed: sole obstruction is one factor of p; absorbing it needs a p-divisible RHS; and that
+is unreachable inside every preserving move. Deliverable unchanged at 39,026.

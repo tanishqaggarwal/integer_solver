@@ -100,6 +100,16 @@ Scripts `s11/ip1.py` .. `s11/ip11.py`; full write-up in `S11_PART3_IP.md`.
   of 2 / "7 is an invariant". A full solve requires REMOVING the p from the invariant, i.e.
   reaching a state whose failing right-hand side is already p-divisible.
 
+- **IP #14/#15/#18 — the p-factor cannot be removed locally (loop closed).** A full solve needs
+  a p-divisible failing right-hand side. Asked with all variables and no constraint it looks
+  solvable (`ip14`) — but applying it turns satisfied equations into nonzero multiples of p
+  (`ip15`: 28 failing -> 6,097). Asked properly, INSIDE the integer kernel that keeps every
+  satisfied equation exactly zero (`ip18`): kernel dim 2 at the checkpoint, 10 at 39,018, and
+  Stage A is **NOT solvable** at either — you cannot make even ONE failing value p-divisible
+  while preserving the rest.
+  > Sole obstruction = one factor of p; absorbing it needs a p-divisible RHS; p-divisibility is
+  > unreachable inside every preserving move. That is why local search cannot shift the score.
+
 ### Do NOT redo
 - The clean all-zero frame, the MUX/OR-tree decode, `a40608 = (W-C)^2`, the core rank-2
   reduction, the cubic, the 8640431 CRT step, the channel taxonomy, the control scans.

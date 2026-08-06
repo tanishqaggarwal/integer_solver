@@ -204,3 +204,49 @@ set by how many equations must absorb that single factor of p, not by any failur
 to find a feasible point. A full solve requires *removing the p from the invariant* — i.e.
 reaching a state whose failing right-hand side is already p-divisible — which is exactly the
 problem the setter encoded.
+
+---
+
+## IP #14 – #18 — closing the loop: the p-factor cannot be removed
+
+The invariant is always `(small) · p`, so a full solve needs a state whose failing right-hand
+side is already p-divisible. That question is linear over GF(p), hence cheap — but it must be
+asked **inside the moves that keep the satisfied equations satisfied**, otherwise it is
+meaningless.
+
+* `s11/ip14.py` asks it with *every* variable and no such constraint: solvable at all three
+  states. But that ignores (a) the quadratic variables, where the linearisation is invalid, and
+  (b) the requirement that satisfied equations stay satisfied.
+* `s11/ip15.py` shows why (b) matters: applying the unconstrained GF(p) step at `closehit2`
+  drives everything to 0 mod p and takes the score from **28 failing to 6,097** — the satisfied
+  equations become nonzero multiples of p. Progress that isn't.
+* `s11/ip18.py` asks the question properly. On the locality-reduced systems, compute the
+  **integer kernel of the collateral block** (moves that keep every satisfied equation *exactly*
+  zero), then ask for p-divisibility of the failing values inside that kernel:
+
+      checkpoint 39,026 : system 130x69,  kernel dim  2  ->  Stage A NOT solvable
+      s11 best  39,018  : system 245x152, kernel dim 10  ->  Stage A NOT solvable
+
+  and the follow-up search finds **no subset at all** — you cannot make even a single failing
+  value p-divisible while preserving the rest.
+
+> **The loop closes.** The sole obstruction is one factor of p; absorbing it requires a
+> p-divisible right-hand side; and p-divisibility is unreachable inside every move that
+> preserves what is already solved. That is why no amount of local search shifts the score, and
+> it is the precise integer-programming statement of the trapdoor.
+
+### Final IP summary
+
+| statement | status |
+|---|---|
+| residual IP is consistent over ℚ | proved, 7/7 states |
+| sole integrality obstruction is one factor of p | proved (least `d` = `2458959·p`, `8640431·p`, `p`) |
+| optimum for the (490,91) channel | **15** — certified two independent ways |
+| checkpoint is locally rigid | allow = 0,1,2,3 all infeasible |
+| global lower bound | 2 failing equations (score ≤ 39,031) |
+| can the p-factor be removed locally? | **no** — unreachable inside the preserving kernel |
+
+The only gap left in the argument is *global*: the lower bound of 2 is a counting bound, and
+nothing here rules out a state, far from any yet reached, whose failing right-hand side is
+p-divisible by construction. Reaching one is equivalent to solving the setter's congruence — the
+problem the instance was built around.
