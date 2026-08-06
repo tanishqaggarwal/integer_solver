@@ -104,6 +104,25 @@ What this session established, in order:
     `b*(x - C) - handle` gating its OWN wire, not a shared multiplexer, so there is no group
     to swap within; and only 2 of 7,250 bits are on.
 
+### Session 12 addendum 4 (Part XXIX): the addition CLOSES -- new verified state 39,015
+
+16. **§148 — Part XXVII was WRONG that the coordinates are the four literals.**  `coordjac.py`
+    (one forward-AD pass per free input) shows perturbing x22152/x33462/x6418/x12553 moves
+    none of x1,y1,x2,y2.  They act only through the advice DAG.  A and B's closed forms are
+    still exact; the coordinates are steerable.
+17. **§149 — the coordinate map has RANK 8** over 264 movers; only **8 are non-boolean** and
+    they are **diagonal**: x1<-x22649, y1<-itself, x2<-itself, y2<-x31339, x3<-itself,
+    y3<-itself, x19083<-x8778, x1308<-x6418.  The 256 boolean movers cost a broken b^2=b,
+    which is why the all-knob Newton cost 91.
+18. **§150 — A = B = 0 is SOLVABLE five ways, all priced.**  (x1,y1), (x2,y2), (x3,y3) solve
+    LINEARLY; (x2,y1) is a cubic with exactly one root; (x1,y2)'s cubic has none.
+    **Best: (x3,y3) -> `s10/PF_best_39015.json`, 39,015 checker-verified.**
+19. **§151 — the trap**: the advice DAG is a chain rooted in four gated literals; the gates
+    are the quadrant switches, so releasing one turns the addition off.
+20. **§152 — the deliverable is a CODING optimum, not an algebraic one.**  39,026's seven
+    nonzero atoms cancel in all but seven equations; the clean states have fewer nonzero
+    atoms in worse positions.
+
 **Next actions (Part XXV)**
   - Door A: drive `x15298 → 0` from `s10/AG_39013.json` (never tried with all advice solved).
   - Door B: solve `x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)` — three linear conditions in

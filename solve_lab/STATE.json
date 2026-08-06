@@ -706,6 +706,49 @@
     "conclusion": "no shared-wire multiplexer, so no coherent swap exists"
    },
    "no_infeasibility_claimed": true
+  },
+  "part_xxix": {
+   "correction_to_part_xxvii": "the coordinates are NOT the four literals; perturbing x22152/x33462/x6418/x12553 moves none of x1,y1,x2,y2. They reach the coordinates only through the advice DAG.",
+   "coordinate_map": {
+    "movers": 264,
+    "rank": 8,
+    "of": 10,
+    "relations": "only the linearisations of A and B",
+    "non_boolean_movers": 8,
+    "boolean_movers": 256,
+    "diagonal": {
+     "x1": 22649,
+     "y1": 16742,
+     "x2": 14853,
+     "y2": 31339,
+     "x3": 22162,
+     "y3": 30213,
+     "x19083": 8778,
+     "x1308": 6418
+    }
+   },
+   "pair_prices": {
+    "(x3,y3)": 39015,
+    "(x2,y1)": 38992,
+    "(x1,y1)": 38991,
+    "(x2,y2)": 38991,
+    "(x1,y2)": "cubic has no root in F_p",
+    "all_eight_at_once": 38922
+   },
+   "linear_pairs": [
+    "(x1,y1)",
+    "(x2,y2)",
+    "(x3,y3)"
+   ],
+   "new_state": {
+    "file": "s10/PF_best_39015.json",
+    "score": 39015,
+    "verified": true,
+    "note": "point addition closes exactly; best canonical-frame state"
+   },
+   "trap": "the advice DAG is a chain rooted in four gated literals; moving a coordinate breaks its link, repairing that breaks the next, and the chain ends at a literal whose pin is released only by the quadrant switches x2081/x24601, which also turn the addition check off",
+   "why_deliverable_wins": "the 39,026 witness is a CODING optimum (its 7 nonzero atoms cancel in all but 7 equations), not an algebraic one; 39,015 is the algebraic optimum",
+   "no_infeasibility_claimed": true
   }
  }
 }

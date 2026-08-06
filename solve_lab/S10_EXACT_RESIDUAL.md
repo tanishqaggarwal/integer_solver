@@ -3231,3 +3231,130 @@ enumerated move classes, not a proof that none exists.  What they do establish i
 that the residual of §139 is not reachable by any move class this lab has been able
 to name — and that it is now a two-line arithmetic statement in seven printed
 constants rather than a 39,033-equation mystery.
+
+---
+
+# Part XXIX — the addition closes, five ways, and every one of them is priced
+
+Part XXVII said the seven quantities of the addition are literal constants of the
+instance.  That is **wrong as stated**, and correcting it is what this part is about.
+
+## 148. Correction: the coordinates are not the literals
+
+`s10/coordjac.py` runs one forward-AD pass per free input — 7,273 of them — and
+records the exact derivative of every coordinate.  Two facts kill §139's premise:
+
+```
+x1 = x12186   computed, moved by 179 free inputs     y1 = x16742   FREE
+x2 = x14853   FREE                                   y2 = x24908   computed, 43
+x3 = x22162   FREE                                   y3 = x30213   FREE
+K  = x24453   empty support -- the only genuine constant
+```
+
+and perturbing `x22152`, `x33462`, `x6418` or `x12553` moves **none** of x1, y1, x2,
+y2.  Those four literals reach the coordinates only through the advice DAG, not
+directly; §139 read a coincidence of residues as an identity of variables.  The
+closed forms for A and B are still exact — they reproduce `x35389` and `x6671` digit
+for digit — but the coordinates in them are steerable, and the addition is therefore
+**not over-determined**.
+
+## 149. The coordinate map has rank 8, and its non-boolean part is diagonal
+
+Over the 264 free inputs with any effect, the map to
+`(x1, y1, x2, y2, x3, y3, x19083, x1308, A, B)` has **rank 8 of 10**, and the only
+two relations are the linearisations of A and B themselves.  All eight coordinates
+are independently steerable.
+
+But steering them all at once with all 264 knobs costs 91 points
+(`s10/newton8.py`: Newton converges, residual on all eight targets exactly zero, A and
+B exactly zero, a26731 and a29539 intact — and 22 other checks broken).  The reason
+is visible once the knobs are separated:
+
+```
+264 coordinate movers  =  8 non-boolean  +  256 boolean
+```
+
+and driving a boolean free input to an arbitrary residue breaks its own `b² = b`
+constraint.  The eight non-boolean movers are eight of the thirteen advice values, and
+they form a **diagonal** system — one knob per coordinate:
+
+```
+x1  <- x22649      y1  <- itself      x2  <- itself      y2  <- x31339
+x3  <- itself      y3  <- itself      x19083 <- x8778    x1308  <- x6418
+```
+
+so freeing one coordinate costs exactly one congruence: x1 costs a2423, y2 costs
+a33796, x19083 costs a33929, y1 costs a26731, x2 costs a29539, x3 and y3 cost a1618
+and a688.
+
+## 150. A = B = 0 is solvable — five ways — and every one is priced exactly
+
+A and B are two equations, so closing the addition needs two coordinates.  Two of the
+pairs solve **linearly**, which is worth writing out because it removes any
+root-existence question:
+
+```
+(x1, y1)   A  =>  (x3 + x1 + x2 + K)(x2 - x3)^2 = (y2 + y3)^2      LINEAR in x1
+(x2, y2)   A  =>  (x3 + x1 + x2 + K)(x1 - x3)^2 = (y3 + y1)^2      LINEAR in x2
+(x3, y3)   A  =>  x3 = (y2-y1)^2/(x2-x1)^2 - x1 - x2 - K           LINEAR in x3
+(x2, y1)   cubic in x2 -- exactly ONE root in F_p
+(x1, y2)   cubic in x1 -- NO root in F_p
+```
+
+`s10/pairfix.py` drives each pair through its single diagonal knob, lifts, and scores:
+
+```
+pair        A=0  B=0   score   surviving checks
+(x3, y3)    yes  yes   39,015  [688, 1618, 19297, 19299, 40608, 40812]   <- best
+(x2, y1)    yes  yes   38,992  [19299, 26731, 29539, 36185, 40812, 40826]
+(x1, y1)    yes  yes   38,991  [2423, 10506, 19299, 26731, 36185, 40812]
+(x2, y2)    yes  yes   38,991  [19299, 25676, 29539, 33796, 36185, 40812, 40826, 42245]
+(x1, y2)    no solution in F_p
+```
+
+**`s10/PF_best_39015.json` verifies at 39,015/39,033** — the point addition closes and
+the score exceeds every previous canonical-frame state.  Each pair pays exactly the
+congruences of the coordinates it moves, as §149 predicts.
+
+## 151. The trap, stated precisely
+
+Closing the addition always costs the congruences of the two coordinates moved, and
+those congruences cannot be repaired locally, because the advice DAG is a **chain
+rooted in the four gated literals**:
+
+```
+x33462 (a31672, gated by x24601) -> x16144 -> x8778 -> x19083 -> y1
+x6418  (a3576,  gated by x2081 ) -> x1308  -> x2
+x22152 (a31670, gated by x24601) -> x29524 -> x22649 -> x1
+x12553 (a3578,  gated by x2081 ) -> x24548 -> x14623 -> x31339 -> y2
+```
+
+Move a coordinate and its link breaks; repair that link and the next one up breaks;
+the chain terminates at a literal whose pin is ungated only when `x2081` or `x24601`
+is zero — and those are exactly the quadrant switches of §147, so releasing one turns
+the addition check off and substitutes `P3 = P1` or `P3 = P2`, which the same literals
+contradict.  That is the whole obstruction, and it is now a closed loop rather than a
+mystery.
+
+## 152. Why the deliverable still wins
+
+```
+deliverable                                       39,026  [checker-verified]
+addition closed via (x3, y3)                      39,015  [checker-verified]   <- NEW
+point addition closed, x3/y3 moved (ecfix)        39,014  [checker-verified]
+advice DAG fixed point                            39,013  [checker-verified]
+all seven residual atoms exactly zero             39,004  [checker-verified]
+addition closed via (x2,y1) / (x1,y1) / (x2,y2)   38,992 / 38,991 / 38,991
+Newton on all eight coordinates at once           38,922
+```
+
+The deliverable is **not on the "solve the circuit" path at all**.  Its seven nonzero
+atoms are arranged so that their bundle combinations cancel in all but seven
+equations; the structurally clean states have fewer nonzero atoms (two, three, four)
+but those atoms sit in equations that do not cancel.  39,026 is a *coding* optimum,
+39,015 is the *algebraic* optimum, and this session established for the first time
+that they are different objects.
+
+**No infeasibility is claimed.**  Everything above is an exact price for an enumerated
+move, and §148 is a reminder of how a confident structural claim can be wrong: Part
+XXVII's premise survived several checks and was still false.
