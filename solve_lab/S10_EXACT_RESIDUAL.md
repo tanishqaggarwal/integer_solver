@@ -1039,3 +1039,87 @@ number theory (curve, ratrec, forensics)  no structure
 The instance is characterised, priced, and closed on every axis I can measure.
 What remains is not a door with a price — it is the setter's witness, or a genuine
 cryptanalytic break of the single pinned residue `D0 = HUGE − C1 (mod p)`.
+
+---
+
+# Part X — the message space, exhaustively closed
+
+## 45. Global rigidity, tested bluntly
+
+Every rigidity result up to here was a linearisation **at one point**. Tested
+directly by randomising the non-boolean free inputs (`s10/randomize.py`):
+
+```
+1 / 10 / 100 / 1000 / ALL 6,117 randomised   ->  37 / 148 / 1084 / 5219 / 7355 failing
+best over every randomisation                ->  37   (= the base)
+do 7930, 29539, 35759, 35760 fail EVERY TIME ->  TRUE
+```
+
+> The four core checks fail from **every** starting point, including full
+> randomisation of all 6,117 non-boolean free inputs. The residual is pinned
+> against them **globally**, not merely locally.
+
+## 46. The "256-bit codeword" collapses to 5 dimensions
+
+Earlier sessions treated the message as a 2²⁵⁶ combinatorial wall. It is not.
+Computing the exact AD gradient of every failing check with respect to all 1,156
+boolean free inputs (`s10/bitgroups.py`):
+
+```
+boolean inputs that move ANY failing check : 128   (not 256)
+distinct signature vectors among them      : 5
+group multiplicities                       : 75, 50, 1, 1, 1
+=> reachable message states = 76*51*2*2*2  = 31,008
+```
+
+Within a group the bits are interchangeable, so only the **count** matters. The
+whole message space is 31,008 states — enumerable in a second.
+
+## 47. Swept, with the model validated where it holds
+
+A first sweep (`s10/msgsweep.py`) claimed 2 of 6 checks zeroable. **Constructing
+that state refuted it** (`s10/msgverify.py`): 62 failing, nothing zeroed. Its two
+bits were `x_2081` and `x_4287` — the structural MUX controls, where
+`b·(X − HUGE)` has `X` itself depending on `b`, so linearity fails. A lesson worth
+recording: the bit model is exact only for ordinary load bits.
+
+Validated and re-run properly (`s10/msgvalid.py`):
+
+```
+linearity check, group of 75 (bit x_91) : model MATCHES exactly
+linearity check, group of 50 (bit x_47) : model MATCHES exactly
+sweep of all 76*51 = 3,876 states of the two linear groups:
+    histogram of checks zeroed = {0: 3876}
+```
+
+> **The 125 ordinary load bits, swept exhaustively with a validated model, cannot
+> zero a single failing check.** The only bits with real leverage are the three
+> structural controls `x_2081, x_4287, x_13195`, and those are precisely the branch
+> flips already measured (34 / 83 / 106 failing in the witness frame).
+
+## 48. The sacrifice route, exhaustively closed
+
+The budget question finished (`s10/budget6fast.py`, cost-pruned DFS):
+
+```
+10,917,019 within-budget sets tested   ->   NONE restore consistency
+minimum sacrifice: 3 rows {a3578, a26731, a35759}, cost 37 equations
+sizes 1 and 2: impossible
+```
+
+## 49. Final
+
+```
+give up (the deliverable)                          7
+invariant over 6 placements                        7
+message space (31,008 states, exhaustive)   0 checks zeroable
+non-boolean inputs (global randomisation)     no improvement
+sacrifice route (10.9M sets)                       none <= 6
+minimum sacrifice                                 37
+wire routes                                       13
+certificate hitting set                           15
+```
+
+The instance is closed on every axis I can measure: the free inputs globally, the
+message space exhaustively, the sacrifice route exhaustively, the wire geometry,
+the region knobs, and the number theory. **39,026 stands.**

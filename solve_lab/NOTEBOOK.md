@@ -1434,3 +1434,33 @@ DFS. Too few rows is impossible and cheap enough is unreachable -- the sacrifice
 closed on both axes.
 
 **Deliverable unchanged at 39,026.**
+
+## Session 10, part 11 — the message space exhaustively closed
+
+`randomize.py`: every rigidity result so far was a linearisation AT ONE POINT. Randomising
+the non-boolean free inputs (1/10/100/1000/ALL 6,117) gives 37/148/1084/5219/7355 failing;
+best over all randomisations = 37 = base. The four core checks 7930, 29539, 35759, 35760
+fail from EVERY starting point. Residual pinned GLOBALLY against the non-boolean inputs.
+
+`bitgroups.py` — the big one. Exact AD gradient of every failing check w.r.t. all 1,156
+boolean free inputs: only 128 move any failing check, and they carry just 5 distinct
+signature vectors with multiplicities 75, 50, 1, 1, 1. Within a group bits are
+interchangeable so only the COUNT matters => reachable message states = 76*51*2*2*2 =
+31,008, NOT 2^256. The "256-bit codeword" earlier sessions treated as a combinatorial wall
+is a 5-dimensional object enumerable in a second.
+
+`msgsweep.py` claimed 2 of 6 checks zeroable; `msgverify.py` REFUTED it by construction
+(62 failing, nothing zeroed) -- its two bits were x_2081 and x_4287, the structural MUX
+controls, where b*(X-HUGE) has X itself depending on b so the linear model is invalid.
+Lesson: the bit model is exact only for ordinary load bits.
+
+`msgvalid.py`: linearity VALIDATED exactly on both large groups (test bits x_91 and x_47 --
+model matches every check). Sweeping all 76*51 = 3,876 states of the two linear groups gives
+histogram {0: 3876}: **the 125 ordinary load bits cannot zero a single failing check.** The
+only bits with leverage are the 3 structural controls x_2081, x_4287, x_13195, which are the
+branch flips already measured at 34 / 83 / 106 failing in the witness frame.
+
+`budget6fast.py` finished: 10,917,019 within-budget sets tested, NONE restore consistency.
+Minimum sacrifice 3 rows {a3578, a26731, a35759} at cost 37 equations; sizes 1, 2 impossible.
+
+**Deliverable unchanged at 39,026.**

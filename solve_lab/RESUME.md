@@ -372,6 +372,37 @@ rows costing 37; wire routes 13; certificate hitting set 15; kernel deformation 
 knobs beyond the nine: none; boolean flips (1,156, witness frame) >= 7; cyclic freedom (40
 params) real but inert; number theory: no structure.
 
+### PART X: the message space, EXHAUSTIVELY CLOSED
+
+**Global rigidity, tested bluntly** (`s10/randomize.py`). Randomising the non-boolean free
+inputs (1 / 10 / 100 / 1000 / ALL 6,117) gives 37 / 148 / 1084 / 5219 / 7355 failing; best
+over every randomisation = 37 = the base. **The four core checks 7930, 29539, 35759, 35760
+fail from EVERY starting point.** The residual is pinned against the non-boolean inputs
+GLOBALLY, not merely locally.
+
+**The "256-bit codeword" collapses to 5 dimensions** (`s10/bitgroups.py`). Exact AD gradient
+of every failing check w.r.t. all 1,156 boolean free inputs:
+
+    boolean inputs moving ANY failing check : 128 (not 256)
+    distinct signature vectors              : 5
+    multiplicities                          : 75, 50, 1, 1, 1
+    => reachable message states = 76*51*2*2*2 = 31,008
+
+Within a group bits are interchangeable, so only the COUNT matters. Enumerable in a second.
+
+**Swept, with the model validated where it holds.** A first sweep claimed 2 of 6 zeroable;
+CONSTRUCTING it refuted that (`msgverify.py`: 62 failing, nothing zeroed) -- its two bits
+were x_2081 and x_4287, the structural MUX controls, where b*(X-HUGE) has X depending on b
+so linearity fails. Re-run properly (`msgvalid.py`): linearity VALIDATED exactly on both
+large groups (bits x_91, x_47); sweeping all 76*51 = 3,876 states gives histogram
+**{0: 3876}** -- the 125 ordinary load bits cannot zero a SINGLE failing check. The only
+bits with leverage are the 3 structural controls x_2081, x_4287, x_13195 = the branch flips
+already measured (34 / 83 / 106 failing in the witness frame).
+
+**Sacrifice route exhaustively closed** (`budget6fast.py`): 10,917,019 within-budget sets
+tested, NONE restore consistency; minimum sacrifice is 3 rows {a3578, a26731, a35759} at
+cost 37; sizes 1 and 2 impossible.
+
 ### Do NOT redo
 - The MUX branch (`x_4287 = 1`). It **does** zero all seven residual atoms simultaneously
   (`s10/muxzero.py`) but leaves 8 collateral atoms -> 44 failing; best repair 38,991. Its own

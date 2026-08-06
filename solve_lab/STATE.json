@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1785993795,
+ "updated_unix": 1785994148,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -304,6 +304,13 @@
    "reformulation": "consistent after dropping S <=> t in colspace(Y[:,S]) where Y is a basis of leftnull(A) (dim 49) and t = Y.b. Each test is a 49x|S| rank check, not a 128x80 elimination.",
    "minimum_sacrifice": "EXACTLY 3 rows; sizes 1 and 2 impossible. Minimum-size set {a3578, a26731, a35759} = setter load pin (price 14) + mirror (16) + a currently-failing check (7). Union = 37 equations => score 38,996, exactly the forward-eval floor.",
    "budget6": "exhausted over all 46 rows priced <=6 with cost pruning: sizes 1-5 give 46/1,081/16,261/179,446/1,550,200 within-budget sets, ALL negative; size 6 by cost-pruned DFS. Too few rows impossible, cheap enough unreachable."
+  },
+  "part10_message": {
+   "global_rigidity": "randomising non-boolean free inputs (1/10/100/1000/ALL 6,117) gives 37/148/1084/5219/7355 failing; best = 37 = base. The four core checks fail from EVERY starting point. Pinned globally, not just locally.",
+   "message_collapse": "only 128 of 1,156 boolean free inputs move any failing check, with just 5 distinct signature vectors (multiplicities 75,50,1,1,1). Within a group bits are interchangeable so only the COUNT matters => 76*51*2*2*2 = 31,008 reachable message states, NOT 2^256.",
+   "model_correction": "a first sweep claimed 2 of 6 zeroable; constructing it REFUTED that (62 failing, nothing zeroed) -- its bits were x_2081/x_4287, structural MUX controls where b*(X-HUGE) has X depending on b. The bit model is exact ONLY for ordinary load bits.",
+   "exhaustive_result": "linearity validated exactly on both large groups (x_91, x_47). Sweeping all 3,876 states of the two linear groups: histogram {0: 3876} -- the 125 ordinary load bits cannot zero a SINGLE failing check. Only leverage is the 3 structural controls x_2081, x_4287, x_13195 = branch flips already measured (34/83/106).",
+   "sacrifice_closed": "budget6fast.py: 10,917,019 within-budget sets tested, NONE restore consistency. Minimum sacrifice 3 rows {a3578,a26731,a35759} cost 37; sizes 1,2 impossible."
   }
  }
 }
