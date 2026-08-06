@@ -166,6 +166,33 @@ a second-order search, not a linear one.
   stays 0 while inconsistent rows go 11 → 73 → 113. Rows and columns grow in lockstep;
   activation buys knobs and constraints at the same rate.
 
+### Session 11 (part 6) — THE OBSTRUCTION IS NOT COMBINATORIAL
+This overturns the framing of parts 2–5. They priced everything in terms of atoms
+*allowed* nonzero. The prior question — is there **any** atom vector satisfying all
+39,033 equations with the residual nonzero? — has answer **yes**.
+* **3,234 equations contain exactly one atom**, forcing that atom to zero. None of the
+  seven residual atoms is among them. The other 35,798 equations are combinations of
+  3–24 atoms, so atoms in them can cancel.
+* **Compensation closure** (`s10/closure_atom.py`, `s10/kerseed.py`): propagating "an
+  atom forced nonzero can be paid for by another atom in the same equation" reaches a
+  fixed point of **500 equations × 529 atoms, rank 500, kernel dimension 29 — and 24 of
+  the 29 basis vectors touch the seed.** No single-atom equation blocks any active atom.
+* **Restricted to settable atoms** (only 22 of 529 aren't): kernel still dimension 8, all
+  touching the seed; the sparsest is **69 atoms touching only 68 equations**, every one
+  settable (47 with a free variable, 22 via a p-handle), rational kernel dimension 1.
+  Realising it would satisfy the **entire instance**.
+* **Why it fails, and not for the reason expected**: the 69 atoms have only 48 setting
+  variables → 21 collisions. In the canonical frame all 21 violate `z_a·d_b = z_b·d_a`.
+  But each pair's shared variable is defined by an atom *already in the support*, so
+  detaching costs nothing and breaks the collision — and then the 42 detached variables
+  touch 39 atoms outside the support, putting **110 equations** at risk. Closing over
+  BOTH relations (equation-sharing for compensation, variable-sharing for realisability)
+  blows up: 46 → 2,417 → **12,367 atoms / 13,746 equations**, ratio negative, still growing.
+* **Consequence**: the instance is not hard because its equations cannot be satisfied
+  with a nonzero residual — they can. It is hard because the **atom map's image** misses
+  every kernel vector, and the coupling enforcing that closes over the whole instance.
+  Every price in parts 2–5 is a price for *one frame*, which is why no frame beat another.
+
 ### Next actions
 1. The cluster must be solved **whole** — members cost 10–15 equations each, so no
    partial fix competes with 7. Attack the single obstruction functional of the

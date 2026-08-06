@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1786028512,
+ "updated_unix": 1786030498,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -424,6 +424,14 @@
    "congruence_1": "A0 + 7376877*A6 == C0 (mod p): needs x_7068 to move mod p, only a29539 breaks; cheapest genuine repair x_14853 at 20 equations (the x_7068 'zero cost' hit is an artefact -- the Newton correction returns it to its own residue)",
    "congruence_2": "A1 == A1_0 (mod p): removed by detaching x_4432, price a37887 = 1 equation, cancelling the gain exactly since a37887 = Q^2 with Q built from a22231",
    "bulk_activation": "N=0/10/30 dead inputs activated -> closure 1655x707 / 1715x741 / 1786x788, rank ALWAYS equal to the column count, kernel always 0, inconsistent rows 11/73/113. Rows and columns grow in lockstep; activation buys knobs and constraints at the same rate."
+  },
+  "atom_level_finding": {
+   "headline": "the combinatorial obstruction does not exist at the atom level -- the barrier is the atom map's image",
+   "single_atom_equations": "3,234 equations contain exactly one atom, forcing it to zero; NONE of the seven residual atoms is among them",
+   "compensation_closure": "500 equations x 529 atoms, rank 500, kernel dimension 29, and 24 of the 29 basis vectors touch the seed",
+   "settable_restriction": "only 22 of 529 atoms are unsettable; intersecting the kernel with z=0 there still leaves dimension 8, all touching the seed; sparsest vector has support 69 atoms touching only 68 equations, all settable (47 direct, 22 p-handle), rational kernel dimension 1",
+   "why_not_realisable": "69 atoms have only 48 setting variables -> 21 collisions; in the canonical frame all 21 fail z_a*d_b == z_b*d_a; in the fully detached frame the collisions break but the 42 detached variables touch 39 outside atoms putting 110 equations at risk, and closing over BOTH relations (equation-sharing and variable-sharing) blows up to 12,367 atoms / 13,746 equations with a negative ratio",
+   "consequence": "every price in Parts XII-XV is a price for ONE frame; the coupling that blocks realisation closes over the whole instance"
   }
  }
 }

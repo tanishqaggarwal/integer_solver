@@ -1789,3 +1789,111 @@ bulk activation                            kernel stays 0, inconsistency grows
 ```
 
 Nothing in the instance is worth more than it costs. **39,026 / 39,033.**
+
+---
+
+# Part XVI — the obstruction is not combinatorial; it is the atom map
+
+Parts XII–XV priced everything in terms of atoms *allowed* to be nonzero. This
+part asks the prior question: is there **any** atom vector satisfying all 39,033
+equations with the residual nonzero? The answer is yes — which moves the entire
+obstruction out of combinatorics and into realisability.
+
+## 82. The raw instance, and the forced core
+
+`EQUATIONS.txt` writes each equation as `m*(sum c_i a_i)` or its square, with atoms
+like `x-1`, `x-0`, `x*x-x`, and gadget atoms. Measured (`s10/raw.py`):
+
+```
+39,033 equations, 42,267 atoms, 38,748 variables
+squared equations                      10,478
+equations with exactly ONE atom         3,234   <- their atom is FORCED to zero
+equations with 3..24 atoms             35,798   <- combinations, so atoms may cancel
+pure "x = 0" atoms 1,690 ;  "x = const" atoms 1,105 ;  boolean atoms 6,050
+```
+
+Equation indexing was verified against the checker: `L.failing_eqs` returns exactly
+`[12231, 12270, 12350, 14584, 18673, 22044, 29125]`. **None of the seven residual
+atoms is in a single-atom equation**, so none is forced to zero.
+
+## 83. The compensation closure has a kernel that touches the seed
+
+An atom forced nonzero can be paid for by another atom in the same equation, whose
+own equations can be paid for in turn. Propagating that (`s10/closure_atom.py`,
+`s10/kerseed.py`):
+
+```
+round 0: 7 atoms, 12 equations, 26 compensators available
+...
+fixed point: 500 equations x 529 atoms   -> rank 500, KERNEL DIMENSION 29
+single-atom equations blocking an active atom: 0
+kernel basis vectors touching the seed: 24 of 29
+```
+
+> **There exist atom vectors satisfying every one of those equations with the seven
+> residual atoms nonzero.** The combinatorial obstruction that Parts XII–XV priced
+> does not exist at the atom level. What Parts XII–XV actually measured is the cost
+> of realising such a vector under a *fixed* frame.
+
+## 84. Restricted to settable atoms it is still there, and it is small
+
+Call an atom *settable* if it has a free variable or a p-absorbing free handle.
+Only 22 of the 529 are not. Intersecting the kernel with `{z = 0 on the
+non-settable atoms}` (`s10/kersettable.py`, `s10/sparsify.py`):
+
+```
+augmented system 522 x 529 : rank 521, kernel dimension 8, all 8 touch the seed
+sparsest seed-touching vector: support 69 atoms, touching only 68 equations
+   47 settable directly (a free variable), 22 through a p-handle, 0 unsettable
+   contains six of the seven: 22229, 22230, 35758, 35759, 35760, 35761
+rational kernel on that support: dimension 1  (values fixed up to one scale)
+```
+
+> A 69-atom vector, every atom of it movable, whose 68 equations are all of its
+> equations. **Realising it would satisfy the entire instance.**
+
+## 85. Why it is not realisable — and it is not the reason I expected
+
+The 69 atoms have only 48 distinct setting variables: **21 collisions**, each a
+gadget pair sharing a variable. In the canonical frame a collision demands
+`z_a*d_b == z_b*d_a` exactly, and all 21 fail (`s10/collide.py`).
+
+But a pair's shared variable is *defined by an atom already in the support*, so
+detaching it costs nothing and gives each atom its own parameter. In that fully
+detached frame (`s10/detachall.py`) the residual is exactly six atoms, all inside
+the support — and the real price appears:
+
+```
+42 variables detached; they also occur in 39 atoms OUTSIDE the support
+those atoms live in 120 equations, only 10 of which are already inside
+NET equations at risk: 110
+```
+
+Adding those atoms and closing over **both** relations — sharing an equation
+(compensation) and sharing a detached variable (realisability) — blows up
+(`s10/bothclosure.py`):
+
+```
+round 0:      46 atoms
+round 6:   2,417
+round 10: 12,367 atoms, 13,746 equations   -> atoms - equations = -1,379
+```
+
+The ratio goes *negative* and the closure keeps growing toward the whole instance,
+where it finally turns positive again only because of the 3,234 forced atoms.
+
+## 86. What this changes
+
+```
+combinatorial obstruction at the atom level      DOES NOT EXIST (kernel dim 29, 24 touch the seed)
+smallest fully-settable seed-touching vector     69 atoms / 68 equations
+its realisation in the canonical frame           21 collisions, all inconsistent
+its realisation in the detached frame            costs 110 equations, and closing that costs more
+```
+
+> The instance is not hard because its equations cannot be satisfied with a nonzero
+> residual. They can. It is hard because the **atom map's image** — which atom
+> vectors an actual assignment can produce — misses every kernel vector, and the
+> coupling that enforces this closes over the whole instance rather than any local
+> neighbourhood. Every price in Parts XII–XV is a price for *one* frame; this is why
+> no frame beat the others.
