@@ -53,6 +53,30 @@ free, so congruence (1) is only mod p.
   **If atom 7930 can be closed while `x_28730` moves, the score is 39,027 immediately.**
 * (1) is the core congruence on `D mod p`.
 
+### Global handle census (session 10) — why both congruences are rigid
+`s10/handles.py` over all 42,267 atoms: **1,249** free inputs occur in exactly one atom.
+Of those handles **1,240 have granularity exactly `p`**, 9 are dormant/rigid, and
+**zero** are unquantised or have any other granularity.
+
+> Every solo handle in the instance is exactly p-quantised, so solo-handle moves shift any
+> atom only by multiples of p and **every residue mod p is invariant under them**. None of
+> the 12 residual equations contains an atom with a free (Z) handle.
+
+That is the trapdoor's construction verified exhaustively, not inferred from failed searches.
+
+### Beam search under the strong repair rule — and the criterion that matters
+Strong repair (effective-linear solve over ALL variables of a broken atom), beam 200,
+depth 10, seed forbidden as a repair choice (`s10/beam7930.py`, `s10/beamD.py`).
+> **CRITERION: collateral empty AND the residue actually moved.** "Collateral closed" alone
+> is not enough — `lib.ripple` recomputes gate outputs and will silently restore the seed.
+> `x_2099 / x_37158 / x_22542 += 1` all report a clean close that is an **artefact**
+> (ripple rebuilt `x_2099` from definer 29090; `D mod p` and the score are unchanged).
+
+Real results: `x_28730 += k*p` closes (via `x_7927` then `x_11052`) but leaves `K2` fixed;
+every `d` with `d % p != 0` on either congruence fails, the collateral walking a ladder
+(11625 -> 11624 -> 11621 -> 30238 -> 24948 ... ; 27314 -> 29539/40826 -> 19482 -> 19480 ...).
+So Session 9's verdict survives the stronger rule — only the *evidence* in §3 was wrong.
+
 ### Do NOT redo
 - The MUX branch (`x_4287 = 1`). It **does** zero all seven residual atoms simultaneously
   (`s10/muxzero.py`) but leaves 8 collateral atoms -> 44 failing; best repair 38,991. Its own

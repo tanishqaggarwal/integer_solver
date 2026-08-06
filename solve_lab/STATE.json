@@ -66,9 +66,11 @@
    "flip_search.py"
   ],
   "session9_writeup": "solve_lab/S9_STRUCTURE.md",
-  "reduced_problem": "solve_lab/REDUCED_PROBLEM.md"
+  "reduced_problem": "solve_lab/REDUCED_PROBLEM.md",
+  "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
+  "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1785979363,
+ "updated_unix": 1785979807,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -251,6 +253,8 @@
   "methodological_warning": "the s9 ripple repairs an atom only through its canonical output variable with exact division; it MISSES handle-based repairs. 29539/40826 looked like hard breaks and are not. Every 'chain is FORCED' verdict from session 9 (14.4, chase.py, solve_branch.py) rests on that weaker rule and should be re-audited.",
   "mux_branch_equation_space": "x_4287=1 zeroes ALL SEVEN residual atoms simultaneously (x_9118 drives x_2099, x_8731 drives x_19964) but leaves 8 collateral atoms -> 44 failing (38,989); best repair 38,991. Its own load pins have only p-quantised handles (x_27676=p*x_6504, x_7574=p*x_26658) so x_31861,x_14865 stay pinned mod p: 4 mod-p conditions vs 2 free residues, same deficit of 2.",
   "accounting_rule": "2 congruences -> 39,026; 1 -> 39,027; 0 -> 39,033 full solve. No partial credit between 39,027 and complete.",
-  "tools": "s10/{resid,subsystem,pins,clean,close,chain,mux,muxbuild,muxstage,muxstage2,tools,sens,lattice,lattice2,lattice3,construct,isolate,shiftD,repairD,chase2,muxknobs,dormant,muxzero,muxrepair,atom7930}.py"
+  "tools": "s10/{resid,subsystem,pins,clean,close,chain,mux,muxbuild,muxstage,muxstage2,tools,sens,lattice,lattice2,lattice3,construct,isolate,shiftD,repairD,chase2,muxknobs,dormant,muxzero,muxrepair,atom7930}.py",
+  "handle_census": "GLOBAL, all 42,267 atoms (s10/handles.py): 1,249 free inputs occur in exactly one atom. Of those handles 1,240 have granularity EXACTLY p, 9 are dormant/rigid, and ZERO are unquantised or have any other granularity. So solo-handle moves shift any atom only by multiples of p => every residue mod p is invariant under them. That is the structural reason both congruences are rigid, verified exhaustively rather than inferred from failed searches. None of the 12 residual equations contains an atom with a free (Z) handle.",
+  "beam_search": "Strong repair (effective-linear solve over ALL vars of a broken atom), beam 200, depth 10, seed forbidden as a repair choice. CRITERION: collateral empty AND the residue actually moved -- \"collateral closed\" alone is not enough because lib.ripple recomputes gate outputs and will silently restore the seed. Results: x_28730 += k*p closes (via x_7927 then x_11052) but K2 is unchanged; x_28730 += 1,-1,2,7376877,p+1,12846437 never close (ladder 11625->11624->11621->30238->24948->...); x_7068 += +-1,+12846437 and the x_7068+x_14853 joint move never close (ladder 27314->29539/40826->18686/39719->19482->19480->...); x_2099/x_37158/x_22542 += 1 report a close but it is an ARTEFACT (ripple restored x_2099 from definer 29090; D mod p and the score are identical to base). So session 9s verdict survives the stronger rule."
  }
 }

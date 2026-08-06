@@ -1,0 +1,5 @@
+[checker] loaded 39033 equations in 12.3s
+[checker] assignment=best/new_instance_partial_39026.json
+[checker] satisfied 39026/39033  (7 failing)  eval=0.1s
+[checker] first 7 failing line indices: [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+RESULT: FAIL

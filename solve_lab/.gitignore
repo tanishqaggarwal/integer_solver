@@ -57,3 +57,5 @@ s10/muxzero.json
 s10/muxrepair.json
 s10/cand_*.json
 s10/congr_*.json
+s10/freed*.json
+s10/handles.json
