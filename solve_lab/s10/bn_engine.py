@@ -21,8 +21,7 @@ _orig=ad.fwd
 def fwdb_rounds(w, rounds=1):
     return B.fwdb(w, BG, 1)
 ad.fwd=fwdb_rounds
-engine.FORBID=set()
-v2,cur=engine.run(v, f'bn_{u}_{x}', iters=40, budget=900)
+v2,cur=engine.run(v, f'bn_{u}_{x}', iters=40, budget=700)
 ad.fwd=_orig
 print('FINAL',cur[0],flush=True)
 if cur[0]>39026:
