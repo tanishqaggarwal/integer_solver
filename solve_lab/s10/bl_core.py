@@ -63,7 +63,7 @@ def pot(v):
     return (s, -len(nz), -sum(abs(av[a]).bit_length() for a in nz)), av, nz
 
 
-def cheap(v0, flips, F, rounds=6):
+def cheap(v0, flips, F, rounds=4):
     """flip the given vars, forward-solve in frame F, return ((score,-nz,-bits), v)."""
     v = list(v0)
     for u in flips: v[u] = 1 - v[u]

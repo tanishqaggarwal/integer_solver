@@ -34,6 +34,32 @@ for src, F in (('mod9118_0.json', CANON), (os.path.join(LAB,'best','new_instance
         t = T.solve_lin(a, x, v)
         if t is not None: v[x] = t
     F.fwd(v, rounds=8); p, av, nz = rep(v, ' (1,1)+pwires+loads')
+    # branch (1,1) switches ON three x_21279-gated quantisation checks:
+    #   a19088 : x_21279*x_9106  = 13523997*x_9629 = 13523997*P*x_950
+    #   a22233 : 6122989*x_21279*x_2239 = x_23754  = P*x_6947
+    #   a22235 : x_21279*x_31731 = -x_35619        = -P*x_33168
+    # zero the free multipliers so each collapses to "the sum wire must be 0"
+    for u in (950, 6947, 33168):
+        if u in F.FREE: v[u] = 0
+    F.fwd(v, rounds=8); p, av, nz = rep(v, ' (1,1)+zero gated multipliers')
+    for a in (19088, 22233, 22235):
+        for u in sorted(L.avars[a]):
+            t = T.solve_lin(a, u, v)
+            if t is None or t == v[u]: continue
+            tr = list(v); tr[u] = t; F.fwd(tr, rounds=8)
+            p2, av2, nz2 = pot(tr)
+            if p2 > p: v, p, av, nz = tr, p2, av2, nz2
+            d = F.definer.get(u)
+            if d is None: continue
+            vv2 = list(v); vv2[u] = t
+            for z in sorted(L.avars[d]):
+                if z == u or z not in F.FREE: continue
+                t2 = T.solve_lin(d, z, vv2)
+                if t2 is None: continue
+                tr = list(v); tr[z] = t2; F.fwd(tr, rounds=8)
+                p2, av2, nz2 = pot(tr)
+                if p2 > p: v, p, av, nz = tr, p2, av2, nz2
+    rep(v, ' (1,1)+targeted a19088/a22233/a22235')
     T.save(v, os.path.join(HERE, f'bl_b11_{"f2" if F is F2 else "canon"}_seed.json'))
     t0 = time.time()
     cur, vv, nz2 = engine(v, F, iters=80, budget=600, verbose=True, tag='b11')
