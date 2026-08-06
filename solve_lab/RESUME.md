@@ -34,7 +34,29 @@ Second branch, independently verified: `s11/data/finish3_named.json` -> **39,018
    score 39,018) `x15298 = 0` and all three wall checks are vacuous.  That branch's own defect
    is three atoms / fifteen equations needing `8640431*p | x12000`, `p | x12926`, `p | x21364`.
 
-### NEXT STEP (see `S11_PART4_LOCAL.md` Parts XII-XIII for the full chain)
+### NEWEST: the barrier is FOUR numbers in GF(p) — read `S11_PART5_MODP.md`
+Mod p every handle dies (they are all `free * wire`, wire = p), so the instance is a plain GF(p)
+circuit that forward-evaluates **in 0.08 s** (`s11/gmp1.py`).  From the best inputs, every gate is
+satisfied and exactly SIX checks fail; two of them (a35759, a35760) are cleared for free by x9118
+and x8731 with zero collateral.  The barrier is the other four: a7930, a29539, a40826, a41512.
+
+Established this session, all by exact computation over the WHOLE instance:
+* no continuous move reaches them — 1,726 live free inputs (full response matrix cached in
+  `s11/data/resp_modp.pkl`) plus 725 gate-purchased knobs, still inconsistent;
+* the message bits are frozen against continuous motion — each bit is the *only* knob touching
+  its own load-pin row, so any system containing the pins forces its coefficient to 0;
+* bits are non-additive, no single flip improves the count, and exactly 256 of the 1,156 free
+  bits are real (the other 900 are provably inert);
+* 7 failing equations is optimal at this base over all continuous knobs + gate purchases + drops
+  (`s11/gmp33.py`), so the checkpoint is the best the continuous structure permits.
+
+**Next attempt: the 256 discrete bits.**  0.08 s per exact evaluation means ~40,000 patterns an
+hour.  The three channels are U*V (checkpoint, 4 failing), (1-U)*V (39,018 state, 3 failing) and
+U*(1-V) (turn x2081 off — reachable, never explored).
+
+---
+
+### Earlier step (see `S11_PART4_LOCAL.md` Parts XII-XIII for the full chain)
 `localopt2.py` has already priced the x5647 branch: drop 0-6 all infeasible, and every
 ripple-response certificate at 3 hops contains a26719, so that branch is ~11 — worse than 7.
 

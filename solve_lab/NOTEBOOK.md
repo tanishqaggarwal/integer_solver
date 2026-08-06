@@ -1714,3 +1714,23 @@ the p-quantised handles absorb exactly — a clean two-stage route to a full sol
   is the live MUX channel x15298 = U*V.  In the x5647 channel x15298 = 0 and they are vacuous —
   which is why the 39,018 branch is worth re-pricing with these tools.
 - Best reached along the new routes: 39,013 and 38,999.  Deliverable unchanged at 39,026.
+
+## Session 11, Parts XIV-XVI — the mod-p reduction
+
+- Mod p every handle vanishes (all are `free * wire`, wire = p), so the instance is a plain GF(p)
+  circuit.  A global forward evaluation costs 0.08 s, satisfies all 31,475 gates, and leaves
+  exactly SIX failing checks.  Two clear for free (x9118 -> a35759, x8731 -> a35760, no
+  collateral).  The barrier is four GF(p) numbers: a7930, a29539, a40826, a41512.
+- Cached the exact response of every free input on every check: 1,726 live knobs.  The maximal
+  continuous system (2,595 x 1,726) has full column rank and is INCONSISTENT.
+- Bits are frozen continuously: each message bit is the only knob touching its own load-pin row.
+  Removing bits gives readable certificates; the smallest has 8 rows and exposes a deficit of 1.
+- Bits are non-additive (pairs disagree with the sum of singles on x1308), no single flip
+  improves, and exactly 256 of the 1,156 free bits are real -- the other 900 change nothing.
+- Breaking a gate buys a knob at a price of |its equations|; catalogued the cheap ones
+  (a36244 costs 4 and reaches the deficit rows).  One knob is not enough (the residual must land
+  in the enlarged column space, a 559-dimensional condition), and not even all 725 cheap-gate
+  knobs together close it.
+- 7 failing equations is optimal at this base over continuous knobs + gate purchases + drops.
+- Channel algebra completed: U = OR(x8599,x21839), V = OR(x7304,x25956); x2081 feeds V and
+  x24601 feeds U; the third channel U*(1-V) is reachable and was never explored.

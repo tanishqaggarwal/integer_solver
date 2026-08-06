@@ -7,7 +7,7 @@
  "n_eqs_satisfied_by_partial": 39026,
  "best_score": 39026,
  "best_partial": "solve_lab/best/new_instance_partial_39026.json",
- "active_method": "s11 part X-XI: exact local reduction (local1/localopt2). Checkpoint optimum proved =7; obstruction = p|x9118, p|x8731, p|x28730; all three cleared by fix2/sw6; defect relocates to the x7068 copy network and walls at a19297/a19299/a30984 (no free variable, live MUX channel x15298).",
+ "active_method": "s11 parts XIV-XVI: mod-p reduction. The instance is a GF(p) circuit evaluating in 0.08s; the whole barrier is four GF(p) numbers (a7930,a29539,a40826,a41512). No continuous move reaches them (1726 free inputs + 725 gate knobs). Bits frozen continuously, non-additive discretely; 256 real of 1156. 7 proved optimal at this base.",
  "structure": {
   "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
   "n_distinct_atoms": 46275,
@@ -351,5 +351,35 @@
   ],
   "wall_reason": "no free variable; content is the live MUX channel x15298 = U*V",
   "wall_vacuous_in_channel": "x5647 (x15298 = 0), see s11/data/finish3_named.json score 39018"
+ },
+ "notes_session11_modp": {
+  "failing_checks_modp": [
+   7930,
+   29539,
+   35759,
+   35760,
+   40826,
+   41512
+  ],
+  "freely_cleared": {
+   "a35759": "x9118",
+   "a35760": "x8731"
+  },
+  "barrier": [
+   7930,
+   29539,
+   40826,
+   41512
+  ],
+  "continuous_knobs": 1726,
+  "gate_knobs_tested": 725,
+  "real_bits": 256,
+  "inert_bits": 900,
+  "forward_eval_seconds": 0.08,
+  "channels": {
+   "UV": "checkpoint, 4 failing",
+   "(1-U)V": "39018 state, 3 failing",
+   "U(1-V)": "turn x2081 off, unexplored"
+  }
  }
 }

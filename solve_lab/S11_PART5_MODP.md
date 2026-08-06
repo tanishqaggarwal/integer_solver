@@ -206,3 +206,39 @@ The barrier is now completely characterised, in the layer where it lives:
 That is a complete map of the obstruction rather than another failed search, and it is what the
 next attempt should be aimed at: the four numbers, and the discrete bit moves that are the only
 thing left that can touch them.
+
+## 15. Clusters, and why 7 is where the checkpoint sits
+
+The joint search in §13 initially missed the checkpoint's own trick.  Its five broken gates and
+two broken checks do not cost 5x10 equations — they all live in the *same seven* equations, so
+the price is 7.  Generalising (`s11/gmp31.py`, `gmp32.py`): a **cluster** is a set of atoms whose
+equation sets are contained in one small union, so all of them can be broken for |union|.
+There are 5.3 million clusters of cost <= 6, far too many to test one by one — but §12 already
+rules out closure by cheap-gate knobs, so only the *drops* can matter.
+
+`s11/gmp33.py` therefore tests the promising configurations directly.  The two cheap members of
+the obstruction are a40826 and a41512, in **one equation each**, so a state failing only those
+would score 39,031:
+
+    168 configurations of cost < 7 (up to 2 broken gates from {a36244, a36245, a36246, a34869}
+    and up to 5 dropped checks from {a40826, a41512, a25676, a42245, a36185, a40812, a37662,
+    a40623, a40562, a33792})
+
+    none of them closes the system.
+
+So **7 is optimal at this base** — now as a global statement over all 1,470 continuous knobs plus
+gate purchases plus drops, rather than the neighbourhood statement of Part X.  The checkpoint is
+not merely a good local answer; it is the best the continuous structure permits from here.
+
+## 16. Where the next attempt has to go
+
+Everything continuous is exhausted, and exhausted with proof.  What remains is exactly one thing:
+
+**the 256 real message bits, moving discretely.**
+
+The map is drawn: they are frozen against continuous motion (each is the only knob on its own
+pin), they are non-additive, no single flip helps, 900 of the 1,156 free bits are provably inert,
+and the three MUX channels are U*V (checkpoint, 4 failing checks), (1-U)*V (39,018 state, 3
+failing checks) and U*(1-V) (reachable by turning x2081 off, never explored).  A mod-p forward
+evaluation costs 0.08 s, so roughly 40,000 bit patterns per hour can be scored exactly — which is
+the tool this needs, and it did not exist before today.
