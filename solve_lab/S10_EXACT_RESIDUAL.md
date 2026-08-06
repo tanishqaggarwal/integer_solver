@@ -2007,3 +2007,107 @@ Also newly open: **boolean atoms need not be zero.** `x² − x = x(x−1)` has 
 3,484 of them, 1,156 on free inputs, and the placement search found blocks with
 **negative** deficiency (e.g. 36 atoms in 32 equations). The two blocks it tested were
 unrealisable for local reasons; the space was not swept.
+
+---
+
+# Part XVIII — the circuit decoded, and a false infeasibility claim caught
+
+## 94. The cones are boolean MUX networks, not one-way computations
+
+Exact algebra on the two residual cones (`s10/cl_*`) shows every gate is `x·y`,
+`1−x`, `x+y` or `x+y−xy`:
+
+```
+cone(x_27522): 257 vars / 38 free, gate kinds {LIN 115, BILIN 104}
+   top is a literal 3-way mux on selectors s1 = x_28940, s2 = x_23047:
+   x_27522 = s1*s2*x_19799 + s1*(1-s2)*x_36462 + s2*(1-s1)*x_8239
+cone(x_1308):  1271 vars / 165 free, {LIN 683, BILIN 423} -- same construction
+cone(x_25442): 66 / 11
+```
+
+At the canonical frame all 37 boolean free inputs of the first cone are 0 except
+`x_2081 = 1`, so the mux **collapses** and the residual becomes a set of relations
+between *free inputs*:
+
+```
+a21617  <=>  x_24548 == x_14623 (mod p)
+a7930   <=>  x_24548 == x_12553 (mod p)      [in the canonical frame]
+a29539  <=>  x_1308(x_6418) == x_14853 (mod p)
+```
+
+The 296-bit constants are **broadcast classes**: K1 on 57 variables (5 free), K2 on
+53 (3 free). Cluster 2 (`a2423, a26731, a33929`) turns out to be *the distribution
+network for those constants*, which is why breaking it buys nothing.
+
+## 95. Two zero-net swaps, and a new state with the cluster closed exactly
+
+```
+whole K1 class shifted by one delta   39,009 (+-0)   a21617+a37662 (11) fixed, a31672 (11) broken
+x_6418 shifted                        39,009 (+-0)   a29539+a40826 (13) fixed, a3576  (13) broken
+both together                         39,009         a21617 = a29539 = 0 EXACTLY
+                                                     residual moves to a3576+a31672, 24 -> 24, overlap 0
+```
+
+Verified by the checker (`s10/cl_cluster_closed.json` → 39009/39033). **Both are
+cheaper than the 20 recorded in §79 for either congruence** — this supersedes that
+price. The terminal blockers are two boolean-gated constant pins:
+
+```
+a3576  = x_2081 *(x_6418  - C4) - 15804267*x_26777    13 eqs   pins x_6418  == C4 (mod p)
+a31672 = x_24601*(x_33462 - K1) - x_36358             11 eqs   pins x_33462 == K1 (mod p)
+```
+
+Killing their selectors costs 70 and 62 respectively. The residual behaves as a
+conserved quantity: it can be moved around the instance but not reduced — 24 in,
+24 out, disjoint.
+
+## 96. The obstruction functional depends on only two variables
+
+Reverse-mode AD of `Σ y_a·a_a` for the smallest left-null certificate
+(support 11: `a1436, a3576, a3578, a7930, a7932, a15456, a15462, a21617, a21619,
+a40065, a41507`) over **all 7,273 free inputs** has gradient support **exactly
+`{x_2081, x_4287}`** — the two global boolean switches. The functional is conserved
+on the entire stratum. Two strengthenings:
+
+* **Equation-level relaxation** (equations must vanish, atoms may cancel *inside*
+  them): 3,600 equations × 707 columns, rank 707, still inconsistent — 19
+  obstructions, smallest combining 30 equations. Cancellation does not rescue it.
+* 254 of the 707 columns are themselves boolean-pinned; with only the 453 legal
+  columns the rank is 453 with the same 11 obstructions, and the minimum-sacrifice
+  greedy loses 21 equations (best 39,012).
+
+## 97. A claimed infeasibility proof, refuted
+
+The analysis above suggested a forcing chain: `a7930` gives `x_24548 ≡ x_12553`,
+`a3578` pins `x_12553 ≡ C3`, `a21617` gives `x_14623 ≡ x_24548`, and the K1 web plus
+`a31672` gives `x_14623 ≡ K1` — while
+
+```
+C3 mod p = 4531249068709477613185164105669741036354237152756954144434674493737552368539
+K1 mod p = 37841415183514949237467304684128824427406379377151921996714091976892367869714
+C3 != K1  (difference 82481923122510723799288844430228824462217842441245596187178166524754019170488)
+```
+
+which would make the instance **infeasible** with those selectors on. It is not a
+proof. The `a7930` link is **frame-dependent** (`s10/link.py`): `x_25442` is not
+pinned to `x_12553` — it is `x_10861 + x_22342` (atom `a21112`) — and at the
+delivered witness
+
+```
+delivered : a7930 = a3578 = a21617 = a31672 = 0, and x_25442 != x_12553 (mod p)
+canonical : x_25442 == x_12553 (mod p), and a21617 is NONZERO
+```
+
+> Breaking that link is exactly how the delivered witness satisfies `a7930` and
+> `a21617` at once. `C3 ≢ K1` is a true statement about the canonical frame and
+> **not** an infeasibility proof. No claim of infeasibility is made.
+
+## 98. The K1 web cannot be cut cheaply
+
+`x_14623` and `x_33462` sit in the same broadcast class; decoupling them would let
+`x_14623` move alone. The link graph (`s10/k1web.py`) reaches **71 of 72** class
+members from `x_14623`, with many parallel paths, so no single cheap edge separates
+them. And the accounting forbids a win regardless: fixing `a21617` gains 11 and
+fixing `a29539` gains 13, but their swap targets `a31672` and `a3576` cost exactly
+11 and 13. The canonical frame is pinned at 39,009 by conservation, and the
+delivered frame's 7 remains the floor.
