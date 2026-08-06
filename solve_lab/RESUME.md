@@ -1,5 +1,76 @@
 # RESUME — read me first
 
+## STATUS (session 11): best verified **39,026 / 39,033** — unchanged, but now EXPLAINED
+Deliverable: `best/new_instance_partial_39026.json`
+Verify: `python3 checker.py best/new_instance_partial_39026.json` -> `satisfied 39026/39033 (7 failing)`
+Failing lines: `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
+**Read `S10_EXACT_RESIDUAL.md` Part XI first** — it supersedes Parts I–X where they conflict.
+
+### The one-paragraph version
+The instance is **192 independent modular-equality assertions** `A ≡ B (mod p)`, each
+with a free quotient handle absorbing `(A−B)/p`. **185 of them have gradient support 1**
+— hard-wired to a single free input — and all 185 hold. Only two coupled clusters exist,
+and the entire residual lives in one: **`{a7930, a21617, a29539, a33796}`**. The
+instance offers exactly one trade:
+
+| choose | cost |
+|---|---|
+| satisfy the p-quantisation group, give up the gadget cluster | 24 equations (17 after beam) |
+| satisfy the gadget cluster, give up the p-group | **7 — the deliverable** |
+
+> **That is why 7 is invariant across placements** — not six coincidences, but the
+> cheaper side of a single forced trade.
+
+### What is genuinely new in session 11 (and what it overturns)
+1. **The binding residues' ancestor cone is 29 variables** (`s10/cone.py`). `x_2099` is a
+   **3-way MUX over free inputs** `x_6418/x_9118/x_31861`; `x_7068 = x_2099 + 7376877·p·k`.
+   Upstream both binding atoms are trivially satisfiable — session 9's "pinned constant
+   `D0`" was the shadow of a MUX.
+2. **A fourth branch exists.** `x_7075 = 1 − x_2081·x_4287`, so `(x_2081,x_4287)=(1,1)`
+   makes `x_7075 = 0`, killing the multiplier in `a35759`/`a35761` and evaporating the
+   congruences `p | x_9118`, `p | x_8731`. Part X's "boolean branches closed, ≥ 7" was
+   measured **in the witness frame** (flip applied, nothing re-solved). Re-solved it
+   reaches 38,994 — the door was real.
+3. **Two move classes nothing before possessed.**
+   - *Two-level handle repair* — solve an atom for any of its variables, then realise
+     that target through a free input of **that variable's own definer**. `lib.ripple`
+     cannot see this. It closes **`a7930`**, the atom RESUME called the weak link.
+   - ***mod-p Newton*** — a p-quantised check needs a **residue**, not a value. Shift a
+     free input by `δ = −a·(∂a/∂u)⁻¹ (mod p)`; the handle then absorbs `a/p` over ℤ.
+     Shifting `u` zeroes no atom by itself, so every zero-this-atom generator ever run
+     was structurally blind to it. It closes `a35759` at zero cost. `δ` is pinned only
+     mod `p`, so `δ + k·p` lets a second divisibility be met by **CRT**.
+   Canonical frame **38,996 → 39,009 → 39,016** (beam).
+4. **The 1-equation "hardening" checks are not constraints**: `a37662 = 10·a21617` and
+   `a40826 = 2·a29539`, exact integer multiples (`s10/shadow.py`).
+5. **Forward-mode AD** (`s10/fwdad.py`) costs one DAG pass per *free input* instead of one
+   per *check*, so the full Jacobian is 15 s, not intractable. The honest closure is
+   **579 × 142, full column rank, one obstruction** (witnesses `33796, 40562, 41400,
+   41507, 41827, 42245`). No single row and no cheap pair restores consistency.
+6. **The delivered witness's own frame, built explicitly** (`s10/frame2.py`): detach
+   `x_7068, x_28730, x_29854, x_31864, x_642` and it is **on-manifold** there (`fwd`
+   reproduces 39,026). Running `fwd` on it in the canonical frame snaps it to 38,996 —
+   which is why no forward-based repair had ever been able to touch it.
+7. **All seven residual checks are zeroable exactly and simultaneously**
+   (`s10/construct.py`, verified over ℤ) — the cost simply moves to the cluster.
+
+### Next actions
+1. The cluster must be solved **whole** — members cost 10–15 equations each, so no
+   partial fix competes with 7. Attack the single obstruction functional of the
+   579 × 142 closure directly.
+2. The closure is over free inputs in one orientation. Two spaces it does **not** cover:
+   non-canonical orientations of the *cluster* variables (frame 2 did this for the
+   p-group and it worked), and the 40 inert cyclic-SCC parameters.
+3. Branch `(1,1)` removes two congruences but activates `a19088, a22233, a22235`
+   (`x_21279 = 1`). Those three were never attacked with the new move classes.
+4. Do NOT redo: local repair with `lib.ripple`, single-move hill climbing (the potential
+   must be *(equations, −#nonzero atoms)*, not equations alone — see `s10/engine.py`),
+   the message space, the sacrifice route in the canonical frame.
+
+---
+
+# RESUME — read me first
+
 ## STATUS (session 10): best verified **39,026 / 39,033** — and PROVED optimal for this defect placement
 Deliverable: `best/new_instance_partial_39026.json`
 Verify: `python3 checker.py best/new_instance_partial_39026.json` -> `satisfied 39026/39033 (7 failing)`

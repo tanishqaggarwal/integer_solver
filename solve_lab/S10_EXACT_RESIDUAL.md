@@ -1123,3 +1123,195 @@ certificate hitting set                           15
 The instance is closed on every axis I can measure: the free inputs globally, the
 message space exhaustively, the sacrifice route exhaustively, the wire geometry,
 the region knobs, and the number theory. **39,026 stands.**
+
+---
+
+# Part XI — the residual is ONE trade, and here is its ledger
+
+Everything in Parts I–X measured *prices*. This part finds the **mechanism** that
+sets them, by two new move classes and one new piece of machinery. It does not
+beat 39,026, but it explains why 39,026 is what it is, and it moves the canonical
+frame from 38,996 to 39,016.
+
+## 50. Read the binding residues' ancestor cone — it is 29 variables
+
+`s10/cone.py` walks back through `definer` from `x_7068`, `x_2099`, `x_28730`.
+The cone is **29 variables, 24 atoms, 7 free inputs, 2 booleans**. Small enough
+to read in full (`s10/conedump.py`), and it decodes completely:
+
+```
+x_26064 = p            (a37694, the bare pin)
+x_1692 = x_32499 = x_36136 = x_17499 = x_9325 = x_28599 = p    (the local wire)
+x_20434 = x_2081 ;  x_9062 = x_4287                            (control fan-out)
+x_31033 = x_2081*(1-x_4287)      x_21279 = x_2081*x_4287       x_6788 = (1-x_2081)*x_4287
+x_22542 = x_6418*x_31033   x_25297 = x_9118*x_21279   x_10878 = x_6788*x_31861
+x_37158 = x_10878 + x_22542      x_2099 = x_25297 + x_37158
+x_642  = x_17325*p        x_7068 = x_2099 + 7376877*x_642      x_28730 = x_9413*p
+```
+
+> **`x_2099` is a 3-way MUX over three FREE INPUTS** — `x_6418`, `x_9118`,
+> `x_31861` — selected by `(x_2081, x_4287)`, and `x_7068 = x_2099 + 7376877·p·k`.
+> Upstream, both binding atoms are *trivially* satisfiable. The pin is entirely
+> downstream. Session 9's picture of `D0` as a pinned constant was the shadow of
+> a MUX, not a wall.
+
+## 51. The fourth branch: `x_7075 = 0`
+
+`a36085: x_7075 = 1 - x_21279` and `x_21279 = x_2081·x_4287`. The control pair
+has only ever been `(1,0)`, giving `x_7075 = 1`. In branch **`(1,1)`** it is
+**zero** — and `x_7075` is the multiplier in
+
+```
+a35759 = -x_29854 + 5113045*x_7075*x_9118
+a35761 =  x_31864 +         x_7075*x_8731
+```
+
+so four of the seven residual atoms lose their multiplier at once, and the
+congruences `p | x_9118`, `p | x_8731` simply evaporate. Part X's
+"boolean branches closed exhaustively, ≥ 7" was measured **in the witness frame**,
+i.e. with the flip applied and nothing re-solved. Re-solved (`s10/branch4.py`,
+`s10/engine.py b11`) the branch reaches 38,994 — still short, because `(1,1)`
+switches on `x_21279 = 1` and with it `a19088`, `a22233`, `a22235`. But the door
+was real and had never been opened.
+
+## 52. Two move classes no previous search possessed
+
+**(a) Two-level handle repair.** `lib.ripple` repairs an atom only through its
+canonical output variable. `s10/repair2.py` instead solves the atom for *any* of
+its variables and then realises that target through a free input of **that
+variable's own definer**. First thing it found:
+
+```
+a7930 closed via the free input x_24548        (+5 equations)
+```
+
+`a7930` is the atom RESUME called *the weak link* — "if atom 7930 can be closed
+while `x_28730` moves, the score is 39,027 immediately". It closes.
+
+**(b) mod-p Newton moves.** For a p-quantised check the requirement is not a
+*value* but a *residue*: `a ≡ 0 (mod p)`, after which the handle absorbs `a/p`
+exactly over ℤ. Take the exact AD derivative `d = ∂a/∂u (mod p)` and shift a free
+input by `δ = −a·d⁻¹ (mod p)`. Shifting `u` zeroes **no** atom by itself, so every
+zero-this-atom move generator in every previous session was structurally blind to
+it. It closes `a35759` at zero cost:
+
+```
+x_9118 <- p*(x_9118 // p) ,  then x_1329 = 5113045*x_9118/p     39,002 -> 39,009
+```
+
+And because `δ` is pinned only mod `p`, `δ + k·p` is free for every `k`: a second
+divisibility can be satisfied simultaneously by **CRT** (`s10/crt.py`).
+
+Canonical frame: **38,996 → 39,009**, and with a beam over the same moves
+(`s10/beam.py`) **→ 39,016**.
+
+## 53. The 1-equation "hardening" checks are not constraints
+
+They are exact integer multiples of the gadget they shadow (`s10/shadow.py`):
+
+```
+a37662 / a21617 = 10        a40826 / a29539 = 2
+```
+
+So the residual of the canonical frame is not four atoms but **two**.
+
+## 54. The gadget family, and why the problem is one cluster
+
+`s10/family.py` enumerates every atom of the shape `c·(A − B) − C`:
+
+```
+192 linear gadgets;  67 have C = p * (solo free handle)
+each asserts exactly   A == B  (mod p)
+gradient-support size 1 : 185 gadgets  -- isolated, all satisfied
+coupled clusters        : {7930, 21617, 29539, 33796}  and  {2423, 26731, 33929}
+currently failing       : 21617, 29539   -- both in the first cluster
+```
+
+> The instance is 192 independent modular-equality assertions, 185 of them
+> hard-wired to a single free input each. **The entire remaining problem is one
+> 4-gadget cluster.**
+
+## 55. Forward-mode AD makes the true closure affordable
+
+Reverse mode costs one pass per *check* (10,792 of them), which is why every
+earlier closure was restricted to a hand-picked neighbourhood. Forward mode
+(`s10/fwdad.py`) costs one pass per *free input* and we need only a few hundred:
+the full check-by-free-input Jacobian mod p, **134 columns in 15 seconds**.
+
+Closing rows→columns→rows to a genuine fixed point (`s10/closure2.py`):
+
+```
+it0: 572 rows x 134 cols  rank 134  inconsistent rows 21
+it1: 579 rows x 142 cols  rank 142  inconsistent rows  6   <- fixed point
+```
+
+Full **column** rank: the free inputs are locally rigid, no kernel at all. The
+system is inconsistent by exactly **one** functional (a single `b` column can
+raise the rank by at most 1; the six rows are its witnesses, not six obstructions):
+
+```
+witnesses: 33796, 40562, 41400, 41507, 41827, 42245
+leftnull dim 437;  t = Y.b nonzero in 6 coordinates
+minimum sacrifice: no single row, no pair within budget   (s10/sacrifice.py)
+```
+
+## 56. The delivered witness's own frame, built explicitly
+
+The delivered witness is **off** the canonical manifold — running `fwd` on it
+snaps it back to 38,996, which is why no forward-based repair could ever touch
+it. Detach the five variables whose gate atoms it breaks
+(`x_7068, x_28730, x_29854, x_31864, x_642`) and they become free parameters
+while their atoms become checks (`s10/frame2.py`):
+
+```
+free params 7278 (was 7273);  checks 10797 (was 10792)
+delivered witness after fwd in THIS frame: 39026  -- on-manifold: True
+failing checks: 22229, 22230, 35758, 35759, 35760, 35761, 35762
+closure: 45 rows x 13 cols   inconsistent, witnesses {22230, 35762, 37887}
+```
+
+## 57. The ledger — why 7 is the invariant
+
+In frame 2 all seven residual checks are zeroable **exactly and simultaneously**,
+by choice of the five detached parameters and the solo handles (`s10/construct.py`
+builds it and verifies every one is 0 over ℤ):
+
+```
+p | x_9118  -> x_29854 = p*x_1329 = 5113045*x_9118
+p | x_8731  -> x_31864 = p*x_10903 = -x_8731
+x_642 = p*x_17325 ;  x_7068 = x_2099 + 7376877*x_642 ;  x_28730 = p*x_9413
+```
+
+and the cost lands, every time, on the gadget cluster:
+
+```
+zero the p-group  ->  a7930, a29539, a40826, a41512 break   score 39,004
+   repair a7930 via x_24548                                  score 39,009
+   residual: a21617 + a29539 (+ their shadows) = 24 equations
+```
+
+Both frames converge to the **same** residual. That is the whole instance:
+
+| choose | cost |
+|---|---|
+| satisfy the p-quantisation group, give up the gadget cluster | 24 → 17 (beam) |
+| satisfy the gadget cluster, give up the p-group | **7 — the deliverable** |
+
+> **This is why 7 is invariant across placements.** It is not six coincidences;
+> it is the cheaper side of a single trade, and the trade is forced by one
+> obstruction functional in a closure of full column rank.
+
+## 58. Position
+
+```
+delivered (give up the p-group)                    39,026   [verified]
+canonical frame, new move classes                  39,009
+canonical frame, beam over the new moves           39,016
+frame 2, p-group zeroed exactly, cluster repaired  39,009
+branch (1,1), x_7075 = 0, fully re-solved          38,994
+```
+
+To beat 39,026 the gadget cluster must be solved **whole** — its members cost
+10–15 equations each, so no partial fix competes with 7. The cluster's closure has
+full column rank and one obstruction. What remains is a genuine break of that
+obstruction, not a cheaper door.

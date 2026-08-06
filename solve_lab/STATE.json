@@ -41,11 +41,11 @@
   "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
  },
  "next_actions": [
-  "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing), proved optimal for its defect placement.",
-  "START HERE: hit inconsistency certificate 1 for under 9 equations (cheapest member 10). Sub-questions: (a) LLL the 3-dim wire kernel (~325-digit entries) for a SHORT vector -- support <=5 would cut the deformation cost from ~20 to ~5 and take the wire route under budget; (b) can cert 1 be hit by a variable the closed 79-column system never reached?",
-  "Equation-space compensation for a37694's 12 equations using deformed copy atoms (same linear algebra, pin row moved to the RHS).",
-  "LLL-reduce the 3-dimensional kernel lattice (current basis entries have ~325 digits).",
-  "Do NOT redo: local repair, Newton/closure over free inputs (rigid, full column rank), bit scans, the MUX branch."
+  "Deliverable unchanged: solve_lab/best/new_instance_partial_39026.json (7 failing), re-verified this session.",
+  "START HERE: the gadget cluster {a7930, a21617, a29539, a33796} must be solved WHOLE -- members cost 10-15 equations each so no partial fix competes with 7. Attack the single obstruction functional of the 579x142 closure (s10/closure2.py, s10/sacrifice.py).",
+  "Two spaces the closure does NOT cover: (a) non-canonical orientations of the CLUSTER variables -- frame2.py did exactly this for the p-group and it worked; (b) the 40 inert cyclic-SCC parameters.",
+  "Branch (1,1) removes two congruences but activates a19088, a22233, a22235 via x_21279 = 1. Those three have never been attacked with the two new move classes.",
+  "Do NOT redo: lib.ripple local repair, single-move hill climbing scored by equations alone, the message space, the canonical-frame sacrifice route."
  ],
  "blocked": [
   "Part 1's two mod-p congruences are rigid ONLY because all handles are p-quantised, and part 2 shows that rests on a wire with a 3-dimensional free deformation space. The live obstruction is now the 13 multi-wire monomials plus the bare root pin a37694 (12 equations)."
@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1785994148,
+ "updated_unix": 1785999734,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -312,5 +312,44 @@
    "exhaustive_result": "linearity validated exactly on both large groups (x_91, x_47). Sweeping all 3,876 states of the two linear groups: histogram {0: 3876} -- the 125 ordinary load bits cannot zero a SINGLE failing check. Only leverage is the 3 structural controls x_2081, x_4287, x_13195 = branch flips already measured (34/83/106).",
    "sacrifice_closed": "budget6fast.py: 10,917,019 within-budget sets tested, NONE restore consistency. Minimum sacrifice 3 rows {a3578,a26731,a35759} cost 37; sizes 1,2 impossible."
   }
+ },
+ "session11": {
+  "headline": "39,026 unchanged, but the residual is now EXPLAINED: the instance is 192 modular-equality assertions A==B (mod p); 185 have gradient support 1 and hold; the whole residual is ONE 4-gadget cluster {7930,21617,29539,33796}. The instance offers a single trade: give up the p-quantisation group (7 eqs) or the cluster (24, 17 after beam). 7 is the cheaper side -- that is why it is invariant.",
+  "new_machinery": {
+   "two_level_handle_repair": "solve an atom for ANY of its variables, then realise that target through a free input of that variable's own definer; lib.ripple cannot see this. Closes a7930 (+5), the atom RESUME called the weak link. s10/repair2.py",
+   "mod_p_newton": "a p-quantised check needs a RESIDUE not a value: shift free input u by delta = -a*(da/du)^-1 mod p, then the solo handle absorbs a/p over Z. Zeroes no atom by itself, so every zero-this-atom generator was blind to it. Closes a35759 at zero cost. s10/newton.py",
+   "crt_correction": "delta is pinned only mod p, so delta + k*p satisfies a second divisibility simultaneously. s10/crt.py",
+   "forward_mode_ad": "one DAG pass per FREE INPUT instead of one per CHECK -> full check x free-input Jacobian mod p in 15s (134 cols). s10/fwdad.py",
+   "frame2": "detach x_7068,x_28730,x_29854,x_31864,x_642 -> the delivered witness is ON-manifold (fwd reproduces 39,026). In the canonical frame fwd snaps it to 38,996, which is why no forward repair could touch it. s10/frame2.py",
+   "potential_function": "hill climbing must rank (equations, -#nonzero atoms); equations alone is a plateau. s10/engine.py"
+  },
+  "corrections_to_earlier_sessions": [
+   "Part X's 'boolean branches closed exhaustively, >= 7' was measured in the WITNESS FRAME (flip applied, nothing re-solved). A fourth branch (x_2081,x_4287)=(1,1) sets x_7075 = 0 and evaporates the congruences p|x_9118 and p|x_8731; re-solved it reaches 38,994.",
+   "D0 was never a pinned constant: x_2099 is a 3-way MUX over the FREE inputs x_6418/x_9118/x_31861, and x_7068 = x_2099 + 7376877*p*k. The ancestor cone is only 29 variables.",
+   "The 1-equation 'hardening' checks are not independent constraints: a37662 = 10*a21617 and a40826 = 2*a29539 exactly."
+  ],
+  "closure": {
+   "rows": 579,
+   "cols": 142,
+   "rank": 142,
+   "note": "full COLUMN rank -- free inputs locally rigid, no kernel; inconsistent by exactly one functional",
+   "witnesses": [
+    33796,
+    40562,
+    41400,
+    41507,
+    41827,
+    42245
+   ],
+   "min_sacrifice": "no single row, no pair within budget"
+  },
+  "scores": {
+   "delivered": 39026,
+   "canonical_frame_new_moves": 39009,
+   "canonical_beam": 39016,
+   "frame2_pgroup_zeroed_then_repaired": 39009,
+   "branch_1_1_resolved": 38994
+  },
+  "verified": "python3 checker.py best/new_instance_partial_39026.json -> satisfied 39026/39033 (7 failing)"
  }
 }
