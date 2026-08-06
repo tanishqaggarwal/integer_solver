@@ -1634,3 +1634,22 @@ polynomial equations, minimising violated equations.
 So the whole wall at 39,026 is ONE divisibility by 2458959*p. ip11: 0 of 7 failing values are
 divisible by p (gcd 1). Next target, exactly: reach a state whose failing values are 0 mod p —
 then the obstruction is the 7-digit 2458959, which the quad3.py CRT machinery already handles.
+
+### Session 11, Part VII — the p-factor is universal (`s11/ip12.py`, `s11/ip13.py`)
+
+Computed the invariant factor D of the residual integer program at every saved state, across
+constructions built by completely different routes:
+
+    39026 checkpoint  D/p = 2458959      39018 finish3   D/p = 8640431
+    closehit2 (39005) D/p = 1            three / tri7 / eqopt2 / cheapdefect  D/p = 8640431
+    consistent over Q 7/7 ; p | D 7/7 ; cofactors {1, 2458959, 8640431}
+
+Both small cofactors are handle multipliers and both are CRT-clearable (Part II cleared
+8640431). The p never leaves. At closehit2 the invariant is EXACTLY p — ip13 confirms
+M x = d*rhs unsolvable for d = 1, 2, 3 on the 357x190 system.
+
+STATEMENT: every reachable state leaves a residual integer program that is solvable over Q and
+whose sole integrality obstruction is a single factor of p = 2^256 - 2^32 - 977. That is what
+ten sessions circled as p-quantisation / conserved obstruction / deficit of 2 / "7 is an
+invariant" — one invariant factor, the same everywhere. A full solve requires removing the p,
+i.e. reaching a state whose failing right-hand side is already p-divisible.

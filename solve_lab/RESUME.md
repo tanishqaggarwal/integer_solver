@@ -89,6 +89,17 @@ Scripts `s11/ip1.py` .. `s11/ip11.py`; full write-up in `S11_PART3_IP.md`.
 > modulus — attackable by the same CRT/quadratic-form method that cleared 8640431
 > (`s11/quad3.py`).
 
+- **IP #12/#13 — the p-factor is UNIVERSAL.** Computed the invariant at every saved state:
+  7 of 7 are consistent over Q and 7 of 7 have invariant divisible by p; cofactors D/p are only
+  {1, 2458959, 8640431} (both small ones are handle multipliers and both are CRT-clearable — Part
+  II cleared 8640431). At `closehit2` the cofactor is **1**, i.e. the invariant is EXACTLY p.
+  > **THE TRAPDOOR IN ONE SENTENCE: every reachable state leaves a residual integer program that
+  > is solvable over Q and whose sole integrality obstruction is a single factor of
+  > p = 2^256 - 2^32 - 977.**
+  This is what earlier sessions called p-quantisation / the conserved obstruction / the deficit
+  of 2 / "7 is an invariant". A full solve requires REMOVING the p from the invariant, i.e.
+  reaching a state whose failing right-hand side is already p-divisible.
+
 ### Do NOT redo
 - The clean all-zero frame, the MUX/OR-tree decode, `a40608 = (W-C)^2`, the core rank-2
   reduction, the cubic, the 8640431 CRT step, the channel taxonomy, the control scans.

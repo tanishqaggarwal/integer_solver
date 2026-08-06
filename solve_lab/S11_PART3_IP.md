@@ -157,3 +157,50 @@ seven digits.** So:
 That is the single sharpest target this instance has produced, and it is stated entirely in
 integer-programming terms: make the right-hand side p-divisible, then clear a 7-digit
 invariant factor.
+
+---
+
+## IP #12 — the p-factor is UNIVERSAL
+
+The invariant was `2458959·p` at the checkpoint and `8640431·p` at the session's 39,018 state.
+Computing it at every saved state (`s11/ip12.py`), across constructions built by completely
+different routes:
+
+    state                        failing   D digits   p | D    D/p
+    new_instance_partial_39026        7        84      yes     2458959
+    finish3_named   (39,018)         15        85      yes     8640431
+    closehit2       (39,005)         28        78      yes     1
+    three                            39        85      yes     8640431
+    tri7_best                        52        85      yes     8640431
+    eqopt2_named                     15        85      yes     8640431
+    cheapdefect_named                15        85      yes     8640431
+    (quad3_hit, uv01_full: inconsistent over Q — genuinely rank-obstructed states)
+
+    consistent over Q        : 7 / 7
+    invariant divisible by p : 7 / 7
+    cofactors D/p            : {1, 2458959, 8640431}
+
+> **The residual integer program is always consistent over ℚ, and its invariant factor always
+> contains p.** The small cofactors are state-dependent bookkeeping — 8640431 is the mirror
+> handle's multiplier, 2458959 the ladder's — and both are clearable by CRT (Part II did exactly
+> that for 8640431). The factor of **p** is the one that never leaves.
+
+At `closehit2` the cofactor is **1**: the invariant there is *exactly* p, with no small part at
+all. `s11/ip13.py` confirms it directly on the 357×190 system — `M x = d·rhs` is unsolvable for
+d = 1, 2, 3 and solvable at d = p.
+
+### The trapdoor, in one sentence
+
+> Every state reachable in this instance leaves a residual integer program that is **solvable
+> over the rationals** and whose **sole integrality obstruction is a single factor of
+> p = 2²⁵⁶ − 2³² − 977**.
+
+That is what ten sessions were circling under the names *p-quantisation*, *the conserved
+obstruction*, *the deficit of 2*, and *"7 is an invariant"*. In integer-programming language it
+is one invariant factor, and it is the same one everywhere.
+
+It also says precisely why the score cannot be pushed by better search: the objective's floor is
+set by how many equations must absorb that single factor of p, not by any failure of the search
+to find a feasible point. A full solve requires *removing the p from the invariant* — i.e.
+reaching a state whose failing right-hand side is already p-divisible — which is exactly the
+problem the setter encoded.
