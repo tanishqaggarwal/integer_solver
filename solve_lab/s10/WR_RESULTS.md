@@ -102,6 +102,14 @@ uniform w = 1, greedy repair                         39011
 uniform w = 1, engine, root restored to p            39021   (4-atom placement)
 uniform w = 1, engine, full repair                   39020   <-- checker-verified
 3-dim kernel deformation                             39010 -> 39011
-best integral 3-knob deformation at wire base 1      39010 -> 39011
+best integral 3-knob deformation at wire base 1      39010 -> 39013
 ```
+States on disk (all under `s10/`): `wr_engine_w1_x7068_39020.json` (the
+checker-verified 39,020), `wr_engine_wr_rep1_1_39011_39021.json` (39,021),
+`wr_engine_knob6_39013.json`, `wr_kern0.json` / `wr_engine_kern0_39011.json`,
+`wr_w_1.json` … (uniform w sweeps), `wr_rows.json` (the 219 identity rows),
+`wr_subset.json`, `wr_knob5.json`.
+Scripts: `wr_frame.py` (frames), `wr_w.py`, `wr_repair1.py`, `wr_engine.py`
+(frame-aware engine), `wr_rows.py`, `wr_subset.py`, `wr_kernel2.py`,
+`wr_kdiag.py`, `wr_maxsat.py`, `wr_region.py`, `wr_knob5.py`, `wr_knob6.py`.
 Nothing beat 39,026; `s10/wr_best.json` was not written.
