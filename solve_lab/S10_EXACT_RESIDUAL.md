@@ -1914,3 +1914,96 @@ best of 4,000 combinations : 111 equations at risk, support 72, 43 detachments, 
 The minimum does not move. Every seed-touching vector in the settable kernel needs
 roughly the same number of detachments, and they touch roughly the same outside
 set — another expression of the global coupling of §85.
+
+---
+
+# Part XVII — corrections from the adversarial audit, and from the placement search
+
+Two independent investigations were run against Parts XII–XVI: an exhaustive global
+placement search, and an audit briefed to **refute** the optimality claim. Neither
+beat 39,026. Both found real errors in how I stated it. Those come first.
+
+## 88. `failing = |E| − n + c` is NOT a law — it is bookkeeping (correcting §75, §79)
+
+The identity is trivially true; its entire content is `c`, which I never derived —
+only computed ad hoc for `n = 7` and `n = 8`. Worse, I implied `|E| − n` is bounded
+below by 5. It is not: greedily adding atoms that bring at most one new equation
+each drives `|E| − n` to **−5** within 394 atoms. And the formula mispredicts at
+`c = 0`, where it claims 7 satisfiable when the truth is 12 (`A = 0` satisfies
+everything). **It is validated only at `c ∈ {1, 2}` and must not be quoted as a law.**
+
+## 89. Removing BOTH congruences is worth 7, not 2 (correcting §79)
+
+Removing one congruence buys exactly one equation (5 → 6 satisfiable, verified
+exhaustively for both choices). Removing **both** admits `A = 0`, which satisfies all
+twelve — worth **7**. The verdict is unchanged, because the joint cost is at least
+`11 + 13 = 24`, but my ledger understated the payoff of precisely the escape an
+attacker would aim at.
+
+## 90. Congruence 1 was mispriced (correcting §79)
+
+`C₀ = x_7068 − x_2099`, and §79 priced only the `x_7068` half. But **`x_2099 = x_6418`
+identically**, and moving `x_6418` breaks exactly one atom, `a3576`, at raw cost
+**13** — with three compensators wholly inside `a3576`'s own 13 equations, giving a
+floor nearer 9. An exhaustive scan of both pin cones gives **13**, not 20, as the
+true single-move minimum. Related: `x_14853` measures 33 raw / 20 in the joint move,
+not 20 flat.
+
+## 91. Three statements that were loose or wrong, though the answers held
+
+* **§65's `C₀`.** Exactly, `A0 + 7376877·A6 = x_7068 − x_2099 − 7376877·x_28599·x_17325`.
+  Writing `C₀ = x_7068 − x_2099` is valid **only because `x_28599 = p`** — load-bearing:
+  if `x_28599` were anything not ≡ 0 mod p, `x_17325` would be a free knob on `C₀ mod p`
+  and congruence 1 would evaporate.
+* **§66's "1 + 4 = 5" derivation is wrong.** "`A6` being pinned once `A0` is" is false —
+  only the *combination* is pinned. The correct justification is the exhaustive
+  kernel-dimension plus congruence-feasibility computation, not that narrative.
+* **§71's driver prices do not reproduce.** I reported `x_12553 → 15`, `x_4287 → 30`,
+  `x_2081 → 110`; measured raw in frame 2 they are **30 / 38 / 109**. So "the pair move
+  costs 14" should read ~30 unless the 15 was post-repair. There is also a fourth free
+  input in `x_19964`'s cone, `x_14865` (12 equations), dead on this stratum.
+* **`s10/lattice11.py` is heuristic**, not exhaustive — it searches `(k−1)`-row bases
+  rather than all subsets. Its conclusion is confirmed independently, but the script
+  does not establish it.
+
+## 92. What the two investigations confirmed
+
+* **The footprint-1 atoms are BUNDLES, not cheap carriers.** Each is a random integer
+  combination of primitive atom residuals, squared — e.g.
+  `a37887 = (a22231 + 6·a22232 + 15·a22233 − 21·a22234 + 25·a19087 + … )²` — and 3,234 of
+  them sit alone in a size-1 equation. So `a37887 = Q²` (§74) is not a designed trap;
+  it is the generator's bundling. A bundle can never be *chosen* as a support: when a
+  primitive breaks, the bundle adds one atom, one equation **and** one congruence,
+  a net +1 every time. **`eq 8680` is `1·(a37887)²` with `a37887` its only atom**, so
+  `a37887 ≠ 0` breaks it unconditionally, with no in-equation compensation possible.
+* **Whole-instance break census**: all 38,748 variables perturbed with full gate
+  ripple, 33,969 distinct supports reached — **minimum failing = 7**, next 8, then 12.
+  Nothing below 7 anywhere in the instance.
+* **The obstruction is arithmetic, not linear** (independent confirmation of §86): the
+  reachable equation-direction space in ℚ¹² has rank **7**, spanned by the seven knobs
+  `x_642, x_1329, x_8731, x_9118, x_9413, x_10903, x_17325`, and `−r₀` **is** in that span.
+* **`a22231` is unique**: over all 42,267 atoms, exactly **8** have their entire equation
+  set inside the twelve — the seven plus `a22231`. Proven, not sampled.
+* **Exhaustive congruence feasibility**: of the 924 six-subsets, **0** are feasible; of
+  the 792 seven-subsets in the 8-atom placement, **0**. Of the 792 five-subsets, 378 are,
+  including the witness's. The integer/rational gap does not bite.
+* **Every single-parameter escape is closed**: of 173 free inputs in the three pin
+  cones, 29 have zero collateral and **none** moves any pin residue mod p; 82 move one,
+  and the cheapest costs 13.
+* `ad.fwd` converges in **one** round (identical at 1…40 rounds) — no iteration bug.
+
+## 93. The weakest step, named by the audit
+
+> The claim `c ≥ 2` rests, for **multi-parameter** moves, on mod-p linear closures taken
+> at a stratum where 95.7% of the circuit is switched off and 656 of 1,376 large-move
+> predictions are wrong. There is no certificate ruling out a multi-parameter,
+> non-linear move that shifts `x_7068`, `x_2099` or `x_28730` mod p at low collateral —
+> and by §89 a move shifting **two** pin residues at once is worth **7** equations, not 1.
+> That the `x_28730`/`x_24548` *pair* (cost 11) beats every single move (cost ≥ 13) is
+> direct evidence that joint moves matter and are only being sampled.
+
+Also newly open: **boolean atoms need not be zero.** `x² − x = x(x−1)` has integer image
+`{0, 2, 6, 12, 20, …}`, so a boolean atom is a legitimate nonzero carrier. There are
+3,484 of them, 1,156 on free inputs, and the placement search found blocks with
+**negative** deficiency (e.g. 36 atoms in 32 equations). The two blocks it tested were
+unrealisable for local reasons; the space was not swept.
