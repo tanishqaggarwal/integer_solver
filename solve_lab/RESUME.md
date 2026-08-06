@@ -148,6 +148,24 @@ only multiplies a `w` that is `0`. The **second-order** version works: find the 
 exchange rate is 1–2 knobs per 6–13 broken atoms. That is the only door left, and it is
 a second-order search, not a linear one.
 
+### Session 11 (part 5) — the law verified exact, both congruences priced
+* **The kernel dimensions are generic.** Computing the *dimension* of every subset of the
+  twelve, not just testing for a nonzero kernel (`s10/kdim.py`): sizes 12–7 give dim 0,
+  size 6 gives dim 1, size 5 gives dim 2 — the first to reach `c = 2`. No dependent
+  subset exists to exploit, so **`failing = |E| − n + c` is tight, not an estimate**. The
+  size-5 optimum is `{2554, 6816, 8124, 9123, 9421}` — *exactly* the delivered witness's
+  satisfied set.
+* **Congruence 1 costs 20.** `A0 + 7376877·A6 ≡ C₀` needs `x_7068` to move mod p; only
+  `a29539` breaks. Pricing all 79 inputs in its gradient support: cheapest genuine repair
+  is `x_14853` at 20 equations. (The `x_7068 → 0` hit is an artefact — the Newton
+  correction returns `x_7068` to its own residue, leaving `C₀ mod p` unchanged.)
+* **Congruence 2 costs exactly the 1 it gains** — `a37887 = Q²` with `Q` built from
+  `a22231`.
+* **Bulk activation does not create freedom.** Activating N dead inputs: closure goes
+  1655×707 → 1715×741 → 1786×788, and **rank always equals the column count** — kernel
+  stays 0 while inconsistent rows go 11 → 73 → 113. Rows and columns grow in lockstep;
+  activation buys knobs and constraints at the same rate.
+
 ### Next actions
 1. The cluster must be solved **whole** — members cost 10–15 equations each, so no
    partial fix competes with 7. Attack the single obstruction functional of the

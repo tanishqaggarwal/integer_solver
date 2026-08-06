@@ -1711,3 +1711,81 @@ input `z` that makes `w` nonzero, and test the pair.
 > The exchange rate measured here is **1–2 new knobs per 6–13 broken atoms**, and
 > the closure needs its rank deficit closed, so this is the only door left and it
 > is a second-order search, not a linear one.
+
+---
+
+# Part XV — the balance law verified, and both congruences priced
+
+## 78. The kernel dimensions are generic — the law is exact
+
+Part XIV's law assumed `k = n − c`, i.e. that no subset of the twelve is
+*dependent*. Checked exhaustively (`s10/kdim.py`), computing the kernel dimension
+of every subset rather than merely testing for a nonzero kernel:
+
+```
+the seven (n=7, c=2):
+  sizes 12..7 : kernel dim 0 for ALL subsets
+  size 6      : kernel dim 1 for all 924
+  size 5      : kernel dim 2 for all 792   <- first size reaching c = 2
+  => 5 satisfied, 7 failing
+  and the witness subset is {2554, 6816, 8124, 9123, 9421}
+     -- EXACTLY the delivered witness's satisfied set
+
++ a22231 (n=8, c=2):
+  size 7      : kernel dim 1 for all 792
+  size 6      : kernel dim 2 for all 924   => 6 failing, +1 for a37887 = 7
+```
+
+Every subset has exactly the generic dimension: there are no dependent subsets to
+exploit. **`failing = |E| − n + c` is tight, not an estimate.**
+
+## 79. Both congruences priced
+
+`failing = 12 − 7 + c`, so each congruence removed is worth exactly one equation.
+
+**Congruence 2** (`A1 ≡ A1₀`) is removed by detaching `x_4432`, which severs
+`x_28730 → a7930`. Price: `a37887`, one equation — cancelling the gain exactly,
+because `a37887 = Q²` and `Q` is built from `a22231` (§74).
+
+**Congruence 1** (`A0 + 7376877·A6 ≡ C₀`) needs `x_7068` to move *mod p*, and the
+only thing that breaks is `a29539`. Pricing every repair in its 79-input gradient
+support (`s10/free1.py`):
+
+```
+x_7068   ->  0 equations   -- ARTEFACT: the Newton correction returns x_7068 to
+                              its own residue, so C0 mod p is unchanged (score 39,022)
+x_14853  -> 20 equations   <- cheapest genuine repair
+x_24517  -> 43     x_33287 -> 43     x_12054 -> 45     x_16586 -> 45 ...
+```
+
+> **Congruence 1 costs 20 for a gain of 1. Congruence 2 costs exactly the 1 it
+> gains.** Both are priced, and the instance balances on both.
+
+## 80. Bulk activation does not create freedom
+
+Activation adds columns to the closure (§77), and the closure has zero kernel, so
+the natural hope is that enough activation makes columns outgrow rank. Measured
+(`s10/bulk.py`), activating `N` dead free inputs from the cluster cone:
+
+```
+N     nonzero atoms   closure        rank   kernel   inconsistent   score
+0         4           1655 x 707      707      0          11        39,009
+10       60           1715 x 741      741      0          73        38,766
+30      127           1786 x 788      788      0         113        38,532
+```
+
+> **Rows and columns grow in lockstep and the rank always equals the column count.**
+> Activation buys knobs and constraints at the same rate; the kernel never opens
+> and the inconsistency only widens. The last door measured is the last door shut.
+
+## 81. Final ledger
+
+```
+congruence 1 (C0 mod p)                    costs 20, worth 1
+congruence 2 (A1 mod p)                    costs  1, worth 1   (exact cancellation)
+the only free compensator a22231           worth 1, cancelled by a37887 = Q^2
+the gadget cluster whole                   costs >= 30 (reduced), >= 52 (full)
+bulk activation                            kernel stays 0, inconsistency grows
+```
+
+Nothing in the instance is worth more than it costs. **39,026 / 39,033.**

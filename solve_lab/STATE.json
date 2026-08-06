@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1786020351,
+ "updated_unix": 1786028512,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -418,6 +418,12 @@
    "single": "no single activation reaches the cluster (s10/activate.py) -- by construction, a dead u only multiplies a w that is 0",
    "second_order": "s10/second.py: 6 of 6 tested pairs GREW the cluster gradient support, +1 to +2 new knobs each, at 6-13 broken atoms",
    "verdict": "the live stratum genuinely has knobs ours does not; exchange rate 1-2 knobs per 6-13 broken atoms. This is the only door left and it is a second-order search."
+  },
+  "final_ledger": {
+   "kdim_check": "every subset of the twelve has exactly the GENERIC kernel dimension (s10/kdim.py) -- no dependent subsets exist, so failing = |E| - n + c is tight; the size-5 optimum {2554,6816,8124,9123,9421} is exactly the delivered witness's satisfied set",
+   "congruence_1": "A0 + 7376877*A6 == C0 (mod p): needs x_7068 to move mod p, only a29539 breaks; cheapest genuine repair x_14853 at 20 equations (the x_7068 'zero cost' hit is an artefact -- the Newton correction returns it to its own residue)",
+   "congruence_2": "A1 == A1_0 (mod p): removed by detaching x_4432, price a37887 = 1 equation, cancelling the gain exactly since a37887 = Q^2 with Q built from a22231",
+   "bulk_activation": "N=0/10/30 dead inputs activated -> closure 1655x707 / 1715x741 / 1786x788, rank ALWAYS equal to the column count, kernel always 0, inconsistent rows 11/73/113. Rows and columns grow in lockstep; activation buys knobs and constraints at the same rate."
   }
  }
 }
