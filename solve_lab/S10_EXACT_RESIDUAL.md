@@ -2725,3 +2725,197 @@ claimed in Parts X-XXIII                        status after Part XXIV
 The deliverable is unchanged at **39,026 [verified]**.  What changed is that the
 barrier arguments that stood behind it have been withdrawn: two of them were unsound
 closures, and the rest bound only the tangent space of a map that is not linear.
+
+---
+
+# Part XXV — the free content of the instance is thirteen numbers
+
+Part XXIV withdrew the barrier arguments.  Part XXV replaces them with the actual
+structure, which turns out to be small enough to write down.
+
+## 127. Only d = 0 is safe — exactly, and only for single coordinates
+
+With exact univariate models available (§122: every gate output coefficient is ±1,
+so forward evaluation divides by nothing and the map is an honest polynomial),
+`s10/unipoly.py` interpolates `f_c(d) = c(v + d·e_u)` for every check and every free
+input that reaches a failing check, verifies the fit at extra points, and takes gcds.
+
+```
+554 free inputs reach a failing check
+degree 9 interpolation exact for EVERY check measured  (degfail = 0 throughout)
+43 inputs move nothing at all mod p        (these are the handles)
+129 inputs: gcd of the checks that hold has degree 1 -> d = 0 is the ONLY safe jump
+             safe roots 0, fixing roots 0, in every case
+```
+
+That is an exact statement with no linearisation in it: single-coordinate freedom
+does not exist.  So the freedom, if any, is multi-coordinate — and `s10/kerpoly.py`
+plus `s10/eqker.py` close that off too:
+
+| closure | rows | cols | rank | kernel |
+|---|---|---|---|---|
+| atoms, canonical @39,009 | 475 | 197 | 154 | 43 — *exactly the handle columns, which move nothing* |
+| **equations**, canonical @39,009 | 3,324 | 415 | 415 | **0** |
+| **equations**, frame 2 @39,026 | 139 | 11 | 11 | **0** |
+
+The equation-level rows are the right object — one row per equation instead of one
+per atom, and a satisfied *squared* equation `m·(Σ)²` has derivative `2m·Σ·dΣ = 0`
+and contributes no row at all — and even there the kernel is empty.  Both states are
+first-order rigid.
+
+## 128. Constructing the residual away: the seven are not conserved
+
+`s10/build7.py` takes §123's decompilation at face value.  In frame 2 five of the
+seven residual atoms have a detached output variable, so their value may simply be
+*written*, and the other two need one divisibility each:
+
+```
+force p | x9118 and p | x8731, then set
+  x29854 = 5113045*x7075*x9118     x1329  = x29854/p
+  x31864 = -x7075*x8731            x10903 = x31864/p
+  x28730 = x9413*p                 x642   = x17325*p
+  x7068  = x2099 + 7376877*x642
+```
+
+Every value exact over ℤ, no search, no linearisation.  It works:
+
+```
+start (frame 2)                score 39026  nonzero atoms 7   residual [22229 22230 35758 35759 35760 35761 35762]
+after constructing all seven   score 39004  nonzero atoms 4   residual []
+```
+
+**All seven residual atoms are exactly zero** — the first time in this lab — with no
+broken gate anywhere.  The "conserved quantity" of Parts X–XXIII is not conserved;
+it was an artifact of only ever moving inside the tangent space.  What is true is
+that the obstruction *relocates*: four checks are now nonzero instead, and the score
+falls to 39,004 because those four break 29 equations rather than 7.
+
+## 129. Thirteen 296-bit numbers
+
+Reading the free inputs of any good state settles what the search space actually is:
+
+```
+free inputs: 7,273
+  7,252 are ZERO
+     13 carry 296 bits   <- the whole free content of the instance
+      a few carry the large values build7 writes
+```
+
+The thirteen are `x6418 x8778 x12553 x14623 x14853 x16742 x22152 x22162 x22649
+x24548 x30213 x31339 x33462`.  296 bits is 256 + 40: a field element plus ~40 bits
+of `k·p` slack, exactly what a gadget `c·(x − y) − p·h` wants — `x` may be any member
+of `y`'s residue class and `h` absorbs the difference.  Writing each as `k·p + r`:
+
+```
+x8778 x14623 x16742 x24548 x31339 x33462   k = 839192594282     (six share it)
+x14853 x22152 x22649                       k = 1094785891323    (three share it)
+x6418  289077647971   x12553 369416716500  x22162 789486214152  x30213 1086320452253
+```
+
+`s10/advfix.py` then shows the k part is **irrelevant**: setting an advice value to
+the congruence-correct residue with *every* k that occurs in the instance gives
+bit-identical scores.  Only the residues matter, which is §124's mod-p/lift split
+confirmed by direct measurement.
+
+## 130. The advice constraint graph, and solving it
+
+Each advice value is pinned by exactly one congruence, of one of two shapes
+(`s10/advgraph.py`):
+
+```
+two-sided   c*(x_i - y_i) - p*h     ->  x_i ≡ y_i (mod p),  y_i computed by the circuit
+constant    w*(x_i - C)  - ...      ->  x_i ≡ C  (mod p),  C a literal in the instance
+```
+
+Four are pinned to literal constants — ground truth, nothing to solve:
+
+```
+x6418  ≡ 20302955751113177691132960011219991444785130617995423281601414462835238472546  via a3576
+x12553 ≡ 4531249068709477613185164105669741036354237152756954144434674493737552368539  via a3578
+x22152 ≡ 82007976112976807461901870199198737303514020147647909878034348606308756230357 via a31670
+x33462 ≡ 37841415183514949237467304684128824427406379377151921996714091976892367869714 via a31672
+```
+
+(None of them is a secp256k1 group parameter, and no pair satisfies `y² = x³ + b` for
+small `b`, so the constants are the generator's, not the curve's.)  The rest are
+two-sided, and their targets depend on other advice values:
+
+```
+x8778 <- x33462     x14623 <- x24548     x14853 <- x6418
+x16742 <- x8778     x22649 <- x22152     x24548 <- x12553     x31339 <- x14623
+```
+
+**The dependency graph is a DAG.**  So one Gauss–Seidel sweep in topological order
+sets every advice residue correctly, and it does:
+
+```
+from B7_39004      sweep 0 changed 4  -> score 39013, residual [19297 19299 30984 36185 40812]
+from mod9118_0     sweep 0 changed 3  -> score 39013, residual [19297 19299 30984 36185 40812]
+later sweeps       changed 0 -- a FIXED POINT with every advice congruence satisfied
+```
+
+Two different starting states land on the *same* residual: 39,013 is an attractor of
+the advice solve.  This also explains every "conservation" seen in Parts X–XXIII —
+setting `x24548` right makes `a7930` and `a41512` vanish and `a21617` and `a37662`
+appear, which looks like conservation but is just an unsolved DAG edge
+(`x14623 <- x24548`).  Solve the DAG in order and both clear.
+
+## 131. What is actually left
+
+At the 39,013 attractor the residual is a different family, and `s10/gadget.py`
+reads it:
+
+```
+a19297 = x11150*x15298 + p*x30317        ->  x11150*x15298 ≡ 0 (mod p)
+a19299 = x15298*x25739 - 6672769*p*x5146 ->  x15298*x25739 ≡ 0 (mod p)
+a30984 = 537773*x15298*x37758 - p*x2936  ->  x15298*x37758 ≡ 0 (mod p)
+a36185, a40812   bundle checks containing those three
+```
+
+`x30317`, `x5146`, `x2936` are free handles; `x15298 = 1`; and `x11150`, `x25739`,
+`x37758` are 831-bit values whose residues are ~132 bits and nonzero.  Unfolding
+them shows what the circuit computes:
+
+```
+x29322 = x14853 - x12186        x3558  = x24908 - x16742
+x29356 = x29322^2               x27762 = x3558^2
+x33469 = x9192 + x24453         x17702 = x29356*x33469
+x35389 = x17702 - x27762        x6671  = x27713*x29322 - x1326*x3558
+x11150 = 8646263*x35389 + 1073965*x6671
+x25739 = 10159099*x35389 + x3023      x37758 = x2287 + 5921311*x6671
+```
+
+Differences of coordinates, squared, multiplied by another difference, then
+recombined — the secp256k1 point-addition shape.  And `x15298` is a selector:
+
+```
+x15298 = x7715 * x34554
+x7715  = x8599 + x21839 - x8599*x21839   = OR(x8599, x21839)
+x34554 = x25956 + x7304  - x7304*x25956  = OR(x25956, x7304)
+```
+
+a boolean AND of two ORs, currently 1.  So the residual has exactly two doors: make
+the three combinations vanish mod p (compute the addition consistently), or drive
+the selector `x15298` to 0 (take the degenerate branch).
+
+## 132. Ledger after Part XXV
+
+```
+deliverable                                              39,026  [checker-verified]
+advice DAG solved, every advice congruence satisfied     39,013  [checker-verified]
+all seven residual atoms exactly zero (build7)           39,004  [checker-verified]
+```
+
+The deliverable is unchanged.  What changed is that the problem is now *named*
+rather than bounded:
+
+| Parts X–XXIII said | Part XXV says |
+|---|---|
+| the residual is seven conserved atoms | they can be written to zero exactly; the obstruction relocates |
+| every route is priced and conserved | the "prices" were unsolved edges of a DAG that is now solved in one sweep |
+| the search space is 7,273 free inputs | it is **thirteen 296-bit numbers**, and only their residues mod p matter |
+| the obstruction is the atom map's image | it is three products `x15298·{x11150, x25739, x37758} ≡ 0 (mod p)` behind a boolean selector |
+
+The two doors of §131 are the whole remaining problem, and neither has been priced
+yet — the selector route in particular has never been attempted from a state where
+every advice congruence holds.

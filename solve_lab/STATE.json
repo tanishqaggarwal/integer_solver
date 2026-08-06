@@ -448,5 +448,152 @@
    "witness": 39026,
    "note": "the deliverable saturates its own frame's linear ceiling exactly"
   }
+ },
+ "session12": {
+  "deliverable": {
+   "score": 39026,
+   "file": "best/new_instance_partial_39026.json",
+   "failing": [
+    12231,
+    12270,
+    12350,
+    14584,
+    18673,
+    22044,
+    29125
+   ],
+   "verified": true
+  },
+  "withdrawn_claims": {
+   "exactlin_infeasibility": "REFUTED by s10/exactlin2.py -- 162 missing columns; closed system is consistent",
+   "integrality_explanation": "WRONG CAUSE -- s10/fidelity.py: no gate ever breaks, every pivot is +-1",
+   "linear_ceilings_39018_39026": "tangent-space only; the map is a genuine polynomial"
+  },
+  "structure": {
+   "gate_output_coefficients": {
+    "+1": 30418,
+    "-1": 1057
+   },
+   "free_inputs": 7273,
+   "free_inputs_zero": 7252,
+   "advice_values": [
+    6418,
+    8778,
+    12553,
+    14623,
+    14853,
+    16742,
+    22152,
+    22162,
+    22649,
+    24548,
+    30213,
+    31339,
+    33462
+   ],
+   "advice_bits": 296,
+   "advice_k_shared": {
+    "839192594282": [
+     8778,
+     14623,
+     16742,
+     24548,
+     31339,
+     33462
+    ],
+    "1094785891323": [
+     14853,
+     22152,
+     22649
+    ]
+   },
+   "k_is_irrelevant": "every k scores identically (s10/advfix.py); only residues mod p matter",
+   "constant_pins": {
+    "x6418": "a3576",
+    "x12553": "a3578",
+    "x22152": "a31670",
+    "x33462": "a31672"
+   },
+   "advice_graph": {
+    "edges": {
+     "8778": 33462,
+     "14623": 24548,
+     "14853": 6418,
+     "16742": 8778,
+     "22649": 22152,
+     "24548": 12553,
+     "31339": 14623
+    },
+    "is_dag": true,
+    "gauss_seidel_fixed_point": 39013
+   }
+  },
+  "kernels": {
+   "atoms_canonical": {
+    "rows": 475,
+    "cols": 197,
+    "rank": 154,
+    "kernel": 43,
+    "note": "kernel = the handle columns, which move nothing mod p"
+   },
+   "equations_canonical": {
+    "rows": 3324,
+    "cols": 415,
+    "rank": 415,
+    "kernel": 0
+   },
+   "equations_frame2_at_deliverable": {
+    "rows": 139,
+    "cols": 11,
+    "rank": 11,
+    "kernel": 0
+   }
+  },
+  "exact_univariate": {
+   "degree_bound_verified": 9,
+   "degfail": 0,
+   "single_coordinate_safe_jumps": 0,
+   "note": "gcd of holding checks has degree 1 along every direction measured"
+  },
+  "new_states": {
+   "s10/B7_39004.json": "all seven residual atoms exactly zero, 39004 verified",
+   "s10/AG_39013.json": "advice fixed point, 39013 verified",
+   "s10/GC_39006.json": "gadget-close loop best, 39006"
+  },
+  "remaining": {
+   "primitives": [
+    "x15298*x11150 = 0 mod p",
+    "x15298*x25739 = 0 mod p",
+    "x15298*x37758 = 0 mod p"
+   ],
+   "selector": "x15298 = OR(x8599,x21839)*OR(x25956,x7304) = 1",
+   "doors": [
+    "drive x15298 to 0",
+    "zero the three combinations mod p"
+   ]
+  },
+  "new_tools": [
+   "s10/suppfree.py",
+   "s10/intad.py",
+   "s10/fpoly.py",
+   "s10/unipoly.py",
+   "s10/kerpoly.py",
+   "s10/eqker.py",
+   "s10/eqker2.py",
+   "s10/f2uni.py",
+   "s10/build7.py",
+   "s10/gclose.py",
+   "s10/advice.py",
+   "s10/advfix.py",
+   "s10/advgraph.py",
+   "s10/gadget.py",
+   "s10/decompile.py",
+   "s10/decomp2.py",
+   "s10/fidelity.py",
+   "s10/exactlin2.py",
+   "s10/comp7.py",
+   "s10/rjump.py",
+   "s10/rj2.py"
+  ]
  }
 }

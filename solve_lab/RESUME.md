@@ -1,3 +1,52 @@
+# RESUME — read this first
+
+## Session 12 (Parts XXIV–XXV): the barrier arguments are withdrawn; the instance is thirteen numbers
+
+**Deliverable unchanged: 39,026 / 39,033, checker-verified** (`best/new_instance_partial_39026.json`,
+failing lines `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`).
+
+What this session established, in order:
+
+1. **§121 — the infeasibility claim of step 66 is REFUTED.**  `s10/exactlin.py` found the
+   exactly-linear subsystem inconsistent; `s10/exactlin2.py` shows all 7 inconsistent rows
+   came from rows whose columns were missing.  Closed to 171 rows the system has rank 77
+   and is consistent.  **No infeasibility claim is made anywhere in this lab.**
+   `s10/suppfree.py` computes the free-input support of every atom (mod-p, integer, or
+   structural) so closure claims can be checked rather than assumed.
+
+2. **§122 — the 47% large-move misprediction rate is second-order content, not integrality.**
+   Every gate output coefficient is ±1 (30,418 of +1, 1,057 of −1); no gate ever breaks under
+   any move (`s10/fidelity.py`).  Forward evaluation divides by nothing, so the map free
+   inputs → atom values is an honest polynomial.  **Every ceiling in Parts X–XXIII bounds only
+   the tangent space and does not bound the instance.**
+
+3. **§123–124 — the residual decompiles to two congruences, and the problem splits.**
+   Handles enter their checks with coefficient `d·p`, so they are invisible to every mod-p
+   Jacobian in this lab; `s10/intad.py` (forward AD over ℤ) is the first tool that sees them.
+   The instance = a mod-p phase (all the difficulty) + a free integer lift.
+
+4. **§128 — the "seven conserved residuals" are not conserved.**  `s10/build7.py` writes all
+   seven to exactly zero constructively (39,004, verified).  The obstruction relocates.
+
+5. **§129–130 — the free content of the instance is THIRTEEN 296-bit numbers**, only their
+   residues mod p matter, four are pinned to literal constants in the instance, and the
+   dependency graph of the rest is a **DAG**.  One Gauss–Seidel sweep (`s10/advgraph.py`)
+   solves every advice congruence: **39,013, an attractor reached from two different starts.**
+
+6. **§131 — what is left.**  Three products behind a boolean selector:
+   `x15298 · {x11150, x25739, x37758} ≡ 0 (mod p)`, where
+   `x15298 = OR(x8599, x21839) · OR(x25956, x7304) = 1`.
+   Two doors: make the three combinations vanish, or drive the selector to 0.
+
+**Next actions**
+  - Door A: drive `x15298 → 0` from `s10/AG_39013.json` (never tried with all advice solved).
+  - Door B: solve `x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)` — three linear conditions in
+    `x35389, x6671, x3023, x2287`, all EC-shaped combinations of the advice values.
+  - Re-run `s10/advgraph.py` after any construction; it is idempotent and always lands on the
+    advice fixed point.
+  - `s10/gadget.py STATE` reads any state's failing checks as gadgets; `s10/decomp2.py` unfolds
+    them; `s10/advice.py` prints the thirteen and their constraints.
+
 # RESUME — read me first
 
 ## STATUS (session 11): best verified **39,026 / 39,033** — unchanged, but now EXPLAINED
