@@ -1,5 +1,88 @@
 # RESUME — read me first
 
+## STATUS (session 10): best verified **39,026 / 39,033** — and PROVED optimal for this defect placement
+Deliverable: `best/new_instance_partial_39026.json`
+Verify: `python3 checker.py best/new_instance_partial_39026.json` -> `satisfied 39026/39033 (7 failing)`
+Failing lines: `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
+**Read `S10_EXACT_RESIDUAL.md` first** — it supersedes `S9_STRUCTURE.md` where they conflict.
+
+### The 60-second version (re-derived from the file this session, not inherited)
+At the delivered witness there are **7 nonzero atoms** — `22229, 22230, 35758, 35759, 35760,
+35761, 35762` — living in **exactly 12 equations** (5 satisfied, 7 failing). Every other one
+of the 39,033 equations is already exact in Z. The 12x7 coefficient matrix has **rank 7**, so
+all 12 hold iff all 7 atoms vanish. Writing `A = (a22229, a22230, a35758..a35762)`,
+`D = x_7068 - x_2099`, `K2 = x_28730 mod p`, the knobs realise **exactly**
+
+    (1)  A1 + 7376877*A7  ==  D   (mod p)      [mod 7376877*p before the free k*p shift, see below]
+    (2)  A2              ==  K2   (mod p)
+    (3)  A3, A4, A5, A6 free
+
+Both residues verified 0 at the witness. **That is the entire remaining problem.**
+
+### The accounting rule — this sets the endgame
+`dim ker(M_S) = 7 - rank(M_S)`, and `c` independent mod-p congruences need `c` free parameters:
+
+| binding congruences | max equations satisfiable | score |
+|---|---|---|
+| 2 | 5 of 12 | **39,026 (current)** |
+| 1 | 6 of 12 | 39,027 |
+| 0 | 12 of 12 (`A = 0`) | **39,033 — full solve** |
+
+> **There is no partial credit between 39,027 and a complete solution.** One congruence is
+> worth exactly one equation; killing both solves the instance.
+
+Optimality of 39,026 is **proved, not searched**: `s10/lattice3.py` enumerates all 2^12
+subsets and tests exact integer solvability (integer kernel by column HNF, then a 2-row
+integer linear system for the two congruences). Sizes 12..6: 0 solvable. Size 5: 300+.
+
+### NEW (session 10): the ripple's repair rule is too weak — re-audit the "forced chain" verdicts
+`x_7068 += k*p` *appears* to break atoms 29539 and 40826. It does not: both close through
+their handles (`x_29967`, then `x_30163`), and the nonzero-atom set returns to exactly the
+same seven for k = 1, 2, 7, -3228258 (`s10/repairD.py`). Consequence: `D mod 7376877` is
+free, so congruence (1) is only mod p.
+> **`lib.ripple` repairs an atom only through its canonical output variable with exact
+> division, so it silently misses handle-based repairs. Session 9's §14.4 "the chain is
+> FORCED", `chase.py` and `solve_branch.py` all rest on that weaker rule. Re-audit them
+> with `s10/tools.solve_lin` (effective-linear solve over ALL variables of an atom).**
+
+### Where the two congruences come from, and the one weak link
+* (2) binds **only** because `x_28730` is not free: moving it drags `x_4432`, which breaks
+  atom **7930** = `9367949*(x_24548 - x_25442) - x_7927` (15 eqs) and 41512 (`s10/isolate.py`).
+  Everything else — `x_642, x_17325, x_9413, x_1329, x_10903, x_29854, x_31864, x_9118,
+  x_8731` — is fully free with zero collateral.
+  **If atom 7930 can be closed while `x_28730` moves, the score is 39,027 immediately.**
+* (1) is the core congruence on `D mod p`.
+
+### Do NOT redo
+- The MUX branch (`x_4287 = 1`). It **does** zero all seven residual atoms simultaneously
+  (`s10/muxzero.py`) but leaves 8 collateral atoms -> 44 failing; best repair 38,991. Its own
+  load pins have only p-quantised handles (`x_27676 = p*x_6504`, `x_7574 = p*x_26658`), so
+  `x_31861`, `x_14865` stay pinned mod p: 4 mod-p conditions vs 2 free residues — the same
+  deficit of 2, relocated.
+- Greedy equation-space repair from the MUX state (it just switches the MUX back off -> 39,008).
+- Treating `x_28730` as free: `s10/lattice.py` finds a 6-subset and `s10/construct.py`
+  realises the target atom vector **exactly**, but it scores 39,011. Good model check, dead end.
+
+### Next experiments, in priority order
+1. Re-audit every session-9 forced-chain verdict with handle repair (see the warning above).
+2. Atom 7930: enumerate everything that moves `x_24548` and `x_25442`, look for a joint move
+   that lets `x_28730` float (`s10/atom7930.py`). Worth exactly one equation -> 39,027.
+3. The two residues are the whole problem — attack them, not assignments:
+   `D0 mod p = 61705020361863629770768910187978745858728889529652486596432934143473517757811`
+   `K2      = 33310166114805471624282140578459083391052142224394967852279417483154815501175`
+
+### Toolchain
+`cd solve_lab/s9 && python3 atomize.py && python3 poly.py && python3 gates.py && python3 fwd.py`
+(rebuilds all caches; `atomize.py` validates the decomposition against the raw file —
+**0 mismatches over 39,033 equations**). Session-10 scripts are in `solve_lab/s10/`
+and import `s9/eff/lib.py`; `s10/tools.py` has the stronger `solve_lin` repair.
+
+### Git
+Branch `claude/read-prompt-xpo2kf`.
+
+---
+# RESUME — read me first
+
 ## STATUS (session 9): best verified **39,026 / 39,033**
 Deliverable: `best/new_instance_partial_39026.json`
 Verify: `python3 checker.py best/new_instance_partial_39026.json` → `satisfied 39026/39033 (7 failing)`

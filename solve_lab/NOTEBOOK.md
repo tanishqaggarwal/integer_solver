@@ -1043,3 +1043,74 @@ a combinatorial object, not an algebraic wall. Recorded as next_action #1.
 
 Score accounting (none beats the deliverable, as §6's proof predicts):
 partial 3 atoms/11 eqs · one-bit activation 9/65 · two-bit both-cores-clean 11/70 · pin-closure 13/63.
+
+---
+
+# Session 10 — the residual in exact closed form; 39,026 proved optimal for this placement
+
+Start-of-session ritual executed: read `RESUME.md`, rebuilt the whole model from
+`EQUATIONS.txt` (`s9/atomize.py` -> 42,267 atoms / 39,033 eqs, **0 mismatches** on exact
+re-evaluation), and re-verified the deliverable with `checker.py`:
+`satisfied 39026/39033 (7 failing) [12231,12270,12350,14584,18673,22044,29125]`. Honest.
+
+New work lives in `s10/`; full write-up in **`S10_EXACT_RESIDUAL.md`**.
+
+## Correction to the Session-9 notes
+`S9_STRUCTURE.md` §15.1 says only 2 atoms are nonzero at 39,026 and `D2 == 0 mod p`.
+Measured (`s10/resid.py`): at the delivered 39,026 there are **7 nonzero atoms**
+— 22229, 22230, 35758, 35759, 35760, 35761, 35762 — occupying **exactly 12 equations**
+(5 satisfied, 7 failing). The 3-atom state in §15.1 is a different, 39,024-era point.
+
+## The residual, exactly
+12x7 coefficient matrix, **rank 7** (`s10/subsystem.py`): with no other atom moving, all
+12 hold iff all 7 atoms vanish. Achievable set of `A=(a22229,a22230,a35758..a35762)`:
+
+    (1) A1 + 7376877*A7 == D  (mod 7376877*p)        D = x_7068 - x_2099
+    (2) A2 == K2 (mod p)                              K2 = x_28730 mod p
+    (3) A3,A4,A5,A6 free
+
+Both residues verified 0 at the witness. Knob freedom checked one at a time
+(`s10/isolate.py`): `x_642, x_17325, x_9413, x_1329, x_10903, x_29854, x_31864, x_9118,
+x_8731` are free (no collateral atoms); **`x_28730` is not** — it drags `x_4432`, which
+breaks atoms 7930 (15 eqs) and 41512. That single fact is what makes congruence (2) bind.
+
+## NEW: the ripple's repair rule was too weak — 29539/40826 are not hard breaks
+`x_7068 += k*p` looks like it breaks a29539 and a40826, but both close through their
+handles (`x_29967`, then `x_30163`) and the nonzero-atom set returns to exactly the same
+seven, for k = 1, 2, 7, -3228258 (`s10/repairD.py`). So `D mod 7376877` is free and
+constraint (1) collapses to `A1 + 7376877*A7 == D0 (mod p)`.
+**Methodological consequence: every "the chain is FORCED" verdict from Session 9 (§14.4,
+`chase.py`, `solve_branch.py`) was reached with that weaker ripple and should be re-audited.**
+
+## Proof that 39,026 is optimal for this defect placement
+Exhaustive over all 2^12 subsets with exact integer solvability (integer kernel by column
+HNF, then a 2-row integer linear system for the two congruences) — `s10/lattice3.py`:
+sizes 12..6 give **0** solvable, size 5 gives 300+. So max |S| = 5 -> **39,026**. Proved,
+not searched. Cross-check: the one-congruence model (`s10/lattice.py`, pretending x_28730
+is free) does admit a 6-subset, and the constructed assignment realises the target atom
+vector **exactly** — but scores 39,011 because x_28730 breaks 7930/41512. Model is tight.
+
+### Accounting rule (clean, and it sets the endgame)
+dim ker(M_S) = 7 - rank(M_S), and c independent mod-p congruences need c free parameters:
+
+| binding congruences | max |S| | score |
+|---|---|---|
+| 2 | 5 | 39,026 (current) |
+| 1 | 6 | 39,027 |
+| 0 | 12 (A=0) | **39,033 = full solve** |
+
+**There is no partial credit between 39,027 and a complete solution.**
+
+## MUX branch, from the equation-space side
+`x_4287=1` -> `x_21279=1`, `x_7075=0`. Directly constructed (`s10/muxzero.py`): **all seven
+residual atoms zero simultaneously** (x_9118 drives x_2099, x_8731 drives x_19964). Cost:
+8 collateral atoms -> 44 failing (38,989); best repair reached 38,991 (`s10/muxrepair.py`).
+The branch's own load pins have handles but only p-quantised ones (`s10/dormant.py`):
+`x_27676 = x_23333*x_6504 = p*x_6504`, `x_7574 = p*x_26658`, so `x_31861 == C1` and
+`x_14865 == C2 (mod p)` stay pinned. Four mod-p conditions against two free residues —
+the same deficit of 2, relocated. Session 9 §12.4's conclusion, reproduced independently.
+
+## Score log this session
+39,026 (verified base) · 39,011 (one-congruence lattice target, model check) ·
+39,022 (D shifted by k*p, untuned) · 38,989 -> 38,991 (MUX branch) · 39,008 (mux greedy).
+**Deliverable unchanged at 39,026.**

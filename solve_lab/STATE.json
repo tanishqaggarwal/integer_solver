@@ -1,30 +1,229 @@
 {
-  "phase": "algebra",
-  "n_eqs": 39033,
-  "n_vars": 38748,
-  "n_forced": 5897,
-  "n_assigned": 38748,
-  "n_eqs_satisfied_by_partial": 39026,
-  "best_score": 39026,
+ "phase": "algebra",
+ "n_eqs": 39033,
+ "n_vars": 38748,
+ "n_forced": 5897,
+ "n_assigned": 38748,
+ "n_eqs_satisfied_by_partial": 39026,
+ "best_score": 39026,
+ "best_partial": "solve_lab/best/new_instance_partial_39026.json",
+ "active_method": "39,026/39,033 (7 failing) -- PROVED optimal for this defect placement (s10/lattice3.py, exhaustive over all 2^12 subsets with exact integer solvability, not a search). Residual = 7 nonzero atoms [22229,22230,35758,35759,35760,35761,35762] in exactly 12 equations, rank 7. Achievable atom-vector set = {A1+7376877*A7 == D (mod p, after the free k*p shift of x_7068); A2 == K2 (mod p); A3..A6 free}. Each binding congruence costs exactly one equation: 2 -> 39,026, 1 -> 39,027, 0 -> 39,033 (full solve). No partial credit in between.",
+ "structure": {
+  "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
+  "n_distinct_atoms": 46275,
+  "atom_reuse_mean": 10,
+  "linear_atoms": 20090,
+  "deg2_atoms": 25468,
+  "deg4_atoms": 717,
+  "boolean_vars": 3484,
+  "pins_all_value_1": 1103,
+  "huge_atoms": 865,
+  "huge_atom_form": "bit*(x_B - HUGE_290bit) - s*x_C ; bit=1 loads residue",
+  "core": "1 giant residual component: 23843 vars, 256 free bits; +297 tiny homogeneous comps",
+  "open_atoms": [],
+  "not_single_modulus": true
+ },
+ "n_eqs_failing": 7,
+ "failing_eqs": [
+  12231,
+  12270,
+  12350,
+  14584,
+  18673,
+  22044,
+  29125
+ ],
+ "core_probes": {
+  "single_bit_flip": "51 bits improve 4->3 violated atoms, none reach <3; flipping moves violations to different atoms (rugged landscape)",
+  "greedy_multiflip": "plateaus at 3; adding a 2nd bit never improves below 3",
+  "boolean_forcing_prop": "cannot bootstrap (all-zeros is a fixpoint)",
+  "local_repair_4vars": "UNSAT (z3): the 4 vars unique to failing eqs cannot fix them",
+  "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
+ },
+ "next_actions": [
+  "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing). PROVED optimal for this defect placement by exact integer subset enumeration, not by search.",
+  "HIGHEST EV: re-audit session 9's forced-chain verdicts with explicit HANDLE repair instead of the canonical ripple -- s10/repairD.py already overturned 29539/40826 that way.",
+  "Atom 7930 = 9367949*(x_24548-x_25442) - x_7927 is the single thing making congruence 2 bind. Enumerate everything that moves x_24548 and x_25442 and look for a joint move; if x_28730 becomes free the score is 39,027 immediately (s10/atom7930.py).",
+  "The whole instance is now two residues mod p: D0 and K2 (values in session10.residual_closed_form). Attack those, not assignments."
+ ],
+ "blocked": [
+  "Improving past 39,026 requires killing one of the two mod-p congruences; killing both IS the full solve. Every knob measured either moves nothing mod p or costs more equations than it saves."
+ ],
+ "artifacts": {
+  "checker": "solve_lab/checker.py",
+  "verifier_cli": "python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json",
+  "atoms": "solve_lab/atoms/poly_atoms.jsonl",
   "best_partial": "solve_lab/best/new_instance_partial_39026.json",
-  "active_method": "39,026/39,033 (7 failing). EFFECTIVE-footprint knobs: a variable multiplied by a currently-zero variable has no real effect, so its usable footprint is far smaller than its syntactic one. That admits x_9118 and x_8731 as knobs alongside the 8 syntactic ones. By CRT (gcd(5113045,p)=1, and x_8731 moves atom 35761 in steps of 1) two of the four binding congruences dissolve: the achievable atom-value lattice goes from invariant factors [1,1,P,1,P,1,P,7376877P] (C=4, maxzero=4, 9 failing) to [1,1,P,1,1,1,1,7376877P] (C=2, maxzero=6, 7 failing). Exhaustive over all 2^13 subsets of S13: max simultaneously zeroable = 6; no 7-subset is integer-solvable.",
-  "structure": {
-    "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
-    "n_distinct_atoms": 46275,
-    "atom_reuse_mean": 10,
-    "linear_atoms": 20090,
-    "deg2_atoms": 25468,
-    "deg4_atoms": 717,
-    "boolean_vars": 3484,
-    "pins_all_value_1": 1103,
-    "huge_atoms": 865,
-    "huge_atom_form": "bit*(x_B - HUGE_290bit) - s*x_C ; bit=1 loads residue",
-    "core": "1 giant residual component: 23843 vars, 256 free bits; +297 tiny homogeneous comps",
-    "open_atoms": [],
-    "not_single_modulus": true
+  "failing": "solve_lab/best/failing_eqs.json",
+  "scripts": [
+   "propagate.py",
+   "solve_forward2.py",
+   "analyze_core.py",
+   "main_component.py",
+   "z3_main.py",
+   "cone_solve.py",
+   "repair.py",
+   "flip_search.py"
+  ],
+  "session9_writeup": "solve_lab/S9_STRUCTURE.md",
+  "reduced_problem": "solve_lab/REDUCED_PROBLEM.md"
+ },
+ "updated_unix": 1785979363,
+ "session4": {
+  "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
+  "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
+  "huge_atoms": "exact affine x_B=s*x_C+HUGE (no modulus)",
+  "bitblast": "122221 ungated big*big products -> infeasible",
+  "methods_tried": "~25 (SMT, SAT, GF2/GF3, linear algebra, boolean reduction, propagation/RuleA, local/greedy/SA/WalkSAT/pairs/triples search, modulus hunts, local-repair UNSAT, fast DAG eval)"
+ },
+ "prev_best": {
+  "score": 39013,
+  "file": "solve_lab/best/best_partial_39013.json",
+  "open_atoms": [
+   27973,
+   27978,
+   41470,
+   45004
+  ]
+ },
+ "session6": {
+  "reduction": "obstruction == twist only: x_9770=x_18274 AND x_3183=x_17728 (atom 40782 implied, verified test_40782.py)",
+  "twist_atoms": {
+   "1817": "6033033*(x_9770-x_18274)+x_26977 (x_26977==0)",
+   "44271": "x_3183-x_17728",
+   "30378": "x_3183-x_9982-x_17728 (x_9982==0)"
   },
-  "n_eqs_failing": 7,
-  "failing_eqs": [
+  "decoupling": "x_9770,x_3183 <- 22 bits only; x_18274,x_17728 <- 233 bits only (same 211 support)",
+  "denominator": "x_18274=x_6773/x_8821, x_17728=x_17233/x_8821; x_8821 EXACTLY LINEAR in 233 bits; numerators high-degree",
+  "targets_at_B0": {
+   "x_18274_0": "91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002",
+   "x_17728_0": "125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626"
+  },
+  "B0_ruled_out": "DEFINITIVE: full 2^22 scan (prime 2147483647) found 0 patterns matching x_18274(0) or x_17728(0) in even one coordinate. B=0 impossible; witness needs 233-side active.",
+  "correction": "Session-5 rank-233/slaved-B claim used lossy-eval linearity filter; NOT reliable. Wires are genuinely nonlinear (mod-P confirmed).",
+  "final_assessment": "Full solve = claw-find (A,B) with x_9770(A)=x_18274(B) & x_3183(A)=x_17728(B). 22-side enumerable+invertible (2^22); 233-side high-degree over 2^233, no linear/low-degree inversion, disjoint 290-bit residue pools, witness isolated in the integer-consistent variety. This is the deliberately-hard trapdoor; not crackable by enumeration/local/lattice/SMT. Deliverable: 39,019/39,031 exact.",
+  "no_shortcut": "Confirmed rigid: x_26977=x_20510*x_31302 (atom 1816), x_9982 pinned 0 (atom 44272) - no slack to absorb the twist gap. No hidden modulus (gcd residues=1). No B=0, no small/linear/subset-sum/local solution. Claw-find between 2^22 (enumerable) and 2^233 (high-degree, non-invertible) needs 2^558 g-evals or the trapdoor.",
+  "linalg255": "CORRECTED over all 255 bits (mod-P): rank 255/255, forces all bits=0. Witness is outside the linear neighborhood of all-0 => linear/lattice provably cannot reach it. Supersedes buggy session-5 slaved-B claim."
+ },
+ "session7": {
+  "slack_active": "freeze x_24026:=x_18274-x_35186, x_27116:=x_17728-x_1642 with x_12779=1 => twist holds; ~18 secondary atoms break from the ripple",
+  "core_reduction": "min-conflicts/SA reduce 18->6 broken; persistent core includes a40782=Q^2 (twist square) and a44154 sharing ripple monomials",
+  "quantization": "gcd(g,g2)=1 [x_9770,x_18274], gcd(h,h2)=2 [x_3183,x_17728]; every twist var = base*(signed int)",
+  "divwire_escape": "x_8821=x_17810*x_27292 in {-2,-1,0,1}; escaped x_18274/x_17728 land on (base/2)*Z, still coprime to 22-side quantum => degenerate",
+  "reorientation": "x_18274<-a11398, x_17728<-a11388 stays valid (39019) but x_18274 becomes constant => achievable set intrinsic",
+  "xl_infeasible": "ripple subsystem grows 46->14664->26954->27469 vars (194093 monomials) in 3 BFS rounds => globally coupled, no local solve",
+  "q40782_root": "degree-2, 38 terms; twist terms vanish under twist, leaving linear eq in ripple vars 28*x_10783 - x_30323 - 477654111*x_24252 + ... = 0 that needs a SMALL ripple",
+  "sa_fleet": "4 instances (activators 1858/26947/27512/5443) in slack-active space with roots; best 6 so far"
+ },
+ "session7_final": {
+  "result": "233-side twist activation gives a SQUARE-FREE reproducible 4-atom core [8464,19480,41459,44129] after root-replacement - tightest reduction across all sessions",
+  "invariant": "the collision gap G=63398753350954830538284979531311478224817569395477016427713014637060524103217265241016814 (=x_17728-x_3183) is CONSERVED: every reformulation (twist atoms / slack-active R / x_8821 web / x_12390-x_14494) relocates the SAME G to different vars, none eliminates it",
+  "joint_solve_fails": "a44129 x_24089-dependence cancels (c1=c2=0); free var cannot absorb G",
+  "conclusion": "G is zeroed only by a NATIVE 22/233 collision, forbidden by coprime quantization (gcd 2, tiny coprime images, 0 nonzero collisions/3500 samples) => robust one-way trapdoor requiring knapsack inversion"
+ },
+ "new_instance": {
+  "phase": "analyzed-hard",
+  "n_eqs": 39033,
+  "best_partial_score": 39007,
+  "best_partial": "best/new_instance_partial_39007.json",
+  "identification": "GF(p) arithmetic-circuit trapdoor; wire pinned to p=2^256-2^32-977",
+  "core": "256-bit boolean codeword message; full-rank loads; p-divisibility coupling",
+  "verdict": "full solution exists by construction; not reachable by feasible local/algebraic search without setter secret",
+  "tools": [
+   "build_twist.py",
+   "newton2.py",
+   "p_message.py",
+   "scc.py",
+   "localize.py",
+   "scan_bits.py"
+  ]
+ },
+ "session9": {
+  "model": {
+   "atoms": 42267,
+   "gates": 31475,
+   "free_inputs": 7273,
+   "boolean_free_inputs": 1156,
+   "checks": 10792,
+   "square_checks": 783,
+   "nonzero_atoms_at_best": [
+    22229,
+    22231,
+    37887
+   ],
+   "validation": "atom decomposition re-evaluated exactly against all 39033 raw equations, 0 mismatches"
+  },
+  "obstruction": "x_7068 = K1 (mod p) and x_4432 = K2 (mod p); K1,K2 are the load-gate pins of x_6418,x_12553 (atoms 3576/3578)",
+  "core": "M1=x_15298*L1+x_4007, M2=x_15298*L2-6672769*x_29804, M3=537773*x_15298*L3-x_35605; L1=8646263S+1073965T, L2=10159099S+6926539T, L3=8272701S+5921311T; S=A*u^2-w^2, T=B*u-w*c; u=x_29322=x_14853-x_12186, w=x_3558=x_24908-x_16742, A=x_33469=x_22162+x_12186+x_14853+x_24453, c=x_1326=x_12186-x_22162, B=x_27713=x_30213+x_16742",
+  "core_second_branch": "NEW: core <=> S=T=0 mod p <=> u^2*(A*c^2-B^2)=0, so EITHER u=w=0 OR A*c^2=B^2 mod p. The second branch was never recorded before; blocked only by mod-p pins on x_22162 (atom 1618), x_30213 (atom 688), x_16742 (atom 26731). Highest-EV open door.",
+  "methodological_bug": "783 check atoms are perfect squares E^2; at the partial E=0 so a finite-difference row for E^2 is quadratic (c^2 d^2), not linear. Any Jacobian/Newton/null-space attack that used the square itself solved the wrong system. s9/roots.py extracts all 783 roots (699 deg-2, 84 deg-1). After the fix the mod-p inconsistency moved off the spurious square 42245 onto the genuine core atom 19297.",
+  "bit_scan": "all 1156 boolean free inputs flipped; only x_2081 and x_24601 set x_15298=0 (deactivate core), both worse (17/19 residuals vs 4)",
+  "modp_solve": "sparse Gaussian elimination mod p over 4884 effective columns / 13159 nnz: INCONSISTENT at S0 and S1 (270-row certificate)",
+  "optimality_proof": "D2/D1 mod p = 29086885819837044927165644576879200888791656444895144487473726012333934270214 (full 256-bit); required ratios are -c1/c2 with |c|<=40 => no failing equation can be cancelled",
+  "tools": "s9/{harness,atomize,poly,gates,fwd,ripple,repair,drive,cone,sens,jac,jac2,newton,roots,modsolve,cert,bits,bitscan,movevar,state0,jcheck}.py",
+  "activation_branch": "x_8599=1 (88 of 1156 boolean free inputs do it, keeping x_21839=1) reroutes x_12186 from the computed x_30454 to the FREE input x_5096, so x_12186 mod p becomes free. Setting x_5096=K1 and x_14853=x_12186 gives u=w=S=T=L1=0 exactly: the original core (19297/19299/30984) is satisfied SIMULTANEOUSLY with C1/C2 for the first time. But x_38170=x_8599*x_21839 becomes 1, lighting a SECOND core of identical shape (26733/28438/32342; loads x_21202=11598153S'+16335423T', x_32453=4677103S'+15469317T'; S'=A'u'^2-w'^2, T'=B'u'-w'c'; u'=x_18123=x_30454-x_10261, w'=x_17576=x_16787-x_25199). That second core IS zeroable: ~90 boolean free inputs shift u' and w' by exact complements mod p (u'+delta=p and w'+delta'=p exactly). Two-bit constructions (e.g. x_2527 + x_1502) leave BOTH cores clean, residual = 11 atoms that are ALL activated load pins + mirrors 21617/26731/37662. Closing those pins moves variables in the first core cone and re-lights it (11->16->13, stalls, 63 failing eqs). Obstruction conserved through the activation route too; the pin/mirror cascade is the real invariant.",
+  "second_branch_closed": "Core second branch A*c^2=B^2 mod p requires A to be a quadratic residue. A is FIXED by the pins (x_22162 pinned atom 1618, x_30213 atom 688, x_14853 forced to K1 by mirror+C1) and is a NON-residue for both reachable x_12186 residues (current and 0). Sampling shows ~50% of x_14853 shifts would make it a QR, so the branch is generically open and closed here precisely by the setter pinning x_14853 to K1. CLOSED.",
+  "RETRACTION": "The earlier \"39,022 is provably optimal\" claim is WITHDRAWN. It assumed atom 22230 must stay zero. Only the narrow statement survives: IF every atom outside the defect set must vanish, THEN no failing equation can be cancelled. That is the wrong constraint -- work in equation space.",
+  "equation_space_principle": "An equation is m*(sum_a c_a * y_a) (or its square), so it vanishes iff the atom combination vanishes. 42,267 atoms vs 39,033 equations => a large kernel. Atoms whose equation footprint is contained in the sacrificed set are free knobs. This is the lever that produced 39,024 and the frame for any further gain.",
+  "agent_round": {
+   "pins_agent": "found and I verified the 39,024 construction; catalogued 512 load pins on 256 gate-bits; pin conflict graph EMPTY (all 256 bits on + all 512 pins closed = 0 pin violations); all 254 single bit flips score 32-41 failing (min 32); exactly 6 of 7273 free inputs move (D1,D2) mod p and all break other checks",
+   "quadrant_agent": "x_2081=0 branch fully reconstructed -> 39,021 (12 failing), quad/best_quadrant_39021.json; x_24601=0 -> 27; both -> 43. On that branch the x_8599 reroute closes BOTH setter pins 688/1618 outright (new) but the second core costs ~26 eqs (best 30). Their rigidity argument reuses the retracted atom-space assumption, so 12 is not established as that branch wall.",
+   "sa_agent": "still running at last check, retargeted to the 39,024 baseline",
+   "my_checks": "no variable/atom has footprint inside the current 9 failing eqs; sacrificing pins 3576/3578 costs 26-28 eqs for 8-10 knobs; atom-space BnB finds no relaxation set of cost <=26; A,B first-order rigid mod p (solver sanity-checked)"
+  },
+  "closed_form_lock": {
+   "output_wire": "x_12186 = x_22649 (mod p) exactly 1:1; x_22649 is a FREE input; found by s9/modtrace.py (mod-p symbolic cone)",
+   "chain1_killable": "moving {x_22649, x_22152, x_14853, x_7068} by the same delta = K1 - x_12186 sets atom 22229 = 0 while keeping the core u = 0. First time chain 1 has been killed. s9/chain1.py -> 21 failing, only atoms 22231/37887/31670 nonzero.",
+   "the_pin": "atom 31670 = x_24601*(x_22152 - 126767545623909574255290391153759363968073470399639361054829680359428658595949132261910506) = 7550763*p*x_105 pins the output wire to EXACTLY the original x_12186, which differs from K1 by D1.",
+   "mux_branch": "x_4287=1 selects x_2099=x_9118 and x_19964=x_8731 (free) instead of the pinned x_6418/x_12553, making atoms 22229 AND 22231 both zero simultaneously for the first time (s9/mux.py).",
+   "branch_obligation": "x_4287=1 lights loads x_2239,x_31731,x_9106 which are 3 combinations of 2 base quantities x_4306,x_27177 (verified exactly), so the obligation is x_4306=x_27177=0 mod p. SOLVABLE by a 2x2 solve on (x_9118,x_8731). d(x_27177)/d(x_8731)=0, so x_9118 mod p is UNIQUELY determined = 33371159155735472537534252650716501592825364489306217536352743247010353604716.",
+   "the_mismatch": "the mirror+core chain forces x_9118 = x_12186 mod p, pinned to 82007976112976807461901870199198737303514020147647909878034348606308756230357 (x_24601=1) or 0 (x_24601=0). Neither equals the obligation value. THIS mismatch is the trapdoor, now in closed form.",
+   "best_on_branch": "34 failing (s9/mux3_out.json) vs 9 on the current branch"
+  },
+  "residual_problem_size": {
+   "irreducible": "2 congruences mod p=2^256-2^32-977 (512 bits of constraint): D1 = x_7068-x_2099-7376877*x_642 = 0 and D2 = x_4432-x_19964-x_28730 = 0",
+   "combinatorial_content": "MEASURED: of 1156 boolean free inputs only 2 (x_2081, x_4287, the MUX controls) move (D1,D2) mod p, and their deltas are IDENTICAL -> rank 1 of 2 over GF(p). Of ~6117 integer free inputs only 4 move them (x_6418, x_12553, x_9413, x_17325), all pinned mod p or pure p-multiples in a complete solution. The 256-bit message is provably DECOUPLED from the verification residues: there is no subset-sum/knapsack kernel.",
+   "algebraic_kernel": "6 unknowns mod p and 2 quadratic forms: S=A*u^2-w^2, T=B*u-w*c; L1,L2,L3 are fixed integer combinations; requirement S=T=0 mod p plus one condition mod 6672769. Eliminating w gives u^2*(A*c^2-B^2)=0, so the second branch is a pure Legendre-symbol condition (open iff A is a QR mod p).",
+   "annealer_verdict": "NOT suitable. (a) a QUBO must encode 256-bit modular arithmetic: ~65k binaries per modular multiply, >=4 multiplies in the kernel, 1e5-1e6 logical binaries before minor-embedding. (b) FATAL: the objective needs ~512 bits of coupler dynamic range; annealers deliver ~4-6 effective bits after analog control error. (c) no low-precision combinatorial residue exists to peel off (see combinatorial_content). Write-up: solve_lab/REDUCED_PROBLEM.md",
+   "recommended": "Legendre/QR search for a configuration flipping the symbol of A; LLL/CVP on the accessible knobs (never run); or the closed-form identity of S9_STRUCTURE.md section 12."
+  },
+  "effective_footprint": "census over all 38,748 variables: syntactic footprint 771,576 var-equation incidences vs effective 599,740 (22.3% smaller); 25,250 variables strictly gain, 3,289 are pure no-ops. Surviving congruences are exactly the two original core ones (y22230+y22231 = D2 mod P, y22229+7376877*y35762 = D1 mod 7376877P). Of all 38,748 variables only 25 move a surviving congruence and the cheapest costs 10 extra equations (best achievable >= 14), so 7 is the floor for this placement and going lower requires the trapdoor itself.",
+  "quadrant_map": {
+   "b1=0,b2=1,x24601=1 (current)": "A,B nonzero; core dead; 7 failing -- DELIVERABLE",
+   "chain-1 killed": "A=0, B nonzero, core dead; blocked by output-wire pin 31670; 21 failing",
+   "b1=1,b2=1 (MUX flip)": "A=B=0; branch obligation forces x_9118 to a residue incompatible with the pinned output wire; 34 failing",
+   "b1=0,b2=0,x24601=0 (all-zero)": "A=B=0 AND core dead (x_15298=0) AND forced OR gate satisfied; only setter pins 688/1618 remain, whose carriers ARE movable, but the boolean needed for the OR lights its own load pins and closing them cascades; 28-31 failing",
+   "conclusion": "the trapdoor is a COVERING design: each branch satisfies some pins and kills the wires the others need. The conserved quantity is the mismatch itself, which relocates between the defect atoms, the output-wire pin, the branch obligation, and the setter pins."
+  },
+  "all_zero_branch": {
+   "result": "driven to 3 atoms / 17 failing with A=B=0, core dead (x_15298=0), u=w=0 and the forced OR gate satisfied -- every condition that blocks the main branch is met here",
+   "pipeline": "x_2081=0,x_24601=0 -> zero x_22162,x_30213 (28 failing) -> OR gate via gate-bit x_47 with its two pins closed (16 failing, only setter pins 688/1618 left) -> close 688 via x_16742->x_18956 and 1618 via x_14681->x_24468 -> chase mirrors (x_38667->x_19083, x_29851->x_24483, then 3 automated steps) -> 17 failing",
+   "closure": "the mirror chain terminates on atoms 23824/23826, which are the two load pins of x_47 ITSELF -- the gate-bit needed to satisfy the forced OR gate. Only the 256 gate-bits can satisfy x_9274=1 (all 900 pin-free booleans fail, verified exhaustively), every gate-bit pins two inputs, and the chain runs through exactly those inputs.",
+   "open_question": "is there a gate-bit whose pinned pair is disjoint from its own mirror chain? s9/solve_branch.py parameterises the pipeline by the gate-bit, making this a finite 256-way check.",
+   "forced_chain": "every chain target has EXACTLY ONE non-boolean 1:1 driver (x_18956<-x_16742, x_24468<-x_14681, x_19083<-x_38667, x_24483<-x_29851, x_28922<-x_25477, x_37571<-x_30709, x_462<-x_24221; x_24221 and x_25477 are self-driving free inputs). No alternative routing exists. Combined with (1) only gate-bits can satisfy the forced OR gate, and (2) only x_47 makes the setter-pin drivers live, the branch is closed rigorously: the only bit that unlocks the setter pins is the bit whose own pins the unlocking chain must violate."
+  },
+  "dormant_gates": "single-variable analysis is blind to dormant product gates x_i*x_j with both factors exactly 0: moving either alone gives 0, moving both injects d_i*d_j. At the 39,026 witness there are 81,681 strictly dormant monomials, 2,042 with both factors free. Scanning all of them: only 2 move (D1,D2) mod p and both are the already-known MUX flip. Also: D2 = 0 mod p already at 39,026, so the entire remaining obstruction is the single congruence A = atom 22229 = 0, i.e. x_7068 = K1 mod p.",
+  "link_audit": "audited every link of the chain pinning x_7068 (s9/linkaudit.py). Handles: 31670 -> p*x_105; 2423 -> p*x_14768; 22772 -> x_2121*x_11648 (DORMANT, unquantised); 26729 -> p*x_33612; 29539 -> p*x_30163; 22229 -> 7376877*p*x_17325. Exactly ONE link is not p-quantised. Activating it (x_38144 = 1) both disconnects the pinned x_22152 from x_29524 and connects the free x_11648, and executing it does give x_12186 = x_7068 = K1 with u = 0. But x_38144 is held by atom 32288 = \"x_38144 - 0\", a BARE single-variable pin with no handle (11 equations). The setter put a handle-free constant pin on the one select that would have opened the chain."
+ },
+ "session10": {
+  "verified": "checker.py on best/new_instance_partial_39026.json -> 39026/39033, failing [12231,12270,12350,14584,18673,22044,29125]; model rebuilt with 0 mismatches over all 39033 raw equations",
+  "correction_to_s9": "S9_STRUCTURE section 15.1 claims 2 nonzero atoms and D2==0 at 39,026. Measured: SEVEN nonzero atoms (22229,22230,35758..35762) in exactly 12 equations. The 3-atom state is a different 39,024-era point.",
+  "residual_closed_form": {
+   "atoms": [
+    22229,
+    22230,
+    35758,
+    35759,
+    35760,
+    35761,
+    35762
+   ],
+   "equations": [
+    2554,
+    6816,
+    8124,
+    9123,
+    9421,
     12231,
     12270,
     12350,
@@ -32,177 +231,26 @@
     18673,
     22044,
     29125
-  ],
-  "core_probes": {
-    "single_bit_flip": "51 bits improve 4->3 violated atoms, none reach <3; flipping moves violations to different atoms (rugged landscape)",
-    "greedy_multiflip": "plateaus at 3; adding a 2nd bit never improves below 3",
-    "boolean_forcing_prop": "cannot bootstrap (all-zeros is a fixpoint)",
-    "local_repair_4vars": "UNSAT (z3): the 4 vars unique to failing eqs cannot fix them",
-    "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
+   ],
+   "satisfied_now": [
+    2554,
+    6816,
+    8124,
+    9123,
+    9421
+   ],
+   "rank": 7,
+   "constraint_1": "A1 + 7376877*A7 == D (mod 7376877*p); D = x_7068-x_2099",
+   "constraint_2": "A2 == K2 (mod p); K2 = x_28730 mod p",
+   "free": "A3,A4,A5,A6",
+   "D0_mod_p": "61705020361863629770768910187978745858728889529652486596432934143473517757811",
+   "K2": "33310166114805471624282140578459083391052142224394967852279417483154815501175"
   },
-  "next_actions": [
-    "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing), exhaustively optimal for its defect placement.",
-    "Finish the 256-way scan in s9/solve_branch.py to confirm x_47 is the unique gate-bit that closes the setter pins (6 of 256 checked so far; all others leave 688 or 1618 standing).",
-    "The two remaining leverage points are both single scalar identities mod p: (a) S9_STRUCTURE section 12 -- make the residue x_24601 pins onto x_22649 agree with the residue the MUX-branch obligation forces on x_9118; (b) section 14 -- find a configuration where the OR-gate bit and the forced mirror chain do not collide.",
-    "Not annealer-shaped: see REDUCED_PROBLEM.md (rank 1 of 2 from the bits; no subset-sum kernel)."
-  ],
-  "blocked": [
-    "Improving past 39,022 provably requires satisfying x_7068 = K1 and x_4432 = K2 mod p outright, i.e. cracking the core; mod-p linear solve over all free inputs is inconsistent at fixed bits even with the corrected square-root model."
-  ],
-  "artifacts": {
-    "checker": "solve_lab/checker.py",
-    "verifier_cli": "python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json",
-    "atoms": "solve_lab/atoms/poly_atoms.jsonl",
-    "best_partial": "solve_lab/best/new_instance_partial_39026.json",
-    "failing": "solve_lab/best/failing_eqs.json",
-    "scripts": [
-      "propagate.py",
-      "solve_forward2.py",
-      "analyze_core.py",
-      "main_component.py",
-      "z3_main.py",
-      "cone_solve.py",
-      "repair.py",
-      "flip_search.py"
-    ],
-    "session9_writeup": "solve_lab/S9_STRUCTURE.md",
-    "reduced_problem": "solve_lab/REDUCED_PROBLEM.md"
-  },
-  "updated_unix": 1785976621,
-  "session4": {
-    "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
-    "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
-    "huge_atoms": "exact affine x_B=s*x_C+HUGE (no modulus)",
-    "bitblast": "122221 ungated big*big products -> infeasible",
-    "methods_tried": "~25 (SMT, SAT, GF2/GF3, linear algebra, boolean reduction, propagation/RuleA, local/greedy/SA/WalkSAT/pairs/triples search, modulus hunts, local-repair UNSAT, fast DAG eval)"
-  },
-  "prev_best": {
-    "score": 39013,
-    "file": "solve_lab/best/best_partial_39013.json",
-    "open_atoms": [
-      27973,
-      27978,
-      41470,
-      45004
-    ]
-  },
-  "session6": {
-    "reduction": "obstruction == twist only: x_9770=x_18274 AND x_3183=x_17728 (atom 40782 implied, verified test_40782.py)",
-    "twist_atoms": {
-      "1817": "6033033*(x_9770-x_18274)+x_26977 (x_26977==0)",
-      "44271": "x_3183-x_17728",
-      "30378": "x_3183-x_9982-x_17728 (x_9982==0)"
-    },
-    "decoupling": "x_9770,x_3183 <- 22 bits only; x_18274,x_17728 <- 233 bits only (same 211 support)",
-    "denominator": "x_18274=x_6773/x_8821, x_17728=x_17233/x_8821; x_8821 EXACTLY LINEAR in 233 bits; numerators high-degree",
-    "targets_at_B0": {
-      "x_18274_0": "91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002",
-      "x_17728_0": "125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626"
-    },
-    "B0_ruled_out": "DEFINITIVE: full 2^22 scan (prime 2147483647) found 0 patterns matching x_18274(0) or x_17728(0) in even one coordinate. B=0 impossible; witness needs 233-side active.",
-    "correction": "Session-5 rank-233/slaved-B claim used lossy-eval linearity filter; NOT reliable. Wires are genuinely nonlinear (mod-P confirmed).",
-    "final_assessment": "Full solve = claw-find (A,B) with x_9770(A)=x_18274(B) & x_3183(A)=x_17728(B). 22-side enumerable+invertible (2^22); 233-side high-degree over 2^233, no linear/low-degree inversion, disjoint 290-bit residue pools, witness isolated in the integer-consistent variety. This is the deliberately-hard trapdoor; not crackable by enumeration/local/lattice/SMT. Deliverable: 39,019/39,031 exact.",
-    "no_shortcut": "Confirmed rigid: x_26977=x_20510*x_31302 (atom 1816), x_9982 pinned 0 (atom 44272) - no slack to absorb the twist gap. No hidden modulus (gcd residues=1). No B=0, no small/linear/subset-sum/local solution. Claw-find between 2^22 (enumerable) and 2^233 (high-degree, non-invertible) needs 2^558 g-evals or the trapdoor.",
-    "linalg255": "CORRECTED over all 255 bits (mod-P): rank 255/255, forces all bits=0. Witness is outside the linear neighborhood of all-0 => linear/lattice provably cannot reach it. Supersedes buggy session-5 slaved-B claim."
-  },
-  "session7": {
-    "slack_active": "freeze x_24026:=x_18274-x_35186, x_27116:=x_17728-x_1642 with x_12779=1 => twist holds; ~18 secondary atoms break from the ripple",
-    "core_reduction": "min-conflicts/SA reduce 18->6 broken; persistent core includes a40782=Q^2 (twist square) and a44154 sharing ripple monomials",
-    "quantization": "gcd(g,g2)=1 [x_9770,x_18274], gcd(h,h2)=2 [x_3183,x_17728]; every twist var = base*(signed int)",
-    "divwire_escape": "x_8821=x_17810*x_27292 in {-2,-1,0,1}; escaped x_18274/x_17728 land on (base/2)*Z, still coprime to 22-side quantum => degenerate",
-    "reorientation": "x_18274<-a11398, x_17728<-a11388 stays valid (39019) but x_18274 becomes constant => achievable set intrinsic",
-    "xl_infeasible": "ripple subsystem grows 46->14664->26954->27469 vars (194093 monomials) in 3 BFS rounds => globally coupled, no local solve",
-    "q40782_root": "degree-2, 38 terms; twist terms vanish under twist, leaving linear eq in ripple vars 28*x_10783 - x_30323 - 477654111*x_24252 + ... = 0 that needs a SMALL ripple",
-    "sa_fleet": "4 instances (activators 1858/26947/27512/5443) in slack-active space with roots; best 6 so far"
-  },
-  "session7_final": {
-    "result": "233-side twist activation gives a SQUARE-FREE reproducible 4-atom core [8464,19480,41459,44129] after root-replacement - tightest reduction across all sessions",
-    "invariant": "the collision gap G=63398753350954830538284979531311478224817569395477016427713014637060524103217265241016814 (=x_17728-x_3183) is CONSERVED: every reformulation (twist atoms / slack-active R / x_8821 web / x_12390-x_14494) relocates the SAME G to different vars, none eliminates it",
-    "joint_solve_fails": "a44129 x_24089-dependence cancels (c1=c2=0); free var cannot absorb G",
-    "conclusion": "G is zeroed only by a NATIVE 22/233 collision, forbidden by coprime quantization (gcd 2, tiny coprime images, 0 nonzero collisions/3500 samples) => robust one-way trapdoor requiring knapsack inversion"
-  },
-  "new_instance": {
-    "phase": "analyzed-hard",
-    "n_eqs": 39033,
-    "best_partial_score": 39007,
-    "best_partial": "best/new_instance_partial_39007.json",
-    "identification": "GF(p) arithmetic-circuit trapdoor; wire pinned to p=2^256-2^32-977",
-    "core": "256-bit boolean codeword message; full-rank loads; p-divisibility coupling",
-    "verdict": "full solution exists by construction; not reachable by feasible local/algebraic search without setter secret",
-    "tools": [
-      "build_twist.py",
-      "newton2.py",
-      "p_message.py",
-      "scc.py",
-      "localize.py",
-      "scan_bits.py"
-    ]
-  },
-  "session9": {
-    "model": {
-      "atoms": 42267,
-      "gates": 31475,
-      "free_inputs": 7273,
-      "boolean_free_inputs": 1156,
-      "checks": 10792,
-      "square_checks": 783,
-      "nonzero_atoms_at_best": [
-        22229,
-        22231,
-        37887
-      ],
-      "validation": "atom decomposition re-evaluated exactly against all 39033 raw equations, 0 mismatches"
-    },
-    "obstruction": "x_7068 = K1 (mod p) and x_4432 = K2 (mod p); K1,K2 are the load-gate pins of x_6418,x_12553 (atoms 3576/3578)",
-    "core": "M1=x_15298*L1+x_4007, M2=x_15298*L2-6672769*x_29804, M3=537773*x_15298*L3-x_35605; L1=8646263S+1073965T, L2=10159099S+6926539T, L3=8272701S+5921311T; S=A*u^2-w^2, T=B*u-w*c; u=x_29322=x_14853-x_12186, w=x_3558=x_24908-x_16742, A=x_33469=x_22162+x_12186+x_14853+x_24453, c=x_1326=x_12186-x_22162, B=x_27713=x_30213+x_16742",
-    "core_second_branch": "NEW: core <=> S=T=0 mod p <=> u^2*(A*c^2-B^2)=0, so EITHER u=w=0 OR A*c^2=B^2 mod p. The second branch was never recorded before; blocked only by mod-p pins on x_22162 (atom 1618), x_30213 (atom 688), x_16742 (atom 26731). Highest-EV open door.",
-    "methodological_bug": "783 check atoms are perfect squares E^2; at the partial E=0 so a finite-difference row for E^2 is quadratic (c^2 d^2), not linear. Any Jacobian/Newton/null-space attack that used the square itself solved the wrong system. s9/roots.py extracts all 783 roots (699 deg-2, 84 deg-1). After the fix the mod-p inconsistency moved off the spurious square 42245 onto the genuine core atom 19297.",
-    "bit_scan": "all 1156 boolean free inputs flipped; only x_2081 and x_24601 set x_15298=0 (deactivate core), both worse (17/19 residuals vs 4)",
-    "modp_solve": "sparse Gaussian elimination mod p over 4884 effective columns / 13159 nnz: INCONSISTENT at S0 and S1 (270-row certificate)",
-    "optimality_proof": "D2/D1 mod p = 29086885819837044927165644576879200888791656444895144487473726012333934270214 (full 256-bit); required ratios are -c1/c2 with |c|<=40 => no failing equation can be cancelled",
-    "tools": "s9/{harness,atomize,poly,gates,fwd,ripple,repair,drive,cone,sens,jac,jac2,newton,roots,modsolve,cert,bits,bitscan,movevar,state0,jcheck}.py",
-    "activation_branch": "x_8599=1 (88 of 1156 boolean free inputs do it, keeping x_21839=1) reroutes x_12186 from the computed x_30454 to the FREE input x_5096, so x_12186 mod p becomes free. Setting x_5096=K1 and x_14853=x_12186 gives u=w=S=T=L1=0 exactly: the original core (19297/19299/30984) is satisfied SIMULTANEOUSLY with C1/C2 for the first time. But x_38170=x_8599*x_21839 becomes 1, lighting a SECOND core of identical shape (26733/28438/32342; loads x_21202=11598153S'+16335423T', x_32453=4677103S'+15469317T'; S'=A'u'^2-w'^2, T'=B'u'-w'c'; u'=x_18123=x_30454-x_10261, w'=x_17576=x_16787-x_25199). That second core IS zeroable: ~90 boolean free inputs shift u' and w' by exact complements mod p (u'+delta=p and w'+delta'=p exactly). Two-bit constructions (e.g. x_2527 + x_1502) leave BOTH cores clean, residual = 11 atoms that are ALL activated load pins + mirrors 21617/26731/37662. Closing those pins moves variables in the first core cone and re-lights it (11->16->13, stalls, 63 failing eqs). Obstruction conserved through the activation route too; the pin/mirror cascade is the real invariant.",
-    "second_branch_closed": "Core second branch A*c^2=B^2 mod p requires A to be a quadratic residue. A is FIXED by the pins (x_22162 pinned atom 1618, x_30213 atom 688, x_14853 forced to K1 by mirror+C1) and is a NON-residue for both reachable x_12186 residues (current and 0). Sampling shows ~50% of x_14853 shifts would make it a QR, so the branch is generically open and closed here precisely by the setter pinning x_14853 to K1. CLOSED.",
-    "RETRACTION": "The earlier \"39,022 is provably optimal\" claim is WITHDRAWN. It assumed atom 22230 must stay zero. Only the narrow statement survives: IF every atom outside the defect set must vanish, THEN no failing equation can be cancelled. That is the wrong constraint -- work in equation space.",
-    "equation_space_principle": "An equation is m*(sum_a c_a * y_a) (or its square), so it vanishes iff the atom combination vanishes. 42,267 atoms vs 39,033 equations => a large kernel. Atoms whose equation footprint is contained in the sacrificed set are free knobs. This is the lever that produced 39,024 and the frame for any further gain.",
-    "agent_round": {
-      "pins_agent": "found and I verified the 39,024 construction; catalogued 512 load pins on 256 gate-bits; pin conflict graph EMPTY (all 256 bits on + all 512 pins closed = 0 pin violations); all 254 single bit flips score 32-41 failing (min 32); exactly 6 of 7273 free inputs move (D1,D2) mod p and all break other checks",
-      "quadrant_agent": "x_2081=0 branch fully reconstructed -> 39,021 (12 failing), quad/best_quadrant_39021.json; x_24601=0 -> 27; both -> 43. On that branch the x_8599 reroute closes BOTH setter pins 688/1618 outright (new) but the second core costs ~26 eqs (best 30). Their rigidity argument reuses the retracted atom-space assumption, so 12 is not established as that branch wall.",
-      "sa_agent": "still running at last check, retargeted to the 39,024 baseline",
-      "my_checks": "no variable/atom has footprint inside the current 9 failing eqs; sacrificing pins 3576/3578 costs 26-28 eqs for 8-10 knobs; atom-space BnB finds no relaxation set of cost <=26; A,B first-order rigid mod p (solver sanity-checked)"
-    },
-    "closed_form_lock": {
-      "output_wire": "x_12186 = x_22649 (mod p) exactly 1:1; x_22649 is a FREE input; found by s9/modtrace.py (mod-p symbolic cone)",
-      "chain1_killable": "moving {x_22649, x_22152, x_14853, x_7068} by the same delta = K1 - x_12186 sets atom 22229 = 0 while keeping the core u = 0. First time chain 1 has been killed. s9/chain1.py -> 21 failing, only atoms 22231/37887/31670 nonzero.",
-      "the_pin": "atom 31670 = x_24601*(x_22152 - 126767545623909574255290391153759363968073470399639361054829680359428658595949132261910506) = 7550763*p*x_105 pins the output wire to EXACTLY the original x_12186, which differs from K1 by D1.",
-      "mux_branch": "x_4287=1 selects x_2099=x_9118 and x_19964=x_8731 (free) instead of the pinned x_6418/x_12553, making atoms 22229 AND 22231 both zero simultaneously for the first time (s9/mux.py).",
-      "branch_obligation": "x_4287=1 lights loads x_2239,x_31731,x_9106 which are 3 combinations of 2 base quantities x_4306,x_27177 (verified exactly), so the obligation is x_4306=x_27177=0 mod p. SOLVABLE by a 2x2 solve on (x_9118,x_8731). d(x_27177)/d(x_8731)=0, so x_9118 mod p is UNIQUELY determined = 33371159155735472537534252650716501592825364489306217536352743247010353604716.",
-      "the_mismatch": "the mirror+core chain forces x_9118 = x_12186 mod p, pinned to 82007976112976807461901870199198737303514020147647909878034348606308756230357 (x_24601=1) or 0 (x_24601=0). Neither equals the obligation value. THIS mismatch is the trapdoor, now in closed form.",
-      "best_on_branch": "34 failing (s9/mux3_out.json) vs 9 on the current branch"
-    },
-    "residual_problem_size": {
-      "irreducible": "2 congruences mod p=2^256-2^32-977 (512 bits of constraint): D1 = x_7068-x_2099-7376877*x_642 = 0 and D2 = x_4432-x_19964-x_28730 = 0",
-      "combinatorial_content": "MEASURED: of 1156 boolean free inputs only 2 (x_2081, x_4287, the MUX controls) move (D1,D2) mod p, and their deltas are IDENTICAL -> rank 1 of 2 over GF(p). Of ~6117 integer free inputs only 4 move them (x_6418, x_12553, x_9413, x_17325), all pinned mod p or pure p-multiples in a complete solution. The 256-bit message is provably DECOUPLED from the verification residues: there is no subset-sum/knapsack kernel.",
-      "algebraic_kernel": "6 unknowns mod p and 2 quadratic forms: S=A*u^2-w^2, T=B*u-w*c; L1,L2,L3 are fixed integer combinations; requirement S=T=0 mod p plus one condition mod 6672769. Eliminating w gives u^2*(A*c^2-B^2)=0, so the second branch is a pure Legendre-symbol condition (open iff A is a QR mod p).",
-      "annealer_verdict": "NOT suitable. (a) a QUBO must encode 256-bit modular arithmetic: ~65k binaries per modular multiply, >=4 multiplies in the kernel, 1e5-1e6 logical binaries before minor-embedding. (b) FATAL: the objective needs ~512 bits of coupler dynamic range; annealers deliver ~4-6 effective bits after analog control error. (c) no low-precision combinatorial residue exists to peel off (see combinatorial_content). Write-up: solve_lab/REDUCED_PROBLEM.md",
-      "recommended": "Legendre/QR search for a configuration flipping the symbol of A; LLL/CVP on the accessible knobs (never run); or the closed-form identity of S9_STRUCTURE.md section 12."
-    },
-    "effective_footprint": "census over all 38,748 variables: syntactic footprint 771,576 var-equation incidences vs effective 599,740 (22.3% smaller); 25,250 variables strictly gain, 3,289 are pure no-ops. Surviving congruences are exactly the two original core ones (y22230+y22231 = D2 mod P, y22229+7376877*y35762 = D1 mod 7376877P). Of all 38,748 variables only 25 move a surviving congruence and the cheapest costs 10 extra equations (best achievable >= 14), so 7 is the floor for this placement and going lower requires the trapdoor itself.",
-    "quadrant_map": {
-      "b1=0,b2=1,x24601=1 (current)": "A,B nonzero; core dead; 7 failing -- DELIVERABLE",
-      "chain-1 killed": "A=0, B nonzero, core dead; blocked by output-wire pin 31670; 21 failing",
-      "b1=1,b2=1 (MUX flip)": "A=B=0; branch obligation forces x_9118 to a residue incompatible with the pinned output wire; 34 failing",
-      "b1=0,b2=0,x24601=0 (all-zero)": "A=B=0 AND core dead (x_15298=0) AND forced OR gate satisfied; only setter pins 688/1618 remain, whose carriers ARE movable, but the boolean needed for the OR lights its own load pins and closing them cascades; 28-31 failing",
-      "conclusion": "the trapdoor is a COVERING design: each branch satisfies some pins and kills the wires the others need. The conserved quantity is the mismatch itself, which relocates between the defect atoms, the output-wire pin, the branch obligation, and the setter pins."
-    },
-    "all_zero_branch": {
-      "result": "driven to 3 atoms / 17 failing with A=B=0, core dead (x_15298=0), u=w=0 and the forced OR gate satisfied -- every condition that blocks the main branch is met here",
-      "pipeline": "x_2081=0,x_24601=0 -> zero x_22162,x_30213 (28 failing) -> OR gate via gate-bit x_47 with its two pins closed (16 failing, only setter pins 688/1618 left) -> close 688 via x_16742->x_18956 and 1618 via x_14681->x_24468 -> chase mirrors (x_38667->x_19083, x_29851->x_24483, then 3 automated steps) -> 17 failing",
-      "closure": "the mirror chain terminates on atoms 23824/23826, which are the two load pins of x_47 ITSELF -- the gate-bit needed to satisfy the forced OR gate. Only the 256 gate-bits can satisfy x_9274=1 (all 900 pin-free booleans fail, verified exhaustively), every gate-bit pins two inputs, and the chain runs through exactly those inputs.",
-      "open_question": "is there a gate-bit whose pinned pair is disjoint from its own mirror chain? s9/solve_branch.py parameterises the pipeline by the gate-bit, making this a finite 256-way check.",
-      "forced_chain": "every chain target has EXACTLY ONE non-boolean 1:1 driver (x_18956<-x_16742, x_24468<-x_14681, x_19083<-x_38667, x_24483<-x_29851, x_28922<-x_25477, x_37571<-x_30709, x_462<-x_24221; x_24221 and x_25477 are self-driving free inputs). No alternative routing exists. Combined with (1) only gate-bits can satisfy the forced OR gate, and (2) only x_47 makes the setter-pin drivers live, the branch is closed rigorously: the only bit that unlocks the setter pins is the bit whose own pins the unlocking chain must violate."
-    },
-    "dormant_gates": "single-variable analysis is blind to dormant product gates x_i*x_j with both factors exactly 0: moving either alone gives 0, moving both injects d_i*d_j. At the 39,026 witness there are 81,681 strictly dormant monomials, 2,042 with both factors free. Scanning all of them: only 2 move (D1,D2) mod p and both are the already-known MUX flip. Also: D2 = 0 mod p already at 39,026, so the entire remaining obstruction is the single congruence A = atom 22229 = 0, i.e. x_7068 = K1 mod p.",
-    "link_audit": "audited every link of the chain pinning x_7068 (s9/linkaudit.py). Handles: 31670 -> p*x_105; 2423 -> p*x_14768; 22772 -> x_2121*x_11648 (DORMANT, unquantised); 26729 -> p*x_33612; 29539 -> p*x_30163; 22229 -> 7376877*p*x_17325. Exactly ONE link is not p-quantised. Activating it (x_38144 = 1) both disconnects the pinned x_22152 from x_29524 and connects the free x_11648, and executing it does give x_12186 = x_7068 = K1 with u = 0. But x_38144 is held by atom 32288 = \"x_38144 - 0\", a BARE single-variable pin with no handle (11 equations). The setter put a handle-free constant pin on the one select that would have opened the chain."
-  }
+  "knob_freedom": "FREE: x_642,x_17325,x_9413,x_1329,x_10903,x_29854,x_31864,x_9118,x_8731. NOT FREE: x_28730 (drags x_4432 -> breaks atoms 7930 and 41512). That single fact is what makes congruence 2 bind.",
+  "new_result_p_shift": "x_7068 += k*p is FREE once a29539 is closed via handle x_29967 and a40826 via x_30163 -- same seven nonzero atoms for k=1,2,7,-3228258. So D mod 7376877 is free and constraint 1 weakens to mod p only.",
+  "methodological_warning": "the s9 ripple repairs an atom only through its canonical output variable with exact division; it MISSES handle-based repairs. 29539/40826 looked like hard breaks and are not. Every 'chain is FORCED' verdict from session 9 (14.4, chase.py, solve_branch.py) rests on that weaker rule and should be re-audited.",
+  "mux_branch_equation_space": "x_4287=1 zeroes ALL SEVEN residual atoms simultaneously (x_9118 drives x_2099, x_8731 drives x_19964) but leaves 8 collateral atoms -> 44 failing (38,989); best repair 38,991. Its own load pins have only p-quantised handles (x_27676=p*x_6504, x_7574=p*x_26658) so x_31861,x_14865 stay pinned mod p: 4 mod-p conditions vs 2 free residues, same deficit of 2.",
+  "accounting_rule": "2 congruences -> 39,026; 1 -> 39,027; 0 -> 39,033 full solve. No partial credit between 39,027 and complete.",
+  "tools": "s10/{resid,subsystem,pins,clean,close,chain,mux,muxbuild,muxstage,muxstage2,tools,sens,lattice,lattice2,lattice3,construct,isolate,shiftD,repairD,chase2,muxknobs,dormant,muxzero,muxrepair,atom7930}.py"
+ }
 }

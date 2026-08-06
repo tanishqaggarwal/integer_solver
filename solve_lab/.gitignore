@@ -47,3 +47,13 @@ s9/fails.json
 solve_lab/s9/sa/hits.jsonl
 solve_lab/s9/*/*.log
 solve_lab/s9/**/*.jsonl
+
+# session 10 intermediate states (regenerable from s10 scripts)
+s10/clean_state.json
+s10/mux_on.json
+s10/mux_s1.json
+s10/mux_greedy.json
+s10/muxzero.json
+s10/muxrepair.json
+s10/cand_*.json
+s10/congr_*.json
