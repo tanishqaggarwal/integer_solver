@@ -349,6 +349,29 @@ The freedom is real and ORTHOGONAL to the obstruction.
     certificate hitting set                closed                 15
     give up (the deliverable)              --                     7
 
+### PART IX: the sacrifice question, answered exactly
+
+**Reformulation.** Dropping rows S leaves A_{-S}x = b_{-S}; its left null vectors, extended
+by zeros on S, are exactly the y in leftnull(A) with supp(y) disjoint from S. So
+**consistent after dropping S  <=>  t in colspace(Y[:,S])**, with Y a basis of leftnull(A)
+and t = Y.b. Each test becomes a 49 x |S| rank check instead of a 128 x 80 elimination
+(`s10/budget6fast.py`).  closed system 128x79, rank 79, leftnull dim 49, t nonzero.
+
+**The minimum sacrifice is exactly THREE rows** (sizes 1 and 2 impossible):
+`{a3578, a26731, a35759}` = setter load pin (price 14) + mirror (16) + one currently-failing
+check (7). Union = **37 equations**, i.e. score 38,996 -- exactly the forward-eval floor.
+The cheapest *sized* solution is the most expensive kind.
+
+**Budget <= 6 exhausted** over all 46 rows priced <= 6, cost-pruned:
+size 1: 46 sets -> none; size 2: 1,081 -> none; size 3: 16,261 -> none;
+size 4: 179,446 -> none; size 5: 1,550,200 -> none; size 6: DFS (see runs/).
+> Too few rows is impossible; cheap enough is unreachable. Sacrifice route CLOSED.
+
+**Every door now has a number:** give up 7; invariant 7 (6 placements); min sacrifice >=3
+rows costing 37; wire routes 13; certificate hitting set 15; kernel deformation ~20; region
+knobs beyond the nine: none; boolean flips (1,156, witness frame) >= 7; cyclic freedom (40
+params) real but inert; number theory: no structure.
+
 ### Do NOT redo
 - The MUX branch (`x_4287 = 1`). It **does** zero all seven residual atoms simultaneously
   (`s10/muxzero.py`) but leaves 8 collateral atoms -> 44 failing; best repair 38,991. Its own

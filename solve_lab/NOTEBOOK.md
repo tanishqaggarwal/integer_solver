@@ -1411,3 +1411,26 @@ literally inert. The freedom is real and orthogonal to the obstruction.
 
 Seven independent lines now return the same answer; margin 6 equations, unmoved.
 **Deliverable unchanged at 39,026.**
+
+## Session 10, part 10 — the sacrifice question answered exactly
+
+The earlier exhaustive budget search timed out and its output was lost to a pipe, so that
+door was genuinely still open. Reformulated it so each test is trivial: dropping rows S
+leaves A_{-S}x = b_{-S}, whose left null vectors extended by zeros on S are exactly the y in
+leftnull(A) with supp(y) disjoint from S. Hence consistent-after-dropping-S <=> t in
+colspace(Y[:,S]) with Y a basis of leftnull(A) and t = Y.b -- a 49 x |S| rank check instead
+of a 128 x 80 elimination (`budget6fast.py`). Closed system 128x79, rank 79, leftnull dim 49,
+t nonzero as expected.
+
+MINIMUM SACRIFICE IS EXACTLY 3 ROWS: sizes 1 and 2 impossible; size 3 found
+{a3578, a26731, a35759} = setter load pin (price 14) + mirror 6788513*(x_16742-x_19083)-x_9254
+(price 16) + a35759, one of the six currently-failing checks (price 7). Their union is 37
+equations => score 38,996, exactly the forward-eval floor. The cheapest sized solution is the
+most expensive kind.
+
+Budget <= 6 exhausted over all 46 rows priced <= 6 with cost pruning: sizes 1-5 give 46 /
+1,081 / 16,261 / 179,446 / 1,550,200 within-budget sets, all negative; size 6 by cost-pruned
+DFS. Too few rows is impossible and cheap enough is unreachable -- the sacrifice route is
+closed on both axes.
+
+**Deliverable unchanged at 39,026.**

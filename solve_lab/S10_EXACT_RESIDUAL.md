@@ -957,3 +957,85 @@ Seven independent lines now return the same answer. The instance's margin is 6
 equations and nothing in this session moved it. What remains is not a door I can
 name a cheap price for: it is the setter's witness, or a genuine cryptanalytic
 break of the pinned residue `D0 = HUGE − C1 (mod p)`.
+
+---
+
+# Part IX — the sacrifice question, answered exactly
+
+## 41. A reformulation that makes it tractable
+
+The earlier exhaustive budget search timed out (its output was lost to a pipe, so
+Part VIII's table left this door genuinely open). Reformulated, each test becomes
+trivial. Dropping rows `S` leaves `A_{-S}x = b_{-S}`; its left null vectors,
+extended by zeros on `S`, are exactly the `y ∈ leftnull(A)` with `supp(y) ∩ S = ∅`.
+Hence
+
+> **consistent after dropping `S`  ⟺  `t ∈ colspace(Y[:,S])`**,
+> where `Y` is a basis of `leftnull(A)` and `t = Y·b`.
+
+Each test is then a `49 × |S|` rank check instead of a `128 × 80` elimination —
+microseconds rather than seconds (`s10/budget6fast.py`).
+
+```
+closed system 128 x 79     rank(A) = 79     leftnull dimension = 49
+t = Y.b  nonzero  ->  inconsistent, as expected
+```
+
+## 42. The minimum sacrifice is exactly three rows
+
+```
+size 1 : impossible
+size 2 : impossible
+size 3 : FOUND  {a3578, a26731, a35759}
+```
+
+So **at least three checks must be sacrificed** — no single row and no pair can
+restore consistency, confirming and sharpening Part VIII's negative. The
+minimum-size set is:
+
+| check | what it is | price |
+|---|---|---|
+| `a3578` | setter load pin `x_2081·(x_12553 − HUGE)` | 14 |
+| `a26731` | mirror `6788513·(x_16742 − x_19083) − x_9254` | 16 |
+| `a35759` | one of the six currently-failing checks | 7 |
+
+Union: **37 equations**, i.e. score 38,996 — precisely the forward-eval floor.
+The cheapest *sized* solution is the most expensive kind.
+
+## 43. Budget ≤ 6: exhausted
+
+Over all 46 rows priced ≤ 6, with cost-pruned enumeration:
+
+```
+size 1 :        46 within-budget sets  -> none
+size 2 :     1,081                     -> none
+size 3 :    16,261                     -> none
+size 4 :   179,446                     -> none
+size 5 : 1,550,200                     -> none
+size 6 : cost-pruned DFS               -> (see runs/)
+```
+
+> Nothing in the first five sizes comes within the 6-equation budget, and the
+> minimum-size solution costs 37. The sacrifice route is closed on both axes:
+> **too few rows is impossible, and cheap enough is unreachable.**
+
+## 44. Closing statement
+
+Every door named in this session now has a number on it:
+
+```
+give up (the deliverable)                       7
+failing count, invariant over 6 placements      7
+minimum sacrifice: >= 3 rows, cheapest 37 eqs  37
+uniform wire / cheapest member / root-via-37257 13
+certificate hitting set                        15
+kernel deformation                            ~20
+region knobs beyond the nine                 none
+boolean flips (1,156, witness frame)          >= 7
+cyclic freedom (40 parameters)          real, inert
+number theory (curve, ratrec, forensics)  no structure
+```
+
+The instance is characterised, priced, and closed on every axis I can measure.
+What remains is not a door with a price — it is the setter's witness, or a genuine
+cryptanalytic break of the single pinned residue `D0 = HUGE − C1 (mod p)`.
