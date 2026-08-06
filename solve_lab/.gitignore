@@ -59,3 +59,15 @@ s10/cand_*.json
 s10/congr_*.json
 s10/freed*.json
 s10/handles.json
+s10/*_state.json
+s10/wire1*.json
+s10/trade_out.json
+s10/joint_out.json
+s10/partial_*.json
+s10/relaxed_sol.json
+s10/bitscan.json
+s10/constrained_step.json
+s10/closure_step.json
+s10/gs_best.json
+s10/newton_best.json
+s10/wirebasis.json

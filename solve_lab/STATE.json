@@ -41,13 +41,14 @@
   "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
  },
  "next_actions": [
-  "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing). PROVED optimal for this defect placement by exact integer subset enumeration, not by search.",
-  "HIGHEST EV: re-audit session 9's forced-chain verdicts with explicit HANDLE repair instead of the canonical ripple -- s10/repairD.py already overturned 29539/40826 that way.",
-  "Atom 7930 = 9367949*(x_24548-x_25442) - x_7927 is the single thing making congruence 2 bind. Enumerate everything that moves x_24548 and x_25442 and look for a joint move; if x_28730 becomes free the score is 39,027 immediately (s10/atom7930.py).",
-  "The whole instance is now two residues mod p: D0 and K2 (values in session10.residual_closed_form). Attack those, not assignments."
+  "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing), proved optimal for its defect placement.",
+  "START HERE: solve the wire deformation with the 13 multi-wire monomials imposed EXACTLY -- p(d_i+d_j) + d_i*d_j = 0, a quadratic system in the 3 kernel unknowns. A nonzero solution unquantises all 1,240 handles at ZERO cost, and both congruences of part 1 fall.",
+  "Equation-space compensation for a37694's 12 equations using deformed copy atoms (same linear algebra, pin row moved to the RHS).",
+  "LLL-reduce the 3-dimensional kernel lattice (current basis entries have ~325 digits).",
+  "Do NOT redo: local repair, Newton/closure over free inputs (rigid, full column rank), bit scans, the MUX branch."
  ],
  "blocked": [
-  "Improving past 39,026 requires killing one of the two mod-p congruences; killing both IS the full solve. Every knob measured either moves nothing mod p or costs more equations than it saves."
+  "Part 1's two mod-p congruences are rigid ONLY because all handles are p-quantised, and part 2 shows that rests on a wire with a 3-dimensional free deformation space. The live obstruction is now the 13 multi-wire monomials plus the bare root pin a37694 (12 equations)."
  ],
  "artifacts": {
   "checker": "solve_lab/checker.py",
@@ -70,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1785979807,
+ "updated_unix": 1785981899,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -255,6 +256,14 @@
   "accounting_rule": "2 congruences -> 39,026; 1 -> 39,027; 0 -> 39,033 full solve. No partial credit between 39,027 and complete.",
   "tools": "s10/{resid,subsystem,pins,clean,close,chain,mux,muxbuild,muxstage,muxstage2,tools,sens,lattice,lattice2,lattice3,construct,isolate,shiftD,repairD,chase2,muxknobs,dormant,muxzero,muxrepair,atom7930}.py",
   "handle_census": "GLOBAL, all 42,267 atoms (s10/handles.py): 1,249 free inputs occur in exactly one atom. Of those handles 1,240 have granularity EXACTLY p, 9 are dormant/rigid, and ZERO are unquantised or have any other granularity. So solo-handle moves shift any atom only by multiples of p => every residue mod p is invariant under them. That is the structural reason both congruences are rigid, verified exhaustively rather than inferred from failed searches. None of the 12 residual equations contains an atom with a free (Z) handle.",
-  "beam_search": "Strong repair (effective-linear solve over ALL vars of a broken atom), beam 200, depth 10, seed forbidden as a repair choice. CRITERION: collateral empty AND the residue actually moved -- \"collateral closed\" alone is not enough because lib.ripple recomputes gate outputs and will silently restore the seed. Results: x_28730 += k*p closes (via x_7927 then x_11052) but K2 is unchanged; x_28730 += 1,-1,2,7376877,p+1,12846437 never close (ladder 11625->11624->11621->30238->24948->...); x_7068 += +-1,+12846437 and the x_7068+x_14853 joint move never close (ladder 27314->29539/40826->18686/39719->19482->19480->...); x_2099/x_37158/x_22542 += 1 report a close but it is an ARTEFACT (ripple restored x_2099 from definer 29090; D mod p and the score are identical to base). So session 9s verdict survives the stronger rule."
+  "beam_search": "Strong repair (effective-linear solve over ALL vars of a broken atom), beam 200, depth 10, seed forbidden as a repair choice. CRITERION: collateral empty AND the residue actually moved -- \"collateral closed\" alone is not enough because lib.ripple recomputes gate outputs and will silently restore the seed. Results: x_28730 += k*p closes (via x_7927 then x_11052) but K2 is unchanged; x_28730 += 1,-1,2,7376877,p+1,12846437 never close (ladder 11625->11624->11621->30238->24948->...); x_7068 += +-1,+12846437 and the x_7068+x_14853 joint move never close (ladder 27314->29539/40826->18686/39719->19482->19480->...); x_2099/x_37158/x_22542 += 1 report a close but it is an ARTEFACT (ripple restored x_2099 from definer 29090; D mod p and the score are identical to base). So session 9s verdict survives the stronger rule.",
+  "part2_global": {
+   "forward_frame": "witness FREE INPUTS + full topological forward eval -> 6 nonzero atoms, ALL CHECKS, zero broken gates, 37 failing (38,996). Each check holds a free input. Explains the 39,026 witness: it violates five GATE atoms on purpose so x_1308/x_25442 land on free x_14853/x_24548.",
+   "ad": "exact reverse-mode AD mod p (s10/ad.py), validated vs finite differences; gradient supports 2,5,9,80,132 free inputs",
+   "rigidity": "closed constrained system 193 rows x 79 cols has rank 79 = FULL COLUMN RANK, zero null space, 6 independent inconsistencies, 0 degenerate rows. With all 256 bits relaxed to GF(p): 2352 x 710, still inconsistent. 1,156-way single-bit scan with genuine forward eval: nothing better than 37. Local/first-order methods are dead.",
+   "THE_CRACK": "every handle enters as wire*handle with wire one of 220 vars = p, held by ONE bare pin a37694 = x_26064 - p in only 12 equations. Off p the census inverts: 1,240 handles go granularity p -> granularity 1. Writing w_u = p + d_u, the 219 wire-identity equations give M d = 0 in Z^220 with rank(M) = 217 -> KERNEL DIMENSION 3. The wire is NOT rigid. 161 of 220 members have gcd 1 (any value, zero cost) including handle multipliers x_11360, x_28599, x_17499, x_22665, x_28961. x_15616 gcd 29; root x_26064 gcd 0 = FIXED.",
+   "wire1_branch": "wire=1 reaches 39,020 with only TWO nonzero atoms (a37694, a39417); its 13 failing equations contain only wire-copy atoms and boolean pins, no free inputs",
+   "why_not_yet": "kernel deformation + handle re-solve restores 3,346/3,349 product gates; of 235 broken atoms 215 are wire copy atoms whose equations still cancel by construction, so the genuine cost is 20 atoms -- 13 are multi-wire monomials w_i*w_j whose invariance is QUADRATIC in d (p(d_i+d_j)+d_i*d_j=0), invisible to the linear kernel. Net 38,981, ~39,018 after closing the checks."
+  }
  }
 }

@@ -261,3 +261,153 @@ not, so any argument that relied on those breaks being real needs redoing.
   is a complete solve: **39,026 → 39,027 → 39,033**, nothing in between.
 * The global handle census shows every one of the 1,249 solo handles is exactly
   p-quantised, which is the structural reason both congruences are rigid.
+
+---
+
+# Part II — the global attack (same session)
+
+Deliverable still **39,026**. This part abandons local repair entirely and attacks
+the instance globally. It produces the first structural crack in the design.
+
+## 11. The forward-eval frame — the honest global statement
+
+Take the 39,026 witness's FREE INPUT values and forward-evaluate every gate in
+topological order (`s10/forward.py`). Result:
+
+> **6 nonzero atoms, all CHECKS, zero broken gates** — 37 failing equations (38,996).
+
+```
+a7930   9367949*(x_24548 - x_25442) - x_7927     ->  x_24548 == x_25442 (mod p)
+a29539  12846437*(x_14853 - x_1308) - x_29967    ->  x_14853 == x_1308  (mod p)
+a35759  5113045*x_7075*x_9118 - x_29854          ->  x_9118  == 0       (mod p)
+a35760  x_31864 - x_28961*x_10903                ->  x_8731  == 0       (mod p)
+a40826, a41512                                    big checks, 1 equation each
+```
+
+Every one contains a **free input** (`x_24548`, `x_14853`, `x_9118`, `x_8731`).
+This also explains the 39,026 witness: it deliberately violates five GATE atoms
+(22229, 22230, 35758, 35761, 35762) precisely so that `x_1308` and `x_25442` land
+on `x_14853` and `x_24548`. The seven-atom picture of Part I is that trade.
+
+## 12. Exact machinery: reverse-mode AD mod p
+
+`s10/ad.py` propagates adjoints backwards through the gate DAG
+(`dx_t = -sum_w (da/dx_w)/(da/dx_t) dx_w`), giving `d(check)/d(free input)` mod p
+in one pass per check. **Validated against exact finite differences** — every
+non-boolean input matches; only the 0/1 controls mismatch, as they must.
+
+Gradient supports are tiny: 2, 5, 9, 80, 132 free inputs.
+
+## 13. The point is RIGID — measured, not inferred
+
+A step must zero the failing checks *and* keep the ~10,786 satisfied ones. Only
+checks reachable from the step's support can move, so the correct system closes
+(`s10/closure.py`):
+
+```
+round 0: cols=12  rows=50   round 3: cols=75 rows=187
+round 4: cols=79  rows=193  -> FIXED POINT
+```
+
+`s10/rankdef.py`: **rank(A) = 79 of 79 columns — full column rank, zero null
+space — with 6 independent inconsistencies.** Degenerate (square-check) rows: 0,
+so this is not Session 9's Jacobian artefact.
+
+Relaxing all 256 message bits to arbitrary GF(p) values closes at
+**2,352 rows x 710 columns (exactly 256 boolean) and is still inconsistent**
+(`s10/closure_bits.py`). A full single-flip scan of all 1,156 boolean free inputs
+with genuine forward evaluation (`s10/bitscan.py`) finds nothing better than 37.
+
+> Local and first-order methods are definitively dead. Any solution requires a
+> structural change.
+
+## 14. THE CRACK: the p-wire is not rigid
+
+Every handle in the instance enters as `wire * handle`, where `wire` is one of
+**220 variables all equal to p**. That single fact is why the Part I census found
+all 1,249 handles p-quantised. The wire is 219 copies of one root, held by a
+single **bare pin** `a37694 = x_26064 - p`, which appears in only **12 equations**
+(`s10/wire.py`).
+
+Setting the whole wire to 1 (`s10/wire1.py`) flips the census completely:
+
+| | granularity p | granularity 1 |
+|---|---|---|
+| p-wire | **1240** | 0 |
+| wire = 1 | 0 | **1240** |
+
+On that branch the congruences dissolve — `a7930` and `a29539` close exactly
+through their handles `x_11052`, `x_30163`, and the two big checks `a40826`,
+`a41512` come along for free (`s10/trade2.py`):
+
+> **wire = 1 reaches 39,020 with only TWO nonzero atoms** — the wire pin `a37694`
+> (12 equations) and `a39417` (1 equation). Its 13 failing equations contain
+> **only wire-copy atoms and boolean pins — no free inputs at all.**
+
+## 15. The wire deformation kernel — dimension 3, not 0
+
+Write `w_u = p + d_u`. Every wire-identity atom is then linear and homogeneous in
+`d` (copy atom `x_i - x_j` -> `d_i - d_j`; root pin -> `d_root`), so all 219
+equations containing them become a homogeneous system `M d = 0` in `Z^220`
+(`s10/wirekernel.py`):
+
+```
+rank(M) = 217 of 220     ->     KERNEL DIMENSION 3
+```
+
+> **The wire is NOT rigid. There are three directions in which it can deform
+> without breaking a single wire-identity equation.**
+
+Per-coordinate reachability (`gcd` of the basis at each coordinate):
+
+```
+members the kernel can move        : 217 of 220
+members with gcd 1 (ANY value)     : 161
+  including handle multipliers x_11360, x_28599, x_17499, x_22665, x_28961
+x_15616 : gcd 29        x_26064 (the root) : gcd 0  -- FIXED
+```
+
+So five of the six handle multipliers can be set to **any value, including 1, for
+free** — which would unquantise their handles outright. The root pin is the one
+thing the kernel cannot touch.
+
+## 16. Why the deformation does not (yet) pay
+
+Applying a kernel vector and re-solving every handle to restore the original gate
+outputs (`s10/deform2.py`) succeeds for **3,346 of 3,349** product gates. The
+damage classifies as (`s10` diagnostic):
+
+```
+235 broken atoms
+  215  wire copy atoms  <- EXPECTED; their equations still cancel by construction
+   13  multi-wire monomials (w_i * w_j)
+    3  downstream, 3 single-wire gates, 1 check
+```
+
+so the genuine cost is **20 atoms**, matching Session 8's "~13 active unpackings".
+Net measured score on that branch: 38,981, and about 39,018 once the six checks
+are then closed — still short of 39,026. The obstruction has moved from the
+handles to the **multi-wire monomials `w_i·w_j`**, whose invariance is *quadratic*
+in `d` (`p(d_i + d_j) + d_i d_j = 0`) and therefore not captured by the linear
+kernel.
+
+## 17. Where this leaves the attack
+
+The design's p-quantisation — the thing Part I proved makes both congruences
+rigid — **is breakable**: the wire has a 3-dimensional free deformation space and
+161 of its members can take any value at zero cost to the wire-identity
+equations. What now stands in the way is a much smaller and sharper object:
+
+> **13 multi-wire monomials `w_i·w_j`, and the single bare root pin `a37694`
+> (12 equations) that the kernel cannot move.**
+
+Highest-EV next experiments, in order:
+1. Solve the deformation with the multi-wire monomials imposed **exactly**
+   (`p(d_i + d_j) + d_i d_j = 0` — a quadratic system in 3 unknowns after
+   restricting to the kernel). If it has a nonzero solution, the handles
+   unquantise at zero cost and both congruences fall.
+2. Equation-space compensation for the 13 equations of `a37694` using deformed
+   copy atoms — they are all wire-identity atoms, so this is the same linear
+   algebra with the pin's row moved to the right-hand side.
+3. LLL-reduce the 3-dimensional kernel lattice: the current basis has ~325-digit
+   entries; a short vector would make the whole branch numerically tractable.

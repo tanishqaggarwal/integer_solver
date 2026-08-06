@@ -1151,3 +1151,57 @@ stronger repair rule; only the *evidence* corrected in §3 was wrong.
 Deliverable re-verified at the end of the session:
 `checker.py best/new_instance_partial_39026.json` -> `satisfied 39026/39033 (7 failing)`,
 logged to `best/VERIFICATION_LOG_39026.txt`. **Deliverable unchanged at 39,026.**
+
+## Session 10, part 3 — the global attack, and the p-wire crack
+
+Full write-up: `S10_EXACT_RESIDUAL.md` Part II. Tools: `s10/{forward,gs,ad,newton,
+constrained,closure,closure_bits,rankdef,bitscan,core,truecause,wire,wire1,wire1solve2,
+trade2,last13,partial,wirekernel,wiredeform,deformtest,deform2}.py`.
+
+**Forward-eval frame.** Taking the witness's FREE INPUT values and forward-evaluating
+every gate gives **6 nonzero atoms, all CHECKS, zero broken gates** (37 failing, 38,996).
+Each holds a free input: a7930 (x_24548==x_25442 mod p), a29539 (x_14853==x_1308 mod p),
+a35759 (x_9118==0), a35760 (x_8731==0), plus a40826/a41512 (1 equation each). This
+explains the 39,026 witness exactly: it violates five GATE atoms on purpose so that
+x_1308 and x_25442 land on the free inputs x_14853 and x_24548.
+
+**Exact reverse-mode AD mod p** (`ad.py`), validated against finite differences (only the
+0/1 controls mismatch, as they must). Gradient supports are tiny: 2, 5, 9, 80, 132.
+
+**The point is RIGID.** A step must zero the failing checks AND preserve the ~10,786
+satisfied ones; only reachable checks can move, so the system closes at 193 rows x 79
+columns. `rankdef.py`: rank 79 of 79 -- FULL COLUMN RANK, zero null space, 6 independent
+inconsistencies, 0 degenerate rows (so not session 9's square-check artefact). Relaxing
+all 256 message bits to GF(p) closes at 2,352 x 710 and is still inconsistent. Full
+1,156-way single-bit scan with genuine forward-eval: nothing better than 37.
+=> local / first-order methods are definitively dead.
+
+**THE CRACK.** Every handle enters as `wire * handle` where `wire` is one of 220 variables
+equal to p -- that is the sole reason part 1's census found all 1,249 handles p-quantised.
+The wire is 219 copies of one root held by a single BARE pin a37694 = x_26064 - p, in only
+12 equations. Off p, the census inverts: 1,240 handles go from granularity p to
+granularity 1. On wire=1 the congruences dissolve (a7930 and a29539 close through their
+handles x_11052/x_30163, and a40826/a41512 come along free): **39,020 with only TWO
+nonzero atoms**, whose 13 equations contain only wire-copy atoms and boolean pins.
+
+Writing w_u = p + d_u makes every wire-identity atom linear and homogeneous in d, so the
+219 equations containing them give M d = 0 in Z^220:
+
+    rank(M) = 217 of 220   ->   KERNEL DIMENSION 3
+
+**The wire is NOT rigid.** 161 of 220 members have gcd 1 over the kernel basis -- they can
+take ANY value at zero cost -- including handle multipliers x_11360, x_28599, x_17499,
+x_22665, x_28961. x_15616 has gcd 29; the root x_26064 has gcd 0 and is FIXED.
+
+**Why it does not pay yet.** Applying a kernel vector and re-solving handles restores
+3,346/3,349 product gates. Of 235 broken atoms, **215 are wire copy atoms whose equations
+still cancel by construction**; the genuine cost is 20 atoms, 13 of them multi-wire
+monomials w_i*w_j whose invariance is QUADRATIC in d (p(d_i+d_j) + d_i d_j = 0) and so
+invisible to the linear kernel. Net 38,981, ~39,018 after closing the checks.
+
+Score log part 3: 38,996 (forward frame) - 39,005 (Gauss-Seidel) - 38,958 (Newton, diverges)
+- 39,020 (wire=1 + handle trade) - 38,981 (kernel deformation). **Deliverable unchanged
+at 39,026.**
+
+Next: impose the 13 multi-wire monomials EXACTLY (quadratic in 3 kernel unknowns); if a
+nonzero solution exists the handles unquantise at zero cost and both congruences fall.
