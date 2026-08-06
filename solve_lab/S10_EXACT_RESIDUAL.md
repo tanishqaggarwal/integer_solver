@@ -2481,3 +2481,43 @@ witness frame  (the deliverable): 1,669 x 714 closure, 1,500 information sets
 > strictly below it. (Note the corrected cost function: counting every equation the
 > nonzero atoms *touch* rather than those whose combination is nonzero reported the
 > do-nothing witness frame as 39,021 instead of 39,026.)
+
+## 119. The 39,017 state's blockers cannot be repaired either
+
+`jm_azero00_39017.json` leaves only `a688, a1618, a40608` nonzero across 16
+equations. Those 16 equations contain 25 atoms, so a kernel of dimension 9 exists —
+but only **one** of the nine basis vectors touches a blocker, and minimising the
+outside cost over 20,000 combinations (`s10/blockers2.py`) gives:
+
+```
+best kernel vector: support 16 atoms, 19 equations OUTSIDE
+   [687, 688, 1617, 1618, 19297, 19298, 19299, 26732, 26733,
+    30975, 30978, 30980, 30982, 30983, 30984, 36649]
+=> repairing the state costs 19 -> score 39,014, worse than leaving it at 39,017
+```
+
+`a687` is a free compensator (zero equations outside), exactly like `a22231`, and
+exactly as before it is not enough on its own.
+
+## 120. Session 11 final ledger
+
+```
+deliverable                                            39,026  [verified]
+  saturates its own frame's linear ceiling exactly     39,026
+canonical frame's linear ceiling                       39,018
+A = 0 realised (all 12 gadget eqs satisfied, 3 atoms)  39,017
+wire at w = 1 (2 atoms nonzero instance-wide)          39,020
+whole-instance break census, 33,969 supports        min 7 anywhere
+```
+
+Every route is priced by construction:
+
+| lever | measured price | worth |
+|---|---|---|
+| congruence 2 alone | 11 | 1 |
+| congruence 1 alone | 13 | 1 |
+| both (`A = 0`) | **16** | 7 |
+| p-wire at `w ≠ p` | 13 | everything |
+| gadget cluster whole | 24 (conserved) | 24 |
+| boolean carriers | ≥ 8 | 0 (cannot reach the residual) |
+| activation | 6 per 2 knobs | kernel never opens |
