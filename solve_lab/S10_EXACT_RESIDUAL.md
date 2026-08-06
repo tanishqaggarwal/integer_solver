@@ -2249,3 +2249,78 @@ equations for 0 knobs) and a gradient support of **3** free inputs. A full sweep
 improving move**; the 3,878 score-neutral moves all lie outside the 39-variable cone
 and can never reach it. Ripple-based repair finds only **12 legal moves** in the
 entire frame, none improving.
+
+---
+
+# Part XXI — the boolean route, closed (and §61's branch table corrected)
+
+## 106. The load-pin shape is three monomials, not two
+
+I had been filtering for `b*(x − K)` — two monomials — and getting nothing. The
+actual shape in this instance is **`b*(x − K) − c*z`**, three monomials with a slack
+term. Census (`bl_pins3.py`): **727 conditional constant loads** across 623 atoms,
+**512 clean pins**, **256 distinct gate booleans** (all free inputs), constants
+289–296 bits (≈ `p·2^37..44`).
+
+Which pins reach the binding congruence `C₀ = x_7068 − x_2099`? **Exactly two**:
+`a3576` (gate `x_2081`, pins `x_6418 = K₁`, currently ON) and `a3568` (gate
+`x_4287`, pins `x_31861 = K₂`, off). No other pin in the instance reaches `C₀`.
+
+## 107. No pin is worth unpinning
+
+Setting `x_2081 = 0` does release `a3576` — but it simultaneously zeroes the
+multiplier `x_31033 = x_20434·x_31822`, so `x_2099` collapses to the constant **0**
+rather than becoming free. The MUX just swaps one constant for another (measured:
+`x_2099` has 295 bits in (1,0), 0 bits in (0,0) and (0,1)). The only branch where
+`x_2099` becomes genuinely free is **(1,1)**, where `x_2099 = x_9118` — and that
+branch switches **on** three `x_21279`-gated quantisation checks (`a19088`,
+`a22233`, `a22235`, needing `p | x_9106`, `p | x_2239`, `p | x_31731`) in exchange
+for the two it switches off. Net **+1 obligation**.
+
+## 108. The decisive test: 900 simultaneous flips change nothing
+
+In the witness frame the seven residual atoms depend on **39 variables**, whose free
+inputs are `{642, 1329, 2081, 4287, 6418, 7068, 8731, 9118, 9413, 10903, 17325,
+28730, 29854, 31861, 31864}` — **only two booleans, both MUX controls**. So any set
+of non-MUX flips must leave all seven residual values untouched. Confirmed at scale:
+
+```
+all 900 neutral booleans flipped at once   -> 39,026   (seven values BIT-IDENTICAL)
+random half (450)                          -> 39,026
+rand-10 / 50 / 200                         -> 38,975 / 38,776 / 38,369
+all 1,154                                  -> 36,880
+```
+
+Exhaustive singles in both frames (1,154 each): 900 exactly neutral, 254 worse,
+**0 better**. All 2,850 canonical pairs over the 76 cluster-cone booleans: every
+engine re-solve lands on exactly 39,009 with the identical residual. A 1,232-eval
+priority scan over the 22 pin-gate booleans: 12 of the 14 best return to 39,009.
+
+**key-4 exhaustive** — all 16 assignments of `{2081, 4287, 11368, 13195}`, the only
+booleans reaching any atom in the seven failing equations, each with a full engine
+run: the fixed point depends **only on the MUX pair**, and `x_11368`/`x_13195` are
+irrelevant in all four branches.
+
+## 109. Correction to §61's branch table
+
+§61 reported the four branches as 39,009 / 38,994 / 39,002 / 38,986. Those were
+measured in the **canonical** frame. Re-run in the **witness** frame two of them are
+better:
+
+| branch | §61 (canonical) | witness frame |
+|---|---|---|
+| (1,0) | 39,009 | **39,026** |
+| (0,1) | 39,002 | **39,011** |
+| (1,1) | 38,994 | **39,003** |
+| (0,0) | 38,986 | 38,984 |
+
+The conclusion is unchanged — no branch beats (1,0) — but the numbers in §61 were
+frame-dependent and should not be quoted as branch prices.
+
+## 110. Why the cancellation route is also blocked
+
+`eq 18673 = 949417·(a35759 + 6·a35760 + a35761)` contains **only** residual atoms,
+and **none** of the 24 atoms appearing in the seven failing equations occurs
+exclusively in failing equations — each also sits in 3–10 satisfied ones. So no atom
+can be turned on to cancel inside a failing equation without breaking a satisfied
+one.
