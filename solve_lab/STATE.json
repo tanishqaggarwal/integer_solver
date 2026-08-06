@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1785985574,
+ "updated_unix": 1785989175,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -288,6 +288,11 @@
    "THE_GAP": "Part 1 called x_28730 not free because moving it drags x_4432 and breaks atom 7930. Artefact of HOW it was moved (together with x_4432 to hold a22231=0). a22231 need NOT be zero. Moving x_28730 ALONE: a22230 += d, a22231 -= d, x_4432 UNTOUCHED, no collateral (verified d=1,2,p). a22231 lives in 10 equations ALL inside the twelve. Correct model: EIGHT atoms, one PAIRED congruence A2+A8==K (mod p). Exact optimum 6 of 12, not 5. Constructed and verified (build27.py): all eight values realised exactly, six satisfied -- first time past 5. But a37887=R^2 lights up, breaks eq 8680, restoring 7.",
    "kill37887": "R = a22231 + 6*a22232 + 15*a22233 - 21*a22234 - 13*a22235 + (a19087..a19092, a10935..a10941). a22232/a22233 move oppositely via x_23754, a22234/a22235 together via x_35619, so R=0 reachable (a22231 = 9d+34e, gcd(9,34)=1). 12-atom model with R=0: region 12->16, satisfied 5->9, FAILING 7.",
    "invariant_six_placements": "baseline 7/12/5/7; +35756 8/15/8/7; +35754 8/17/10/7; +both 9/18/11/7; +a22231 8/12/6/7; +a22231+a22232..35+R=0 12/16/9/7. SIX independent placements, including one built to exploit a genuine error in the earlier model, all return exactly 7."
+  },
+  "part7_numbertheory": {
+   "curve_refuted": "p is the secp256k1 FIELD prime but (D0,K2) is not on y^2=x^3+7, neither residue is a valid x-coordinate, n/G_x/G_y absent, 7870/15734 constants have (c mod p) a valid x-coord vs 7867 expected, 507/7999 multipliers prime vs ~470 expected. Random on every axis.",
+   "rational_reconstruction": "every residue returns MAXIMAL 38-39 digit a and b at the sqrt(p/2) bound => no small-rational structure. gcd(HUGE,C1)=1; HUGE//p=1094785891323, C1//p=289077647971; HUGE != k*C1 mod p for k<200. Of 2,815 constants > p, ZERO have residue < 2^80 and all residues distinct. Seven residual values have gcd 1. NO ARITHMETIC BACKDOOR.",
+   "root_costs_one": "NEW: e_root = y0^T M with supp(y0) = {eq 37257} -- a SINGLE equation. 37257 is the unique identity equation whose wire content is the root pin ALONE; the other eleven have copy atoms that absorb a37694 under a non-uniform deformation. Root identity-space price is 1 equation, not 12. freeroot.py: dropping 37257 gives rank 216, a 4-dim deformation space, all four directions moving the root with all 218 other identity equations holding. Still does not pay: ~324-digit entries, support 217, 17 non-copy atoms break -> 38,984. Total 1 + ~12 = 13, the same floor from a third direction."
   }
  }
 }

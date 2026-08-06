@@ -80,3 +80,5 @@ s10/defsolve_*.json
 s10/a22231_best.json
 s10/kill37887.json
 s10/cand27_*.json
+s10/rootfree.json
+s10/freeroot_*.json

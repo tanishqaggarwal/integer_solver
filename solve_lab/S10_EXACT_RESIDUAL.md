@@ -775,3 +775,94 @@ equations, max satisfied grows 5 → 9. **Failing: 7.**
 This is the strongest form of the result: the invariant is not an artefact of the
 defect set I happened to choose, because I found and fixed a genuine gap in that
 choice and the number did not move.
+
+---
+
+# Part VII — the number theory, closed; and the root pin's true price
+
+## 32. The secp256k1 hypothesis, tested and refuted
+
+`p = 2^256 − 2^32 − 977` is the secp256k1 field prime, so the natural question is
+whether the binding residues are curve coordinates (`s10/curve.py`):
+
+```
+(D0, K2) on y^2 = x^3 + 7 : False        (K2, D0) : False
+D0 a valid x-coordinate   : False        K2       : False
+n, G_x, G_y present as literals          : False (p itself IS present)
+constants whose (c mod p) is a valid x   : 7870 of 15734  (random expectation 7867)
+7-digit multipliers prime                : 507 of 7999    (random expectation ~470)
+```
+
+**Exactly random on every axis.** The prime is used as a convenient 256-bit
+modulus, not as a curve.
+
+## 33. Rational reconstruction: the constants carry no structure
+
+Given `r mod p`, extended-Euclid yields the unique small `a/b ≡ r` whenever
+`|a|,|b| < sqrt(p/2)`. A setter who built residues from small rationals would be
+exposed here. Measured (`s10/ratrec.py`) — every residue returns **maximal-size**
+numerator and denominator (38–39 digits, i.e. right at the `sqrt(p/2)` bound):
+
+```
+D0, K2, D0/K2, K2/D0, D0*K2, D0±K2, 1/D0, 1/K2, HUGE mod p, C1 mod p
+   -> all 38-39 digit a and b : NO small rational structure
+```
+
+Further: `gcd(HUGE, C1) = 1`; quotients `HUGE//p = 1094785891323` and
+`C1//p = 289077647971` are unremarkable 12–13 digit numbers; `HUGE ≠ k·C1 (mod p)`
+for all `k < 200`. Of the **2,815** constants exceeding p, **zero** have residue
+below 2⁸⁰ and **all 2,815 residues are distinct**. The seven residual equation
+values have **gcd 1** and only tiny random small factors.
+
+> **There is no arithmetic backdoor. The setter's constants are random, and the
+> two binding residues are unrelated to each other and to everything else in the
+> file.** The number-theoretic line is closed.
+
+## 34. New: the wire root frees for ONE identity equation, not twelve
+
+The uniform wire shift costs 12 — the root pin `a37694` lives in 12 equations.
+But that is not the minimum. Since `e_root` lies in the row space of the identity
+system, write `e_root = y₀ᵀM`; any `d` annihilating `supp(y₀)` has `d_root = 0`,
+so at least one equation of `supp(y₀)` must break. Computed (`s10/rootfree.py`):
+
+```
+rank(M^T) = 217, system consistent
+supp(y_0) = { equation 37257 }        <-- a SINGLE equation
+root-pin equations = [8429, 11166, 12594, 23869, 25313, 26785,
+                      31400, 32300, 36106, 36767, 37257, 37666]
+```
+
+> **Equation 37257 is the unique identity equation whose wire content is the root
+> pin alone.** In the other eleven, `a37694` sits alongside copy atoms that can
+> absorb it, so a *non-uniform* deformation compensates it there. The root's true
+> identity-space price is **1 equation, not 12.**
+
+Constructed (`s10/freeroot.py`): dropping equation 37257 gives rank 216 and a
+**4-dimensional** deformation space, all four directions moving the root. Applied,
+every one of the other 218 identity equations still holds.
+
+**And it still does not pay.** All four directions have ~324-digit entries and
+support 217, so 17 non-copy atoms break: **38,984**. Identity cost 1, square-check
+cost ~12, total ~13 — the same floor, reached now from a third independent
+direction.
+
+## 35. Final consolidated position
+
+```
+give-up cost (the deliverable)                       7
+failing count under placement enlargement            7   (invariant, 6 placements)
+root freed via eq 37257 + square checks             ~13
+uniform wire shift                                   13
+cheapest single wire member                          13
+certificate hitting set                              15
+kernel deformation                                  ~20
+```
+
+Every independent line — equation-space lattice, GF(p) closure and certificates,
+wire geometry, the identity row space, and now the number theory — returns the
+same two numbers: **7 to stop, ≥ 13 to go through.** The margin is 6 and it has
+not moved under any attack in this session.
+
+**What is genuinely still open:** hit inconsistency certificate 1 for under 9
+equations (its cheapest member is 10, and five of the six others cost 1 apiece).
+Every other door measured this session is closed with a number attached.

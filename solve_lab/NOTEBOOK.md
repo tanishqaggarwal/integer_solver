@@ -1350,3 +1350,34 @@ satisfied 5 -> 9. FAILING 7.
 **Six independent placements, including one built to exploit a genuine error in the earlier
 model, all return exactly 7.** The invariant is not an artefact of the defect set.
 Deliverable unchanged at 39,026, re-verified.
+
+## Session 10, part 8 — number theory closed; root pin costs 1 identity equation
+
+`curve.py`: p is the secp256k1 FIELD prime, so tested the curve hypothesis. (D0,K2) is not
+on y^2 = x^3 + 7; neither residue is a valid x-coordinate; n, G_x, G_y do not appear as
+literals (p itself does); 7870 of 15734 constants have (c mod p) a valid x-coordinate vs
+random expectation 7867; 507 of 7999 seven-digit multipliers are prime vs ~470 expected.
+Random on every axis. The prime is a convenient 256-bit modulus, not a curve.
+
+`ratrec.py`: rational reconstruction on every residue (D0, K2, D0/K2, K2/D0, D0*K2, D0+-K2,
+1/D0, 1/K2, HUGE mod p, C1 mod p) returns MAXIMAL 38-39 digit a and b -- right at the
+sqrt(p/2) bound, so no small-rational structure. gcd(HUGE,C1)=1, HUGE//p=1094785891323,
+C1//p=289077647971, HUGE != k*C1 (mod p) for k<200. Of 2,815 constants exceeding p, ZERO
+have residue < 2^80 and all 2,815 residues are distinct. The seven residual values have
+gcd 1 and only tiny random factors. **No arithmetic backdoor. Line closed.**
+
+`rootfree.py` — NEW STRUCTURAL RESULT. The uniform wire shift costs 12 because a37694 lives
+in 12 equations, but that is NOT minimal. e_root lies in the identity row space; solving
+e_root = y0^T M gives supp(y0) = {eq 37257} -- ONE equation. So 37257 is the unique identity
+equation whose wire content is the root pin alone; in the other eleven, a37694 sits beside
+copy atoms that absorb it under a non-uniform deformation. The root's identity-space price
+is 1 equation, not 12.
+
+`freeroot.py`: dropping eq 37257 gives rank 216 and a 4-dimensional deformation space, all
+four directions moving the root, with all 218 other identity equations satisfied. Still does
+not pay -- entries ~324 digits, support 217, 17 non-copy atoms break -> 38,984. Identity
+cost 1 + square-check cost ~12 = 13, the same floor from a third independent direction.
+
+Consolidated: give-up 7; invariant 7 (6 placements); root-via-37257 ~13; uniform wire 13;
+cheapest member 13; certificate hitting set 15; kernel deformation ~20. Still open: hit
+certificate 1 for under 9 equations. **Deliverable unchanged at 39,026.**

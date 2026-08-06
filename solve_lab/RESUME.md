@@ -281,6 +281,31 @@ imposed exactly: region 12 -> 16, max satisfied 5 -> 9. **Failing: 7.**
 > matched, to the equation, by the equations it drags in. The invariant is not an artefact
 > of the defect set: I found and fixed a real gap in that choice and the number did not move.
 
+### PART VII: number theory CLOSED; and the root pin costs 1, not 12
+
+**secp256k1 hypothesis refuted** (`s10/curve.py`): (D0,K2) is not on y^2=x^3+7, neither is
+a valid x-coordinate, n/G_x/G_y are absent (p itself IS present), 7870/15734 constants have
+(c mod p) a valid x-coord vs random expectation 7867, and 507/7999 multipliers are prime vs
+~470 expected. Exactly random on every axis -- p is a convenient modulus, not a curve.
+
+**Rational reconstruction: no structure** (`s10/ratrec.py`). Every residue (D0, K2, D0/K2,
+K2/D0, D0*K2, D0+-K2, 1/D0, 1/K2, HUGE mod p, C1 mod p) returns MAXIMAL 38-39 digit a and b
+-- right at the sqrt(p/2) bound, i.e. no small rational. gcd(HUGE,C1)=1; HUGE//p and C1//p
+are unremarkable 12-13 digit numbers; HUGE != k*C1 (mod p) for k<200. Of 2,815 constants
+exceeding p, ZERO have residue < 2^80 and ALL 2,815 residues are distinct. The seven
+residual equation values have gcd 1.
+> **No arithmetic backdoor exists. The number-theoretic line is closed.**
+
+**NEW: the wire root frees for ONE identity equation, not twelve** (`s10/rootfree.py`).
+e_root lies in the identity row space; writing e_root = y0^T M, supp(y0) = {eq 37257} -- a
+SINGLE equation. Equation 37257 is the unique identity equation whose wire content is the
+root pin ALONE; in the other eleven, a37694 sits beside copy atoms that absorb it under a
+non-uniform deformation. Constructed (`s10/freeroot.py`): dropping 37257 gives rank 216 and
+a 4-DIMENSIONAL deformation space, all four directions moving the root, with all 218 other
+identity equations holding. **Still does not pay:** entries are ~324 digits with support
+217, so 17 non-copy atoms break -> 38,984. Identity cost 1 + square-check cost ~12 = 13,
+the same floor from a third independent direction.
+
 ### Do NOT redo
 - The MUX branch (`x_4287 = 1`). It **does** zero all seven residual atoms simultaneously
   (`s10/muxzero.py`) but leaves 8 collateral atoms -> 44 failing; best repair 38,991. Its own
