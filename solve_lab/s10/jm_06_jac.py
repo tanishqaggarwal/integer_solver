@@ -2,19 +2,16 @@
 for every free input that can reach a pin residue, plus every free input in the
 cone of a breakable check.  One forward pass per column.
 
-Output jm_jac.json:
-   U      list of free inputs (columns)
-   rows   list of check atoms with a nonzero entry
-   cols   u -> {check: derivative mod p}
-   dR     u -> (dRA, dRB, dRC) mod p        (the pin-residue map)
+CHUNKED + RESUMABLE.   usage:  python3 jm_06_jac.py START END
+Appends one JSON record per column to jm_jac.jsonl and skips columns already
+present, so a killed batch costs at most the columns it had not yet written.
 """
 import os, sys, time, json, collections
 sys.path.insert(0, '/home/user/integer_solver/solve_lab/s10')
 import jm_lib as J
 import lib as L, tools as T, ad
 P = J.P
-W = J.base_state()
-VM = [x % P for x in W]
+OUT = '/home/user/integer_solver/solve_lab/s10/jm_jac.jsonl'
 
 PINCONE = [91, 96, 420, 438, 490, 1203, 1530, 1603, 2081, 2441, 2455, 2460, 3203,
            3327, 3420, 3476, 3484, 3545, 3591, 3629, 4012, 4287, 4613, 4701, 4783,
@@ -34,24 +31,24 @@ PINCONE = [91, 96, 420, 438, 490, 1203, 1530, 1603, 2081, 2441, 2455, 2460, 3203
            34955, 34974, 35179, 35740, 35839, 35979, 35981, 36044, 37147, 37236,
            37862, 38055, 38625, 38649]
 
-# checks that any pin move has been seen to break
+# checks that any pin move has been seen to break, + the canonical-frame pins
 SEEDCHK = [3576, 29539, 40826, 7930, 41512, 21617, 37662, 3578, 19297, 19299,
            30984, 36185, 40812, 3568, 3570, 19088, 22233, 22235, 29465, 36602,
            37887, 688, 1618, 3580, 3582, 25676, 29466, 30976, 30978, 33796,
-           40608, 3584, 3586, 7932, 7934, 7936, 29467, 42245, 22231]
-
-EXTRA = set(J.DETACH)                       # 7068, 28730, 29854, 31864, 642
-for a in SEEDCHK:
-    for u in L.avars[a]:
-        EXTRA |= set(x for x in J.cone(u) if x in J.FREESET)
-
-U = sorted(set(PINCONE) | EXTRA)
-print(f'{len(U)} candidate free inputs', flush=True)
-CHECKS = J.CHECKS
-print(f'{len(CHECKS)} check atoms', flush=True)
+           40608, 3584, 3586, 7932, 7934, 7936, 29467, 42245, 22231, 31672]
 
 
-def col(u):
+def candidates():
+    extra = set(J.DETACH)
+    for a in SEEDCHK:
+        if a >= L.NA:
+            continue
+        for u in L.avars[a]:
+            extra |= set(x for x in J.cone(u) if x in J.FREESET)
+    return sorted(set(PINCONE) | extra)
+
+
+def make_col(u, VM, CHECKS):
     dv = J.jac_col_full(u, VM)
     out = {}
     for c in CHECKS:
@@ -65,29 +62,42 @@ def col(u):
     dR = ((1 if u == 7068 else 0) - dv.get(2099, 0),
           (1 if u == 14853 else 0) - dv.get(1308, 0),
           (1 if u == 24548 else 0) - dv.get(25442, 0))
-    return out, tuple(x % P for x in dR), dv.get(28730, 1 if u == 28730 else 0) % P
+    dA1 = dv.get(28730, 1 if u == 28730 else 0) % P
+    return out, tuple(x % P for x in dR), dA1
+
+
+def done_set():
+    s = set()
+    if os.path.exists(OUT):
+        for ln in open(OUT):
+            try:
+                s.add(json.loads(ln)['u'])
+            except Exception:
+                pass
+    return s
 
 
 if __name__ == '__main__':
+    a, b = int(sys.argv[1]), int(sys.argv[2])
+    U = candidates()
+    print(f'{len(U)} candidates total; this batch [{a},{b})', flush=True)
+    W = J.base_state()
+    VM = [x % P for x in W]
+    CHECKS = J.CHECKS
+    have = done_set()
+    f = open(OUT, 'a')
     t0 = time.time()
-    cols, dRs, dA1 = {}, {}, {}
-    for i, u in enumerate(U):
-        c, dR, d1 = col(u)
-        cols[u] = c
-        dRs[u] = dR
-        dA1[u] = d1
-        if i % 25 == 0:
-            print(f'  col {i}/{len(U)} x_{u} support {len(c)} '
-                  f'({time.time()-t0:.0f}s)', flush=True)
-    rows = sorted(set().union(*[set(c) for c in cols.values()]))
-    print(f'\nJacobian {len(rows)} checks x {len(U)} inputs ({time.time()-t0:.0f}s)')
-    json.dump({'U': U, 'rows': rows,
-               'cols': {str(u): {str(c): str(d) for c, d in cols[u].items()}
-                        for u in U},
-               'dR': {str(u): [str(x) for x in dRs[u]] for u in U},
-               'dA1': {str(u): str(dA1[u]) for u in U},
-               'neq': {str(c): len(L.atom2eq.get(c, {})) for c in rows}},
-              open('/home/user/integer_solver/solve_lab/s10/jm_jac.json', 'w'))
-    print('saved jm_jac.json')
-    mv = [u for u in U if any(dRs[u]) or dA1[u]]
-    print(f'inputs moving a pin residue or A1 mod p: {len(mv)}')
+    for i in range(a, min(b, len(U))):
+        u = U[i]
+        if u in have:
+            continue
+        c, dR, d1 = make_col(u, VM, CHECKS)
+        f.write(json.dumps({'u': u,
+                            'col': {str(k): str(v) for k, v in c.items()},
+                            'dR': [str(x) for x in dR], 'dA1': str(d1)}) + '\n')
+        f.flush()
+        if (i - a) % 20 == 0:
+            print(f'  {i} x_{u} support {len(c)} ({time.time()-t0:.0f}s)',
+                  flush=True)
+    f.close()
+    print(f'batch done ({time.time()-t0:.0f}s)', flush=True)

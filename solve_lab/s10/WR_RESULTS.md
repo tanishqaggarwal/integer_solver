@@ -72,7 +72,8 @@ kernel dimension 3** (reproduced).
   * and the residual does **not** dissolve (the multipliers become 325-digit, so
     the congruences get harder, not easier): 12 more equations.
 * Best integral 3-knob deformation at wire base 1 (`x_12752, x_13720, x_18306`,
-  80-digit offsets): 11 identity rows, eq 11915 saved — but measured **39,010**,
+  80-digit offsets): 11 identity rows, eq 11915 saved — measured **39,010 →
+  39,013** after the engine (residual `a22229` + the three copy atoms + the pin),
   because leaving the diagonal switches on the 8 quadratic checks.
 
 ## 4. Why it fails, precisely
