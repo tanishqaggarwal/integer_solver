@@ -19,8 +19,37 @@ import lib as L, ad
 P = ad.P
 
 
-def build(vm, definer=None, ORDER=None, FREE=None):
-    """Return (idx, freelist, supp) where supp[atom] is a bitset over freelist."""
+def _dpart(a, w, v, modp):
+    if modp is None:                      # STRUCTURAL: does w occur at all?
+        return 1 if any(w in m for m in L.polys[a]) else 0
+    if modp:
+        return ad.dpart(a, w, v) % P
+    s = 0
+    for m, c in L.polys[a].items():
+        k = m.count(w)
+        if k == 0:
+            continue
+        if k == 1:
+            t = c
+            for z in m:
+                if z != w:
+                    t = t * v[z]
+            s += t
+        else:
+            s += 2 * c * v[w]
+    return s
+
+
+def build(vm, definer=None, ORDER=None, FREE=None, modp=True):
+    """Return (idx, freelist, supp) where supp[atom] is a bitset over freelist.
+
+    modp=True  matches the mod-p Jacobian (fwdad.jac_column) exactly.
+    modp=False matches the INTEGER Jacobian (intad.jacZ).  The two differ, and the
+    difference is the whole point of §124: a handle enters through a p-wire
+    multiplication, so its partial is a multiple of p and vanishes mod p.  Handles
+    are invisible to every mod-p support and every mod-p column in this lab; only
+    the integer support sees them.
+    """
     if definer is None:
         definer = L.definer
     if ORDER is None:
@@ -34,23 +63,24 @@ def build(vm, definer=None, ORDER=None, FREE=None):
         vs[u] = 1 << idx[u]
     for t in ORDER:
         a = definer[t]
-        if ad.dpart(a, t, vm) % P == 0:
+        d = _dpart(a, t, vm, modp)
+        if d == 0:
             vs[t] = 0
             continue
         m = 0
         for w in L.avars[a]:
             if w == t:
                 continue
-            if ad.dpart(a, w, vm) % P:
+            if _dpart(a, w, vm, modp):
                 m |= vs[w]
         vs[t] = m
     return idx, freelist, vs
 
 
-def atom_supp(a, vm, vs):
+def atom_supp(a, vm, vs, modp=True):
     m = 0
     for w in L.avars[a]:
-        if ad.dpart(a, w, vm) % P:
+        if _dpart(a, w, vm, modp):
             m |= vs[w]
     return m
 
