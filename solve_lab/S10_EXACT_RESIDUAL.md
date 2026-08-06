@@ -571,3 +571,51 @@ The instance is now priced rather than merely characterised:
 
 The productive question is no longer "can the system be solved" but **"can
 certificate 1 be hit for under 9 equations?"** Everything else is already cheap.
+
+## 24. Every route priced — and a correction to Part II's optimism
+
+Two further corrections and a complete price table.
+
+**Correction to §15.** Part II reported that 161 wire members have kernel-gcd 1 and
+so "can be set to 1 for free". Reachability is real but the *magnitudes* are not:
+hitting `d_u = 1 − p` needs kernel coefficients ~10²⁵⁰, which blows every other
+coordinate to ~10⁵⁷⁵. Measured (`s10/deform_solve.py`): applying the raw kernel
+directions gives `|w_3915| = |w_11360| = 325 digits`, i.e. handle granularity far
+*worse* than p, and the branch scores **38,990**. The gcd-1 statement is true and
+useless on its own; only a *short* kernel vector would matter, and the lattice is
+3-dimensional with ~325-digit entries.
+
+**Complete wire price table** (`s10/memberprice.py`), cost = identity equations
+violated + square-check equations violated:
+
+```
+cheapest member overall     x_15413   13  (10 identity + 3 square)
+uniform wire shift (any c)            13  (root pin a37694 = 12, + a39417 = 1)
+cheapest USEFUL multiplier  x_3915    15  ( 9 identity + 6 square)
+x_11360   36     x_14466   54     x_15616   56     x_22665   48
+x_17499  150     x_28599  292     x_28961  208
+kernel deformation                   ~20  (and useless magnitudes)
+certificate hitting set              15
+------------------------------------------------------------------
+current branch (give up)              7   <== the deliverable
+```
+
+> **No route into the design costs less than 13, against a give-up cost of 7. The
+> margin is 6, and it is uniform across every attack surface measured: the wire,
+> the certificates, the hubs, and the bits.**
+
+### What this settles
+The instance is now priced end to end rather than merely characterised. Session 9
+established *that* the chain is rigid; Part I established the residual in closed
+form and proved 39,026 optimal for its placement; Parts II–IV establish the
+**cost of every way around it**. The design's guard is not one wall but a uniform
+6-equation margin over every reachable violation.
+
+### The only remaining question
+Certificate 1 must be hit for **under 9** equations, and its cheapest member is 10.
+Everything else is already cheap. Two concrete sub-questions, both open:
+1. Is there a *short* vector in the 3-dimensional wire kernel (LLL over ~325-digit
+   entries)? A short vector with support ≤ 5 would cut the deformation cost from
+   ~20 to ~5 and take the wire route under budget.
+2. Does certificate 1 admit a member outside the closed 79-column system — i.e.
+   can it be hit by a variable the closure never reached?

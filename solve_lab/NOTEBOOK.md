@@ -1264,3 +1264,26 @@ OR gate is a non-lever: x_9274 = 1 holds automatically at all-bits-zero, which m
 Score log part 4: 39,005 (equation-scored beam), 38,871 (all bits zero), 38,981 (deform3).
 **Deliverable unchanged at 39,026.** Open question, now the only one that matters:
 can certificate 1 be hit for under 9 equations?
+
+## Session 10, part 5 — every route priced; the margin is uniformly 6
+
+Correction to part 2: the "161 members have gcd 1 so can be set to 1 for free" claim is
+true about REACHABILITY but useless about MAGNITUDE. Hitting d_u = 1-p needs kernel
+coefficients ~10^250, blowing other coordinates to ~10^575. Measured (`deform_solve.py`,
+which unlike deform2 USES the freed handles to solve the checks rather than restoring the
+originals): raw kernel directions give |w_3915| = |w_11360| = 325 digits, i.e. handle
+granularity far worse than p, score 38,990. Only a SHORT kernel vector would help.
+
+Complete wire price table (`memberprice.py`, cost = identity equations + square-check
+equations violated): cheapest member overall x_15413 at 13 (10 identity + 3 square);
+uniform wire shift 13 (root pin 12 + a39417 1) -> 39,020; cheapest USEFUL handle
+multiplier x_3915 at 15 (9+6); x_11360 36, x_22665 48, x_14466 54, x_15616 56,
+x_28961 208, x_28599 292; kernel deformation ~20; certificate hitting set 15.
+
+**No route costs less than 13 against a give-up cost of 7.** The design's margin is 6 and
+it is uniform across every measured attack surface -- wire, certificates, hubs, bits.
+
+Open: hit certificate 1 for under 9 (cheapest member 10). Sub-questions: (a) is there a
+SHORT vector in the 3-dim wire kernel (LLL over ~325-digit entries)? support <= 5 would cut
+the deformation cost from ~20 to ~5; (b) can cert 1 be hit by a variable the closed
+79-column system never reached?

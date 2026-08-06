@@ -75,3 +75,5 @@ s10/allbits0.json
 s10/certs.json
 s10/price_*.json
 s10/deform3_*.json
+s10/memberprice.json
+s10/defsolve_*.json

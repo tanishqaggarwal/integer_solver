@@ -42,7 +42,7 @@
  },
  "next_actions": [
   "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing), proved optimal for its defect placement.",
-  "START HERE: the ONLY question that matters now is whether INCONSISTENCY CERTIFICATE 1 can be hit for under 9 equations. Its members are 2423, 21617, 31670 (price 10) and 19297, 31672, 33929 (price 11) -- the section-15.2 chain. Everything else in the instance is already cheap (5 of 6 certificates cost 1 equation each). Total currently 15 vs budget 7.",
+  "START HERE: hit inconsistency certificate 1 for under 9 equations (cheapest member 10). Sub-questions: (a) LLL the 3-dim wire kernel (~325-digit entries) for a SHORT vector -- support <=5 would cut the deformation cost from ~20 to ~5 and take the wire route under budget; (b) can cert 1 be hit by a variable the closed 79-column system never reached?",
   "Equation-space compensation for a37694's 12 equations using deformed copy atoms (same linear algebra, pin row moved to the RHS).",
   "LLL-reduce the 3-dimensional kernel lattice (current basis entries have ~325 digits).",
   "Do NOT redo: local repair, Newton/closure over free inputs (rigid, full column rank), bit scans, the MUX branch."
@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1785982738,
+ "updated_unix": 1785983968,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -272,6 +272,11 @@
    "hub_correction": "truecost.py first reported hub a31670 at true cost 1 (9 of 10 equations compensable). WRONG heuristic -- it counted existence of a helper per equation, not that a helper value is shared across all of them. hub31670.py exact: region 41 equations x 16 atoms, FULL column rank 16; with a31670 nonzero forced ~2 free parameters vs 10 equations so at most ONE savable, and recruiting helpers drags in 31 more equations. Hub cost ~9.",
    "other_closed": "wire deformation re-tested with the weaker necessary condition (can free vars inside each square check absorb a wire change?) -- zero admissible moves across all 6 kernel directions, section 18 survives. Forced OR gate is a non-lever: x_9274=1 holds automatically at all-bits-zero, branch measures 38,871; only 2 boolean free inputs are set at the deliverable (x_2081, x_24601).",
    "methodological_fix": "earlier greedy searches scored by NUMBER OF NONZERO ATOMS instead of failing equations, and refused moves raising the atom count even when the new atoms were 1-equation checks and the closed one cost 15."
+  },
+  "part4_prices": {
+   "correction_to_part2": "gcd-1 reachability of |w|=1 is real but needs kernel coefficients ~10^250, blowing other coordinates to ~10^575. Raw kernel directions give |w_3915|=|w_11360|=325 digits -- granularity far WORSE than p -- score 38,990. Only a SHORT kernel vector would matter.",
+   "price_table": "cheapest member x_15413=13 (10 identity + 3 square); uniform wire shift=13 (root pin 12 + a39417 1) -> 39,020; cheapest useful multiplier x_3915=15; x_11360=36, x_22665=48, x_14466=54, x_15616=56, x_28961=208, x_28599=292; kernel deformation ~20; certificate hitting set 15.",
+   "verdict": "NO route into the design costs less than 13 against a give-up cost of 7. The margin is 6 and it is UNIFORM across every measured attack surface: wire, certificates, hubs, bits."
   }
  }
 }

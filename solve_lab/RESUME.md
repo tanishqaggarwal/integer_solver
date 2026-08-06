@@ -185,6 +185,35 @@ boolean free inputs are set at the deliverable (x_2081, x_24601).
 > **The productive question is now exactly one: can certificate 1 be hit for under 9
 > equations?** Everything else in the instance is already cheap.
 
+### PART IV: every route PRICED — the margin is uniformly 6
+
+**Correction to Part II:** 161 wire members have kernel-gcd 1, but reachability != usable
+magnitude. Hitting `d_u = 1-p` needs kernel coefficients ~10^250, blowing other coordinates
+to ~10^575. Measured (`s10/deform_solve.py`): raw kernel directions give |w_3915| =
+|w_11360| = **325 digits** -- handle granularity far WORSE than p -- and score 38,990.
+Only a SHORT kernel vector would matter.
+
+**Complete price table** (`s10/memberprice.py`; cost = identity eqs + square-check eqs):
+
+    cheapest member overall   x_15413   13   (10 identity + 3 square)
+    uniform wire shift                  13   (root pin 12 + a39417 1)   -> 39,020
+    cheapest USEFUL multiplier x_3915   15   ( 9 identity + 6 square)
+    x_11360 36   x_22665 48   x_14466 54   x_15616 56   x_28961 208   x_28599 292
+    kernel deformation                 ~20   (and useless magnitudes)
+    certificate hitting set             15
+    ---------------------------------------------------------------
+    current branch (give up)             7   <== the deliverable
+
+> **No route into the design costs less than 13 against a give-up cost of 7. The margin
+> is 6, and it is UNIFORM across every attack surface measured: wire, certificates, hubs,
+> bits.**
+
+### THE ONLY REMAINING QUESTION
+Hit certificate 1 for under 9 equations (cheapest member: 10). Two open sub-questions:
+1. Is there a SHORT vector in the 3-dim wire kernel (LLL over ~325-digit entries)? Support
+   <= 5 would cut the deformation cost from ~20 to ~5 and take the wire route under budget.
+2. Can certificate 1 be hit by a variable the closed 79-column system never reached?
+
 ### Do NOT redo
 - The MUX branch (`x_4287 = 1`). It **does** zero all seven residual atoms simultaneously
   (`s10/muxzero.py`) but leaves 8 collateral atoms -> 44 failing; best repair 38,991. Its own
