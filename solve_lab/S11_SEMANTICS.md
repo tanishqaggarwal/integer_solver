@@ -142,7 +142,7 @@ base-point scan returning 0 controls for both, which is the trap that stalls nai
 ## 8. WHERE THE TRAPDOOR ACTUALLY LIVES
 
 Solving the structural system is necessary but not sufficient: **every one of those 12
-controls is itself pinned mod p**, by an always-active *linking* check of the form
+controls also sits in an always-active *linking* check** of the form
 `c·(X − Y) = p·handle`, i.e. `X ≡ Y (mod p)`:
 
     a21050:  x_16441 ≡ x_4920        a34580:  x_33708 ≡ x_10170       a33796:  x_31339 ≡ x_6858
@@ -155,9 +155,10 @@ which is in turn pinned — `x_23210` by **`a38567`, a bit-gated load pin**
 `x_91·x_23210 = HUGE·x_91 + x_3556`, and `x_33129`, `x_32125` by further linking checks
 (`a14445`, `a35374`) that continue the chain.
 
-> **The sharp statement.** Each core control heads a chain of mod-p identities that
-> terminates in a bit-gated load pin fixing it to a designed constant. Therefore the mod-p
-> value of every core control is a **function of the message bits alone**. The structural
+> **The sharp statement** (refined by §10 — each of these links is individually closable;
+> what binds is the *system*). Each core control heads a chain of mod-p identities that
+> terminates in a bit-gated load pin. Once all of them must close simultaneously, the mod-p
+> value of every core control is driven by the **message bits**. The structural
 > system is solvable in the abstract (§6) but its solution is not reachable from any
 > message: the two are connected only through a subset-sum over the 256 load constants.
 > That — not "7 is an invariant" — is the precise obstruction.
@@ -176,3 +177,35 @@ observation that randomising free inputs never helps and that the message space 
     python3 scangen.py         # complete control map (~6 min)
     python3 solveA.py          # cubic solve -> ALL SIX TARGETS ZERO
     python3 partners.py        # the pin chain
+
+---
+
+## 10. Addendum — what actually binds, measured
+
+After the structural solve of §6 lands (all six targets exactly zero), the residue is
+**15 bad checks**, and the binding constraint is **handle contention**, not algebra:
+
+* `s11/freedom.py` perturbs each of the 12 controls by 1 and asks, for every check that
+  breaks, whether some *other* handle can re-close it. The **linking pins are all
+  individually closable** — `a21050`, `a34580`, `a33796`, `a26731`, `a29539`, `a15030`,
+  `a9193`, `a31938`, `a31940`. So the controls are *not* individually pinned; §8's chain
+  bounds their residues only once the whole system must close at once.
+* `s11/ordered.py` closes the residue in hard stages (mirror cores → linking pins → load
+  pins → 1-equation checks). Each stage closes 7-11 of its atoms, but the handles overlap:
+  closing one class consumes the handle another class needs, and free sweeps then diverge
+  (15 → 27 bad).
+* `close2.py` (strict monotone acceptance) halts immediately at the first step: **no single
+  repair reduces the bad count**, which is the signature of a system that must be closed
+  simultaneously rather than sequentially.
+* `simul.py` (one exact integer solve over all bad checks against every cone handle,
+  74-130 controls) reports the joint system **inconsistent**.
+
+> So the deficit is real and it is a *rank* deficit in the handle map, not a missing idea:
+> six structural conditions are satisfiable, but the handles that would realise them are
+> shared with the load-pin and linking-check system, and the combined system is
+> over-determined. This is the same "deficit of 2" that sessions 9 and 10 kept re-measuring
+> in different coordinates — now with its mechanism identified.
+
+**Scores in the clean frame this session:** simplest construction 39,013 (`s11/build3.py`);
+structural construction 38,927-39,005. The 39,026 checkpoint's defect placement remains
+much cheaper in *equation* terms (7 failing vs 20-28), so it stays the deliverable.

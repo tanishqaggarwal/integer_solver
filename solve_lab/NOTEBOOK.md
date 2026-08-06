@@ -1515,3 +1515,20 @@ constants drive the three residues `x_4920 / x_10170 / x_6858` to the values the
 solution requires. Per-bit contributions are one cheap forward-eval each
 (`s11/quick.py` is ~170x faster than a full forward); then meet-in-the-middle or LLL on
 the 3-residue lattice over 256 bits.
+
+### Session 11 addendum — the binding constraint measured
+
+`s11/freedom.py`: perturb each of the 12 controls; every LINKING pin (a21050, a34580,
+a33796, a26731, a29539, a15030, a9193, a31938, a31940) is individually closable, so the
+controls are not individually pinned.
+`s11/ordered.py`: hard-staged closure after the structural solve reaches 15 bad checks;
+stages close 7-11 atoms each but contend for the same handles, and free sweeps diverge to 27.
+`close2.py`: strict monotone acceptance halts at step 0 — no single repair reduces the bad
+count, the signature of a system needing a simultaneous close.
+`simul.py`: one exact integer solve over all bad checks against 74-130 cone handles reports
+the joint system inconsistent.
+
+Conclusion: the residual deficit is a RANK deficit in the handle map. The six structural
+conditions are satisfiable (proved constructively, §6), but the handles realising them are
+shared with the load-pin/linking-check system and the combined system is over-determined.
+That is sessions 9-10's "deficit of 2", now with a mechanism.

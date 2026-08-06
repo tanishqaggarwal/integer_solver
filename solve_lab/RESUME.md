@@ -33,8 +33,8 @@ Failing lines: `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
    (`s11/scangen.py`). NB at the all-zero point the `x25118`/`x34220` derivatives vanish
    identically (they are products) — scanning there returns "no controls" and is the trap
    that stalls naive Newton.
-8. **Where the trapdoor really is.** Each of the 12 controls is pinned mod p by an
-   always-active linking check `c·(X−Y) = p·handle` (`a21050`, `a34580`, `a33796`), each
+8. **Where the trapdoor really is.** Each of the 12 controls also sits in an
+   always-active linking check `c·(X−Y) = p·handle` (`a21050`, `a34580`, `a33796`) — each
    partner has EXACTLY ONE live control (`x_23210`, `x_33129`, `x_32125`), and those
    terminate in **bit-gated load pins** `bit·(X − HUGE − c·p·h) = 0`.
    > The mod-p value of every core control is a FUNCTION OF THE MESSAGE BITS ALONE. The
