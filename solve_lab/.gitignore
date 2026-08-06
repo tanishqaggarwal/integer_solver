@@ -117,3 +117,11 @@ s10/newton_*.json
 s10/wit4.json
 s10/wit5.json
 s10/bool_*.json
+s10/A1zero.json
+s10/REAL_*.json
+s10/pair_*.json
+s10/casc_*.json
+s10/r4_*.json
+s10/rhs.json
+s10/absorbable.json
+s10/redsol.json

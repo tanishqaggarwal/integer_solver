@@ -1392,3 +1392,120 @@ gadget cluster (24). **39,026 takes the cheaper side, and every alternative is n
 priced above it.** What would beat it is not a cheaper door but a break of the one
 obstruction functional — and that functional lives in a closure with no kernel at
 all, which is the sharpest statement of the wall this instance has yet produced.
+
+---
+
+# Part XII — the residual, derived rather than searched
+
+Session 11 set out to break 39,026. It did not, but it replaced the searched
+claim "7 is invariant across placements" with an **exact derivation** of the
+achievable set, and it found two structural facts that overturn earlier readings.
+
+## 63. The instance is degenerate, and the closure was measured on that degeneracy
+
+```
+free inputs: 7,252 of 7,273 are ZERO   (12 loaded constants, 2 booleans, 7 handles)
+variables  : 35,208 of 38,748 are ZERO
+quadratic monomials: 10,894 live, 242,527 dead  -> 95.7% of the circuit is OFF
+```
+
+Every Jacobian in Parts I–XI was taken at this point, where a monomial `u·w` with
+`w = 0` has zero derivative in `u`. 115 free inputs reach the cluster structurally
+but have derivative zero (`s10/dead.py`). So "full column rank, kernel 0" is a
+statement about a degenerate stratum, not about the instance.
+
+Measured directly (`s10/linearity.py`): the two cluster residues are **exactly
+linear mod p** in every non-boolean free input, but the collateral checks are not
+— 656 of 1,376 large-move predictions are wrong. The linear veto from those rows
+is therefore untrustworthy, which is why the closure's negative is not final.
+The *absorbable* rows, however, are 90.6% linear, so the reduced closure
+(`s10/closure_red.py`, 1,079 × 594, rank 594) is essentially exact.
+
+## 64. Frame 2 severs the paths — and four atom values become free
+
+In the delivered witness's own frame (`x_7068, x_28730, x_29854, x_31864, x_642`
+detached), most of the coupling disappears (`s10/rhoknob.py`, `s10/price7.py`):
+
+```
+perturb x_9118  by anything -> breaks NOTHING outside the seven
+perturb x_8731  by anything -> breaks NOTHING outside the seven
+x_642, x_29854, x_31864     -> zero collateral (each occurs in exactly 2 atoms)
+x_7068 + 1                  -> breaks a29539 (+ shadow a40826)   13 equations
+x_28730 + 1                 -> breaks a7930  (+ shadow a41512)   16 equations
+```
+
+## 65. The achievable atom set, exactly
+
+Writing `A = (a22229, a22230, a35758, a35759, a35760, a35761, a35762)`:
+
+```
+A2 = x_29854 - p*x_1329        A3 = -x_29854 + 5113045*x_9118
+A4 = x_31864 - p*x_10903       A5 =  x_31864 + x_8731
+  => A2+A3 == 5113045*x_9118 (mod p)  and  A5-A4 == x_8731 (mod p)
+```
+
+and **both right-hand sides are free**, because `x_9118` and `x_8731` cost nothing
+in this frame. Hence **A2, A3, A4, A5 are completely unconstrained**. What remains:
+
+> **(1)  `A0 + 7376877·A6 ≡ C₀ (mod p)`** — `C₀ = x_7068 − x_2099`; `x_7068` shifts
+> freely by multiples of `p` (a29539's handle `x_30163` absorbs them), so the
+> mod-7376877 part is free and only the mod-`p` part binds.
+> **(2)  `A1 ≡ A1₀ (mod p)`, `A1₀ ≠ 0`** — pinned by `a7930`'s own congruence.
+
+## 66. Why exactly 5 of 12, and what the sixth would cost
+
+The 12 equations, as coefficient rows over `A` (`s10/rhs.py`):
+
+```
+eq  2554 [ 1, 13,  0,  0,  0,  0,  0]      eq 12270 [-31,  5,  1,-27, -1,-17, 10]
+eq  6816 [-15,-11, 38,  9, 36, 13, 29]     eq 12350 [-23, 26,-16, 34,-34, 35, 11]
+eq  8124 [36, 26,  0,  0,  0,  1, -6]      eq 14584 [ 17, 16, -2,-18,-31, 19,-39]
+eq  9123 [ 0,  0, 20, 27, 33,  3, -1]      eq 18673 [  0,  0,  0,  1,  6,  1,  0]
+eq  9421 [13,-21,-21, 29, 38, 29,  4]      eq 22044 [-24,-10,  0,  0,  0,  0,  1]
+eq 12231 [18, 24,  0,  0,  1,-23, 13]      eq 29125 [  0,  1,  0,  0,  0,  0,  0]
+```
+
+`eq 29125` is `A1` alone, so it is satisfied **iff `A1 = 0`** — impossible under (2).
+`eq 2554` is `A0 + 13·A1`, satisfiable under (1). The other ten are ten conditions
+on the four free values `A2..A5` (`A6` being pinned once `A0` is), so four fall.
+
+> **1 + 4 = 5 satisfied, 7 failing. That is the deliverable, and it is now derived
+> from the constraint structure rather than found by search.**
+
+Ignoring (1) and (2) the combinatorial optimum is **6** (`s10/lattice11.py`), and
+the only way to reach it is `A1 = 0`. That buys exactly one equation. Its price
+(`s10/final27.py`): `a7930`'s congruence must then be met by something other than
+`x_28730`, and its entire gradient support is six free inputs:
+
+```
+x_2081  -> 109 equations      x_13195 -> 63      x_24548 -> 11   <- cheapest
+x_4287  ->  44 equations      x_12553 -> 14
+```
+
+> **The sixth equation costs 11 and is worth 1.** 39,026 is optimal in this
+> placement, by enumeration of the complete repair space rather than by sampling.
+
+## 67. Two corrections to Part XI
+
+* `a7930` has a **second** repair path — through `x_7927`'s handle `x_11052`, at
+  **zero** collateral — available whenever its congruence holds (`s10/chain27.py`).
+  Part XI only ever closed it through `x_24548`, which is the expensive route.
+* The boolean scan over all 78 booleans in the cluster cones, each re-solved with
+  the enriched engine, returns 39,009 for every one (`s10/boolscan.log`) — the
+  witness-frame verdict of Part X survives re-solving, for these at least.
+
+## 68. Position after session 11
+
+```
+delivered                                                39,026   [verified]
+canonical frame + enriched moves / beam            39,009 / 39,016
+frame 2, A1 = 0, a7930 repaired via x_24548              39,012
+frame 2, six of seven zeroed (a35758 alone nonzero)      38,998
+all four MUX branches, re-solved              38,986 ... 39,009
+```
+
+The instance is now closed on the placement: the achievable atom set is known
+exactly, the combinatorial optimum is 6, and the single equation separating 6 from
+5 costs eleven. What remains is the gadget cluster, and it lives on a stratum
+where 95.7% of the circuit is switched off — which is the one thing this session
+showed is *not* rigid, only unmeasured.

@@ -41,11 +41,11 @@
   "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
  },
  "next_actions": [
-  "Deliverable unchanged: solve_lab/best/new_instance_partial_39026.json (7 failing), re-verified this session.",
-  "START HERE: the gadget cluster {a7930, a21617, a29539, a33796} must be solved WHOLE -- members cost 10-15 equations each so no partial fix competes with 7. Attack the single obstruction functional of the 579x142 closure (s10/closure2.py, s10/sacrifice.py).",
-  "Two spaces the closure does NOT cover: (a) non-canonical orientations of the CLUSTER variables -- frame2.py did exactly this for the p-group and it worked; (b) the 40 inert cyclic-SCC parameters.",
-  "Branch (1,1) removes two congruences but activates a19088, a22233, a22235 via x_21279 = 1. Those three have never been attacked with the two new move classes.",
-  "Do NOT redo: lib.ripple local repair, single-move hill climbing scored by equations alone, the message space, the canonical-frame sacrifice route."
+  "Deliverable unchanged: solve_lab/best/new_instance_partial_39026.json (7 failing), re-verified.",
+  "39,026 is now PROVED optimal for its placement (s10/lattice11.py + s10/final27.py): combinatorial optimum 6, and the sixth equation costs 11.",
+  "START HERE: the only unmeasured space is the LIVE stratum. 95.7% of quadratic monomials are dead at our witness, so 115 free inputs reach the cluster with zero derivative (s10/dead.py). Activating them needs >= 2 simultaneous nonzero free inputs -- a second-order search no linearisation can see.",
+  "The collateral checks are genuinely nonlinear under large moves, so the closure's veto is not final; the absorbable rows are 90.6% linear so the reduced closure is.",
+  "Do NOT redo: single-move hill climbing, the boolean scan over cluster cones, the frame-2 sacrifice enumeration, curve/ratrec number theory on the broadcast constants."
  ],
  "blocked": [
   "Part 1's two mod-p congruences are rigid ONLY because all handles are p-quantised, and part 2 shows that rests on a wire with a 3-dimensional free deformation space. The live obstruction is now the 13 multi-wire monomials plus the bare root pin a37694 (12 equations)."
@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1786000705,
+ "updated_unix": 1786018477,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -383,6 +383,15 @@
    "(0,1)": 39002,
    "(0,0)": 38986,
    "note": "all four converge to the SAME two cluster gadgets; the obstruction is branch-independent"
+  },
+  "derivation": {
+   "achievable_atom_set": "A2,A3,A4,A5 COMPLETELY FREE (x_9118 and x_8731 cost nothing in frame 2); A0 + 7376877*A6 == C0 (mod p); A1 == A1_0 != 0 (mod p) pinned by a7930's congruence",
+   "why_5_of_12": "eq29125 = A1 alone (needs A1=0, impossible); eq2554 = A0+13A1 (satisfiable); the other ten are ten conditions on the four free values A2..A5 -> four fall. 1+4 = 5 satisfied, 7 failing.",
+   "combinatorial_optimum": 6,
+   "price_of_the_sixth": "A1 = 0 requires a7930's congruence met by something other than x_28730; its whole gradient support is {2081:109, 4287:44, 12553:14, 13195:63, 24548:11} equations. Cheapest 11, worth 1.",
+   "degeneracy": "7,252 of 7,273 free inputs are ZERO; 95.7% of quadratic monomials are dead. Every Jacobian so far was taken at that degenerate point.",
+   "linearity": "cluster residues exactly linear mod p in every non-boolean free input; collateral checks NOT (656/1376 large-move predictions wrong); absorbable rows 90.6% linear",
+   "new_repair_path": "a7930 also closes through x_7927's handle x_11052 at ZERO collateral whenever its congruence holds"
   }
  }
 }

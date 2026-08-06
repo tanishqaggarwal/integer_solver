@@ -68,6 +68,29 @@ instance offers exactly one trade:
   `a3576` trivial), the exact rigidity that blocked the `a29539` Newton move, and it
   still does not pay.
 
+### Session 11 (part 2) — 39,026 PROVED optimal for its placement, and the real gap named
+* **The achievable atom set, exactly.** In the delivered witness's own frame, `x_9118`
+  and `x_8731` cost **nothing** (perturbing them breaks no atom outside the seven), so
+  **A2, A3, A4, A5 are completely free**. What binds is only
+  `A0 + 7376877·A6 ≡ C₀ (mod p)` and `A1 ≡ A1₀ ≠ 0 (mod p)`.
+* **Why exactly 5 of 12.** `eq 29125` is `A1` alone (needs `A1 = 0` — impossible);
+  `eq 2554` is `A0 + 13·A1` (satisfiable); the other ten are ten conditions on the four
+  free values, so four fall. **1 + 4 = 5 satisfied, 7 failing — derived, not searched.**
+* **The sixth equation costs 11 and is worth 1.** The combinatorial optimum ignoring the
+  congruences is 6, reachable only via `A1 = 0`; that requires `a7930`'s congruence to be
+  met by something other than `x_28730`, and its whole gradient support is six inputs
+  priced {x_24548: 11, x_12553: 14, x_4287: 44, x_13195: 63, x_2081: 109}.
+* **`a7930` has a second, free repair path** — through `x_7927`'s handle `x_11052`, zero
+  collateral, available whenever its congruence holds. Every earlier session closed it
+  only through `x_24548`, the expensive route.
+* **The instance is degenerate and every Jacobian was measured on that degeneracy.**
+  7,252 of 7,273 free inputs are zero; **95.7% of quadratic monomials are dead**. 115 free
+  inputs reach the cluster with derivative zero. "Full column rank, kernel 0" describes a
+  switched-off stratum, not the instance.
+* **Linearity, measured**: the cluster residues are exactly linear mod p in every
+  non-boolean free input; the collateral checks are NOT (656/1376 large-move predictions
+  wrong); the absorbable rows are 90.6% linear.
+
 ### Next actions
 1. The cluster must be solved **whole** — members cost 10–15 equations each, so no
    partial fix competes with 7. Attack the single obstruction functional of the
