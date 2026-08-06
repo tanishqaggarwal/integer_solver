@@ -2919,3 +2919,120 @@ rather than bounded:
 The two doors of §131 are the whole remaining problem, and neither has been priced
 yet — the selector route in particular has never been attempted from a state where
 every advice congruence holds.
+
+---
+
+# Part XXVI — the circuit is elliptic-curve point addition, and two of its knobs are free
+
+## 133. The three primitives are homogeneous linear in two quantities
+
+Unfolding the operands of §131 shows the two "spare" terms are not free at all:
+
+```
+x3023 = 6926539*x6671        x2287 = 8272701*x35389        (both gate-defined)
+```
+
+so with `A = x35389` and `B = x6671` the three primitives become one 3x2 homogeneous
+system:
+
+```
+x11150 =  8646263*A + 1073965*B          x25739 = 10159099*A + 6926539*B
+x37758 =  8272701*A + 5921311*B
+```
+
+rank 2, so the only solution is `A ≡ B ≡ 0 (mod p)`.  And A and B are recognisable:
+
+```
+A = x29322^2 * x33469 - x3558^2         B = x27713*x29322 - x1326*x3558
+```
+
+with `x29322 = x14853 - x12186`, `x3558 = x24908 - x16742`,
+`x33469 = (x22162 + x12186 + x14853) + x24453`, `x27713 = x30213 + x16742`,
+`x1326 = x12186 - x22162`.  Writing `x1 = x12186, y1 = x16742, x2 = x14853,
+y2 = x24908, x3 = x22162, y3 = x30213` those are exactly the inversion-free
+point-addition identities on a short Weierstrass curve:
+
+```
+A = 0   <=>   (x2-x1)^2 * (x3+x1+x2) = (y2-y1)^2        the x3 formula
+B = 0   <=>   (y3+y1) * (x2-x1) = (y2-y1) * (x1-x3)     the y3 formula
+```
+
+The instance is elliptic-curve arithmetic over the secp256k1 prime, the thirteen
+advice values of §129 are point coordinates, and the residual is one point addition
+that does not yet close.  (The four literal constants of §130 are not secp256k1's
+group parameters and no pair of them satisfies `y^2 = x^3 + b` for small b, so they
+are the generator's inputs, not the curve's.)
+
+## 134. x3 and y3 are unconstrained, and the addition closes exactly
+
+`x22162` and `x30213` are advice values, and their only pins -- a30976 and a30978 --
+are **gated by `x15574`, which is zero**, so nothing constrains them.  A is linear in
+`x22162` and B is linear in both.  Two linear equations, two free unknowns:
+`s10/ecfix.py` recovers the 2x2 matrix by exact probing (the maps are linear, so one
+probe per unknown is the exact column) and solves it.
+
+```
+exact jacobian  [[111240861292698890820848534820520421376282038064685656642793697565041778256411, 0],
+                 [ 82481923122510723799288844430228824462217842441245596187178166524754019170488,
+                   54087068875452565652802074820709161994541095135988077443024649864435316913852]]
+det invertible
+after the jump:  x35389 = 0,  x6671 = 0
+                 x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)
+```
+
+**The point addition closes exactly.**  The three primitives of §131 are gone, the
+integer lift absorbs a19297, a30984 and a36185 through their handles, and the state
+verifies at **39,014** (`s10/EC_39014.json`, checker-verified).
+
+What comes back is a different pair: `a688` and `a1618`, constant pins on `x18956`
+and `x24468` -- and `x18956` depends on `x30213` through `x10156 = x15298*x30213`,
+so moving `y3` moves them.  Re-running the advice solve reports `changed 0`: every
+advice congruence still holds.  The system is now genuinely joint rather than
+sequential.
+
+## 135. The joint solve is inconsistent — in the tangent space
+
+`s10/jsolve.py` builds the whole remaining system at once at 39,014: every free input
+that reaches a nonzero check (494 after dropping handles), and every equation those
+inputs can touch, as equation-combination rows.
+
+```
+system: 4,314 rows x 494 cols  (19 of the rows currently fail)
+rank 494;  INCONSISTENT ROWS 141
+```
+
+So no single linear step reconciles them.  By §122 that bounds the tangent space and
+nothing else, which is why it is recorded as a measurement and not as a barrier.
+
+## 136. The selector door is deeper than it looks
+
+The alternative to solving the three primitives is to drive the selector to zero:
+
+```
+x15298 = OR(x8599, x21839) * OR(x25956, x7304)
+x21839 = OR(x10083, OR(x25608, x390))       x390   = OR(x5638, x33068)
+x7304  = OR(x11346, x36945)                 x11346 = OR(x17067, x29560),  x29560 = x13976
+```
+
+Every one of these is gate-defined, not free: they are `isZero` comparison flags
+computed from the data.  Driving `x15298` to 0 therefore means making an underlying
+comparison hold, which is a condition on the advice values, not a knob.  The door is
+real but it is the same problem in different clothes.
+
+## 137. Ledger after Part XXVI
+
+```
+deliverable                                                39,026  [checker-verified]
+point addition closed exactly, three primitives gone       39,014  [checker-verified]
+advice DAG fixed point                                     39,013  [checker-verified]
+all seven residual atoms exactly zero                      39,004  [checker-verified]
+```
+
+The deliverable is unchanged.  The instance, however, is no longer an opaque
+39,033-equation feasibility problem: it is elliptic-curve point arithmetic over
+secp256k1 whose free content is thirteen 296-bit coordinates, four of them pinned to
+literal constants, the rest linked by a DAG of congruences that is now solved in one
+sweep, with one point addition whose x3/y3 are free and which this session closes
+exactly.  What is left is the interaction between that addition and the two constant
+pins `a688`/`a1618` that share `y3` -- a joint condition on the same small set of
+coordinates, and the first residual in this lab that has never been priced.

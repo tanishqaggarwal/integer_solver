@@ -594,6 +594,48 @@
    "s10/comp7.py",
    "s10/rjump.py",
    "s10/rj2.py"
-  ]
+  ],
+  "part_xxvi": {
+   "semantics": "elliptic-curve point addition over the secp256k1 prime",
+   "coordinates": {
+    "x1": 12186,
+    "y1": 16742,
+    "x2": 14853,
+    "y2": 24908,
+    "x3": 22162,
+    "y3": 30213
+   },
+   "identities": {
+    "A_x35389": "(x2-x1)^2*(x3+x1+x2) = (y2-y1)^2",
+    "B_x6671": "(y3+y1)*(x2-x1) = (y2-y1)*(x1-x3)"
+   },
+   "three_primitives_are_linear_in_A_B": {
+    "x11150": "8646263*A+1073965*B",
+    "x25739": "10159099*A+6926539*B",
+    "x37758": "8272701*A+5921311*B",
+    "rank": 2
+   },
+   "x3_y3_unconstrained": "pins a30976/a30978 are gated by x15574 = 0",
+   "ecfix_result": {
+    "A": 0,
+    "B": 0,
+    "score": 39014,
+    "file": "s10/EC_39014.json",
+    "verified": true
+   },
+   "what_returns": [
+    "a688",
+    "a1618"
+   ],
+   "why": "x18956 depends on y3 through x10156 = x15298*y3",
+   "joint_solve": {
+    "rows": 4314,
+    "cols": 494,
+    "rank": 494,
+    "inconsistent": 141,
+    "note": "tangent-space measurement only; the map is a genuine polynomial"
+   },
+   "selector": "x15298 unfolds into isZero flags, all gate-defined -- not a free knob"
+  }
  }
 }

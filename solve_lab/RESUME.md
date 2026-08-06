@@ -38,7 +38,39 @@ What this session established, in order:
    `x15298 = OR(x8599, x21839) · OR(x25956, x7304) = 1`.
    Two doors: make the three combinations vanish, or drive the selector to 0.
 
-**Next actions**
+### Session 12 addendum (Part XXVI): the circuit is EC point addition
+
+7. **§133–134 — the instance is elliptic-curve arithmetic over secp256k1.**  The three
+   primitives of §131 are homogeneous linear in `A = x35389`, `B = x6671` (rank 2, so both
+   must vanish), and A, B are the inversion-free point-addition identities with
+   `x1 = x12186, y1 = x16742, x2 = x14853, y2 = x24908, x3 = x22162, y3 = x30213`:
+   `A = 0  <=>  (x2-x1)^2 (x3+x1+x2) = (y2-y1)^2`;
+   `B = 0  <=>  (y3+y1)(x2-x1) = (y2-y1)(x1-x3)`.
+   `x22162` and `x30213` are **unconstrained** (their pins a30976/a30978 are gated by
+   `x15574 = 0`), A is linear in x3 and B linear in both, so `s10/ecfix.py` solves the 2x2
+   system exactly: **the point addition closes, x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)**,
+   and `s10/EC_39014.json` verifies at 39,014.
+
+8. **§135 — what comes back.**  Moving `y3` moves `x18956` (through `x10156 = x15298*y3`),
+   which breaks the constant pins `a688`/`a1618`.  The joint equation-level solve
+   (`s10/jsolve.py`, 4,314 rows x 494 cols) is inconsistent by 141 rows — a tangent-space
+   measurement only (§122), recorded, not treated as a barrier.
+
+9. **§136 — the selector door.**  `x15298 = OR(x8599,x21839)*OR(x25956,x7304)` unfolds into
+   `isZero` comparison flags that are all gate-defined; driving it to 0 is a condition on the
+   coordinates, not a free knob.
+
+**Next actions (updated)**
+  - Solve `{A = 0, B = 0, a688 = 0, a1618 = 0}` **jointly** in the coordinates — four
+    conditions sharing `x3 = x22162` and `y3 = x30213`; find what else feeds `x18956` and
+    `x24468` (`x25538, x32237, x13913, x38045, x34243`) and whether any is free.
+  - `s10/ecfix.py` generalises: exact probing recovers the exact Jacobian whenever the map is
+    linear in the chosen knobs, which it is for coordinate knobs.
+  - Chain: `advgraph.py` (advice DAG) -> `ecfix.py` (point addition) -> lift.  Both are
+    idempotent; the oscillation is between the addition and the two constant pins.
+
+
+**Next actions (Part XXV)**
   - Door A: drive `x15298 → 0` from `s10/AG_39013.json` (never tried with all advice solved).
   - Door B: solve `x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)` — three linear conditions in
     `x35389, x6671, x3023, x2287`, all EC-shaped combinations of the advice values.
