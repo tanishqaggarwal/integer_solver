@@ -2111,3 +2111,61 @@ them. And the accounting forbids a win regardless: fixing `a21617` gains 11 and
 fixing `a29539` gains 13, but their swap targets `a31672` and `a3576` cost exactly
 11 and 13. The canonical frame is pinned at 39,009 by conservation, and the
 delivered frame's 7 remains the floor.
+
+---
+
+# Part XIX — the p-wire route, settled
+
+The hypothesis of §80-era notes was that if the wire carried `w ≠ p`, every gadget
+congruence `A ≡ B (mod p)` would become `A ≡ B (mod w)` and, at `w = 1`, trivial.
+**That is exactly right**, and it is now measured rather than argued.
+
+## 99. `w = 1` frees the entire residual — for 13 equations
+
+Building `F_WIRE` (frame 3's six detachments **plus** `x_26064`, so the bare pin
+`a37694` becomes a check) and driving all 220 wire members to `w`
+(`s10/wr_frame.py`, `s10/WR_RESULTS.md`):
+
+```
+python3 checker.py s10/wr_engine_w1_x7068_39020.json
+   -> satisfied 39020/39033  (13 failing)
+   failing: [8429, 11166, 11915, 12594, 23869, 25313, 26785, 31400, 32300,
+             36106, 36767, 37257, 37666]
+```
+
+In that state **exactly two of the 42,267 atoms are nonzero**: `a37694` (12
+equations) and `a39417` (1 equation). Both residual gadgets, `a7930`, `a29539`,
+`a40826`, `a41512` and **all 1,249 handles** are exactly zero. Every `w` tested
+(1, −1, 2, −2, 3, 0, −p, 2p, p², p±1) behaves identically.
+
+> The premise is confirmed: a non-`p` wire frees the whole rest of the instance.
+> Its price is **13** against a give-up price of **7**.
+
+## 100. The price is irreducible, and there is no third regime
+
+All 12 equations of `a37694` carry it with a nonzero coefficient and nothing else
+is nonzero, so all 12 fail; and `eq 11915` is `217608357·(a39417)²` with `a39417`
+its only atom, where `a39417 = −8(w − p) ≠ 0` on the diagonal. Relaxing to treat
+every atom as an independent rational — strictly more freedom than the circuit has
+— gives failing ≥ 12 for `S = {a37694}`, improving only to 8 after two closure
+rounds; the same relaxation understates the current placement by ≥ 1 (returns 6
+where the truth is 7). Over ℤ it is worse: exhaustive search over all **196,624**
+three-knob systems (54,734 with an integral solution at wire base 1) bottoms out at
+**11** broken rows.
+
+The deformation space has exactly **two** regimes:
+
+| regime | what happens | price |
+|---|---|---|
+| **diagonal** (all members equal, value ≠ p) | 8 quadratic wire-only checks stay zero, handles unquantise, residual fully repairs — but the bare pin fires in all 12 of its equations plus eq 11915 | **13** |
+| **off-diagonal** (incl. the whole 3-dim kernel) | pin held at zero, 0 identity rows break — but the 8 quadratic checks plus `a39084, a39417, a41278` all fire, and the multipliers reach 78–325 digits so the congruences get *harder* | 22–23 → 39,010–39,013 |
+
+**No third regime exists**: the diagonal is a 1-dimensional line, row 37257's wire
+content is the bare pin alone (a nonzero functional on that line), and the eight
+quadratic checks vanish exactly on it. Partial deformation was swept too — a 0/1
+subset local search over 60 restarts finds uniform optimal at 12; single members
+cost 34/58/60/70, all-but-root 50, root alone 62.
+
+Side result: restoring only the root to `p` from the `w = 1` state gives a new
+**39,021** with a **4-atom** placement `[22229, 22230, 35758, 35760]` — shorter than
+any placement previously recorded, though still behind 7.
