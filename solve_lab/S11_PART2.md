@@ -199,3 +199,36 @@ explains *why* a deficit exists at all.
 > constraints occupying fewer than 7 equations? Cost is driven entirely by the absorber's
 > equation footprint, and the instance contains many 1-equation checks — but none of them sits
 > in the tight set of any channel examined so far.
+
+## 10. Part IV — the equation-space optimum, checked properly
+
+Session 9's key correction was "an equation is zero iff its *linear combination of atoms* is
+zero" — atoms need not vanish. Part IV applies that here, correctly.
+
+**Region analysis** (`s11/region.py`). For each state, S = failing equations and the *knobs* are
+the atoms whose entire equation footprint lies inside S (moving them changes nothing outside).
+Solving over the knobs as free integers reports **all** of S recoverable — but that is too
+generous: a knob is only movable through an actual free handle.
+
+**Realisable knobs** (`s11/private.py`). Of the six knobs of the 15-equation region, only three
+have a *private* handle (a free variable occurring in exactly one atom):
+
+    a26719 <- x_24175   step  -8640431 * p
+    a26721 <- x_4615    step        -1 * p
+    a26723 <- x_13992   step        -1 * p
+
+The other three (`a26720`, `a26722`, `a28437`) are gates — `x_24326 = x_24175 * x_35019` etc. —
+and carry no independent freedom. So the honest system is **15 equations in 3 lattice knobs**.
+
+**Result** (`s11/eqopt.py`, `s11/eqopt2.py`, run over every saved state): no assignment of the
+lattice knobs satisfies even |S| − 8 of the failing equations, at any state. Since the knob
+steps are multiples of p, they can only repair equations whose atom-sum is already ≡ 0 mod p,
+and the failing ones are not.
+
+**Also ruled out** (`s11/compensate.py`): not one atom in the instance has an equation footprint
+proportional to any candidate absorber, so single-atom compensation is unavailable; and the
+constrained solve over the whole 173-equation region with 26 exact-linear handles is
+inconsistent (`s11/realise3.py`).
+
+> Equation space offers no escape here. The atom-space floor of 15 for this branch is also the
+> equation-space floor.

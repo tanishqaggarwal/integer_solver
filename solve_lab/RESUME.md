@@ -49,6 +49,13 @@ Session-11 best in a NEW branch, independently verified: `s11/data/finish3_named
 > size 9 over 8 controls. The score is decided entirely by the price of the absorbing set --
 > 15 in the (490,91) branch, 7 in the checkpoint's channel.
 
+- **Equation space offers no escape** (Part IV). Of the six knob atoms of the 15-equation
+  region only THREE have a private handle (`a26719<-x24175` step -8640431p, `a26721<-x4615`
+  step -p, `a26723<-x13992` step -p); the other three are gates with no freedom. The honest
+  system is 15 equations in 3 LATTICE knobs, and no assignment satisfies even |S|-8 of them,
+  at any saved state (`s11/eqopt.py`, `s11/eqopt2.py`). Steps are multiples of p, so they can
+  only repair equations whose atom-sum is already 0 mod p; the failing ones are not.
+
 ### Do NOT redo
 - The clean all-zero frame, the MUX/OR-tree decode, `a40608 = (W-C)^2`, the core rank-2
   reduction, the cubic, the 8640431 CRT step, the channel taxonomy, the control scans.
