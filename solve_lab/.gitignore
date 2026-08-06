@@ -125,3 +125,10 @@ s10/r4_*.json
 s10/rhs.json
 s10/absorbable.json
 s10/redsol.json
+s10/PAIR*.json
+s10/DRIVE_*.json
+s10/B11*.json
+s10/D2_*.json
+s10/q_*.json
+s10/WIN_*.json
+s10/C3_*.json

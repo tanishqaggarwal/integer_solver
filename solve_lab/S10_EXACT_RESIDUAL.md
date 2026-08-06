@@ -1509,3 +1509,105 @@ exactly, the combinatorial optimum is 6, and the single equation separating 6 fr
 5 costs eleven. What remains is the gadget cluster, and it lives on a stratum
 where 95.7% of the circuit is switched off — which is the one thing this session
 showed is *not* rigid, only unmeasured.
+
+---
+
+# Part XIII — equation-space compensation, opened and priced
+
+Part XII proved 39,026 optimal *for its atom set*. This part attacks the one
+assumption left in that proof: that the residual must be carried by those seven
+atoms. It need not — an extra atom sharing the same twelve equations changes the
+rank, and the search space that opens is real. It is also, in the end, priced.
+
+## 69. The twelve equations admit a free compensator
+
+The 12×7 coefficient matrix has rank 7, so all twelve hold only if `A = 0`. Adding
+an eighth column changes that. Enumerating every atom that appears in those twelve
+equations (`s10/compensate.py`):
+
+```
+a22231  appears in 10 of the 12,   0 equations OUTSIDE   <- free compensator
+a22232  appears in  9 of the 12,   1 outside
+a35757  appears in  5 of the 12,   2 outside
+a22233  appears in  8 of the 12,   2 outside
+```
+
+`a22231 = x_4432 − x_19964 − x_28730` lives **entirely inside** the twelve. With it
+as an eighth free value the optimum rises (`s10/comp8.py`):
+
+```
+subsets of size 8..12 : no kernel
+subsets of size  7    : 792 have a kernel  ->  7 of 12 satisfiable
+=> 5 of the twelve fail, + a37887 = 6 total  ->  39,027
+```
+
+## 70. Frame 3, and why `A1` stops being pinned
+
+Detaching `x_4432` (frame 3, `s10/frame3.py`) severs `x_28730 → x_4432 → a7930`:
+
+```
+x_4432  +anything -> breaks a7930, a37887, a41512      17 equations
+x_28730 +anything -> breaks a37887 ONLY                 1 equation
+x_9118 / x_8731   -> break nothing outside the eight    0 equations
+```
+
+So in frame 3 `A1` is free at a price of one equation, and `eq 29125 = A1` alone is
+bought. What blocks the seventh equation is that the kernel is one-dimensional
+while there are two congruences, requiring
+`C₀·(w1+w7) ≡ K·(w0 + 7376877·w6) (mod p)` with `K = x_4432 − x_19964 (mod p)`.
+
+## 71. `a37887` depends only on `x_4432` and `x_19964 + x_28730`
+
+Reading its monomials, `a37887` contains `−2·x_4432·x_19964 − 2·x_4432·x_28730` and
+nothing else in those two variables. Since `a22231 = x_4432 − x_19964 − x_28730`
+does too, the **compensating pair** `x_28730 += d, x_19964 −= d` leaves both exactly
+invariant. Constructed in frame 3 (`s10/drive2.py`) it does precisely that:
+
+```
+a22230 = 0   a22231 = 0   a37887 = 0   a7930 = 0     simultaneously
+```
+
+— four checks that no previous session ever held at once. The cost is the driver:
+`x_19964`'s ancestor cone has only 17 variables and **three live drivers**
+
+```
+x_12553 -> 15 equations (it is the load pin a3578 = x_2081*(x_12553 - HUGE))
+x_4287  -> 30 equations
+x_2081  -> 110 equations
+```
+
+> The pair move is mechanically perfect and costs **14** for a gain of **1**.
+
+## 72. Why `x_8731` looked free — and where it is not
+
+`a1459 = x_19892 − x_8731·x_21279` with `x_21279 = 0`, so `x_8731`'s path into
+`x_19964` is **switched off**. That is the same degeneracy as §63, and it is why
+`x_8731` measures as a zero-collateral knob. In branch `(1,1)`, `x_21279 = 1` and
+the path is live — measured `d(x_19964)/d(x_8731) = 1` exactly (`s10/b11f3.py`),
+turning `x_8731` into the free driver the pair move wants. The branch itself,
+however, activates `a19088, a22233, a22235` and does not pay: frame 3 in `(1,1)`
+reaches 39,014 with the engine, and the targeted paired construction 38,974
+(`s10/b11build.py`).
+
+## 73. Position
+
+```
+delivered                                                     39,026  [verified]
+frame 3, branch (1,1), enriched engine                        39,014
+canonical beam / enriched engine                       39,016 / 39,009
+frame 3, A1 = 0 via the compensating pair                     39,009
+```
+
+Everything found in Parts XI–XIII is a mechanism, and every mechanism has a price
+above the 7 the deliverable pays:
+
+| lever | buys | costs |
+|---|---|---|
+| `A1 = 0` (eq 29125) via `x_28730` in frame 3 | 1 | 1 (`a37887`) — but then only 6 of 12 |
+| the seventh equation (compensator kernel) | 1 | compatibility condition on `K` |
+| moving `K` — the compensating pair | — | **14** (`a3578`, the load pin) |
+| moving `C₀` via `x_7068` | — | 13 (`a29539`) |
+| unpinning `A1` via `a7930`'s congruence | 1 | 11 (`a21617`) |
+| the gadget cluster whole | 24 | ≥ 30 (reduced closure), ≥ 52 (full) |
+
+The instance's margin is six equations and every door now has a number on it.

@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1786018477,
+ "updated_unix": 1786019681,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -392,6 +392,16 @@
    "degeneracy": "7,252 of 7,273 free inputs are ZERO; 95.7% of quadratic monomials are dead. Every Jacobian so far was taken at that degenerate point.",
    "linearity": "cluster residues exactly linear mod p in every non-boolean free input; collateral checks NOT (656/1376 large-move predictions wrong); absorbable rows 90.6% linear",
    "new_repair_path": "a7930 also closes through x_7927's handle x_11052 at ZERO collateral whenever its congruence holds"
+  },
+  "compensation": {
+   "idea": "the 12x7 matrix has rank 7 so A=0 is forced; an eighth atom sharing those equations changes the rank",
+   "free_compensator": "a22231 = x_4432 - x_19964 - x_28730 appears in 10 of the 12 and has ZERO equations outside them",
+   "optimum_with_it": "7 of 12 satisfiable -> 5 fail + a37887 = 6 -> 39,027, but the kernel is 1-dimensional while there are 2 congruences, needing a compatibility condition on K = x_4432 - x_19964 (mod p)",
+   "frame3": "detaching x_4432 severs x_28730 -> a7930: then x_28730 costs ONE equation (a37887) and A1 is free",
+   "a37887_structure": "depends only on x_4432 and on (x_19964 + x_28730), exactly like a22231",
+   "compensating_pair": "x_28730 += d, x_19964 -= d holds a22230=0, a22231=0, a37887=0 AND a7930=0 simultaneously -- four checks never before held at once -- but x_19964's only live drivers are x_12553 (15 eqs), x_4287 (30), x_2081 (110)",
+   "x_8731_degeneracy": "a1459 = x_19892 - x_8731*x_21279 with x_21279 = 0, so x_8731's path to x_19964 is switched off; in branch (1,1) it is live with derivative exactly 1",
+   "branch11_frame3": 39014
   }
  }
 }

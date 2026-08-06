@@ -91,6 +91,31 @@ instance offers exactly one trade:
   non-boolean free input; the collateral checks are NOT (656/1376 large-move predictions
   wrong); the absorbable rows are 90.6% linear.
 
+### Session 11 (part 3) — equation-space compensation, opened and priced
+The proof in part 2 assumed the residual must be carried by the seven atoms. It need
+not: the 12x7 coefficient matrix has rank 7, so `A = 0` is forced — but an **eighth**
+atom sharing those equations changes the rank.
+* **`a22231 = x_4432 − x_19964 − x_28730` is a free compensator**: it appears in 10 of
+  the 12 equations and has **zero** equations outside them. With it the optimum rises to
+  **7 of 12 satisfiable → 5 fail + `a37887` = 6 → 39,027**.
+* **Frame 3** (`s10/frame3.py`, detach `x_4432` as well) severs `x_28730 → a7930`, so
+  `x_28730` costs exactly **one** equation and `A1` becomes free.
+* **`a37887` depends only on `x_4432` and `(x_19964 + x_28730)`** — exactly like
+  `a22231`. So the **compensating pair** `x_28730 += d, x_19964 −= d` holds
+  `a22230 = a22231 = a37887 = a7930 = 0` **simultaneously**, four checks never before
+  held at once. It is blocked only by the driver: `x_19964`'s ancestor cone is 17
+  variables with three live drivers — `x_12553` (15 eqs, it is the load pin `a3578`),
+  `x_4287` (30), `x_2081` (110). **The pair move costs 14 and buys 1.**
+* **Why `x_8731` measured free**: `a1459 = x_19892 − x_8731·x_21279` and `x_21279 = 0`,
+  so its path to `x_19964` is switched off. In branch `(1,1)` it is live with derivative
+  exactly 1 — the free driver the pair move wants — but that branch activates
+  `a19088, a22233, a22235` and tops out at 39,014.
+
+Every lever is now priced against the 7 the deliverable pays: `A1 = 0` buys 1 for 1 but
+leaves only 6 of 12; the seventh equation needs a compatibility condition on
+`K = x_4432 − x_19964 (mod p)`; moving `K` costs 14; moving `C₀` costs 13; unpinning
+`A1` through `a7930` costs 11; the cluster whole costs >= 30.
+
 ### Next actions
 1. The cluster must be solved **whole** — members cost 10–15 equations each, so no
    partial fix competes with 7. Attack the single obstruction functional of the
