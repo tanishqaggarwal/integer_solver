@@ -3036,3 +3036,102 @@ sweep, with one point addition whose x3/y3 are free and which this session close
 exactly.  What is left is the interaction between that addition and the two constant
 pins `a688`/`a1618` that share `y3` -- a joint condition on the same small set of
 coordinates, and the first residual in this lab that has never been priced.
+
+---
+
+# Part XXVII — the residual, in closed form, in seven constants
+
+## 138. x3 and y3 are the circuit's output, written into the instance
+
+`s10/pin3.py` unfolds `a688` and `a1618` with the selectors at their current values:
+
+```
+x32237 = x21023*x22820,  x21023 = p, x22820 free   -> a handle, ≡ 0 (mod p)
+x34243 = x14393*x16153,  x16153 = p, x14393 free   -> a handle, ≡ 0 (mod p)
+x25538 = x16742*x34606 + x5647*x24908,   x34606 = x5647 = 0   -> 0
+x13913 = x12186*x34606 + x5647*x14853                          -> 0
+```
+
+so with `x15298 = 1`, `x18956 ≡ y3` and `x24468 ≡ x3`, and the two pins read straight
+off: `y3 ≡ C1·8863713⁻¹`, `x3 ≡ C2`, both literals in `EQUATIONS.txt`.  §134 solved
+`A = B = 0` by *moving* x3 and y3, which is exactly why those pins broke.  Setting
+them to the pinned values restores `a688 = a1618 = 0` and returns the state to the
+39,013 attractor — the loop closes.
+
+## 139. The closed form, verified to the digit
+
+Every quantity in the addition is now a literal constant of the instance:
+
+```
+x1 = 82007976112976807461901870199198737303514020147647909878034348606308756230357   (x22152, pin a31670, GATED by x24601)
+y1 = 37841415183514949237467304684128824427406379377151921996714091976892367869714   (x33462, pin a31672, GATED by x24601)
+x2 = 20302955751113177691132960011219991444785130617995423281601414462835238472546   (x6418,  pin a3576,  GATED by x2081)
+y2 = 4531249068709477613185164105669741036354237152756954144434674493737552368539    (x12553, pin a3578,  GATED by x2081)
+x3 = 36200939269128454586076546451607958467047992891178506183612554289882454126226   (x22162, pin a1618 via x24468)
+y3 = 44859544763832475231923253825569092119321525945631045653619508440821028887      (x30213, pin a688  via x18956)
+K  = 97553848499418123410591666447050222001188385549510401465815187079080512838891   (x24453, pin a41332, BARE)
+```
+
+and
+
+```
+A = (x2-x1)^2 * (x3+x1+x2+K) - (y2-y1)^2
+  = 42288441692606730654477992334300923363430351219005991492903082270078522512476     == x35389   EXACTLY
+B = (y3+y1) * (x2-x1) - (x1-x3) * (y2-y1)
+  = 30198542159037429362146806524344230561752840864915142381356343449320103876465     == x6671    EXACTLY
+```
+
+Both match the measured circuit values digit for digit, which settles the reading:
+**the instance is one elliptic-curve point addition, and the whole residual is that
+`A ≠ 0` and `B ≠ 0`.**  For reference, the values the addition wants are
+
+```
+required x3 = 64380398444296801010644702415499625279634447310109840487123352893083633736186   (pinned: 36200939...)
+required y3 = 45581544895849512040994625888221382902610927244970819299918660665999394080285   (pinned: 44859544...)
+```
+
+and `64380398444296801010644702415499625279634447310109840487123352893083633736186` is
+exactly what `s10/ecfix.py` computed independently in §134.  Two derivations, one
+number.
+
+## 140. The gates, and why releasing them does not help
+
+Four of the seven pins are *gated* — `x24601·(x1 − C)` and `x2081·(x2 − C)` — so
+zeroing the gate frees the coordinate.  `s10/release.py` measures it:
+
+```
+gate x24601 -> 0 :  39,013 -> 38,955, lift -> 38,957   (x1, y1 released)
+gate x2081  -> 0 :  39,013 -> 38,937, lift -> 38,939   (x2, y2 released)
+both             :  39,013 -> 38,877, lift -> 38,879
+```
+
+and then the exact Jacobian of `(A, B)` in the released coordinates is **identically
+zero**.  `s10/closer.py` re-measures it *through* the advice DAG re-solve — since
+`x6418 → x1308 → x14853` is how a released constant is supposed to reach the addition
+— and interpolation gives **degree 0** in every released coordinate.  Zeroing the gate
+frees the coordinate and disconnects it in the same stroke: the gate switches the
+whole sub-circuit off.  So the release route is closed, and closed for a reason.
+
+## 141. Where the remaining freedom is
+
+Everything in §139 is forced *on the current branch*.  The branch is set by selector
+bits — `x15298 = OR(x8599, x21839)·OR(x25956, x7304)`, and `x34606`, `x5647`,
+`x19271`, `x23597`, `x7715`, `x34554` — which decide which formula applies and which
+terms (`x25538`, `x13913`) vanish.  They are `isZero` flags, gate-defined, and §136
+showed they are not free knobs; but they are the only place left where the instance
+is not pinned to its own constants.
+
+That is the sharpest statement this lab has produced about what is left, and it is a
+target rather than a barrier: **no infeasibility is claimed** — §121 and the `a7930`
+refutation are the standing reminders of what happens to such claims here.
+
+## 142. Ledger after Part XXVII
+
+```
+deliverable                                              39,026  [checker-verified]
+point addition closed exactly (x3, y3 moved)             39,014  [checker-verified]
+advice DAG fixed point / x3, y3 at their pins            39,013  [checker-verified]
+all seven residual atoms exactly zero                    39,004  [checker-verified]
+gate x24601 released, lifted                             38,957
+gate x2081  released, lifted                             38,939
+```

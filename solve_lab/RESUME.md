@@ -70,6 +70,29 @@ What this session established, in order:
     idempotent; the oscillation is between the addition and the two constant pins.
 
 
+### Session 12 addendum 2 (Part XXVII): the residual in closed form
+
+10. **§138–139 — the whole residual is two numbers, in seven literal constants.**
+    `x3 = x22162` and `y3 = x30213` are pinned by `a1618`/`a688` (through `x24468`/`x18956`,
+    once the handles and the zeroed selector terms are accounted for), so all seven
+    quantities of the addition are literals of the instance.  The closed forms
+
+        A = (x2-x1)^2*(x3+x1+x2+K) - (y2-y1)^2      B = (y3+y1)*(x2-x1) - (x1-x3)*(y2-y1)
+
+    match the measured `x35389` and `x6671` **digit for digit**.  The required x3 agrees
+    with what `s10/ecfix.py` derived independently.  Constants and pins are tabulated in
+    S10_EXACT_RESIDUAL.md §139.
+
+11. **§140 — the gates are a dead end, for a reason.**  `x24601` gates `(x1,y1)`, `x2081`
+    gates `(x2,y2)`.  Zeroing a gate frees the coordinate *and disconnects it*: through the
+    advice re-solve, `(A,B)` has degree **0** in every released coordinate
+    (`s10/release.py`, `s10/closer.py`).  Prices: 38,957 and 38,939 after the lift.
+
+12. **§141 — the only unpinned thing left is the BRANCH.**  Selectors `x15298`, `x34606`,
+    `x5647`, `x19271`, `x23597`, `x7715`, `x34554` decide which formula applies and which
+    terms vanish.  They are `isZero` flags, gate-defined.  **That is the target.**
+
+
 **Next actions (Part XXV)**
   - Door A: drive `x15298 → 0` from `s10/AG_39013.json` (never tried with all advice solved).
   - Door B: solve `x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)` — three linear conditions in
