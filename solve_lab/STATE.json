@@ -749,6 +749,41 @@
    "trap": "the advice DAG is a chain rooted in four gated literals; moving a coordinate breaks its link, repairing that breaks the next, and the chain ends at a literal whose pin is released only by the quadrant switches x2081/x24601, which also turn the addition check off",
    "why_deliverable_wins": "the 39,026 witness is a CODING optimum (its 7 nonzero atoms cancel in all but 7 equations), not an algebraic one; 39,015 is the algebraic optimum",
    "no_infeasibility_claimed": true
+  },
+  "part_xxx": {
+   "modp_vs_Z_gap": {
+    "PF_best_39015": {
+     "modp_cost": 16,
+     "checker": 18,
+     "liftable_equations": [
+      7469,
+      21382
+     ]
+    },
+    "EC_39014": {
+     "liftable": [
+      7123,
+      7469,
+      21382
+     ]
+    },
+    "deliverable_39026": {
+     "liftable": 0
+    }
+   },
+   "equation_level_lift": "dS_e/du = sum_a c_a*(da/du)_Z; u -= S_e/that. Drives an equation combination to zero over Z without zeroing any atom -- the mechanism the 39,026 deliverable uses.",
+   "oscillation": "eq 7469 and eq 7123 share the handle x30317; each fix breaks the other; no strictly-improving single move exists",
+   "diophantine_pair_solve": {
+    "knobs": 238,
+    "integral_pairs": 0,
+    "conclusion": "the two points are locked by INTEGRALITY, not by the mod-p algebra"
+   },
+   "ceiling_at_39015": 39017,
+   "tools": [
+    "s10/ceil15.py",
+    "s10/eqlift.py",
+    "s10/eqdio.py"
+   ]
   }
  }
 }

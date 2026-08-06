@@ -3358,3 +3358,90 @@ that they are different objects.
 **No infeasibility is claimed.**  Everything above is an exact price for an enumerated
 move, and §148 is a reminder of how a confident structural claim can be wrong: Part
 XXVII's premise survived several checks and was still false.
+
+---
+
+# Part XXX — the lift belongs at the equation level, and the last two points are locked
+
+## 153. A gap between the mod-p count and the checker
+
+`s10/ceil15.py` runs the coset leader at the new 39,015 state and reports something
+the lab had not noticed:
+
+```
+PF_best_39015.json: score 39015; failing checks [688, 1618, 19297, 19299, 40608, 40812]
+closure: 1393 rows x 426 cols
+do nothing: 16 equations fail -> score 39017   (the checker says 39015)
+LINEAR CEILING AT PF_best_39015.json : 39017
+```
+
+Sixteen equations have a combination that is nonzero **mod p**; the checker finds
+eighteen failing **over ℤ**.  So two equations — 7469 and 21382 — have an atom
+combination that vanishes mod p and not over ℤ.  Every lift in this lab has worked
+atom-by-atom (find a check ≡ 0 mod p, absorb it with a handle), and an equation whose
+*combination* vanishes while its atoms do not is invisible to that.  Surveying every
+good state:
+
+```
+best/new_instance_partial_39026.json   7 failing,  0 liftable
+s10/PF_best_39015.json                18 failing,  2 liftable  [7469, 21382]
+s10/EC_39014.json                     19 failing,  3 liftable  [7123, 7469, 21382]
+s10/AG_39013.json                     20 failing,  0 liftable
+s10/wr_engine_w1_x7068_39020.json     13 failing,  0 liftable
+```
+
+The deliverable has none — no free points there — but the algebraic states carry two
+or three.
+
+## 154. The equation-level lift, and why it oscillates
+
+`s10/eqlift.py` implements the right object.  For a failing equation whose combination
+`S_e` is ≡ 0 (mod p),
+
+```
+dS_e/du  =  sum_a c_a * (da/du)_Z          exact, via intad.jacZ
+u <- u - S_e / (dS_e/du)                   whenever that coefficient divides S_e
+```
+
+drives `S_e` to exactly zero over ℤ **without any atom of e being zero** — which is
+precisely the mechanism the 39,026 deliverable exploits (§152), reached there by
+search rather than by construction.
+
+It fires, and it oscillates: eq 7469 is absorbed by the handle `x30317`, which breaks
+eq 7123 through the same handle, which is absorbed by `x30317`, which breaks 7469.
+With strict improvement required, **no single move exists**.
+
+## 155. Solving the pair together: no integral solution
+
+Two equations, two knobs, over ℤ:
+
+```
+sum_u g[e][u] * d_u = -S_e     for e in {7469, 21382},  d_u integer
+```
+
+a linear Diophantine system whose 2x2 sub-solves are a determinant-divisibility test.
+`s10/eqdio.py` enumerates every pair among the 238 knobs with a nonzero exact integer
+effect:
+
+```
+238 knobs with a nonzero exact integer effect
+0 integral pairs tried;  best 39015 (was 39015)
+```
+
+**Not one pair yields an integral solution.**  The determinant divides neither
+right-hand side in any of the ~28,000 pairs.  So the two points that separate the
+mod-p coset count (39,017) from the checker (39,015) are locked by integrality, not
+by the mod-p algebra — the first place in this whole investigation where the
+obstruction is genuinely arithmetic over ℤ rather than a congruence over F_p.
+
+## 156. Final ledger
+
+```
+deliverable                                        39,026  [checker-verified]
+  its coset-leader ceiling (witness frame)         39,026  -- saturated
+addition closed via (x3, y3)                       39,015  [checker-verified]
+  its coset-leader ceiling                         39,017  -- 2 points, locked over Z
+point addition closed, ecfix                       39,014  [checker-verified]
+advice DAG fixed point                             39,013  [checker-verified]
+all seven residual atoms exactly zero              39,004  [checker-verified]
+```

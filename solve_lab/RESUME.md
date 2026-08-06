@@ -123,6 +123,18 @@ What this session established, in order:
     nonzero atoms cancel in all but seven equations; the clean states have fewer nonzero
     atoms in worse positions.
 
+### Session 12 addendum 5 (Part XXX): the lift belongs at the EQUATION level
+
+21. **§153 — a mod-p / ℤ gap.**  At `PF_best_39015` the coset count says 16 equations fail and
+    the checker says 18: equations 7469 and 21382 have combinations that vanish mod p but not
+    over ℤ.  `EC_39014` has three such; the 39,026 deliverable has **none**.
+22. **§154 — `s10/eqlift.py`** implements the equation-level lift (drive `S_e` to zero over ℤ
+    without zeroing any atom -- the mechanism the deliverable uses by luck).  It oscillates:
+    7469 and 7123 share the handle x30317.
+23. **§155 — `s10/eqdio.py`** solves the pair as a linear Diophantine system over 238 knobs:
+    **0 of ~28,000 pairs are integral.**  Those two points are locked by INTEGRALITY, the
+    first genuinely-over-ℤ obstruction found in this investigation.
+
 **Next actions (Part XXV)**
   - Door A: drive `x15298 → 0` from `s10/AG_39013.json` (never tried with all advice solved).
   - Door B: solve `x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)` — three linear conditions in
