@@ -7,7 +7,7 @@
  "n_eqs_satisfied_by_partial": 39026,
  "best_score": 39026,
  "best_partial": "solve_lab/best/new_instance_partial_39026.json",
- "active_method": "s11: circuit semantics decoded; cubic solved; obstruction localised to load-pin subset-sum",
+ "active_method": "s11 part II: channel taxonomy priced; deficit of 2 localised to two topological control collisions",
  "structure": {
   "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
   "n_distinct_atoms": 46275,
@@ -41,9 +41,9 @@
   "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
  },
  "next_actions": [
-  "Subset-sum/LLL over the 256 load constants for the 3 residues x_4920/x_10170/x_6858 (see S11_SEMANTICS.md section 8)",
-  "Enumerate per-bit load contribution to those residues with s11/quick.py (cone-restricted, ~170x faster)",
-  "Do NOT redo: clean frame, a40608=(W-C)^2, MUX decode, core rank-2 reduction, cubic solve (all done in s11)"
+  "Per channel, enumerate 2-deficit absorbing sets by EQUATION cost; look for one absorbable by two 1-equation checks (~39,031)",
+  "Search for a second non-bit control reaching x_10170 or x_6858 (would break the x_33129 / x_37088 collisions)",
+  "Do NOT redo: MUX decode, cubic, 8640431 CRT, channel taxonomy, control scans (all in s11/)"
  ],
  "blocked": [
   "Part 1's two mod-p congruences are rigid ONLY because all handles are p-quantised, and part 2 shows that rests on a wire with a 3-dimensional free deformation space. The live obstruction is now the 13 multi-wire monomials plus the bare root pin a37694 (12 equations)."
@@ -70,9 +70,10 @@
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt",
   "s11_semantics": "solve_lab/S11_SEMANTICS.md",
   "s11_scripts": "solve_lab/s11/",
-  "s11_theta": "solve_lab/s11/theta_solveB.json"
+  "s11_theta": "solve_lab/s11/theta_solveB.json",
+  "s11_part2": "solve_lab/S11_PART2.md"
  },
- "updated_unix": 1786005573,
+ "updated_unix": 1786021804,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -315,10 +316,12 @@
   }
  },
  "s11": {
-  "clean_frame_bad_checks": 6,
-  "clean_frame_score": 39005,
-  "best_constructive_score": 39013,
-  "six_targets_solved": true,
-  "obstruction": "every core control pinned mod p by a chain terminating in bit-gated load pins"
+  "best_verified_this_session": 39018,
+  "best_artifact": "solve_lab/s11/data/finish3_named.json",
+  "deliverable": 39026,
+  "deficit": 2,
+  "deficit_mechanism": "two topological control collisions: a14445+a34580 share only x_33129; a27139+a33796 share only x_37088",
+  "best_branch": "U=0,V=1 with bits (490,91)",
+  "absorbing_cost_in_branch": 15
  }
 }

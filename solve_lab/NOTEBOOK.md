@@ -1532,3 +1532,41 @@ Conclusion: the residual deficit is a RANK deficit in the handle map. The six st
 conditions are satisfiable (proved constructively, §6), but the handles realising them are
 shared with the load-pin/linking-check system and the combined system is over-determined.
 That is sessions 9-10's "deficit of 2", now with a mechanism.
+
+---
+
+## Session 11, Part II — the channel taxonomy and the deficit made topological (`S11_PART2.md`)
+
+**The move that unlocked it:** read the 39,026 checkpoint in the new structural coordinates
+(`s11/wit.py`). It sits at U=V=1 with **both mirror gates off** and only 2 message bits on.
+My Part-I 4-bit configuration had lit both mirror cores for nothing.
+
+| experiment | script | result |
+|---|---|---|
+| checkpoint in structural coords | `wit.py` | a=0,b=1,c=1,d=0; ab=cd=0; both gaps already 0 |
+| channel taxonomy | `cfg.py`, `two.py`, `uv01.py` | in every 2-bit config all 4 core quantities and both gaps are already 0 |
+| best branch U=0,V=1 bits (490,91) | `uv01build.py` | a688=a1618=a40608=0 EXACTLY; only 5 checks left |
+| linking closes | `tri7.py` | a7881<-x2751, a21050<-x16441, a26839<-x18751, a40065<-x28955 |
+| the 8640431 condition | `quad8640431.py`, `quad3.py` | gamma(k,l) has bidegree (2,3); interpolation verified on a held-out point; CRT over 53 x 163027 gives gamma = 0 |
+| after gamma=0 + closure | `closehit2.py` | **only 2 bad checks**: a14445, a27139 |
+| exhaustive control scan (7,253 free inputs) | `last4.py` | a14445 & a34580 share ONE non-bit control (x_33129); a27139 & a33796 share ONE (x_37088); mirror has NO non-bit control |
+| defect pricing | `cheapdefect.py` | 28 / 25 / **15** equations for the three absorbing options |
+| verification | `checker.py` | `s11/data/finish3_named.json` -> **39,018 / 39,033** |
+
+**THE RESULT.** After everything upstream is solved constructively, the residue is exactly two
+constraint pairs, each with exactly ONE shared non-bit control. That is the "deficit of 2" that
+sessions 9 and 10 kept re-measuring in different coordinates — and it is **topological**:
+`x_33129` is the free variable of a14445 and simultaneously feeds
+`x_15111 -> x_20541 -> x_10170`, the other side of a34580. Changing which message bits are on
+changes values, never this incidence, so no message choice removes the collision.
+
+**Why 39,026 still wins.** The deficit is 2 in every channel; what differs is the *price of the
+absorbing set*. In the (490,91) branch the cheapest absorber is the mirror trio at 15 equations
+(breaking it frees x_31339/x_33708 for a34580/a33796, and x_33129/x_37088 then close
+a14445/a27139). In the checkpoint's channel the absorber is the x_2099 ladder — seven atoms
+occupying only 7 equations. Cheapness of the absorber, not the size of the deficit, decides the
+score.
+
+**Next lever:** find a channel whose 2-deficit can be absorbed by two 1-equation checks
+(there are many such checks; that would score ~39,031), or find a second non-bit control
+reaching x_10170 or x_6858. `s11/last4.py` currently returns none.

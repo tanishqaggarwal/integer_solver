@@ -1,65 +1,54 @@
 # RESUME — read me first
 
-## STATUS (session 11): best verified **39,026 / 39,033** (unchanged deliverable, re-verified)
-Deliverable: `best/new_instance_partial_39026.json`
-Verify: `python3 checker.py best/new_instance_partial_39026.json` -> `satisfied 39026/39033 (7 failing)`
-Failing lines: `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
+## STATUS (session 11): deliverable **39,026 / 39,033** (unchanged, re-verified)
+Verify: `python3 checker.py best/new_instance_partial_39026.json` -> 39026/39033 (7 failing).
+Session-11 best in a NEW branch, independently verified: `s11/data/finish3_named.json` -> **39,018**.
 
-> **READ `S11_SEMANTICS.md` FIRST.** Session 11 stopped doing atom algebra and decoded the
-> circuit as a program. It supersedes S10/S9 on every point of conflict below.
+> **READ `S11_SEMANTICS.md` THEN `S11_PART2.md`.** Session 11 stopped doing atom algebra and
+> decoded the circuit as a program; Part II then priced every branch and localised the
+> obstruction. They supersede S9/S10 wherever they conflict.
 
-### What session 11 changed (all re-derived from the file, reproducible in `s11/`)
-1. **A cleaner frame exists.** All free inputs = 0 gives **6 bad check atoms / 28 failing**
-   (39,005), splitting into two INDEPENDENT clusters: arithmetic `{688,1618,40608}` and
-   boolean `{23000,39067,41211}`. Every earlier session worked in the witness frame.
-2. **`a40608 = (W − C)²` exactly** (`s11/solveW.py`) — perfect-square discriminant, double
-   root equal to what `a688` demands. It is NOT an independent obstruction; earlier price
-   lists double-counted it.
-3. **The boolean cluster is an OR/AND gadget:** `U = OR(x_8599,x_21839)`,
-   `V = OR(x_7304,x_25956)`, and `a23000 = (1−U)(1−V)` — so at least one must be on. Each
-   node is an OR-tree over 88/90/37/41 free bits; ANY single bit switches it (exhaustive).
-4. **The data path is a 3-way MUX**: channels `U·V`, `(1−U)V`, `U(1−V)`. Channel **U=V=1**
-   is the only one making both `x_37892` and `x_13682` free — and in it
-   **`a688 = a1618 = a40608 = 0` were solved EXACTLY** (`s11/build2.py`).
-5. **Both cores decoded and each is TWO conditions, not three** (rank-2 in two quantities):
-   group 2 -> `x_25614 ≡ x_34220 ≡ 0`, group 1 -> `x_3719 ≡ x_25118 ≡ 0` (mod p).
-6. **THE BIG ONE — the cores are not QR-obstructed; the obstacle was a CUBIC.**
-   Eliminating `x_4879` gives `x_23776·x_2401² = x_26196²`, a cubic
-   `y³ + K y² − q² ≡ 0 (mod p)` in `y = x_33708 − x_14515`. A cubic root mod p is invisible
-   to Jacobians / Newton / beam search — which is exactly why S9 and S10 kept reporting
-   "rigid". With Cantor–Zassenhaus (`s11/polyroot.py`) **all six structural targets go to
-   zero at once** (`s11/solveA.py`): both cores and both gaps, simultaneously. First time.
-7. **Complete control map, exhaustive over all 7,273 free inputs at a GENERIC point**
-   (`s11/scangen.py`). NB at the all-zero point the `x25118`/`x34220` derivatives vanish
-   identically (they are products) — scanning there returns "no controls" and is the trap
-   that stalls naive Newton.
-8. **Where the trapdoor really is.** Each of the 12 controls also sits in an
-   always-active linking check `c·(X−Y) = p·handle` (`a21050`, `a34580`, `a33796`) — each
-   partner has EXACTLY ONE live control (`x_23210`, `x_33129`, `x_32125`), and those
-   terminate in **bit-gated load pins** `bit·(X − HUGE − c·p·h) = 0`.
-   > The mod-p value of every core control is a FUNCTION OF THE MESSAGE BITS ALONE. The
-   > structural system is solvable in the abstract but unreachable from any message; the
-   > two are joined only by a subset-sum over the 256 load constants. That is the precise
-   > obstruction — sharper than "7 is an invariant".
+### The 60-second version of session 11
+1. **The checkpoint sits in channel U=V=1 with BOTH mirror gates off** (only 2 message bits on:
+   x_2081, x_24601). `a23000 = (1-U)(1-V)` with `U = OR(x_8599,x_21839)`, `V = OR(x_7304,x_25956)`.
+2. **`a40608 = (W - C)^2`** exactly — never an independent obstruction (earlier price lists
+   double-counted it).
+3. **Each "core" is rank 2 in two quantities**, and eliminating a variable turns group 1 into a
+   **CUBIC mod p**. Cubic roots are invisible to Jacobian/Newton/beam — which is exactly why ten
+   sessions called the core rigid. Cantor-Zassenhaus solves it instantly.
+4. **Best branch: U=0, V=1 with bits (490, 91)** — first core dead, group-2 mirror dead, group-1
+   mirror already satisfied. Drives `a688 = a1618 = a40608 = 0` EXACTLY.
+5. **The mirror trio needs an extra divisibility by 8640431 = 53 x 163027.** `gamma(k,l)` under
+   p-shifts of `x_31339`, `x_33708` has bidegree (2,3); exact interpolation + CRT gives gamma = 0.
+6. **THE DEFICIT IS EXACTLY 2, AND IT IS TOPOLOGICAL.** Exhaustive scan of all 7,253 non-locked
+   free inputs: `a14445` and `a34580` have exactly ONE non-bit control each and it is the SAME
+   variable `x_33129`; `a27139` and `a33796` likewise share only `x_37088`. `x_33129` is the free
+   variable of a14445 *and* feeds `x_15111 -> x_20541 -> x_10170`, the other side of a34580. No
+   message choice removes this — it is circuit topology.
+7. **Why 39,026 still wins.** The deficit is 2 in every channel. What differs is the price of the
+   absorbing set: in the (490,91) branch the cheapest is the mirror trio at **15** equations; in
+   the checkpoint's channel it is the `x_2099` ladder at **7**. Cheapness of the absorber decides.
 
-### Best constructive score in the new frame
-39,013 (`s11/build3.py`). Still below the 39,026 checkpoint, whose defect placement is far
-cheaper in EQUATION terms (7 failing vs 20-28 for every clean-frame branch).
+### Do NOT redo
+- The clean all-zero frame, the MUX/OR-tree decode, `a40608 = (W-C)^2`, the core rank-2
+  reduction, the cubic, the 8640431 CRT step, the channel taxonomy, the control scans.
+- Newton/beam/local search on the cores. They cannot find cubic roots mod p.
+- Turning on all four of a,b,c,d — it lights BOTH mirror cores for nothing.
 
 ### START HERE NEXT SESSION
-1. The one open question is now **exactly** the subset-sum of §8: which subsets of the 256
-   load constants drive `x_4920 / x_10170 / x_6858` (equivalently `x_16441 / x_33708 /
-   x_31339`) to the residues the cubic solution needs? Enumerate each bit's load
-   contribution to those three residues (one forward-eval per bit — cheap) and run
-   meet-in-the-middle / lattice (LLL on the 3-residue lattice) over the 256 bits.
-2. Everything upstream of that is SOLVED — do not redo §§1-7.
-3. `s11/quick.py` gives a cone-restricted evaluator, ~170x faster than a full forward;
-   use it for any bit-level sweep.
+1. The only lever left is **the price of the absorbing set**. Enumerate, per channel, every
+   2-deficit absorbing set and its equation cost; the checkpoint's 7 is the best known. Look for
+   a channel where two 1-equation checks can absorb the deficit -> that would score ~39,031.
+2. `s11/quick.py` (cone-restricted, ~170x faster than a full forward) makes such sweeps cheap.
+3. If attacking the collision itself: find any second non-bit control for `a34580` or `a33796`
+   (i.e. any free input reaching `x_10170` or `x_6858` that is not `x_33129`/`x_37088`).
+   `s11/last4.py` is the tool; it currently returns none.
 
 ### Toolchain
 `cd solve_lab/s9 && python3 atomize.py && python3 poly.py && python3 gates.py && python3 fwd.py`
-(rebuilds caches; validates against the raw file — 0 mismatches over 39,033 equations).
-Session-11 scripts live in `solve_lab/s11/` and import `s9/eff/lib.py`.
+(rebuilds caches; validates against the raw file -- 0 mismatches over 39,033 equations).
+Session-11 scripts are in `solve_lab/s11/`; they import `s9/eff/lib.py`, which chdirs to `s9/`,
+so write outputs with absolute paths (see `s11/uv01.py`).
 
 ### Git
 Branch `claude/math-problem-solving-2y9sl3`.
