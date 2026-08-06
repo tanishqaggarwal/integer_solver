@@ -56,6 +56,15 @@ Session-11 best in a NEW branch, independently verified: `s11/data/finish3_named
   at any saved state (`s11/eqopt.py`, `s11/eqopt2.py`). Steps are multiples of p, so they can
   only repair equations whose atom-sum is already 0 mod p; the failing ones are not.
 
+- **Gate-breaking priced (Part V).** Running `fw.forward` on the checkpoint DESTROYS it (37
+  failing): its score depends on five broken GATE atoms. Breaking a gate frees its output as a
+  new control; 817 gate atoms live in <=8 equations, cheapest `a41332` [1 eq] -> x_24453, then
+  `a36244` [4 eq] -> x_3432, and 12 cheap gates move the mirror (which has no non-bit control).
+  Breaking those two costs 5 equations and would give 39,028 IF they were independent — but the
+  joint 6x6 Newton is singular at all 12 starts (`s11/joint6.py`): they buy ONE dimension, not
+  two, so the total returns to 15. The deficit survives the one attack the rest of the session
+  had structurally excluded.
+
 ### Do NOT redo
 - The clean all-zero frame, the MUX/OR-tree decode, `a40608 = (W-C)^2`, the core rank-2
   reduction, the cubic, the 8640431 CRT step, the channel taxonomy, the control scans.

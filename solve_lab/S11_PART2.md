@@ -232,3 +232,40 @@ inconsistent (`s11/realise3.py`).
 
 > Equation space offers no escape here. The atom-space floor of 15 for this branch is also the
 > equation-space floor.
+
+## 11. Part V — breaking GATES (the checkpoint's actual trick), priced
+
+Running my pipeline's forward evaluator on the checkpoint destroys it: `fw.forward` recomputes
+every gate output, and the checkpoint's score depends on **five broken GATE atoms**
+(22229, 22230, 35758, 35761, 35762) plus two broken checks. Forward-evaluating it gives 37
+failing — exactly session 10's "forward-eval frame". So the whole session-11 pipeline, which
+keeps every gate satisfied, had structurally excluded the checkpoint's strategy.
+
+**Breaking a gate frees its output variable as a new control**, at the cost of the equations
+that atom occupies. Pricing all gate atoms (`s11/breakgate.py`, `s11/cheapgates.py`):
+
+    817 gate atoms live in <= 8 equations; the cheapest is a41332 [1 equation] -> x_24453
+    (the constant pin x_24453 = 97553848...891), then a36244 [4] -> x_3432, a36245 [5] -> x_24219
+
+Scanned **at a solved state** (the derivatives vanish at the raw baseline), twelve of these
+cheap gates move the mirror residuals — which had **no** non-bit control at all:
+
+    a41332 [1 eq] -> x_24453 : moves x_3719
+    a36244 [4 eq] -> x_3432  : moves x_25118 and x_3719
+
+So breaking those two costs **5 equations** and would, if they supplied two *independent*
+directions, give a perfect matching and a score of 39,028.
+
+**They do not.** A joint 6x6 Newton over
+`{x_25118, x_3719, a34580, a33796, a14445, a27139}` with controls
+`{3432, 24453, 33708, 31339, 33129, 37088}` closes three residuals and stalls on the other
+three at **all 12 random starts** (`s11/joint6.py`): the Jacobian is singular, because
+`x_24453` and `x_3432` reach the mirror through the same channel as `x_31339`/`x_33708`. The
+gate-breaking lever buys at most **one** dimension, not two — so the deficit drops to 1 at a
+cost of 5, and the cheapest remaining single absorber (a40065, 10 equations) brings the total
+back to 15. No gain.
+
+> The deficit of 2 survives the one attack that was structurally unavailable to the rest of
+> this session. Gate-breaking is real, cheap (1-4 equations), and correctly the checkpoint's
+> mechanism — but in this branch the freed directions are not independent of the ones already
+> in hand.

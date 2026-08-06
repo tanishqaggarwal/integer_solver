@@ -1590,3 +1590,23 @@ exact-linear handles returns NONE.
 Net: the branch floor is 15 (achieved, verified 39,018). The checkpoint's 7 wins because its
 absorber — the x_2099 ladder — occupies only 7 equations. Score is decided by the absorber's
 equation footprint, and the deficit itself is 2 in every channel examined.
+
+### Session 11, Part V — breaking gates (the checkpoint's actual mechanism)
+
+`fw.forward` on the checkpoint gives 37 failing, not 7: its score rests on five BROKEN GATE
+atoms. The whole session-11 pipeline forward-evaluates, so it had structurally excluded that
+strategy.
+
+`s11/breakgate.py`, `s11/cheapgates.py`: 817 gate atoms live in <= 8 equations; cheapest is
+a41332 [1 eq] -> frees x_24453, then a36244 [4 eq] -> x_3432. Scanned at a SOLVED state (the
+derivatives vanish at the raw baseline), 12 cheap gates move the mirror residuals — which had
+no non-bit control at all. Breaking a41332 + a36244 costs 5 equations and would give 39,028 if
+they supplied two independent directions.
+
+`s11/joint6.py`: they do not. The joint 6x6 Newton closes 3 of 6 and stalls at all 12 random
+starts — singular Jacobian, because x_24453 and x_3432 reach the mirror through the same
+channel as x_31339 / x_33708. Gate-breaking buys ONE dimension for 5 equations; the cheapest
+remaining single absorber (a40065, 10 equations) brings the total back to 15.
+
+Net: the deficit of 2 survives gate-breaking. Session best stays 39,018 (verified); deliverable
+stays 39,026.
