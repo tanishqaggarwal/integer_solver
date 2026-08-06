@@ -2169,3 +2169,83 @@ cost 34/58/60/70, all-but-root 50, root alone 62.
 Side result: restoring only the root to `p` from the `w = 1` state gives a new
 **39,021** with a **4-atom** placement `[22229, 22230, 35758, 35760]` — shorter than
 any placement previously recorded, though still behind 7.
+
+---
+
+# Part XX — activation, closed exhaustively (and §77 corrected)
+
+## 101. §77's "6 of 6 pairs grew the support" was a control failure
+
+`s10/second.py` reported that second-order activation pairs grow the cluster's
+gradient support, and Part XVII carried that forward as the one open door. **It was
+an artifact.** All six partners (`x_12054, x_16586, x_17406, x_28713, x_27393,
+x_11368`) grow the support **as singles**. Against the correct control — pair versus
+best single — the gain at value 1 is **zero**. Enumerating *all* 17,766 pairs twice
+(`ac_pairs.py`, `ac_pairs2.py`):
+
+```
+value 1  : 11,438 grow the support; max 2 knobs; 0 genuinely second-order pairs
+generic  : max 4 knobs; 1,846 genuinely second-order; best = 4 knobs for 71 equations
+```
+
+Second order is real only at generic values, and its **rate is worse** than first
+order: 17.8 equations per knob against 9.5 for the best single.
+
+## 102. The complete candidate set, and the true price of a knob
+
+Nothing outside the cluster's structural cone can affect it, so the space is
+bounded exactly: **1,401 variables containing 189 zero-valued free inputs**. All 189
+were swept at three values (`ac_single.py`): 42 cost zero equations, 76 grow the
+support, **max 2 knobs**. Best is `x_24365 = 1` at +2 knobs / 19 equations raw —
+and with the repair engine run with the activated input **frozen**, the collateral
+largely repairs with the knobs kept:
+
+```
+39,009 -> 38,990 -> 39,003 , activation alive, +2 knobs still present
+true price: 6 equations for 2 knobs   (reproduced for x_12054 and x_16586)
+```
+
+Unfrozen, the engine repairs by *undoing* the activation — the results are
+byte-identical to `mod9118_0.json`. Stacking 2–3 activations buys no further knobs.
+
+## 103. The kernel never opens, and here is why
+
+| activation | closure | rank | kernel |
+|---|---|---|---|
+| none | 1655 × 707 | 707 | **0** |
+| `x_24365 = 1` | 1647 × 706 | 706 | **0** |
+| `x_24365` generic | 1657 × 708 | 708 | **0** |
+| top-4 generic | 1665 × 714 | 714 | **0** |
+| **73 "no-new-row" generic** | 2009 × 953 | 953 | **0** |
+| all 189 generic | 2078 × 976 | 974 | 2 (useless: 361 inconsistent rows) |
+
+The regime I asked for does exist — `ac_rowcost.py` shows **73 of 76** generic
+activations add their knobs with zero new closure rows and zero column loss — but
+rebuilding still grows rows, because the existing columns' footprints move with the
+point. **Rank equals the column count in every targeted configuration.**
+
+> Structural reason the stratum is pinned: the closure's column set is **closed** —
+> any free input whose gradient reaches any row is already a column — so the
+> left-null functionals annihilate *every* free-input column.
+
+## 104. The right question was the coset leader, and its ceiling is 39,018
+
+Since rank = columns always, the solve is injective and the real quantity is the
+**minimum-equation-cost coset leader**:
+`score = 39033 − |eqs_of_atoms(supp(Mx − r))|`. Over **1,035 information sets**
+(`ac_isd.py`) the best is **15 equations → a mod-p ceiling of 39,018** for the
+canonical frame — with `a29539` itself zeroable. Dropping all 396 weight-1 checks
+leaves it inconsistent; consistency arrives only at weight ≥ 12, at 69 equations.
+
+> **The 39,009 frame's linear ceiling is 39,018 — below 39,026** — even though
+> zeroing both gadgets outright would be worth 39,031.
+
+## 105. The record frame admits no move at all
+
+The 39,026 cluster `{22229, 22230, 35758…35762}` has a structural cone of **39
+variables** containing **exactly one** zero free input (`x_31861`, costing 29
+equations for 0 knobs) and a gradient support of **3** free inputs. A full sweep of
+**14,541 single ±1 moves over all 7,273 free inputs** (`ac_sweep26.py`) finds **no
+improving move**; the 3,878 score-neutral moves all lie outside the 39-variable cone
+and can never reach it. Ripple-based repair finds only **12 legal moves** in the
+entire frame, none improving.
