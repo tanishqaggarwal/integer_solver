@@ -117,3 +117,97 @@ Two concrete, score-relevant targets, both now well posed:
     s11/repair,repair2,fixpoint.py   cascade experiments
     s11/resp,resp2.py exact ripple-response system + diagnosis
     s11/drop2.py      cheapest-drop-set search
+
+---
+
+# Part XI — a second, independent route, and the wall both routes hit
+
+## 8. Turning the bit x4287 on annihilates BOTH congruences at once
+
+    a33881 :  x21279 = x9062*x20434 = x4287*x2081        (x2081 = 1 at the checkpoint)
+    a36085 :  x7075  = 1 - x21279
+
+so `x4287 = 1  =>  x21279 = 1  =>  x7075 = 0`, and since
+
+    T = 5113045*x7075*x9118        U = x7075*x8731
+
+both hard congruences of §4 simply vanish — no divisibility on x9118 or x8731 at all.  Better
+still, `x31033 = x20434*x31822 = 0` then kills `x22542 = x6418*x31033`, and `x10878` is already
+zero, so
+
+    x2099 = x37158 + x25297 = x9118*x21279 = x9118          -- a FREE variable
+
+which means `x7068 = x2099 + 7376877*x642` can be steered directly.  Turning the bit on is a
+pinned move: it activates the load pins `a3568` (x31861) and `a3570` (x14865).
+
+## 9. The price: the x21279 channel switches three new congruences on
+
+    a22233 : 6122989*x2239*x21279  = x23754 = p*x6947     =>  p | x2239
+    a22235 : x21279*x31731         = -x35619 = -p*x33168  =>  p | x31731
+    a19088 : x9106*x21279          = 13523997*x9629       =>  13523997*p | x9106
+
+and the circuit makes all three collapse onto two quantities:
+
+    x2239  = 3494591*x27177 + 14240157*x4306
+    x31731 = 15964591*x27177 + 13881285*x4306
+    x27177 = x17925^2*(x9118 + x31861 + x6418 + x24453) - x27019^2     -- affine in x9118
+    x4306  = (x8731 + x14865)*x17925 - x27019*(x31861 - x9118)         -- affine in x8731
+
+Two knobs, two congruences, both affine — so they are **solvable** (`s11/sw6.py` fits each
+response at two points and inverts mod p):
+
+    x27177 = 0 (mod p)   x4306 = 0 (mod p)
+    x2239  = 0 (mod p)   x31731 = 0 (mod p)   x9106 = 0 (mod p)     -- all achieved
+
+`a22233` and `a22235` are then repaired exactly.  (`a19088` still wants the extra factor
+13523997; shifting x9118 and x8731 by multiples of p moves x9106 without disturbing the mod-p
+work, so this is an open but small congruence.)
+
+## 10. Both routes end at the same wall
+
+Solving `x27177 = 0 (mod p)` **pins x9118 mod p**, hence pins `x2099 = x9118`, hence pins
+`x7068` mod p — to a residue different from the checkpoint's.  So x7068 moves, exactly as it
+does in §5 where `p | x642` forces it.  Either way the free "mirror" inputs that hold copies of
+x7068 must follow, and repairing them fans out.
+
+Four independent searches — greedy (`repair.py`), lookahead greedy (`repair2.py`), batch
+fixed point (`fixpoint.py`), and beam width 24 / depth 40 (`beam.py`) — run from **both**
+routes, all terminate at the same three checks:
+
+    a19297  = x11150*x15298 + x4007                  (11 equations)
+    a19299  = x15298*x25739 - 6672769*x29804         (13 equations)
+    a30984  = 537773*x15298*x37758 - x35605          (14 equations)
+
+**These three contain no free variable at all.**  `x15298 = U*V` is the live MUX channel, and
+every variable in them is gate-computed.  There is nothing to absorb the residue.  That — not
+"a factor of p" in the abstract — is the actual wall, and it is now a checkable statement about
+three named atoms.
+
+Best reached along these routes: 39,013 (fix2 route) and 38,999 (x4287 route); the deliverable
+stays at **39,026**.
+
+## 11. Exact dual certificates of the copy network (`s11/cert.py`)
+
+For the ripple-response system at the fix2 state, the mod-p left kernel gives explicit
+obstruction certificates.  Any repair must leave at least one row of each broken:
+
+    support {29539}                                  12 equations
+    support {7930, 21617}                            25 equations
+    support {31938, 31940, 40826}                    15 equations
+    support {7938, 7939, 18691, 18694, 21617, 41512} 35 equations
+
+The singleton is an artefact of the linear model — x14853's response is genuinely quadratic, so
+its column is dropped.  Re-basing (setting the mirror exactly, then rebuilding) removes that
+certificate and produces a new singleton one row further out.  That is the fan-out, measured.
+
+## 12. Leads left open, in order of promise
+
+1. **A different MUX channel.**  The wall is three checks whose only content is `x15298 = U*V`.
+   In a channel with `x15298 = 0` they read `x4007 = 0`, `x29804 = 0`, `x35605 = 0` — plausibly
+   vacuous.  Session-11 Part II priced the (490,91) branch at 15 under the *old* restricted-move
+   framework; it is worth re-pricing with today's exact tools, because the thing that made 7
+   unbeatable in this channel (the x7068 copy network) may not exist there.
+2. **13523997 | x9106**, using the p-multiples of x9118 and x8731 as free knobs — completes the
+   x4287 channel's local repair.
+3. **The 221 boolean response columns.**  They are the only non-affine freedom in the copy
+   network, and a rationally-consistent-but-not-integral system is exactly what they could fix.
