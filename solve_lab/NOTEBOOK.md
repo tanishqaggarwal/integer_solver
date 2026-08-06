@@ -1287,3 +1287,33 @@ Open: hit certificate 1 for under 9 (cheapest member 10). Sub-questions: (a) is 
 SHORT vector in the 3-dim wire kernel (LLL over ~325-digit entries)? support <= 5 would cut
 the deformation cost from ~20 to ~5; (b) can cert 1 be hit by a variable the closed
 79-column system never reached?
+
+## Session 10, part 6 — no sparse kernel vector; and 7 is an INVARIANT
+
+`sparsekernel.py`: a kernel vector with support 2-3 would cost only its square checks (~3-6)
+and beat 7. Viewing the kernel as a 220x3 matrix K (row = the 3 basis values at that member),
+a vector supported on S exists iff every row outside S lies in a common plane of Q^3.
+Measured: 3 kernel-zero rows (x_1692, x_26064, x_32499); 215 distinct directions among the
+217 nonzero rows; largest rank-1 cluster 2 rows; LARGEST COPLANAR SET 4 rows. So the
+sparsest kernel vector has support >= 213 of 220. No sparse kernel vector exists; every free
+wire deformation moves >= 213 members and breaks essentially all their square checks. The
+wire route's floor of 13 (uniform shift) stands. Sub-question (a) from part 4 is settled.
+
+`eighth.py` + `invariant.py`: part 1's "5 of 12 optimal" was conditional on the placement.
+Enlarging with extra adjustable atoms (exact integer subset enumeration each time):
+
+    extra atoms        region  satisfied  FAILING
+    (none)                 12       5        7
+    35756                  15       8        7
+    35754                  17      10        7
+    35756 + 35754          18      11        7
+
+**Every extra free parameter buys exactly as many equations as it drags in; the failing
+count is pinned at 7 across every placement tested.** Only two adjustable atoms in the whole
+instance even touch the twelve equations (35756 overflow 3, 35754 overflow 5), and both were
+tested alone and together. This is the exact reproducible form of the "conserved obstruction"
+earlier sessions described qualitatively.
+
+Consolidated: give-up 7; invariant 7; uniform wire 13; cheapest member 13; certificate
+hitting set 15; kernel deformation ~20 (support >= 213 forced). Three independent lines all
+return 7. **Deliverable unchanged at 39,026.**

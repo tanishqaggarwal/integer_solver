@@ -619,3 +619,82 @@ Everything else is already cheap. Two concrete sub-questions, both open:
    ~20 to ~5 and take the wire route under budget.
 2. Does certificate 1 admit a member outside the closed 79-column system — i.e.
    can it be hit by a variable the closure never reached?
+
+---
+
+# Part V — the invariant
+
+## 25. No sparse kernel vector exists (sub-question (a), settled)
+
+A kernel deformation costs 0 identity equations plus the square checks of the
+members it moves, so a kernel vector with support 2–3 would cost ~3–6 and beat 7.
+View the kernel as a 220×3 matrix `K` (row = the three basis values at that
+member); a kernel vector supported on `S` exists iff every row outside `S` lies in
+a common plane of ℚ³ (`s10/sparsekernel.py`):
+
+```
+kernel-zero rows          : 3  (x_1692, x_26064, x_32499)
+distinct directions       : 215 of 217 nonzero rows
+largest rank-1 cluster    : 2 rows
+largest coplanar set      : 4 rows
+=> sparsest kernel vector has support >= 213 of 220 members
+```
+
+> **There is no sparse kernel vector.** Every free wire deformation moves at least
+> 213 members and therefore breaks essentially all of their square checks. The wire
+> route cannot get cheap, and its measured floor of 13 (uniform shift) stands.
+
+## 26. Seven is an INVARIANT, not a property of the placement
+
+Part I proved 5-of-12 optimal for the seven-atom placement. That proof was
+*conditional on the placement*. Enlarging it with additional adjustable atoms
+(`s10/eighth.py`, `s10/invariant.py` — exact integer subset enumeration each time):
+
+| extra atoms | region (equations) | max satisfied | **failing** |
+|---|---|---|---|
+| — | 12 | 5 | **7** |
+| 35756 | 15 | 8 | **7** |
+| 35754 | 17 | 10 | **7** |
+| 35756 + 35754 | 18 | 11 | **7** |
+
+> **Every extra free parameter buys exactly as many equations as it drags in. The
+> failing count is pinned at 7 across every placement tested — it is an invariant
+> of the instance, not an artefact of the defect set.**
+
+Only two adjustable atoms in the whole instance even touch the twelve equations
+(35756 with overflow 3, 35754 with overflow 5); both were tested, alone and
+together, and both leave the count at 7.
+
+This is the exact, reproducible form of what earlier sessions called the
+"conserved obstruction" (`CONSERVED_OBSTRUCTION.md`) — previously an observation
+about relocating quantities, now a numerical law with an identified mechanism.
+
+## 27. Consolidated status
+
+Everything measured in Session 10 agrees on one number:
+
+```
+give-up cost (the deliverable)                      7
+failing count under placement enlargement           7   (invariant, 4 placements)
+minimum wire route (uniform shift)                 13
+cheapest single wire member (x_15413)              13
+certificate hitting set                            15
+kernel deformation                                ~20   (support >= 213, forced)
+```
+
+The instance is priced end to end and the price is uniform. Three independent
+lines — the equation-space lattice (Part I), the GF(p) closure and its six
+certificates (Parts II–III), and the wire geometry (Parts IV–V) — all return the
+same 7, and every route around it costs at least 13.
+
+### What would actually break it
+Nothing measured this session gets under budget. The two remaining doors, both
+now precisely stated:
+
+1. **Certificate 1 for under 9 equations.** Its cheapest member costs 10 and its
+   support is the §15.2 chain. Five of the six certificates are already 1 apiece.
+2. **A knob outside the closed 79-column system.** The closure is a fixed point
+   over non-boolean free inputs; with all 256 bits relaxed to GF(p) it grows to
+   2,352 × 710 and stays inconsistent. Something outside *both* would be needed —
+   and the invariance of 7 across placements is evidence that no such knob exists
+   in the equation-space direction.

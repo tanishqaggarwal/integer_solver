@@ -214,6 +214,34 @@ Hit certificate 1 for under 9 equations (cheapest member: 10). Two open sub-ques
    <= 5 would cut the deformation cost from ~20 to ~5 and take the wire route under budget.
 2. Can certificate 1 be hit by a variable the closed 79-column system never reached?
 
+### PART V: the INVARIANT — 7 is pinned
+
+**No sparse kernel vector** (`s10/sparsekernel.py`). A kernel vector with support 2-3 would
+cost ~3-6 and win. Viewing the kernel as a 220x3 matrix K (row = 3 basis values per member),
+a vector supported on S exists iff all rows outside S are coplanar in Q^3. Measured:
+kernel-zero rows 3; 215 distinct directions among 217 nonzero rows; largest rank-1 cluster
+2; **largest coplanar set 4** => sparsest kernel vector has support **>= 213 of 220**.
+Every free wire deformation moves >= 213 members and breaks essentially all their square
+checks. The wire route's floor of 13 (uniform shift) stands.
+
+**Seven is an INVARIANT, not a property of the placement** (`s10/eighth.py`,
+`s10/invariant.py`; exact integer subset enumeration each time):
+
+    extra atoms          region   satisfied   FAILING
+    (none)                  12         5         7
+    35756                   15         8         7
+    35754                   17        10         7
+    35756 + 35754           18        11         7
+
+> **Every extra free parameter buys exactly as many equations as it drags in.** Only two
+> adjustable atoms in the entire instance even touch the twelve equations (35756 overflow 3,
+> 35754 overflow 5); both tested alone and together. This is the exact reproducible form of
+> what earlier sessions called the "conserved obstruction".
+
+**Consolidated:** give-up 7; invariant 7; uniform wire 13; cheapest member 13; certificate
+hitting set 15; kernel deformation ~20. Three independent lines -- equation-space lattice,
+GF(p) closure + certificates, wire geometry -- all return 7, every route costs >= 13.
+
 ### Do NOT redo
 - The MUX branch (`x_4287 = 1`). It **does** zero all seven residual atoms simultaneously
   (`s10/muxzero.py`) but leaves 8 collateral atoms -> 44 failing; best repair 38,991. Its own

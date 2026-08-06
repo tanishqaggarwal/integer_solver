@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1785983968,
+ "updated_unix": 1785984404,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -277,6 +277,11 @@
    "correction_to_part2": "gcd-1 reachability of |w|=1 is real but needs kernel coefficients ~10^250, blowing other coordinates to ~10^575. Raw kernel directions give |w_3915|=|w_11360|=325 digits -- granularity far WORSE than p -- score 38,990. Only a SHORT kernel vector would matter.",
    "price_table": "cheapest member x_15413=13 (10 identity + 3 square); uniform wire shift=13 (root pin 12 + a39417 1) -> 39,020; cheapest useful multiplier x_3915=15; x_11360=36, x_22665=48, x_14466=54, x_15616=56, x_28961=208, x_28599=292; kernel deformation ~20; certificate hitting set 15.",
    "verdict": "NO route into the design costs less than 13 against a give-up cost of 7. The margin is 6 and it is UNIFORM across every measured attack surface: wire, certificates, hubs, bits."
+  },
+  "part5_invariant": {
+   "no_sparse_kernel": "kernel as 220x3 matrix K; a vector supported on S exists iff rows outside S are coplanar in Q^3. 3 kernel-zero rows, 215 distinct directions among 217 nonzero rows, largest rank-1 cluster 2, LARGEST COPLANAR SET 4 => sparsest kernel vector support >= 213 of 220. No sparse kernel vector; wire route floor of 13 stands.",
+   "seven_is_invariant": "enlarging the defect placement with extra adjustable atoms (exact integer subset enumeration): (none) region 12 satisfied 5 failing 7; +35756 region 15 satisfied 8 failing 7; +35754 region 17 satisfied 10 failing 7; +both region 18 satisfied 11 failing 7. Every extra free parameter buys exactly as many equations as it drags in. Only two adjustable atoms in the instance touch the twelve equations at all. This is the exact form of the conserved obstruction.",
+   "consolidated": "give-up 7; invariant 7; uniform wire 13; cheapest member 13; certificate hitting set 15; kernel deformation ~20. Three independent lines (equation-space lattice, GF(p) closure+certificates, wire geometry) all return 7; every route costs >= 13."
   }
  }
 }
