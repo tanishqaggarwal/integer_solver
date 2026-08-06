@@ -1,0 +1,32 @@
+scanned 256 single-bit messages (31s)
+  distribution: {15: 1, 17: 3, 19: 3, 21: 5, 22: 7, 23: 15, 24: 48, 25: 44, 26: 60, 27: 47, 28: 17, 29: 3, 30: 3}
+  best:
+    x 24601 tree B U=1 V=0  failing checks mod p =  15  [688, 1618, 7930, 21617, 25676, 29539]
+    x  2081 tree C U=0 V=1  failing checks mod p =  17  [688, 1618, 2423, 7930, 10506, 26731]
+    x  4287 tree C U=0 V=1  failing checks mod p =  17  [688, 1618, 2423, 7930, 10506, 26731]
+    x 13195 tree C U=0 V=1  failing checks mod p =  17  [688, 1618, 2423, 7930, 10506, 26731]
+    x 12054 tree C U=0 V=1  failing checks mod p =  19  [688, 1618, 2423, 7930, 10506, 21617]
+    x 16586 tree C U=0 V=1  failing checks mod p =  19  [688, 1618, 2423, 7930, 10506, 21617]
+    x 24365 tree C U=0 V=1  failing checks mod p =  19  [688, 1618, 2423, 7930, 10506, 21617]
+    x  6503 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 17406 tree C U=0 V=1  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 20622 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 21266 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 22595 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x  6821 tree C U=0 V=1  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 16214 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 17760 tree C U=0 V=1  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 21074 tree C U=0 V=1  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 30420 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 35062 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 5988, 7930, 10506]
+    x 38643 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x   438 tree C U=0 V=1  failing checks mod p =  23  [688, 1618, 2423, 7930, 10506, 21617]
+500 random messages (33s)
+  invariant 0: 133 distinct values in 500 samples; most common count 138; zero seen: 0
+  invariant 1: 133 distinct values in 500 samples; most common count 138; zero seen: 0
+  invariant 2: 163 distinct values in 500 samples; most common count 129; zero seen: 0
+  invariant 3: 176 distinct values in 500 samples; most common count 119; zero seen: 0
+  invariant 4: 133 distinct values in 500 samples; most common count 138; zero seen: 0
+  invariant 5: 88 distinct values in 500 samples; most common count 328; zero seen: 0
+  #invariants simultaneously zero: {0: 500}
+  best message so far: (0, [5651, 10428, 14039, 14601, 14808, 22623, 35062, 35179, 35839, 36314])
