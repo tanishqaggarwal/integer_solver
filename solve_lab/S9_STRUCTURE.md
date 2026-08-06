@@ -503,3 +503,52 @@ cheaply from inside any single branch. The productive question is now cross-bran
 configuration in which the setter pins that a branch *keeps* are simultaneously satisfiable with
 the wires that branch keeps *alive* — a covering/exact-cover question over the 256 gate-bits and
 their 512 pins, informed by the quadrant map above rather than by local search.
+
+---
+
+## 14. The all-zero branch driven to two atoms — and the circular closure
+
+Deliverable unchanged at **39,026**. This section records how far the all-zero branch goes and the
+exact reason it closes on itself.
+
+### 14.1 The pipeline
+Starting from `x_2081 = 0, x_24601 = 0` (the only quadrant where the MUX output and the circuit's
+output wire are *consistently* both 0):
+
+| step | remaining atoms | failing |
+|---|---|---|
+| flip both control bits, zero the free carriers `x_22162`, `x_30213` | 688, 1618, 23000, 39067, 40608, 41211 | 28 |
+| satisfy the forced OR gate with gate-bit `x_47` **and close its two load pins** | **688, 1618, 40608** | **16** |
+| close setter pin 688 (`x_16742` drives `x_18956` 1:1) and 1618 (`x_14681` drives `x_24468` 1:1) | 9193, 26731, 39614 | 30 |
+| close those two mirrors (`x_38667` → `x_19083`, `x_29851` → `x_24483`) | 14061, 37735, 41882 | 26 |
+| automated mirror-chase, 3 further steps | **23824, 23826, 40047** | **17** |
+
+At every stage `A = 22229 = 0`, `B = 22231 = 0`, `x_15298 = 0` (core dead), `u = w = 0`, and the
+forced OR gate holds. **All the conditions that block the main branch are satisfied here.**
+
+### 14.2 Why it closes on itself
+Each obstruction has the shape `k·(F − C) − handle`, where `F` is a free input just moved and `C` a
+computed mirror; it closes by finding the non-boolean free input that drives `C` exactly **1:1 mod
+p** and moving it. `s9/chase.py` automates this. The chain is *short* — it terminates after three
+steps, at
+
+```
+23824 : x_47·(x_24221 − HUGE) = 982875·x_27050
+23826 : x_47·(x_25477 − HUGE) = x_15160
+```
+
+— **the two load pins of `x_47` itself**, the gate-bit that had to be switched on to satisfy the
+forced OR gate. The mirror chain from the setter pins terminates precisely on the variables pinned
+by the bit the branch needs.
+
+> **This is the covering design closing the loop.** The branch needs a gate-bit ON (only the 256
+> gate-bits can satisfy `x_9274 = 1`; all 900 pin-free booleans fail — verified exhaustively). Every
+> gate-bit pins two inputs. And the mirror chain that closes the setter pins runs through exactly
+> those inputs. `s9/solve_branch.py` parameterises the whole pipeline by which gate-bit is used, so
+> the question "is there a gate-bit whose pinned pair is disjoint from its own mirror chain?" is a
+> finite 256-way check.
+
+### 14.3 Tools
+`zero.py` → `zero9.py` (staged construction), `chase.py` (automated mirror-chase with cycle
+detection), `solve_branch.py` (whole pipeline parameterised by the OR-gate gate-bit),
+`modtrace.py` (mod-p symbolic cone), `reduce_size.py` (residual problem measurement).
