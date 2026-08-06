@@ -1897,3 +1897,20 @@ its realisation in the detached frame            costs 110 equations, and closin
 > coupling that enforces this closes over the whole instance rather than any local
 > neighbourhood. Every price in Parts XII–XV is a price for *one* frame; this is why
 > no frame beat the others.
+
+## 87. Minimising realisability cost instead of support
+
+Sparsity is the wrong objective for the kernel vector — what matters is how many
+detachments its support needs and what those touch. Searching the 8-dimensional
+settable kernel over 4,000 random combinations for the vector minimising
+`|equations of the outside atoms not already inside the support's equations|`
+(`s10/minreal.py`):
+
+```
+best basis vector          : 111 equations at risk, support 72, 43 detachments, 41 outside atoms
+best of 4,000 combinations : 111 equations at risk, support 72, 43 detachments, 41 outside atoms
+```
+
+The minimum does not move. Every seed-touching vector in the settable kernel needs
+roughly the same number of detachments, and they touch roughly the same outside
+set — another expression of the global coupling of §85.
