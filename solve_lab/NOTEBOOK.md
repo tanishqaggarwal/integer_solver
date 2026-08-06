@@ -1227,3 +1227,40 @@ the optimality of 39,026 for its defect placement. NEXT: those square checks eac
 exactly ONE equation -- the cheapest guard found in any session -- so attack them directly
 in equation space and compare the cost of breaking k of them against the 7 equations the
 current branch already pays.
+
+## Session 10, part 4 — the budget attack; the trapdoor priced
+
+Adversarial reframe: the current branch pays 7 equations, so any violation costing <= 6
+wins. Built the PRICE LIST (`s10/pricelist.py`): degree-4 square checks and a40826/a41512
+cost 1 equation each; wire copy atoms 12-14; the root pin a37694 12; boolean checks 13-15.
+Also fixed a real methodological error -- my earlier greedy searches scored by NUMBER OF
+NONZERO ATOMS instead of failing equations, and refused moves that raised the atom count
+even when the new atoms were 1-equation checks and the closed one cost 15.
+
+Extracted the inconsistency CERTIFICATES exactly (`s10/certs.py`) by augmenting the closed
+system as [A | b | I] and eliminating on A: 6 certificates, rank(A) = 79/79. Five of the
+six have a cost-1 member (36602, 37887 / 41400 / 41507 / 41827 / 11007, 25676, 39800,
+42245). Certificate 1 has none -- its cheapest members are 2423, 21617, 31670 (10 each)
+and 19297 (11), i.e. EXACTLY the section-15.2 trapdoor chain. Min-cost hitting set = 15
+equations against a budget of 7: the design carries a margin of exactly 8. Structurally,
+2423/31670/19297 each hit FOUR of the six certificates, so the optimum has the shape
+cost(hub) + 1 + 1.
+
+Corrected my own claim mid-stream: truecost.py first reported hub a31670 at TRUE COST 1
+(9 of 10 equations "compensable"). That heuristic counted the existence of a helper atom
+per equation, not the fact that a helper's value is a single number shared across all of
+them. hub31670.py settles it exactly: the region is 41 equations x 16 atoms with FULL
+column rank 16; with a31670 nonzero forced there are ~2 free parameters against 10
+equations so at most one is savable, and recruiting the other 15 adjustable atoms drags
+31 more equations in. Hub cost ~9; the 15-equation hitting set stands.
+
+Also this round: re-tested section 18's wire closure with the weaker (necessary) condition
+-- whether free variables inside each square check E can absorb a wire change. Across all
+six kernel directions the repair found ZERO admissible moves (post-deformation handles
+carry ~325-digit values and exact division fails), so section 18 survives. And the forced
+OR gate is a non-lever: x_9274 = 1 holds automatically at all-bits-zero, which measures
+38,871; only two boolean free inputs are set at the deliverable (x_2081, x_24601).
+
+Score log part 4: 39,005 (equation-scored beam), 38,871 (all bits zero), 38,981 (deform3).
+**Deliverable unchanged at 39,026.** Open question, now the only one that matters:
+can certificate 1 be hit for under 9 equations?

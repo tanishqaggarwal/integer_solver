@@ -469,3 +469,105 @@ This is the correct final statement of the design, and it supersedes §17's opti
 the 3-dimensional linear kernel is real, but it is entirely absorbed by the quadratic
 square-check constraints. The p-quantisation of all 1,249 handles therefore stands,
 and with it the two mod-p congruences of Part I and the optimality of **39,026**.
+
+---
+
+# Part III — the budget attack, and the trapdoor priced exactly
+
+Deliverable still **39,026**. This part reframes the instance adversarially and
+produces the sharpest characterisation of the design in any session.
+
+## 19. The reframe: a 6-equation budget
+
+The current branch pays **7** failing equations, so *any* structural violation
+costing ≤ 6 beats it. That turns every guard into a price tag
+(`s10/pricelist.py`, price = how many equations a check lives in):
+
+| guard | price |
+|---|---|
+| a degree-4 square check `E²` | **1 equation** |
+| `a40826`, `a41512` | **1 each** |
+| a wire copy atom | 12–14 |
+| the wire root pin `a37694` | 12 |
+| a boolean check `x²−x` | 13–15 |
+
+Two mistakes in my earlier greedy searches, now fixed: they scored by *number of
+nonzero atoms* rather than failing equations, and refused any move that raised the
+atom count even when the new atoms were 1-equation checks and the closed one cost
+15. Re-run with the correct objective (`s10/pricelist.py`, beam over equations):
+best 39,005 — still short, but the objective is now right.
+
+## 20. The six inconsistency certificates
+
+Augmenting the closed system as `[A | b | I]` and eliminating on `A` extracts
+explicit left-null vectors `y` with `y·A = 0`, `y·b ≠ 0`, and names the checks
+that combine to produce each (`s10/certs.py`):
+
+```
+rank(A) = 79 of 79        INCONSISTENCY CERTIFICATES: 6
+
+cert 0: 20 checks; cheapest members (1, 36602) (1, 37887) (7, 35759) (8, 35760)
+cert 1: 12 checks; cheapest members (10, 2423) (10, 21617) (10, 31670) (11, 19297)
+cert 2: 13 checks; cheapest (1, 41400) (10, 2423) (10, 31670) (10, 34397)
+cert 3: 11 checks; cheapest (1, 41507) (10, 2423) (10, 31670) (10, 40065)
+cert 4: 13 checks; cheapest (1, 41827) (10, 2423) (10, 31670) (10, 34397)
+cert 5: 19 checks; cheapest (1, 11007) (1, 25676) (1, 39800) (1, 42245)
+```
+
+> **Five of the six certificates can be hit for 1 equation. Certificate 1 cannot —
+> its cheapest member costs 10, and its members `2423, 21617, 31670, 19297` are
+> exactly the §15.2 trapdoor chain.**
+
+Minimum-cost hitting set (greedy + swap): `{21617, 36602, 41400, 41507, 41827,
+42245}` at **15 equations**. Note `2423`, `31670` and `19297` each hit *four* of
+the six certificates, so the real shape of the optimum is `cost(hub) + 1 + 1`.
+
+> **The design carries a margin of exactly 8: the cheapest way through costs 15,
+> the give-up option costs 7.**
+
+## 21. Hub compensation does not pay — and why (a corrected claim)
+
+`s10/truecost.py` first suggested hub `a31670` had true cost **1** (nine of its ten
+equations appeared to have a compensating atom). **That heuristic was wrong**: it
+counted the *existence* of an adjustable helper per equation, not the fact that a
+helper's value is a single number shared across all of them. The exact computation
+(`s10/hub31670.py`) settles it:
+
+```
+a31670 = (x_22152 - HUGE) - 7550763*x_29309       a31669 = x_29309 - p*x_105
+=> (a31670, a31669) = (D - 7550763*s, s - p*h)  -- a31669 free, a31670 fixed mod 7550763
+region matrix over its 10 equations + helpers: 41 equations x 16 atoms, RANK 16 (full)
+```
+
+With `a31670 ≠ 0` forced there are ~2 free parameters against 10 equations, so at
+most **one** can be saved; and recruiting the other 15 adjustable atoms drags **31
+additional equations** into the region, costing far more than it saves. Hub cost is
+therefore ≈ 9, not 1, and the 15-equation hitting set stands.
+
+## 22. Other lines priced and closed this round
+
+* **Wire deformation with square-check repair** (`s10/deform3.py`): my §18 closure
+  used a *sufficient* condition (monomial invariance `w_i·w_j = p²`), not a
+  necessary one, so I re-tested whether the free variables inside each square check
+  `E` can absorb a wire change. Across all six kernel directions the repair found
+  **zero** admissible moves — after deformation the handles carry ~325-digit values
+  and the exact-division condition fails. §18's conclusion survives the stronger test.
+* **The forced OR gate is a non-lever.** Every load pin `bit·(x_B − HUGE)` is free
+  to satisfy when its bit is 0, so the HUGE constants — the only source of values
+  that are not multiples of p — enter *only* through set bits. But `x_9274 = 1`
+  holds automatically at all-bits-zero, and that branch measures **38,871**
+  (31 nonzero checks). Only two boolean free inputs are set at the deliverable
+  (`x_2081`, `x_24601`), so the instance is already almost all-zero on the bits.
+
+## 23. Standing assessment
+
+The instance is now priced rather than merely characterised:
+
+* the obstruction is exactly **6 independent certificates**;
+* **5 of them are cheap** (1 equation each — the single-equation square checks);
+* **certificate 1 is the trapdoor**, minimum price 10, and it is the same chain
+  §15.2 audited link by link;
+* the total is **15 against a budget of 7** — an 8-equation margin.
+
+The productive question is no longer "can the system be solved" but **"can
+certificate 1 be hit for under 9 equations?"** Everything else is already cheap.

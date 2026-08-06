@@ -146,6 +146,45 @@ of all 1,249 handles stands, and with it Part I's two congruences and 39,026's o
    (same linear algebra, pin's row moved to the RHS).
 3. LLL-reduce the 3-dim kernel lattice (current basis has ~325-digit entries).
 
+### PART III (same session): the BUDGET attack — the trapdoor priced exactly
+
+**Reframe.** The current branch pays 7 failing equations, so any structural violation
+costing <= 6 beats it. Price list (`s10/pricelist.py`, price = equations a check lives in):
+a degree-4 square check = **1 equation**; `a40826`/`a41512` = **1 each**; a wire copy
+atom = 12-14; the wire root pin `a37694` = 12; a boolean check = 13-15.
+(Earlier greedy searches scored by NUMBER OF NONZERO ATOMS -- wrong objective. Fixed.)
+
+**The six certificates** (`s10/certs.py`, via `[A | b | I]` elimination):
+
+    rank(A) = 79/79        INCONSISTENCY CERTIFICATES: 6
+    cert 0: cheapest (1, 36602) (1, 37887)      cert 3: cheapest (1, 41507) then 10
+    cert 1: cheapest (10, 2423) (10, 21617) (10, 31670) (11, 19297)   <== NO cheap member
+    cert 2: cheapest (1, 41400) then 10          cert 4: cheapest (1, 41827) then 10
+    cert 5: cheapest (1, 11007) (1, 25676) (1, 39800) (1, 42245)
+
+> **Five of six certificates cost 1 equation to hit. Certificate 1 cannot be hit for
+> less than 10, and its members 2423/21617/31670/19297 are exactly the section-15.2
+> trapdoor chain.** Min-cost hitting set = **15 equations vs a budget of 7** — the
+> design carries a margin of exactly 8. Note 2423, 31670, 19297 each hit FOUR of the
+> six certificates, so the optimum has the shape `cost(hub) + 1 + 1`.
+
+**Hub compensation does NOT pay (a claim I made and then corrected).** `truecost.py`
+first reported hub a31670 at true cost 1 (9 of 10 equations "compensable"). That
+heuristic counted the EXISTENCE of a helper per equation, not that a helper's value is
+one number shared across all of them. Exact computation (`hub31670.py`): the region is
+41 equations x 16 atoms with FULL column rank 16; with a31670 != 0 forced there are ~2
+free parameters against 10 equations so at most ONE is savable, and recruiting the other
+helpers drags in 31 more equations. Hub cost ~9, and the 15-equation hitting set stands.
+
+**Also priced and closed:** wire deformation re-tested with square-check repair
+(`deform3.py`) -- zero admissible moves across all 6 kernel directions, so section 18
+survives the stronger (necessary-condition) test. The forced OR gate is a non-lever:
+`x_9274 = 1` holds automatically at all-bits-zero and that branch is 38,871; only two
+boolean free inputs are set at the deliverable (x_2081, x_24601).
+
+> **The productive question is now exactly one: can certificate 1 be hit for under 9
+> equations?** Everything else in the instance is already cheap.
+
 ### Do NOT redo
 - The MUX branch (`x_4287 = 1`). It **does** zero all seven residual atoms simultaneously
   (`s10/muxzero.py`) but leaves 8 collateral atoms -> 44 failing; best repair 38,991. Its own

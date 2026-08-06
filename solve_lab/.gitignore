@@ -71,3 +71,7 @@ s10/closure_step.json
 s10/gs_best.json
 s10/newton_best.json
 s10/wirebasis.json
+s10/allbits0.json
+s10/certs.json
+s10/price_*.json
+s10/deform3_*.json
