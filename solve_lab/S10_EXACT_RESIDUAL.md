@@ -2521,3 +2521,207 @@ Every route is priced by construction:
 | gadget cluster whole | 24 (conserved) | 24 |
 | boolean carriers | ≥ 8 | 0 (cannot reach the residual) |
 | activation | 6 per 2 knobs | kernel never opens |
+
+---
+
+# Part XXIV — the frame was wrong, not the search
+
+Session 11 ended with a ledger in which every lever was priced and every price was
+too high.  That ledger is still correct as far as it goes, but Part XXIV shows it
+was measuring the wrong object.  Four results, in the order they were forced.
+
+## 121. The infeasibility claim of §66 was an artifact (refuted)
+
+`s10/exactlin.py` split the checks into those that are EXACTLY linear mod p in the
+free inputs (verified by probing) and those that are not, built the exact subsystem,
+and found it inconsistent:
+
+```
+checks touched: 365;  EXACTLY LINEAR in every probe: 220
+EXACT subsystem: 220 rows x 80 cols, rank 80, inconsistent rows 7
+```
+
+If that had held it would have been an exact infeasibility certificate.  It does not
+hold.  `s10/exactlin2.py` audits it against the three objections that matter:
+
+| objection | test | result |
+|---|---|---|
+| sampling — 2 probes is not a proof | re-run with 4 | same 220 rows, stable |
+| **column closure** — rows may depend on free inputs outside the 80 | free-input support via `s10/suppfree.py` | **49 of 220 rows do; 162 missing columns** |
+| atoms vs equations — `Mx=b` demands atoms be zero, but equations only need their combination to vanish | how many rows sit alone in an equation | **0** |
+
+```
+EXACT subsystem 220 x 80: rank 80, inconsistent 7
+--- restricted to the COLUMN-CLOSED rows only ---
+171 rows x 80 cols: rank 77, inconsistent 0
+```
+
+Every inconsistency came from rows whose columns were missing.  **No infeasibility
+conclusion survives, and none is claimed.**  This is the second false infeasibility
+claim killed this session — the first was the cluster agent's `a7930` link, refuted
+by `s10/link.py`.  The pattern is the same both times: a closure computed over an
+unclosed index set.
+
+`s10/suppfree.py` is the tool that makes this checkable in future.  It propagates a
+bitset of free-input indices along the same topological order forward-mode AD uses,
+so `supp(c)` — every free input that can reach check `c` — is available for all
+42,267 atoms in 0.1 s.  Set-union over-approximates (two paths can cancel), so
+`supp(c) ⊆ U` is a sound proof that `U` is closed for `c`, while `supp(c) \ U` is a
+candidate list to test.  **Any closure claim made without it is unsound.**
+
+## 122. The 47% misprediction rate is second-order content, not broken integrality
+
+The reason every linear veto in this lab is untrustworthy is that 656 of 1,376
+large-move predictions were wrong.  The standing explanation was integrality:
+forward evaluation solves each gate for its output over Z via `T.solve_lin`, which
+returns `None` when the solution is not an integer, leaving the variable stale and
+the gate silently broken — a failure mode that has no counterpart mod p.  If that
+were the cause, moving along a sublattice `N·Z` with `N` carrying enough copies of
+every pivot would restore fidelity.
+
+`s10/fidelity.py` builds that sublattice and measures.  It is not the cause:
+
+```
+1 distinct pivot; 0 below 10^6; largest 1.16e+77
+free (any integer)      predictions 2160/4086 correct (52.9%); rows exact 220/365; broken gates/probe 0.0
+sublattice N = D**3     predictions 2160/4086 correct (52.9%); rows exact 220/365; broken gates/probe 0.0
+sublattice N = D        predictions 2160/4086 correct (52.9%); rows exact 220/365; broken gates/probe 0.0
+```
+
+**Not one gate breaks, under any move.** Every pivot is ±1 apart from a single
+huge one, so forward evaluation is always exact over Z. The misprediction is
+therefore pure second-order content: the atoms are genuine quadratics
+(`x28730 − x9413·x17499` and friends), and a first-order column cannot predict a
+large move.  The map from free inputs to checks is an honest polynomial.
+
+The consequence is sharper than the old explanation.  Under the integrality story
+the model was broken and could in principle be repaired.  Under this one the model
+is fine and simply **incomplete**: every ceiling in Parts X–XXIII — canonical 39,018,
+witness 39,026 — is a ceiling on the *tangent space*, and says nothing about moves
+that leave it.  The deliverable "saturates its frame's linear ceiling" is a
+statement about the linearisation, not about the instance.
+
+## 123. Decompiling the residual: it is three multiplications and a wire full of p
+
+`s10/decompile.py` prints the residual atoms as polynomials instead of attacking
+them as a linear system.  They are tiny:
+
+```
+a22229  x7068 - x2099 - 7376877*x642      a22230  x28730 - x9413*x17499
+a35758  x29854 - x1329*x22665             a35759  5113045*x7075*x9118 - x29854
+a35760  x31864 - x10903*x28961            a35761  x7075*x8731 + x31864
+a35762  x642 - x17325*x28599
+```
+
+One multiplication each, in redundant pairs that compute the same wire two ways —
+ordinary R1CS.  Unfolding the operands reaches only **39 variables, 10 of them
+free**, and almost every chain collapses onto `x26064 = p`:
+
+```
+x22665 = x26064 = p          x28599 = x9325 = x1692 = x26064 = p
+x17499 = x36136 = x32499 = p x28961 = x18822 = x35638 = p
+x7075  = 1 - x4287*x2081     x642 = x17325*p     x29854 = x1329*p
+```
+
+so the witness-frame residual is exactly two identities:
+
+```
+(†)  x1329 * p  =  5113045 * x7075 * x9118           [a35758 & a35759]
+(‡)  x10903 * p =  -x7075 * x8731                    [a35760 & a35761]
+```
+
+with `x1329, x9118, x10903, x8731, x4287, x2081` all free.  Read that way both are
+satisfiable by inspection — `p | x9118` and `p | x8731`, or `x7075 ≡ 0 (mod p)`
+which is the `A = 0` route.  The witness frame's "seven conserved residuals" are two
+congruences wearing seven hats.
+
+The canonical frame is the better place to work, and Part XXIV's central structural
+claim comes from it.
+
+## 124. The canonical frame: the whole problem is congruences, and handles are free
+
+In the canonical frame every gate holds by construction, so the entire instance
+reduces to *choose the free inputs so that every check atom vanishes*.  At
+`s10/mod9118_0.json` exactly **four** checks are nonzero — four constraints against
+7,273 free inputs — and `s10/gadget.py` reads them:
+
+```
+a21617 = 11436039*(x14623 - x27522) - p*x5040        x14623 free, x5040  free
+a29539 = 12846437*(x14853 - x1308 ) - p*x30163       x14853 free, x30163 free
+a37662 = ... + 10*a21617 + (other primitive residuals)
+a40826 = ... + (a29539's residual) + ...
+```
+
+Every operand that multiplies a free input in `a37662` is a p-wire variable
+(`x986 = x20302 = x32499 = x35638 = x36136 = x37280 = p`), so **every handle's
+coefficient is a multiple of p**.  That gives a clean two-phase decomposition of the
+whole instance:
+
+> **mod-p phase** — the handles are invisible mod p, so the problem over F_p is:
+> choose residues for the non-handle free inputs making every check ≡ 0 (mod p).
+> **lift phase** — given a mod-p solution, every check is `p · (something)`, and the
+> handles enter linearly with coefficient `d·p`; choosing them is an integer linear
+> system, not a search.
+
+This is why nothing in Parts X–XXIII ever gained: **every nonzero atom in every state
+this lab has produced is nonzero mod p**, so no amount of integer manoeuvring helps.
+
+```
+state                                     score   nonzero atoms   of which ≡0 mod p
+best/new_instance_partial_39026.json      39,026        7                 0
+s10/wr_engine_w1_x7068_39020.json         39,020        2                 0
+s10/jm_azero00_39017.json                 39,017        3                 0
+s10/mod9118_0.json                        39,009        4                 0
+```
+
+The lift phase is free; the mod-p phase is the entire difficulty.
+
+## 125. Residue jumps: a move class no veto ever priced
+
+`s10/gfix.py` closes a gadget constructively rather than by search.  For
+`a21617 = c·(x14623 − x27522) − p·x5040`, `s10/suppfree.py` confirms the two sides
+are independent — `x27522`'s free-input support is 11 inputs and contains neither
+`x14623` nor `x5040` — so:
+
+```
+x14623 <- x14623 - ((x14623 - x27522) mod p)     =>  p | c*(x14623 - x27522)
+x5040  <- c*(x14623 - x27522)/p                  =>  the atom is EXACTLY zero
+```
+
+Both steps exact over Z, and it works: `a21617` and `a29539` are both driven to zero.
+
+```
+start                        score 39009   failing checks [21617, 29539, 37662, 40826]
+after closing a21617         score 39006   failing checks [25676, 29539, 33796, 40826, 42245]
+after closing a29539         score 38999   failing checks [19297, 19299, 25676, 30984, 33796, 36185, 40812, 42245]
+```
+
+The score falls — the jump moves `x14623`'s residue, and `x14623` also feeds `a12433`
+and `a37662`.  But the *move class* is new and important.  A residue jump is not a
+step in the tangent space; it is a jump of a full residue class, and because the map
+is a genuine quadratic (§122) its true effect is not what any Jacobian predicts.
+**Every price in the Session 11 ledger was measured on tangent moves.  None of them
+priced this.**  `s10/rjump.py` enumerates every (failing check, free input in its
+support) pair, takes the exact residue jump that zeroes that check mod p, forward-
+evaluates and scores — nothing predicted, everything measured.
+
+## 126. What Part XXIV changes
+
+```
+claimed in Parts X-XXIII                        status after Part XXIV
+------------------------------------------------------------------------------
+"the exactly-linear subsystem is inconsistent"  REFUTED (artifact of 162 missing columns)
+"linear vetoes untrustworthy: integrality"      WRONG CAUSE -- no gate ever breaks;
+                                                it is second-order content
+"canonical ceiling 39,018 / witness 39,026"     TANGENT-SPACE ceilings only; they do
+                                                not bound the instance
+"the residual is seven conserved atoms"         two congruences (†) and (‡) in a
+                                                39-variable neighbourhood
+"the obstruction is the atom map's image"       refined: it is the mod-p phase.  The
+                                                integer lift is free -- handles are
+                                                invisible mod p and enter linearly
+```
+
+The deliverable is unchanged at **39,026 [verified]**.  What changed is that the
+barrier arguments that stood behind it have been withdrawn: two of them were unsound
+closures, and the rest bound only the tangent space of a map that is not linear.
