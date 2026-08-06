@@ -126,3 +126,83 @@ with x3896 = 1.  Same shape as channel A's three congruences, on gate-computed v
     s11/gmp24.py   additivity test
     s11/gmp25.py   cheapest achievable residual
     s11/chan,chan2,chan3.py the channel algebra and the third channel
+
+---
+
+# Part XV — buying knobs by breaking gates, and what that costs
+
+## 10. Breaking a gate is a knob purchase, and now it can be priced
+
+The 39,026 checkpoint's trick — deliberately breaking five gates — is, in this language, buying
+knobs.  Breaking gate atom g frees its output variable at a cost of exactly `|equations
+containing g|` failing equations.  `s11/gmp26.py` prices the whole catalogue:
+
+    gate atoms by #equations:  {1: 1, 4: 1, 5: 10, 6: 39, 7: 189, 8: 577, 9: 1518, ...}
+
+and asks which cheap ones free a variable that reaches the deficit rows:
+
+    a36244 (4 eqs) frees x3432  -> moves a25676, a42245, a29539, a40826   (17 checks total)
+    a36245 (5 eqs) frees x24219 -> same four                              (16 checks)
+    a36246 (6 eqs) frees x5077  -> same four                              (16 checks)
+    a34869 (6 eqs) frees x10257 -> a29539, a40826                         (12 checks)
+
+The single 1-equation gate, a41332, frees x24453 and moves **no** check at all — worth knowing,
+since a 1-equation purchase would have been decisive.
+
+## 11. One knob is not enough, and the reason is geometric
+
+`s11/gmp27.py` freezes x3432 (so a36244 stays broken and x3432 is a genuine knob), rebuilds the
+exact response matrix under that freeze — all 7,274 knobs, 13 min — and re-solves:
+
+    system 2037 x 1471, rank 1471, still 6 inconsistent rows
+
+`s11/gmp28.py` explains why the certificate test was misleading.  Extracting the obstruction
+functionals y and testing `y . J_t != 0` for every gate with cost <= 8 finds **44 gates that
+break at least one certificate**, a36244 among them.  But breaking a certificate is not the
+criterion.  The criterion is `rhs in col(J) + span(c)`, and the quotient space here has dimension
+2029 - 1470 = 559: a single new column has to be *parallel* to the residual's projection in a
+559-dimensional space.  Breaking certificates is necessary, nowhere near sufficient.
+
+## 12. Not even all of them together
+
+`s11/gmp29.py` measures the freed-output column of **every** gate with cost <= 8 (725 usable
+columns) and adds them all at once:
+
+    consistent with no gates broken   : False
+    consistent with ALL 725 broken    : False
+
+So the residual does not lie in the column space even after 725 extra knob directions.  That is
+much stronger than any obstruction claim made in earlier sessions — and it is stated about the
+exact linearisation of the whole instance, not a neighbourhood.
+
+**The honest caveat:** this is the affine model.  The responses are exact finite differences, and
+several knobs were verified affine, but the instance is polynomial, so joint moves are not exactly
+sums.  Linear inconsistency at this base point rules out any *first-order* move; it does not by
+itself prove the instance unsatisfiable.
+
+## 13. The combined search
+
+`s11/gmp30.py` searches the natural joint space — break a set of cheap gates, and allow a set of
+cheap checks to stay nonzero — scoring by
+
+    |equations of the broken gates  UNION  equations of the checks left nonzero|
+
+with the checkpoint's 7 as the bar to beat.  There are 725 gate candidates and 2,702 candidate
+rows, of which many sit in exactly one equation.  No combination of up to 3 dropped cheap checks
+with no gates broken beats 7.
+
+## 14. What this establishes
+
+The barrier is now completely characterised, in the layer where it lives:
+
+* the whole instance is a GF(p) circuit that evaluates in 0.08 s;
+* from the best-known inputs exactly **four** GF(p) numbers stand between us and a full solve;
+* **no continuous move** — all 1,726 live free inputs, plus 725 gate-purchased knobs — reaches
+  them;
+* the message bits, the only other freedom, are frozen one row at a time by their own load pins,
+  move only discretely, are non-additive, and no single flip improves the count;
+* exactly 256 of the 1,156 free bits are real; the other 900 are provably inert.
+
+That is a complete map of the obstruction rather than another failed search, and it is what the
+next attempt should be aimed at: the four numbers, and the discrete bit moves that are the only
+thing left that can touch them.

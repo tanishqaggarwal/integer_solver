@@ -1,0 +1,8 @@
+gate atoms by #equations: {1: 1, 4: 1, 5: 10, 6: 39, 7: 189, 8: 577, 9: 1518, 10: 3144, 11: 4881, 12: 6152}
+gate atoms in <=6 equations: 51
+   0/51 hits=0 (0s)
+gates whose freed output touches a KEY row: 4  (7s)
+   a36244 (cost 4 eqs) frees x3432: touches [25676, 42245, 29539, 40826]  total checks moved 17
+   a36245 (cost 5 eqs) frees x24219: touches [25676, 42245, 29539, 40826]  total checks moved 16
+   a34869 (cost 6 eqs) frees x10257: touches [29539, 40826]  total checks moved 12
+   a36246 (cost 6 eqs) frees x5077: touches [25676, 42245, 29539, 40826]  total checks moved 16
