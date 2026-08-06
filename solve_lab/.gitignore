@@ -82,3 +82,8 @@ s10/kill37887.json
 s10/cand27_*.json
 s10/rootfree.json
 s10/freeroot_*.json
+s10/cycles.json
+s10/regionknobs.json
+s10/bitwitness.json
+s10/singledrop.json
+s10/budget6.json

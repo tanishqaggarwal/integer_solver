@@ -866,3 +866,94 @@ not moved under any attack in this session.
 **What is genuinely still open:** hit inconsistency certificate 1 for under 9
 equations (its cheapest member is 10, and five of the six others cost 1 apiece).
 Every other door measured this session is closed with a number attached.
+
+---
+
+# Part VIII — every door, opened and priced
+
+## 36. A counting error of mine, corrected
+
+Part III reported "6 independent inconsistencies". **`b` is a single column, so
+`rank([A|b]) − rank(A) ≤ 1`** — there is exactly *one* independent obstruction, and
+the six were six witnessing rows of it. That raised a real hope: a single dropped
+row might restore consistency. Tested exhaustively (`s10/singledrop.py`):
+
+```
+every one of the 128 single-row drops : 0 restore consistency
+every pair among the 30 cheapest rows : 0 restore consistency
+```
+
+So the obstruction survives removal of any one row, and of any cheap pair.
+
+## 37. The region, closed exhaustively
+
+`eighth.py` defined "adjustable" as *carrying a solo free handle* — which is
+precisely why it missed `a22231`. Correct definition: a variable is a **region
+knob** if moving it changes no equation outside the twelve. Scanning every
+variable in every atom of the twelve equations (`s10/regionknobs.py`):
+
+```
+variables whose ENTIRE footprint lies inside the twelve : 9
+  x_642, x_1329, x_8731, x_9118, x_9413, x_10903, x_17325, x_29854, x_31864
+region atoms reachable by those knobs : exactly [22229, 22230, 35758..35762]
+next cheapest variable : x_28730, footprint 1 equation outside (eq 8680 via a37887)
+everything else        : >= 3 equations outside
+```
+
+> **The region has exactly nine free knobs and they reach exactly the seven atoms
+> Part I used.** There is no hidden freedom, and `x_28730`'s "1 outside" is
+> precisely the `a37887` cost that `build27.py` measured. The region is closed.
+
+## 38. Boolean branches, exhaustive in the witness frame
+
+Earlier bit scans ran from the forward state (37 failing) or used the unreliable
+ripple. Re-run in the **witness** frame with exact repair, all 1,156 boolean free
+inputs (`s10/bitwitness.py`):
+
+```
+best 20 flips : failing = 7, region 12, satisfied 5   (identical to the base)
+x_4287        : 34 failing      x_24601 : 83      x_2081 : 106
+```
+
+> **No boolean flip in the deliverable's frame improves on 7**, and the three
+> structural control bits are far worse. The branch structure is exhausted.
+
+## 39. The cyclic components — a genuinely new freedom, and it is inert
+
+`fwd.py` covers only 29,675 of 31,475 defined variables: 1,800 sit in gate cycles.
+A cyclic block is a *system*, and a singular one has a family of solutions that
+forward evaluation silently collapses to a point. Measured (`s10/cycles.py`):
+
+```
+non-trivial SCCs : 40, all of size 2
+local Jacobian   : rank 1 of 2 in every one  ->  kernel dimension 1 each
+```
+
+**Forty free parameters that no forward-eval or local method could see.** Slid
+along each line (`s10/slide.py`):
+
+```
+all 40 slides : no new nonzero atoms, failing stays 7, D0 and K2 UNCHANGED
+8 of 40 are literally inert (touch only their own two gate atoms)
+```
+
+> The freedom is real and it is **orthogonal to the obstruction**: it moves the
+> assignment without moving either binding residue. A new door, opened, and empty.
+
+## 40. Final position
+
+| door | status | cost |
+|---|---|---|
+| region knobs beyond the 9 | **closed exhaustively** | — |
+| boolean branches (1,156, witness frame) | **closed exhaustively** | ≥ 7 |
+| single-row / cheap-pair sacrifice | **closed exhaustively** | none work |
+| cyclic-component freedom (40 params) | **open but inert** | 0 gain |
+| number theory / curve / rational reconstruction | **closed** | no structure |
+| wire: uniform, per-member, kernel, root-via-37257 | **closed** | ≥ 13 |
+| certificate hitting set | closed | 15 |
+| **give up (the deliverable)** | — | **7** |
+
+Seven independent lines now return the same answer. The instance's margin is 6
+equations and nothing in this session moved it. What remains is not a door I can
+name a cheap price for: it is the setter's witness, or a genuine cryptanalytic
+break of the pinned residue `D0 = HUGE − C1 (mod p)`.

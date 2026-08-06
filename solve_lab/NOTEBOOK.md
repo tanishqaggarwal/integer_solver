@@ -1381,3 +1381,33 @@ cost 1 + square-check cost ~12 = 13, the same floor from a third independent dir
 Consolidated: give-up 7; invariant 7 (6 placements); root-via-37257 ~13; uniform wire 13;
 cheapest member 13; certificate hitting set 15; kernel deformation ~20. Still open: hit
 certificate 1 for under 9 equations. **Deliverable unchanged at 39,026.**
+
+## Session 10, part 9 — every door opened and priced
+
+**Counting error corrected.** Part 3 said "6 independent inconsistencies"; b is a SINGLE
+column so rank([A|b]) - rank(A) <= 1 -- ONE obstruction, six witnessing rows. That raised a
+real hope that one dropped row suffices. `singledrop.py`: all 128 single-row drops fail,
+all pairs among the 30 cheapest fail. The obstruction survives removal of any one row.
+
+**Region closed exhaustively.** `regionknobs.py` fixes eighth.py's too-narrow "adjustable"
+definition (solo handle only -- which is why a22231 was missed). A variable is a region knob
+if moving it changes no equation outside the twelve. Result: exactly 9 such variables
+(x_642, x_1329, x_8731, x_9118, x_9413, x_10903, x_17325, x_29854, x_31864), reaching
+exactly the seven Part I atoms. Next cheapest is x_28730 at 1 outside (eq 8680 via a37887 --
+matching build27 exactly); everything else >= 3 outside. No hidden freedom.
+
+**Boolean branches exhausted in the WITNESS frame.** `bitwitness.py`: all 1,156 boolean free
+inputs flipped in the deliverable's frame with exact repair. Best 20 all give failing = 7
+with identical region and identical 5 satisfied; x_4287 -> 34, x_24601 -> 83, x_2081 -> 106.
+No flip improves on 7.
+
+**NEW FREEDOM, AND IT IS INERT.** fwd.py covers only 29,675 of 31,475 defined variables --
+1,800 sit in gate CYCLES, which no forward-eval or local analysis of mine ever used. A
+cyclic block is a system, and a singular one has a solution FAMILY collapsed to a point by
+forward evaluation. `cycles.py`: 40 non-trivial SCCs, all size 2, local Jacobian rank 1 of 2
+in EVERY one => kernel dimension 1 each, i.e. 40 genuinely free parameters. `slide.py`:
+sliding along all 40 gives no new nonzero atoms, failing stays 7, and D0/K2 UNCHANGED; 8 are
+literally inert. The freedom is real and orthogonal to the obstruction.
+
+Seven independent lines now return the same answer; margin 6 equations, unmoved.
+**Deliverable unchanged at 39,026.**

@@ -306,6 +306,49 @@ identity equations holding. **Still does not pay:** entries are ~324 digits with
 217, so 17 non-copy atoms break -> 38,984. Identity cost 1 + square-check cost ~12 = 13,
 the same floor from a third independent direction.
 
+### PART VIII: every door opened and priced
+
+**A counting error, corrected.** Part III said "6 independent inconsistencies". b is a
+SINGLE column, so rank([A|b]) - rank(A) <= 1: there is ONE obstruction and the six were six
+witnessing rows of it. That raised a real hope (one dropped row might suffice). Tested
+exhaustively (`s10/singledrop.py`): **all 128 single-row drops fail; all pairs among the 30
+cheapest fail.** The obstruction survives removal of any one row.
+
+**The region, closed exhaustively** (`s10/regionknobs.py`). `eighth.py` defined "adjustable"
+as carrying a SOLO handle -- exactly why it missed a22231. Correct definition: a variable is
+a region knob if moving it changes no equation outside the twelve. Scanning every variable
+in every atom of the twelve:
+
+    variables with ENTIRE footprint inside the twelve : 9
+      x_642, x_1329, x_8731, x_9118, x_9413, x_10903, x_17325, x_29854, x_31864
+    they reach exactly [22229,22230,35758..35762] -- the Part I atoms
+    next cheapest: x_28730 at 1 outside (eq 8680 via a37887); everything else >= 3
+
+> Nine knobs, exactly the seven atoms. No hidden freedom. Region CLOSED.
+
+**Boolean branches, exhaustive in the WITNESS frame** (`s10/bitwitness.py`). All 1,156
+boolean free inputs flipped in the deliverable's frame with exact repair: best 20 all give
+failing = 7 with identical region; x_4287 -> 34, x_24601 -> 83, x_2081 -> 106.
+> No boolean flip improves on 7. Branch structure EXHAUSTED.
+
+**NEW FREEDOM FOUND -- and it is inert** (`s10/cycles.py`, `s10/slide.py`). fwd.py covers
+only 29,675 of 31,475 defined vars: 1,800 sit in gate CYCLES. A cyclic block is a system,
+and a singular one has a solution FAMILY that forward-eval silently collapses to a point.
+Measured: 40 non-trivial SCCs, all size 2, **local Jacobian rank 1 of 2 in every one =>
+kernel dim 1 each = 40 free parameters invisible to any local method.** Sliding along all
+40: no new nonzero atoms, failing stays 7, D0 and K2 UNCHANGED (8 are literally inert).
+The freedom is real and ORTHOGONAL to the obstruction.
+
+    door                                   status                cost
+    region knobs beyond the 9              closed exhaustively    --
+    boolean branches (1,156, witness)      closed exhaustively    >= 7
+    single-row / cheap-pair sacrifice      closed exhaustively    none work
+    cyclic freedom (40 params)             OPEN but inert         0 gain
+    number theory / curve / ratrec         closed                 no structure
+    wire (uniform/member/kernel/root)      closed                 >= 13
+    certificate hitting set                closed                 15
+    give up (the deliverable)              --                     7
+
 ### Do NOT redo
 - The MUX branch (`x_4287 = 1`). It **does** zero all seven residual atoms simultaneously
   (`s10/muxzero.py`) but leaves 8 collateral atoms -> 44 failing; best repair 38,991. Its own

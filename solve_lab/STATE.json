@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1785989175,
+ "updated_unix": 1785990990,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -293,6 +293,12 @@
    "curve_refuted": "p is the secp256k1 FIELD prime but (D0,K2) is not on y^2=x^3+7, neither residue is a valid x-coordinate, n/G_x/G_y absent, 7870/15734 constants have (c mod p) a valid x-coord vs 7867 expected, 507/7999 multipliers prime vs ~470 expected. Random on every axis.",
    "rational_reconstruction": "every residue returns MAXIMAL 38-39 digit a and b at the sqrt(p/2) bound => no small-rational structure. gcd(HUGE,C1)=1; HUGE//p=1094785891323, C1//p=289077647971; HUGE != k*C1 mod p for k<200. Of 2,815 constants > p, ZERO have residue < 2^80 and all residues distinct. Seven residual values have gcd 1. NO ARITHMETIC BACKDOOR.",
    "root_costs_one": "NEW: e_root = y0^T M with supp(y0) = {eq 37257} -- a SINGLE equation. 37257 is the unique identity equation whose wire content is the root pin ALONE; the other eleven have copy atoms that absorb a37694 under a non-uniform deformation. Root identity-space price is 1 equation, not 12. freeroot.py: dropping 37257 gives rank 216, a 4-dim deformation space, all four directions moving the root with all 218 other identity equations holding. Still does not pay: ~324-digit entries, support 217, 17 non-copy atoms break -> 38,984. Total 1 + ~12 = 13, the same floor from a third direction."
+  },
+  "part8_alldoors": {
+   "counting_correction": "Part 3 said 6 independent inconsistencies; b is a SINGLE column so rank([A|b])-rank(A)<=1 -- ONE obstruction, six witnessing rows. singledrop.py: all 128 single-row drops FAIL to restore consistency, all pairs among the 30 cheapest FAIL.",
+   "region_closed": "regionknobs.py: a variable is a region knob if moving it changes no equation outside the twelve. EXACTLY 9 such variables (x_642,x_1329,x_8731,x_9118,x_9413,x_10903,x_17325,x_29854,x_31864) reaching EXACTLY the seven Part I atoms. Next cheapest x_28730 at 1 outside (eq 8680 via a37887); everything else >=3. No hidden freedom.",
+   "bits_closed": "bitwitness.py: all 1,156 boolean free inputs flipped in the WITNESS frame with exact repair. Best 20 give failing=7, identical region; x_4287->34, x_24601->83, x_2081->106. No flip improves on 7.",
+   "cyclic_freedom": "NEW: fwd.py covers only 29,675/31,475 defined vars; 1,800 sit in gate CYCLES. cycles.py: 40 non-trivial SCCs, all size 2, local Jacobian rank 1 of 2 in EVERY one => kernel dim 1 each = 40 free parameters invisible to forward-eval. slide.py: all 40 slides give no new nonzero atoms, failing stays 7, D0/K2 UNCHANGED (8 literally inert). Real freedom, ORTHOGONAL to the obstruction."
   }
  }
 }
