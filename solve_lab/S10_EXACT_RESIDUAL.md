@@ -698,3 +698,80 @@ now precisely stated:
    2,352 × 710 and stays inconsistent. Something outside *both* would be needed —
    and the invariance of 7 across placements is evidence that no such knob exists
    in the equation-space direction.
+
+---
+
+# Part VI — the invariant survives a genuine gap in my own model
+
+## 28. Forensics on the setter's constants: no backdoor
+
+Every prior analysis treated the ~2,817 large literals as opaque. Tested directly
+(`s10/forensics.py`): gcd of all large constants = 1; gcd of all pairwise
+differences = 1; no constant equals either binding residue mod p; `D0/K2 mod p` is
+a full-size 253-bit number and `D0 ≠ k·K2 (mod p)` for any `k < 60`. Both residues
+*are* quadratic residues, which is the only structure found and is not exploitable.
+The constants are ~290 bits (p is 256), quotients `c // p` are ~10¹⁰–10¹¹ with no
+pattern. **The setter's arithmetic has no exploitable structure.**
+
+## 29. A real gap in Part I's model — `a22231` is a free 8th atom
+
+Part I declared `x_28730` "not free" because moving it drags `x_4432` and breaks
+atom 7930 (15 equations). That was an artefact of how I moved it: I moved
+`x_28730` *together with* `x_4432` to hold `a22231 = 0`. **But `a22231` need not be
+zero.** Moving `x_28730` alone (`s10/a22231.py`):
+
+```
+a22230 = x_28730 - p*x_9413            changes by +d
+a22231 = x_4432 - x_19964 - x_28730    changes by -d
+x_4432 untouched  ->  NO downstream collateral   (verified for d = 1, 2, p)
+```
+
+and `a22231`'s ten equations lie **entirely inside the twelve** — zero overflow.
+So the correct model has *eight* atoms and **one** congruence on a pair rather than
+two separate ones:
+
+```
+A1 + 7376877*A7 == D0 (mod p)        A2 + A8 == K (mod p)      A3..A6 free
+```
+
+Exact optimisation on this strictly larger model: **6 of 12 satisfiable**, versus
+5 before. Constructed and verified end to end (`s10/build27.py`): all eight target
+atom values realised **exactly**, `x_4432` untouched, six of the twelve equations
+satisfied — the first time the region has gone past 5.
+
+**The gain is cancelled outside the region.** With `a22231 ≠ 0`, the square atom
+`a37887 = R²` lights up and breaks equation 8680, restoring 7.
+
+## 30. Killing `a37887` too — and the invariant again
+
+`R` is a linear combination of atoms (extracted by parsing the square's root):
+
+```
+R = a22231 + 6*a22232 + 15*a22233 - 21*a22234 - 13*a22235
+    + (a19087..a19092, a10935..a10941 terms)
+```
+
+and `a22232..a22235` are movable in pairs (`x_23754` moves `a22232/a22233`
+oppositely, `x_35619` moves `a22234/a22235` together), so `R = 0` is reachable —
+`a22231 = 9δ + 34ε` with `gcd(9,34) = 1` hits every value. Extending to a 12-atom
+model with `R = 0` imposed exactly (`s10/kill37887.py`): region grows 12 → 16
+equations, max satisfied grows 5 → 9. **Failing: 7.**
+
+## 31. The invariant, now on six independent placements
+
+| model | atoms | region | max satisfied | **failing** |
+|---|---|---|---|---|
+| Part I baseline | 7 | 12 | 5 | **7** |
+| + 35756 | 8 | 15 | 8 | **7** |
+| + 35754 | 8 | 17 | 10 | **7** |
+| + both | 9 | 18 | 11 | **7** |
+| **+ a22231** (gap fixed) | 8 | 12 | **6** | **7** (a37887 costs 1 outside) |
+| + a22231, a22232..a22235, R = 0 | 12 | 16 | 9 | **7** |
+
+> **Six independent placements — including one built specifically to exploit a real
+> error in the earlier model — all return exactly 7. Every degree of freedom added
+> is matched, to the equation, by the equations it drags in.**
+
+This is the strongest form of the result: the invariant is not an artefact of the
+defect set I happened to choose, because I found and fixed a genuine gap in that
+choice and the number did not move.

@@ -242,6 +242,45 @@ checks. The wire route's floor of 13 (uniform shift) stands.
 hitting set 15; kernel deformation ~20. Three independent lines -- equation-space lattice,
 GF(p) closure + certificates, wire geometry -- all return 7, every route costs >= 13.
 
+### PART VI: a real gap found in Part I's model — and the invariant SURVIVED it
+
+**Forensics on the setter's constants: no backdoor** (`s10/forensics.py`). gcd of all
+2,817 large literals = 1; gcd of all pairwise differences = 1; no constant equals either
+residue mod p; `D0/K2 mod p` is a full 253-bit number and `D0 != k*K2 (mod p)` for k < 60.
+Both residues ARE quadratic residues -- the only structure found, and not exploitable.
+
+**THE GAP.** Part I called `x_28730` "not free" because moving it drags `x_4432` and breaks
+atom 7930. That was an artefact of HOW I moved it -- together with `x_4432`, to hold
+`a22231 = 0`. **`a22231` need not be zero.** Moving `x_28730` ALONE:
+
+    a22230 changes by +d ; a22231 changes by -d ; x_4432 UNTOUCHED, no collateral
+    (verified for d = 1, 2, p)
+
+and a22231's ten equations lie ENTIRELY inside the twelve -- zero overflow. Correct model
+has EIGHT atoms and ONE paired congruence:  `A1 + 7376877*A7 == D0 (mod p)`,
+`A2 + A8 == K (mod p)`, A3..A6 free. Exact optimum: **6 of 12**, not 5. Constructed and
+verified end to end (`s10/build27.py`): all eight atom values realised EXACTLY, x_4432
+untouched, six equations satisfied -- the first time the region passed 5.
+**But `a37887 = R^2` then lights up and breaks eq 8680, restoring 7.**
+
+Extending further (`s10/kill37887.py`): R is a linear atom combination
+(`a22231 + 6*a22232 + 15*a22233 - 21*a22234 - 13*a22235 + ...`), and a22232..a22235 move
+in pairs, so R = 0 is reachable (a22231 = 9d + 34e, gcd(9,34)=1). 12-atom model with R=0
+imposed exactly: region 12 -> 16, max satisfied 5 -> 9. **Failing: 7.**
+
+    model                          atoms  region  satisfied  FAILING
+    Part I baseline                   7      12       5         7
+    + 35756                           8      15       8         7
+    + 35754                           8      17      10         7
+    + both                            9      18      11         7
+    + a22231  (the gap, fixed)        8      12       6         7   <- a37887 costs 1 outside
+    + a22231,a22232..35, R=0         12      16       9         7
+
+> **Six independent placements -- including one built specifically to exploit a genuine
+> error in the earlier model -- all return exactly 7.** Every degree of freedom added is
+> matched, to the equation, by the equations it drags in. The invariant is not an artefact
+> of the defect set: I found and fixed a real gap in that choice and the number did not move.
+
 ### Do NOT redo
 - The MUX branch (`x_4287 = 1`). It **does** zero all seven residual atoms simultaneously
   (`s10/muxzero.py`) but leaves 8 collateral atoms -> 44 failing; best repair 38,991. Its own

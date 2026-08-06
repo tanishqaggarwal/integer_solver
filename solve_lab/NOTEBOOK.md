@@ -1317,3 +1317,36 @@ earlier sessions described qualitatively.
 Consolidated: give-up 7; invariant 7; uniform wire 13; cheapest member 13; certificate
 hitting set 15; kernel deformation ~20 (support >= 213 forced). Three independent lines all
 return 7. **Deliverable unchanged at 39,026.**
+
+## Session 10, part 7 — forensics, a real gap in my own model, and the invariant surviving it
+
+**Forensics** (`forensics.py`): the ~2,817 large literals have gcd 1, their pairwise
+differences have gcd 1, no constant equals either binding residue mod p, D0/K2 mod p is a
+full 253-bit number, and D0 != k*K2 (mod p) for all k < 60. Both residues are quadratic
+residues -- the only structure found, not exploitable. The setter's arithmetic is clean.
+
+**THE GAP.** Part 1 declared x_28730 "not free" because moving it drags x_4432 and breaks
+atom 7930 (15 equations). That was an artefact of how I moved it: together WITH x_4432, to
+keep a22231 = 0. But a22231 need not be zero. Moving x_28730 alone changes a22230 by +d and
+a22231 by -d with x_4432 UNTOUCHED and no collateral (verified d = 1, 2, p), and a22231's
+ten equations lie entirely inside the twelve. So the correct model has EIGHT atoms and one
+PAIRED congruence A2 + A8 == K (mod p) instead of A2 == K2 (mod p). Exact optimum: 6 of 12,
+not 5. Constructed and verified end to end (`build27.py`): all eight target atom values
+realised exactly, x_4432 untouched, six of twelve satisfied -- first time past 5. But
+a37887 = R^2 then lights up and breaks eq 8680, restoring 7.
+
+Extended (`kill37887.py`): parsed a37887's root, R = a22231 + 6*a22232 + 15*a22233
+- 21*a22234 - 13*a22235 + (a19087..a19092, a10935..a10941). a22232/a22233 move oppositely
+via x_23754, a22234/a22235 together via x_35619, so R = 0 is reachable (a22231 = 9d + 34e,
+gcd(9,34) = 1). 12-atom model with R = 0 imposed exactly: region 12 -> 16 equations, max
+satisfied 5 -> 9. FAILING 7.
+
+    model                        atoms region satisfied FAILING
+    baseline                        7    12      5        7
+    +35756 / +35754 / +both       8/8/9 15/17/18 8/10/11  7
+    +a22231 (gap fixed)             8    12      6        7   (a37887 costs 1 outside)
+    +a22231,a22232..35,R=0         12    16      9        7
+
+**Six independent placements, including one built to exploit a genuine error in the earlier
+model, all return exactly 7.** The invariant is not an artefact of the defect set.
+Deliverable unchanged at 39,026, re-verified.

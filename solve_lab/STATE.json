@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1785984404,
+ "updated_unix": 1785985574,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -282,6 +282,12 @@
    "no_sparse_kernel": "kernel as 220x3 matrix K; a vector supported on S exists iff rows outside S are coplanar in Q^3. 3 kernel-zero rows, 215 distinct directions among 217 nonzero rows, largest rank-1 cluster 2, LARGEST COPLANAR SET 4 => sparsest kernel vector support >= 213 of 220. No sparse kernel vector; wire route floor of 13 stands.",
    "seven_is_invariant": "enlarging the defect placement with extra adjustable atoms (exact integer subset enumeration): (none) region 12 satisfied 5 failing 7; +35756 region 15 satisfied 8 failing 7; +35754 region 17 satisfied 10 failing 7; +both region 18 satisfied 11 failing 7. Every extra free parameter buys exactly as many equations as it drags in. Only two adjustable atoms in the instance touch the twelve equations at all. This is the exact form of the conserved obstruction.",
    "consolidated": "give-up 7; invariant 7; uniform wire 13; cheapest member 13; certificate hitting set 15; kernel deformation ~20. Three independent lines (equation-space lattice, GF(p) closure+certificates, wire geometry) all return 7; every route costs >= 13."
+  },
+  "part6_gap": {
+   "forensics": "2,817 large literals: gcd 1; pairwise differences gcd 1; no constant equals either residue mod p; D0/K2 mod p is a full 253-bit number; D0 != k*K2 (mod p) for k<60. Both residues are quadratic residues -- only structure found, not exploitable.",
+   "THE_GAP": "Part 1 called x_28730 not free because moving it drags x_4432 and breaks atom 7930. Artefact of HOW it was moved (together with x_4432 to hold a22231=0). a22231 need NOT be zero. Moving x_28730 ALONE: a22230 += d, a22231 -= d, x_4432 UNTOUCHED, no collateral (verified d=1,2,p). a22231 lives in 10 equations ALL inside the twelve. Correct model: EIGHT atoms, one PAIRED congruence A2+A8==K (mod p). Exact optimum 6 of 12, not 5. Constructed and verified (build27.py): all eight values realised exactly, six satisfied -- first time past 5. But a37887=R^2 lights up, breaks eq 8680, restoring 7.",
+   "kill37887": "R = a22231 + 6*a22232 + 15*a22233 - 21*a22234 - 13*a22235 + (a19087..a19092, a10935..a10941). a22232/a22233 move oppositely via x_23754, a22234/a22235 together via x_35619, so R=0 reachable (a22231 = 9d+34e, gcd(9,34)=1). 12-atom model with R=0: region 12->16, satisfied 5->9, FAILING 7.",
+   "invariant_six_placements": "baseline 7/12/5/7; +35756 8/15/8/7; +35754 8/17/10/7; +both 9/18/11/7; +a22231 8/12/6/7; +a22231+a22232..35+R=0 12/16/9/7. SIX independent placements, including one built to exploit a genuine error in the earlier model, all return exactly 7."
   }
  }
 }
