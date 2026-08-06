@@ -250,3 +250,69 @@ The only gap left in the argument is *global*: the lower bound of 2 is a countin
 nothing here rules out a state, far from any yet reached, whose failing right-hand side is
 p-divisible by construction. Reaching one is equivalent to solving the setter's congruence — the
 problem the instance was built around.
+
+---
+
+## IP #19 — CORRECTION: the obstruction proofs were about restricted move sets, not the instance
+
+Asked to reason specifically about breaking past the wall, the first thing that gave way was my
+own argument. Three findings, in order of severity.
+
+### 1. Nothing is permanently unfixable (`s11/perm.py`)
+
+For every failing equation, count the variables with genuine **mod-p leverage** on it:
+
+    checkpoint 39,026 : 7 failing, leverage counts 26, 15, 30, 25, 6, 9, 16   -> 0 permanently unfixable
+    s11 best  39,018  : 15 failing, leverage counts 12..27                    -> 0 permanently unfixable
+
+If a failing equation had value ≢ 0 (mod p) and *every* move on it were ≡ 0 (mod p), it could
+never be satisfied and the wall would be absolute. **That is not the case anywhere.** The
+leverage exists; what defeats it is coupling, not rigidity.
+
+### 2. The "exact-linear" filter silently deleted the leverage
+
+Every system in IP #1–#18 kept only variables passing `f(u+2)-f(u) == 2*(f(u+1)-f(u))` — i.e.
+variables entering **linearly**. That is a finite-difference test, and it rejects every variable
+appearing squared or in a product with another moving variable. Those are exactly the variables
+`perm.py` counts. Consequence (`s11/hensel.py`, fast p-adic test over growing regions):
+
+    exact-linear variables only :  130x69, 300x183, 500x324, 900x598, 1400x1014
+                                   -> unsolvable even MOD P, at every size
+    true Jacobian (quadratics in) -> the mod-p region system IS solvable (11s, 920 x 1391)
+
+So "the invariant is `2458959·p`" and "`p` is universal" are statements about a move set that had
+the relevant variables filtered out. They are not statements about the instance.
+
+### 3. The compensator filter, and non-closure
+
+`ip8.build` also admitted only compensators disturbing nothing outside the region — that rejected
+**126 of 176** candidates (`s11/relax.py`), several costing just 1–3 extra equations. And the
+regions were never closed: closing the checkpoint's failing region under "every equation touched
+by any variable present" reaches **26,598 of 39,033 equations and 28,232 of 38,748 variables**
+(`s11/closure.py`) and is still growing.
+
+> **The problem does not localise.** Any valid certificate must be global; every certificate in
+> IP #1–#18 is local. What they establish is that *those restricted move sets* cannot do better —
+> which explains why my searches plateaued, but proves nothing about the instance.
+
+### What survives, and what does not
+
+| earlier claim | status |
+|---|---|
+| 39,018 construction, verified | **stands** (checker.py) |
+| optimum 15 *for that channel and move set* | stands, correctly scoped |
+| checkpoint rigid for allow ≤ 3, no single-row drop | stands, **for the 130×69 system only** |
+| "sole obstruction is one factor of p" | **scoped down**: true of the restricted systems, not proved of the instance |
+| "the p-factor is universal" | **withdrawn as a global claim** — measured with the filter in place |
+| "p-divisibility unreachable inside preserving moves" | **withdrawn** — `perm.py` exhibits leverage on every failing equation |
+
+### The corrected next step
+
+Newton mod p with the **true symbolic Jacobian** (`s11/newtonp.py`) solves the region system in
+11 s, but the region is not closed, so applying the step breaks the un-modelled outside
+(7 failing → 5,537). The correct target is therefore a **global** mod-p solve:
+
+> Find an assignment with **every** equation ≡ 0 (mod p). Then the residual is `p·r`, and the
+> p-quantised handles — which move equations exactly in multiples of p — can absorb it exactly.
+> That is a clean two-stage route to a full solve, and it needs a *global* sparse GF(p) Newton
+> exploiting the circuit's triangular gate structure, not a localised one.

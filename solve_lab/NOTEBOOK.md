@@ -1672,3 +1672,26 @@ inside moves that keep the satisfied equations satisfied.
 
 Loop closed: sole obstruction is one factor of p; absorbing it needs a p-divisible RHS; and that
 is unreachable inside every preserving move. Deliverable unchanged at 39,026.
+
+### Session 11, Part IX — CORRECTION: my obstruction proofs were about restricted move sets
+
+Asked to reason hard about breaking the wall, the thing that gave way was my own argument.
+
+- `perm.py`: for every failing equation, count variables with genuine mod-p leverage — 26,15,30,
+  25,6,9,16 at the checkpoint; 12..27 at 39,018. ZERO are permanently unfixable. The wall is
+  coupling, not rigidity.
+- `hensel.py` (fast p-adic test): with the exact-linear filter the system is unsolvable even MOD P
+  at 130x69, 300x183, 500x324, 900x598, 1400x1014. The filter (f(u+2)-f(u)==2(f(u+1)-f(u))) keeps
+  only linearly-entering variables and rejects every quadratic one — exactly where the leverage is.
+  With the TRUE symbolic Jacobian (`newtonp.py`) the mod-p region system solves in 11s.
+- `relax.py`: the compensator filter rejected 126 of 176 candidates.
+- `closure.py`: closing the checkpoint's failing region reaches 26,598 equations and 28,232
+  variables — the problem does not localise, so no local certificate is a global proof.
+
+Withdrawn as global claims: "sole obstruction is one factor of p", "p is universal",
+"p-divisibility unreachable inside preserving moves". Still standing: the verified 39,018
+construction, and the per-channel optima correctly scoped to their move sets.
+
+Corrected next step: a GLOBAL mod-p Newton with the true Jacobian, exploiting the triangular gate
+structure. Reaching an assignment with every equation = 0 mod p leaves a residual of p*r, which
+the p-quantised handles absorb exactly — a clean two-stage route to a full solve.

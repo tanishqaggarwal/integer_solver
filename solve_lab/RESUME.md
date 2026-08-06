@@ -110,6 +110,26 @@ Scripts `s11/ip1.py` .. `s11/ip11.py`; full write-up in `S11_PART3_IP.md`.
   > Sole obstruction = one factor of p; absorbing it needs a p-divisible RHS; p-divisibility is
   > unreachable inside every preserving move. That is why local search cannot shift the score.
 
+### CORRECTION (read before trusting Part VI/VII): the obstruction proofs were LOCAL
+`s11/perm.py`, `s11/hensel.py`, `s11/relax.py`, `s11/closure.py`, `s11/newtonp.py`.
+1. **Nothing is permanently unfixable.** Every failing equation has 6-30 variables with genuine
+   mod-p leverage, at both the checkpoint and 39,018. The wall is COUPLING, not rigidity.
+2. **The "exact-linear" filter deleted exactly that leverage.** Requiring
+   f(u+2)-f(u) == 2*(f(u+1)-f(u)) keeps only variables entering LINEARLY and rejects every
+   quadratic one. With the filter the system is unsolvable even mod p at every region size
+   (130x69 .. 1400x1014); with the TRUE symbolic Jacobian the mod-p region system solves in 11s.
+3. **Regions were never closed**: closing the checkpoint's failing region reaches 26,598 of
+   39,033 equations and 28,232 of 38,748 variables. The problem DOES NOT LOCALISE.
+> So "the sole obstruction is one factor of p" and "the p-factor is universal" are statements
+> about restricted move sets, NOT about the instance. Withdrawn as global claims. The 39,018
+> construction and the per-channel optima stand (correctly scoped).
+
+### CORRECTED NEXT STEP (highest value)
+Global mod-p solve: find an assignment with EVERY equation = 0 mod p, using Newton with the
+true symbolic Jacobian (`s11/newtonp.py` has it) and the circuit's triangular gate structure to
+make the step tractable. Then the residual is p*r and the p-quantised handles absorb it exactly
+-- a clean two-stage route to a full solve.
+
 ### Do NOT redo
 - The clean all-zero frame, the MUX/OR-tree decode, `a40608 = (W-C)^2`, the core rank-2
   reduction, the cubic, the 8640431 CRT step, the channel taxonomy, the control scans.
