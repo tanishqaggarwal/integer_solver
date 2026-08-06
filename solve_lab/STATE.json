@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1786030498,
+ "updated_unix": 1786036874,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -432,6 +432,21 @@
    "settable_restriction": "only 22 of 529 atoms are unsettable; intersecting the kernel with z=0 there still leaves dimension 8, all touching the seed; sparsest vector has support 69 atoms touching only 68 equations, all settable (47 direct, 22 p-handle), rational kernel dimension 1",
    "why_not_realisable": "69 atoms have only 48 setting variables -> 21 collisions; in the canonical frame all 21 fail z_a*d_b == z_b*d_a; in the fully detached frame the collisions break but the 42 detached variables touch 39 outside atoms putting 110 equations at risk, and closing over BOTH relations (equation-sharing and variable-sharing) blows up to 12,367 atoms / 13,746 equations with a negative ratio",
    "consequence": "every price in Parts XII-XV is a price for ONE frame; the coupling that blocks realisation closes over the whole instance"
+  },
+  "agents": {
+   "placement_search": "whole-instance break census over all 38,748 variables, 33,969 distinct supports: min failing = 7, nothing below it anywhere. Reachable equation-direction space in Q^12 has rank 7 and -r0 is in it. a22231 is provably the unique 8th atom whose equations all lie inside the twelve. Footprint-1 atoms are BUNDLES, not carriers.",
+   "adversarial_audit": "could not refute; found 7 real defects (the balance law is bookkeeping not a law; removing both congruences is worth 7 not 2; congruence 1 costs 13 not 20; driver prices 30/38/109 not 15/30/110; lattice11.py is heuristic). Named weakest step: multi-parameter joint moves.",
+   "cluster_algebra": "cones are boolean MUX networks, not one-way. Two zero-net swaps found; both together close the cluster EXACTLY at 39,009. Obstruction functional's gradient over all 7,273 free inputs is exactly {x_2081, x_4287}. Its C3 != K1 infeasibility claim was REFUTED (the a7930 link is frame-dependent).",
+   "wire": "w = 1 frees the entire residual -- only TWO of 42,267 atoms nonzero, 39,020 verified -- for a price of 13. Exactly two regimes, no third; price irreducible (196,624 three-knob systems bottom out at 11).",
+   "activation": "second.py's 6-of-6 result was a CONTROL FAILURE. All 17,766 pairs enumerated twice: 0 genuinely second-order at value 1. Kernel never opens because the closure's column set is closed. Canonical-frame coset-leader ceiling 39,018. Record frame admits no move: 14,541 single moves, none improving.",
+   "boolean_branches": "load pins are b*(x-K)-c*z (three monomials); only two reach C0. Flipping all 900 neutral booleans at once leaves the seven residual values BIT-IDENTICAL. Branch table in Part XV was frame-dependent.",
+   "boolean_carriers": "closed by NON-NEGATIVITY: x(x-1) >= 0, and an exact rational Phase-1 simplex proves the free-variable cone is trivial, so every free boolean really is confined to {0,1}. Zero boolean atoms appear in any of the 7 failing equations.",
+   "joint_moves": "A = 0 realised constructively: all seven residual atoms zero, all twelve gadget equations satisfied, only THREE atoms nonzero instance-wide, at 39,017. Corrects the >= 24 ledger entry to 16 MEASURED. The mod-p veto is wrong in both directions."
+  },
+  "frame_ceilings": {
+   "canonical": 39018,
+   "witness": 39026,
+   "note": "the deliverable saturates its own frame's linear ceiling exactly"
   }
  }
 }

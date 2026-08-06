@@ -2390,3 +2390,94 @@ score to 38,996. Any experiment starting from the deliverable must use a
 block-preserving forward evaluation (the `frame2`/`frame3` detachments, or an
 equivalent `fwdb`). Several earlier measurements were frame-dependent for exactly
 this reason.
+
+---
+
+# Part XXIII — the joint move, priced constructively (correcting §89), and the frame ceilings
+
+## 115. The whole prize is reachable, and costs 16 — not "≥ 24"
+
+§89 argued that removing **both** congruences is worth 7 equations but costs at
+least `11 + 13 = 24`. That lower bound was an argument, not a measurement, and it is
+wrong. Realising `A = 0` directly (`s10/jm_19_azero.py`):
+
+```
+python3 checker.py s10/jm_azero00_39017.json  ->  39017/39033  (16 failing)
+   all seven residual atoms exactly ZERO
+   all twelve gadget equations SATISFIED; the failing set is disjoint from them
+   only THREE of the 42,267 atoms are nonzero: a688, a1618, a40608
+```
+
+In frame 2 the seven atoms are exactly
+
+```
+a22229 = x_7068 - x_2099 - 7376877*x_642     a22230 = x_28730 - p*x_9413
+a35758 = x_29854 - p*x_1329                  a35759 = 5113045*x_7075*x_9118 - x_29854
+a35760 = x_31864 - p*x_10903                 a35761 = x_7075*x_8731 + x_31864
+a35762 = x_642  - p*x_17325
+```
+
+so `A = 0 ⟺ p | x_9118, p | x_8731, x_28730 ≡ 0, x_7068 ≡ x_2099 (mod p)` — the last
+two being congruences 2 and 1. **The ledger entry should read 16 measured, not ≥ 24.**
+
+| move | out-of-twelve cost | score | leftover |
+|---|---|---|---|
+| congruence 1 alone (`x_6418`) | 13 | 39,009 | `a3576` |
+| congruence 2 alone (`x_28730` + tracker `x_24548`) | **11** | 39,011 | `a21617, a37662` |
+| both (branch flip + pins + zeroing) | 14 | 39,008 | `a25676, a33796, a42245` |
+| **`A = 0` realised** | **16** (in-twelve 0) | **39,017** | `a688, a1618, a40608` |
+
+Exhaustive second-move sweeps from each state — candidate set = all free inputs in
+the cones of the atoms of the still-failing equations, provably complete for one
+further move — gave **6,297 exact measurements and zero improvements**, plus 1,314
+exact-cancellation pairs over the 82 movers (best 47) and 580 driver patterns.
+
+## 116. The mod-p veto is wrong in *both* directions
+
+The 𝔽_p greedy predicted a **4-equation** floor for either congruence (breaking only
+`a41400, a41507, a41827, a42245`). Built explicitly and measured: **none of those
+four broke**, and instead `{a19297, a19299, a30984, a36185, a40812}` broke, for **20**.
+
+> At large moves the mod-p model is unreliable in both directions — it both
+> over- and under-predicts. Only construction settles a price. Every linear ceiling
+> in Parts XII–XVI should be read with that caveat.
+
+Exact map (957 forward-AD columns): `dC₀` has support only `{x_2081, x_4287, x_6418,
+x_7068}` and `dA₁` only `{x_28730}`; the check matrix is 1,716 × 957 of rank 670 with
+kernel dimension 287, and **both targets lie inside the row span**, so collateral is
+forced rather than incidental.
+
+## 117. Conservation, and one uniform blocker shape
+
+Every repair *moves* the residual rather than shrinking it — `11 → 14 → 16 → 20 → 24`,
+and `13 (a3576) ↔ 13 (a29539 + a40826)`. And every terminal blocker reached from any
+direction has the **same shape**:
+
+```
+K*(free - derived) - p*handle          with a p-quantised absorber
+a3576, a3578, a3568, a3570, a7930, a21617, a29539, a31672, a33796, a688, a1618
+```
+
+Feeding one pin re-selects a mux and opens another. Two structural routes closed:
+`x_2081 = p` does kill `a3576`'s dependence on `x_6418` mod p (the product dies) but
+costs 109 via `a29466/a3578/a37893/a41794`; and `x_26777 = p·x_3387` means `a3576` can
+only absorb multiples of `15804267·p`, so `x_6418` can never move mod p through it.
+
+## 118. The two frames' linear ceilings
+
+Since rank = columns in every closure measured, the solve is injective and the real
+quantity is the **minimum-equation-cost coset leader**,
+`score = 39033 − |equations whose atom combination is nonzero|`. Measured by
+information-set decoding in both frames:
+
+```
+canonical frame (39,009 seed) : 1,035 information sets -> ceiling 39,018
+witness frame  (the deliverable): 1,669 x 714 closure, 1,500 information sets
+                                  do-nothing cost 7  ->  ceiling 39,026
+```
+
+> **The deliverable saturates its own frame's linear ceiling exactly.** No linear
+> move in the witness frame beats 39,026, and the canonical frame's ceiling is
+> strictly below it. (Note the corrected cost function: counting every equation the
+> nonzero atoms *touch* rather than those whose combination is nonzero reported the
+> do-nothing witness frame as 39,021 instead of 39,026.)

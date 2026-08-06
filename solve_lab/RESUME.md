@@ -193,6 +193,41 @@ This overturns the framing of parts 2–5. They priced everything in terms of at
   every kernel vector, and the coupling enforcing that closes over the whole instance.
   Every price in parts 2–5 is a price for *one frame*, which is why no frame beat another.
 
+### Session 11 (part 7) — eight parallel investigations, all closed
+Nothing beat 39,026. Every route now has a constructive price, and several of my own
+earlier claims were corrected by them.
+
+| route | verdict |
+|---|---|
+| global placement | break census over all 38,748 variables, 33,969 supports: **min 7 anywhere** |
+| adversarial audit | could not refute; found 7 defects in my statements (see Part XVII) |
+| cluster algebra | cones are boolean **MUX networks**; residual is **conserved**, 24 in / 24 out |
+| p-wire | `w = 1` frees everything — only **2 of 42,267 atoms** nonzero — for **13** |
+| activation | kernel never opens; closure column set is **closed**; canonical ceiling **39,018** |
+| boolean branches | all 900 neutral flips at once leave the seven **bit-identical** |
+| boolean carriers | killed by **non-negativity**: `x(x−1) ≥ 0`, free cone provably trivial |
+| joint pin moves | **`A = 0` realised at 39,017** — corrects my "≥ 24" to **16 measured** |
+
+**The two headline states, both checker-verified:**
+* `s10/jm_azero00_39017.json` — **39,017**, all seven residual atoms exactly zero, all
+  twelve gadget equations satisfied, **only three atoms nonzero instance-wide**.
+* `s10/wr_engine_w1_x7068_39020.json` — **39,020**, wire at `w = 1`, **only two atoms
+  nonzero instance-wide**.
+
+**Frame ceilings** (minimum-equation-cost coset leader, by information-set decoding):
+canonical **39,018**, witness **39,026**. *The deliverable saturates its own frame's
+linear ceiling exactly.*
+
+**Methodological warnings that cost me real time:**
+* The mod-p veto is wrong in **both** directions at large moves — it predicted a
+  4-equation floor where construction measured 20, breaking a disjoint set of atoms.
+  Only construction settles a price.
+* The 39,026 partial is **off-manifold**; a plain `ad.fwd` "repairs" its deliberately
+  nonzero gate atoms and drops to 38,996. Use `frame2`/`frame3` or an equivalent
+  block-preserving forward.
+* Cost must count equations whose atom **combination** is nonzero, not equations the
+  atoms touch — the latter reports the witness frame as 39,021 instead of 39,026.
+
 ### Next actions
 1. The cluster must be solved **whole** — members cost 10–15 equations each, so no
    partial fix competes with 7. Attack the single obstruction functional of the
