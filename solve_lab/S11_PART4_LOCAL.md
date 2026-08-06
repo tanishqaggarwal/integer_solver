@@ -277,7 +277,12 @@ quantity is a free input or a computed one.
    sums of gate outputs (`x21219 + x22131`, `x31730 + x36524`, `x6711 + x2853`); the 3-hop
    response system already has 863 columns and still cannot, so it needs the *boolean* columns
    or a different bit pattern in that channel.
-2. In the checkpoint channel: `13523997 | x9106` completes the x4287 route's local repair
-   (shift x9118, x8731 by multiples of p — they move x9106 without touching the mod-p work).
+2. ~~`13523997 | x9106`~~ — **done** (`s11/sw7.py`).  Shifting x9118 by p*j and x8731 by p*k
+   leaves x27177 and x4306 zero mod p but moves x9106/p affinely, so the extra congruence is one
+   linear equation mod 13523997; it solves at (j,k) = (10143576, 0).  With it, the x4287 route's
+   local repair is **complete**, and its residual is
+   `[a7930, a29539, a40826, a41512]` — *exactly* the four atoms fix2 leaves, 29 failing,
+   score 39,004.  Two structurally unrelated routes landing on the identical residual is direct
+   confirmation that the x7068 copy network is the single remaining obstruction.
 3. The copy network of x7068: it is rationally consistent and fails only integrally.  The
    221 boolean response columns are the only unexplored freedom there.
