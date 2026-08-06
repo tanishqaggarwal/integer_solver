@@ -211,3 +211,73 @@ certificate and produces a new singleton one row further out.  That is the fan-o
    x4287 channel's local repair.
 3. **The 221 boolean response columns.**  They are the only non-affine freedom in the copy
    network, and a rationally-consistent-but-not-integral system is exactly what they could fix.
+
+---
+
+# Part XII — the x5647 branch priced with the same exact tools
+
+Lead 1 of §12 checked out structurally (the three wall checks are vacuous there) but does not
+pay off numerically.
+
+## 13. `localopt2.py` — the exact local minimum, for any state
+
+Given a state: A = the atoms occurring in the equations that touch the broken atoms;
+KNOBS = variables occurring in no atom outside A (so moving them cannot disturb anything else);
+OBJ = **every** equation containing any atom of A — not merely the equations touching the broken
+atoms, which was the trap: an atom of A can appear in equations far away.  Then enumerate
+drop-sets among the currently-failing equations of OBJ.
+
+Validated: on the 39,026 checkpoint it returns **MINIMUM = 7**, with drop set exactly the seven
+known failing equations — independently reproducing `local1.py` by a completely different route.
+
+## 14. The 39,018 state (x5647 channel)
+
+    broken atoms 26719 26721 26723 -- all checks, ZERO broken gates
+    a26719 = x3896*x12000 - 8640431*x24326      x24326 = x24175*p,  x24175 free
+    a26721 = x3896*x12926 - x21693              x21693 = x4615*p,   x4615  free
+    a26723 = 2648967*x3896*x21364 - x3358       x3358  = x13992*p,  x13992 free
+
+with `x3896 = 1` (group-1 mirror on), so the branch's whole obstruction is
+
+    8640431*p | x12000        p | x12926        p | x21364
+
+— structurally the same shape as the checkpoint's three congruences, except that x12000, x12926
+and x21364 are **gate-computed**, whereas the checkpoint's x9118 and x8731 are free inputs.
+That is why this branch is harder, and it shows up in the numbers:
+
+    localopt2 on 39,018 : movable atoms 84 -> objective 53 equations, 26 knobs
+                          drop 0,1,2,3,4,5 all infeasible
+
+    cert.py, ripple-response certificates (obstructions any repair must leave broken):
+        1 hop  : no columns at all -- the broken atoms contain no free variable
+        2 hops : {26719,26721} {26719,26723} {26719,29539} {26719,40826}
+        3 hops : 1095 rows x 863 columns, rank 750;
+                 {26719,26721} {26719,26723} {1618,26719,29539}
+
+**Every certificate contains a26719**, at every depth.  A minimum hitting set is {a26719}
+itself, costing its 11 equations.  So this branch cannot be pushed below about 11 with any of
+these move sets — worse than the checkpoint's 7, and consistent with the drop enumeration.
+
+## 15. Where things stand
+
+    checkpoint channel (x15298 = 1) : local optimum PROVED = 7, obstruction = three congruences
+                                      on FREE inputs, clearable, but clearing it moves x7068 and
+                                      the copy network walls at a19297/a19299/a30984
+    x5647 channel      (x15298 = 0) : those wall checks are vacuous, but the branch's own
+                                      obstruction sits on GATE-COMPUTED values and prices at ~11
+
+The deliverable stays at **39,026**.  What is new is that both branches are now priced by exact
+integer feasibility rather than by search behaviour, and the two obstructions are written down
+explicitly — three congruences each, with the decisive difference being whether the divisible
+quantity is a free input or a computed one.
+
+## 16. Sharpest open questions
+
+1. Can `x12000`, `x12926`, `x21364` be steered by the free inputs feeding them?  They are
+   sums of gate outputs (`x21219 + x22131`, `x31730 + x36524`, `x6711 + x2853`); the 3-hop
+   response system already has 863 columns and still cannot, so it needs the *boolean* columns
+   or a different bit pattern in that channel.
+2. In the checkpoint channel: `13523997 | x9106` completes the x4287 route's local repair
+   (shift x9118, x8731 by multiples of p — they move x9106 without touching the mod-p work).
+3. The copy network of x7068: it is rationally consistent and fails only integrally.  The
+   221 boolean response columns are the only unexplored freedom there.
