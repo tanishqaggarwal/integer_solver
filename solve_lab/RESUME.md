@@ -116,6 +116,29 @@ leaves only 6 of 12; the seventh equation needs a compatibility condition on
 `K = x_4432 − x_19964 (mod p)`; moving `K` costs 14; moving `C₀` costs 13; unpinning
 `A1` through `a7930` costs 11; the cluster whole costs >= 30.
 
+### Session 11 (part 4) — the balance law: why 7 is exactly the floor
+* **`a37887` is a perfect square.** Solved as a *quadratic* in each variable
+  (`s10/quadfix.py` — a move class no search had, since `solve_lin` returns None on
+  degree 2), every variable has a **double root**. So `a37887 = Q²`, and `Q = 0` pins
+  `x_28730` **exactly**, not merely mod p. Its Hessian gives
+  `Q = a22231 − 3x_18253 − 9x_23754 − 34x_35619 − 13523972·x_9629 + …` — `a22231` plus
+  exactly the compensator-family variables.
+* **The balance law.** With `n` atoms allowed nonzero, `c` congruences among them and
+  `E` the equations they touch, a k-subset is satisfiable when its kernel has dimension
+  ≥ c, so `k = n − c` and **failing = |E| − n + c**:
+
+  | atom set | n | c | \|E\| | failing |
+  |---|---|---|---|---|
+  | the seven | 7 | 2 | 12 | **7** — the deliverable |
+  | + `a22231` | 8 | 2 | 12 | 6, **+1 for `a37887`** = 7 |
+  | + `a22232, a22233` | 10 | 3 | 15 | 8 |
+  | + `a22234, a22235` | 12 | 4 | 17 | 9 |
+
+  Adding a compensator changes the count by `out − 1 + Δc`. `a22231` is the **only** one
+  with `out = 0, Δc = 0`, and its −1 is spent exactly on `a37887` — whose `Q` is built
+  from `a22231` itself. **The instance is balanced so that its one free compensator pays
+  for precisely the one check that blocks it.**
+
 ### Next actions
 1. The cluster must be solved **whole** — members cost 10–15 equations each, so no
    partial fix competes with 7. Attack the single obstruction functional of the

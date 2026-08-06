@@ -41,11 +41,11 @@
   "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
  },
  "next_actions": [
-  "Deliverable unchanged: solve_lab/best/new_instance_partial_39026.json (7 failing), re-verified.",
-  "39,026 is now PROVED optimal for its placement (s10/lattice11.py + s10/final27.py): combinatorial optimum 6, and the sixth equation costs 11.",
-  "START HERE: the only unmeasured space is the LIVE stratum. 95.7% of quadratic monomials are dead at our witness, so 115 free inputs reach the cluster with zero derivative (s10/dead.py). Activating them needs >= 2 simultaneous nonzero free inputs -- a second-order search no linearisation can see.",
-  "The collateral checks are genuinely nonlinear under large moves, so the closure's veto is not final; the absorbable rows are 90.6% linear so the reduced closure is.",
-  "Do NOT redo: single-move hill climbing, the boolean scan over cluster cones, the frame-2 sacrifice enumeration, curve/ratrec number theory on the broadcast constants."
+  "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing), verified.",
+  "39,026 is optimal under the balance law failing = |E| - n + c: the seven give 7, the only improving compensator a22231 gains 1 and loses exactly 1 to a37887 = Q^2, and every other lever is priced 11/13/14/30/52 against a gain of 1.",
+  "The ONLY space left unmeasured is the live stratum: 95.7% of quadratic monomials are dead at our witness, and single activations provably cannot reach the cluster (s10/activate.py) -- it needs simultaneous pairs, a second-order search.",
+  "Reusable machinery added this session: s10/repair2.py (two-level handle repair), s10/newton_modp.py + s10/crt.py (mod-p Newton + CRT), s10/fwdad.py (forward-mode AD closures), s10/frame2.py and s10/frame3.py (non-canonical frames), s10/cascade.py, s10/engine.py (lexicographic potential), s10/quadfix.py (quadratic repair).",
+  "Do NOT redo: single-move hill climbing, boolean scans, the sacrifice enumerations, curve/ratrec number theory, single dead-path activation, the compensator enumeration."
  ],
  "blocked": [
   "Part 1's two mod-p congruences are rigid ONLY because all handles are p-quantised, and part 2 shows that rests on a wire with a 3-dimensional free deformation space. The live obstruction is now the 13 multi-wire monomials plus the bare root pin a37694 (12 equations)."
@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1786019681,
+ "updated_unix": 1786020108,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -402,6 +402,17 @@
    "compensating_pair": "x_28730 += d, x_19964 -= d holds a22230=0, a22231=0, a37887=0 AND a7930=0 simultaneously -- four checks never before held at once -- but x_19964's only live drivers are x_12553 (15 eqs), x_4287 (30), x_2081 (110)",
    "x_8731_degeneracy": "a1459 = x_19892 - x_8731*x_21279 with x_21279 = 0, so x_8731's path to x_19964 is switched off; in branch (1,1) it is live with derivative exactly 1",
    "branch11_frame3": 39014
+  },
+  "balance_law": {
+   "law": "failing = |E| - n + c, with n atoms allowed nonzero, c mod-p congruences among them, E the equations they touch",
+   "table": {
+    "seven": "n=7 c=2 |E|=12 -> 7 (the deliverable)",
+    "+a22231": "n=8 c=2 |E|=12 -> 6, +1 for a37887 = 7",
+    "+a22232,a22233": "n=10 c=3 |E|=15 -> 8",
+    "+a22234,a22235": "n=12 c=4 |E|=17 -> 9"
+   },
+   "a37887_is_a_perfect_square": "every variable has a DOUBLE root, so a37887 = Q^2 and Q = 0 pins x_28730 exactly, not just mod p; Q = a22231 - 3x_18253 - 9x_23754 - 34x_35619 - 13523972x_9629 + ... i.e. a22231 plus exactly the compensator variables",
+   "conclusion": "adding a compensator changes the count by out - 1 + dc; a22231 is the ONLY one with out=0,dc=0, and its -1 is spent exactly on a37887. The instance is balanced so its one free compensator pays for the one check that blocks it."
   }
  }
 }

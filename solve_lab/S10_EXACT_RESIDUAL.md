@@ -1611,3 +1611,83 @@ above the 7 the deliverable pays:
 | the gadget cluster whole | 24 | ≥ 30 (reduced closure), ≥ 52 (full) |
 
 The instance's margin is six equations and every door now has a number on it.
+
+---
+
+# Part XIV — the balance law, and why 7 is exactly the floor
+
+## 74. `a37887` is a perfect square
+
+Solving `a37887` as a *quadratic* in each of its variables (`s10/quadfix.py`) — a
+move class no search had, since `solve_lin` returns `None` on any variable of
+degree 2 — every variable has a **double root**:
+
+```
+x_4432   roots  -119325148954113784451...  (twice)
+x_28730  roots  5439633036170520078110...  (twice)   <- the delivered value
+x_19964, x_18253 : likewise double
+```
+
+So `a37887 = Q²` for a linear form `Q`, and `Q = 0` pins `x_28730` **exactly**, not
+merely mod `p`. Reading its Hessian (the coefficient of `x_4432·w` is `2·q_4432·q_w`)
+
+```
+Q = a22231 - 3*x_18253 + 5*x_37720 + 5*x_30108 - 5*x_34600 - 9*x_23754
+    - 14*x_7945 + 18*x_23642 + 18*x_23822 + 27*x_37254 - 27*x_15324
+    - 34*x_35619 - 13523972*x_9629
+```
+
+> `Q` is `a22231` plus exactly the compensator-family variables. The check that
+> pins `x_28730` is built from the very atoms that could compensate it.
+
+## 75. The balance law
+
+Let `n` be the number of atoms allowed to be nonzero, `c` the number of mod-`p`
+congruences they satisfy, and `E` the equations they touch. A `k`-subset is
+satisfiable when its kernel has dimension at least `c`, so `k = n − c` and
+
+> **failing = |E| − n + c**
+
+Check it against everything measured:
+
+| atom set | n | c | \|E\| | failing |
+|---|---|---|---|---|
+| the seven | 7 | 2 | 12 | **7** ← the deliverable |
+| + `a22231` | 8 | 2 | 12 | 6, **+1 for `a37887`** = 7 |
+| + `a22232, a22233` | 10 | 3 | 15 | 8 |
+| + `a22234, a22235` | 12 | 4 | 17 | 9 |
+
+Adding a compensator with `out` equations outside the twelve changes the count by
+`Δ = out − 1 + Δc`. Every candidate was enumerated in §69:
+
+```
+a22231  out = 0, Δc = 0  ->  Δ = -1     the ONLY improving compensator
+a22232  out = 1          ->  Δ >= 0
+a35757  out = 2          ->  Δ >= +1
+a22233  out = 2          ->  Δ >= +1
+...
+```
+
+and `a22231`'s single-equation gain is spent exactly on `a37887`, whose `Q` is
+built from `a22231` itself. **The instance is balanced so that its one free
+compensator pays for precisely the one check that blocks it.**
+
+## 76. Session 11, final
+
+Nothing beat 39,026, and the reason is now a theorem-shaped statement rather than a
+tally of failed searches:
+
+```
+achievable atom set     A2..A5 free; A0 + 7376877*A6 == C0 (mod p); A1 == A1_0 (mod p)
+balance law             failing = |E| - n + c
+the only improving compensator   a22231 (Δ = -1), cancelled exactly by a37887 = Q^2
+every other lever       priced 11, 13, 14, 30, 52 against a gain of 1
+```
+
+New machinery this session, all of it reusable: two-level handle repair, mod-`p`
+Newton moves with CRT, forward-mode AD closures, explicit non-canonical frames
+(2 and 3), the repair cascade, the lexicographic potential, and quadratic repair
+moves. Four checks — `a22230`, `a22231`, `a37887`, `a7930` — were held at zero
+simultaneously for the first time.
+
+**39,026 / 39,033 stands, and the margin of six is now explained.**
