@@ -139,6 +139,15 @@ leaves only 6 of 12; the seventh equation needs a compatibility condition on
   from `a22231` itself. **The instance is balanced so that its one free compensator pays
   for precisely the one check that blocks it.**
 
+### The one direction still open (measured, session 11)
+Single activation of a dead free input provably cannot reach the cluster — a dead `u`
+only multiplies a `w` that is `0`. The **second-order** version works: find the blocking
+`w`, find a free input `z` that makes `w` nonzero, test the pair. `s10/second.py`:
+**6 of 6 tested pairs grew the cluster's gradient support**, +1 to +2 new knobs each, at
+6–13 broken atoms. The live stratum genuinely has knobs ours does not; the measured
+exchange rate is 1–2 knobs per 6–13 broken atoms. That is the only door left, and it is
+a second-order search, not a linear one.
+
 ### Next actions
 1. The cluster must be solved **whole** — members cost 10–15 equations each, so no
    partial fix competes with 7. Attack the single obstruction functional of the

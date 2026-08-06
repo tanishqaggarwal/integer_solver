@@ -1691,3 +1691,23 @@ moves. Four checks — `a22230`, `a22231`, `a37887`, `a7930` — were held at ze
 simultaneously for the first time.
 
 **39,026 / 39,033 stands, and the margin of six is now explained.**
+
+## 77. The one direction that is open, now measured
+
+`s10/activate.py` showed no *single* activation of a dead free input reaches the
+cluster — by construction, since a dead `u` only multiplies a `w` that is `0`.
+`s10/second.py` does the second-order version: find the blocking `w`, find a free
+input `z` that makes `w` nonzero, and test the pair.
+
+```
+6 activations tested, 6 GREW the cluster's gradient support
+  x_17406 -> activates x_5858   : support +2 knobs, 6 atoms broken
+  x_16586 -> activates x_15148  : support +2 knobs, 7 atoms broken
+  x_12054 -> activates x_30131  : support +2 knobs, 10 atoms broken
+  x_28713 -> activates x_3896   : support +1 knob, 13 atoms broken
+```
+
+> Activation is real: the live stratum genuinely has knobs our stratum does not.
+> The exchange rate measured here is **1–2 new knobs per 6–13 broken atoms**, and
+> the closure needs its rank deficit closed, so this is the only door left and it
+> is a second-order search, not a linear one.

@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1786020108,
+ "updated_unix": 1786020351,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -413,6 +413,11 @@
    },
    "a37887_is_a_perfect_square": "every variable has a DOUBLE root, so a37887 = Q^2 and Q = 0 pins x_28730 exactly, not just mod p; Q = a22231 - 3x_18253 - 9x_23754 - 34x_35619 - 13523972x_9629 + ... i.e. a22231 plus exactly the compensator variables",
    "conclusion": "adding a compensator changes the count by out - 1 + dc; a22231 is the ONLY one with out=0,dc=0, and its -1 is spent exactly on a37887. The instance is balanced so its one free compensator pays for the one check that blocks it."
+  },
+  "second_order_activation": {
+   "single": "no single activation reaches the cluster (s10/activate.py) -- by construction, a dead u only multiplies a w that is 0",
+   "second_order": "s10/second.py: 6 of 6 tested pairs GREW the cluster gradient support, +1 to +2 new knobs each, at 6-13 broken atoms",
+   "verdict": "the live stratum genuinely has knobs ours does not; exchange rate 1-2 knobs per 6-13 broken atoms. This is the only door left and it is a second-order search."
   }
  }
 }
