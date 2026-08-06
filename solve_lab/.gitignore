@@ -136,3 +136,11 @@ s10/FIX_*.json
 s10/QUAD_*.json
 s10/free1.json
 s10/kervec.json
+
+# session 11 subagent intermediates (regenerable from the ac_/cl_/pa_/wr_/bl_/au_ scripts)
+s10/ac_*.json
+s10/cl_*.json
+s10/pa_*.json
+s10/wr_*.json
+s10/bl_*.json
+s10/au_*.json
