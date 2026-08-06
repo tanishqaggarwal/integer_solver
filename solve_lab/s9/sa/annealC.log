@@ -1,0 +1,6 @@
+base ../best/new_instance_partial_39022.json: 11 failing, 3 nonzero atoms
+fast objective matches on base
+fast objective validated against harness.evaluate on 3 random states
+active bits: 254 of 1156  (1s)
+[C] evals=490059 distinct=490057 restarts=958 states<=base=31671 best=11 bits=[] time=1500s
+[C] score histogram (lowest 10): [(11, 31672), (54, 1944), (55, 1012), (56, 2878), (57, 1975), (58, 7868), (59, 9768), (60, 6737), (61, 17359), (62, 27131)]

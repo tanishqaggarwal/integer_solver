@@ -1,0 +1,7 @@
+huge-atom loads: 512 x_B wires, over 529 atoms
+DAG+precompute in 5.5s; main atoms 28386
+baseline DAG-eval violated=20, eval time=0.29s
+  it1 NEW BEST viol=19 |S|=1 (6s)
+  it200 cur=89 best=19 |S|=8 restarts=0 (58s)
+  it400 cur=123 best=19 |S|=13 restarts=0 (111s)
+  it600 cur=152 best=19 |S|=19 restarts=0 (164s)

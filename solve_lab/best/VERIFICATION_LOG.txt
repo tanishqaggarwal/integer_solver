@@ -1,0 +1,5 @@
+[checker] loaded 39031 equations in 9.9s
+[checker] assignment=solve_lab/best/best_partial_39013.json
+[checker] satisfied 39013/39031  (18 failing)  eval=0.1s
+[checker] first 18 failing line indices: [4287, 5468, 7499, 7513, 13994, 16616, 18532, 20026, 21067, 22249, 23001, 25684, 27497, 29108, 29111, 32874, 35729, 36563]
+RESULT: FAIL

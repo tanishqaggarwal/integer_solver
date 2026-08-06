@@ -1,0 +1,3 @@
+cone of 22 bits: 962 wires change (7s)
+sub-circuit recompute wires: 940
+baseline (22 bits=0) target atom values mod P: [1, 1, 1] (nonzero=violated)

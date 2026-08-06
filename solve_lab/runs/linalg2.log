@@ -1,0 +1,12 @@
+solving over 233 bits
+  40/234 responses (95s)
+  80/234 responses (97s)
+  120/234 responses (99s)
+  160/234 responses (101s)
+  200/234 responses (102s)
+atoms linear in the 232 bits: 45267/46275 (104s)
+linear constraint rows: 806 (105s)
+rank 233 / 233 vars, inconsistent rows 0 (105s)
+solution: 0 bits=1, 0 non-binary
+  bits=1: []
+  mod-P violated atoms: 4

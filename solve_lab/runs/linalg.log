@@ -1,0 +1,10 @@
+solving over 233 bits
+  40/234 responses (96s)
+  80/234 responses (98s)
+  120/234 responses (99s)
+  160/234 responses (101s)
+  200/234 responses (102s)
+total constraint rows: 877 (104s)
+rank 233 / 233 vars, inconsistent rows 21 (104s)
+solution: 0 bits=1, 5 non-binary
+  bits=1: []

@@ -1,0 +1,10 @@
+22-side after 1200 samples: |x_3183|=25, |x_9770|=22
+  233-side @ 500 samples: |x_17728|=12, |x_18274|=4 (152s)
+  233-side @ 1000 samples: |x_17728|=12, |x_18274|=4 (184s)
+  233-side @ 2000 samples: |x_17728|=12, |x_18274|=5 (246s)
+  233-side @ 3500 samples: |x_17728|=12, |x_18274|=5 (340s)
+
+COLLISIONS: x_3183∩x_17728 = 1 [0]
+           x_9770∩x_18274 = 1 [0]
+  NONZERO collisions: twist3183=0, twist9770=0
+done (340s)

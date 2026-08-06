@@ -1,0 +1,9 @@
+round 0: 23 broken now, 23 accum, 125 handles
+  rank 13/25; S%p=False, T%p=False, x3558%p=True
+round 1: 14 broken now, 37 accum, 151 handles
+  rank 22/39; S%p=False, T%p=False, x3558%p=False
+round 2: 71 broken now, 94 accum, 195 handles
+  rank 41/96; S%p=False, T%p=False, x3558%p=False
+round 3: 257 broken now, 277 accum, 378 handles
+  rank 110/279; S%p=False, T%p=False, x3558%p=False
+round 4: 538 broken now, 599 accum, 709 handles

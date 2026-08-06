@@ -1,0 +1,13 @@
+state sa/base9.json failing 9 [9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+level-1 vars 77 level-2 pool 614
+|X| = 60
+|E| = 231 failing inside E: 9
+iter 1: |S|=222  unsat=9  1s
+940 passes; best |S|=222/231 -> 9 failing
+EXACT-Z verified failing: 9 [2554, 6816, 8680, 9421, 12231, 12270, 12350, 18673, 29125]
+state sa/base9.json failing 9 [9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+|X| = 60
+|E| = 231 failing inside E: 9
+iter 1: |S|=222 unsat=9 0s
+172489 passes; best |S|=222/231 -> 9 unsatisfied
+EXACT-Z verified failing: 9 [2554, 6816, 8680, 9421, 12231, 12270, 12350, 18673, 29125]

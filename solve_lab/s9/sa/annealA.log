@@ -1,0 +1,6 @@
+base sa/base9.json: 9 failing, 7 nonzero atoms
+fast objective matches on base
+fast objective validated against harness.evaluate on 3 random states
+active bits: 254 of 1156  (0s)
+[A] evals=507979 distinct=507977 restarts=1039 states<=base=32670 best=9 bits=[] time=1500s
+[A] score histogram (lowest 10): [(9, 32671), (52, 2044), (53, 998), (54, 3093), (55, 2001), (56, 8088), (57, 9138), (58, 7067), (59, 18502), (60, 28273)]

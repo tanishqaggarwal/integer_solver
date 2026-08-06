@@ -1,0 +1,4 @@
+  File "/home/user/integer_solver/solve_lab/modp_search.py", line 17
+    mainatoms = [poly for poly in atoms if any((set().union(*[set(m) for m,_ in [(mm,0)]]) if False else set(x for mm,_ in poly.items() for x in mm)) & mainv for _ in [0]]]
+                                                                                                                                                                          ^
+SyntaxError: closing parenthesis ']' does not match opening parenthesis '('

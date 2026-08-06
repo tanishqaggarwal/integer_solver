@@ -1,0 +1,27 @@
+quad 01: scanning 81 routings
+  [0] ('0', '0', '0', '0'): sat=39008 core=20 noncore=5 S0=False T0=True *BEST* [2s]
+  [2] ('0', '0', '0', 'C2'): sat=39010 core=20 noncore=3 S0=False T0=True *BEST* [4s]
+  [5] ('0', '0', 'C1', 'C2'): sat=39018 core=14 noncore=1 S0=False T0=True *BEST* [9s]
+  [14] ('0', 'C1', 'C1', 'C2'): sat=39016 core=14 noncore=3
+  [23] ('0', 'C2', 'C1', 'C2'): sat=39016 core=14 noncore=3
+  [32] ('C1', '0', 'C1', 'C2'): sat=39017 core=14 noncore=2
+  [41] ('C1', 'C1', 'C1', 'C2'): sat=39016 core=14 noncore=3
+  [50] ('C1', 'C2', 'C1', 'C2'): sat=39016 core=14 noncore=3
+  [59] ('C2', '0', 'C1', 'C2'): sat=39017 core=14 noncore=2
+  [68] ('C2', 'C1', 'C1', 'C2'): sat=39016 core=14 noncore=3
+  [77] ('C2', 'C2', 'C1', 'C2'): sat=39016 core=14 noncore=3
+
+TOP 12 routings for quad 01:
+  ('0', '0', 'C1', 'C2'): sat=39018 core=14 noncore=1 S0=False T0=True
+  ('C2', '0', 'C1', 'C2'): sat=39017 core=14 noncore=2 S0=False T0=False
+  ('C1', '0', 'C1', 'C2'): sat=39017 core=14 noncore=2 S0=False T0=False
+  ('C2', 'C2', 'C1', 'C2'): sat=39016 core=14 noncore=3 S0=False T0=False
+  ('C2', 'C1', 'C1', 'C2'): sat=39016 core=14 noncore=3 S0=False T0=False
+  ('C1', 'C2', 'C1', 'C2'): sat=39016 core=14 noncore=3 S0=False T0=False
+  ('C1', 'C1', 'C1', 'C2'): sat=39016 core=14 noncore=3 S0=False T0=False
+  ('0', 'C2', 'C1', 'C2'): sat=39016 core=14 noncore=3 S0=False T0=False
+  ('0', 'C1', 'C1', 'C2'): sat=39016 core=14 noncore=3 S0=False T0=False
+  ('0', '0', 'C2', 'C2'): sat=39010 core=20 noncore=3 S0=False T0=True
+  ('0', '0', '0', 'C2'): sat=39010 core=20 noncore=3 S0=False T0=True
+  ('C2', '0', 'C2', 'C2'): sat=39009 core=20 noncore=4 S0=False T0=False
+BEST: (39018, ('0', '0', 'C1', 'C2'))  [108s]

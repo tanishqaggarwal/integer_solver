@@ -1,0 +1,5 @@
+free value-inputs: 4945
+model 23843 vars 28386 cons built (21s); solving with assumptions...
+result: unsat (30s)
+UNSAT CORE: 4 assumptions -> value-inputs that must be nonzero: [13467, 13780, 29071, 29561]
+wrote unsat_core_vinputs.json

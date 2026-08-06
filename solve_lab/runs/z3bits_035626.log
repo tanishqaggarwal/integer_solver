@@ -1,0 +1,3 @@
+free value-inputs: 4945, residue domain size 5 (0 + 4)
+z3 model: 18898 vars, 28386 constraints (24s); solving...
+z3 result: unsat (25s)
