@@ -1464,3 +1464,54 @@ branch flips already measured at 34 / 83 / 106 failing in the witness frame.
 Minimum sacrifice 3 rows {a3578, a26731, a35759} at cost 37 equations; sizes 1, 2 impossible.
 
 **Deliverable unchanged at 39,026.**
+
+---
+
+## Session 11 — the circuit decoded as a program (see `S11_SEMANTICS.md`)
+
+Deliverable unchanged and re-verified: `best/new_instance_partial_39026.json` -> 39,026/39,033.
+
+**Method shift.** Sessions 1-10 modelled the instance as atom algebra (lattices, kernels,
+inconsistency certificates, hitting sets, wire deformation). Session 11 read it as a
+compiled arithmetic circuit and decoded the program. Caches rebuilt from scratch first
+(`atomize.py` -> 0 mismatches / 39,033 equations).
+
+| experiment | script | result |
+|---|---|---|
+| clean all-zero frame | `s11/fw.py` | **6 bad checks**, 28 failing, 39,005 — two independent clusters |
+| a40608 identity | `s11/solveW.py` | `a40608 = (W − C)²`; perfect-square discriminant, double root = a688's demand |
+| boolean cluster | `s11/sem.py` | `a23000 = (1−U)(1−V)`, `U=OR(x_8599,x_21839)`, `V=OR(x_7304,x_25956)` |
+| OR-tree bit census | `s11/scan.py` | 88/90/37/41 bits; every single bit switches its node |
+| 3-way MUX channels | `s11/chan2.py` | `U·V`, `(1−U)V`, `U(1−V)`; only U=V=1 frees both arithmetic slots |
+| arithmetic cluster | `s11/build2.py` | **a688 = a1618 = a40608 = 0 exactly** |
+| core rank reduction | `s11/probe6.py` | each core's 3 checks are rank 2 in 2 quantities |
+| control map (all 7,273 free inputs, generic point) | `s11/scangen.py` | 6 equations, 12 controls, 2 decoupled blocks |
+| base-point scan (the trap) | `s11/scanall.py` | `x25118`,`x34220` show ZERO controls — their derivatives vanish at the origin |
+| Newton attempts | `newt.py`,`newt2.py`,`blocks.py`,`tri2.py` | all cycle — see below |
+| **cubic solve** | `s11/polyroot.py`, `s11/solveA.py` | **ALL SIX STRUCTURAL TARGETS ZERO**, first seed, <1s |
+| pin-chain forensics | `s11/pinned.py`, `s11/partners.py` | every control pinned; each partner has exactly ONE live control |
+| closure attempts | `close2.py`,`close3.py`,`simul.py`,`assemble.py` | greedy/monotone/simultaneous all thrash on the load pins |
+
+**The key result.** Eliminating `x_4879` between the two group-1 core equations gives
+`x_23776·x_2401² = x_26196²`, i.e. a CUBIC `y³ + K y² − q² ≡ 0 (mod p)` in
+`y = x_33708 − x_14515`. Cubic roots mod p are invisible to Jacobian / Newton / beam /
+null-space methods — which is precisely why every earlier session reported the core
+"rigid" and why my own Newton runs (newt, newt2, blocks, tri2 — ~30 seeds each) cycled
+forever. Cantor-Zassenhaus factorisation solves it instantly, and with it BOTH cores and
+BOTH gap conditions fall simultaneously. That system had never been solved before.
+
+**Why the score did not move.** Solving the structural system is necessary, not sufficient.
+All 12 controls are pinned mod p by always-active linking checks `c·(X−Y) = p·handle`
+(`a21050`: x_16441≡x_4920, `a34580`: x_33708≡x_10170, `a33796`: x_31339≡x_6858), each
+partner has exactly one live control (`x_23210`, `x_33129`, `x_32125`), and those chains
+terminate in bit-gated load pins `bit·(X − HUGE − c·p·h) = 0` (verified end-to-end for
+`x_23210` via `a38567`/bit 91). So each core residue is a function of the MESSAGE ALONE,
+and the structural solution is reachable only through a subset-sum over the 256 load
+constants. Best constructive score in the new frame: 39,013; the 39,026 checkpoint's
+defect placement remains far cheaper in equation terms (7 vs 20-28).
+
+**Next.** The whole problem is now exactly one question: find a bit subset whose load
+constants drive the three residues `x_4920 / x_10170 / x_6858` to the values the cubic
+solution requires. Per-bit contributions are one cheap forward-eval each
+(`s11/quick.py` is ~170x faster than a full forward); then meet-in-the-middle or LLL on
+the 3-residue lattice over 256 bits.

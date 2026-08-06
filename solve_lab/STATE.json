@@ -7,7 +7,7 @@
  "n_eqs_satisfied_by_partial": 39026,
  "best_score": 39026,
  "best_partial": "solve_lab/best/new_instance_partial_39026.json",
- "active_method": "39,026/39,033 (7 failing) -- PROVED optimal for this defect placement (s10/lattice3.py, exhaustive over all 2^12 subsets with exact integer solvability, not a search). Residual = 7 nonzero atoms [22229,22230,35758,35759,35760,35761,35762] in exactly 12 equations, rank 7. Achievable atom-vector set = {A1+7376877*A7 == D (mod p, after the free k*p shift of x_7068); A2 == K2 (mod p); A3..A6 free}. Each binding congruence costs exactly one equation: 2 -> 39,026, 1 -> 39,027, 0 -> 39,033 (full solve). No partial credit in between.",
+ "active_method": "s11: circuit semantics decoded; cubic solved; obstruction localised to load-pin subset-sum",
  "structure": {
   "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
   "n_distinct_atoms": 46275,
@@ -41,11 +41,9 @@
   "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
  },
  "next_actions": [
-  "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing), proved optimal for its defect placement.",
-  "START HERE: hit inconsistency certificate 1 for under 9 equations (cheapest member 10). Sub-questions: (a) LLL the 3-dim wire kernel (~325-digit entries) for a SHORT vector -- support <=5 would cut the deformation cost from ~20 to ~5 and take the wire route under budget; (b) can cert 1 be hit by a variable the closed 79-column system never reached?",
-  "Equation-space compensation for a37694's 12 equations using deformed copy atoms (same linear algebra, pin row moved to the RHS).",
-  "LLL-reduce the 3-dimensional kernel lattice (current basis entries have ~325 digits).",
-  "Do NOT redo: local repair, Newton/closure over free inputs (rigid, full column rank), bit scans, the MUX branch."
+  "Subset-sum/LLL over the 256 load constants for the 3 residues x_4920/x_10170/x_6858 (see S11_SEMANTICS.md section 8)",
+  "Enumerate per-bit load contribution to those residues with s11/quick.py (cone-restricted, ~170x faster)",
+  "Do NOT redo: clean frame, a40608=(W-C)^2, MUX decode, core rank-2 reduction, cubic solve (all done in s11)"
  ],
  "blocked": [
   "Part 1's two mod-p congruences are rigid ONLY because all handles are p-quantised, and part 2 shows that rests on a wire with a 3-dimensional free deformation space. The live obstruction is now the 13 multi-wire monomials plus the bare root pin a37694 (12 equations)."
@@ -69,9 +67,12 @@
   "session9_writeup": "solve_lab/S9_STRUCTURE.md",
   "reduced_problem": "solve_lab/REDUCED_PROBLEM.md",
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
-  "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
+  "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt",
+  "s11_semantics": "solve_lab/S11_SEMANTICS.md",
+  "s11_scripts": "solve_lab/s11/",
+  "s11_theta": "solve_lab/s11/theta_solveB.json"
  },
- "updated_unix": 1785994148,
+ "updated_unix": 1786005573,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -312,5 +313,12 @@
    "exhaustive_result": "linearity validated exactly on both large groups (x_91, x_47). Sweeping all 3,876 states of the two linear groups: histogram {0: 3876} -- the 125 ordinary load bits cannot zero a SINGLE failing check. Only leverage is the 3 structural controls x_2081, x_4287, x_13195 = branch flips already measured (34/83/106).",
    "sacrifice_closed": "budget6fast.py: 10,917,019 within-budget sets tested, NONE restore consistency. Minimum sacrifice 3 rows {a3578,a26731,a35759} cost 37; sizes 1,2 impossible."
   }
+ },
+ "s11": {
+  "clean_frame_bad_checks": 6,
+  "clean_frame_score": 39005,
+  "best_constructive_score": 39013,
+  "six_targets_solved": true,
+  "obstruction": "every core control pinned mod p by a chain terminating in bit-gated load pins"
  }
 }

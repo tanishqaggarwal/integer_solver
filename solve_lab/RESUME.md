@@ -1,5 +1,72 @@
 # RESUME — read me first
 
+## STATUS (session 11): best verified **39,026 / 39,033** (unchanged deliverable, re-verified)
+Deliverable: `best/new_instance_partial_39026.json`
+Verify: `python3 checker.py best/new_instance_partial_39026.json` -> `satisfied 39026/39033 (7 failing)`
+Failing lines: `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
+
+> **READ `S11_SEMANTICS.md` FIRST.** Session 11 stopped doing atom algebra and decoded the
+> circuit as a program. It supersedes S10/S9 on every point of conflict below.
+
+### What session 11 changed (all re-derived from the file, reproducible in `s11/`)
+1. **A cleaner frame exists.** All free inputs = 0 gives **6 bad check atoms / 28 failing**
+   (39,005), splitting into two INDEPENDENT clusters: arithmetic `{688,1618,40608}` and
+   boolean `{23000,39067,41211}`. Every earlier session worked in the witness frame.
+2. **`a40608 = (W − C)²` exactly** (`s11/solveW.py`) — perfect-square discriminant, double
+   root equal to what `a688` demands. It is NOT an independent obstruction; earlier price
+   lists double-counted it.
+3. **The boolean cluster is an OR/AND gadget:** `U = OR(x_8599,x_21839)`,
+   `V = OR(x_7304,x_25956)`, and `a23000 = (1−U)(1−V)` — so at least one must be on. Each
+   node is an OR-tree over 88/90/37/41 free bits; ANY single bit switches it (exhaustive).
+4. **The data path is a 3-way MUX**: channels `U·V`, `(1−U)V`, `U(1−V)`. Channel **U=V=1**
+   is the only one making both `x_37892` and `x_13682` free — and in it
+   **`a688 = a1618 = a40608 = 0` were solved EXACTLY** (`s11/build2.py`).
+5. **Both cores decoded and each is TWO conditions, not three** (rank-2 in two quantities):
+   group 2 -> `x_25614 ≡ x_34220 ≡ 0`, group 1 -> `x_3719 ≡ x_25118 ≡ 0` (mod p).
+6. **THE BIG ONE — the cores are not QR-obstructed; the obstacle was a CUBIC.**
+   Eliminating `x_4879` gives `x_23776·x_2401² = x_26196²`, a cubic
+   `y³ + K y² − q² ≡ 0 (mod p)` in `y = x_33708 − x_14515`. A cubic root mod p is invisible
+   to Jacobians / Newton / beam search — which is exactly why S9 and S10 kept reporting
+   "rigid". With Cantor–Zassenhaus (`s11/polyroot.py`) **all six structural targets go to
+   zero at once** (`s11/solveA.py`): both cores and both gaps, simultaneously. First time.
+7. **Complete control map, exhaustive over all 7,273 free inputs at a GENERIC point**
+   (`s11/scangen.py`). NB at the all-zero point the `x25118`/`x34220` derivatives vanish
+   identically (they are products) — scanning there returns "no controls" and is the trap
+   that stalls naive Newton.
+8. **Where the trapdoor really is.** Each of the 12 controls is pinned mod p by an
+   always-active linking check `c·(X−Y) = p·handle` (`a21050`, `a34580`, `a33796`), each
+   partner has EXACTLY ONE live control (`x_23210`, `x_33129`, `x_32125`), and those
+   terminate in **bit-gated load pins** `bit·(X − HUGE − c·p·h) = 0`.
+   > The mod-p value of every core control is a FUNCTION OF THE MESSAGE BITS ALONE. The
+   > structural system is solvable in the abstract but unreachable from any message; the
+   > two are joined only by a subset-sum over the 256 load constants. That is the precise
+   > obstruction — sharper than "7 is an invariant".
+
+### Best constructive score in the new frame
+39,013 (`s11/build3.py`). Still below the 39,026 checkpoint, whose defect placement is far
+cheaper in EQUATION terms (7 failing vs 20-28 for every clean-frame branch).
+
+### START HERE NEXT SESSION
+1. The one open question is now **exactly** the subset-sum of §8: which subsets of the 256
+   load constants drive `x_4920 / x_10170 / x_6858` (equivalently `x_16441 / x_33708 /
+   x_31339`) to the residues the cubic solution needs? Enumerate each bit's load
+   contribution to those three residues (one forward-eval per bit — cheap) and run
+   meet-in-the-middle / lattice (LLL on the 3-residue lattice) over the 256 bits.
+2. Everything upstream of that is SOLVED — do not redo §§1-7.
+3. `s11/quick.py` gives a cone-restricted evaluator, ~170x faster than a full forward;
+   use it for any bit-level sweep.
+
+### Toolchain
+`cd solve_lab/s9 && python3 atomize.py && python3 poly.py && python3 gates.py && python3 fwd.py`
+(rebuilds caches; validates against the raw file — 0 mismatches over 39,033 equations).
+Session-11 scripts live in `solve_lab/s11/` and import `s9/eff/lib.py`.
+
+### Git
+Branch `claude/math-problem-solving-2y9sl3`.
+
+---
+# RESUME — read me first
+
 ## STATUS (session 10): best verified **39,026 / 39,033** — and PROVED optimal for this defect placement
 Deliverable: `best/new_instance_partial_39026.json`
 Verify: `python3 checker.py best/new_instance_partial_39026.json` -> `satisfied 39026/39033 (7 failing)`
