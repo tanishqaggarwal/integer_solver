@@ -42,7 +42,7 @@
  },
  "next_actions": [
   "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing), proved optimal for its defect placement.",
-  "START HERE: solve the wire deformation with the 13 multi-wire monomials imposed EXACTLY -- p(d_i+d_j) + d_i*d_j = 0, a quadratic system in the 3 kernel unknowns. A nonzero solution unquantises all 1,240 handles at ZERO cost, and both congruences of part 1 fall.",
+  "START HERE: the wire is pinned by ~20 degree-4 SQUARE checks, each in exactly ONE equation -- the cheapest guard found in any session. Attack them in equation space: compute, per squared wire member, how many square checks must break to release it, and compare against the 7 equations the current branch pays.",
   "Equation-space compensation for a37694's 12 equations using deformed copy atoms (same linear algebra, pin row moved to the RHS).",
   "LLL-reduce the 3-dimensional kernel lattice (current basis entries have ~325 digits).",
   "Do NOT redo: local repair, Newton/closure over free inputs (rigid, full column rank), bit scans, the MUX branch."
@@ -71,7 +71,7 @@
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
   "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1785981899,
+ "updated_unix": 1785982068,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -263,7 +263,8 @@
    "rigidity": "closed constrained system 193 rows x 79 cols has rank 79 = FULL COLUMN RANK, zero null space, 6 independent inconsistencies, 0 degenerate rows. With all 256 bits relaxed to GF(p): 2352 x 710, still inconsistent. 1,156-way single-bit scan with genuine forward eval: nothing better than 37. Local/first-order methods are dead.",
    "THE_CRACK": "every handle enters as wire*handle with wire one of 220 vars = p, held by ONE bare pin a37694 = x_26064 - p in only 12 equations. Off p the census inverts: 1,240 handles go granularity p -> granularity 1. Writing w_u = p + d_u, the 219 wire-identity equations give M d = 0 in Z^220 with rank(M) = 217 -> KERNEL DIMENSION 3. The wire is NOT rigid. 161 of 220 members have gcd 1 (any value, zero cost) including handle multipliers x_11360, x_28599, x_17499, x_22665, x_28961. x_15616 gcd 29; root x_26064 gcd 0 = FIXED.",
    "wire1_branch": "wire=1 reaches 39,020 with only TWO nonzero atoms (a37694, a39417); its 13 failing equations contain only wire-copy atoms and boolean pins, no free inputs",
-   "why_not_yet": "kernel deformation + handle re-solve restores 3,346/3,349 product gates; of 235 broken atoms 215 are wire copy atoms whose equations still cancel by construction, so the genuine cost is 20 atoms -- 13 are multi-wire monomials w_i*w_j whose invariance is QUADRATIC in d (p(d_i+d_j)+d_i*d_j=0), invisible to the linear kernel. Net 38,981, ~39,018 after closing the checks."
+   "why_not_yet": "kernel deformation + handle re-solve restores 3,346/3,349 product gates; of 235 broken atoms 215 are wire copy atoms whose equations still cancel by construction, so the genuine cost is 20 atoms -- 13 are multi-wire monomials w_i*w_j whose invariance is QUADRATIC in d (p(d_i+d_j)+d_i*d_j=0), invisible to the linear kernel. Net 38,981, ~39,018 after closing the checks.",
+   "deformation_closed": "220 of 220 wire members appear SQUARED in some monomial (degree-4 square checks), so every one is pinned to +-p and no subset moves for free. The 3-dim linear kernel is real but entirely absorbed by the quadratic constraints. p-quantisation of all 1,249 handles stands; 39,026 optimality stands."
   }
  }
 }

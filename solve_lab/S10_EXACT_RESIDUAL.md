@@ -411,3 +411,61 @@ Highest-EV next experiments, in order:
    algebra with the pin's row moved to the right-hand side.
 3. LLL-reduce the 3-dimensional kernel lattice: the current basis has ~325-digit
    entries; a short vector would make the whole branch numerically tractable.
+
+## 18. The deformation route, closed — and exactly why
+
+`s10/multiwire.py` resolves §16's remaining obstruction. The multi-wire monomials
+are almost all **self-pairs** `w_i·w_i`: they come from the degree-4 **square**
+check atoms, where a wire variable appears squared. Their invariance condition
+`w_i·w_j = p²` therefore degenerates to
+
+> **`w_i² = p²`  ⇒  `w_i = ±p`.**
+
+The constraint graph over these pairs is a **single component spanning all 220 wire
+members, non-bipartite, with self-loops**. So every wire member is forced back to
+`±p`, and `−p` leaves the handle granularity at `p` — no gain.
+
+> **The wire-deformation crack is real but bounded: the linear wire-identity
+> equations permit a 3-dimensional deformation, and the ~20 degree-4 square checks
+> then pin every member back to ±p.** Each of those checks lives in exactly ONE
+> equation, which is why the branch measures 38,981 (≈39,018 after closing the six
+> checks) rather than collapsing entirely — the price is ~20 single-equation checks,
+> and that price exceeds the 7 equations the p-wire branch already pays.
+
+### Revised standing recommendation
+The obstruction is now located to the sharpest object found in any session:
+
+* the **linear** wire-identity system has a 3-dimensional kernel (the wire is not rigid);
+* the **quadratic** square checks `w_i² = p²` are what actually pin it;
+* the root pin `a37694` (12 equations) is untouchable by the kernel.
+
+Any further attack should aim at the ~20 degree-4 square checks that carry a squared
+wire variable — they are individually cheap (1 equation each) and are the only thing
+standing between the 3-dimensional deformation and an unquantised handle set. A
+deformation that keeps `|w_i| = p` for exactly the members appearing squared, while
+moving the members that only ever appear linearly, would cost nothing at all; whether
+the handle multipliers `x_11360, x_28599, x_17499, x_22665, x_28961` are among the
+squared ones is the single question to settle first.
+
+### 18.1 The question settled — the route is comprehensively closed
+
+Counting, over all 42,267 atoms, which wire members occur with multiplicity ≥ 2 in
+some monomial:
+
+```
+wire members appearing SQUARED : 220 of 220
+wire members NEVER squared     : 0
+  x_11360  squared in 3 monomials      x_22665  squared in 8
+  x_28599  squared in 9                x_28961  squared in 9
+  x_17499  squared in 9                x_15616  squared in 3
+```
+
+> **Every one of the 220 wire members is squared somewhere, so every one is pinned to
+> `±p`. There is no subset that can move for free.** The setter covered the whole wire
+> with degree-4 square checks; that — not the linear identity chain — is what makes the
+> p-quantisation rigid.
+
+This is the correct final statement of the design, and it supersedes §17's optimism:
+the 3-dimensional linear kernel is real, but it is entirely absorbed by the quadratic
+square-check constraints. The p-quantisation of all 1,249 handles therefore stands,
+and with it the two mod-p congruences of Part I and the optimality of **39,026**.

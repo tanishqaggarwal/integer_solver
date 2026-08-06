@@ -120,10 +120,28 @@ whose equations still cancel by construction**, so the genuine cost is **20 atom
 (`p(d_i+d_j) + d_i d_j = 0`) and so invisible to the linear kernel. Net ~38,981, ~39,018
 after closing the checks.
 
+**Deformation route CLOSED, and exactly why** (`s10/multiwire.py`): the multi-wire
+monomials are almost all SELF-pairs `w_i*w_i`, coming from the degree-4 SQUARE checks.
+Their condition `w_i*w_j = p^2` degenerates to `w_i^2 = p^2 => w_i = +-p`, and the
+constraint graph is a SINGLE non-bipartite component over all 220 members with
+self-loops — so every member is forced back to +-p, and -p keeps granularity p.
+The crack is real but bounded: the LINEAR wire-identity system allows a 3-dim
+deformation; the QUADRATIC square checks pin it. Each such check is in exactly ONE
+equation (hence 38,981, ~39,018 after closing the six checks — still above 7 failing).
+
+**SETTLED, and the route is comprehensively closed:** counting multiplicity over all
+42,267 atoms, **220 of 220 wire members appear SQUARED somewhere — none is unsquared.**
+So every member is pinned to +-p by a degree-4 square check. The 3-dimensional linear
+kernel is real but is entirely absorbed by the quadratic constraints. The p-quantisation
+of all 1,249 handles stands, and with it Part I's two congruences and 39,026's optimality.
+
 ### START HERE NEXT SESSION
-1. Solve the deformation with the 13 multi-wire monomials imposed EXACTLY — a quadratic
-   system in the 3 kernel unknowns. A nonzero solution unquantises the handles at zero
-   cost and both congruences of Part I fall.
+1. The wire is pinned by ~20 degree-4 SQUARE checks, each living in exactly ONE equation.
+   That is the cheapest guard found in any session. Attack those squares directly in
+   equation space: a square check `E^2` in one equation costs 1 equation if violated, so
+   breaking k of them to free the wire costs k. Compute, for each squared wire member,
+   how many square checks must break to release it, and compare against the 7 equations
+   the current branch pays.
 2. Equation-space compensation for `a37694`'s 12 equations using deformed copy atoms
    (same linear algebra, pin's row moved to the RHS).
 3. LLL-reduce the 3-dim kernel lattice (current basis has ~325-digit entries).

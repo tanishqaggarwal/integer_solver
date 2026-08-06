@@ -1205,3 +1205,25 @@ at 39,026.**
 
 Next: impose the 13 multi-wire monomials EXACTLY (quadratic in 3 kernel unknowns); if a
 nonzero solution exists the handles unquantise at zero cost and both congruences fall.
+
+**Deformation route closed (part 3 tail).** `s10/multiwire.py`: the multi-wire monomials
+are almost all SELF-pairs w_i*w_i, coming from the degree-4 SQUARE check atoms. So the
+invariance condition w_i*w_j = p^2 degenerates to w_i^2 = p^2 => w_i = +-p, and the
+constraint graph is a single non-bipartite component spanning all 220 wire members with
+self-loops. Every member is pinned back to +-p, and -p keeps granularity p. So: the
+LINEAR wire-identity system permits a 3-dimensional deformation, and the ~20 degree-4
+square checks are what actually pin the wire. Each is in exactly ONE equation, which is
+why the branch measures 38,981 (~39,018 after closing the six checks) instead of
+collapsing. Open question for next session: are the handle multipliers x_11360, x_28599,
+x_17499, x_22665, x_28961 among the SQUARED members? If not, a deformation holding
+|w_i| = p only on the squared members costs nothing and unquantises the handles that matter.
+
+**Question settled (end of session 10).** Counting multiplicity over all 42,267 atoms:
+220 of 220 wire members appear SQUARED somewhere; none is unsquared. So every member is
+pinned to +-p by a degree-4 square check, and no subset can move for free. The
+3-dimensional linear kernel is real but entirely absorbed by the quadratic constraints.
+The p-quantisation of all 1,249 handles stands, and with it part 1's two congruences and
+the optimality of 39,026 for its defect placement. NEXT: those square checks each live in
+exactly ONE equation -- the cheapest guard found in any session -- so attack them directly
+in equation space and compare the cost of breaking k of them against the 7 equations the
+current branch already pays.
