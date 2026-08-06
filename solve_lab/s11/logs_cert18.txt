@@ -1,0 +1,7 @@
+system 3x0  rank mod p = 0
+obstructing left-kernel rows: 3
+  certificate support 1: [26719]  (equations 11)
+  certificate support 1: [26721]  (equations 11)
+  certificate support 1: [26723]  (equations 12)
+SMALLEST certificate support = 1 rows, spanning 11 equations
+  rows by #equations: [(11, 26719)]
