@@ -1,11 +1,23 @@
-import sys, os
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 's9', 'eff'))
-import lib as L, fw
-for lab,sel in [("U=1,V=0",{542:1}), ("U=0,V=1",{438:1}), ("U=1,V=1",{542:1,438:1})]:
-    v=[0]*L.NVARS
-    for k,x in sel.items(): v[k]=x
-    fw.forward(v)
-    b=fw.bad_checks(v)
-    av=L.all_atom_values(v); f=L.failing_eqs(av)
-    print(f"{lab}: U={v[7715]} V={v[34554]} | x15298={v[15298]} x5647={v[5647]} x34606={v[34606]}")
-    print(f"    bad_checks={len(b)} failing_eqs={len(f)} score={L.NEQ-len(f)}  checks={b}")
+import sys, os, json
+HERE=os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0,HERE); sys.path.insert(0, os.path.join(HERE,'..','s9','eff'))
+import lib as L
+from ip7 import load_raw
+from gmp1 import evalp, forwardp
+P=L.P; sys.set_int_max_str_digits(400000); LAB=os.path.join(HERE,'..')
+v=[x%P for x in load_raw(os.path.join(LAB,'best','new_instance_partial_39026.json'))]; forwardp(v)
+def sh(x):
+    s=str(x); return s if len(s)<12 else s[:5]+'..'
+def trace(u,d=0,seen=None):
+    seen=seen if seen is not None else set()
+    if u in seen or d>7: return
+    seen.add(u); pad='  '*d
+    a=L.definer.get(u)
+    if a is None: print(f"{pad}x{u} FREE = {sh(v[u])}"); return
+    Pp=L.polys[a]
+    print(f"{pad}x{u}={sh(v[u])} := "+' + '.join(f"{c}*{'*'.join('x%d'%t for t in m)}" for m,c in Pp.items())[:100])
+    if len(Pp)>4: return
+    for t in sorted(set(t for m in Pp for t in m)):
+        if t!=u: trace(t,d+1,seen)
+for u in [7715,34554,23597,19271]:
+    print("=====",u); trace(u)

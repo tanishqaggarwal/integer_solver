@@ -1,0 +1,11 @@
+checks with a private knob: 485
+base failing: [7930, 29539, 40826, 41512]
+   0/256 best=9 (2s)
+   25/256 best=9 (111s)
+   50/256 best=9 (205s)
+   75/256 best=9 (296s)
+   100/256 best=9 (407s)
+   125/256 best=9 (519s)
+   150/256 best=9 (633s)
+   175/256 best=9 (780s)
+   200/256 best=9 (930s)
