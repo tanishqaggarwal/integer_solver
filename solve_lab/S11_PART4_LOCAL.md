@@ -178,10 +178,23 @@ routes, all terminate at the same three checks:
     a19299  = x15298*x25739 - 6672769*x29804         (13 equations)
     a30984  = 537773*x15298*x37758 - x35605          (14 equations)
 
-**These three contain no free variable at all.**  `x15298 = U*V` is the live MUX channel, and
-every variable in them is gate-computed.  There is nothing to absorb the residue.  That — not
-"a factor of p" in the abstract — is the actual wall, and it is now a checkable statement about
-three named atoms.
+Their own variables are all gate-computed, but each *is* reachable one gate up, through a free
+p-handle (`s11/wallchk.py`, `wallfix.py`):
+
+    x4007  = x5101*x30317  = p*x30317     x30317 FREE   =>  a19297 = 0  <=>  p | x11150*x15298
+    x29804 = x5146*x32017  = p*x5146      x5146  FREE   =>  a19299 = 0  <=>  p | x25739*x15298
+    x35605 = x2936*x26789  = p*x2936      x2936  FREE   =>  a30984 = 0  <=>  p | 537773*x37758*x15298
+
+and with `x15298 = 1` these are `p | x11150`, `p | x25739`, `p | x37758`.  At the checkpoint all
+three are 0, hence trivially divisible; the mirror repairs make them nonzero and **not** divisible
+by p (`s11/wallexact.py`), and the handles are p-quantised so they cannot absorb the remainder.
+
+So the wall is not an absence of freedom — it is **the same three-congruence obstruction
+recurring one level further out**, now on gate-computed quantities instead of free inputs.  That
+is exactly the difference that makes the checkpoint's 7 special: there, and only there, the
+divisible quantities (x9118, x8731) are free inputs.  Collateral is cheap — each handle disturbs
+only a36185 and a40812, both single-equation checks — so if those three congruences could be met,
+the score would jump.
 
 Best reached along these routes: 39,013 (fix2 route) and 38,999 (x4287 route); the deliverable
 stays at **39,026**.

@@ -26,8 +26,10 @@ Second branch, independently verified: `s11/data/finish3_named.json` -> **39,018
 5. **Both routes hit the same wall.**  Either way x7068 must change residue mod p, and x7068 is
    copied into free "mirror" inputs across the circuit.  Repairing the mirrors fans out and, in
    four independent searches from both routes, always terminates at
-   `a19297`, `a19299`, `a30984` — three checks containing **no free variable at all**
-   (their only content is the live MUX channel `x15298 = U*V`).  Nothing can absorb the residue.
+   `a19297`, `a19299`, `a30984`.  Each has a free p-handle one gate up (x30317, x5146, x2936),
+   so they reduce to `p | x11150`, `p | x25739`, `p | x37758` — **the same three-congruence
+   obstruction, recurring one level out on GATE-COMPUTED values instead of free inputs.**  Their
+   collateral is only two single-equation checks, so meeting them would jump the score.
 6. **That wall is channel-specific.**  In the x5647 channel (`s11/data/finish3_named.json`,
    score 39,018) `x15298 = 0` and all three wall checks are vacuous.  That branch's own defect
    is three atoms / fifteen equations needing `8640431*p | x12000`, `p | x12926`, `p | x21364`.
