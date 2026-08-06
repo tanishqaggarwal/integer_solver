@@ -93,6 +93,17 @@ What this session established, in order:
     terms vanish.  They are `isZero` flags, gate-defined.  **That is the target.**
 
 
+### Session 12 addendum 3 (Part XXVIII): the branch is measured too
+
+13. **§143 — frames are irrelevant.**  4,490 frames evaluated; every one scores exactly 39,026.
+14. **§144–145 — the boolean census, from the advice-solved state.**  493 of the first 1,464
+    bits are score-neutral; **all 300 tested neutral bits are completely INERT on (A, B)**;
+    of 400 costing bits only 24 move (A, B) and they give just **two** outcomes, neither zero.
+    Only `x2081` drives the selector to 0, at a price of 76.
+15. **§146 — no coherent one-hot swap exists.**  Each bit is a conditional constant pin
+    `b*(x - C) - handle` gating its OWN wire, not a shared multiplexer, so there is no group
+    to swap within; and only 2 of 7,250 bits are on.
+
 **Next actions (Part XXV)**
   - Door A: drive `x15298 → 0` from `s10/AG_39013.json` (never tried with all advice solved).
   - Door B: solve `x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)` — three linear conditions in

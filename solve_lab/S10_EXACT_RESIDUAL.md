@@ -3135,3 +3135,99 @@ all seven residual atoms exactly zero                    39,004  [checker-verifi
 gate x24601 released, lifted                             38,957
 gate x2081  released, lifted                             38,939
 ```
+
+---
+
+# Part XXVIII — the branch does not reach the residual either
+
+Part XXVII left the branch as the only thing not pinned to the instance's own
+constants.  Part XXVIII measures it, and the measurements are exact negatives.
+
+## 143. Frames are irrelevant, at scale
+
+The frame-space search of §61 finished: **4,490 frames evaluated, every single one
+scoring exactly 39,026.**  Not one better, not one worse.  Frame choice — which atom
+is used to define which variable — cannot move the score at the deliverable, which is
+what §139 predicts: the residual is pinned by literal constants regardless of the
+solving orientation.
+
+## 144. The boolean census, redone from the advice-solved state
+
+`s10/boolcensus.py` flips every boolean-valued free input at `PIN_39013.json` (the
+39,013 attractor with every advice value at its pin) and records the score, the
+selector `x15298`, and whether A or B is zeroed.  Over the first 1,464 of 7,250 bits:
+
+```
+493 flips are SCORE-NEUTRAL          (39,013 -> 39,013, same five checks)
+  1 flip drives the selector to 0    x2081, at a price of 76 (39,013 -> 38,937)
+  the rest cost 10-16
+  none zeroes A or B
+```
+
+## 145. The neutral directions are inert, and the costing ones give two outcomes
+
+"Does not zero A" and "does not move A" are very different facts, and only the second
+is a dead end — so both were measured.
+
+```
+s10/neutral.py : of 300 score-neutral bits, 300 are COMPLETELY INERT
+                 (dA = dB = 0 for every one of them)
+s10/mover.py   : of 400 costing bits, only 24 move (A, B) at all, and those
+                 24 produce just TWO distinct outcomes:
+                    n = 19  ->  A = 18548904073586655983..., B = 23488390206470041529...
+                    n =  5  ->  A = 99486789650034179350..., B = 10896062398066642728...
+                 neither zeroes A or B
+```
+
+The second outcome is bit-identical to what `s10/release.py` measured for `x2081 = 0`,
+so those five bits are the `x2081` group.  Nineteen different bits give one and the
+same `(dA, dB)` because turning any of them on fires the same OR.
+
+## 146. Why there is no coherent one-hot swap
+
+Reading a bit's atoms shows what these booleans are:
+
+```
+a20545  2*b - 2*b*b                              the boolean constraint
+a24804  x18232 = b     a24805  x36695 = 1 - b    the bit and its complement
+a21775  b*x5803  - C1*b - 12107359*x22874        IF b THEN x5803  = C1
+a35126  b*x38738 - C2*b - x12204                 IF b THEN x38738 = C2
+```
+
+each bit is a **conditional constant pin** — "if b then this wire is that literal".
+The obvious structured move would be a one-hot swap: turn the selected bit off and
+another of the same group on, changing which constant is read while keeping the
+invariant.  `s10/onehot.py` looks for those groups and finds **none**: every bit gates
+its *own* wire, not a shared one, so there is no group to swap within.  And at the
+attractor **only 2 of 7,250 bits are 1** — the conditional layer is almost entirely
+switched off, which is why turning any bit on only ever adds constraints.
+
+## 147. Ledger after Part XXVIII
+
+```
+deliverable                                              39,026  [checker-verified]
+  every one of 4,490 frames scores exactly                39,026
+point addition closed exactly (x3, y3 moved)             39,014  [checker-verified]
+advice DAG fixed point / x3, y3 at their pins            39,013  [checker-verified]
+all seven residual atoms exactly zero                    39,004  [checker-verified]
+selector x15298 -> 0 (x2081), after the lift             38,937
+```
+
+Every door of §141 is now measured:
+
+| door | measurement | result |
+|---|---|---|
+| move x3, y3 | exact 2x2 solve (`ecfix.py`) | closes A and B, breaks the pins that fix them |
+| release a gated pin | `release.py`, `closer.py` | frees the coordinate *and disconnects it* — degree 0 |
+| flip a boolean | `boolcensus.py` | 493 neutral, none zeroes A or B |
+| neutral directions | `neutral.py` | 300 of 300 completely inert on (A, B) |
+| costing directions | `mover.py` | 24 of 400 move (A, B); two outcomes, neither zero |
+| one-hot re-selection | `onehot.py` | no groups exist; only 2 of 7,250 bits are on |
+| frame choice | 4,490 frames | all exactly 39,026 |
+
+**No infeasibility is claimed.**  §121 and the `a7930` refutation are the standing
+reminders of what happens to such claims in this lab, and these are measurements over
+enumerated move classes, not a proof that none exists.  What they do establish is
+that the residual of §139 is not reachable by any move class this lab has been able
+to name — and that it is now a two-line arithmetic statement in seven printed
+constants rather than a 39,033-equation mystery.

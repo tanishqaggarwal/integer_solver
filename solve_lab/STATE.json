@@ -673,6 +673,39 @@
    "release_is_a_dead_end": "degree 0 -- zeroing a gate frees the coordinate and disconnects it",
    "remaining_freedom": "the BRANCH: selectors x15298, x34606, x5647, x19271, x23597, x7715, x34554",
    "no_infeasibility_claimed": true
+  },
+  "part_xxviii": {
+   "frames": {
+    "evaluated": 4490,
+    "all_score": 39026,
+    "conclusion": "frame choice is irrelevant"
+   },
+   "bool_census": {
+    "bits": 7250,
+    "measured": 1464,
+    "score_neutral": 493,
+    "selector_to_zero": {
+     "x2081": 38937
+    },
+    "none_zero_A_or_B": true
+   },
+   "neutral_bits": {
+    "tested": 300,
+    "inert_on_A_B": 300
+   },
+   "costing_bits": {
+    "tested": 400,
+    "move_A_or_B": 24,
+    "distinct_outcomes": 2,
+    "neither_zeroes": true
+   },
+   "bit_semantics": "conditional constant pin: b*(x - C) - handle, one wire per bit",
+   "onehot": {
+    "groups": 0,
+    "bits_currently_on": 2,
+    "conclusion": "no shared-wire multiplexer, so no coherent swap exists"
+   },
+   "no_infeasibility_claimed": true
   }
  }
 }
