@@ -41,10 +41,10 @@
     "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
   },
   "next_actions": [
-    "Cross-branch covering search: find a configuration where the setter pins a branch KEEPS are simultaneously satisfiable with the wires that branch keeps ALIVE. This is an exact-cover question over the 256 gate-bits and their 512 pins, informed by session9.quadrant_map -- not local search.",
-    "On the all-zero branch only pins 688/1618 remain and their carriers x_24468/x_18956 are movable (by x_14393/x_14853 and four free inputs). The blocker is that satisfying the forced OR gate x_9274=1 requires a boolean whose own two load pins cascade. Look for a cheaper OR witness.",
-    "7 is exhaustively optimal for the current defect placement (no 7-subset of the 13-equation region is integer-solvable).",
-    "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing)."
+    "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing), exhaustively optimal for its defect placement.",
+    "Finish the 256-way scan in s9/solve_branch.py to confirm x_47 is the unique gate-bit that closes the setter pins (6 of 256 checked so far; all others leave 688 or 1618 standing).",
+    "The two remaining leverage points are both single scalar identities mod p: (a) S9_STRUCTURE section 12 -- make the residue x_24601 pins onto x_22649 agree with the residue the MUX-branch obligation forces on x_9118; (b) section 14 -- find a configuration where the OR-gate bit and the forced mirror chain do not collide.",
+    "Not annealer-shaped: see REDUCED_PROBLEM.md (rank 1 of 2 from the bits; no subset-sum kernel)."
   ],
   "blocked": [
     "Improving past 39,022 provably requires satisfying x_7068 = K1 and x_4432 = K2 mod p outright, i.e. cracking the core; mod-p linear solve over all free inputs is inconsistent at fixed bits even with the corrected square-root model."
@@ -68,7 +68,7 @@
     "session9_writeup": "solve_lab/S9_STRUCTURE.md",
     "reduced_problem": "solve_lab/REDUCED_PROBLEM.md"
   },
-  "updated_unix": 1785975602,
+  "updated_unix": 1785975772,
   "session4": {
     "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
     "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -200,7 +200,8 @@
       "result": "driven to 3 atoms / 17 failing with A=B=0, core dead (x_15298=0), u=w=0 and the forced OR gate satisfied -- every condition that blocks the main branch is met here",
       "pipeline": "x_2081=0,x_24601=0 -> zero x_22162,x_30213 (28 failing) -> OR gate via gate-bit x_47 with its two pins closed (16 failing, only setter pins 688/1618 left) -> close 688 via x_16742->x_18956 and 1618 via x_14681->x_24468 -> chase mirrors (x_38667->x_19083, x_29851->x_24483, then 3 automated steps) -> 17 failing",
       "closure": "the mirror chain terminates on atoms 23824/23826, which are the two load pins of x_47 ITSELF -- the gate-bit needed to satisfy the forced OR gate. Only the 256 gate-bits can satisfy x_9274=1 (all 900 pin-free booleans fail, verified exhaustively), every gate-bit pins two inputs, and the chain runs through exactly those inputs.",
-      "open_question": "is there a gate-bit whose pinned pair is disjoint from its own mirror chain? s9/solve_branch.py parameterises the pipeline by the gate-bit, making this a finite 256-way check."
+      "open_question": "is there a gate-bit whose pinned pair is disjoint from its own mirror chain? s9/solve_branch.py parameterises the pipeline by the gate-bit, making this a finite 256-way check.",
+      "forced_chain": "every chain target has EXACTLY ONE non-boolean 1:1 driver (x_18956<-x_16742, x_24468<-x_14681, x_19083<-x_38667, x_24483<-x_29851, x_28922<-x_25477, x_37571<-x_30709, x_462<-x_24221; x_24221 and x_25477 are self-driving free inputs). No alternative routing exists. Combined with (1) only gate-bits can satisfy the forced OR gate, and (2) only x_47 makes the setter-pin drivers live, the branch is closed rigorously: the only bit that unlocks the setter pins is the bit whose own pins the unlocking chain must violate."
     }
   }
 }

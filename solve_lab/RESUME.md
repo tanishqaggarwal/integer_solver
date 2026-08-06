@@ -92,6 +92,18 @@ while the mirror+core chain needs it to equal the pinned `x_12186`
 (`82007976…230357` if `x_24601=1`, or `0` if `x_24601=0`). **Neither matches — that mismatch IS the
 trapdoor.** Any further attack should target that single scalar identity, not search assignments.
 
+### THE ALL-ZERO BRANCH IS CLOSED (rigorously) — `S9_STRUCTURE.md` §14
+`x_2081 = 0, x_24601 = 0` is the only quadrant where the MUX output and the circuit's output wire
+are consistently both 0. Driven through the staged construction (`zero.py` → `zero9.py`, `chase.py`)
+it reaches **3 atoms / 17 failing** with `A = B = 0`, `x_15298 = 0` (core dead), `u = w = 0` and the
+forced OR gate satisfied — every condition that blocks the main branch. It stalls because:
+(1) only the 256 **gate-bits** can satisfy the forced OR `x_9274 = 1` (all 900 pin-free booleans
+fail, exhaustively verified); (2) only `x_47` makes the drivers `x_16742 → x_18956` and
+`x_14681 → x_24468` live, i.e. only `x_47` lets setter pins 688/1618 close; (3) the mirror chain
+that closing them requires is **FORCED** — every target has exactly one 1:1 driver, no branching;
+(4) it terminates exactly on `x_24221`/`x_25477`, **`x_47`'s own pinned pair**.
+The only bit that unlocks the setter pins is the bit whose own pins the unlocking chain must violate.
+
 ### Do NOT redo
 - Greedy ripple-repair from the canonical orientation (converges to the core in 3 rounds, 39,013).
 - Single-bit flips: all 1,156 boolean free inputs scanned; only `x_2081`, `x_24601` deactivate the

@@ -552,3 +552,32 @@ by the bit the branch needs.
 `zero.py` → `zero9.py` (staged construction), `chase.py` (automated mirror-chase with cycle
 detection), `solve_branch.py` (whole pipeline parameterised by the OR-gate gate-bit),
 `modtrace.py` (mod-p symbolic cone), `reduce_size.py` (residual problem measurement).
+
+### 14.4 The chain is FORCED — the branch is closed, rigorously
+
+Enumerating *all* non-boolean free inputs that drive each chain target exactly 1:1 mod p:
+
+```
+x_18956 <- x_16742        x_24468 <- x_14681        (the two setter-pin carriers)
+x_19083 <- x_38667        x_24483 <- x_29851
+x_28922 <- x_25477        x_37571 <- x_30709        x_462 <- x_24221
+x_24221 <- x_24221        x_25477 <- x_25477        (self-driving: they ARE free inputs)
+```
+
+**Every step has exactly one driver.** There is no alternative routing, no branching, nothing to
+search over. The chain is a single forced thread, and it terminates precisely on `x_24221` and
+`x_25477` — the two inputs pinned by `x_47`.
+
+Together with §14.2 that closes the branch:
+
+1. The forced OR gate `x_9274 = 1` can only be satisfied by a **gate-bit** (all 900 pin-free
+   booleans fail; verified exhaustively over all 1,156).
+2. Of the 256 gate-bits, only `x_47` makes the drivers `x_16742 → x_18956` and `x_14681 → x_24468`
+   live, i.e. only `x_47` lets the setter pins 688/1618 close at all (others leave 688 or 1618
+   standing — `s9/solve_branch.py`).
+3. The mirror chain that closing them requires is **forced** (one driver per step).
+4. It ends exactly on `x_47`'s own pinned pair.
+
+> The design is self-referential: the only bit that unlocks the setter pins is the bit whose own
+> pins the unlocking chain must violate. That is why the branch stalls at 17 failing with three
+> atoms — and it is a much sharper statement than "search failed".

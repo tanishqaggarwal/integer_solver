@@ -100,11 +100,10 @@ if __name__ == '__main__':
         except Exception as e:
             print(f'x_{G}: ERROR {e}'); continue
         nz = allnz(v); f = H.evaluate(CODES, v)
+        print(f'x_{G}: {len(f)} failing, atoms {nz}', flush=True)
         if best is None or len(f) < best[0]:
             best = (len(f), G, nz)
-            print(f'  NEW BEST gate-bit x_{G}: {len(f)} failing, atoms {nz}', flush=True)
             H.save_assignment(v, 'branch_best.json')
             if not f:
                 print('*** ZERO FAILING EQUATIONS ***'); break
-        if i % 20 == 0: print(f'  ...{i}/{len(sel)} {time.time()-t0:.0f}s', flush=True)
     print('\nBEST:', best)
