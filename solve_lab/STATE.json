@@ -7,7 +7,7 @@
  "n_eqs_satisfied_by_partial": 39026,
  "best_score": 39026,
  "best_partial": "solve_lab/best/new_instance_partial_39026.json",
- "active_method": "s11 part VI: integer-programming formulation; obstruction reduced to one divisibility by 2458959*p",
+ "active_method": "s11 part X-XI: exact local reduction (local1/localopt2). Checkpoint optimum proved =7; obstruction = p|x9118, p|x8731, p|x28730; all three cleared by fix2/sw6; defect relocates to the x7068 copy network and walls at a19297/a19299/a30984 (no free variable, live MUX channel x15298).",
  "structure": {
   "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
   "n_distinct_atoms": 46275,
@@ -332,5 +332,24 @@
    "obstruction": "single divisibility by 2458959*p (3*819653*p); consistent over Q; support = the 7 x_2099 ladder vars",
    "next_target": "reach a state with failing equation values = 0 mod p; obstruction then collapses to 2458959"
   }
+ },
+ "notes_session11_partX": {
+  "checkpoint_local_optimum": 7,
+  "obstruction_congruences": [
+   "p | x9118",
+   "p | x8731",
+   "p | x28730"
+  ],
+  "cleared_by": [
+   "s11/fix2.py",
+   "s11/sw6.py"
+  ],
+  "wall_atoms": [
+   19297,
+   19299,
+   30984
+  ],
+  "wall_reason": "no free variable; content is the live MUX channel x15298 = U*V",
+  "wall_vacuous_in_channel": "x5647 (x15298 = 0), see s11/data/finish3_named.json score 39018"
  }
 }

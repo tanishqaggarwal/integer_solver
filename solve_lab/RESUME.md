@@ -1,5 +1,48 @@
 # RESUME — read me first
 
+## STATUS: deliverable **39,026 / 39,033** (re-verified with `checker.py` this session)
+Verify: `python3 checker.py best/new_instance_partial_39026.json` -> 39026/39033 (7 failing).
+Second branch, independently verified: `s11/data/finish3_named.json` -> **39,018** (x5647 channel).
+
+> **READ `S11_PART4_LOCAL.md` FIRST.**  It replaces the "rigidity"/"one factor of p" language of
+> Parts VI-VIII (already retracted in Part IX) with exact algebra: what the obstruction *is*,
+> that it is *reachable*, and what the new wall is.  Then `S11_SEMANTICS.md`, `S11_PART2.md`.
+
+### The 90-second version of the newest work
+1. **The checkpoint's defect is nine atoms and fifteen equations, and nothing else.**  Nine
+   variables occur in no atom outside them.  Eliminating those nine knobs gives the reachable
+   set exactly, as a coset of congruences (`s11/local1.py`).  Enumerating drop-sets proves
+   **7 is exactly the local optimum** — a proof, replacing eleven sessions of "it looks rigid".
+2. **The whole obstruction is three congruences**: `p | x9118`, `p | x8731`, `p | x28730`
+   (the fourth, `7376877*p | x7068 - x2099`, follows from two gates).  `local2.py`: the 15x9
+   coefficient matrix has rank 9, so all fifteen hold only when all nine atoms vanish.
+3. **They are reachable.**  x9118 and x8731 are FREE inputs; x28730 is defined by the very gate
+   that demands its divisibility.  `s11/fix2.py` clears all nine atoms — the first time the
+   checkpoint's obstruction has actually been removed.  It relocates rather than vanishing.
+4. **Second, independent route.**  `x4287 = 1` makes `x21279 = 1` hence `x7075 = 0`, and since
+   `T = 5113045*x7075*x9118`, `U = x7075*x8731`, BOTH congruences evaporate.  The price is three
+   new ones on the x21279 channel, which collapse to `x27177 = 0` and `x4306 = 0` (mod p) —
+   affine in x9118 and x8731, hence solvable; `s11/sw6.py` achieves all five simultaneously.
+5. **Both routes hit the same wall.**  Either way x7068 must change residue mod p, and x7068 is
+   copied into free "mirror" inputs across the circuit.  Repairing the mirrors fans out and, in
+   four independent searches from both routes, always terminates at
+   `a19297`, `a19299`, `a30984` — three checks containing **no free variable at all**
+   (their only content is the live MUX channel `x15298 = U*V`).  Nothing can absorb the residue.
+6. **That wall is channel-specific.**  In the x5647 channel (`s11/data/finish3_named.json`,
+   score 39,018) `x15298 = 0` and all three wall checks are vacuous.  That branch's own defect
+   is three atoms / fifteen equations needing `8640431*p | x12000`, `p | x12926`, `p | x21364`.
+
+### NEXT STEP
+Run `s11/localopt2.py` — the exact local-minimum tool, validated (it reproduces exactly 7 on the
+checkpoint) — on the x5647 branch and on states reached from it.  If its minimum there is 4, 5
+or 6, that beats 39,026 directly.  Then widen its knob set from "fully local" to ripple-response
+columns (`s11/resp.py`), which is the same computation with a larger column space.
+
+---
+
+## (previous RESUME follows)
+
+
 ## STATUS (session 11): deliverable **39,026 / 39,033** (unchanged, re-verified)
 Verify: `python3 checker.py best/new_instance_partial_39026.json` -> 39026/39033 (7 failing).
 Session-11 best in a NEW branch, independently verified: `s11/data/finish3_named.json` -> **39,018**.

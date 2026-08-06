@@ -1695,3 +1695,22 @@ construction, and the per-channel optima correctly scoped to their move sets.
 Corrected next step: a GLOBAL mod-p Newton with the true Jacobian, exploiting the triangular gate
 structure. Reaching an assignment with every equation = 0 mod p leaves a residual of p*r, which
 the p-quantised handles absorb exactly — a clean two-stage route to a full solve.
+
+## Session 11, Parts X-XI — the obstruction, exactly, and cleared
+
+- Reduced the 39,026 checkpoint's defect to nine atoms / fifteen equations with nine fully-local
+  knobs, derived the reachable coset in closed form, and PROVED by drop-set enumeration that
+  7 failing equations is the exact local optimum (`s11/local1.py`, re-derived generically and
+  validated by `s11/localopt2.py`).
+- Rank of the 15x9 system is 9, so the entire obstruction is three congruences:
+  p | x9118, p | x8731, p | x28730.
+- x9118 and x8731 are FREE inputs, so those congruences are reachable: `s11/fix2.py` zeroes all
+  nine atoms for the first time.  The defect relocates to the copy network of x7068.
+- Independent route: x4287 = 1 => x21279 = 1 => x7075 = 0 annihilates both hard congruences
+  (T = 5113045*x7075*x9118, U = x7075*x8731) and turns x2099 into the free variable x9118.  The
+  three congruences it switches on collapse to x27177 = 0 and x4306 = 0 (mod p), affine in
+  x9118/x8731, and `s11/sw6.py` solves them.
+- Both routes wall at a19297, a19299, a30984: checks with NO free variable, whose only content
+  is the live MUX channel x15298 = U*V.  In the x5647 channel x15298 = 0 and they are vacuous —
+  which is why the 39,018 branch is worth re-pricing with these tools.
+- Best reached along the new routes: 39,013 and 38,999.  Deliverable unchanged at 39,026.
