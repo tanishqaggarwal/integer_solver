@@ -364,3 +364,21 @@ checks — **4 failing, score 39,029** — which beats the standing 39,026.
    parametrisation, and solve.  (a40608 follows for free.)
 2. Close `a19299` with the 6672769 congruence, by the `sw7.py` recipe.
 3. Close `a21617` via its free variable x14623 (already known to be solvable exactly).
+
+## 21. The core knobs, measured (`s11/core1.py`, `core2.py`)
+
+Sweeping all 7,273 free inputs at the `modp5` state: exactly **8** move the core trio, and
+**4 of them preserve** `x11150 = x25739 = x37758 = 0 (mod p)`:
+
+    x7497, x22820  ->  move a688 and a40608
+    x11436, x14393 ->  move a1618
+
+So the core is reachable without undoing the mod-p work.  But the responses are p-quantised:
+for every one of the four knob pairs the exact solve fails the divisibility test, and only
+`a21617` (via its own free variable x14623) can be closed, which then opens a25676, a33796,
+a42245.  Best along this chain: **39,003**.
+
+This is the same wall shape a third time — a handle exists, its step is a multiple of p, and the
+residue is not.  Which is precisely why step 1 of §20 must go through the core's *cubic*
+parametrisation (`s11/solveA.py`) rather than through single-knob solves: on the cubic variety
+the two core quantities move together, and that is the only motion the p-quantisation permits.

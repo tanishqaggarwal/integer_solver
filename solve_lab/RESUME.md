@@ -34,11 +34,25 @@ Second branch, independently verified: `s11/data/finish3_named.json` -> **39,018
    score 39,018) `x15298 = 0` and all three wall checks are vacuous.  That branch's own defect
    is three atoms / fifteen equations needing `8640431*p | x12000`, `p | x12926`, `p | x21364`.
 
-### NEXT STEP
-Run `s11/localopt2.py` — the exact local-minimum tool, validated (it reproduces exactly 7 on the
-checkpoint) — on the x5647 branch and on states reached from it.  If its minimum there is 4, 5
-or 6, that beats 39,026 directly.  Then widen its knob set from "fully local" to ripple-response
-columns (`s11/resp.py`), which is the same computation with a larger column space.
+### NEXT STEP (see `S11_PART4_LOCAL.md` Parts XII-XIII for the full chain)
+`localopt2.py` has already priced the x5647 branch: drop 0-6 all infeasible, and every
+ripple-response certificate at 3 hops contains a26719, so that branch is ~11 — worse than 7.
+
+The live lead is the **core-side chain**.  The three wall congruences of §17 ARE solvable
+(two affine knobs x22162, x30213; rank 2 and consistent), which clears a19297 and a30984
+outright and leaves the bill on the core trio a688/a1618/a40608 — the one part of this instance
+with mature machinery (Part I: rank 2, reduces to a cubic mod p, solved exactly by
+`s11/solveA.py`; `a40608 = (W-C)^2` is never independent).  Concretely:
+
+  1. Re-derive the x22162 / x30213 correction as a point ON the core's cubic variety rather than
+     as a free shift — single-knob solves fail the p-divisibility (`s11/core2.py`), but on the
+     variety the two core quantities move together, which is the only motion p-quantisation allows.
+  2. Close a19299 with its extra factor 6672769, by the `s11/sw7.py` recipe (shifts of x22162,
+     x30213 by multiples of p preserve all the mod-p work and move x25739 mod 6672769).
+  3. Close a21617 via its free variable x14623 (exact solve already verified).
+
+If a688, a1618, a19299 and a21617 all close, the residue is four single-equation checks —
+**4 failing, score 39,029**.
 
 ---
 
