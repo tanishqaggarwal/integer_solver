@@ -3,3 +3,4 @@ fix2_round.json: broken atoms=[7930, 29539, 40826, 41512]
   affine knobs with effect: 56  non-affine: 0
     drop 0: infeasible (2s)
     drop 1: infeasible (63s)
+    drop 2: infeasible (929s)

@@ -7,3 +7,4 @@ finish3_named.json: broken atoms=[26719, 26721, 26723]
     drop 3: infeasible (126s)
     drop 4: infeasible (376s)
     drop 5: infeasible (864s)
+    drop 6: infeasible (1595s)

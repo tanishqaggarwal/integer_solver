@@ -299,3 +299,68 @@ quantity is a free input or a computed one.
    confirmation that the x7068 copy network is the single remaining obstruction.
 3. The copy network of x7068: it is rationally consistent and fails only integrally.  The
    221 boolean response columns are the only unexplored freedom there.
+
+---
+
+# Part XIII — the wall congruences are solvable; the bill lands on the core
+
+## 17. Which free variables can move x11150, x25739, x37758 modulo p?
+
+`s11/modp1.py` sweeps all 7,273 free inputs at the cascade-end state: **226 move all three**,
+and it is the same 226 for each.  `s11/modp2.py` classifies them — 220 are booleans (non-affine),
+leaving exactly **two affine knobs**: `x22162` and `x30213`.
+
+Two knobs, three congruences: under-determined by one on its face.  But the target happens to
+lie in their span (`s11/modp3.py`):
+
+    rank of the 3x2 response matrix mod p = 2, and the system is CONSISTENT
+    => x11150 = x25739 = x37758 = 0  (mod p)   all three at once
+
+So the wall congruences of §10 are **solvable**, which retires the "nothing can absorb it"
+reading entirely.
+
+## 18. Setting the handles (they act one gate up)
+
+The handle is not a variable of the wall atom; it feeds it through a gate, so the value to solve
+for is the gate's output (`s11/modp5.py` — `modp4.py` records the mistake of solving the check
+directly, which silently reports "not divisible" because the handle simply does not occur in it):
+
+    a19297 = 0 :  x4007  = -x11150*x15298      = p*x30317          -> solved
+    a30984 = 0 :  x35605 = 537773*x15298*x37758 = p*x2936          -> solved
+    a19299 = 0 :  x29804 = x15298*x25739/6672769 = p*x5146         -> needs the extra 6672769
+
+Two of the three wall atoms are cleared outright.  The third wants an extra small factor,
+6672769 — the same shape as the x5647 branch's 8640431, and the same fix should apply: shifting
+x22162 and x30213 by multiples of p preserves all the mod-p work and moves x25739 modulo
+6672769, so it is one linear congruence in two knobs (cf. `s11/sw7.py`, which did exactly this
+for 13523997).
+
+## 19. What it costs, and where that points
+
+Moving x22162 and x30213 breaks the **core trio**:
+
+    a688   = 8863713*x18956 - C1 - x14257
+    a1618  = x24468 - C2 - x32989
+    a40608 = (W - C)^2   in x18956, x14257
+
+State after the chain (`s11/data/modp5_out.json`): broken
+`[a688(11), a1618(14), a19299(13), a21617(10), a36185(1), a37662(1), a40608(1), a40812(1)]`,
+30 failing, score 39,003.  Four of the eight are single-equation checks.
+
+**This is the first time the obstruction has been pushed onto the core rather than onto the
+copy network** — and the core is the one part of this instance with mature machinery: Part I
+showed each core is rank 2 in two quantities and reduces to a **cubic mod p**, which
+`s11/solveA.py` solves exactly by Cantor-Zassenhaus, and `a40608 = (W-C)^2` is never an
+independent obstruction.  So the corrections to x22162 and x30213 need to be taken *inside the
+core's solution variety* rather than as free shifts.
+
+If a688, a1618, a19299 and a21617 can all be cleared, the residue is four single-equation
+checks — **4 failing, score 39,029** — which beats the standing 39,026.
+
+## 20. Exact next step
+
+1. Re-derive the x22162 / x30213 correction as a point on the core variety: parametrise the core
+   by `s11/solveA.py`'s cubic solution, impose the three mod-p conditions of §17 on that
+   parametrisation, and solve.  (a40608 follows for free.)
+2. Close `a19299` with the 6672769 congruence, by the `sw7.py` recipe.
+3. Close `a21617` via its free variable x14623 (already known to be solvable exactly).
