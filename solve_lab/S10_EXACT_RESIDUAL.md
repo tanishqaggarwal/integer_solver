@@ -3445,3 +3445,146 @@ point addition closed, ecfix                       39,014  [checker-verified]
 advice DAG fixed point                             39,013  [checker-verified]
 all seven residual atoms exactly zero              39,004  [checker-verified]
 ```
+
+---
+
+# Part XXXI — why 39,026 is optimal for its own residual, exactly
+
+Part XXIX separated a *coding* optimum (39,026) from an *algebraic* one (39,015).
+Part XXXI settles the coding side completely, with integer linear algebra rather
+than a search.
+
+## 157. The twelve equations are homogeneous in the seven atom values
+
+At the deliverable the seven residual atoms touch twelve equations, and those twelve
+involve 24 atoms of which seventeen are zero.  So each equation is a linear form in
+the seven residual values `alpha` **with no constant term**:
+
+```
+ 0 eq 2554   a0 +13 a1                                          ZERO
+ 1 eq 6816   -15 a0 -11 a1 +38 a2 +9 a3 +36 a4 +13 a5 +29 a6    ZERO
+ 2 eq 8124   36 a0 +26 a1 +a5 -6 a6                             ZERO
+ 3 eq 9123   20 a2 +27 a3 +33 a4 +3 a5 -a6                      ZERO
+ 4 eq 9421   13 a0 -21 a1 -21 a2 +29 a3 +38 a4 +29 a5 +4 a6     ZERO
+ 5 eq 12231  18 a0 +24 a1 +a4 -23 a5 +13 a6                     fails
+ 6 eq 12270  -31 a0 +5 a1 +a2 -27 a3 -a4 -17 a5 +10 a6          fails
+ 7 eq 12350  -23 a0 +26 a1 -16 a2 +34 a3 -34 a4 +35 a5 +11 a6   fails
+ 8 eq 14584  17 a0 +16 a1 -2 a2 -18 a3 -31 a4 +19 a5 -39 a6     fails
+ 9 eq 18673  a3 +6 a4 +a5                                       fails
+10 eq 22044  -24 a0 -10 a1 +a6                                  fails
+11 eq 29125  a1                                                 fails
+```
+
+rank 7, so `alpha = 0` satisfies all twelve, and the witness satisfies exactly five.
+Note row 11: **`eq 29125` is `a22230` alone**, so it demands `a1 = 0` exactly.
+
+## 158. The zero-cost lattice, enumerated and measured
+
+`s10/genscan.py` takes every free input that structurally reaches the seven atoms --
+there are only fifteen -- moves it by one, records the exact change to all seven
+`alpha` components, and counts the equations that break *outside* the twelve.  Nine
+have cost zero:
+
+```
+x642    a0 -7376877, a6 +1        x29854  a2 +1, a3 -1        x31864  a4 +1, a5 +1
+x1329   a2 -p                     x10903  a4 -p               x9413   a1 -p
+x17325  a6 -p                     x9118   a3 +5113045         x8731   a5 +1
+```
+
+This corrects two earlier guesses: x9118 (33 atoms) and x8731 (26 atoms) *look*
+expensive and are free.  Only two of the fifteen cost anything, and they are exactly
+the fine generators of the two coarse directions:
+
+```
+x7068  ->  a0 += 1,  cost 13         x28730  ->  a1 += 1,  cost 16
+```
+
+Every zero-cost generator leaves `a2+a3` and `a5-a4` unchanged mod p -- precisely the
+condition for the residues of x9118 and x8731, the only quantities with any reach
+outside, to stay put.  So the reachable set at zero cost is the coset
+`alpha_witness + L` with L the rank-7 lattice above, in which
+
+```
+a2, a3, a4, a5   completely free
+a1               only in multiples of p
+a0               only in multiples of 7376877, with a6 coupled to it mod p
+```
+
+## 159. No subset of more than five is integrally reachable
+
+`s10/lattice7.py` solves, for every subset S of the twelve rows, the linear
+Diophantine system `A c = B` with `A[i][j] = <M_i, g_j>` and `B[i] = -<M_i, alpha_w>`,
+by column-style Hermite reduction (unit-tested, and it returns `c = 0` for the five
+rows that already hold):
+
+```
+|S| = 12, 11, 10, 9, 8, 7, 6  :  0 integrally solvable subsets
+all 924 six-subsets and all 792 seven-subsets ARE solvable over Q
+```
+
+**The obstruction is pure integrality**, and it sits in the two coarse directions:
+`a1` can only move by multiples of p, while row 11 needs `a1 = 0` and `a1` is not
+≡ 0 (mod p) at the witness.
+
+## 160. The coarse generators cost at least eleven
+
+`s10/repaircost.py` moves each coarse generator and identifies exactly what breaks:
+
+```
+x28730 += 1  ->  16 equations, whose only nonzero atoms are a7930 and a41512
+                 -- the advice congruence x24548 = x25442
+x7068  += 1  ->  13 equations, whose only nonzero atoms are a29539 and a40826
+                 -- the advice congruence x14853 = x1308
+```
+
+one advice congruence each, and both are free advice values, so `s10/coarse.py`
+repairs them with the exact residue-jump-plus-handle of §125 and then re-solves the
+advice DAG.  The collateral does not clear:
+
+```
+x28730 += 1            39,006      repair a7930 via x24548   39,011   (11 still broken)
+x7068  += 1            39,009      repair a29539 via x14853  39,002   (20 still broken)
+advice sweep afterwards                                      39,002 in both cases
+```
+
+The cheapest coarse move measured costs **11**.
+
+## 161. The optimality statement
+
+Writing `k` for how many of the twelve hold and `c` for the collateral elsewhere,
+
+```
+score  =  39,033 - (12 - k) - c
+```
+
+and the two results above bound it:
+
+```
+c = 0   =>  k <= 5   (§159, exact integer linear algebra over the complete lattice)
+        =>  score <= 39,026     -- and the deliverable ATTAINS it
+c >= 11 (§160, measured over all fifteen inputs that reach the residual)
+        =>  score <= 39,033 - 11 = 39,022  <  39,026
+```
+
+**So 39,026 is optimal for this residual structure.**  It is the first optimality
+statement in this lab that is not a linearisation: §159 is exact integer arithmetic,
+and §158 enumerates the generators completely rather than sampling them.
+
+The statement is conditional in two honest ways, and neither is hidden.  The coarse
+cost 11 is *measured* on single moves and their repairs, not proved -- a combination
+of coarse moves whose collateral cancels would evade it.  And the whole argument is
+about the deliverable's frame and its seven residual atoms; it says nothing about a
+different frame, or about the algebraic path of Part XXIX, or about whether the
+instance has a full solution.  **No infeasibility is claimed.**
+
+## 162. Ledger
+
+```
+deliverable                                     39,026  [checker-verified]  OPTIMAL for its residual
+addition closed via (x3, y3)                    39,015  [checker-verified]
+  its compensation ceiling                      39,017
+point addition closed, ecfix                    39,014  [checker-verified]
+advice DAG fixed point                          39,013  [checker-verified]
+coarse move x28730 + a7930 repair               39,011
+all seven residual atoms exactly zero           39,004  [checker-verified]
+```

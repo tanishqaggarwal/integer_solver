@@ -784,6 +784,62 @@
     "s10/eqlift.py",
     "s10/eqdio.py"
    ]
+  },
+  "part_xxxi": {
+   "twelve_rows": "homogeneous linear forms in the seven residual atom values, rank 7; eq 29125 = {a22230} alone forces a1 = 0",
+   "zero_cost_generators": {
+    "count": 9,
+    "of_candidates": 15,
+    "list": {
+     "x642": "a0-7376877,a6+1",
+     "x29854": "a2+1,a3-1",
+     "x31864": "a4+1,a5+1",
+     "x1329": "a2-p",
+     "x10903": "a4-p",
+     "x9413": "a1-p",
+     "x17325": "a6-p",
+     "x9118": "a3+5113045",
+     "x8731": "a5+1"
+    },
+    "correction": "x9118 and x8731 look expensive by atom count and are FREE"
+   },
+   "coarse_generators": {
+    "x7068": {
+     "effect": "a0+1",
+     "cost": 13
+    },
+    "x28730": {
+     "effect": "a1+1",
+     "cost": 16,
+     "after_repair": 11
+    }
+   },
+   "diophantine": {
+    "subsets_of_size_6_to_12_integrally_solvable": 0,
+    "solvable_over_Q": "all 924 six-subsets and all 792 seven-subsets",
+    "obstruction": "pure integrality in the two coarse directions"
+   },
+   "optimality": {
+    "formula": "score = 39033 - (12-k) - c",
+    "c_zero_implies_k_at_most_5": true,
+    "bound_at_c_zero": 39026,
+    "bound_at_c_ge_11": 39022,
+    "conclusion": "39,026 is OPTIMAL for this residual structure",
+    "caveats": [
+     "the coarse cost 11 is measured on single moves, not proved",
+     "the argument is about this frame and its seven atoms only",
+     "no infeasibility is claimed"
+    ]
+   },
+   "tools": [
+    "s10/genscan.py",
+    "s10/lattice7.py",
+    "s10/repaircost.py",
+    "s10/coarse.py",
+    "s10/sixsub.py",
+    "s10/compens.py",
+    "s10/ceil15.py"
+   ]
   }
  }
 }

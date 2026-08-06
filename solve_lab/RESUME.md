@@ -135,6 +135,24 @@ What this session established, in order:
     **0 of ~28,000 pairs are integral.**  Those two points are locked by INTEGRALITY, the
     first genuinely-over-ℤ obstruction found in this investigation.
 
+### Session 12 addendum 6 (Part XXXI): 39,026 is OPTIMAL for its residual -- exactly
+
+24. **§157 — the twelve equations are HOMOGENEOUS** linear forms in the seven residual atom
+    values, rank 7.  `eq 29125 = {a22230}` alone, so it demands `a1 = 0` exactly.
+25. **§158 — `s10/genscan.py` enumerates ALL fifteen free inputs reaching the seven atoms** and
+    MEASURES each cost: exactly **9 are free** (x642, x29854, x31864, x1329, x10903, x9413,
+    x17325, **x9118**, **x8731** -- the last two look expensive by atom count and are not),
+    generating a rank-7 lattice in which a2,a3,a4,a5 are free, a1 moves only in multiples of p
+    and a0 only in multiples of 7376877.
+26. **§159 — `s10/lattice7.py`**: for every subset of the twelve rows, the linear Diophantine
+    system over that lattice.  **No subset larger than 5 is integrally reachable**, though all
+    924 six-subsets and 792 seven-subsets are solvable over ℚ.  Pure integrality.
+27. **§160 — the coarse generators cost >= 11.**  x28730 breaks exactly the a7930 congruence
+    (16 eqs, 11 after the exact repair); x7068 breaks exactly a29539 (13 eqs).
+28. **§161 — therefore `score = 39033 - (12-k) - c` with `c = 0 => k <= 5 => <= 39,026`
+    (attained) and `c >= 11 => <= 39,022`.  39,026 IS OPTIMAL for this residual structure.**
+    Conditional on the measured coarse cost and on this frame; no infeasibility is claimed.
+
 **Next actions (Part XXV)**
   - Door A: drive `x15298 → 0` from `s10/AG_39013.json` (never tried with all advice solved).
   - Door B: solve `x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)` — three linear conditions in
