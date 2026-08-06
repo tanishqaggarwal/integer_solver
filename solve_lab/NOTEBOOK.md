@@ -1610,3 +1610,27 @@ remaining single absorber (a40065, 10 equations) brings the total back to 15.
 
 Net: the deficit of 2 survives gate-breaking. Session best stays 39,018 (verified); deliverable
 stays 39,026.
+
+### Session 11, Part VI — as an INTEGER PROGRAM (`S11_PART3_IP.md`, `s11/ip1.py`..`ip11.py`)
+
+Dropped the circuit reading and treated the instance as 38,748 integer variables / 39,033
+polynomial equations, minimising violated equations.
+
+- ip1: min-cost defect placement, exact over 2^14 subsets -> optimum **15** for the (490,91)
+  channel; certifies the 39,018 construction optimal for that channel.
+- ip2: global lower bound. Absorbers must lack a private handle (121 of 10,792 checks have one);
+  cheapest absorbing pair = **2 equations**, so no score above 39,031 anywhere. Also: the
+  checkpoint's 7 atoms span 12 equations but only 7 fail -> CANCELLATION is real, objective must
+  be over equations.
+- ip3/ip4: minimum-weight coset ||b + G k||_0 with an integer kernel, iterated as integer Newton
+  -> independently returns 15. Two different exact methods agree.
+- ip5/ip7/ip8: the checkpoint as a raw IP (no forward-eval, so the broken gates survive).
+  System 130x69 after locality reduction. allow = 0, 1, 2 ALL infeasible. Every subset passes a
+  modular screen but fails over Z -> the obstruction is divisibility, not rank.
+- ip9/ip10: THE RESULT. Consistent over Q; solution supported on exactly the seven x_2099 ladder
+  variables; least d with M x = d*rhs integer-solvable is **2458959 * p** (3 * 819653 * p), and
+  every proper divisor fails.
+
+So the whole wall at 39,026 is ONE divisibility by 2458959*p. ip11: 0 of 7 failing values are
+divisible by p (gcd 1). Next target, exactly: reach a state whose failing values are 0 mod p —
+then the obstruction is the 7-digit 2458959, which the quad3.py CRT machinery already handles.

@@ -65,6 +65,30 @@ Session-11 best in a NEW branch, independently verified: `s11/data/finish3_named
   two, so the total returns to 15. The deficit survives the one attack the rest of the session
   had structurally excluded.
 
+### PART VI (same session): treated as an INTEGER PROGRAM — the obstruction is ONE NUMBER
+Scripts `s11/ip1.py` .. `s11/ip11.py`; full write-up in `S11_PART3_IP.md`.
+- **IP #1** min-cost defect placement (exact over all 2^14 subsets): optimum **15** equations for
+  the (490,91) channel — certifying the 39,018 construction as optimal *for that channel*.
+- **IP #2** global lower bound: absorbers must lack a private handle; cheapest pair = **2
+  equations**, so no score above **39,031** is possible anywhere. Also found that the
+  checkpoint's 7 atoms span 12 equations but only 7 fail — **cancellation is real**, so the
+  objective must be over EQUATIONS, not atoms.
+- **IP #3/#4** minimum-weight coset `min ||b + G k||_0` + integer Newton: independently returns
+  **15** for the same channel. Two structurally different exact methods agree.
+- **IP #5/#7/#8** the checkpoint as a RAW integer program with no circuit orientation (needed,
+  because forward-evaluating destroys it): 19 exact-linear core vars, 123 collateral equations,
+  50 compensators, system 130x69. **allow = 0, 1 and 2 are ALL infeasible.**
+- **IP #9/#10** THE RESULT: the system is consistent over Q, its solution is supported on
+  exactly the seven x_2099 ladder variables, and the least d making `M x = d*rhs`
+  integer-solvable is **d = 2458959 * p** (= 3 * 819653 * p) — every proper divisor fails.
+  > **The entire obstruction at 39,026 is a single divisibility by 2458959*p.**
+  At the checkpoint 0 of 7 failing values are divisible by p (gcd = 1); same at 39,018.
+
+> **NEXT TARGET, stated exactly:** reach a state where the failing equation values are
+> = 0 (mod p). The obstruction then collapses to divisibility by **2458959**, a 7-digit
+> modulus — attackable by the same CRT/quadratic-form method that cleared 8640431
+> (`s11/quad3.py`).
+
 ### Do NOT redo
 - The clean all-zero frame, the MUX/OR-tree decode, `a40608 = (W-C)^2`, the core rank-2
   reduction, the cubic, the 8640431 CRT step, the channel taxonomy, the control scans.

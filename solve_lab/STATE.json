@@ -7,7 +7,7 @@
  "n_eqs_satisfied_by_partial": 39026,
  "best_score": 39026,
  "best_partial": "solve_lab/best/new_instance_partial_39026.json",
- "active_method": "s11 part II: channel taxonomy priced; deficit of 2 localised to two topological control collisions",
+ "active_method": "s11 part VI: integer-programming formulation; obstruction reduced to one divisibility by 2458959*p",
  "structure": {
   "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
   "n_distinct_atoms": 46275,
@@ -41,9 +41,9 @@
   "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
  },
  "next_actions": [
-  "Per channel, enumerate 2-deficit absorbing sets by EQUATION cost; look for one absorbable by two 1-equation checks (~39,031)",
-  "Search for a second non-bit control reaching x_10170 or x_6858 (would break the x_33129 / x_37088 collisions)",
-  "Do NOT redo: MUX decode, cubic, 8640431 CRT, channel taxonomy, control scans (all in s11/)"
+  "Reach a state where the failing equation values are 0 mod p -> obstruction collapses to the 7-digit 2458959, attackable by the quad3.py CRT method",
+  "IP certificates already established: channel optimum 15, global lower bound 2, checkpoint rigid for allow<=2",
+  "Do NOT redo: ip1-ip11 (min-cost placement, lower bound, coset IP, checkpoint IP, invariant factor)"
  ],
  "blocked": [
   "Part 1's two mod-p congruences are rigid ONLY because all handles are p-quantised, and part 2 shows that rests on a wire with a 3-dimensional free deformation space. The live obstruction is now the 13 multi-wire monomials plus the bare root pin a37694 (12 equations)."
@@ -73,7 +73,7 @@
   "s11_theta": "solve_lab/s11/theta_solveB.json",
   "s11_part2": "solve_lab/S11_PART2.md"
  },
- "updated_unix": 1786023366,
+ "updated_unix": 1786033552,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -324,6 +324,13 @@
   "best_branch": "U=0,V=1 with bits (490,91)",
   "absorbing_cost_in_branch": 15,
   "deficit_proof": "bipartite matching: 14 constraints, max matching 12, deficit 2; Hall violator 9 constraints vs 8 controls (s11/hall.py)",
-  "bits_boolean": "proved: a1430 = x_490^2 - x_490, one per each of the 256 message bits"
+  "bits_boolean": "proved: a1430 = x_490^2 - x_490, one per each of the 256 message bits",
+  "integer_program": {
+   "channel_optimum": 15,
+   "global_lower_bound_equations": 2,
+   "checkpoint_allow_0_1_2": "all infeasible",
+   "obstruction": "single divisibility by 2458959*p (3*819653*p); consistent over Q; support = the 7 x_2099 ladder vars",
+   "next_target": "reach a state with failing equation values = 0 mod p; obstruction then collapses to 2458959"
+  }
  }
 }
