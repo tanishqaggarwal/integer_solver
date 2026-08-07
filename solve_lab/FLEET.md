@@ -3738,3 +3738,73 @@ more equation than its atom, almost certainly its own guard. Among the 18 incide
 
 M's engine is held **interruptible** for L's `solve_group`, whose result would need pricing in the
 one frame that provably reproduces the deliverable.
+
+---
+
+## Check-in 69 — L's |S|=2 closure AUDITED and verified against the instance (agent T)
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### The premise nobody had tested: the result had never been tested at all
+
+Every number in L's closure came from **L's own engine** (a 9,032-atom model), and **`solve927.py`
+dumps no assignment** — so the closure had never been put in front of `checker.py`. The file that
+looked like its output (`assign_L2.json`) **predates the run by two hours and is not its output.**
+L's `|S| = 1` result *was* checker-verified; this one was not.
+
+**T reproduced it from cold — identical to L's log (`c = 6672769`, deg 2, wire `x24908`,
+`t = 2990790`) — dumped the assignment, and checked it:**
+
+```
+checker.py -> satisfied 39018/39033 (15 failing)
+
+F's certified-faithful 39,033-atom parse, independent of L's engine:
+  nonzero atoms: 2   -- exactly the two target congruences
+  equation footprint of those 2 atoms: 15
+  footprint == checker's failing set: EXACTLY
+```
+
+**All 927 integer conditions really are discharged**: the only atoms nonzero anywhere in the
+instance are the two target congruences, and the 15 failing equations are precisely their footprint
+— **nothing unexplained.** `assign_L1.json` gives the identical 2 atoms and 15 equations, so
+**`|S| = 2` closing is a statement about the integer lift, not a score improvement.** Artifact:
+`agentT_work/t_S2_assign.json`, checker-verified — **the file L's run should have produced.**
+
+### The three premises
+
+1. **"0 undischarged" is not "all 927 checked."** The count silently excludes bad-list entries whose
+   residual is not 0 mod p. **2 such exclusions at `|S| = 2`** — exactly the two target congruences,
+   benign there — **but the two metrics differ at `|S| = 17`.** **Report the nonzero-atom count
+   (complete), not the stuck count.** Relayed to L, including for its in-flight bivariate run.
+2. **Direct recomputation is genuine** — `probe()` calls `E.run` with the shift actually applied and
+   the fitted polynomial only *proposes* the root, so **P's guard is properly inherited and no
+   sign-bug of P's kind survives it.** **But the guard verifies only the target atom, and applying
+   the shift can disturb others — which is exactly the `x23238`/`x10261` oscillation blocking
+   `|S| = 17`.** T's audit and L's bivariate diagnosis agree on the mechanism.
+3. **The degree bound is real and NOT load-bearing for soundness.** L's `fit()` samples only 5
+   points, so degree 5+ would alias silently; T re-fitted at deg ≤ 6, 8, 10 on all six influencing
+   wires and got the same top degrees every time (2, 2, 3, 1, 1, 3) — **P's bound confirmed a third
+   time.** And the general point, worth keeping: **a bad degree bound can only cause a missed
+   solution, never a false verified one, because the recomputation guard rejects the root. It bounds
+   cost, not correctness.**
+
+### Scope and the next step
+
+This establishes closure for **one** ON-set of size 2 and **does not establish generalisation** —
+`|S| = 17` still ends undischarged, on the shared-wire simultaneity of premise 2. **T's
+recommendation, adopted: run `|S| = 3, 5, 8`, each dumped and passed through `checker.py`** — three
+more points, minutes of compute each, separating **"closes for small |S|"** from **"closes
+generally"**, which is the actual open question.
+
+> **Standing rule from this check-in: whatever runs next dumps the assignment and passes it through
+> `checker.py`. That step cost nothing here and is what turned a model-internal claim into an
+> instance-level fact.**
+
+**T re-tasked: audit O's `eq8680` Lemma** — the one unconditional structural result in the lab and
+the only one with no adversarial pass. It carries the seven-way 1-for-1 trade, the death of δ₀, and
+M's reduction of its enumeration space from 2¹⁸ to 2¹⁶. Two specific angles: check the 20-atom
+decomposition against F's parse as a **third** source (O reached it after catching that H showed one
+term where E showed twenty); and check that **"a square has a single zero locus" is applied to the
+right object** — it holds over a field, and the equation is over ℤ with a modulus in play, so if
+`eq8680 = T²` means `T² ≡ 0 (mod m)` rather than `= 0` over ℤ, the step to `T = 0` needs `m` prime
+or squarefree.

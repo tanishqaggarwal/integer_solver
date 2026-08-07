@@ -3,3 +3,4 @@ target: buy 3, break <= 2  ->  39,027.   cap 2400s
  triple [12231, 12270, 12350]: b<=2 exhausted, none  (14198 solves so far, 124s)
  triple [12231, 12270, 14584]: b<=2 exhausted, none  (28396 solves so far, 126s)
  triple [12231, 12270, 18673]: b<=2 exhausted, none  (42594 solves so far, 87s)
+ triple [12231, 12270, 22044]: b<=2 exhausted, none  (56792 solves so far, 110s)

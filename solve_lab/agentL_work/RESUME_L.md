@@ -489,13 +489,51 @@ round -- but clearing one on x9776 breaks the other on x10261 and vice versa, so
 Per-wire grouping cannot reach this: the coupling is **across wires**, so it is a genuine
 **bivariate** system, not a contended single wire.
 
-**THE FIX, STILL BOUNDED.**  Solve the pair simultaneously in (t1,t2): each atom is degree <= 3
+**SUPERSEDED BY S6i — the bivariate reading was WRONG.  See below.**
+
+**(original, retained for the record) THE FIX, STILL BOUNDED.**  Solve the pair simultaneously in (t1,t2): each atom is degree <= 3
 in each variable (bound confirmed in S6g), so for each prime power q^e of the two moduli, **loop
 t1 over q^e and root-find t2 from the resulting univariate polynomial** -- one loop, not a double
 loop, so ~10^7 cheap polynomial evaluations, comparable to the 59 s already spent on a single
 prime c.  Then CRT across prime powers and verify by recomputation.  Generally: `solve_group`
 must range over wire SETS, taken from the connected components of the "shares a condition"
 graph -- here exactly one component of size 2.
+
+--------------------------------------------------------------------------------------------
+## 6i. THE COUPLING IS WITH ALREADY-SATISFIED CONDITIONS, NOT AMONG THE STUCK ONES (`bivar.py`)
+**I was wrong in S6h and the component computation says so.**
+
+    COMPONENT SIZES at |S|=17 of the shares-a-condition graph:  [1, 1]
+
+The two residual conditions are in **separate components — they share no influencing wire at
+all**.  Measured: c1 = 1707229 = 43*39703 and c2 = 5930437 (prime), **coprime**; and on the
+wire pair (x5460,x5616) atom1 has degree (2,1) while atom2 has degree **(0,0)** — those wires do
+not touch atom2.  So there is no bivariate coupling between them.  (Degree-<=3 per variable does
+hold separately: (2,1) observed, nothing above 3 anywhere.)
+
+**So why does it cycle?**  Because `solve_group` groups only the currently-STUCK atoms on a wire
+and ignores the c>1 atoms that wire influences which are currently SATISFIED.  Clearing a stuck
+condition on wire w silently breaks an already-discharged one elsewhere, which then reappears as
+stuck next round.  **The 2-cycle is between the stuck set and the satisfied set, not within the
+stuck set.**  That is also why the residual pair is not stable across runs: at S6h it was
+(x9776,x10261) with different moduli, here it is a different pair — the residue is
+path-dependent, which a genuine structural obstruction would not be.
+
+**THE ACTUAL FIX.**  For wire w, `solve_group` must range over **every c>1 atom that w
+influences**, not just the violated ones, and require:
+    violated atoms  -> t in their root set   (clear them)
+    satisfied atoms -> t in their root set   (PRESERVE them; note t=0 is always in it)
+i.e. intersect root sets over the whole influenced set, which is exactly the machinery already
+written — only the atom list passed in is wrong.  This is a one-line change to how `ats` is
+built in `solve927g.py`, plus keeping the existing direct-recomputation guard.
+
+## 6j. PROCESS RULE (learned twice, flagged, now recorded)
+* **Never `pkill -f <pattern>` where the pattern can match this shell.**  `pkill -f solve927g`
+  matched the wrapping shell and killed it (exit 144), twice.  Record the PID at launch
+  (`echo $!` / `os.getpid()`) and kill that, or match on a token unique to the job.
+* **Never split a source file on a literal that the file itself contains.**  Splitting
+  `solve927g.py` on `"if __name__"` cut inside its own `.split("if __name__")` call.  Use an
+  explicit `#MAINSTART` marker comment — three occurrences of this bug this session.
 
 ## 7. FILES (all in `agentL_work/`)
 Code: `trace.py ortree.py ortree2.py census.py wire.py link.py crux.py onset.py fail7.py
