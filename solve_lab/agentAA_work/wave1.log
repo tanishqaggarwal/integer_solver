@@ -49,3 +49,19 @@ scan data/p_p2p257.txt sz=3 [0,512): 22108160 cand zero=0 27.2s
 OFFSET_DONE p2p257 hits=5595
 scan data/p_n2p257.txt sz=1 [0,512): 512 cand zero=0 0.0s
 scan data/p_n2p257.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/p_n2p257.txt sz=3 [0,512): 22108160 cand zero=0 31.2s
+OFFSET_DONE n2p257 hits=5595
+scan data/p_n_a55.txt sz=1 [0,512): 512 cand zero=0 0.1s
+scan data/p_n_a55.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/p_n_a55.txt sz=3 [0,512): 22108160 cand zero=0 22.7s
+OFFSET_DONE n_a55 hits=5595
+scan data/p_n_lam.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_n_lam.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_n_lam.txt sz=3 [0,512): 22108160 cand zero=0 18.9s
+OFFSET_DONE n_lam hits=5595
+scan data/p_n_a0001.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_n_a0001.txt sz=2 [0,512): 130560 cand zero=0 0.2s
+scan data/p_n_a0001.txt sz=3 [0,512): 22108160 cand zero=0 21.1s
+OFFSET_DONE n_a0001 hits=5595
+scan data/p_halfN.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_halfN.txt sz=2 [0,512): 130560 cand zero=0 0.4s

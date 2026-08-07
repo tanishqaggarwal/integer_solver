@@ -6151,3 +6151,63 @@ rather than bounding weight**, and no search has used it. On a curve, two points
 are `±` each other, so for leaves the condition is `2^{i−j} ≡ ±1 (mod N)` — **cheaply checkable, and
 the 512 leaf coordinate constants are already in `agentZ_work/zsel.json`.** If the density is
 non-negligible it **prunes the MITM tree instead of merely bounding it.**
+
+---
+
+## Check-in 104 — the exclusion is exact and prunes nothing; density 2^-256 (agent Z)
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### Z killed its own lead, exactly rather than by estimate
+
+Instead of estimating the intermediate-collision rate, Z derived the **exact** condition. The two
+children of a merge have **disjoint** leaf supports, so:
+
+> `x(A) = x(B)` with `y(A) ≠ y(B)` ⟺ `A = −B` ⟺ **`k(S ∩ T_v) ≡ 0 (mod N)`**
+> and since `0 ≤ k < 2^256 < 2N`, **the wrap can happen at most once ⇒ `k(S ∩ T_v) = N` exactly.**
+
+**`popcount(N) = 192`, spanning bits 0…255**, so a merge is infeasible **iff `S ∩ T_v = bits(N)`**,
+needing `|T_v| ≥ 192`. **The structure makes it rarer and rigid, not commoner** — the `~2/N`
+unstructured heuristic collapses to one value. With the 178 | 78 root split, **the root is the only
+node with `|T_v| ≥ 192`, where the condition reads `S = bits(N)` — and that was already a
+non-solution, since `k = N ⇒ k·G = O ≠ T`.**
+
+> **One configuration out of 2²⁵⁶. Worst case over all binary trees on 256 leaves: `< 2^-186`.
+> Negligible under every tree shape. The lead dies cheaply; nothing to route to X, Y or AA.**
+
+**Verified by construction:** `Σ_{i∈bits(N)} 2^i·L0 = O` (independently confirming `N·L0 = O`);
+**12/12** random splits of `bits(N)` share `x` with opposite `y`, exactly as predicted; control of
+**200** random weight-192 subsets gives **0** collisions. The predicted configuration fires, and only
+it fires.
+
+### Two by-products worth more than the lead
+
+**`ord_N(2)` is ODD** — 250 bits, from a re-verified factorisation of `N − 1`. **So `2^d ≡ −1 (mod N)`
+has NO solution for ANY `d`**, not merely none in `|i−j| ≤ 255`. Unconditional, and it settles the
+leaf case outright rather than empirically. (Leaf pairs sharing an `x`: **0**. Distinct leaf `x`:
+**256/256**.)
+
+**The ladder is now established by curve arithmetic rather than inherited.** Doubling each leaf lands
+on another leaf **255/256** times, exactly one leaf (`x_2779`) is nobody's double, and the successor
+relation is a **single chain of length 256** — so `{2^i·L0}` is a **measured property of the
+constants**, not a consequence of the reduction that produced it. Orientation into `(x,y)` was
+unambiguous 256/256 and the recovered `b` reproduces P's constant exactly. Map in `zexpo.json`.
+
+> **Z's closing line, recorded as the terminal statement for the instance side:
+> *every remaining lever is a prior on `k`, not a fact about the equations.***
+
+### Z re-tasked — audit AB's corrected model and Theorem D
+
+AB retracted its own headline (check-in 103) unprompted, **which is exactly why the corrected model
+needs a second pair of eyes before the fleet plans against it.** Z audits:
+
+1. **The corrected covering cost** — re-derive independently, **run the boundary checks in both
+   directions** (`W = 256` must give 2^128; `W = 0` the full space; monotone between), then confirm
+   or correct `2^47 → w ≤ 18`, `2^58 → w ≤ 24`, `2^80 → w ≤ 40`, crossover `w ≈ 104`.
+2. **Theorem D**, now the load-bearing barrier — check the counting: is `min(|D₀|,|D₁|)` the right
+   normaliser, does the single-root argument survive the automorphism group, does
+   `B = 128 ⇒ m ≥ 2^127.5` follow. **A barrier is the last thing that should go unaudited, and this
+   campaign has retracted five.**
+
+Z is the right agent: it ran its elimination **both mod a word prime and exactly over ℚ**, and
+cross-checked through **`checker.py`'s own compiled evaluator** rather than its own parser.
