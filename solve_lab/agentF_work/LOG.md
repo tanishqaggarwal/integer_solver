@@ -232,3 +232,31 @@ Resume by re-running the script -- it skips booleans already recorded.
     =>  M NONSINGULAR over GF(2^31-1),  rank = 39033,  dim ker = 0
 Two independent methods (characteristic-free peeling certificate, and Wiedemann over a word prime) agree.
 A second prime q = 2147483629 is running for redundancy (`wiedemann.log`).
+
+## 20. **CORRECTION — link (i) is NOT established; treat the infeasibility argument as OPEN**
+Wiedemann finished on the second prime as well:
+    q = 2147483629 : minpoly degree 39033 = n, trailing coefficient 11716781 != 0 -> M NONSINGULAR
+So **rank(M) = 39,033 and dim ker(M) = 0** is confirmed by three independent computations
+(peeling certificate over Z; Wiedemann over 2^31-1; Wiedemann over 2147483629).  That part stands.
+
+What does NOT stand is link (i).  I built a *rigorous* configuration-conditional mod-p rigidity engine
+(`cfg_rigid2.py`): fix a boolean configuration, note that wires whose free-input support lies inside the
+boolean free inputs then have configuration-determined values, so selector products linearise; then run an
+AFFINE weighted union-find (value[x] = A*value[root] + B) over every definition and residual atom, with a
+ZERO-closure fixed point.  On a single-boolean configuration it derives, with **0 conflicts**, that all six
+selected wires are pinned to explicit constants mod p -- reproducing my earlier empirical measurements
+digit for digit.  That makes link (ii) a derivation rather than a measurement.
+
+But on SAME-TREE PAIRS the engine derives **no contradiction and no forcing**:
+  - both booleans' pin wires are still forced to their own constants (4/4 checked), conflicts = 0;
+  - x1 and y1 are simply NOT derived.
+Diagnosis: exactly 108 wires lose their forcing when the second same-tree boolean turns on, and among the
+23 whose definition inputs are still forced sits `x11317 := (x11532 + x14681)` -- an ADDER that carried
+x1's whole value in the single-boolean configuration, with x14681 holding boolean 47's contribution and
+x11532 provably zero.  With two booleans on, x11532 is no longer provably zero.
+**That is the signature of an accumulator, not of a conflict.**  If the selected wire is a SUM of the
+per-boolean contributions, then many booleans may be on simultaneously, the reachable set of the selected
+pair is far larger than the 13,884 one-per-tree combinations I enumerated, and **my exhaustion in section 7
+is invalid**.  The earlier exact-integer-Jacobian evidence for link (i) rested on one pair and excluded the
+quadratic coordinate knobs -- the same weakness I criticised elsewhere.
+**Therefore: no infeasibility is claimed.  The instance is OPEN.**  What is proved is only ker(M)=0.

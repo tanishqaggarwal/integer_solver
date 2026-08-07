@@ -41,10 +41,16 @@
  48/256 bit 10428  tree A match=True  conflicts=0   running: match 47, conflict 0, t=570s
  49/256 bit 10591  tree A match=True  conflicts=0   running: match 48, conflict 0, t=583s
  50/256 bit 10746  tree A match=True  conflicts=0   running: match 49, conflict 0, t=597s
-6 bit 8757   tree A match=True  conflicts=0   running: match 43, conflict 0, t=619s
- 45/256 bit 9294   tree A match=True  conflicts=0   running: match 44, conflict 0, t=635s
- 46/256 bit 9601   tree A match=True  conflicts=0   running: match 45, conflict 0, t=649s
- 47/256 bit 10255  tree A match=True  conflicts=0   running: match 46, conflict 0, t=665s
- 48/256 bit 10428  tree A match=True  conflicts=0   running: match 47, conflict 0, t=680s
- 49/256 bit 10591  tree A match=True  conflicts=0   running: match 48, conflict 0, t=693s
- 50/256 bit 10746  tree A match=True  conflicts=0   running: match 49, conflict 0, t=705s
+ 51/256 bit 11026  tree A match=True  conflicts=0   running: match 50, conflict 0, t=611s
+ 52/256 bit 11170  tree A match=True  conflicts=0   running: match 51, conflict 0, t=638s
+ 53/256 bit 11777  tree A match=True  conflicts=0   running: match 52, conflict 0, t=657s
+ 54/256 bit 12072  tree A match=True  conflicts=0   running: match 53, conflict 0, t=672s
+ 55/256 bit 12134  tree A match=True  conflicts=0   running: match 54, conflict 0, t=685s
+ 56/256 bit 12422  tree A match=True  conflicts=0   running: match 55, conflict 0, t=697s
+6 bit 10746  tree A match=True  conflicts=0   running: match 49, conflict 0, t=705s
+ 51/256 bit 11026  tree A match=True  conflicts=0   running: match 50, conflict 0, t=718s
+ 52/256 bit 11170  tree A match=True  conflicts=0   running: match 51, conflict 0, t=734s
+ 53/256 bit 11777  tree A match=True  conflicts=0   running: match 52, conflict 0, t=768s
+ 54/256 bit 12072  tree A match=True  conflicts=0   running: match 53, conflict 0, t=784s
+ 55/256 bit 12134  tree A match=True  conflicts=0   running: match 54, conflict 0, t=798s
+ 56/256 bit 12422  tree A match=True  conflicts=0   running: match 55, conflict 0, t=811s
