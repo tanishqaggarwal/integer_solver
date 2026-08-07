@@ -6,3 +6,4 @@ DONE size=5 range=[20,33) n=1453252593 zero=0 1686.5s
 DONE size=5 range=[77,256) n=1447490660 zero=0 1704.2s
 DONE size=5 range=[51,77) n=1424918131 zero=0 1710.4s
 DONE size=5 range=[33,51) n=1520332848 zero=0 1750.0s
+DONE size=5 range=[0,10) n=1602932562 zero=0 1784.6s

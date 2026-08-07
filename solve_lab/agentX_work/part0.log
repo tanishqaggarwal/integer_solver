@@ -6,3 +6,6 @@
   i0=5 done cum=495004130 1135.9s
   i0=7 done cum=648833260 1490.5s
   i0=6 done cum=653854252 1499.0s
+  i0=9 done cum=802751287 1784.2s
+  i0=8 done cum=800181275 1784.6s
+scan size 5 range [0,10): 1602932562 candidates, zero-events 0, 1784.6s

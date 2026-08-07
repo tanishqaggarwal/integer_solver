@@ -583,3 +583,154 @@ So a slot's `|I|·|J|` pairs collapse to `|I|+|J|` distinct prices, and the whol
 **32,640 (slot, pair) triples collapse to 2,114 evaluations** — `Σ_slots(|I|+|J|) = 2,114`
 against `Σ_slots(|I|·|J|) = 32,640`.  This is what makes "price every slot, exhaustively over
 pairs and over values" a 2,114-evaluation job instead of a 65,280-evaluation one.
+
+## 27. RULE 9 CAUGHT MY OWN REDUCTION (B) — it is FALSE, and where it fails is the whole answer
+
+`u25_exact.py` used reduction (B) and reported the **ROOT at 12**.  But the deliverable **is**
+the ROOT with lying leaf 2081 and scores **7**.  My own control refuted my own reduction before
+the table was published.  `u28_honest.py`, lying leaf fixed at 2081, honest leaf ranging over all
+**178** leaves of the other half:
+
+```
+distribution: 7 -> 1 slot   (honest = x_24601, exponent 72 : THE DELIVERABLE)
+             12 -> 177
+```
+
+So (B) holds at 177 of 178 points and fails at exactly one — and that one is the deliverable.
+**A reduction that is true 99.4% of the time would have hidden the only interesting point in the
+instance.**  Everything below therefore reports u25 as a *bound* and enumerates the honest leaf
+explicitly wherever it could matter.
+
+## 28. WHAT THE DELIVERABLE'S 7 ACTUALLY IS: **12 − 5**, and the 5 are named (`u29_disc.py`)
+
+```
+honest = 24601 (deliverable) :  7 failing  [12231 12270 12350 14584 18673 22044 29125]
+honest = 47    (generic)     : 12 failing  [2554 6816 8124 8680 9421 | 12231 ... 29125]
+generic \ deliverable        = [2554, 6816, 8124, 8680, 9421]
+deliverable \ generic        = []                      <- a strict SUBSET, not a trade
+```
+
+* The generic cross-half route costs **12** equations.  Exactly one configuration buys a
+  **5-equation discount**, and it is the deliverable's.
+* **Those five are the frame-B rows the rest of the fleet has been pricing**: N's essential set is
+  `{2554, 6816, 8124, 9123, 9421, S}` and W's unique price for `eq29125` is `eq8680`.  My route
+  pricing and their frame-B lattice pricing are measuring **the same five equations from opposite
+  ends**.  That is a cross-agent reconciliation, not a coincidence of numbers.
+* **The discount is carried entirely by the DRV seed.**  Re-run with `DRVSEED` dropped:
+  honest=24601 → 40, honest=47 → 40, **discount 0**.  So the 5 is the price of the *injection*,
+  not of the degeneracy — which is exactly the claim agent W arrived at independently, reached
+  here from the route side.
+* **The discount is unique in both slices through it**: over 178 honest leaves (lying = 2081) only
+  24601 gives it; over 78 lying leaves (honest = 24601) only 2081 gives it.
+
+## 29. THE PER-SLOT PRICE TABLE — 255 of 255 merge slots, nothing below 7
+
+`u25_exact.py` (2,114 evaluations, covering all **32,640** (slot, pair) triples under (B), and
+all carried values under (A)) → `u_slotprice.pkl` / `u_slotprice.json`:
+
+```
+min 12   median 28   mean 28.2   max 40        (per-slot minima, 255 slots)
+12:7  19:1  24:4  25:21  26:33  27:35  28:32  29:49  30:20  31:18
+32:13 33:9  34:3  35:5   37:2   38:2   40:1
+evaluations strictly below 7 : 0
+evaluations equal to 7       : 0     (u25 uses one honest leaf per (slot,lying), so it misses the deliverable)
+```
+
+| depth | slots | min | median | max |   | \|I\|+\|J\| | slots | min | median | max |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 89 | 19 | 29 | 35 |  | ≤2 | 102 | 19 | 29 | 40 |
+| 2 | 73 | 12 | 29 | 40 |  | ≤4 | 76 | 12 | 29 | 38 |
+| 3 | 46 | 12 | 27 | 38 |  | ≤8 | 34 | 12 | 27 | 38 |
+| 4 | 24 | 12 | 27 | 33 |  | ≤16 | 21 | 12 | 27 | 33 |
+| 5 | 12 | 12 | 26 | 28 |  | ≤32 | 11 | 12 | 26 | 28 |
+| 6 | 6 | 12 | 25 | 26 |  | ≤64 | 6 | 12 | 25 | 26 |
+| 7 | 3 | 12 | 25 | 25 |  | ≤256 | 5 | 12 | 25 | 25 |
+| 8 | 1 | 25 | 25 | 25 |  | | | | | |
+| 9 | 1 | 12 | 12 | 12 |  | | | | | |
+
+**Depth and support size are NOT the drivers.**  The eight slots that reach ≤ 19 are exactly the
+**eight ancestors of leaf 2081** (exp 235), one at every depth 1…9 — a single root-to-leaf path,
+not a depth band.  The cheap route is a property of *which leaf lies*, not of where the slot sits.
+
+## 30. EXHAUSTIVE WHERE IT COULD MATTER (`u30_cheap.py`) — 255 more evaluations
+
+At each of the 8 slots with bound ≤ 19, with the cheapest lying leaf, **every** honest leaf on the
+other side was priced:
+
+| beta | depth | honest choices | generic | MIN | discount |
+|---|---|---|---|---|---|
+| 4971 | 2 | 1 | 12 | 12 | 0 |
+| **9274 = ROOT** | 9 | **178** | 12 | **7** | **5** |
+| 13976 | 4 | 4 | 12 | 12 | 0 |
+| 16102 | 3 | 3 | 12 | 12 | 0 |
+| 17215 | 7 | 41 | 12 | 12 | 0 |
+| 23131 | 5 | 11 | 12 | 12 | 0 |
+| 28505 | 6 | 16 | 12 | 12 | 0 |
+| 27994 | 1 | 1 | 19 | 19 | 0 |
+
+> **The discount exists at exactly one of the 255 honest-leaf evaluations, and it is the
+> deliverable.  Everywhere else the cross-half route costs 12 and no discount is available.**
+
+## 31. CHECKER-VERIFIED ARTEFACTS (dumped and re-scored from disk, `u31_dump.py`)
+
+| file | checker | failing set |
+|---|---|---|
+| `u_build_root_24601_2081.json` | **39026/39033** | `[12231 12270 12350 14584 18673 22044 29125]`, **0 of 38,748 vars differ from the deliverable** |
+| `u_build_root_generic_47.json` | 39021/39033 | the 7 **plus** `[2554 6816 8124 8680 9421]`, 583 vars differ |
+| `u_build_slot28505_d6.json` | 39021/39033 | **the identical 12** at a depth-6 slot, 581 vars differ |
+
+The depth-6 slot and the generic ROOT produce the **same 12 failing lines**.  The generic
+cross-half route cost is a fixed structural 12, independent of the slot.
+
+## 32. SCOPE — what is exact, what is bounded
+
+* **EXACT, all 255 slots:** the price of the construction *(two ON leaves, honest pins, one common
+  route value, β driven to the target through the deliverable's DRV)* at every (slot, lying leaf)
+  with one honest-leaf choice — 2,114 evaluations, `u_slotprice.pkl`.  Exact over **all carried
+  values** by (A), and over **all leaf pairs** modulo the honest leaf.
+* **EXACT over the honest leaf** at the 8 slots that could conceivably beat 7 — 255 evaluations.
+* **BOUNDED, not exhaustive:** the honest leaf at the other 247 slots (their bound is ≥ 24, so a
+  discount larger than 17 would be needed); the full 178×78 honest×lying grid at the ROOT (both
+  slices through the optimum were enumerated, the grid was not); and **the DRV seed itself, held
+  fixed at the deliverable's values throughout** — §28 proves the whole discount lives there, so
+  **that is the one axis on which a bigger discount could hide.**
+* **NOT covered:** more than two ON leaves; pin lies (measured worse: §16's 46/50/88, and the
+  CRT joint-pin route at the ROOT scores 53 without DRV / 36 with, `x13_crt.py`).
+
+## 33. VERDICT AND THE NEXT EXPERIMENT
+
+**Not terminal.**  Zero of ~2,700 checker-exact evaluations came in below 7, and the single
+sub-12 point in the entire measured space is the deliverable itself.
+
+> **The deliverable's 7 is now a MECHANISM, not an exhaustion: 7 = 12 − 5.**  The cross-half route
+> costs a structural **12** at every one of the 255 slots (min over slots is 12, attained only on
+> the ancestor path of leaf 2081), and exactly one configuration in the instance buys the
+> **5-equation injection discount** `{2554, 6816, 8124, 8680, 9421}`.
+
+**The single highest-value next experiment** follows from §28: the discount is carried *entirely*
+by the DRV seed (drop it and the discount is 0 at both points).  DRV is 11 free variables —
+`642 1329 8731 9118 9413 10903 17325 29854 31864` (2,100–2,430 bits) plus `18956`, `28730` — and I
+held all 11 fixed at the deliverable's values for every one of the ~2,700 evaluations.  **Solve
+for DRV at a non-root slot instead of copying it.**  If a slot's local DRV buys a discount larger
+than 5 against a generic route of 12, that slot lands below 7 and the campaign is over; if the
+discount is provably ≤ 5, then `7 = 12 − 5` is the exact optimum of this family and the
+degeneracy route is closed with a number rather than an exhaustion.
+
+## 34. FILES ADDED THIS ROUND
+
+| file | what |
+|---|---|
+| `mirror/E/{parse3,dag}.py`, `model3.pkl`, `dag.pkl` | the rebuilt engine model (40,727 / 30,383 / 8,365) |
+| `mirror/L/*.pkl` | L's topology, copied from T's rebuild |
+| `u_rebuild_vw.sh` | rebuilds my whole v/w chain from `EQUATIONS.txt` |
+| `u20_sweep.py` | the generalised slot construction + exact scorer; CONTROL = 7 failing, 0 vars differ |
+| `u21_all.py` | first pass, one pair per slot |
+| `u22_pairs.py` | full 32,640-triple sweep (superseded by u25; kept, it is the un-reduced form) |
+| `u23_value.py` | **the price does not depend on the carried value** |
+| `u24_conj.py` | reduction (B) — true at 3 slots, **refuted at the ROOT by u28** |
+| `u25_exact.py` → `u_exact_*.pkl` | 2,114 evaluations, all 255 slots |
+| `u26_report.py` → `u_slotprice.{pkl,json}` | the per-slot table and the stratifications |
+| `u28_honest.py` → `u_honest_root.pkl` | 178 honest leaves at the ROOT: 7 once, 12 otherwise |
+| `u29_disc.py` → `u_disc_root.pkl` | **the 5 named equations; discount dies without DRV** |
+| `u30_cheap.py` → `u_cheapslots.pkl` | 255 exhaustive honest-leaf evaluations at the 8 cheap slots |
+| `u31_dump.py` → `u_build_*.json` | three checker-verified artefacts |

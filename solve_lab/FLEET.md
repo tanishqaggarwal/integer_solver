@@ -5700,3 +5700,70 @@ and given the 4× discrepancy at that level it is where surviving structure most
 
 *Load context: 26 at the previous heartbeat, decaying past 19 after two other agents cut their shard
 counts. Eight compute processes on four cores is the working target.*
+
+---
+
+## Check-in 97 — the 2¹⁶ placement space is COMPLETE; nothing above 39,026 (agent M)
+
+Deliverable unchanged: **39,026 / 39,033**, verified; `grep -c "ABOVE 39026"` = **0 in every log**.
+14/14 independent `checker.py` agreements this round, spanning 39,008–39,026 and including subsets
+**disjoint** from the witness.
+
+### Calibration — a ladder, not a gate
+
+Rebuilt after the second `*.pkl` wipe and reproduced pre-restart numbers exactly: atoms 40,727 ·
+eqs 39,033 · free 8,365 · SEQ 30,383 · baseline 39,008 / 25 failing / 5 bad atoms. **G1 passed with
+0 of 38,748 variables differing**; G2, G3 (against T's cofactor point), G4 (incremental == full),
+G5 at two probe depths all passed. **And the re-run enumerations reproduce the pre-restart
+per-support histograms entry for entry at every completed size** — tens of thousands of independent
+agreements, not one calibration point.
+
+### 2¹⁶ complete: 65,536/65,536, 2,030 s, errors 0, above 39,026: **0**
+
+| \|W\| | 0 | 1 | 2 | 3 | **4** | 5 | 6 | 7 | 8 | 9 | 10 | 12 | 14 | 16 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| best | 39008 | 39010 | 39022 | 39023 | **39026** | 39026 | 39026 | 39026 | 39023 | 39023 | 39021 | 39021 | 39019 | 39013 |
+| @best | 1 | 1 | 1 | 1 | **1** | 12 | 56 | 45 | 5 | 1 | 172 | 11 | 13 | 1 |
+
+**Three further instruments, same lattice, no ranking or truncation anywhere:** max over 3 greedy row
+orders (complete |W| = 0..7, counts at 39,026 **identical at every size**); cofactor knobs added
+(complete |W| = 0..8); 2¹⁸ (complete |W| = 0..6, count at |W| = 4 = **1**). **Above 39,026 in all
+three: 0.** The witness is the **unique** maximiser at support 4 under **all four** instruments and
+over **both** handle sets, and **39,026 never occurs at |W| ≥ 8.**
+
+### Three findings recorded as RULES
+
+**1. The pricer is NOT monotone in the knob set.** At |W| = 5, twelve subsets reach 39,026 with
+handle knobs but only **one** does with cofactors added — more columns make more rows solvable, so
+the greedy keeps a **larger** row set. **Maxima must be taken OVER instruments, never within one.**
+
+**2. Rule 9 on both axes, one proved saturated.** `nprobe` is **saturated** (`len(sols) ≤
+|FAILS_UNC| = 25`, so p80 already probes every solution; **p400 is a no-op — do not spend cores**).
+The live axis was the **greedy row order**: **1,001 of 1,193 sampled subsets moved UP, max +12**,
+still 0 above 39,026.
+
+> **Therefore: every per-subset score M has ever published is a LOWER BOUND. The maximum is not.**
+> Recorded against M's tables so a later reader cannot mistake them for exact.
+
+**3. M refuted its own mid-round claim.** "39,024 is a newly attainable score" is **withdrawn** —
+all three such subsets are **witness ∪ {one handle}**, which the handle-only instrument scores at
+39,026, so it was the widened instrument pricing known points *lower*. **But the by-product is a
+genuine cross-corroboration:** the 39,024 assignment is checker-verified and its failing set is the
+deliverable's 7 **plus `{8687, 22563}` — exactly agent W's minimal size-2 cocircuit with no essential
+row**, found independently from the code side. **Two agents, two methods, same object.**
+
+### M re-tasked — stop enumerating, build the lattice-column pricer
+
+M's own argument, and it converges with W's from the other side: every instrument so far prices
+**subsets of an incidence-filtered handle pool** while ~8,700 other free inputs sit at the
+deliverable's values. W measured that inside `K` the obstruction is **pure integrality**
+(`rank[A|b] = 28`, rhs not a pivot ⇒ ℚ-consistent), so **the binding object is a lattice index — and
+a lattice index is exactly what the other free inputs can move.** **Handle-subset pricing
+structurally cannot reach it; the knob set is the wrong object.**
+
+**Build a pricer whose knobs are free inputs selected by which lattice column they move, not by
+handle incidence**, calibrated on the witness by the same ladder. *The calibration discipline is what
+makes it worth building.*
+
+**Parallelism:** cofactor 2¹⁶ (14875) killed — already complete through |W| = 8, covering the whole
+region where 39,026 occurs. 2¹⁸ (28848) to run to |W| = 8 then stop. Then **one** process.

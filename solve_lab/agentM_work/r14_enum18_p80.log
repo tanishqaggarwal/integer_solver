@@ -41,3 +41,7 @@ CALIBRATION on the witness: 39008 -> 39026  PASSED
   [48,000/262,144] 1640s 29/s  best 39026  |W|=7  errors 0
   [50,000/262,144] 1684s 30/s  best 39026  |W|=7  errors 0
   [52,000/262,144] 1709s 30/s  best 39026  |W|=7  errors 0
+  [54,000/262,144] 1730s 31/s  best 39026  |W|=7  errors 0
+  [56,000/262,144] 1748s 32/s  best 39026  |W|=7  errors 0
+  [58,000/262,144] 1767s 33/s  best 39026  |W|=7  errors 0
+  [60,000/262,144] 1782s 34/s  best 39026  |W|=7  errors 0
