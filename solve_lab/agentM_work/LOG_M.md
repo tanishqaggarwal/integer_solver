@@ -1309,7 +1309,7 @@ Reporting per size as each completes, per instruction. `H16` = the p-handles inc
       4   COMPLETE    1,820      39026        1     <- witness, UNIQUE at its size here too
       5   COMPLETE    4,368      39026       12
       6   COMPLETE    8,008      39026       56
-      7   partial    ~7,100/11,440           39026
+      7   partial   11,107/11,440  39026       45   (97% of the size, still climbing)
 
 **Nothing above 39,026 anywhere.** The uniqueness at |W|=4 now holds over the wider 16-handle
 set, not just the 12: of 1,820 four-element supports, exactly one reaches 39,026.
@@ -1320,3 +1320,18 @@ are the bulk (11,440 and 12,870). 2^18 not started, per instruction to finish 2^
 
 Naming: I use **|W|** for subset size throughout. O/T's `S` is the 18-term linear form whose
 fourth power is the eq8680 atom; my enumeration exponent is also 18. Different 18s.
+
+## 81. State at hand-off
+    2^12  COMPLETE and exhaustive.  Superset claim PROVEN (verifysup.json).
+    2^16  |W| = 0,1,2,3,4,5,6 COMPLETE  (14,893 subsets).  |W| = 7 at 11,107/11,440.
+          best 39,026 everywhere; ABOVE 39,026: ZERO.
+    2^18  not started, per instruction to finish 2^16 first.
+
+Throughput, stated rather than projected: script rate fell 107 -> 53/s as |W| grew (bigger
+supports mean bigger closures and more knobs), and wall-clock is roughly a fifth of script
+rate under fleet contention. Sizes 7 and 8 are the bulk (11,440 and 12,870 of 65,536).
+`enumsub16.pkl` checkpoints every 2,000 subsets and the run is resumable from it.
+
+`ieng.py` remains interruptible and calibrated (G1-G6) for L's |S| = 3, 5, 8 closures.
+**No subset at any size has exceeded 39,026, so no assignment has been written and there has
+been nothing to verify with `checker.py`.**

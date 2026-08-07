@@ -4150,3 +4150,97 @@ Second time this session L has written down what its own work does not establish
 > at support 4), **O's Lemma survived audit and is precisely the 39,025 → 39,026 step**, and **N has
 > shown re-orientation *is* detachment**, so its detach closure already covered that axis.
 > **The integer lift is the last thing genuinely open.**
+
+---
+
+## Check-ins 76–77 — N's reduction is PROVED; M proves its own claim and falsifies its neighbour
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### T — N's detach exhaustion audited; an enumeration became a proof
+
+**T supplied the identity N had not stated**, which is what makes the reduction checkable outside
+N's frame: *a pool variable `v` is defined by an atom `(v − RHS)`, so **witness(v) ≠ gate(v) at the
+deliverable ⟺ that atom is nonzero there***. F's parse has exactly 7 nonzero atoms at the
+deliverable, and of N's 65 pool variables exactly **4** have a nonzero defining atom —
+`x642, x28730, x29854, x31864`, **N's witness set exactly.**
+
+**And T closed the gap N's argument leaves.** "No-op at the witness state" ≠ "no-op at all 16
+states": if a non-witness pool variable's RHS depended on a witness variable, its gate value would
+shift on re-attachment and the lattice could exceed 16. Measured — **of the 61: 0 directly reference
+a witness variable, 0 reach one transitively within the pool, 0 reach one anywhere in the full
+30,001-node definition DAG.** Zero over the whole instance.
+
+> **So `make(D)` depends only on `D ∩ {642, 28730, 29854, 31864}`: the 2⁶⁵ lattice has exactly 16
+> states BY PROOF, and the 16 signatures are complete by construction rather than by having happened
+> to be reached.** Row promoted to *T verified independently*.
+
+**The coordinator's cross-check hypothesis was wrong and N had got there first.** T confirms nothing
+to correct: `T = 0` already holds at the witness; **eq8680 is exactly the one equation detaching
+`x_28730` buys**; the witness region excludes 8680; and max rows zeroable subject to 8680 being
+zeroed is 0. **N's account was sharper than "the same result twice".**
+
+**Code note to N, in the right register — wrong number, right result.** `optN.inner` strips one
+nesting level, but the equation is `S⁴`, so `inner` yields `S²`, which T measured non-affine in all
+43 variables. Harmless if only the zero locus is used (`S² = 0 ⟺ S = 0`); **but if N linearises row
+8680 anywhere, it is linearising a quadratic. Strip twice.**
+
+**Cross-link:** `x_28730` is simultaneously one of N's 4 witness variables, one of the h-wires in L's
+cancellation set, and the variable entering O's `S` at `dS/dx_28730 = −1`. **Three threads
+describing one wire.**
+
+**Ledger updated with the distinction kept:** N's 16-state reduction → *T verified independently*;
+N's OPT = 5 pricing and the 924/924 p-obstruction stay a separate **reported** row scoped to
+`fwd2`'s orientation — **T verified the reduction they sit on, not the pricing itself, and says so.**
+
+### M — its own claim proven, and the neighbouring one falsified
+
+M had asserted the 29 other subsets at 39,026 are supersets of the witness; the by-size counts were
+only *consistent* with that. `verifysup.py` over the complete 2¹² space:
+
+```
+30 subsets score >= 39026
+  supersets of the witness : 30
+  NOT supersets            :  0        CLAIM VERIFIED
+```
+
+**And the same run falsified the neighbouring claim:**
+
+| \|W\| | winners | supersets existing at that size |
+|---|---|---|
+| 4 | 1 | 1 — the witness, unique |
+| 5 | 8 | 8 — every superset wins |
+| 6 | 21 | **28 — seven supersets LOSE** |
+
+> **Every subset attaining 39,026 contains the witness — but containing the witness does not
+> guarantee 39,026.** At support 6, seven of twenty-eight supersets fall below it. **Breaking an
+> extra relation is not free even when the witness's four are among those broken.**
+
+Two-sided, only one side monotone — **stronger and more useful than "30 optima"**, and it closes
+audit question 2 before T reached it.
+
+### 2¹⁶ complete through |W| = 6
+
+| \|W\| | status | subsets | best | count@best |
+|---|---|---|---|---|
+| 0–3 | COMPLETE | 1 / 16 / 120 / 560 | 39,008 / 39,010 / 39,022 / 39,023 | 1 each |
+| **4** | **COMPLETE** | **1,820** | **39,026** | **1** |
+| 5 | COMPLETE | 4,368 | 39,026 | 12 |
+| 6 | COMPLETE | 8,008 | 39,026 | 56 |
+| 7 | partial | 11,107 / 11,440 | 39,026 | 45 |
+
+**Nothing above 39,026 at any size.** Uniqueness at `|W| = 4` now holds over the wider 16-handle set
+too: **of 1,820 four-element supports, exactly one reaches 39,026 — the witness.** 14,893 subsets
+fully priced.
+
+**Throughput stated, not projected:** script rate fell **107 → 53/s** as `|W|` grew, wall-clock ~⅕ of
+that under fleet contention; sizes 7 and 8 are the bulk (11,440 and 12,870 of 65,536); resumable
+from `enumsub16.pkl`. **2¹⁸ not started** — the two extra atoms are incident only to eq8680, which is
+`S⁴ = 0`, forced everywhere and holding at the witness.
+
+**Naming hygiene:** M has switched to **`|W|`** for subset size throughout, reserving `S` for O and
+T's 18-term linear form — **the two 18s are being actively kept apart rather than merely noted.**
+
+**T's remaining audit question is now the whole audit: is M's engine exact, checked outside M's
+parse?** Its "incremental == full engine3, 0 vars differing" gate is M checking M, and an exhaustive
+enumeration is worth exactly what its scorer is worth.

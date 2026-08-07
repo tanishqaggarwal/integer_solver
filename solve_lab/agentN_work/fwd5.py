@@ -63,65 +63,66 @@ print('variables that are a legal unit target of some atom: %d ; never targetabl
       % (len(targetable), len(PURE_FREE)), flush=True)
 
 
-def build(rule, seed=0, prefer=None):
-    """Greedy propagation.  `rule` orders the legal targets of an atom.
-    Returns (defs, checks, free0) with defs a topological list of (var, atom, sign)."""
+def choose_targets(rule, seed=0, prefer=None):
+    """One chosen target per atom, exactly as fwd2 fixes tgt[] before propagating."""
     rnd = random.Random(seed)
-    known = bytearray(NV)
-    for v in PURE_FREE:
-        known[v] = 1
-    # unknown count per atom, excluding a hypothetical target
-    unk = [0] * NA
+    tgt = [None] * NA
+    sgn = [0] * NA
     for a in range(NA):
-        unk[a] = sum(1 for v in atom_vars[a] if not known[v])
-    defined = {}
-    order = []
-    used = bytearray(NA)
-
-    def ready(a):
-        """legal targets v of atom a with every OTHER variable of a known"""
-        out = []
-        for v, s in U[a].items():
-            if known[v]:
-                continue
-            if unk[a] - 1 == 0:          # v is the only unknown
-                out.append((v, s))
-        return out
-
-    Q = deque(a for a in range(NA) if U[a] and unk[a] == 1)
-    while Q:
-        a = Q.popleft()
-        if used[a] or not U[a]:
-            continue
-        cand = ready(a)
-        if not cand:
+        ks = list(U[a].items())
+        if not ks:
             continue
         if rule == 'first':
-            cand.sort(key=lambda z: list(U[a]).index(z[0]))
+            pick = ks[0]
         elif rule == 'last':
-            cand.sort(key=lambda z: -list(U[a]).index(z[0]))
+            pick = ks[-1]
         elif rule == 'random':
-            rnd.shuffle(cand)
-        elif rule == 'prefer':
-            cand.sort(key=lambda z: (0 if (prefer and z[0] in prefer) else 1,
-                                     list(U[a]).index(z[0])))
+            pick = rnd.choice(ks)
         elif rule == 'lowvar':
-            cand.sort(key=lambda z: z[0])
+            pick = min(ks, key=lambda z: z[0])
         elif rule == 'highvar':
-            cand.sort(key=lambda z: -z[0])
-        v, s = cand[0]
-        known[v] = 1
-        used[a] = 1
-        defined[v] = (a, s)
-        order.append((v, a, s))
-        for b in var_atoms[v]:
-            if used[b]:
-                continue
-            unk[b] -= 1
-            if unk[b] == 1 and U[b]:
-                Q.append(b)
-    checks = [a for a in range(NA) if not used[a]]
-    free0 = [v for v in range(NV) if v not in defined]
+            pick = max(ks, key=lambda z: z[0])
+        elif rule == 'prefer':
+            cand = [z for z in ks if prefer and z[0] in prefer]
+            pick = cand[0] if cand else ks[0]
+        else:
+            raise ValueError(rule)
+        tgt[a], sgn[a] = pick
+    return tgt, sgn
+
+
+def build(rule, seed=0, prefer=None):
+    """fwd2's propagation, but over a chosen target map.
+    Returns (defs, checks, free0), defs a topological list of (var, atom, sign)."""
+    tgt, sgn = choose_targets(rule, seed, prefer)
+    istarget = set(t for t in tgt if t is not None)
+    known = bytearray(NV)
+    for v in range(NV):
+        if v not in istarget:
+            known[v] = 1
+    unk = [0] * NA
+    for a in range(NA):
+        t = tgt[a]
+        unk[a] = sum(1 for v in atom_vars[a] if v != t and not known[v])
+    definer = [-1] * NV
+    order = []
+    Q = deque(a for a in range(NA) if tgt[a] is not None and unk[a] == 0)
+    while Q:
+        a = Q.popleft()
+        t = tgt[a]
+        if t is None or known[t] or unk[a] != 0:
+            continue
+        known[t] = 1
+        definer[t] = a
+        order.append((t, a, sgn[a]))
+        for b in var_atoms[t]:
+            if tgt[b] != t:
+                unk[b] -= 1
+                if unk[b] == 0 and tgt[b] is not None and not known[tgt[b]]:
+                    Q.append(b)
+    used = set(definer[v] for v in range(NV) if definer[v] >= 0)
+    checks = [a for a in range(NA) if a not in used]
+    free0 = [v for v in range(NV) if definer[v] < 0]
     return order, checks, free0
 
 
