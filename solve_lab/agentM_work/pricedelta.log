@@ -1,0 +1,20 @@
+START = the deliverable: score 39026, bad [23616, 23617, 36659, 36660, 36661, 36662, 36663, 36664]
+freed [642, 7068, 28730, 29854, 31864]
+44 candidate knobs (carriers included: {8731: True, 9118: True, 4432: True})
+33 affine knobs (0s); carriers affine: {8731: True, 9118: True, 4432: True}
+   x_8731 column -> atoms [36662]
+   x_9118 column -> atoms [36660]
+   x_4432 column -> atoms [8721, 23618]
+
+=== targets ===
+  [all 7 currently-failing] SOLVED. 7/7 targets now hold. score 38989  (nbad 15, nfail 44)
+      COLLATERAL: 44 equations still fail -> [287, 697, 1985, 2043, 2554, 4096, 5225, 6494, 6816, 7061, 8124, 8198, 8470, 8680, 8687, 9123, 9421, 9650, 9708, 10815, 12259, 16048, 17784, 17801]
+      knobs moved: 11  shift sizes (bits): {642: 4495, 950: 4216, 1329: 4242, 3629: 4495, 4432: 4495, 6418: 4518, 6947: 3061, 8976: 3033}
+  [all 13 region equations] SOLVED. 13/13 targets now hold. score 38984  (nbad 19, nfail 49)
+      COLLATERAL: 49 equations still fail -> [287, 483, 697, 996, 1985, 2043, 4096, 4681, 5225, 6494, 7061, 8198, 8470, 8687, 8985, 9650, 9708, 10815, 12259, 16048, 17784, 17801, 20876, 22402]
+      knobs moved: 17  shift sizes (bits): {950: 4277, 1329: 4303, 1613: 4277, 3629: 4558, 6090: 4304, 6947: 4301, 8976: 4533, 9118: 4537}
+
+=== subsets of the 7, with carriers in the knob set ===
+best over subsets: (39026, None)
+
+baseline to beat: 39026 ; perfect: 39033

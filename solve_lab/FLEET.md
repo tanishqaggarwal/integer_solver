@@ -2449,3 +2449,81 @@ assumption that cost Q six search programs. **Step 1: validate `A` against the a
 verified point cannot be trusted to produce a new one. **Step 2, only if `A` survives:** hand the two
 atoms and solved values to M for materialisation, since relaxing a selector off {0,1} **is** demoting
 its boolean-ness atom, which is M's native operation.
+
+---
+
+## Check-in 40 — the mux layer implements the fold; check-in 37's reading is corrected
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### The mux, solved symbolically at one slot
+
+Slot: leaf `2^0` (selector `x_2779`) and leaf `2^164` (selector `x_34715`), chord output
+`(x_22294, x_33676)`. Atoms read verbatim off `EQUATIONS.txt`:
+
+```
+x_2779*(x_2779-1)      x_34715*x_34715-x_34715      <- both selectors boolean-pinned
+cA = x_13201 = a(1-b)  cB = x_33391 = b(1-a)   cC = x_4639 = a*b
+Xout = cA*x_22231 + cB*x_11321 + cC*x_22294
+Yout = cA*x_27051 + cB*x_37031 + cC*x_33676
+live_out = (a+b) - ab = a OR b
+```
+
+Evaluated on the **real leaf constants**, all four quadrants behave: `(0,0)` → **identity**;
+`(1,0)` → leaf `2^0`; `(0,1)` → leaf `2^164`; `(1,1)` → **the sum**. **The fold picture is right
+about this instance at this slot.** This is L's mutually-exclusive-quadrant claim **confirmed in a
+second frame, not taken.**
+
+**Q's own §14(b) crux dissolves:** the identity value is `(0,0)`, not a curve point — but it is only
+ever **passed through** and can never enter a chord, because `cC = ab = 0` whenever a child is dead.
+
+### CORRECTION to check-in 37 — routing IS determined
+
+A leaf pin is not `sel·(w − C)`; it is **`sel·(w − C) − z`** for a further wire `z`, so the
+coordinate lands on the wire only once `z` is separately forced to 0. **Routing is determined — by a
+simultaneous system, not by propagation.**
+
+So Q's 0/1, 0/2, … 0/128 table, and T's selector-flip measurement at four bases, **measure the
+weakness of unit propagation, not an absence of determination.** Both measurements stand exactly as
+made; the reading recorded at check-in 37 was too strong.
+
+- **Stands:** "forward evaluation from selectors does not realise an ON-set", and "set the selectors
+  and evaluate" is not a well-posed test.
+- **Not established, and withdrawn from this file:** "liveness is not determined by the selectors."
+  **P's claim now looks closer to correct than the contradiction suggested** — the disagreement was
+  about *how* routing is determined, not *whether*.
+
+Q was right to report the table and right not to read it as non-determination.
+
+### Q reaches K's collision criterion independently, from the mux side
+
+Children of a slot sum over **disjoint** leaf subsets, so they coincide only if
+`Σ_{S1} 2^i − Σ_{S2} 2^i = ±N`; both sums are `< 2²⁵⁶ < 2N`, so no other collision is possible.
+**That is exactly K's partition-form theorem and the coordinator's subset-sum bound — three
+independent routes, one criterion.** As Q puts it, it is **a checkable condition on the particular
+scalar, not a generic hazard.**
+
+### Where the existence result stands, and the last step
+
+It closes if **(a)** the quadrant law holds at all 383 slots and **(b)** no two equal points meet at
+a live slot — where check-in 37 showed the chord residual is **vacuous**, and (b) now has the clean
+criterion above.
+
+**(a) is confirmed at 188/383** by an association-free structural match (19 with boolean-pinned
+selectors, 169 with internal live bits). The other **195 carry the same `c·u3` product but their
+summation tree is unconfirmed** — *consistent with* the law, **not confirmed by it**. One slot is
+done completely; **the remainder is a matching problem, not a semantic one.**
+
+**Q re-tasked: close 188 → 383.** If the law holds everywhere, then with the collision criterion the
+**existence result closes on measurement** — the first unconditional statement this lab would have
+about what the instance is. If some slot does **not** match, that is more valuable still: it is where
+the fold picture stops describing the circuit, and everything downstream would need restating. Q was
+asked to report what the non-matching slots *look like*, not only how many.
+
+### §15 stays in force
+
+**The §9 sweeps regain instance-level standing only at 383/383, not at 188**, and Q declined to
+restore them early. Note that closing (d) is exactly what would restore them.
+
+`wt7` **stopped** at **59,899,917 of 177,589,057 side-B tuples = 33.7%**, no hit in that portion,
+recorded in `wt7.log` at its true standing — a group-model measurement. Cores released.

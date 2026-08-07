@@ -1,0 +1,12 @@
+BASELINE for scale: the shared deliverable scores 7 failing equations over Z.
+
+all selectors OFF, other bools = 0         failing eqs mod p = 28     nonzero atoms = 3      (15s)
+      root gate x15298 = 0   root out = (394060739..., 0...)   out==target: False
+all selectors OFF, other bools = 1         failing eqs mod p = 28     nonzero atoms = 3      (3s)
+      root gate x15298 = 0   root out = (394060739..., 0...)   out==target: False
+all selectors OFF, other bools derived     failing eqs mod p = 28     nonzero atoms = 3      (3s)
+      root gate x15298 = 0   root out = (394060739..., 0...)   out==target: False
+one leaf ON (e0), other bools = 0          failing eqs mod p = 16     nonzero atoms = 2      (2s)
+      root gate x15298 = 0   root out = (394060739..., 0...)   out==target: False
+three leaves ON, other bools = 0           failing eqs mod p = 34     nonzero atoms = 4      (2s)
+      root gate x15298 = 1   root out = (127950974..., 777527890...)   out==target: False

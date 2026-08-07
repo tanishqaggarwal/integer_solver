@@ -816,3 +816,45 @@ supplies a free additive term, and the tuner already reaches 39,026 without it, 
 nothing. Adding freedom is score-neutral at best (89 cases) and sometimes worse (9 cases,
 39,011-39,012) where the extra demotion perturbs the greedy path. **Zero sites priced out at 0
 rows** -- every handle in the pool is genuinely incident, so the pool is not padded.
+
+## 51. O's lattice target PRICED — the region can be made to hold, collateral is 44-49
+I do not have O's integer shift vector, so I re-derived the target in my own frame: solve the
+region equations exactly with a knob set that **includes the free carriers**, which is precisely
+what my earlier `eqsub` run lacked (it used only the freed handles and reported 38,989).
+
+Confirmations of O's setup, independently in my frame:
+
+    a23616 = x_7068 - x_2099 - 7376877*x_642      a36660 = 5113045*(x_7075*x_9118) - x_29854
+    a23618 = x_4432 - x_19964 - x_28730           a36662 = x_7075 * x_8731
+    carriers x_8731, x_9118, x_4432 are all FREE and all AFFINE here
+      x_8731 -> atom 36662 only     x_9118 -> atom 36660 only     x_4432 -> atoms 8721, 23618
+    the deliverable's 7 failures are a strict SUBSET of L's 13-equation region
+    x_17499 == p EXACTLY  (corroborates O's account of the eq29125 elimination)
+
+**Result — the target is reachable, and it is not free:**
+
+    target: all 7 currently-failing hold  -> SOLVED 7/7   score 38989  (44 equations fail)
+    target: all 13 region equations hold  -> SOLVED 13/13 score 38984  (49 equations fail)
+    every subset of the 7, carriers included -> best 39026 (nothing above baseline)
+
+So **O's inversion is confirmed from the residual side: the whole region CAN be made to hold
+simultaneously.** The collateral, which O's model cannot express, is **44 equations** for the
+7-target and **49** for the full 13-target. Net against the 39,026 baseline: **-37 and -42.**
+
+### The caveat that matters, and it is not a quibble
+**I priced *a* solution to O's target, not necessarily O's δ₀.** The solution set is a lattice
+coset and my solver picked a different point: my shifts are **~4,200-4,558 bits**, O's are
+**2,419-2,440 bits** — roughly half the size. Collateral plausibly grows with shift magnitude
+(a larger shift perturbs more downstream atoms), so **O's smaller δ₀ could price materially
+better than mine, and it cannot be inferred from bit-sizes alone.** To price O's actual point I
+need its integer vector. That is the single highest-value thing to relay to me.
+
+Knobs my solution moved (11 for the 7-target, 17 for the 13-target) include the cofactors
+x_950, x_1329, x_3629, x_6418, x_6947, x_8976 and the carrier x_9118 — i.e. the solve does reach
+for the zero-collateral carriers, but not exclusively.
+
+## 52. Round-7 files
+`lcrit.py` -> `lcrit.json` (baseline reconciliation) · `exact15.py` -> `exact_incident.json` ·
+`sweep.py` (fast validated tuner) · `pricelead.py` -> `pricelead.pkl` (98 five-handle sites) ·
+`pricelead2.py` (six-handle, stopped for the O target) · `pricedelta.py` -> `pricedelta.log`.
+Nothing above 39,026 produced anywhere. Baseline stands.

@@ -12,6 +12,25 @@ constants read out of `EQUATIONS.txt` and verified against the equations themsel
 - **I did not beat it.** Nothing in `agentK_work/` is a better partial.
 - **No infeasibility is claimed.** The instance is *satisfiable*; see §5.
 
+### READ THIS FIRST — I withdrew my own main negative result
+
+An earlier version of this file presented §4 as a **closed barrier**: no gadget in the circuit
+can ever be fed two coinciding inputs, so the free-output mechanism is unreachable. Agent Q's
+383/383 measurement (a gadget with coinciding inputs has vacuous residuals — output completely
+unconstrained) confirmed the *consequence* half of that mechanism and left my half as the whole
+question. On being asked to establish it properly, **I tested my own premise and it failed:**
+
+* the composition of the live leaves is **on no wire at all** when only one root half is live —
+  I scanned all 38,748 variables (§4.0c, TEST 1);
+* a root slot **keeps a random wrong 256-bit value** through a full closure, costing 1–2 extra
+  nonzero atoms (TEST 2).
+
+So the slots are not forced to carry compositions, and my bound — which constrains compositions
+— does not apply to them. **§4 is CONDITIONAL and is not a barrier. Do not cite it as one.**
+The arithmetic in §4a/§4d is still correct and still measured; what is withdrawn is its
+applicability. The degeneracy route's status is **OPEN**. This corroborates Q and T's finding
+that routing is a constraint rather than a propagation, against my own earlier reading.
+
 --------------------------------------------------------------------------------------------------
 ## 1. THE INSTANCE IS NOW FULLY DECODED — closed form, no undecoded slots left
 
@@ -407,6 +426,31 @@ have nothing to represent and its output might likewise go free. That needs
 `supp(N) ⊆ IA` or `⊆ IB`. Measured: `popcount(N) = 192`, and 55 of those bits fall outside
 `IA`; `IB` has only 78 bits. **Impossible**, and impossible at every interior stage for the same
 size reason.
+
+--------------------------------------------------------------------------------------------------
+## 4e. TWO ATTACKS ON THE FREE-OUTPUT MECHANISM, BOTH MEASURED, BOTH DEAD
+
+Given Q's mechanism, the cheapest coincidence in the circuit is not two equal points — it is
+**two dead inputs**. All selectors off pins every leaf wire to 0, so every gadget sees
+`a == b == (0,0)`. If a gadget's liveness gate could be held at 1 with dead inputs, its
+residuals would be vacuous and its output free — a trivial full solve. `k38_deadgate.py`:
+
+| configuration | failing eqs (mod p) | nonzero atoms | root gate `x15298` |
+|---|---|---|---|
+| all selectors OFF, other bools = 0 | 28 | 3 | **0** |
+| all selectors OFF, other bools = 1 | 28 | 3 | **0** |
+| all selectors OFF, other bools derived | 28 | 3 | **0** |
+| one leaf ON (`e0`) | 16 | 2 | 0 |
+| three leaves ON | 34 | 4 | 1 |
+
+**The root gate stays 0 with dead leaves in all three modes** — the 900 free booleans cannot
+switch it on. So liveness really is tied to the selectors, and the dead-input coincidence is
+gated off rather than exploitable. Attack dead.
+
+Second attack: **lie at a root slot.** TEST 2 showed a slot keeps a random value, so set the B
+slot to the `V` with `chord(A,V) = target`. Priced it: the root slot pin atoms sit in 11–16
+equations each, and the slot pairs' atoms touch **51 (A) and 42 (B)** equations. Far worse than
+7. Attack dead.
 
 --------------------------------------------------------------------------------------------------
 ## 5. WHY 7 IS HARD TO BEAT (measurement, not a proof)

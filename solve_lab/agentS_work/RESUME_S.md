@@ -31,6 +31,8 @@ Work from `solve_lab/agentS_work/`. Symlinks to E's `orient.pkl`, `users.pkl`,
 | `reach3.py` | joint solve at random configs — INCONCLUSIVE, see sec 8.3 |
 | `kernel.py` | sec 8.3: displace along the affine kernel, re-measure the obstruction |
 | `kernel2.py` | sec 8.3 complement: obstruction at each BFS image point (moves the mod-p class) |
+| `trade.py` | trade-knob walk — VACUOUS, checks span membership up front (sec 6g) |
+| `relax.py` | relaxed selectors (R's lead) — genuine structural move, other rows infeasible (sec 6h) |
 | `degen2.py` | degeneracy discriminator: zero AND unresponsive |
 | `selcouple.py`,`selcouple2.py` | selector-coupling census + classification |
 
@@ -287,6 +289,44 @@ apply the **selector moves that change the class** (the trade knobs x_14853, x_6
 x_18956 are 1-for-1 and preserve solvability far better than selector flips), re-solving the other
 rows after each move. That searches near-solutions by class rather than sampling classes and
 hoping they are near-solutions.
+
+## 6g. The trade-knob walk CANNOT answer the question — structural, checked up front (`trade.py`)
+The proposed fix for §6f's starvation was: start from the cfg0 near-solution and move by the
+1-for-1 trade knobs (x_14853, x_6083, x_31339, x_18956), re-solving the other rows each time.
+**It is vacuous, and `trade.py` checks this before doing the walk rather than after:**
+
+    54-knob affine set size = 54 ; trade knobs present in it: [14853, 6083, 31339, 18956] ; absent: []
+
+**All four trade knobs are already inside the span `lat3.analyse` optimises over.** The analyse
+step already explores every integer combination of them, so displacing along one and re-solving
+cannot change the membership answer. Confirmed empirically, not just argued:
+- every displaced point re-measures to the **identical** system — 54 knobs, 47 other rows,
+  kernel dim 7 — and
+- the **post-solve** residual is the identical class every time
+  (a20215 ≡ 22981624690591…356252 mod p, one distinct value across the whole walk).
+
+**⚠️ Counting trap, and I fell into it for one iteration.** The walk *does* report "VALID" cases
+under the obvious criterion (class moved, other rows solvable) — because the class is measured at
+the displaced point *before* the re-solve. The re-solve then washes the displacement out. **A case
+is only an independent test if the POST-SOLVE residual class differs.** By that criterion the
+whole trade walk is **one** test repeated, not N. Anyone reporting the raw VALID count from
+`runs_trade.log` will overstate the evidence by roughly its length. Same shape as §3 and §6f
+Result B: a quantity that looks like a measurement but is fixed by construction.
+
+## 6h. Relaxed selectors (agent R's lead) — tested in my parse, `relax.py`
+This *is* structurally outside the span: selectors are non-affine, so taking one off {0,1} changes
+the measured system itself — the only thing that can move the membership answer. Confirmed: at
+x_12714 ∈ {2, −1} the system re-measures to **53 knobs, 52 other rows, kernel dim 5** (vs
+54/47/7) and the target class moves. So the move is genuine, unlike §6g.
+**But the other rows go infeasible**, so it is not yet a valid test case either.
+
+**One divergence from R's lead, reported as a divergence and not a refutation** (different parses,
+R's atom indices are not comparable to mine and I imported nothing): R reports that relaxing a
+selector does not force its mux atoms nonzero, only the boolean-ness atoms. In my parse relaxing
+x_12714 broke **6** atoms — `[10569, 20212, 20649, 20652, 32148, 32628]`, 74 fails — which
+includes cluster/mux atoms a20212, a20649, a20652, a32148, not only a booleanity atom. Either the
+parses decompose differently or the claim needs narrowing to particular selectors. Worth R
+re-checking on the specific selectors it has in mind before the floor of 39,027 is relied on.
 
 ## 7. Scores
 - Best verified: **39,026** — the existing deliverable, re-verified by me with `checker.py`.

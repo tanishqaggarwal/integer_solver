@@ -268,3 +268,51 @@ Still **conditional**, and now on a sharper thing than in section 12: it holds i
 the next gadget's input.  Sections 11(b) and 11(c) are unaffected and remain measured: all 383
 gadgets enforce plain `P_a + P_b` for distinct inputs, and the gadget census is a combination tree
 over 256 leaves.  What is *not* established is that the selector bits pick out a subset at all.
+
+## 17. THE MUX LAYER, SOLVED SYMBOLICALLY AT ONE SLOT (`qmux.py`, `qquad.py`)
+Not propagated through — read off `EQUATIONS.txt` as atoms and then checked numerically.
+Slot: inputs leaf `2^0` (selector `x_2779`) and leaf `2^164` (selector `x_34715`), chord output
+`(x_22294, x_33676)`.  Verbatim atoms:
+```
+x_2779*(x_2779-1)            x_34715*x_34715-x_34715      <- both selectors boolean-pinned
+x_3565 = a                   x_31966 = b
+x_24678 = 1-b                x_24849 = 1-a
+cA = x_13201 = x_3565*x_24678   = a(1-b)
+cB = x_33391 = x_31966*x_24849  = b(1-a)
+cC = x_4639  = x_31966*x_3565   = a*b
+Xout = x_20820 = cA*x_22231 + cB*x_11321 + cC*x_22294
+Yout = x_18440 = cA*x_27051 + cB*x_37031 + cC*x_33676
+live_out = x_11830 - x_1609 = (a+b) - ab = a OR b
+```
+Evaluated on the real leaf constants (`qquad.py`), all four quadrants:
+
+| (a,b) | cA | cB | cC | slot carries | matches |
+|---|---|---|---|---|---|
+| (0,0) | 0 | 0 | 0 | identity (0,0) | **yes** |
+| (1,0) | 1 | 0 | 0 | leaf 2^0 | **yes** |
+| (0,1) | 0 | 1 | 0 | leaf 2^164 | **yes** |
+| (1,1) | 0 | 0 | 1 | **sum 2^0 + 2^164** | **yes** |
+
+**The mux does implement identity, pass-through and sum.**  This is L's mutually-exclusive-quadrant
+claim, confirmed in my own frame rather than taken.  It also resolves the §14(b) worry: the identity
+value is `(0,0)`, not a curve point, but it is only ever *passed through* — it can never enter a
+chord, because `cC = ab = 0` whenever a child is dead.
+
+**Generality.** An automated association-free structural match of this exact shape succeeds at
+**188 / 383** slots (19 with both selectors boolean-pinned, 169 with internal live bits).  The other
+195 carry the same `c*u3` product but my matcher did not confirm their summation tree; they are
+*consistent with* the law, **not confirmed by this test**.  One slot is done completely; the rest is
+a matching problem, not a semantic one.
+
+**Why §14(a) stalled — now explained.**  A leaf pin is not `sel*(w-C)`; it is `sel*(w-C) - z` for a
+further wire z.  The coordinate is forced onto the wire only once z is separately forced to 0, so
+unit propagation from the selectors alone can never place a leaf coordinate.  The routing is
+determined, but by a *simultaneous* system, not by propagation — exactly as agent T said.
+
+## 18. WHERE THE EXISTENCE RESULT NOW STANDS
+It closes **if** (a) the quadrant law of §17 holds at all 383 slots (confirmed at 188), and (b) no
+two *equal* points ever meet at a live slot, where §14(c) showed the chord residual is vacuous.
+For (b) there is a clean criterion: children of a slot are sums over **disjoint** leaf subsets, so
+they coincide only if `sum_{S1} 2^i - sum_{S2} 2^i = ±N`.  Both sums are `< 2^256 < 2N`, so no other
+collision is possible.  That is a checkable condition on the particular k, not a generic hazard.
+§15 stays in force: the §9 sweeps regain instance-level standing only when (a) is closed at 383/383.
