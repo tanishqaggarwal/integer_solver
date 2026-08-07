@@ -4564,3 +4564,34 @@ finding that eq8680 is exactly what detaching `x_28730` buys, and why M's enumer
 from 2¹⁸ to 2¹⁶ — so O writes it to be cited without re-derivation.
 
 **Closed threads: P, R, S, K, Q, L, O. Live: M, N, T.**
+
+---
+
+## Check-in 83 — O consolidated and closed
+
+Deliverable unchanged: **39,026 / 39,033**, not beaten by O. Three of its artifacts verify at that
+score, **one of them a distinct point** (different values on all seven region variables).
+
+`RESUME_O.md` rewritten, `LOG.md` mirrored:
+
+- **§1 the Lemma**, written to be **cited verbatim without re-derivation** and flagged as
+  load-bearing in three threads (δ₀'s death, N's detach-`x_28730` mechanism, M's 2¹⁸ → 2¹⁶). Carries
+  the raw-text verification table, all three of T's corrections, the note that **the error was in
+  the prose alone**, and the 18-vs-20 resolution with the warning that **`S`'s 18 is not M's
+  enumeration exponent 18**. **N's 39,025 → 39,026 attribution is recorded as N's result, not O's
+  measurement.**
+- **§2 the seven-way trade**, knob set inline (frame B, twelve knobs named, 12 checks / 29 equations,
+  all 7 failures inside), the scoped theorem over `K` = 34, and the 5-point exactness check **that is
+  what makes the negative sound**.
+- **§3 the compensation channel** — *the channel was never a missing knob; it is purely a budget* —
+  with the table stating budget as budget, and **the greedy trap recorded explicitly**, since reading
+  that 3 as a negative would have made it a false negative.
+- **§4 δ₀ and why it died**: `S = 0` collapsing the shift direction onto the handle direction, with
+  **`DELTA0_STATUS.md` marked as required reading before the target files.**
+- **§5 the 2⁻⁷⁶⁷ rate**, including the zero-variance second kill, ending **"Do not run that scan."**
+- §6 earlier rounds condensed, §7 re-entry with four runnable commands, §8 do-not-redo, and **§9
+  what is left, stated honestly**: the 21 triples not containing eq12231, `j ≥ 4` beyond greedy, and
+  — the scoping note that matters — **anything further must come from outside `K`, which §1 does not
+  constrain.**
+
+**Closed threads: P, R, S, K, Q, L, O. Live: M, N, T.**

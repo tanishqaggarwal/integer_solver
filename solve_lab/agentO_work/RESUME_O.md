@@ -1,296 +1,222 @@
-# RESUME_O — agent O.  Representative sweep from the 106 proven bits; the channel tension.
+# RESUME_O — agent O.  Consolidated and closed.
 
-## 0. Verification rule used here
-All my states have values ≤ ~2,450 bits (≈740 digits), so **plain `solve_lab/checker.py`
-parses them** — no need for `verifyE.py`.  Every score below was produced by
-`checker.py <file>` or by `engine.eqfails`, and the two agree wherever both were run.
+**Best score: 39,026 / 39,033.  I did not beat it.**  Three artifacts of mine verify at that
+score with `solve_lab/checker.py` (all my values are ≤ ~3,050 bits, so plain `checker.py`
+parses them; `verifyE.py` was never needed):
+`grow23618_39026.json`, `region_opt_39026.json` (a *distinct* point — different values for all
+seven region variables), and the witness itself, re-verified:
+failing `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
 
-## 1. Scores
-- Deliverable re-verified by me: `checker.py solve_lab/best/new_instance_partial_39026.json`
-  → **satisfied 39026/39033**, failing `[12231,12270,12350,14584,18673,22044,29125]`.
-- **My best: 39,026** — I did not beat it.  Two independent reconstructions of that score
-  from my own region model, both checker-verified:
-  `agentO_work/grow23618_39026.json` and `agentO_work/region_opt_39026.json`
-  (the second uses *different* values for all seven region variables — 3013b vs 2400b for
-  x_642 etc. — so it is a genuinely distinct point at the same score).
+Read §1 first; it is the one result other threads depend on.
 
-## 2. What I ran (all files in agentO_work/)
-| script | what |
-|---|---|
-| `sweep.py`,`sweep_run.py` | complete singles sweep: all **106** proven pin-solvable bits as channel representatives at E's cfg0, through E's `channels.simsolve` → `runs/singles.jsonl` |
-| `pairsweep.py` | (a-bit, b-bit) pairs through E's `full11.solve_pair` → `runs/pairs.jsonl` (68 of 2,800 done before I stopped it — the answer was already constant) |
-| `simO.py`,`lazy.py` | simultaneous solve with the **unfiltered** knob set (E's `affine_cols` rejects a knob if it is non-affine on *any* atom; I drop non-affine (knob,row) pairs instead) + lazy row activation |
-| `diag3/5/6/7/8.py` | per-row knob-reachability, deliverable-vs-E-frame diffs, DAG-divergence roots |
-| `coset.py`,`regionopt.py` | the witness's residual as 12 equations over 8 atoms; exhaustive subset optimisation |
-| `regiongrow.py`,`growlist.py`,`grow23618.py`,`qbound.py`,`snf.py`,`fullreg.py`,`consts.py` | region growth, rational bound, Smith/echelon obstruction, full-system integral solvability |
+---
 
-## 3. Answers to my two assigned questions
+## §1. THE LEMMA — `S = 0` is forced.  Unconditional, audited, citable.
 
-### 3a. Representative sweep — RUN AND COMPLETE, negative
-All 106 proven pin-solvable bits, one at a time, at cfg0, through E's §16 simultaneous solve
-(`maxr=3, maxv=2000`, knob set = E's affine-filtered closure):
-**no representative beats the empty set.**  Best per group: channel-0 (a-tree) 38,989
-(x_22492); channel-1 38,995 (x_13710); channel-2 38,977 (x_490); the 16 "inert" bits
-38,928–38,953.  x_1530/x_1603 return 39,005 because they are already on.
-So "E only tried 2 representatives per channel" is **not** the explanation for monotonicity.
+> **`eq8680`'s left-hand side equals `S⁴`, where `S` is an AFFINE form in atoms.**
+> `checker.py` requires the LHS to be exactly `0` over **ℤ**, an integral domain, so
+> `S⁴ = 0 ⟺ S = 0`.
+> **Therefore `S = 0` in every satisfying assignment.**
+> No knob set, no frame, no configuration, no divisibility, no modulus.
 
-### 3b. The monotonicity TENSION — resolved, with a mechanism
-Three separate facts, each measured:
+**Cite this section; do not re-derive it.**  It is load-bearing in three other threads: it is
+why δ₀ died (§4), it is the mechanism behind N's finding that eq8680 is exactly what detaching
+`x_28730` buys, and it is why M's enumeration space shrank from 2¹⁸ to 2¹⁶.  Per N it is also
+precisely the 39,025 → 39,026 step (N's result, not my measurement).
 
-1. **cfg0 is not "no channels live"; it is the (0,1) branch.**  At `triple8_seed`,
-   `x_7715 = 0`, `x_34554 = 1`, so `x_15298 = x_7715*x_34554 = 0`.  Atoms
-   `20649 = x_15298*x_11150`, `20652 = x_15298*x_25739 - 6672769*x_29804`,
-   `32148 = 537773*(x_15298*x_37758) - x_35605` are therefore **vacuous** at cfg0.
-   Turning on *any* a-tree bit sets `x_7715 = 1`, hence `x_15298 = 1`, and those three rows
-   go live at once.  That single gate is the whole monotone cost — it is not per-bit
-   accumulation.  This is why every a-tree single leaves `{20649,20652,32148}` bad.
-2. **The three activated rows are knob-starved, and that IS a real measurement.**
-   At the (1,1) pair state (a=24601, b=2081) with knob set = **all 3,545 non-boolean free
-   variables in the 6-round cone closure**, the only knobs with nonzero delta on those rows
-   are `x_22162`, `x_30213` (coefficients coprime to p) and `x_5146`, `x_2936` (coefficients
-   ≡ 0 mod p).  Three conditions, two mod-p degrees of freedom — and `x_22162`, `x_30213`
-   are already consumed by the MUX closure.  Knob set and configuration stated.
-3. **The branch mismatch.** The 106 bits' pin systems were proved solvable by `bitfeas2`
-   at base `{18956:C, bit:1}` with `CORE={20212,20215,24403,747}` excluded — i.e. in the
-   **single-tree branches** (1,0) for the a-scan and (0,1) for the b-scan.  Plugging them
-   into cfg0 / (1,1) is a different branch, which is why their pins are never repaired there.
+### How it was established, and how it was audited
+First stated from H's parse, where eq8680 has *one* term (`a37887`, source literally `(X)·(X)`).
+Agent T audited it and found three errors.  I re-verified all three **against the raw text of
+`EQUATIONS.txt`, using no parser at all** (`verify_lemma.py`, `runs/verify_lemma.log`) — the only
+way to settle a disagreement between two parses.  Perturb one variable, read the raw LHS:
 
-### 3c. …and the deeper reason E's line cannot reach the deliverable
-**E's forward map cannot represent the 39,026 witness.**  Feed the witness's own free-variable
-values through `engine.forward` and you get a *different* state: 23 variables differ, and the
-divergence has exactly four roots — `x_31864`, `x_29854`, `x_642`, `x_28730` — whose defining
-atoms (36663, 36659, 36664, 23617) the witness deliberately **violates**.  E's forward always
-satisfies a defining atom, so it cannot express the witness; that state scores 25 failing
-equations under E's orientation, not 7.
-Consequently the repair the witness uses is **outside the dependency cone of the residual**:
-cone(20649,20652,32148) has 277 free variables and **none** of the witness's six carriers
-(`x_1329, x_8731, x_9118, x_9413, x_10903, x_17325`) is among them; each carrier's +1 probe
-has *zero* delta on all three rows.  No cone-generated closure — at any `maxr`/`maxv` — can
-reach it.  So the enumeration was attacking a residual whose repair its knob generator cannot
-express.  Raising `maxr`/`maxv` is not the fix (tested: `maxr=6, maxv=8000`, 3,511–3,552 knobs,
-lazy row activation over 30 iterations — the residual moves but never drops below E's 28).
+| perturbation | `S` | raw LHS | `S²`? | `S³`? | `S⁴`? |
+|---|---|---|---|---|---|
+| `x_4432 += 2` | 2 | 16 | ✗ | ✗ | ✓ |
+| `x_4432 += 3` | 3 | 81 | ✗ | ✗ | ✓ |
+| `x_4432 += 5` | 5 | 625 | ✗ | ✗ | ✓ |
+| `x_19964 += 2` | −2 | 16 | ✗ | ✗ | ✓ |
+| `x_28730 += 3` | −3 | 81 | ✗ | ✗ | ✓ |
+| `x_23754 += 2` | −18 | 104976 | ✗ | ✗ | ✓ |
 
-## 4. The new object: the witness's residual is a 13-equation, 8-unknown integer system
-- The witness's 8 bad atoms `{23616,23617,36659,36660,36661,36662,36663,36664}` are touched by
-  exactly **12 equations**; adding atom `a23618` makes it 13 (the extra one is **eq8680**).
-- **Seven variables are private to the 8-atom region** (occur in no atom outside it):
-  `x_642, x_1329, x_9413, x_10903, x_17325, x_29854, x_31864`; `a23618` frees an eighth,
-  `x_28730`.  Private ⇒ moving them cannot break any other equation, so
-  **failing equations = |E(R)| − maxsat(R)** exactly (verified against `eqfails`).
-- Atoms 36662 and 36663 have **identical coefficient columns in all 12 equations**, so the
-  residual matrix has rank 7, not 8.
-- **Exhaustive** over all 4,095 subsets of the 12 (`regionopt.py`): exactly **one** is
-  integrally satisfiable — the witness's own `{2554,6816,8124,9123,9421}`.  With `a23618`
-  absorbed, maxsat rises 5 → 6 but |E| rises 12 → 13: a **1-for-1 trade**, independently
-  reproducing agent H's eq8680 result in a different formalism.
-- **Over Q the system is fully solvable**: rank 8 = #unknowns, the 5 dependent rows are
-  exactly consistent (0 = 0), so the rational solution is unique and satisfies all 13.
-- **Over Z exactly four divisibilities block it** (`snf.py`): three by **p** (the 256-bit
-  constant) and one by a 279-bit pivot (gcd 2 with its rhs → a 278-bit modulus).
-- **Why growth cannot help** (`fullreg.py`, `consts.py`): `x_17499 = x_22665 = x_28961 =
-  x_28599 = p` **exactly**, and every adjacent atom that frees a new variable has the form
-  `x_t − p·x_new`, so that knob's whole column is divisible by p.  All **39 single** and all
-  **741 double** growths fail on the *same* row, eq29125, by the same factor of p.
+`LHS == S^k` for **k = 4 only**.  Corrections, all confirmed:
+1. **`S⁴`, not `S²`** — the nesting is two levels, `LHS = T·T` with `T = S·S`.
+2. **The object with slope +1 is `S`**, the affine form: `dS/dx_4432 = +1`,
+   `dS/dx_19964 = −1`, `dS/dx_28730 = −1`.  I had written "`eq8680 = T²`, `T` linear" *and*
+   quoted `dT/dx_4432 = +1`; those cannot be the same object (`T = S²` ⇒ `dT/dx = 2S+1`).
+3. **18 vs 20 is granularity, not contradiction** — the raw text has **18** bracketed groups;
+   E emits **20** `(coef, atom)` entries because it splits exactly two of them,
+   `−13·(x_21279·x_31731 + x_35619)` → a23622,a23623 and
+   `−5·(x_34600 − x_30108 + x_23642)` → a11876,a11877.  **18 + 2 = 20**, both correct.
+   ⚠ **`S`'s 18 is NOT M's enumeration exponent 18.  Different 18s.**
 
-  *(Knob set: the ≤10 variables private to R0 ∪ {a23618} ∪ {≤2 adjacent atoms}.  Selector
-  configuration: the witness's, `x_2081` and `x_24601` on, all other cluster booleans off,
-  all non-private variables at the witness's values.  Outside that knob set I claim nothing.)*
+**The error was in the prose alone.**  My frame-B "S row" was built from H's *inner* factor,
+which **is** this affine form — I measured its slope as +1 before using it — so every search
+below constrained the right object.  *This number is wrong* ≠ *this result is wrong*.
 
-## 4b. THE RATE — the configuration scan is dead twice over, but the conditions INVERT
-Coordinator asked for the expected hit rate before spending cores.  Here it is, measured.
+The conclusion is robust to the exponent entirely: `S^k = 0 ⟺ S = 0` for any k ≥ 1.  In **E's**
+decomposition `eqfails` tests the affine sum itself, so E's model states `S = 0` directly while
+H's states `S⁴ = 0` — same zero locus.
 
-**Correction to §4: there are FIVE blocking coordinates, not four** (`rate.py`).  The unique
-rational solution has denominators `2458959, p, p, p, 2458959·p` on
-`x_642, x_1329, x_9413, x_10903, x_17325` — i.e. **4 conditions mod p and 2 mod 2458959**
-(= 3 × 819653; note 7376877 = 3 × 2458959 is the literal in atom 23616).
+**Cross-link:** all three p-handles T found missing from L's census are terms of `S`, confirmed
+by source match — `25·(x_18253 − x_4339·x_15120)` = a20450,
+`1·(x_37720 − x_14466·x_35531)` = a20452, `23·(x_23642 − x_8173·x_10422)` = a11875.
 
-### Kill 1 — the rate (`hitrate.py`)
-Admissible boundary changes form a coset `δ0 + Λ0`.  Measured period in each direction with an
-exact solvability oracle: **p** for `const(a23618)`, `const(a36660)`, `const(a36662)`; for
-`const(a23616)` the period exceeds every modulus tested (up to 2458959·p).  So
-`[Z⁴ : Λ0] ≥ 2^768` and the **scan hit rate is ≈ 2⁻⁷⁶⁷**.
-Expected hits in 2,800 configurations ≈ **10⁻²²⁷**; in all 13,884 ≈ 10⁻²²⁶.  Not a search.
+---
 
-### Kill 2 — zero variance, which is worse than a bad rate (`bscan.py`)
-The four quantities a configuration would have to move are
-`K1 = x_7068−x_2099`, `L = x_4432−x_19964`, `K2 = 5113045·x_9118`, `J = x_7075·x_8731`.
-Across **35 configurations** (empty, 12 a-bits, 12 b-bits, 10 (a,b) pairs) in E's frame all four
-are **identically 0** — 1 distinct value out of 35, for every one of them.  The scan would have
-measured a single point 2,800 times.  **They are assignment knobs, not configuration knobs**:
-the witness has `J = 2428 bits` and `K2 ≠ 0` because it *assigns* the free variables
-x_8731 / x_9118, not because of its selector pair.
+## §2. The seven-way 1-for-1 trade
 
-### The positive result — the conditions are invertible, and I have the target
-`invert.py` / `tunable.py` / `target.py`: put the boundary shift δ into the unknown vector and
-solve `A z + B δ = b0` over Z.
-- δ = 0: unsolvable (the witness).  **0 of 9** single supports, **0 of 36** pairs, **0 of 84**
-  triples work; **12 of 126** quadruples do — including `{a23616, a23618, a36660, a36662}`,
-  i.e. **exactly the four constants that are not p-multipliers**.
-- Applying that δ0 makes **all 13 region equations hold** (verified end-to-end, `target.log`).
-- Shifts required: 2440 / 2419 / 2428 / 2429 bits.  The a36660 shift must be divisible by the
-  carrier factor 5113045; `gcd(5113045, p) = 1`, and the period there is p, so a CRT lift in the
-  same class mod p always exists (computed: `x_9118 += ` a 2406-bit value).  Exact values in
-  `target.json`.
-- **Two of the four shifts are free**: `a36662` is carried by x_8731 and `a36660` by x_9118 —
-  precisely agent H's zero-collateral knobs.  The remaining two, `K1` and `L`, are carried by
-  ordinary derived variables whose collateral **must be evaluated in frame B**; my atom-level
-  model holds non-private variables fixed and cannot express re-derivation, which is exactly
-  why it sees 8 knobs where H sees 9.
-- So the honest statement is: *if* the K1 and L shifts can be realised without disturbing
-  anything outside E(R), the result is all 39,033 equations.  That "if" is the open question —
-  it is not established, and I am not claiming it.
+**Knob set (inline, so the claim travels with its scope):** frame B,
+`frameB.Frame([642, 28730, 29854, 31864])`, which reproduces the witness bit-for-bit
+(39,026, same 7 failures, **0 variables differing**).  Twelve knobs —
+`{642, 1329, 9413, 10903, 17325, 28730, 29854, 31864}` (region-private)
+`+ {7068, 4432, 8731, 9118}` (carriers) — all free inputs there.  They reach exactly
+**12 checks / 29 equations**, and **all 7 witness failures are inside**; nothing unreachable.
 
-Why a move-based search would never find this: δ0 is an exact 2,429-bit lattice target.  H's
-70,008 single moves and 576 zero-collateral pairs over the same nine knobs could not have
-stumbled on it.  That is the difference between sampling the conditions and inverting them.
+> **Every one of the 7 failing equations is individually buyable, and every purchase costs
+> exactly `eq8680`.**  Score pinned at 39,026 seven ways; the failing set merely rotates.
+> No pair is buyable.
 
-## 4c. Reconciling with agent M on eq29125 — two different claims, no contradiction
-M withdrew a divisibility obstruction on eq29125: single-row solvability is `gcd(coef) | s0`,
-and eq29125's gcd is 1, so all seven failing rows pass.  **That is correct and it does not
-conflict with my barrier**, because we are testing different things:
-- **M**: is eq29125 satisfiable *on its own*, over M's full affine knob set?  Yes — gcd 1.
-- **Me**: eq29125 is the row at which the *simultaneous* elimination of all 13 region equations
-  fails, over the ≤10 variables **private to my region**.  The factor p is not in the row as
-  written; it appears only *after* the other twelve are eliminated, because `x_17499 = p`
-  exactly, leaving coefficient p against an rhs that is not ≡ 0 mod p.
-A row can be individually satisfiable and jointly infeasible; gcd-1 is a statement about the row
-before elimination, my p is a statement about the pivot after it.  **My barrier is the one with
-the tighter knob set, so its scope must always be carried with it** — it says nothing about
-M's knob set, and nothing outside the region-private variables.
-My §4b result independently *supports* M's direction: because the obstruction lives only in the
-joint elimination and not in the row, changing the rhs clears it — which is exactly what δ0 does.
+**Why:** `a23618 = x_4432 − x_19964 − x_28730` is `S`'s first term at coefficient +1, and
+`dS/dx_4432 = +1`, `dS/dx_28730 = −1`, zero for every other region knob.  So `S = 0` is exactly
+`δx_4432 = δx_28730`.  With `S = 0` imposed as an explicit row, **nothing is buyable at all**.
 
-## 5. Single highest-value next experiment (REVISED after §4b)
-**DO NOT run the 2,800-configuration scan** — I proposed it, then measured it dead twice (§4b:
-rate 2⁻⁷⁶⁷, and the four boundary quantities are configuration-invariant, 1 distinct value
-across 35 configurations).  It would burn 1.5 hours to sample one point repeatedly.
+This confirms and extends agent H's "a22231 buys 1 row and costs eq8680, exactly" to **all
+seven**, and supplies the derivative behind agent G's characterisation of eq8680 as a binary
+quadratic form of discriminant exactly 0.
 
-Instead, the target is now explicit.  In **agent H's frame B** (`frameB.Frame([642, 28730,
-29854, 31864])`, which reproduces the witness bit-for-bit — *not* E's `forward`, which
-provably cannot represent it):
-1. Apply the two free shifts: `x_8731 += δ0(a36662)` and `x_9118 += (CRT-lifted δ0(a36660))
-   / 5113045` — both are H's zero-collateral knobs, so these cost nothing.  Values in
-   `target.json`.
-2. The whole question then reduces to the remaining two shifts,
-   `K1 = x_7068 − x_2099 += δ0(a23616)` and `L = x_4432 − x_19964 += δ0(a23618)`.
-   Measure their collateral **in frame B** (each shift is free to move by multiples of p in the
-   `a23618` direction, so there is a p-indexed family of representatives to choose from —
-   pick one whose collateral is zero, if any exists).
-3. If a zero-collateral representative exists for both, all 39,033 equations follow.  If none
-   does, the cost of the cheapest representative is the new bound, and it is a *measured* bound
-   rather than a search outcome.
+**Scoped theorem.**  Let `U` = the 15 frame-B free inputs reaching any of the witness's nonzero
+check atoms, `C` = the 26 carriers of `S`; `K = U ∪ C`, **|K| = 34**.
+**Every assignment agreeing with the witness outside `K` satisfies at most 39,026 equations.**
+Over `K`: 64 reachable checks, 190 reachable equations, all 7 failures reachable, 175 rows.
 
-Second choice, if that closes negative: look for regions elsewhere in the instance whose
-private variables have columns **coprime to p**.  Every p-multiplier atom in this region
-(`a23617, a36659, a36661, a36664`, all with multiplier exactly p) is what forces the mod-p
-conditions; a region built on unit-coefficient atoms would not have them.
+**Model exactness was verified before trusting a negative from a linear model:** a 5-point probe
+(t = 1,2,3,5,7) finds precisely the same 7 non-affine checks the 2-point probe found, **none
+missed**.  The 16 dropped rows all contain one of those 7 and **none currently fails**, so
+dropping them is *permissive* — the solver was free to break them and still found nothing,
+making the negative strictly stronger.
 
-## 6. Do not redo
-- Singles over all 106 representatives at cfg0 (done, negative, `runs/singles.jsonl`).
-- Deeper closure on E's residual (`maxr` 3→6, `maxv` 2000→8000, knob set unfiltered, lazy row
-  activation): never below 28 failing.  The knobs are not the problem — the *cone* is.
+---
+
+## §3. The compensation channel, and its budget stated as a budget
+
+`S = 0` can be evaded only if some of `S`'s **other terms** move to keep it zero.  That is the
+only route by which the 1-for-1 trade could be leveraged.
+
+**There is no free compensator.**  All 20 atoms of `S` live in **10–18 equations** — none is
+confined to eq8680 the way `a37887` is in H's bundled parse.  Nine are checks in E's frame.  The
+equations they disturb are **the region's own** (2554, 6816, 8124, 9421, 12231, 12270, 12350,
+14584, 22044, 29125), so every carrier of an `S` component is already a carrier of `a37887`, and
+**all 26 were in `K` from the start.**  *The channel was never a missing knob; it is purely a
+budget.*  Full atom table in `T_COMPENSATION.md`.
+
+To beat 39,026 with `j` bought and `b` broken we need `b < j`:
+
+| budget | scope actually tested | solves | result |
+|---|---|---|---|
+| `j=1, b=0` | **complete** | 7 | none |
+| `j=2, b=0` | **complete** (all 21 pairs) | 21 | none |
+| `j=2, b≤1` | **complete** — 21 pairs × each of 168 satisfied rows *and* the `S=0` row | 3,570 (21 s) | **none** |
+| `j=3, b≤2` | **14 of 35 triples enumerated completely** (per triple: b=0, all 168 b=1, all C(168,2)=14,028 b=2) | 198,772 (33 min) | **none** |
+| `j≥4` | greedy upper bound only | — | drops 25–26 vs needing <4 |
+
+All 21 pairs were individually feasible, so nothing was vacuously pruned at `j=2`.
+
+**The trap I nearly fell into.**  The greedy pass flagged `[12231, 12270, 12350]` as dropping
+*exactly 3* — net zero.  Greedy only **upper-bounds** the drops, so the true minimum could have
+been 2, **i.e. 39,027**.  Enumerated properly at `b ≤ 2`: none.  Reading the greedy number as a
+negative would have made this a false negative.
+
+**Stated as budget, not exhaustion:** the 14 completed triples are exactly those containing
+eq12231; the other 21 were **not reached** within the wall-clock cap; `j≥4` is greedy only.
+So: the 1-for-1 trade is proven unleverageable **at budget 2 over `K`**, and **at budget 3 for
+every triple containing eq12231**.  Scope throughout: **34 of 8,751 free inputs, frame B's
+orientation**.
+
+---
+
+## §4. The δ₀ line, and why it died
+
+The witness's residual is 8 atoms touched by exactly 12 equations (13 with `a23618`, the extra
+one being **eq8680**), with 7 variables private to the region — moving them cannot break
+anything else, so **failing equations = |E(R)| − maxsat(R)** exactly.  Over ℚ the system has a
+unique solution satisfying all 13; over ℤ **five** coordinates are blocked, by moduli
+`p, p, p, 2458959, 2458959·p`.
+
+Rather than sample, I put the boundary shift into the unknown vector and solved `A z + B δ = b₀`
+over ℤ.  **0 of 9** single supports work, **0 of 36** pairs, **0 of 84** triples; **12 of 126**
+quadruples do — including exactly `{a23616, a23618, a36660, a36662}`, the four constants that
+are *not* p-multiples.  Applying δ₀ makes **all 13 region equations hold**, verified end-to-end.
+Two of the four carriers are free (`x_8731`, `x_9118` — H's zero-collateral knobs).
+
+**It is not realisable.**  `a23618` is the sole carrier of the `L` shift, and `S = 0` forces
+`δx_4432 = δx_28730` — **collapsing the shift direction onto the private handle direction and
+annihilating precisely the degree of freedom δ₀ needs.**  My atom-level model could not see this:
+it drops `a37887` as nonlinear, and `a37887` is the one atom *outside* the region tying the two
+carriers together.  I emitted the handoff before pricing it and then issued
+**`DELTA0_STATUS.md`** correcting it, so no one spent cycles on a dead target.
+δ₀ remains a correct lattice target *for the region in isolation*; the coupling to `a37887`
+kills it.  Exact values in `DELTA0_FOR_M.json`; read `DELTA0_STATUS.md` first.
+
+---
+
+## §5. The rate — computed before spending the cores, and the scan not run
+
+I proposed a 2,800-configuration scan, then computed its cost first.
+
+- **Rate ≈ 2⁻⁷⁶⁷.**  Admissible boundary changes form a coset `δ₀ + Λ₀`; measured period in each
+  direction with an exact solvability oracle: **p** for `a23618`, `a36660`, `a36662`; for
+  `a23616` the period exceeds every modulus tested (up to 2458959·p).  So `[Z⁴ : Λ₀] ≥ 2^768`.
+  Expected hits in 2,800 configurations ≈ **10⁻²²⁷**.
+- **Worse than a bad rate — zero variance.**  Across **35 configurations** the four boundary
+  quantities `K1, L, K2, J` are **identically 0** — 1 distinct value out of 35, each.  The scan
+  would have measured a single point 2,800 times.  They are **assignment knobs, not
+  configuration knobs**: the witness has `J ≠ 0` because it *assigns* free variables.
+
+**Do not run that scan.**
+
+---
+
+## §6. Earlier rounds, condensed
+- **Complete singles sweep**, all 106 proven pin-solvable bits at E's cfg0 (`runs/singles.jsonl`):
+  none beats the empty set.  "Only 2 representatives per channel" was not the explanation.
+- **The monotonicity tension, resolved by mechanism.**  cfg0 is the **(0,1) branch**
+  (`x_7715 = 0`, `x_34554 = 1`, so `x_15298 = 0`), which makes atoms 20649/20652/32148 *vacuous*.
+  Turning on **any** a-tree bit sets `x_15298 = 1` and fires all three at once.  One gate is the
+  whole monotone cost — not per-bit accumulation.
+- **E's frame provably cannot represent the witness**: feeding the witness's own free values
+  through `engine.forward` gives 25 failing equations, not 7, with four divergence roots
+  `x_31864, x_29854, x_642, x_28730` — the same four M and P identified.
+- The witness's repair is **outside the dependency cone of the residual**: cone(20649,20652,
+  32148) has 277 free variables and **none** of the six carriers; each carrier's +1 probe has
+  zero delta on all three rows.  No cone-generated closure at any `maxr`/`maxv` can reach it.
+
+---
+
+## §7. Re-entry and files
+```
+cd solve_lab/agentO_work
+python3 verify_lemma.py     # re-verify §1 against raw EQUATIONS.txt, no parser  (~1 min)
+python3 fb_max.py           # the seven-way 1-for-1 trade                         (~2 min)
+python3 fb_sq.py            # with S = 0 imposed: nothing buyable                 (~2 min)
+python3 fb_U.py             # scoped theorem over K, |K| = 34                     (~3 min)
+```
+Key documents: **`EQ8680_LEMMA.md`** (§1, corrected + audited), **`T_COMPENSATION.md`** (§3),
+**`DELTA0_STATUS.md`** (§4 — read before `DELTA0_FOR_M.json`).  All logs in `runs/`.
+`agentH_work` was imported **read-only** throughout; 0 files modified there.  No git commands.
+
+## §8. Do not redo
+- The 2,800-configuration scan (§5) — dead twice over.
+- Singles over all 106 representatives at cfg0 — done, negative.
+- Deeper closure on E's residual (`maxr` 3→6, `maxv` 2000→8000, unfiltered knobs, lazy rows):
+  never below 28 failing.  The knobs were never the problem — the **cone** is.
 - Single- and double-atom growth of the witness region: all fail on eq29125 mod p.
-- (a,b) pairs through `full11.solve_pair`: the first 68 all give **39,013** with residual
-  exactly `{20649,20652,32148}`, independent of b.  Low information at that granularity.
+- `(a,b)` pairs through `full11.solve_pair`: the first 68 all give **39,013** with residual
+  exactly `{20649, 20652, 32148}`, independent of `b`.
 
-## 7. Added in check-in 26 round (files)
-`rate.py` (exact rational solution, denominators), `absorb.py` (H's x_8731/x_9118 in my model —
-makes it worse, |E| 13→39/46, eq29125 still blocks: their shift is not what eq29125 needs),
-`structure.py` (sensitivity of the residues to boundary data; the mod-p part has full rank 4,
-the small-modulus extraction there is unreliable and is superseded by `invert.py`),
-`invert.py` (support search), `tunable.py` (which constants a configuration can move),
-`hitrate.py` (**the rate**), `bscan.py` (**zero variance across 35 configurations**),
-`target.py` + `target.json` (the exact inverted target, verified end-to-end).
-Logs for all of these are in `runs/`.
-
-## 8. Check-in 38 round — δ₀ PRICED IN FRAME B.  Negative, with an exact mechanism.
-Full write-up in **`DELTA0_STATUS.md`** (read it before using `DELTA0_FOR_M.json`).
-
-- Frame B (`frameB.Frame([642,28730,29854,31864])`, agentH_work imported read-only) reproduces
-  the witness bit-for-bit: 39,026, same 7 failures, **0 variables differing**.
-- Both open carriers are themselves **free inputs** in frame B, so I redid the region solve
-  natively over 12 knobs `{642,1329,9413,10903,17325,28730,29854,31864} + {7068,4432,8731,9118}`.
-  They reach exactly **12 checks / 29 equations**, and **all 7 failures are inside** — nothing
-  unreachable.
-- **Every one of the 7 failing equations is individually buyable, and every purchase costs
-  exactly `eq8680`.**  Score pinned at 39,026 seven ways; no pair is buyable.
-- **Mechanism**: `eq8680`'s only atom `a37887` is a **perfect square**, source literally
-  `(S)*(S)`, with `S = 0` at the witness.  So `eq8680` is the *linear* constraint `S = 0`, and
-  `dS/dx_4432 = +1`, `dS/dx_28730 = −1`, zero for every other knob.  `S = 0` is exactly
-  `δx_4432 = δx_28730`, which **collapses the L direction onto the private x_28730 direction —
-  annihilating precisely the degree of freedom δ₀ needs**.  With `S = 0` added as an explicit
-  row, nothing is buyable at all.
-- My atom-level model could not see this: it drops `a37887` as nonlinear, and `a37887` is the
-  one atom *outside* the region tying the two carriers together.
-- **Exhaustive follow-up**: `a37887` has 26 supporting free inputs, 17 of which move `S`.  All
-  15 outside the 12 were added one at a time and the maxsat re-run — **none makes anything
-  buyable**, including the selector x_2081 at 131 rows.
-- **Scoped claim**: 39,026 is exactly optimal over those 12 knobs and over every 13-knob
-  extension by an S-mover, with all other free inputs at the witness's values.  Nothing claimed
-  outside that knob set.
-- Independently confirms and sharpens H's "a22231 buys 1 row and costs eq8680, exactly": it
-  holds for **all seven** failures, and the mechanism is `S = 0`.
-- Files: `fb_probe.py`, `fb_solve.py`, `fb_max.py`, `fb_nl.py`, `fb_sq.py`, `fb_free_s.py`,
-  `emit_delta0.py`; handoff `DELTA0_FOR_M.json` / `.md` + **`DELTA0_STATUS.md`**; logs in `runs/`.
-
-## 9. Check-in 49 round — S = 0 IS FORCED.  Answer: option (2).  See `EQ8680_LEMMA.md`.
-- **Lemma (unconditional, parser-independent):** `eq8680 = T²` with `T` a LINEAR form in atoms
-  (20 of them, coefficients 1,6,15,−21,−13,−13,25,1,25,28,1,−4,23,−5,−5,20,−27,35,17,−14 in E's
-  numbering).  A square has a single zero locus, so **every satisfying assignment has T = 0**.
-  In H's frame `T = S`.
-- **I nearly claimed this from H's parse alone**, where eq8680 has *one* term (`a37887 = T²`),
-  and the argument would have been "no other atom to compensate with".  E's independent parser
-  sees **20 terms, issq=True**.  Both agree mathematically, but the one-term version was a
-  bundling artifact; the correct reason is that a square vanishes only on a hyperplane.
-  Cross-check: `eq8680_crosscheck.py`, `runs/eq8680_cross.log`.
-- `a23618 = x_4432 − x_19964 − x_28730` enters `T` with coefficient exactly **+1**, and is the
-  sole carrier of the `L` shift δ₀ needs.  `dT/dx_4432 = +1`, `dT/dx_28730 = −1`, zero
-  elsewhere → `T = 0` is exactly `δx_4432 = δx_28730`, killing that direction.
-- **Scoped theorem:** with `K` = (15 free inputs reaching a nonzero region atom) ∪ (26 carriers
-  of `T`) = **34**, every assignment agreeing with the witness outside `K` scores ≤ 39,026.
-  190 equations in scope, all 7 failures reachable, 175 exactly-affine rows.
-  Zero-collateral: nothing buyable at any size.  Pay 1 (eq8680): no pair.  Pay 2: no triple.
-  **The trade is exactly 1-for-1 and cannot be leveraged.**
-- **Model exactness verified**: 5-point probe (t=1,2,3,5,7) finds precisely the same 7
-  non-affine checks as the 2-point probe, **none missed**, so the negative result is sound.
-  The 16 dropped rows are permissive (none currently fails), strengthening the negative.
-- **Not global**: scope is 34 of 8,751 free inputs, frame B's orientation, and Test B was
-  budget-capped.  The one door left open: a deliberately budgeted multi-atom compensation among
-  `T`'s other 19 atoms.
-- Files: `eq8680.py`, `eq8680_crosscheck.py`, `fb_U.py`, `fb_net.py`, `fb_lincheck.py`;
-  `EQ8680_LEMMA.md`; logs in `runs/`.
-
-## 10. Check-in 60 round — Lemma CORRECTED after agent T's audit; last door closed to budget.
-### 10a. Corrections (re-verified by me against the RAW text of EQUATIONS.txt, no parser)
-`verify_lemma.py` / `runs/verify_lemma.log`.  All three of T's corrections confirmed:
-1. **`eq8680`'s LHS = `S⁴`, not `S²`.**  Perturbing one variable and reading the raw LHS:
-   S = 2,3,5,−2,−3,−18 give LHS = 16, 81, 625, 16, 81, 104976 — exactly `S⁴`, and `LHS == S^k`
-   holds for **k = 4 only**.  Nesting is two levels: `LHS = T·T`, `T = S·S`.
-2. **The object with slope +1 is `S`**, the affine form: measured `dS/dx_4432 = +1`,
-   `dS/dx_19964 = −1`, `dS/dx_28730 = −1`.  I had written "`eq8680 = T²`, `T` linear" and quoted
-   `dT/dx_4432 = +1` — those cannot describe the same object (`T = S²` ⇒ `dT/dx = 2S+1`).
-   **Prose error only: my computation used H's inner factor, which IS `S`** (I measured its
-   slope as +1 before using it), so every search constrained the right object.
-3. **18 vs 20 is a granularity difference, not a contradiction.**  18 bracketed groups in the
-   raw text (F, T); E emits 20 `(coef, atom)` entries because it splits exactly two brackets:
-   `−13·(x_21279·x_31731 + x_35619)` → a23622,a23623 and `−5·(x_34600 − x_30108 + x_23642)` →
-   a11876,a11877.  18 + 2 = 20.  ⚠ **`S`'s 18 ≠ M's enumeration exponent 18.  Do not conflate.**
-Also confirmed by source match: T's three previously-omitted p-handles are terms of `S` —
-`25·(x_18253 − x_4339·x_15120)`=a20450, `1·(x_37720 − x_14466·x_35531)`=a20452,
-`23·(x_23642 − x_8173·x_10422)`=a11875.
-The conclusion is unaffected and robust to the exponent: `checker.py` requires the LHS `== 0`
-over **ℤ**, an integral domain, so `S^k = 0 ⟺ S = 0` for any k ≥ 1.
-
-### 10b. The last door — budgeted compensation inside `S`.  See `T_COMPENSATION.md`.
-- **No free compensator**: all 20 atoms of `S` live in 10–18 equations; none is confined to
-  eq8680.  Nine are checks in E's frame.  The equations they disturb are the region's own, and
-  every carrier of a component of `S` is a carrier of `a37887`, so all 26 were already in `K`.
-  The channel was never a missing knob — it is purely a **budget**.
-- Budgets tested (need bought > broken): `j=1,b=0` **complete** — none.  `j=2,b≤1` **complete**
-  (3,570 solves, 21 s; all 21 pairs individually feasible so nothing was vacuously pruned) —
-  **none**.  `j=3,b≤2` **14 of 35 triples enumerated completely** (198,772 solves, 33 min),
-  including the greedy-flagged `[12231,12270,12350]` that had dropped exactly 3 — **none**.
-  `j≥4` greedy only (drops 25–26 vs needing <4).
-- **Not exhausted at j=3**: the 21 triples not containing eq12231 were not reached.
-- Files: `verify_lemma.py`, `tatoms.py`, `fb_budget.py`, `fb_j3.py`; `T_COMPENSATION.md`;
-  corrected `EQ8680_LEMMA.md`; logs in `runs/`.
+## §9. What is left, honestly
+Within `K` the region is closed to the budgets in §3.  The untested remainder: the **21 triples
+not containing eq12231** at `j=3, b≤2`, and `j≥4` beyond greedy.  Both are mechanical extensions
+of `fb_j3.py` (raise `OCAP`).  Beyond that, any improvement must come from **outside `K`** —
+i.e. from an assignment that differs from the witness in one of the other 8,717 free inputs,
+which §1 does not constrain.
