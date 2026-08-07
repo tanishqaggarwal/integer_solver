@@ -1,0 +1,21 @@
+a particular admissible boundary change delta0 (as a shift of const):
+   const(a23616 ) shift = 2440 bits
+   const(a23618 ) shift = 2419 bits
+   const(a36660 ) shift = 2428 bits
+   const(a36662 ) shift = 2429 bits
+verify: solvable(delta0) = True
+verify: solvable(0)      = False   (the witness itself)
+
+--- period in each tunable direction (smallest t>0 with delta0 + t*e_a solvable)
+   direction const(a23616 ): period = > all tested
+   direction const(a23618 ): period = p
+   direction const(a36660 ): period = p
+   direction const(a36662 ): period = p
+
+--- index of the admissible lattice, assuming the measured periods are independent
+   at least one period exceeds every tested modulus; index is at least
+   [Z^4 : Lambda0] = 768 bits ~ 2^767
+   scan hit rate    = 1 / that = about 2^-767
+   expected hits in  2800 configurations = 2^-755  (~10^-227)
+   expected hits in 13884 configurations = 2^-753  (~10^-226)
+DONE

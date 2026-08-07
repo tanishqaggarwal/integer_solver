@@ -258,6 +258,97 @@ constructor reproduces 7 at the known site is a sweep over sites meaningful.
 carries extra nonzero atoms that have nothing to do with the cut, which will masquerade as a bad
 placement.  Fix the repair (simultaneous CRT) before trusting a sweep.
 
+--------------------------------------------------------------------------------------------
+## 6c. THE USEFUL SEARCH SPACE IS 15 ATOMS (`refilter2.py`, `atomfilter.py`, `emit.py`)
+M's filter — *a site can help only if its corrupted atoms appear in the equations that fail at
+the uncorrupted baseline* — applied exactly.
+
+**First: my incidence map was wrong and I rebuilt it.**  The map I priced with in S4/S6b came
+from F's `E.eqres` and sees only 12-13 of the 25 target equations.  Rebuilt exactly instead:
+every residual atom has exactly ONE free cofactor u (3,681, verified in `hcheck.py`) and u
+occurs nowhere else, so **equation e contains atom a  <=>  u_a in vars(e)** — read straight off
+`checker.load_equations()`'s varsets, no model of the equation algebra needed.  `eqmap_exact.pkl`.
+
+**BASELINE DISCREPANCY — FLAGGED, NOT RESOLVED.**  M's baseline fails **25** equations; mine
+fails **13**, and **my 13 are a strict subset of M's 25** (`B \ M25 = {}`).  The 12 M sees and
+I do not: 5324, 9041, 11226, 15558, 21000, 22534, 22997, 28929, 29330, 32026, 35512, 38051.
+My baseline = the deliverable with its 16 tuned handle/cofactor vars zeroed.  I filtered on the
+**UNION (25)**, not the intersection — the intersection is my 13 and would over-discard anything
+that could only fix one of M's extra 12.  Whoever reconciles these should use the union until
+the two baselines are the same object.
+
+**RESULT: of 3,681 atoms with a unique cofactor, exactly 15 are incident to the 25.**
+All 3,666 others provably cannot change any target equation, whatever value they are given.
+Grouped by the node they guard (h = the P-multiple to corrupt, u = its free cofactor):
+
+    node x27994 sel_ab (its 3 STAGE CHECKS + 2 guards)     5 atoms, total rt 41
+        rt 10  h=x23754  u=x6947    ((6122989*(x21279*x2239))-x23754)     <- NOT corrupted by
+        rt  9  h=x35619  u=x33168   ((x21279*x31731)+x35619)                 the deliverable
+        rt  8  h=x31864  u=x10903   ((x7075*x8731)+x31864)                <- deliverable
+        rt  8  h=x9629   u=x950     ((x21279*x9106)-(13523997*x9629))     <- NOT corrupted
+        rt  6  h=x29854  u=x1329    ((5113045*(x7075*x9118))-x29854)      <- deliverable
+    slot links (x4971.va, x4971.vb, x36871.vb)             5 atoms, total rt 26
+        rt 10  h=x28730  u=x9413    ((x4432-x19964)-x28730)               <- deliverable
+        rt  9  h=x642    u=x17325   ((x7068-x2099)-(7376877*x642))        <- deliverable
+        rt  5  h=x37413  u=x11099   ((x15324-x37254)-(8481759*x37413))    <- x4971.vb, the OTHER side
+        rt  1  h=x34113  u=x23110   ((x22043-x4264)-x34113)
+        rt  1  h=x28355  u=x32349   ((179131*(x27500-x12143))-x28355)
+    node x35155 sel_ab                                     3 atoms, total rt 10
+        rt  4  h=x1844   u=x21574   ((x1956*x17065)-x1844)
+        rt  3  h=x29305  u=x1613    ((x1956*x23318)-(8235511*x29305))
+        rt  3  h=x2892   u=x6090    ((x1956*x14199)+x2892)
+    node x14803 sel_ab                                     2 atoms, total rt  2
+        rt  1  h=x23822  u=x22526   ((x16495*x6247)-x23822)
+        rt  1  h=x7945   u=x34868   ((7720481*(x16495*x1504))-x7945)
+
+**So the ENTIRE useful corruption space is the subsets of these 15 handles = 32,768 candidates**
+— enumerable outright at M's stated throughput, not a heuristic shortlist.  The deliverable is
+the 4-subset {642, 28730, 29854, 31864} = 39,026.  **The strongest lead: the deliverable does
+not touch x23754 / x35619 / x9629 — the three stage checks of the very node it cuts at — and
+they carry the highest incidence in the whole system (rt 10/9/8).**  Next after those, x37413
+(rt 5), the sibling slot x4971.vb.  `emit_for_M.json` carries the 15 atoms and all 2,048
+supersets of the deliverable's set in descending total rt.
+**Caveat on the ordering only:** total-rt is a sum of incidences and S6b proved cost is a value
+property, so treat the order as an enumeration convenience, not a prediction.
+
+--------------------------------------------------------------------------------------------
+## 6d. REALIZABILITY OF THE 15 (`roles32.py`, `realiz.py`) — answers "which subsets are cuts?"
+The 15 incident atoms sit on exactly FOUR nodes, in three mechanistic classes:
+
+    x27994 vab guards      x31864 x29854      driven only when sel_ab(x27994) == 0
+    x27994 stage checks    x23754 x35619 x9629 driven only when sel_ab(x27994) == 1
+    x4971.va slot links    x28730 x642        driven always
+    x4971.vb slot link     x37413             driven always
+    x36871.vb slot links   x34113 x28355      driven always
+    x35155 stage checks    x1844 x29305 x2892  NEVER driven  (see below)
+    x14803 stage checks    x23822 x7945        NEVER driven  (see below)
+
+**HARD RESULT 1 — five of the 15 are permanently vacuous.**  A node's stage checks are gated by
+sel_ab, and sel_ab == 1 requires BOTH child subtrees to contain a live leaf.  Live-leaf counts:
+    x27994: 1 | 1  -> sel_ab CAN be 1        x4971 : 2 | 1  -> CAN be 1
+    x36871: 2 | 1  -> CAN be 1
+    x35155: 1 | 0  -> **sel_ab is 0 in ALL 2^256 configurations**
+    x14803: 1 | 0  -> **sel_ab is 0 in ALL 2^256 configurations**
+So x1844, x29305, x2892, x23822, x7945 can never carry a circuit-derived value in any reachable
+configuration whatsoever.
+
+**HARD RESULT 2 — at x27994 the guards and the stage checks are mutually exclusive.**
+Guards are `(1-sel_ab)*vab`; checks are `sel_ab*(...)`.  At sel_ab=0 the guards bite and the
+checks are vacuous; at sel_ab=1 the reverse.  The deliverable runs at sel_ab(x27994)=0
+(measured, x21279=0), which is **why it does not corrupt x23754/x35619/x9629 — they are vacuous
+there, not overlooked.**
+
+**BUT — DO NOT READ THIS AS "M IS PRICING NOISE".**  Freeing a handle always works formally: at
+sel_ab=0 the check `((x21279*x9106)-(13523997*x9629))` collapses to `-13523997*x9629`, so
+demoting x9629 supplies a **pure unconstrained additive term** in whichever equations contain it.
+That is arguably the *best* cancellation knob available, precisely because it is uncoupled from
+circuit values.  So every one of the 32,768 subsets is runnable and worth pricing.  What changes
+is the INTERPRETATION: a hit on the vacuous atoms is a **cancellation knob**, not a structural
+cut, and it will not generalise to other sites or other ON-sets the way a cut would.
+The realizability filter therefore does NOT reduce M's 35,960 — I could not cut it, and saying so
+is the answer.  What it gives instead is a partition: 10 of the 15 can be circuit-driven, 5 can
+only ever be knobs, and at x27994 no assignment drives guards and checks at once.
+
 ## 7. FILES (all in `agentL_work/`)
 Code: `trace.py ortree.py ortree2.py census.py wire.py link.py crux.py onset.py fail7.py
 handles.py handles2.py exp1.py model.py model2.py calib.py fold.py fold2.py global.py

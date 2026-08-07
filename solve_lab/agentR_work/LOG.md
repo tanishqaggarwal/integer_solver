@@ -392,5 +392,18 @@ two non-boolean coefficients — a 2-unknown solve whose difficulty I have not m
 composite map is a rational function of both parameters through every downstream stage, so its
 degree may be enormous. `realize.py` hands the two relaxed selectors to `gs2`'s repair at fixed
 non-boolean values and scores with `checker.py`; that is a weak attempt (gs2 propagates forward
-from the leaves, so it cannot back-solve the two parameters against the root) and it was still
-running at handoff. **No score above 39,026 has been verified. 39,027 is a target, not a result.**
+from the leaves, so it cannot back-solve the two parameters against the root). **It failed:** with
+either relaxed selector frozen at a non-boolean value `gs2.solve` returned nothing in ~15 minutes
+per call (it repairs forward and appears to loop trying to restore booleanness), so not one
+candidate was scored. Stopped, cores released.
+**No score above 39,026 has been verified. 39,027 is a floor with an unrealized construction, not
+a result, and must not be quoted as a score.**
+
+What realizing it actually needs: a *backward* solve, not a repair. Fix the 254 boolean selectors,
+treat the two relaxed ones as unknowns `t1, t2`, push the accumulator recurrence
+`acc' = acc + t*(S - acc)` symbolically to the root, and solve the resulting 2x2 system against the
+target's two coordinates. The obstruction to price FIRST: every stage downstream of a relaxed
+selector applies the chord law to an off-curve point, so the composite degree grows with the number
+of stages after it. **If x33095 / x19326 / x28825 sit near the root the system is small and this is
+straightforward; near the leaves it is hopeless. Nobody has checked which. That is the single next
+measurement and it is one cheap lookup.**

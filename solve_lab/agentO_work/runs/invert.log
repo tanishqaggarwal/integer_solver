@@ -1,0 +1,70 @@
+region R = [23616, 23617, 23618, 36659, 36660, 36661, 36662, 36663, 36664]
+private unknowns z: [642, 1329, 9413, 10903, 17325, 28730, 29854, 31864]
+equations: [2554, 6816, 8124, 8680, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+
+--- baseline: no boundary change allowed
+  delta = 0                          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+
+--- single boundary constant free
+  only const(a23616) free            UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  only const(a23617) free            UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  only const(a23618) free            UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  only const(a36659) free            UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  only const(a36660) free            UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  only const(a36661) free            UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  only const(a36662) free            UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  only const(a36663) free            UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  only const(a36664) free            UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  single-constant supports that work: []
+
+--- all boundary constants free
+  all 9 constants free               SOLVABLE.  required boundary change:
+        const(a23616 ) += -2975081984020863110294709..  (2440 bits)
+        const(a23617 ) += -1193251489541137844515370..  (2419 bits)
+        const(a23618 ) += 0  (0 bits)   [== 0, no change needed]
+        const(a36659 ) += -7635552795921347546349433..  (2428 bits)
+        const(a36660 ) += 0  (0 bits)   [== 0, no change needed]
+        const(a36661 ) += 11434728812078336230651908..  (2429 bits)
+        const(a36662 ) += 0  (0 bits)   [== 0, no change needed]
+        const(a36663 ) += 0  (0 bits)   [== 0, no change needed]
+        const(a36664 ) += 0  (0 bits)   [== 0, no change needed]
+
+--- minimal supports (pairs), if singles failed
+  const(a23616,a23617) free          UNSOLVABLE over Z: core infeasible
+  const(a23616,a23618) free          UNSOLVABLE over Z: core infeasible
+  const(a23616,a36659) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a23616,a36660) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a23616,a36661) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a23616,a36662) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a23616,a36663) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a23616,a36664) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a23617,a23618) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23617,a36659) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23617,a36660) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23617,a36661) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23617,a36662) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23617,a36663) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23617,a36664) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23618,a36659) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23618,a36660) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23618,a36661) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23618,a36662) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23618,a36663) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a23618,a36664) free          UNSOLVABLE over Z: row 0: rhs % -7376877 != 0
+  const(a36659,a36660) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36659,a36661) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36659,a36662) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36659,a36663) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36659,a36664) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36660,a36661) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36660,a36662) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36660,a36663) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36660,a36664) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36661,a36662) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36661,a36663) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36661,a36664) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36662,a36663) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36662,a36664) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  const(a36663,a36664) free          UNSOLVABLE over Z: row 12: rhs % -1157920892373161954235709850086879078532699846656405640
+  working pairs: []
+DONE

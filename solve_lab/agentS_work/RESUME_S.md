@@ -234,6 +234,60 @@ So I corroborate K, I do not close it — and I specifically do NOT rely on K's 
 which P reports covers only one wrap (k = +-1) and is complete only if the governing modulus
 exceeds the largest signed subset difference. My corroboration is independent of that step.
 
+## 6f. §8.3 — is the joint p·Z² obstruction configuration-independent? (`kernel.py`, `kernel2.py`)
+Knob set: the 54 affine knobs `lat2.system` measures at cfg0 (every single-row knob, plus each
+atom's pure handle). Base configuration: cfg0 = triple8_seed, x_1530 = x_1603 = 1.
+
+**Method.** `reach3.py`'s random selector scrambles were useless (66–467 bad atoms, blocking rows
+nowhere near the cluster). Instead displace along the **affine kernel** — directions that hold
+every non-target row at its satisfied value by construction — so every test configuration is
+still a near-solution. Kernel dim at cfg0 is 7 over 54 knobs.
+
+**Result A — the affine model is EXACT, not merely locally linear.** Every kernel displacement
+tried (particular solution alone; 6 random small-coefficient combinations; 4 with coefficients up
+to ±10⁶; unit vectors) landed on **bad atoms = exactly {a20215, a28647}, 28 fails, 39,005** —
+identical to cfg0. Not one displacement broke the other rows. The measured structure was also
+invariant: **54 knobs, 47 other rows, kernel dim 7** at every single one.
+
+**Result B — the obstruction survived every kernel displacement**: membership of the residual in
+the reachable lattice was **NO** every time, with the same p·Z² lattice and the same residual
+class (a20215 ≡ 22981624690591…356252, a28647 ≡ 44159679639019…279353 mod p).
+
+**⚠️ But state the limitation, because it is severe and it is structural.** Motion along the
+kernel changes a20215 only by *multiples of p* — that IS the p·Z² result. So the residual's
+**mod-p class is invariant along the kernel by construction**, and the membership answer *cannot*
+change unless the measured knob set changes. Result B is therefore **not** evidence that the
+obstruction is configuration-independent; it is a test of structural stability, and it passed.
+Anyone citing Result B as "the obstruction is real" is making the §3 mistake again.
+
+Exact counts (`runs_kernel.log`): **18 of 18 displacements blocked, 0 dissolved, 0 broke the
+other rows.** NOTE: `kernel.py`'s own auto-generated closing line said this was "evidence it is a
+statement about the instance". **That line was wrong** — it is the §3 error again. I have fixed
+the script and appended a correction to the log so it cannot mislead a later reader.
+
+**`kernel2.py` supplies the part that does move the class**: each BFS image point sits at a
+different mod-p 5-tuple, so solve the other rows exactly there and re-test membership. This is
+`lat3.analyse`, the correct formulation — `lat5.py` demanded *all* rows including the targets,
+which is strictly stronger and hence a weaker probe of this question.
+**Result: 14 image points, 5 distinct (a20215, a28647) mod-p classes covered —
+blocked = 2, solved = 0, other-rows-infeasible = 12.**
+
+**Honest verdict: the question is still open, and the experiment was starved.** Only **2 of 14**
+image points were valid test cases; the other 12 could not be brought to a near-solution at all,
+so they say nothing about the obstruction. Two blocked data points is not enough to call the
+p·Z² obstruction configuration-independent, and Result B (18/18) does not help because kernel
+motion cannot change the mod-p class by construction. **Do not upgrade any of this to a claim
+about the instance.** What is established is only: (i) the affine model is exact under kernel
+motion, and (ii) the obstruction is not dissolved at the 2 image points where it could be tested.
+
+**The experiment worth running next**, and the reason this one starved: valid test cases need a
+configuration that *both* moves the mod-p class *and* admits a near-solution, and BFS image points
+mostly fail the second. Generate them the other way round — start from the cfg0 near-solution and
+apply the **selector moves that change the class** (the trade knobs x_14853, x_6083, x_31339,
+x_18956 are 1-for-1 and preserve solvability far better than selector flips), re-solving the other
+rows after each move. That searches near-solutions by class rather than sampling classes and
+hoping they are near-solutions.
+
 ## 7. Scores
 - Best verified: **39,026** — the existing deliverable, re-verified by me with `checker.py`.
 - **I did not beat it.** E's 39,005 reproduced exactly. Best of my own constructions: 39,019.

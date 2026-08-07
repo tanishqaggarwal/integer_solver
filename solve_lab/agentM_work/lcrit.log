@@ -1,0 +1,49 @@
+checker: 39033 equations; harness eqt: 39033  aligned=True
+
+(A) residual atoms with exactly one free singly-occurring cofactor: 1006
+    incident against MY 25-equation baseline : 10 handles
+      x28730  atom 23617  cofactor x9413   rt 10  <== DELIVERABLE
+      x23754  atom 23619  cofactor x6947   rt 10
+      x642    atom 36664  cofactor x17325  rt  9  <== DELIVERABLE
+      x9629   atom 20448  cofactor x950    rt  8
+      x29854  atom 36659  cofactor x1329   rt  6  <== DELIVERABLE
+      x37413  atom 11878  cofactor x11099  rt  5
+      x1844   atom 36657  cofactor x21574  rt  4
+      x29305  atom 36655  cofactor x1613   rt  3
+      x23822  atom 11880  cofactor x22526  rt  1
+      x7945   atom 11882  cofactor x34868  rt  1
+
+    cross-check against the handles the coordinator named from L:
+      x23754  in my derivation: True
+      x35619  in my derivation: False
+      x9629   in my derivation: True
+      x37413  in my derivation: True
+      x34113  in my derivation: False
+      x28355  in my derivation: False
+
+    my earlier 32-pool vs this derivation: |derived| 10, in 32 10, NOT in 32 []
+
+(B) BASELINE RECONCILIATION
+  L-style baseline (16 zeroed) : score 39020, 13 failures, 4 bad atoms
+  my baseline (un-corrupt)     : 39008, 25 failures
+  L-style subset of mine? True    |L| 13  |M| 25
+  in mine not L-style (12): [5324, 9041, 11226, 15558, 21000, 22534, 22997, 28929, 29330, 32026, 35512, 38051]
+  in L-style not mine (0): []
+
+  --- what makes the extra 12 fail in MY baseline? ---
+  my baseline bad atoms   : [23618, 34120, 36660, 36661, 36662]
+  L-style baseline bad atoms: [23616, 23618, 36660, 36662]
+    eq   5324: nonzero atoms in MY baseline [34120, 34120] | in L-style []
+    eq   9041: nonzero atoms in MY baseline [34120] | in L-style []
+    eq  11226: nonzero atoms in MY baseline [34120] | in L-style []
+    eq  15558: nonzero atoms in MY baseline [34120] | in L-style []
+    eq  21000: nonzero atoms in MY baseline [34120, 34120] | in L-style []
+    eq  22534: nonzero atoms in MY baseline [34120] | in L-style []
+    eq  22997: nonzero atoms in MY baseline [34120] | in L-style []
+    eq  28929: nonzero atoms in MY baseline [34120] | in L-style []
+    eq  29330: nonzero atoms in MY baseline [34120] | in L-style []
+    eq  32026: nonzero atoms in MY baseline [34120] | in L-style []
+    eq  35512: nonzero atoms in MY baseline [34120] | in L-style []
+    eq  38051: nonzero atoms in MY baseline [34120] | in L-style []
+
+wrote lcrit.json

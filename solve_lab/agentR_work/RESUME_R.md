@@ -88,10 +88,43 @@ reaches stays scoped to my repair.
 **Why the deliverable wins:** not a better configuration, not a bigger support — a rare footprint
 where 6 of 13 equations cancel *for free*. Every footprint I reached charges ≥10 for the first.
 
-## 4b. Next
-A footprint search: find supports where cancellation is free, i.e. equations whose atoms are
-*already* mutually cancelling, and ask which configurations can be routed into them. That is the
-deliverable's trick, and it has never been searched systematically.
+## 4b. INVERTED SEARCH - footprints ranked first, reachability second (LOG.md 15)
+E's model: 9,032 atoms / 39,033 equations / 121,261 incidences. Footprint cost
+`= |equations touched| - max killable by a nonzero value vector` = the failing floor for a support.
+
+- **Min cost over RELATIONAL atoms (>=2 vars, the only ones that can carry the defect) = 7.**
+  Cheapest are 3131, 3138, 3588, 8749, 8777 - and **3131 is one of the deliverable's own live
+  atoms.** So the deliverable sits at the single-atom optimum; `|S|=2` ties but never beats it (all
+  34 equation-sharing pairs among the 60 cheapest relational atoms floor at >=7).
+  **That is why five configuration-first searches all bottomed out at 7.**
+- **Every atom with cost <=6 is a boolean-ness atom `x*(1-x)` on one variable.** The cheapest of
+  all (8508, cost 2) is a trap: its variable occurs in no other atom - cheap *because
+  disconnected*, and a disconnected variable cannot carry the defect.
+- **THE LEVER (new): relax a SELECTOR off {0,1}.** 173 of the 2,283 boolean-ness atoms sit on
+  selector/conditional-pin variables and the cheap ones are not disconnected: x33095 (cost 3),
+  x19326 (6), x28825 (6), x4362 (7). A non-boolean `b` does **not** force the mux atoms nonzero -
+  `acc' = acc + b*(S-acc)` stays satisfiable with `acc'` a free point on a line - so only the
+  boolean-ness atoms are forced. Two relaxed selectors = 2 free parameters against the target's 2
+  coordinates, generically solvable for *any* boolean choice of the other 254.
+  **x33095+x19326 and x33095+x28825 each have a 6-equation union (overlap 3) -> floor 39,027.**
+- **UNREALIZED.** `realize.py` (gs2 repair, selector frozen non-boolean) returned nothing in
+  ~15 min/call - it repairs forward and cannot back-solve two parameters against the root.
+  **39,027 is a floor with no construction. Not a score. Do not quote it as one.**
+
+## 4c. THE NEXT MEASUREMENT, and it is cheap
+Realizing 39,027 needs a *backward* solve: fix 254 boolean selectors, treat `t1,t2` as unknowns,
+push `acc' = acc + t*(S-acc)` symbolically to the root, solve 2x2 against the target. Price the
+obstruction FIRST: every stage after a relaxed selector applies the chord law to an off-curve
+point, so composite degree grows with the number of downstream stages.
+**Find where x33095, x19326, x28825 sit in the ladder. Near the root -> small system, straight-
+forward. Near the leaves -> hopeless. Nobody has checked.**
+I tried the lookup and it did not converge in the time left: `agentF_work/pins.json` maps a pin
+variable to `[[wire_x, val_x], [wire_y, val_y]]`, and feeding `(val_x, val_y)` through
+`model.to_short` then indexing `ladder.json` returns NOT FOUND *even for x24601 / x2081*, which I
+had previously mapped to ladder indices 72 / 235 by a different route. So the naive reconstruction
+above is wrong somewhere, not the ladder. Redo it the way the ON-set validation did (that path
+worked); do not trust the two-line version.
+
 Also: extend the weight search to 7–8 (~1.7×10^8 stored points, ~1.4 GB — feasible);
 `bsgs.py` (k < 2^44) was still running at handoff and is resumable by re-invoking it.
 

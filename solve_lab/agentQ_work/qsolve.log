@@ -1,0 +1,10 @@
+distinct terms: 47198
+|S|   solved    rootX     rootY     fold(S) match
+1     4001      False     False     False
+2     4001      False     False     False
+5     4001      False     False     False
+17    4003      False     False     False
+64    3993      False     False     False
+128   3991      False     False     False
+200   3930      False     False     False
+256   3862      False     False     False

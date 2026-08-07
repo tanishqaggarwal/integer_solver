@@ -94,5 +94,11 @@ print("of those, obstruction still blocked: %d ; dissolved: %d" % (len(ns_ok), l
 if hits:
     print("=> the joint p*Z^2 obstruction is cfg0-LOCAL. sec 2 does not bind the instance.", flush=True)
 elif ns_ok:
-    print("=> obstruction survived motion along the kernel at every tested configuration:", flush=True)
-    print("   evidence it is a statement about the instance, not about cfg0.", flush=True)
+    print("=> obstruction survived motion along the kernel at every tested configuration.", flush=True)
+    print("   *** DO NOT READ THIS AS 'the obstruction is a statement about the instance'. ***", flush=True)
+    print("   Motion along the kernel changes a20215 only by multiples of p -- that IS the p*Z^2", flush=True)
+    print("   result -- so the residual's mod-p class is INVARIANT along the kernel by", flush=True)
+    print("   construction, and the membership answer cannot change unless the measured knob set", flush=True)
+    print("   changes.  This is a test of STRUCTURAL STABILITY (which passed: 54 knobs, 47 other", flush=True)
+    print("   rows, kernel dim 7, bad={a20215,a28647} at every displacement).  It is NOT a test of", flush=True)
+    print("   configuration-independence.  For that see kernel2.py, which moves the mod-p class.", flush=True)

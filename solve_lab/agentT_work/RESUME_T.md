@@ -222,3 +222,100 @@ knobs verified genuine + affine) · `t_struct.py` (rank/consistency on the enlar
 `t_conda.py` -> `t_conda_L0.log` (**A7**, the exhaustive weight-<=6 result) · `t_minfail.py`
 (integer BnB; superseded by t_conda and stopped).
 Reproduce the headline: `cd solve_lab/agentT_work && python3 t_faithful2.py && python3 t_conda.py 0 8`.
+
+=============================================================================================
+# SECOND PASS — audit of agent Q's existence chain and the ROUTING LAYER
+(coordinator check-in 22/23; item 2 dropped — agent S resolved the Q-vs-S tension itself)
+
+## F. Q's LADDER AND ARITHMETIC — CONFIRMED, AND STRONGER THAN Q CLAIMED  (`t_ladder.py`)
+Q's step 5 ("subset sums realise every k; N < 2^256; therefore T is hit") is airtight only if the
+leaf set is exactly {2^i G : i = 0..255}, every exponent present and distinct.  Drop one exponent
+and subset sums cover 2^255 of 2^256 and T surviving is a coin flip, not a theorem.  Measured:
+* **all 249 checkable consecutive doublings `L_{i+1} == 2*L_i` verify exactly, 0 failures**;
+* the 253 decoded ladder points are **253 distinct** points, all on the cubic;
+* `L_i == 2^i G` for **all 253**, no mismatch;
+* the 3 "missing" exponents are **not inferred** — vars x18184, x22579, x33434 are decoded leaves
+  and equal `2^51 G`, `2^176 G`, `2^41 G` exactly.  So all 256 exponents are backed by a decoded
+  leaf.  (RESUME_Q §1(d)'s "4 chains linked by one missing doubling each" understates its own
+  result; the coordinator reports Q has since re-derived this as a single 256-chain.  Agreed.)
+* `N*G == O`; N prime-ish; `N-1 <= 2^256-1`, so [1,2^256-1] does cover every residue mod N.
+**Steps 4 and 5 of the existence chain survive.**  Also: all 256 selectors are genuine booleans
+(each carries an `x*(x-1)` atom) and **all 256 are free variables** — so an arbitrary ON-set is at
+least *syntactically* assignable.  That premise survives too.
+
+## G. THE ROUTING LAYER — 'liveness is determined by the selectors' is ASSUMED, and as stated it
+##    is FALSE in agent E's parse  (`t_sel.py`, `t_live.py`)
+Q verifies the law each gadget enforces *as a function of its four input coordinate wires*.  What
+carries a leaf to those wires is the selector/mux layer.  Measured:
+* The two wire vars agent Q associates with each leaf (`qleaf[sel][2:4]`) are **FREE variables —
+  253/253 for w1 and 253/253 for w2**.  They are not computed from the selector.
+* Flipping each of the 256 selectors, at **four different bases** (deliverable; deliverable with
+  all selectors off; agent S's triple8_seed; all-zero): every selector is a live knob (**0 inert**,
+  median ~50 wires move), but the number that **make their own leaf's coordinate appear anywhere
+  in the circuit is 0 of 256, at every one of the four bases.**
+* Directly: 12 sampled leaves, selector set to 1 alone, from two bases — **0/12 arrived**, on their
+  own wires or anywhere else.
+* The deliverable has exactly 2 live leaves (72, 235) and **still has exactly those 2 with all 256
+  selectors forced to 0** — its leaf values are sitting on free variables it assigns, not routed.
+So forward evaluation from the selectors does **not** realise an ON-set.  The routing is a
+*constraint* (the pins), not a propagation.  This is measurement, at four bases, not one.
+
+### G1. A hypothesis of mine that BROKE under its own test — recorded because it did  (`t_pins.py`)
+The pin for exp 16 is `x_32872 * (x_34615 - X_leaf) - 4949965 * x_5923`, i.e. atom = 0 gives
+`w1 = X_leaf + 4949965*x_5923`, not `w1 = X_leaf`.  I expected this to be an additive knob that
+un-pins the leaves and makes Q's ladder only the slack=0 section of a larger reachable set.
+Census over all 256 leaves: **588 pin atoms — 82 exact `sel*(w - CONST)`, 506 with a slack term —
+and 0 of the 506 slack variables are free.**  They are all defined.  **The leaves are pinned; my
+crack is not one.**  Q's ladder is not weakened by the pin shape.
+
+### G2. WHAT Q's END-TO-END TEST WILL MISS (the coordinator's actual question)
+Q is running "set selectors in the real DAG at random subsets, check the root equals the
+independently computed fold".  Three things that test cannot see:
+1. **It cannot be driven from the selectors alone, so it risks assuming its conclusion.** Because
+   w1/w2 are free (G), the harness must *choose* leaf-wire values.  If it sets them to the leaf
+   constants for ON leaves and 0 for OFF leaves, it has hard-coded "OFF leaf = identity" — which
+   is exactly the proposition under test.  The non-circular version must **solve** w1/w2 from the
+   pin atoms and check consistency, never assign them.
+2. **Random subsets never enter the regime that matters.**  Weight is Binomial(256, 1/2): within
+   [104,152] with probability > 99.7%.  So random subsets never test weight <= 6 or >= 250.  At
+   weight ~128 essentially every gadget sees two live inputs and takes the **chord** branch; the
+   **pass-through branch (exactly one input live)** is barely exercised at depth — and pass-through
+   is precisely what makes an OFF leaf behave as the group identity, the linchpin of "fold = group
+   sum".  Note the sting: weight <= 7 is exactly the regime of Q's own lottery-ticket sweeps
+   (`lowwt.py`, `wt7.py`), which computed the fold **in Q's group model** and never checked the
+   circuit agrees there.  If routing misbehaves at low weight, those sweeps' "clean miss" verdicts
+   are not evidence.  **Test low weight explicitly — 1, 2, 3, 5, 7 — not just random.**
+3. **The degenerate/doubling branch.**  The chord `l=(b_y-a_y)/(b_x-a_x)` is undefined when the two
+   live inputs are equal; the group law needs the tangent there.  Q's associativity check used
+   *random* leaf triples and never hits it; agent P's "degenerate family" is exactly this case and
+   is known to occur.  Distinct leaves cannot collide (`2^i G = +-2^j G` is impossible for i != j,
+   N prime), but **intermediate fold values can**, and a random-subset test hits that with
+   negligible probability.  Enumerate collisions on the actual fold tree instead of sampling.
+4. Related, and unresolved by me: with the selector OFF, `x_16886 = 1 - sel` and the atom
+   `x_16886 * x_17479` forces that leaf's **y-wire to 0**.  The curve has prime (odd) order N, so
+   it has **no 2-torsion** — `(w1, 0)` is not a curve point.  An OFF leaf is therefore *not* the
+   identity as a curve point; identity behaviour has to come from the mux coefficients, not from
+   feeding a point into the chord law.  I did not settle whether it does.  **This is the specific
+   thing to check**, and it is the same object L measured (both pins fire, coefficients are
+   mutually exclusive quadrants) in a different model.
+
+## H. NOT DONE THIS PASS, STATED PLAINLY
+* **Item 3 (is the 927 decomposition-dependent?) — not started.**  P and L agreeing from unshared
+  decompositions is real evidence, but per B1 a count matching across models is not the same as a
+  count being intrinsic; the test is to rebuild 927 in F's certified-faithful 39,033-atom parse.
+* **Agent L's "cancellation is a value property, not a support property" — not audited.**  Still
+  the basis on which M is pricing 378 candidates.  The obvious first check is whether the 12
+  cofactor/handle variables L names are free, and whether setting them to the deliverable's values
+  in L's own reconstruction moves 13 -> 7.
+* I did **not** verify Q's Schwartz-Zippel gadget census (383/383, 89/89 leaf-adjacent) — reported
+  by the coordinator, not present in agentQ_work when I read it.
+* `t_bfs_audit.py` (item 2) reached only generation 1 before item 2 was dropped; its depth-1 finding
+  (257 assignments -> 7 distinct 5-tuples, quotient valid on the 6 reps tested) is consistent with
+  S's own later self-correction and should not be cited for anything more.
+
+## I. NEW FILES
+`t_ladder.py` (Q's ladder, doublings, order) · `t_sel.py` (256 selectors x 4 bases, liveness) ·
+`t_live.py` (leaf wires free; leaves do not arrive) · `t_pins.py` (588 pin atoms; slack census —
+the hypothesis that broke) · `t_fold.py` / `t_fold2.py` (fold-vs-group-sum probe + the control that
+reproduces Q's §5b: C1 on 4 wires, group sum on 0) · `t_spaces.py` (Q and S are on the identical
+256 booleans — the "different spaces" hypothesis is refuted) · `t_bfs_audit.py` (item 2, dropped).

@@ -1,0 +1,45 @@
+baselines identical: True; using the common set of 25 equations
+
+atoms appearing in the baseline-failing equations: 78
+variables that touch at least one such atom: 131
+product-defined variables in my frame: 10381   bare-defined: 926
+
+*** INCIDENT HANDLE POOL: 32 of 11307 (0.28%) ***
+the deliverable's four in the pool: {642: True, 28730: True, 29854: True, 31864: True}
+the deliverable's four are product/bare-defined: {642: True, 28730: True, 29854: True, 31864: True}
+
+incident handles ranked by how many failing-equation atoms they touch:
+  x_30175  touches  4 atoms, 12 of the 25 equations
+  x_1956   touches  3 atoms,  5 of the 25 equations
+  x_2218   touches  3 atoms, 12 of the 25 equations
+  x_11425  touches  3 atoms, 12 of the 25 equations
+  x_21279  touches  3 atoms,  9 of the 25 equations
+  x_642    touches  2 atoms, 10 of the 25 equations  <== DELIVERABLE
+  x_1627   touches  2 atoms, 12 of the 25 equations
+  x_1844   touches  2 atoms,  5 of the 25 equations
+  x_2892   touches  2 atoms,  3 of the 25 equations
+  x_4863   touches  2 atoms,  5 of the 25 equations
+  x_6480   touches  2 atoms,  5 of the 25 equations
+  x_7062   touches  2 atoms,  7 of the 25 equations
+  x_9629   touches  2 atoms,  8 of the 25 equations
+  x_10861  touches  2 atoms,  9 of the 25 equations
+  x_21718  touches  2 atoms, 11 of the 25 equations
+  x_23538  touches  2 atoms, 12 of the 25 equations
+  x_23642  touches  2 atoms,  6 of the 25 equations
+  x_23754  touches  2 atoms, 10 of the 25 equations
+  x_23822  touches  2 atoms,  1 of the 25 equations
+  x_26732  touches  2 atoms, 12 of the 25 equations
+  x_28098  touches  2 atoms,  2 of the 25 equations
+  x_28730  touches  2 atoms, 11 of the 25 equations  <== DELIVERABLE
+  x_29305  touches  2 atoms,  3 of the 25 equations
+  x_29854  touches  2 atoms,  7 of the 25 equations  <== DELIVERABLE
+  x_31465  touches  2 atoms, 11 of the 25 equations
+  x_31864  touches  2 atoms,  9 of the 25 equations  <== DELIVERABLE
+  x_35619  touches  2 atoms,  9 of the 25 equations
+  x_37413  touches  2 atoms,  5 of the 25 equations
+  x_7945   touches  1 atoms,  1 of the 25 equations
+  x_15422  touches  1 atoms,  2 of the 25 equations
+  x_16495  touches  1 atoms,  1 of the 25 equations
+  x_33001  touches  1 atoms,  4 of the 25 equations
+
+wrote incident_pool.json (32 incident handles)

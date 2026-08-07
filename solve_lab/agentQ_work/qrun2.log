@@ -1,0 +1,9 @@
+distinct terms: 47198
+w     | ON X solved ON X correct | OFF X solved OFF Y = 0   | gadgets   root   
+1     | 0/1         0/1         | 0/255       219/255     | 25/383    False  
+      free inputs solved: 520/8583 ; wires known 3236/38748 ; contradictions 0
+2     | 0/2         0/2         | 0/254       219/254     | 25/383    False  
+3     | 0/3         0/3         | 0/253       217/253     | 25/383    False  
+5     | 0/5         0/5         | 0/251       215/251     | 25/383    False  
+7     | 0/7         0/7         | 0/249       214/249     | 25/383    False  
+128   | 0/128       0/128       | 0/128       111/128     | 13/383    False  

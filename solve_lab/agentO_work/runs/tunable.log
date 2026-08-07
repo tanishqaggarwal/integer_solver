@@ -1,0 +1,28 @@
+TUNABLE by configuration : [23616, 23618, 36660, 36662]
+p-multiplier atoms       : [23617, 36659, 36661, 36664]  (external ingredient is the literal p)
+purely private           : [36663]
+
+--- THE decisive test: boundary change confined to the configuration-tunable constants
+  SOLVABLE.  required change:
+     const(a23616 ) += 2440 bits 
+     const(a23618 ) += 2419 bits 
+     const(a36660 ) += 2428 bits 
+     const(a36662 ) += 2429 bits 
+
+--- all subsets, smallest first: which supports admit an integral boundary change?
+  size 1: 0 of 9 supports work
+  size 2: 0 of 36 supports work
+  size 3: 0 of 84 supports work
+  size 4: 12 of 126 supports work
+      [23616, 23617, 36659, 36661]   needs [23617, 36659, 36661]
+      [23616, 23617, 36659, 36662]   needs [23617, 36659]
+      [23616, 23617, 36659, 36663]   needs [23617, 36659, 36663]
+      [23616, 23617, 36660, 36661]   needs [23617, 36661]
+      [23616, 23617, 36660, 36662]   needs [23617]
+      [23616, 23617, 36660, 36663]   needs [23617, 36663]
+      [23616, 23618, 36659, 36661]   needs [36659, 36661]
+      [23616, 23618, 36659, 36662]   needs [36659]
+
+--- minimum number of p-multiplier atoms that must change
+  minimal supports of size 4; each needs at least 0 p-multiplier atom(s)
+DONE

@@ -670,3 +670,71 @@ equations above and emit only incident sites.
 `price.py` (Pricer/TunedPricer, closure) · `pricetest.py` · `pricerun.py` (+`pricerun.pkl`) ·
 `tunediag.py`, `tunediag2.py` · `tune2.py` (+`tune2.pkl`, `tune2.log`).
 Nothing above 39,026 produced; no `M_site_*.json` written. Baseline stands.
+
+---
+
+# LOG_M ROUND 6 — the filter is baseline-independent, and the incident set is 0.28%
+
+## 43. THE CAVEAT RESOLVED: the two baselines are IDENTICAL (`basecmp.py`)
+The 25 were computed in E's orientation, which is the known-defective frame. Recomputed
+independently against the deliverable's own baseline:
+
+- **Baseline A** — E's ORIGINAL orientation, full forward from the deliverable's free inputs.
+  Every definer atom forced to zero, including the 5 the deliverable needs nonzero.
+- **Baseline B** — start from the deliverable's actual vector in the CORRECTED engine and
+  **un-corrupt it in place**: set each freed variable back to the value its own definer atom
+  prescribes, iterated to a fixpoint (needed because x_7068's definer references x_642), then
+  re-propagate. Cofactors and all else keep the deliverable's values.
+
+```
+BASELINE A: score 39008, 25 failures, 5 bad atoms
+BASELINE B: score 39008, 25 failures, 5 bad atoms
+|A n B| = 25    in A not B: []    in B not A: []    IDENTICAL: True
+```
+(Baseline B also confirms the un-corruption worked: all 5 demoted atoms return to zero, and
+x_31864 returns to 0, correct for a bare definer.)
+
+**The filter is not a property of E's orientation.** L can use it. `baseline_sets.json`.
+
+**Remaining caveat, unchanged and still real:** both baselines share the deliverable's FREE
+INPUTS. The 25 are a property of the instance *at this free-input configuration*, now verified
+across two orientations. A materially different free-input configuration could give a different
+set; that is untested.
+
+## 44. How thin is the incident set? 32 of 11,307 (`incid.py`)
+Characterised from the equation side only -- no site enumeration, so the boundary with L holds.
+Moving a freed handle u changes every atom that mentions u, so
+
+    u is incident  <=>  occ[u]  intersects  {atoms appearing in the 25 baseline failures}
+
+    atoms appearing in the 25 equations ......... 78
+    variables touching at least one such atom ... 131
+    product-defined variables (handle shape) .... 10381   bare-defined 926   total 11307
+    *** INCIDENT HANDLE POOL ................... 32  (0.28%) ***
+    the deliverable's four 642,28730,29854,31864 : ALL FOUR IN THE POOL
+
+    [642, 1627, 1844, 1956, 2218, 2892, 4863, 6480, 7062, 7945, 9629, 10861, 11425, 15422,
+     16495, 21279, 21718, 23538, 23642, 23754, 23822, 26732, 28098, 28730, 29305, 29854,
+     30175, 31465, 31864, 33001, 35619, 37413]
+
+### Cross-check against the measured data — passes
+    L's 11 sites, 44 distinct handles : 0 of 44 in the pool  <-> measured rows_target = 0 for all 11
+    the deliverable's 4               : 4 of 4 in the pool   <-> measured rows_target = 25
+The criterion derived from the equation side agrees with the pricing measurement on every site
+tried, from both directions.
+
+## 45. What this does and does not say
+- **Does:** the search space collapses from C(11307,4) = 6.81e14 four-handle sites to
+  C(32,4) = **35,960** -- a reduction of **1.9e10**. At the measured 1-4 s per tuned site that is
+  **~20 core-hours, ~5 hours on 4 cores: the alternative-placement space is now EXHAUSTIVELY
+  PRICEABLE.** That is a far sharper statement than "no placement below 7 found".
+- **Does not:** incidence does NOT force the deliverable's site. It is one of 35,960, not unique.
+  What is established is that 99.72% of handles cannot participate at all.
+- **Necessary, not sufficient:** `occ[u] n A25 != {}` is a necessary condition, so 32 is an
+  UPPER BOUND on the helpful pool; the sufficient test is the measured `rows_target`. Some of
+  the 32 will price out at 0 rows once tuned.
+
+## 46. Round-6 files
+`basecmp.py` -> `baseline_sets.json`, `basecmp.log` · `incid.py` -> `incident_pool.json`,
+`incid.log`. No candidate generator built. Nothing above 39,026. No other agent's directory
+touched; no git commands run.

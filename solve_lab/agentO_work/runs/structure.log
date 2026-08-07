@@ -1,0 +1,27 @@
+blocking conditions (coordinate, modulus) and their residues at the witness:
+   x_1329   mod p : residue 1881410869427791176468448548..  (zero: False)
+   x_9413   mod p : residue 3331016611480547162428214057..  (zero: False)
+   x_10903  mod p : residue 1385821095380428691634018989..  (zero: False)
+   x_17325  mod p : residue 1024755812547291054916832364..  (zero: False)
+   x_642    mod 2458959 : residue 1076086  (zero: False)
+   x_17325  mod 2458959 : residue 2195260  (zero: False)
+
+--- sensitivity: perturb each region boundary constant by +1
+   const a23616  -> d(residue) = ['0', '0', '0', '26452113367705..', 'None', 'None']
+   const a23617  -> d(residue) = ['0', '1', '0', '0', '0', '0']
+   const a23618  -> d(residue) = ['0', '1', '0', '0', '0', '0']
+   const a36659  -> d(residue) = ['1', '0', '0', '0', '0', '0']
+   const a36660  -> d(residue) = ['1', '0', '0', '0', '0', '0']
+   const a36661  -> d(residue) = ['0', '0', '1', '0', '0', '0']
+   const a36662  -> d(residue) = ['0', '0', '11579208923731..', '0', '0', '0']
+   const a36663  -> d(residue) = ['0', '0', '11579208923731..', '0', '0', '0']
+   const a36664  -> d(residue) = ['0', '0', '0', '1', '0', '0']
+
+--- linearity check: perturb by +2, expect exactly twice the +1 delta
+   all perturbations linear: True
+
+--- rank of the sensitivity map mod p (4 p-conditions) and mod 2458959 (2 conditions)
+   boundary constants available: 9
+   rank of sensitivity mod p     = 4  (need 4 to invert all p-conditions)
+   rank of sensitivity mod 2458959 = 0  (need 2)
+DONE

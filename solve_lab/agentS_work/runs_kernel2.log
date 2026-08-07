@@ -39,3 +39,26 @@ BFS image points available: 48 ; testing 14
    row a20215: residual mod p = 84623865150894944922022514250283073331537809300837942433997946904552394898251
    row a28647: residual mod p = 47440525290535544708674620248717482764057423781520898897748888929433376949781
   [img4 done 36s] running: blocked=2 solved=0 other-rows-infeasible=3
+[img5(|on|=1)] knobs=81 other-rows=75 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=10 (2s)
+  [img5 done 42s] running: blocked=2 solved=0 other-rows-infeasible=4
+[img6(|on|=1)] knobs=55 other-rows=48 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=7 (0s)
+  [img6 done 42s] running: blocked=2 solved=0 other-rows-infeasible=5
+[img7(|on|=2)] knobs=56 other-rows=53 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=6 (6s)
+  [img7 done 52s] running: blocked=2 solved=0 other-rows-infeasible=6
+[img8(|on|=2)] knobs=55 other-rows=56 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (3s)
+  [img8 done 51s] running: blocked=2 solved=0 other-rows-infeasible=7
+[img9(|on|=2)] knobs=63 other-rows=56 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=7 (0s)
+  [img9 done 43s] running: blocked=2 solved=0 other-rows-infeasible=8
+[img10(|on|=2)] knobs=82 other-rows=77 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=9 (10s)
+  [img10 done 86s] running: blocked=2 solved=0 other-rows-infeasible=9
+[img11(|on|=2)] knobs=56 other-rows=50 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=6 (0s)
+  [img11 done 34s] running: blocked=2 solved=0 other-rows-infeasible=10
+[img12(|on|=2)] knobs=55 other-rows=59 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=6 (5s)
+  [img12 done 36s] running: blocked=2 solved=0 other-rows-infeasible=11
+[img13(|on|=2)] knobs=63 other-rows=58 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=8 (7s)
+  [img13 done 45s] running: blocked=2 solved=0 other-rows-infeasible=12
+
+=== SUMMARY (kernel2) ===
+distinct (a20215,a28647) mod-p classes covered: 5
+blocked=2  solved=0  other-rows-infeasible=12
+=> obstruction blocked at every image point where the other rows were solvable.

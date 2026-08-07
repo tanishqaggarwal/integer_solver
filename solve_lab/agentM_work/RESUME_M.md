@@ -210,6 +210,42 @@ L's incidence measure is not this quantity — its top 12 are all 0-incident. An
 **Throughput:** `price_given` 0.53 s (~6,700/hour); tuned 1 s (0-incidence) to 4 s (fully
 incident) → **~900–2,700/hour single-core**, 4 cores. List size is not the constraint.
 
+## 2e. The filter is baseline-independent, and the incident set is 0.28% (round 6)
+
+**Caveat resolved.** The 25 equations were computed in E's defective orientation. Recomputed
+independently against the deliverable's own baseline — start from the deliverable's vector in the
+corrected engine and un-corrupt it in place (each freed var back to what its own definer atom
+prescribes, iterated to a fixpoint since x_7068's definer references x_642), then re-propagate:
+
+| | score | failures | bad atoms |
+|---|---|---|---|
+| A: E's orientation, full forward | 39,008 | 25 | 5 |
+| B: deliverable un-corrupted in place | 39,008 | 25 | 5 |
+
+**IDENTICAL — `|A ∩ B| = 25`, no differences either way.** The filter is a property of the
+instance, not of the orientation. **L can use it.** (`baseline_sets.json`)
+
+*Caveat that remains real:* both baselines share the deliverable's FREE INPUTS. The 25 hold at
+this free-input configuration, verified across two orientations; a materially different
+configuration is untested.
+
+**How thin is the incident set?** From the equation side only (no site enumeration):
+moving handle `u` changes every atom mentioning `u`, so `u` is incident iff `occ[u]` meets the
+78 atoms appearing in the 25 equations.
+
+> **32 incident handles out of 11,307 (0.28%)** — and **all four** of the deliverable's are in it.
+> `[642, 1627, 1844, 1956, 2218, 2892, 4863, 6480, 7062, 7945, 9629, 10861, 11425, 15422, 16495,
+> 21279, 21718, 23538, 23642, 23754, 23822, 26732, 28098, 28730, 29305, 29854, 30175, 31465,
+> 31864, 33001, 35619, 37413]`
+
+Cross-check, both directions: L's 11 sites have **0 of 44** handles in the pool (matching their
+measured `rows_target = 0`); the deliverable's four are **4 of 4** (matching `rows_target = 25`).
+
+**Consequence:** the space collapses from C(11307,4) = 6.81e14 to **C(32,4) = 35,960**, a
+**1.9e10** reduction — **~20 core-hours, ~5 h on 4 cores: exhaustively priceable.**
+Incidence does *not* make the deliverable unique (it is one of 35,960); and the criterion is
+necessary, not sufficient, so 32 is an upper bound.
+
 ## 3. E's monotonicity: ARTIFACT — but not for the reason I gave. I correct myself first.
 
 ### 3a. My §9 mechanism was wrong

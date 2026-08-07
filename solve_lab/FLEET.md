@@ -2075,3 +2075,124 @@ recomputing them against **the deliverable's own baseline**. Agreement makes the
 baseline-independent; disagreement makes it a property of the orientation — and that must be known
 **before** L discards hundreds of candidates on it. **L has been told to use the intersection and
 flag any difference rather than silently picking one.**
+
+---
+
+## Check-in 31–34 — the search space collapses; a floor below the deliverable appears
+
+Deliverable unchanged: **39,026 / 39,033**. **Nothing above it has been produced or verified.**
+
+### M — the filter is baseline-independent, and the space collapses
+
+Two independently constructed baselines — E's orientation, and the deliverable's own **un-corrupted
+in place to a fixpoint** (needed because `x_7068`'s definer references `x_642`) — give **identical**
+25-equation sets: `A∖B = []`, `B∖A = []`, both scoring 39,008 with 5 bad atoms. **The 25 are a
+property of the instance, not of an orientation.**
+
+Then, from the equation side only: a freed handle `u` is incident iff `occ[u]` meets the 78 atoms
+appearing in those 25 equations. **32 incident handles of 11,307 — 0.28%**, all four of the
+deliverable's included. Cross-check passes both ways (L's 11 sites hold 0 of 44 in the pool,
+matching `rows_target = 0`). **C(11307,4) = 6.81×10¹⁴ collapses to C(32,4) = 35,960.**
+
+Caveat M kept rather than letting the closure swallow: **both baselines share the deliverable's
+free inputs**, so the 25 are verified across two orientations at **one free-input configuration**.
+And incidence is **necessary, not sufficient** — 32 is an upper bound.
+
+### L — exactly 15 atoms are incident, and the best three are untouched
+
+L **withdrew its own incidence map** (built on F's `E.eqres`, which sees only 12–13 of the 25) and
+rebuilt it exactly: every residual atom has exactly one free cofactor `u` occurring nowhere else,
+so **equation `e` contains atom `a` ⟺ `u_a ∈ vars(e)`**, read straight off
+`checker.load_equations()`'s varsets — no model of the equation algebra needed.
+
+**Of 3,681 atoms, exactly 15 are incident. The other 3,666 provably cannot change any target
+equation, whatever value they take.** The whole search is **15 atoms wide**; all subsets = **32,768**.
+
+**The lead:** the deliverable **does not touch** `x23754` (rt 10), `x35619` (rt 9), `x9629` (rt 8) —
+**the three stage checks of the very node it cuts at (x27994)** — and they carry the highest
+incidence in the system. Next is `x37413` (rt 5), the sibling slot. L's own explanation of why its
+378-site list was useless is the same fact: **its family only ever corrupted slot links and vab
+guards, never a node's stage checks.**
+
+**Reconciliations.** L's 15 vs M's 32: 13 overlap; the two that do not — `x34113`, `x28355` — are
+**linearly defined**, so they fall outside M's product/bare-defined population **by construction**,
+the same situation as `x_7068`. Neither agent is wrong; M's is a necessary-condition upper bound
+over one population, L's is exact over the residual atoms. **Baseline discrepancy, open:** M's
+baseline fails 25, L's fails 13, and **L's 13 are a strict subset of M's 25**. L filtered on the
+**union**, deliberately, since filtering on the intersection would over-discard anything that can
+only fix one of M's extra 12. M has been asked to explain the extra 12; **the incident set stays at
+15-or-larger until it does.**
+
+M is now pricing `emit_for_M.json` — L's 15 atoms plus all 2,048 supersets of the deliverable's set
+— **stage checks first**, then all 32,768 subsets.
+
+### R — why every search bottomed out at 7, and a floor of 39,027
+
+**Every atom with cost ≤ 6 is a boolean-ness atom.** Among **relational** atoms — the only ones that
+can carry the defect — the minimum single-atom cost is **7**, and `3131`, one of the five cheapest,
+is **one of the deliverable's own four live atoms**. **The deliverable sits at the single-atom
+relational optimum**; `|S| = 2` ties but never beats (all 34 equation-sharing pairs among the 60
+cheapest floor at ≥7). That is the explanation the campaign lacked.
+
+**The cheapest atom is a trap:** atom 8508 has cost 2 and **zero collateral** because `x29570`
+occurs in no other atom — cheap *because disconnected*, and a disconnected variable cannot carry
+the defect. Cheapness and load-bearingness anti-correlate; R found its own ranking's version of the
+warning and eliminated the four cheapest with it.
+
+**NEW LEVER.** 173 of 2,283 boolean-ness atoms sit on **selector** variables, and the cheap ones are
+**not** disconnected (`x33095` cost 3, `x19326` 6, `x28825` 6, `x4362` 7). A selector off {0,1} does
+**not** force its mux atoms nonzero — `acc' = acc + b·(S − acc)` stays satisfiable with `acc'` free
+on a line — so only the boolean-ness atoms are forced. Two relaxed selectors give 2 free parameters
+against the target's 2 coordinates. **`x33095+x19326` and `x33095+x28825` each have a 6-equation
+union (overlap 3) → floor 39,027.**
+
+> **UNREALIZED. R scored no candidate; `realize.py` returned nothing in ~15 min/call because it
+> repairs forward and cannot back-solve two parameters against the root. 39,027 IS A FLOOR, NOT A
+> SCORE, and must not be quoted as one.**
+
+R also corrected its check-in-20 over-claim to measured strength ("touches ≥10 further equations",
+with *touched is not failed* attached), and recorded a non-converging `pins.json` → `ladder.json`
+lookup rather than papering over it — correctly diagnosing its own reconstruction as the fault, not
+the ladder.
+
+**R re-tasked:** price the obstruction first — every stage after a relaxed selector applies the
+chord law to an off-curve point, so composite degree grows with downstream stage count; **report the
+depth profile**, which may reorder candidates (a worse floor near the root may be realizable where
+39,027 is not) — then attempt the backward solve at the best-positioned candidate.
+
+### T — the routing layer is ASSUMED, and as stated it is false in T's parse
+
+**Q's ladder confirmed, more strongly than Q claimed.** All 249 checkable doublings verify exactly,
+0 failures; 253 distinct points, all on the cubic; `N·G = O`; and the three "missing" exponents are
+**not inferred** — `x18184`/`x22579`/`x33434` are decoded leaves. All 256 selectors are genuine
+booleans and all 256 are free. **T's own crack died under its own test:** 588 pin atoms, 506 with
+slack, **0 of the 506 slack variables free** — the leaves are pinned.
+
+**The finding:** the two leaf wire variables are **free, 253/253** — not computed from the selector.
+Flipping each of the 256 selectors at **four bases** (deliverable; deliverable with selectors
+zeroed; a triple seed; all-zero): every selector is a live knob, but the count making their own
+leaf's coordinate appear anywhere is **0 of 256 at every base**; 12 leaves set alone gave **0/12**
+arrivals; and the deliverable keeps exactly its 2 live leaves **with all 256 selectors forced to 0**.
+**Forward evaluation from selectors does not realise an ON-set — routing is a constraint, not a
+propagation.** This contradicts P's report that liveness is fully determined by the selectors, and
+is routed to Q as a claim to test, not to take.
+
+**Four design objections to Q's end-to-end test, all routed:** (1) with `w1`/`w2` free, a harness
+that sets them to the leaf constant when ON and 0 when OFF **hard-codes the proposition under
+test** — it must *solve* them from the pins; (2) random subsets are weight ~128 with p > 99.7%,
+where nearly every gadget takes the **chord** branch, so **pass-through is barely exercised** —
+test weights 1, 2, 3, 5, 7 explicitly, and note weight ≤7 is the regime of Q's own `wt7` sweeps,
+whose clean-miss verdicts computed the fold in Q's group model **without checking the circuit
+agrees there**; (3) the degenerate branch is never hit by random triples; (4) with a selector OFF,
+`x_16886·w2` forces that leaf's **y-wire to 0**, and prime odd order means **no 2-torsion**, so
+`(w,0)` is not a curve point — **an OFF leaf is not the identity as a point**, and identity
+behaviour must come from the mux coefficients.
+
+**Refuted en route:** the "different spaces" explanation for the Q/S tension —
+`|Q_leaf_selectors ∩ S_cluster_booleans| = 256`, identical sets.
+
+**T re-tasked** onto the most load-bearing unaudited claim: **L's cancellation result**, on which
+two agents have redirected their whole search — are L's 12 cofactor variables free, and does setting
+them to the deliverable's values move 13 → 7? Plus two adjacent premises: L's scorer is calibrated
+on only two points, and L's incidence criterion rests on "every residual atom has exactly one free
+cofactor occurring nowhere else" **across all 3,681**.
