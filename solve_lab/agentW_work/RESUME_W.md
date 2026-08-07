@@ -119,10 +119,13 @@ route** (U decoded the curve; I only evaluated `A` and `B`).
 > a22229, a22230, a35758, a35760, a35762           the P*u handle/alias atoms of the
 >                                                  four corrupted variables
 > ```
-> The mechanism is: **break the two off-pins of one DEAD block (`E=7181`, gate `L=0`) so its
-> output escapes `≢ 0 mod P`**; that escaped value flows up and makes block `E=33469` see two
-> equal live inputs.  So the price splits **5 (injection) + 2 (handles)**, not 7 at one place.
-> This is the same object P and U described, named exactly.
+> All seven sit at the block `E=7181` site: **two off-pins of a DEAD block (gate `L=0`) whose
+> output has been driven `≢ 0 mod P`**, plus the five `P*u` handle atoms of the four corrupted
+> variables.  The price splits **5 + 2**, not 7 at one place.
+>
+> **DO NOT read this as "the price of the degeneracy" — I first wrote that and §6a refutes it.**
+> Block `E=33469`'s coincidence is **equation-disjoint from all seven** and costs nothing.  The
+> 7181 damage and the 33469 degeneracy are two independent things in the same witness.
 
 ## 4.  THE LEAD — and it reconciles my own round-1 region
 
@@ -156,7 +159,9 @@ I found last round** (`{2554, 6816, 8124, 9123, 9421, S}`), which are also four 
 | gate ∈ {0,1}; gate/mux alignment; off-pins present | **exhaustive**, 383/383 and 766/766 |
 | the two-family classification | **proved** over any integral domain; the *case analysis* additionally **machine-checked exhaustively** over 𝔽_p, p ∈ {5,7,11,13}, all Q, all (i1..i6) |
 | "no third family" | **holds at the ATOM level.**  See the boundary below. |
-| the off-pin incidence table (9…20) | **exhaustive** over 383 blocks — but it is an *incidence*, **a screen, not a price** |
+| the off-pin incidence table (9…20) | **exhaustive** over 383 blocks — but it is an *incidence*, **a screen, not a price**, and §6b shows it does **not** predict price |
+| injection cost at the 5 minimum-incidence blocks | **budget, not exhaustion** — one magnitude, 1–2 slots per block (§6b) |
+| `minbreak(P) = |P|`, gain 0, on the corrected knob set `K+ = 40` | **exhaustive over the essential-row family**; general breaks are **not** re-proved on `K+` (§6c) |
 
 > ### THE ONE BOUNDARY, stated plainly
 > # **THE CLASSIFICATION IS CLOSED AT ATOM LEVEL AND OPEN AT EQUATION LEVEL.**
@@ -172,18 +177,80 @@ I found last round** (`{2554, 6816, 8124, 9123, 9421, S}`), which are also four 
 > inside K).  **The deliverable itself does not use it at gadget level: all 1149 congruence
 > atoms and 764 of 766 off-pins evaluate to exactly 0 in the witness.**
 
-## 6.  Highest-value next experiment (my ranking)
+## 6.  THE OUT-OF-K MEASUREMENT — done, and it is a NEGATIVE with two corrections
 
-1. **Run the round-1 frame-B machinery at blocks 3227, 4429, 30886, 31606.**  Four
-   equation-disjoint copies of the deliverable's own injection site, all at the same minimum
-   incidence 9, all **outside K** — which is precisely where I concluded any improvement must
-   come from and where O's Lemma constrains nothing.  Detach each block's four handle
-   variables, build the local system, run the exact integer oracle.  Cheap: round 1's
-   equivalent test was 49 s.  **If any of the four injects for fewer than 5 broken equations,
-   or if two can be driven from one escape, the score moves.**  This is the first concrete
-   out-of-K target the campaign has had.
-2. The `s = 3..6` cocircuit gap (round-1 item #1), which would convert the frame-B budget row
-   from *budget* to *exhaustive at every j*.  Still open, still worth it, now second.
+### 6a.  CORRECTION to my own §3: the degeneracy is FREE; the 7 are a SEPARATE obstruction
+
+`w_chain.py`, `w_chain2.py`.  Block `E=33469`'s four live inputs are themselves **free inputs**
+in this orientation, set directly to coinciding values.  The check atoms they move touch **46
+equations, and the overlap with the seven failures is EMPTY** — as is the overlap with the two
+broken off-pins.
+
+> **The degeneracy at 33469 costs nothing.**  The seven failures live entirely at the block
+> `E=7181` site.  My §3 accounting (2 off-pins + 5 handle atoms) is right; the *causal* reading
+> "it pays 7 equations for the degeneracy" — mine as much as the fleet's — is **wrong**.  They
+> are two independent things that happen to sit in the same witness.
+
+Scope: this is a statement about the witness and its 40-knob neighbourhood, **not** a claim
+that the 7181 site is unsatisfiable in principle.
+
+### 6b.  The four equation-disjoint blocks are all MORE expensive, not less (`w_sites.py`, `w_outk.py`)
+
+All five minimum-incidence blocks have a **dead gate** (`L = 0`); at the four non-deliverable
+ones every slot is `≡ 0 mod P`, so their off-pins currently hold.  Injecting (driving a free
+output slot to a value `≢ 0 mod P`), priced **exactly through `frameB.State`**:
+
+| block | free output slots | NEW equations broken | score |
+|---|---|---|---|
+| **E=7181** (the deliverable's) | 9118, 8731 | **5** (of its 9) | 39,026 |
+| E=30886 | 18957, 6120 | **8** | 39,018 |
+| E=3227 | 36247, 26738 | **9** | 39,017 |
+| E=4429 | 11131, 35676 | **9** | 39,017 |
+| E=31606 | 15317, 9121 | **10** | 39,016 |
+
+> **The 9-equation incidence floor is NOT the price.**  Across the five blocks that share it
+> the actual cost runs 5…10.  The ranking that produced them is a **screen, and a weak one**;
+> the deliverable's site is the cheapest of the five by three equations.  **No score movement.**
+>
+> **Budget, not exhaustion:** one injection magnitude and 1- or 2-slot combinations per block.
+> A cleverer value or a wider slot set could be cheaper; I did not enumerate.
+
+Control, same file: zeroing 7181's own outputs gives **39,023 / 39,022**, i.e. strictly worse —
+the injected values are load-bearing for `{6816, 8124, 9123, 9421}`.  That is the k-for-k trade
+of round 1 seen directly, without the linear model.
+
+### 6c.  A GAP IN MY OWN ROUND-1 SCOPE, found and closed (`w_setup2.py`, `w_exhaust2.py`)
+
+Round-1's `K` was *"free inputs reaching a **nonzero** atom, ∪ carriers of S"*.  But an equation
+is a sum of atoms: to repair a broken one you may move a **different, currently-zero** atom in
+it to compensate — and those movers were baked in as **constants**.  **So K was not the
+complete mover set, and I did not notice.**
+
+Measured: the 7 failing equations contain 24 atoms; their movers number **40**, so round-1's 34
+missed **6** — `[4068, 11368, 16763, 21574, 24559, 32230]`.  Re-running the setup on `K+ = 40`:
+205 rows, 198 satisfied, `rank(A_SAT) = 32` (was 26), and the essential rows are **the same six**
+`{2554, 6816, 8124, 9123, 9421, S}`.
+
+> Re-ran round-1's exhaustive test on the extended system — all 2⁶ essential break-sets × all
+> 127 bought-sets, exact integer oracle, 105 s:
+> **`minbreak(P) = |P|` exactly for every `|P| ≤ 6`, GAIN = 0 everywhere, all seven unbuyable.**
+> **The six missing movers add nothing.**  The omission was real and it was inert.
+
+**One thing does NOT carry over:** on `K+` the packing lemma yields only `t = 1` disjoint
+full-rank subsets of the 192 redundant rows (round 1 had enough for `b ≤ 2`).  So the `K+`
+result is exhaustive **over the essential-row family only** — the general-break exhaustiveness
+of round 1 (cocircuits, `b ≤ 2`) is a statement about `K = 34` and has **not** been re-proved on
+`K+ = 40`.
+
+### 6d.  Where I would go next
+
+1. **Redo the cocircuit / general-break closure on `K+ = 40`**, so the `b ≤ 2` exhaustiveness
+   is restored on the corrected knob set.  This is now the top item: round 1's strongest
+   exhaustive row is currently scoped to a knob set I have shown to be incomplete.
+2. The `s = 3..6` cocircuit gap (round-1 item #1) — unchanged, still open.
+3. **Not** more injection sites.  The five-block screen came back negative and the incidence
+   ranking that generated it does not predict price; a broader sweep would need a real price
+   oracle per block, which is items 1–2's machinery anyway.
 
 ## Re-entry
 ```
@@ -198,6 +265,9 @@ python3 w_final.py     # 766 off-pin identities + handle privacy       (~15 s)
 python3 w_class.py     # THE CLASSIFICATION + exhaustive small-field   (~2 min)
 python3 w_deliv.py ; python3 w_lie.py  # end-to-end on the 39,026 witness
 python3 w_price.py     # the five minimum-incidence blocks
+python3 w_chain.py ; python3 w_chain2.py   # the degeneracy is equation-disjoint: costs 0
+python3 w_sites.py ; python3 w_outk.py     # the four out-of-K blocks; K vs K+
+python3 w_exhaust2.py  # round-1's exhaustive test re-run on K+ = 40   (~105 s)
 ```
 Artifacts: `w_blocks*.json`, `w_verify.json`, `w_class.json`, `w_deliv.json`, `w_price.json`.
 

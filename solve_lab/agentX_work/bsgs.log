@@ -1,1 +1,7 @@
 === planted test (expect CAND i=5, k0=336778887) ===
+CAND sign=1 i=5 key=5422696487486951295
+CAND sign=1 i=6 key=11249897497576543612
+DONE sign=1 checked=67108864 cand=2 (covers |k| <= 2^52)
+=== real target, +T ===
+DONE sign=1 checked=67108864 cand=0 (covers |k| <= 2^52)
+=== real target, -T ===

@@ -38,6 +38,13 @@ for r in sorted(ok, key=lambda r: (r['nlive'], r['R'])):
            r.get('lat_rk_q'), r.get('lat_gap_q_ctl'), r.get('score_ub_p')))
 
 print()
+print('NOTE ON WHAT gap MEASURES.  [M|b] has exactly one column more than M, so')
+print('    rk([M|b]) <= rk(M) + 1   and   gap in {0, 1}  BY CONSTRUCTION.')
+print('gap = 1 is therefore the BOOLEAN "inconsistent"; it can never "widen", and a claim that')
+print('it "stays exactly 1" is a claim of invariant INCONSISTENCY, not of an invariant magnitude.')
+print('The quantitative p-statement is the DEFICIENCY rk_Q - rk_p, cross-checked against a')
+print('control prime q of the same size: rk_Q - rk_q = 0 means the deficiency belongs to p.')
+print()
 print('=== DISTRIBUTION of lattice gap_p ===')
 c = Counter(r['lat_gap_p'] for r in ok)
 for k in sorted(c):
@@ -61,6 +68,23 @@ for k in sorted(c, key=lambda x: (x is None, x)):
 c = Counter(r.get('lat_gap_q_ctl') for r in ok)
 for k in sorted(c, key=lambda x: (x is None, x)):
     print('  gap_q      = %-4s : %3d configurations' % (k, c[k]))
+
+print()
+print('=== CROSS-TAB  gap_Q x gap_p  (the only p-SPECIFIC cell is gap_Q = 0, gap_p > 0) ===')
+ct = Counter((r['lat_gap_Q'], r['lat_gap_p']) for r in ok)
+for k in sorted(ct):
+    mark = ''
+    if k[0] == 0 and k[1] > 0:
+        mark = '   <- genuine mod-p obstruction (solvable over Q, blocked mod p)'
+    if k[0] == 0 and k[1] == 0:
+        mark = '   <- TARGET: no obstruction at either level'
+    if k[0] > 0:
+        mark = '   <- already inconsistent over Q; gap_p carries no extra information'
+    print('  gap_Q = %-3d gap_p = %-3d : %3d%s' % (k[0], k[1], ct[k], mark))
+print('=== CROSS-TAB  gap_Q x gap_q(control prime) ===')
+ct = Counter((r['lat_gap_Q'], r.get('lat_gap_q_ctl')) for r in ok)
+for k in sorted(ct, key=lambda x: (x[0], -1 if x[1] is None else x[1])):
+    print('  gap_Q = %-3d gap_q = %-4s : %3d' % (k[0], k[1], ct[k]))
 
 z = [r for r in ok if r['lat_gap_p'] == 0]
 print()

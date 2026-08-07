@@ -23,3 +23,11 @@ CALIBRATION on the witness: 39008 -> 39026  (9 affine knobs)  PASSED
   [14,000/65,536] 645s 22/s  best 39026  |W|=6  errors 0
   |W|= 6         COMPLETE  best 39024  count@best 4
          dist: 39024:4  39023:45  39022:686  39021:2,268  39010:20  39009:447  39008:4,538
+  [16,000/65,536] 744s 22/s  best 39026  |W|=7  errors 0
+  [18,000/65,536] 859s 21/s  best 39026  |W|=7  errors 0
+  [20,000/65,536] 970s 21/s  best 39026  |W|=7  errors 0
+  [22,000/65,536] 1031s 21/s  best 39026  |W|=7  errors 0
+  [24,000/65,536] 1086s 22/s  best 39026  |W|=7  errors 0
+  [26,000/65,536] 1152s 23/s  best 39026  |W|=7  errors 0
+  |W|= 7         COMPLETE  best 39024  count@best 1
+         dist: 39024:1  39023:42  39022:1,251  39021:3,711  39010:7  39009:456  39008:5,972

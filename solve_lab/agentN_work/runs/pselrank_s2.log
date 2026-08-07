@@ -1,0 +1,2 @@
+C_subtree1_of_24601      live=1   score=38999  |R|=39   k=104  na=221  | AMB rkQ=31   rkp=28   gapQ=0 gap_p=0 | LAT dim=24   rkQ=10   rkp=4    gapQ=1 gap_p=1 ubp=39006 | CTL rkq=10   gapq=1 (187s)
+E_wit_plus_sibling       live=3   score=38989  |R|=49   k=156  na=248  | AMB rkQ=48   rkp=36   gapQ=0 gap_p=0 | LAT dim=42   rkQ=16   rkp=8    gapQ=0 gap_p=1 ubp=39033 | CTL rkq=16   gapq=0 (204s)

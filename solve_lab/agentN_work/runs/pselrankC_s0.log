@@ -1,0 +1,3 @@
+baseline_2081_24601      live=2   score=38977  |R|=57   k=79   na=117  | AMB rkQ=32   rkp=32   gapQ=0 gap_p=0 | LAT dim=39   rkQ=26   rkp=24   gapQ=1 gap_p=1 ubp=39033 | CTL rkq=26   gapq=1 (91s)
+C_subtree1_of_24601      live=1   score=38950  |R|=84   k=112  na=282  | AMB rkQ=51   rkp=48   gapQ=0 gap_p=0 | LAT dim=53   rkQ=27   rkp=24   gapQ=1 gap_p=1 ubp=39006 | CTL rkq=27   gapq=1 (123s)
+B_4287_24601             live=2   score=38929  |R|=105  k=123  na=285  | AMB rkQ=64   rkp=62   gapQ=0 gap_p=0 | LAT dim=66   rkQ=37   rkp=36   gapQ=1 gap_p=1 ubp=39020 | CTL rkq=37   gapq=1 (146s)

@@ -1198,3 +1198,43 @@ machinery cannot move `x19965` back, so the exact atom cannot be re-broken.
 > two target congruences, and the failing set is the identical 15 as `|S|` = 1,2,3,5,6,7,8,17.**
 > Ledger §4 item 1's replacement frontier — "the handle-less atoms are a solver-coverage gap, not a
 > demonstrated obstruction" — is **discharged in the direction I predicted**: it was the gap.
+
+## BA. **`|S| = 64` CLOSES TOO** (`close_T64.json`), and the mechanism repeats verbatim
+Run from cold, same solver, no per-case tuning.  The ON-sets are **nested prefixes** of one chain
+(`random.Random(7).sample` reproduces the `|S|=32` list as the first 32 of the `|S|=64` list), so
+this is the same experiment extended, not a new draw.
+```
+   outer 0  global 70->..  handle-less pass  *** x34218 += p*322948684674   (exact, recomputed)
+   ...                     handle-less pass  *** x13454 += p*13189448       (exact, recomputed)
+   ...                     joint pair        *** (x4860, x7814)   5 -> 4
+   ...                     joint pair        *** (x2404, x4860)   4 -> 3
+   outer 6                 FORCED exact      *** x19965 += p*850093191878, wire FROZEN, 3 -> 3
+   outer 7                 joint pair        *** (x2820, x14047)  3 -> 2      CLOSED
+```
+```
+   checker.py -> satisfied 39018/39033, the identical 15-equation failing set
+   F's parse  -> exactly 2 nonzero atoms (the two target congruences), footprint == failing set
+```
+Note what the trace shows: **at `|S| = 64` there are 3 nonzero handle-less atoms, 2 of which the
+*guarded* handle-less pass clears on its own** — the forced step is needed for exactly one of them,
+the same `x19965` atom as at `|S| = 32`.  The extension is not doing the work everywhere; it is
+doing it at one specific place that recurs.
+
+## BB. COST — measured, and the wall clock in this container is NOT the cost
+The box is shared with the rest of the fleet; `/proc/loadavg` sat at **20-25** throughout, and my
+processes got roughly **30 %** of a core.  So wall time is contaminated and **CPU time is the
+number to quote**.
+```
+   |S|      wall (this run)     CPU        nonzero at start   c>1 violated   handle-less   closes
+     8         66 s  (T31, idle box)        --                 --              0           YES
+    17        134 s  (T33, idle box)        --                 --              0           YES
+    32        730 s               ~4 min     18                16              2           YES
+    64      1,284 s               ~6 min     34                31              3           YES
+   128        (running)            --        70                67              3            --
+```
+**The linear-in-`|S|` quantity is the starting condition count** (18 / 34 / 70 nonzero atoms at
+`|S|` = 32 / 64 / 128 — very nearly `|S| + 2` for the c>1 conditions).  **The handle-less count does
+NOT grow with `|S|`: 2, 3, 3.**  Cost is dominated by outer round 0's single-wire pass, which is
+`O(conditions x wires x CRT combinations)` with a full 9,032-atom recomputation inside the guard,
+so it grows superlinearly; every later round is cheap.  **That is the curve to plan a sweep on:
+budget ~2x CPU per doubling of `|S|` plus a fixed tail.**

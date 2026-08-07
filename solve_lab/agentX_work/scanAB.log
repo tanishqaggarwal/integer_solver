@@ -764,3 +764,5 @@ scan size 3 range [0,256): 2763520 candidates, zero-events 0, 3.3s
   i0=239 done cum=43805107 214.9s
 scan size 4 range [0,256): 174792640 candidates, zero-events 0, 215.0s
 === PASS A COMPLETE (|S| <= 8 exhausted) ===
+Terminated
+=== PASS B COMPLETE (|S| <= 9 exhausted) ===

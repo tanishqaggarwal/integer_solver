@@ -1,0 +1,2 @@
+B_13195_24601            live=2   score=38993  |R|=45   k=104  na=221  | AMB rkQ=33   rkp=27   gapQ=0 gap_p=0 | LAT dim=26   rkQ=12   rkp=6    gapQ=1 gap_p=1 ubp=39018 | CTL rkq=12   gapq=1 (192s)
+E_swap2081_4287          live=2   score=38988  |R|=50   k=114  na=235  | AMB rkQ=39   rkp=31   gapQ=0 gap_p=0 | LAT dim=30   rkQ=14   rkp=6    gapQ=1 gap_p=1 ubp=39010 | CTL rkq=14   gapq=1 (202s)

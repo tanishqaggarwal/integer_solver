@@ -1,0 +1,2 @@
+cpu ticks before: 2582 1 after: 7514 5 over 120s
+0

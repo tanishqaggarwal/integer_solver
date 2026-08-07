@@ -5563,3 +5563,73 @@ equivalent test ran in 49 s). **If any injects for fewer than 5 broken equations
 route that **never touches the curve.** And W **corrected its own first liveness pass**, which had
 reported 153 non-boolean gates: a decorrelated abstraction of `OR = (a+b) − ab`. **True count 0.**
 Third time this session an agent has caught its own abstraction error before publishing.
+
+---
+
+## Check-in 95 — WITHDRAWN: "the deliverable pays 7 for the degeneracy" (agent W)
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### The four out-of-K blocks: NEGATIVE, and the screen that produced them is retired
+
+| block | free output slots | NEW equations broken by injecting | score |
+|---|---|---|---|
+| **E=7181** (deliverable's) | 9118, 8731 | **5** of its 9 | **39,026** |
+| E=30886 | 18957, 6120 | 8 | 39,018 |
+| E=3227 | 36247, 26738 | 9 | 39,017 |
+| E=4429 | 11131, 35676 | 9 | 39,017 |
+| E=31606 | 15317, 9121 | 10 | 39,016 |
+
+Priced exactly through `frameB.State`, **not the linear model**. All five have dead gates; at the
+four non-deliverable ones every slot is `≡ 0 mod P`. **The deliverable's site is cheapest by three
+equations. No score movement.**
+
+**W retired its own screen:** the 9-equation floor is an **incidence**, and across the five blocks
+sharing it the real price runs **5–10** — *"my own ranking was a weak screen and I am recording it as
+such."* **Budget, not exhaustion:** one injection magnitude, 1–2 slots per block.
+
+**Control that makes the negative trustworthy:** zeroing 7181's own outputs gives 39,023 / 39,022 —
+**strictly worse** — so the injected values are **load-bearing** for `{6816, 8124, 9123, 9421}`,
+which is round 1's k-for-k trade seen without the model.
+
+### CORRECTION (a) — the causal story is wrong, and it was the campaign's headline
+
+Block **E=33469**'s four coinciding inputs are **themselves free inputs**; the check atoms they move
+touch **46 equations**, and **the overlap with the seven failures is EMPTY.**
+
+> **THE DEGENERACY COSTS NOTHING.** The seven failures are an **independent obstruction at the 7181
+> site**. The "5 (injection) + 2 (handles)" split stands as **accounting**; the **causal** reading —
+> *"it pays 7 for the degeneracy"* — **is WRONG.**
+
+**This reading has been the lab's headline account of what 39,026 is since check-in 7**, propagated
+by the coordinator to four agents and reported to the user more than once. **It is WITHDRAWN.
+The deliverable's 7 is the price of an INJECTION, not of a coincidence.** W corrected it in its own
+§3 rather than leaving it standing.
+
+### CORRECTION (b) — K = 34 was not the complete mover set
+
+`K` was defined as *"free inputs reaching a **nonzero** atom"* — but repairing a broken equation may
+require moving a currently-**zero** atom in it, and those had been baked in as constants. The 7
+failing equations contain 24 atoms with **40** movers; **K missed 6.**
+
+Rebuilt on **`K+ = 40`** (205 rows, `rank(A_SAT)` 26 → 32, **same six essential rows**) and re-ran
+the exhaustive test: **`minbreak(P) = |P|` for every `|P| ≤ 6`, gain 0, all seven unbuyable.**
+***The omission was real and inert.***
+
+**What does NOT carry over, and W flagged it unprompted:** on `K+` the packing lemma gives only
+`t = 1`, so **round 1's general-break exhaustiveness at `b ≤ 2` is scoped to `K = 34` and is NOT
+re-proved on `K+`.**
+
+### W re-tasked — its own revised ranking, adopted unchanged
+
+1. **Redo the cocircuit / general-break closure on `K+ = 40`.** W's strongest exhaustive row is
+   currently scoped to a knob set it has just shown incomplete — **a live gap in its own record**,
+   outranking everything else on its thread. Closing it restores the frame-B optimality statement at
+   full strength over the complete mover set; failing to close it means the strongest negative in
+   this region was scoped narrower than anyone realised.
+2. The `s = 3..6` cocircuit gap, if budget allows.
+3. **DROPPED on W's own reasoning — more injection sites.** The screen came back negative, incidence
+   does not predict price, and a real sweep needs the per-block price oracle item 1 builds anyway.
+
+The scope heading is now `#`-level inside the boundary block — *"THE CLASSIFICATION IS CLOSED AT ATOM
+LEVEL AND OPEN AT EQUATION LEVEL"* — with an explicit instruction not to cite §2 without it.

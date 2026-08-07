@@ -324,3 +324,15 @@ i.e. exactly `pgap.py`'s `gap_p = 1` with every rank shifted +1, which is what a
     python3 pselsum.py [pinned|consistent]                      # the gap_p distribution
 Both skip any tag already recorded IN THEIR OWN REGIME, so a restart resumes for free.
 51 structural configurations per regime (`psel.configs()`), ~200 s each under fleet contention.
+
+## CORRECTION TO MY OWN STEP-18 HEADLINE (found by re-deriving it, not by re-reading it)
+`gap = rk([M|b]) - rk(M)` where `[M|b]` has **exactly one column more than `M`**, so
+`rk([M|b]) <= rk(M) + 1` and **`gap` is in {0,1} BY CONSTRUCTION**. My step-18 statement
+*"gap_p = 1 in all 16 detach states, the gap never closes and never widens"* is therefore
+**numerically right and rhetorically overstated**: "never widens" is vacuous — it *cannot*
+widen. What was actually measured, and what stands, is the BOOLEAN: *every one of the 16 detach
+states is inconsistent mod p.* The quantitative p-statement is the **deficiency `rk_Q - rk_p`**,
+and that is not invariant — it moves (4 at the deliverable, 6, 8, 3, ... elsewhere).
+**Separate "this number is wrong" from "this result is wrong": the number is right, the framing was.**
+The fix is a control prime `q` of the same size, unrelated to the instance; `rk_Q - rk_q = 0`
+while `rk_Q - rk_p > 0` is what actually shows the deficiency belongs to `p`.

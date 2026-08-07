@@ -1,0 +1,19 @@
+H16 = [642, 1844, 2892, 9629, 18253, 23642, 23754, 28355, 28730, 29305, 29854, 31864, 34113, 35619, 37413, 37720]
+  total 2^16 = 65,536   3 row orders   nprobe=80 budget=180.0
+CALIBRATION on the witness: 39008 -> 39026  PASSED
+  |W|= 0         COMPLETE  best 39008  count@best 1
+         dist: 39008:1
+  |W|= 1         COMPLETE  best 39021  count@best 1
+         dist: 39021:1  39009:3  39008:12
+  |W|= 2         COMPLETE  best 39022  count@best 1
+         dist: 39022:1  39021:3  39020:11  39010:3  39009:30  39008:72
+  |W|= 3         COMPLETE  best 39023  count@best 2
+         dist: 39023:2  39022:2  39021:35  39020:66  39010:8  39009:176  39008:271
+  [2,000/65,536] 37s 54/s  best 39026  |W|=4  errors 0
+  |W|= 4         COMPLETE  best 39026  count@best 1
+         dist: 39026:1  39023:2  39022:22  39021:210  39020:220  39010:14  39009:656  39008:695
+  [4,000/65,536] 136s 29/s  best 39026  |W|=5  errors 0
+  [6,000/65,536] 180s 33/s  best 39026  |W|=5  errors 0
+  |W|= 5         COMPLETE  best 39026  count@best 12
+         dist: 39026:12  39022:74  39021:784  39020:495  39010:20  39009:1,711  39008:1,272
+  [8,000/65,536] 283s 28/s  best 39026  |W|=6  errors 0

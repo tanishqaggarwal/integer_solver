@@ -1553,3 +1553,20 @@ loses the 39,026 points above |W| = 4. Same non-monotonicity, now visible at eve
 `checker.py` on the cofactor run's own 39,026 point (witness u {34113}):
 **39,026/39,033, failing exactly [12231,12270,12350,14584,18673,22044,29125]. Agreement 14/14
 this round.**
+
+## 93. Where the three instruments stand, and what "complete" means for each
+Three DIFFERENT pricers now exist over the same 2^16 lattice. They are not refinements of one
+another (§89), so each carries its own completeness statement:
+
+    I1  handle knobs, greedy row order fixed, nprobe=10   enumsub2.py 16 ... 10 30
+    I2  handle knobs, greedy row order fixed, nprobe=80   enumsub2.py 16 ... 80 180
+    I3  handle knobs u the 4 cofactors,        nprobe=80  enumcof.py 16 ... 4
+    (I4 handle knobs, MAX over greedy row orders, nprobe=80  enumsub3.py -- built, not yet run
+        at scale; gran2.py has it on a 1,193-subset sample)
+
+The claim that survives all of them, and it is the only claim I make about the maximum:
+
+> **Over every instrument tried, at every support size any of them has completed, the maximum is
+> 39,026 and it is attained at W = {642, 28730, 29854, 31864} — the witness. Nothing anywhere has
+> exceeded it. At |W| = 4, the size at which 39,026 is first reached, the witness is the UNIQUE
+> maximiser over all 1,820 four-element supports, under BOTH knob sets.**

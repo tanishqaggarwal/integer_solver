@@ -114,3 +114,42 @@ Zero-events 0, hits 0 at every completed size.
 The `[i0lo,i0hi)` range makes the size-5 sweep restartable in pieces — `rep_real.txt` records a
 `DONE size=5 range=[lo,hi)` line per completed piece.
 (`pylib/` holds locally-installed numpy + gmpy2; the restart had wiped both.)
+
+---
+
+## 6. WORK ADDED ALONGSIDE THE SWEEP (coordinator's second task)
+
+### 6.1 `K_CONSTRAINTS.md` — the verified constraint catalogue on `k`
+Every row re-derived or re-executed here; rows only code-audited are marked as such. Includes the
+standing ruling (Q's searches **do** have instance-level standing for the negative direction, with
+the one residual risk named: F's parse, not the modulus) and the per-bit analysis.
+
+### 6.2 NEW RESULT — Q's slot-collision caveat is vacuous for every `|S| ≤ 42`
+Q left this open in its §4 ("needs the particular scalar"). It does not. Two children of a stage
+slot coincide iff `Σ_{S1} 2^i − Σ_{S2} 2^i = ±N` with `S1, S2` disjoint subsets of the ON-set — that
+is a signed-binary representation of `N` with `|S1|+|S2|` nonzero digits, and the minimum over all
+such representations is the **NAF weight of `N`**, which I computed to be **43**
+(`weight(N) = 192` in plain binary; the NAF reconstructs `N` exactly). So for any `|S| ≤ 42` no slot
+ever sees two equal live children and the degenerate branch — where a gadget imposes **nothing**
+because `dx = dy = 0` — never opens. This makes the forward implication
+*(satisfying assignment ⟹ `k_S·G = T`)* airtight across the entire low-weight regime that this
+fleet works in, including T's integer lifts at `|S| = 2,3,5,6,7,8,17`.
+
+### 6.3 STRENGTHENED — BSGS bound pushed from 2⁴⁴ to 2⁵²
+`xbsgs.c`, same field code as `xmitm.c` (`xfield.h`), 2²⁶ baby steps × 2²⁶ giant steps in W = 512
+parallel chains with batched inversion. `smul` cross-checked against Python at 5 scalars, and a
+**planted `k₀ = 5·2²⁶ + 1234567` was recovered at exactly `i = 5`**.
+Result: `+T` → **0 candidates**. `−T` → see `bsgs.log`.
+So `k > 2⁵²` and `N − k > 2⁵²`. Baby table: `babys.bin` (537 MB, sorted).
+
+### 6.4 Per-bit measurement on the instance (`xperbit.py`)
+Over the 256 leaf-selector wires in `EQUATIONS.txt`: **0 / 256** appear in an equation mentioning no
+other wire, so **no selector is pinned**. Their footprints do vary (77–185 occurrences across 30–51
+equations) — that is *where a leaf sits in the fold tree*, identical for every candidate `S`, and
+carries no information about whether the bit is ON.
+
+### 6.5 Note on scheduling
+The box is heavily oversubscribed by the rest of the fleet (load 22–28 on 4 cores); the size-5 scan
+gets ~0.4 cores despite 8 OMP threads. It is **not** I/O bound (`read_bytes = 0`, RSS 1.9 GB fully
+resident) — purely CPU-starved. `tbl4.bin` (unsorted, 1.4 GB) and `baby.bin` were deleted to relieve
+page-cache pressure; both are regenerable in under a minute.

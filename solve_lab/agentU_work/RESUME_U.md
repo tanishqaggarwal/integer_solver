@@ -516,3 +516,70 @@ CALIBRATION: PASS
 
 Identical to check-in 90's target.  ~0.19 s per candidate end-to-end (build → seed → forward →
 `checker.evaluate_all`).
+
+## 25. SEED VOCABULARY — RESOLVED (`x1_seed.py`, `x3_atoms.py`, `x4_perturb.py`, `x5_route.py`, `x6_anat.py`)
+
+The 37 entries of `Eng.seed_of(deliverable)` partition into **five** groups, not three:
+
+| group | n | entries | what |
+|---|---|---|---|
+| **SEL** | 2 | `x_2081`(exp 235), `x_24601`(exp 72) | the ON-set.  Both = 1; the other 254 selectors are absent (0). |
+| **LW** | 4 | `x_22152`, `x_33462` (leaf 72 X,Y), `x_6418`, `x_12553` (leaf 235 X,Y) | leaf pin wires, each **equal to its own honest constant** — verified `sd[k]==XY[axis][e][3]` for all four |
+| **RX** | 9 | `2498 2964 6083 7068 12186 14853 22152 22649 27982` | X-route: every one carries **leaf 72's X constant** |
+| **RY** | 11 | `4432 8778 11080 14623 16742 18328 24548 31339 33462 33985 36462` | Y-route: every one carries **leaf 72's Y constant** |
+| **DRV** | 13 | `642 1329 8731 9118 9413 10903 17325 29854 31864` (2,100–2,430 bits) + `28730`, `18956`, `22162`, `30213` | the target-drive machinery around atoms 36659–36664 and `BASE_DEMOTE`.  `OUT[ROOT]` vab wires are **`x_30213`, `x_22162`**. |
+
+Note `x_22152 ∈ RX` and `x_33462 ∈ RY` — leaf 72's own wires are on the route it defines, so
+the route is a lie only on **leaf 235's** side.  That is §10 read off the seed directly.
+
+**Round-trip control (`x4_perturb.py`):** `sd[22152] += 1`, re-forward → **17 variables change**
+and the score goes 7 → 30.  A leaf X wire with a bounded downstream cone, exactly as predicted.
+
+**Ablation (`x6_anat.py`):** full 7 · minus RX 21 · minus RY 23 · minus DRV 38 · minus SEL 257 ·
+only SEL+LW 64 · empty 35.  Leave-one-out: dropping `x_24601` costs 124, `x_2081` costs 161,
+every other single entry costs 10–42.
+
+**End-to-end control (`x11_ctrl.py`, `x12_score.py`):** `umodel.assignment` + the 11 DRV entries
+the build does not produce reproduces the deliverable at **7 failing with 0 of 38,748 variables
+differing**.  So the builder is exact, and `u20_sweep.price(ROOT, 24601, 2081, src=72)` — the
+generalised slot function — returns **7 failing, 0 vars differing** in 0.18 s.
+
+## 26. TWO MEASURED REDUCTIONS THAT MAKE THE SWEEP EXHAUSTIVE RATHER THAN SAMPLED
+
+### (A) The price does not depend on the value carried (`u23_value.py`) — caution (i) RESOLVED
+
+At `β = ROOT`, pair (72, 235):
+
+| carried common point | failing |
+|---|---|
+| leaf 72's honest point (`src=a`) | **7** |
+| leaf 235's honest point (`src=b`) | 38 |
+| three other leaves' honest points | 38, 38, 38 |
+| four random 296-bit **off-curve** points | 38, 38, 38, 38 |
+| `(3,5)` | 38 |
+| `(0,0)` | 38 |
+| mixed `(a.X, b.Y)` | 25 |
+
+Identical pattern at `β=16102` (12 / 27 / 27 … / 22) and `β=27994` (19 everywhere).
+
+> **The price is a function of WHICH route wires are forced off their honest value, not of what
+> they are forced to.**  So enlarging the search to off-curve points — the caution I raised in
+> §18(i) and §21 — buys **nothing**, and the minimum over all values equals the minimum over the
+> four axis-combinations of the two leaves' own constants.  The restriction to leaf values is
+> therefore free, and the sweep over them is exhaustive over values.
+
+### (B) The price depends only on the LYING leaf (`u24_conj.py`)
+
+`price(β, a, b, src=a)` — b's chain lies, a's is honest — is **independent of a**.  Verified at
+three slots over every honest-leaf choice:
+
+```
+beta=26205 |I|=5 |J|=6 : all 5 choices of a give [27,44,33,44,33,44] over b
+beta=26162 |I|=4 |J|=4 : all 4 choices of a give [25,31,43,25]
+beta=12031 |I|=4 |J|=4 : all 4 choices of a give [30,43,43,30]
+```
+
+So a slot's `|I|·|J|` pairs collapse to `|I|+|J|` distinct prices, and the whole instance's
+**32,640 (slot, pair) triples collapse to 2,114 evaluations** — `Σ_slots(|I|+|J|) = 2,114`
+against `Σ_slots(|I|·|J|) = 32,640`.  This is what makes "price every slot, exhaustively over
+pairs and over values" a 2,114-evaluation job instead of a 65,280-evaluation one.
