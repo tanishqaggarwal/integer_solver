@@ -174,6 +174,43 @@ def mod_tv_sets(CF, MOD, tw, D):
         per.append((m, sorted(cand if cand is not None else range(m))))
     return per
 
+def single_probe(vv, a, w, base, ZERO0, newatoms, log):
+    """One-wire attempt on atom a, used to DISCOVER collateral when the atom has too few wires to
+    form a pair (the |S|=32 handle-less atoms have exactly one).  Same two guards."""
+    i = E.residx[a]
+    ys = []
+    for t in range(6):
+        ow = vv[w]; vv[w] = ow + p*t; ys.append(E.run(vv)[i]); vv[w] = ow
+    d = [ys[:]]
+    for k in range(5):
+        d.append([d[k][j+1]-d[k][j] for j in range(len(d[k])-1)])
+    cf = [d[k][0] for k in range(6)]
+    if is_exact(a):
+        rs = newton_int_roots(cf)
+        if rs is None or rs == 'ALL' or not rs:
+            return False
+        cands = rs[:4]
+    else:
+        if any(y % p for y in ys):
+            return False
+        cands = C.roots_c([x//p for x in cf], abs(SL[a])//p)[:40]
+    for t in cands:
+        snap = vv[:]
+        vv[w] += p*t
+        y = E.run(vv)[i]
+        if (y == 0) if is_exact(a) else (y % abs(SL[a]) == 0):
+            n = nzcount(vv)
+            if n < base:
+                log('     *** single wire x%d += p*%d  global %d -> %d' % (w, t, base, n))
+                return True
+            rn = E.run(vv)
+            for i2 in ZERO0:
+                if rn[i2]:
+                    newatoms[E.res[i2]] += 1
+        vv[:] = snap
+    return False
+
+
 def joint_pair(vv, a0, base, log):
     """clear atom a0 with a joint two-wire shift.  The group grows by folding in whatever the
     global guard says the candidate broke, and the wire set grows with it.  Mixed exact/mod."""
@@ -193,6 +230,9 @@ def joint_pair(vv, a0, base, log):
         log('     round %d: |group|=%d (%d exact) wires=%d new pairs=%d'
             % (rd, len(GROUP), sum(1 for a in GROUP if is_exact(a)), len(WSET), len(pairs)))
         newatoms = collections.Counter()
+        for w in WSET[:8]:
+            if single_probe(vv, a0, w, base, ZERO0, newatoms, log):
+                return True
         for w, v in pairs[:PAIRCAP]:
             tried_pairs.add((w, v))
             CF = {}; okfit = True
