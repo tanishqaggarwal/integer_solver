@@ -7,7 +7,7 @@ gcd(those, 6672769) = 1, so the congruence has solutions.
 But every solved candidate still scored 39,015 or less, because the generic absorber
 is greedy and habsorb had already found the trap: **x22162 absorbs a1618 with
 coefficient 1, and x30213 absorbs a688 with coefficient 8863713**.  Those are the
-coordinates themselves, so "absorbing" a1618 that way just puts x3 back on its pin and
+values themselves, so "absorbing" a1618 that way just puts w5 back on its pin and
 destroys A = 0.  The absorber has to be restricted to genuine HANDLES -- free inputs
 whose exact integer coefficient on the check is a multiple of p -- which is what makes
 the move invisible mod p and therefore harmless to every congruence.

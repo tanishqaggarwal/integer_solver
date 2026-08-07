@@ -6,7 +6,7 @@ are enumerable (nine of fifteen candidates), and the Diophantine problem over th
 lattice caps the satisfiable rows at five, giving 39,026.
 
 The same three steps apply to any state.  Run them on the algebraic states, where the
-point addition closes and the residual is a different, smaller object:
+A and B both vanish and the residual is a different, smaller object:
 
   1. residual atoms R, and the equations E they touch;  is E homogeneous in R?
   2. every free input reaching R: its exact effect on each atom of R, and its

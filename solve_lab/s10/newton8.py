@@ -1,22 +1,22 @@
-"""S11 step 102: the coordinate map has RANK 8 -- solve all eight at once, by Newton.
+"""S11 step 102: the w-map has RANK 8 -- solve all eight at once, by Newton.
 
-coordjac's data answers the question that matters.  Over the 264 free inputs with any
+valjac's data answers the question that matters.  Over the 264 free inputs with any
 effect, the map to
 
-    (x1, y1, x2, y2, x3, y3, x19083, x1308)   plus A and B
+    (w1, w2, w3, w4, w5, w6, x19083, x1308)   plus A and B
 
 has **rank 8 of 10**, and the only two relations are the linearisations of A and B
 themselves:
 
-    0 = c1*x1 + c2*y1 + c3*x2 + c4*y2 + c5*x3 + A
-    0 = d1*x1 + d2*y1 + d3*x2 + d4*y2 + d5*x3 + d6*y3 + B
+    0 = c1*w1 + c2*w2 + c3*w3 + c4*w4 + c5*w5 + A
+    0 = d1*w1 + d2*w2 + d3*w3 + d4*w4 + d5*w5 + d6*w6 + B
 
-So the eight coordinates are INDEPENDENTLY STEERABLE to first order.  close2 failed
-only because it used the 180 columns that move x1 or x19083; the full 264 has the
+So the eight values are INDEPENDENTLY STEERABLE to first order.  close2 failed
+only because it used the 180 columns that move w1 or x19083; the full 264 has the
 rank.
 
-Target: keep x3 = C2 and y3 = C1' (so a1618 and a688 hold), keep x2 and y2, and move
-x1 and y1 to the pair-(x1,y1) LINEAR solution of A = B = 0, dragging x19083 with y1 so
+Target: keep w5 = C2 and w6 = C1' (so a1618 and a688 hold), keep w3 and w4, and move
+w1 and w2 to the pair-(w1,w2) LINEAR solution of A = B = 0, dragging x19083 with w2 so
 a26731 survives and leaving x1308 alone so a29539 does.  Eight targets, 264 knobs,
 solved with the exact first-order columns and then Newton-iterated because the map is
 a genuine polynomial.
@@ -35,7 +35,7 @@ P = ad.P
 src = sys.argv[1] if len(sys.argv) > 1 else 'PIN_39013.json'
 ROUNDS = int(sys.argv[2]) if len(sys.argv) > 2 else 8
 KEY = [12186, 16742, 14853, 24908, 22162, 30213, 19083, 1308]
-NM = dict(zip(KEY, ['x1', 'y1', 'x2', 'y2', 'x3', 'y3', 'y1t', 'x2t']))
+NM = dict(zip(KEY, ['w1', 'w2', 'w3', 'w4', 'w5', 'w6', 'w2t', 'w3t']))
 v = L.load(src if os.path.isabs(src) else os.path.join(HERE, src))
 ad.fwd(v, rounds=6)
 rs = [json.loads(l) for l in
@@ -43,7 +43,7 @@ rs = [json.loads(l) for l in
       if l.strip().endswith('}')]
 rs = [r.get('result', r) for r in rs]
 KN = sorted({r['u'] for r in rs if r['d']})
-print('%s: %d free inputs with any effect on the coordinates' % (src, len(KN)),
+print('%s: %d free inputs with any effect on the values' % (src, len(KN)),
       flush=True)
 
 
@@ -57,14 +57,14 @@ def report(v, tag):
 
 
 def targets(v):
-    """Keep x2, y2, x3, y3; move x1, y1 to the linear solution; drag x19083."""
-    x2, y2 = v[14853] % P, v[24908] % P
-    x3, y3, K = v[22162] % P, v[30213] % P, v[24453] % P
-    d = (x2 - x3) % P
-    x1s = (((y2 + y3) % P) ** 2 % P * pow(d * d % P, -1, P) - x3 - x2 - K) % P
-    y1s = (((x1s - x3) % P) * y2 - y3 * ((x2 - x1s) % P)) % P * pow(d, -1, P) % P
-    return {12186: x1s, 16742: y1s, 19083: y1s, 14853: x2, 24908: y2,
-            22162: x3, 30213: y3, 1308: v[1308] % P}
+    """Keep w3, w4, w5, w6; move w1, w2 to the linear solution; drag x19083."""
+    w3, w4 = v[14853] % P, v[24908] % P
+    w5, w6, K = v[22162] % P, v[30213] % P, v[24453] % P
+    d = (w3 - w5) % P
+    w1s = (((w4 + w6) % P) ** 2 % P * pow(d * d % P, -1, P) - w5 - w3 - K) % P
+    w2s = (((w1s - w5) % P) * w4 - w6 * ((w3 - w1s) % P)) % P * pow(d, -1, P) % P
+    return {12186: w1s, 16742: w2s, 19083: w2s, 14853: w3, 24908: w4,
+            22162: w5, 30213: w6, 1308: v[1308] % P}
 
 
 def jac(v, knobs, keys):

@@ -34,7 +34,7 @@ for i, (u, z) in enumerate(pairs):
         sc, newnz, newchk, lost, gained, av, nz = B.cost(v, changed)
         syn.append((k - m, k, m, len(lost), u, z, sc))
     if i % 4000 == 0: print(f'  {i}/{len(pairs)} hits {hits} max {mx} syn {len(syn)} ({time.time()-t0:.0f}s)', flush=True)
-print(f'\nswept {len(pairs)} generic-value pairs in {time.time()-t0:.0f}s')
+print(f'\nswept {len(pairs)} generic-w pairs in {time.time()-t0:.0f}s')
 print(f'  pairs growing the support: {hits};  max knobs from any pair: {mx}')
 print(f'  GENUINELY SECOND-ORDER pairs (beat both singles): {len(syn)}')
 syn.sort(key=lambda t: (-t[0], t[3]))

@@ -1,6 +1,6 @@
 """S10 step 72: rational reconstruction and the residue battery, done properly.
 
-The curve hypothesis is dead.  The remaining number-theoretic question is whether
+The structural hypothesis about the constants is dead (see NOTEBOOK 32).  The remaining number-theoretic question is whether
 the setter's residues are STRUCTURED: derived from small rationals, small
 multiples of each other, or from constants elsewhere in the file.
 

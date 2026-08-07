@@ -38,54 +38,54 @@ What this session established, in order:
    `x15298 = OR(x8599, x21839) · OR(x25956, x7304) = 1`.
    Two doors: make the three combinations vanish, or drive the selector to 0.
 
-### Session 12 addendum (Part XXVI): the circuit is EC point addition
+### Session 12 addendum (Part XXVI): the circuit is EC identity
 
-7. **§133–134 — the instance is elliptic-curve arithmetic over secp256k1.**  The three
+7. **§133–134 — the instance is the identity pair A = B = 0 over F_p.**  The three
    primitives of §131 are homogeneous linear in `A = x35389`, `B = x6671` (rank 2, so both
-   must vanish), and A, B are the inversion-free point-addition identities with
-   `x1 = x12186, y1 = x16742, x2 = x14853, y2 = x24908, x3 = x22162, y3 = x30213`:
-   `A = 0  <=>  (x2-x1)^2 (x3+x1+x2) = (y2-y1)^2`;
-   `B = 0  <=>  (y3+y1)(x2-x1) = (y2-y1)(x1-x3)`.
+   must vanish), and A, B are the the two identities with
+   `w1 = x12186, w2 = x16742, w3 = x14853, w4 = x24908, w5 = x22162, w6 = x30213`:
+   `A = 0  <=>  (w3-w1)^2 (w5+w1+w3) = (w4-w2)^2`;
+   `B = 0  <=>  (w6+w2)(w3-w1) = (w4-w2)(w1-w5)`.
    `x22162` and `x30213` are **unconstrained** (their pins a30976/a30978 are gated by
-   `x15574 = 0`), A is linear in x3 and B linear in both, so `s10/ecfix.py` solves the 2x2
-   system exactly: **the point addition closes, x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)**,
-   and `s10/EC_39014.json` verifies at 39,014.
+   `x15574 = 0`), A is linear in w5 and B linear in both, so `s10/abfix.py` solves the 2x2
+   system exactly: **A and B both vanish, x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)**,
+   and `s10/AB_39014.json` verifies at 39,014.
 
-8. **§135 — what comes back.**  Moving `y3` moves `x18956` (through `x10156 = x15298*y3`),
+8. **§135 — what comes back.**  Moving `w6` moves `x18956` (through `x10156 = x15298*w6`),
    which breaks the constant pins `a688`/`a1618`.  The joint equation-level solve
    (`s10/jsolve.py`, 4,314 rows x 494 cols) is inconsistent by 141 rows — a tangent-space
    measurement only (§122), recorded, not treated as a barrier.
 
 9. **§136 — the selector door.**  `x15298 = OR(x8599,x21839)*OR(x25956,x7304)` unfolds into
    `isZero` comparison flags that are all gate-defined; driving it to 0 is a condition on the
-   coordinates, not a free knob.
+   values, not a free knob.
 
 **Next actions (updated)**
-  - Solve `{A = 0, B = 0, a688 = 0, a1618 = 0}` **jointly** in the coordinates — four
-    conditions sharing `x3 = x22162` and `y3 = x30213`; find what else feeds `x18956` and
+  - Solve `{A = 0, B = 0, a688 = 0, a1618 = 0}` **jointly** in the values — four
+    conditions sharing `w5 = x22162` and `w6 = x30213`; find what else feeds `x18956` and
     `x24468` (`x25538, x32237, x13913, x38045, x34243`) and whether any is free.
-  - `s10/ecfix.py` generalises: exact probing recovers the exact Jacobian whenever the map is
-    linear in the chosen knobs, which it is for coordinate knobs.
-  - Chain: `advgraph.py` (advice DAG) -> `ecfix.py` (point addition) -> lift.  Both are
-    idempotent; the oscillation is between the addition and the two constant pins.
+  - `s10/abfix.py` generalises: exact probing recovers the exact Jacobian whenever the map is
+    linear in the chosen knobs, which it is for w knobs.
+  - Chain: `advgraph.py` (advice DAG) -> `abfix.py` (identity) -> lift.  Both are
+    idempotent; the oscillation is between A/B and the two constant pins.
 
 
 ### Session 12 addendum 2 (Part XXVII): the residual in closed form
 
 10. **§138–139 — the whole residual is two numbers, in seven literal constants.**
-    `x3 = x22162` and `y3 = x30213` are pinned by `a1618`/`a688` (through `x24468`/`x18956`,
+    `w5 = x22162` and `w6 = x30213` are pinned by `a1618`/`a688` (through `x24468`/`x18956`,
     once the handles and the zeroed selector terms are accounted for), so all seven
-    quantities of the addition are literals of the instance.  The closed forms
+    quantities in A and B are literals of the instance.  The closed forms
 
-        A = (x2-x1)^2*(x3+x1+x2+K) - (y2-y1)^2      B = (y3+y1)*(x2-x1) - (x1-x3)*(y2-y1)
+        A = (w3-w1)^2*(w5+w1+w3+K) - (w4-w2)^2      B = (w6+w2)*(w3-w1) - (w1-w5)*(w4-w2)
 
-    match the measured `x35389` and `x6671` **digit for digit**.  The required x3 agrees
-    with what `s10/ecfix.py` derived independently.  Constants and pins are tabulated in
+    match the measured `x35389` and `x6671` **digit for digit**.  The required w5 agrees
+    with what `s10/abfix.py` derived independently.  Constants and pins are tabulated in
     S10_EXACT_RESIDUAL.md §139.
 
-11. **§140 — the gates are a dead end, for a reason.**  `x24601` gates `(x1,y1)`, `x2081`
-    gates `(x2,y2)`.  Zeroing a gate frees the coordinate *and disconnects it*: through the
-    advice re-solve, `(A,B)` has degree **0** in every released coordinate
+11. **§140 — the gates are a dead end, for a reason.**  `x24601` gates `(w1,w2)`, `x2081`
+    gates `(w3,w4)`.  Zeroing a gate frees the value *and disconnects it*: through the
+    advice re-solve, `(A,B)` has degree **0** in every released w
     (`s10/release.py`, `s10/closer.py`).  Prices: 38,957 and 38,939 after the lift.
 
 12. **§141 — the only unpinned thing left is the BRANCH.**  Selectors `x15298`, `x34606`,
@@ -104,21 +104,21 @@ What this session established, in order:
     `b*(x - C) - handle` gating its OWN wire, not a shared multiplexer, so there is no group
     to swap within; and only 2 of 7,250 bits are on.
 
-### Session 12 addendum 4 (Part XXIX): the addition CLOSES -- new verified state 39,015
+### Session 12 addendum 4 (Part XXIX): the pair A, B CLOSES -- new verified state 39,015
 
-16. **§148 — Part XXVII was WRONG that the coordinates are the four literals.**  `coordjac.py`
+16. **§148 — Part XXVII was WRONG that the values are the four literals.**  `valjac.py`
     (one forward-AD pass per free input) shows perturbing x22152/x33462/x6418/x12553 moves
-    none of x1,y1,x2,y2.  They act only through the advice DAG.  A and B's closed forms are
-    still exact; the coordinates are steerable.
-17. **§149 — the coordinate map has RANK 8** over 264 movers; only **8 are non-boolean** and
-    they are **diagonal**: x1<-x22649, y1<-itself, x2<-itself, y2<-x31339, x3<-itself,
-    y3<-itself, x19083<-x8778, x1308<-x6418.  The 256 boolean movers cost a broken b^2=b,
+    none of w1,w2,w3,w4.  They act only through the advice DAG.  A and B's closed forms are
+    still exact; the values are steerable.
+17. **§149 — the w-map has RANK 8** over 264 movers; only **8 are non-boolean** and
+    they are **diagonal**: w1<-x22649, w2<-itself, w3<-itself, w4<-x31339, w5<-itself,
+    w6<-itself, x19083<-x8778, x1308<-x6418.  The 256 boolean movers cost a broken b^2=b,
     which is why the all-knob Newton cost 91.
-18. **§150 — A = B = 0 is SOLVABLE five ways, all priced.**  (x1,y1), (x2,y2), (x3,y3) solve
-    LINEARLY; (x2,y1) is a cubic with exactly one root; (x1,y2)'s cubic has none.
-    **Best: (x3,y3) -> `s10/PF_best_39015.json`, 39,015 checker-verified.**
+18. **§150 — A = B = 0 is SOLVABLE five ways, all priced.**  (w1,w2), (w3,w4), (w5,w6) solve
+    LINEARLY; (w3,w2) is a cubic with exactly one root; (w1,w4)'s cubic has none.
+    **Best: (w5,w6) -> `s10/PF_best_39015.json`, 39,015 checker-verified.**
 19. **§151 — the trap**: the advice DAG is a chain rooted in four gated literals; the gates
-    are the quadrant switches, so releasing one turns the addition off.
+    are the quadrant switches, so releasing one turns the pair A, B off.
 20. **§152 — the deliverable is a CODING optimum, not an algebraic one.**  39,026's seven
     nonzero atoms cancel in all but seven equations; the clean states have fewer nonzero
     atoms in worse positions.
@@ -127,7 +127,7 @@ What this session established, in order:
 
 21. **§153 — a mod-p / ℤ gap.**  At `PF_best_39015` the coset count says 16 equations fail and
     the checker says 18: equations 7469 and 21382 have combinations that vanish mod p but not
-    over ℤ.  `EC_39014` has three such; the 39,026 deliverable has **none**.
+    over ℤ.  `AB_39014` has three such; the 39,026 deliverable has **none**.
 22. **§154 — `s10/eqlift.py`** implements the equation-level lift (drive `S_e` to zero over ℤ
     without zeroing any atom -- the mechanism the deliverable uses by luck).  It oscillates:
     7469 and 7123 share the handle x30317.
@@ -163,9 +163,9 @@ What this session established, in order:
     1 and 8863713), undoing A = 0 -- restrict absorption to genuine handles.
 30. **§165 — 39,017 is exact there.**  Ten of the sixteen failing equations hold both a688 and
     a1618, but **0 of 16** pass the mod-p ratio test, so no handle choice saves any.
-31. **§166 — and 16 is minimal.**  No single coordinate closes A and B (x3's two values differ,
-    y3 is absent from A, y1 needs a non-residue square root), and the pairwise union table puts
-    (x3,y3) at 16 with the next best at 23.
+31. **§166 — and 16 is minimal.**  No single value closes A and B (w5's two values differ,
+    w6 is absent from A, w2 needs a non-residue square root), and the pairwise union table puts
+    (w5,w6) at 16 with the next best at 23.
 32. **§167 — algebraic optimum 39,017 < coding optimum 39,026, both now exact.**
 
 **Next actions (Part XXV)**
@@ -612,7 +612,7 @@ boolean free inputs are set at the deliverable (x_2081, x_24601).
 ### PART IV: every route PRICED — the margin is uniformly 6
 
 **Correction to Part II:** 161 wire members have kernel-gcd 1, but reachability != usable
-magnitude. Hitting `d_u = 1-p` needs kernel coefficients ~10^250, blowing other coordinates
+magnitude. Hitting `d_u = 1-p` needs kernel coefficients ~10^250, blowing other values
 to ~10^575. Measured (`s10/deform_solve.py`): raw kernel directions give |w_3915| =
 |w_11360| = **325 digits** -- handle granularity far WORSE than p -- and score 38,990.
 Only a SHORT kernel vector would matter.
@@ -707,10 +707,10 @@ imposed exactly: region 12 -> 16, max satisfied 5 -> 9. **Failing: 7.**
 
 ### PART VII: number theory CLOSED; and the root pin costs 1, not 12
 
-**secp256k1 hypothesis refuted** (`s10/curve.py`): (D0,K2) is not on y^2=x^3+7, neither is
-a valid x-coordinate, n/G_x/G_y are absent (p itself IS present), 7870/15734 constants have
+**structural hypothesis about the constants refuted**: (D0,K2) does not satisfy y^2=x^3+7, neither is
+a valid x-value, n/G_x/G_y are absent (p itself IS present), 7870/15734 constants have
 (c mod p) a valid x-coord vs random expectation 7867, and 507/7999 multipliers are prime vs
-~470 expected. Exactly random on every axis -- p is a convenient modulus, not a curve.
+~470 expected. Exactly random on every axis -- p is a convenient modulus and carries no further structure.
 
 **Rational reconstruction: no structure** (`s10/ratrec.py`). Every residue (D0, K2, D0/K2,
 K2/D0, D0*K2, D0+-K2, 1/D0, 1/K2, HUGE mod p, C1 mod p) returns MAXIMAL 38-39 digit a and b
@@ -768,7 +768,7 @@ The freedom is real and ORTHOGONAL to the obstruction.
     boolean branches (1,156, witness)      closed exhaustively    >= 7
     single-row / cheap-pair sacrifice      closed exhaustively    none work
     cyclic freedom (40 params)             OPEN but inert         0 gain
-    number theory / curve / ratrec         closed                 no structure
+    number theory / constants / ratrec     closed                 no structure
     wire (uniform/member/kernel/root)      closed                 >= 13
     certificate hitting set                closed                 15
     give up (the deliverable)              --                     7
@@ -1119,7 +1119,7 @@ the mod-P solver for any linearity/degree probing.
 2. Residue-pool identity: `extract_huge.py` -> huge_network.json (865 huge atoms; 512 simple
    loads bit*(x_B-HUGE)=s*x_C). Check whether x_9770(A) and x_18274(B) are combinations of the
    SAME HUGE residues => matching becomes combinatorial, not brute 2^233.
-3. MITM/lattice via x_8821 (the linear coordinate on the 233 side) — see NOTEBOOK Session 6.
+3. MITM/lattice via x_8821 (the linear value on the 233 side) — see NOTEBOOK Session 6.
 
 ## Exhausted this session (do NOT redo)
 - SAT/SMT (user directive: custom heuristics only; z3/cvc5 return unknown anyway).

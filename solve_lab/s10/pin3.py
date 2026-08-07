@@ -1,4 +1,4 @@
-"""S11 step 90: x3 and y3 are pinned to LITERAL CONSTANTS -- the circuit's output.
+"""S11 step 90: w5 and w6 are pinned to LITERAL CONSTANTS -- the circuit's output.
 
 Unfolding a688 and a1618 with the selectors at their current values:
 
@@ -9,18 +9,18 @@ Unfolding a688 and a1618 with the selectors at their current values:
 
 so, with x15298 = 1,
 
-    x18956 ≡ y3 (mod p)        x24468 ≡ x3 (mod p)
+    x18956 ≡ w6 (mod p)        x24468 ≡ w5 (mod p)
 
 and the two pins read off directly:
 
-    a688   8863713*x18956 ≡ C1   ->   y3 ≡ C1 * 8863713^{-1}  (mod p)
-    a1618  x24468        ≡ C2   ->   x3 ≡ C2                 (mod p)
+    a688   8863713*x18956 ≡ C1   ->   w6 ≡ C1 * 8863713^{-1}  (mod p)
+    a1618  x24468        ≡ C2   ->   w5 ≡ C2                 (mod p)
 
-Both C1 and C2 are literals in EQUATIONS.txt.  So x3 and y3 are not free after all --
+Both C1 and C2 are literals in EQUATIONS.txt.  So w5 and w6 are not free after all --
 they are the circuit's OUTPUT POINT, written into the instance.  §134 solved A = B = 0
 by moving them, which is why the pins broke.  Set them to the pinned values instead
-and the remaining question becomes the honest one: does the point addition close for
-the input coordinates the rest of the circuit forces?
+and the remaining question becomes the honest one: does the identity pair close for
+the input values the rest of the circuit forces?
 
 Usage: pin3.py [state.json]
 """
@@ -35,7 +35,7 @@ import suppfree
 P = ad.P
 C1 = 1114942656963403660822546820446916783439088877768247923308647546252105232931473698035897478439338
 C2 = 91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002
-src = sys.argv[1] if len(sys.argv) > 1 else 'EC_39014.json'
+src = sys.argv[1] if len(sys.argv) > 1 else 'AB_39014.json'
 v = L.load(src if os.path.isabs(src) else os.path.join(HERE, src))
 ad.fwd(v, rounds=6)
 av = L.all_atom_values(v)
@@ -44,8 +44,8 @@ print('%s: score %d; nonzero checks %s'
          [a for a in range(L.NA) if a not in L.atom_out and av[a]]), flush=True)
 y3req = C1 % P * pow(8863713, -1, P) % P
 x3req = C2 % P
-print('pinned  x3 = x22162 ≡ %d' % x3req)
-print('pinned  y3 = x30213 ≡ %d' % y3req, flush=True)
+print('pinned  w5 = x22162 ≡ %d' % x3req)
+print('pinned  w6 = x30213 ≡ %d' % y3req, flush=True)
 print('current x22162 ≡ %d  (match %s)' % (v[22162] % P, v[22162] % P == x3req))
 print('current x30213 ≡ %d  (match %s)' % (v[30213] % P, v[30213] % P == y3req),
       flush=True)

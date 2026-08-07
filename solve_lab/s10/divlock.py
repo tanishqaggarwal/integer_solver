@@ -70,7 +70,7 @@ tgt = (10159099 * a + 6926539 * b) % Q
 print('   (10159099*a + 6926539*b) mod 6672769 = %d  %s'
       % (tgt, 'ALREADY ZERO' if tgt == 0 else 'must be driven to 0'), flush=True)
 
-# how do a and b move when we bump the k*p part of x22162 (x3) and x30213 (y3)?
+# how do a and b move when we bump the k*p part of x22162 (w5) and x30213 (w6)?
 print('\n--- effect of bumping the k*p part of the two free advice values ---',
       flush=True)
 EFF = {}

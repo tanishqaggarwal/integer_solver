@@ -45,7 +45,7 @@
   "39,026 is optimal under the balance law failing = |E| - n + c: the seven give 7, the only improving compensator a22231 gains 1 and loses exactly 1 to a37887 = Q^2, and every other lever is priced 11/13/14/30/52 against a gain of 1.",
   "The ONLY space left unmeasured is the live stratum: 95.7% of quadratic monomials are dead at our witness, and single activations provably cannot reach the cluster (s10/activate.py) -- it needs simultaneous pairs, a second-order search.",
   "Reusable machinery added this session: s10/repair2.py (two-level handle repair), s10/newton_modp.py + s10/crt.py (mod-p Newton + CRT), s10/fwdad.py (forward-mode AD closures), s10/frame2.py and s10/frame3.py (non-canonical frames), s10/cascade.py, s10/engine.py (lexicographic potential), s10/quadfix.py (quadratic repair).",
-  "Do NOT redo: single-move hill climbing, boolean scans, the sacrifice enumerations, curve/ratrec number theory, single dead-path activation, the compensator enumeration."
+  "Do NOT redo: single-move hill climbing, boolean scans, the sacrifice enumerations, constants/ratrec number theory, single dead-path activation, the compensator enumeration."
  ],
  "blocked": [
   "Part 1's two mod-p congruences are rigid ONLY because all handles are p-quantised, and part 2 shows that rests on a wire with a 3-dimensional free deformation space. The live obstruction is now the 13 multi-wire monomials plus the bare root pin a37694 (12 equations)."
@@ -102,7 +102,7 @@
    "x_18274_0": "91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002",
    "x_17728_0": "125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626"
   },
-  "B0_ruled_out": "DEFINITIVE: full 2^22 scan (prime 2147483647) found 0 patterns matching x_18274(0) or x_17728(0) in even one coordinate. B=0 impossible; witness needs 233-side active.",
+  "B0_ruled_out": "DEFINITIVE: full 2^22 scan (prime 2147483647) found 0 patterns matching x_18274(0) or x_17728(0) in even one value. B=0 impossible; witness needs 233-side active.",
   "correction": "Session-5 rank-233/slaved-B claim used lossy-eval linearity filter; NOT reliable. Wires are genuinely nonlinear (mod-P confirmed).",
   "final_assessment": "Full solve = claw-find (A,B) with x_9770(A)=x_18274(B) & x_3183(A)=x_17728(B). 22-side enumerable+invertible (2^22); 233-side high-degree over 2^233, no linear/low-degree inversion, disjoint 290-bit residue pools, witness isolated in the integer-consistent variety. This is the deliberately-hard trapdoor; not crackable by enumeration/local/lattice/SMT. Deliverable: 39,019/39,031 exact.",
   "no_shortcut": "Confirmed rigid: x_26977=x_20510*x_31302 (atom 1816), x_9982 pinned 0 (atom 44272) - no slack to absorb the twist gap. No hidden modulus (gcd residues=1). No B=0, no small/linear/subset-sum/local solution. Claw-find between 2^22 (enumerable) and 2^233 (high-degree, non-invertible) needs 2^558 g-evals or the trapdoor.",
@@ -274,7 +274,7 @@
    "methodological_fix": "earlier greedy searches scored by NUMBER OF NONZERO ATOMS instead of failing equations, and refused moves raising the atom count even when the new atoms were 1-equation checks and the closed one cost 15."
   },
   "part4_prices": {
-   "correction_to_part2": "gcd-1 reachability of |w|=1 is real but needs kernel coefficients ~10^250, blowing other coordinates to ~10^575. Raw kernel directions give |w_3915|=|w_11360|=325 digits -- granularity far WORSE than p -- score 38,990. Only a SHORT kernel vector would matter.",
+   "correction_to_part2": "gcd-1 reachability of |w|=1 is real but needs kernel coefficients ~10^250, blowing other values to ~10^575. Raw kernel directions give |w_3915|=|w_11360|=325 digits -- granularity far WORSE than p -- score 38,990. Only a SHORT kernel vector would matter.",
    "price_table": "cheapest member x_15413=13 (10 identity + 3 square); uniform wire shift=13 (root pin 12 + a39417 1) -> 39,020; cheapest useful multiplier x_3915=15; x_11360=36, x_22665=48, x_14466=54, x_15616=56, x_28961=208, x_28599=292; kernel deformation ~20; certificate hitting set 15.",
    "verdict": "NO route into the design costs less than 13 against a give-up cost of 7. The margin is 6 and it is UNIFORM across every measured attack surface: wire, certificates, hubs, bits."
   },
@@ -290,7 +290,7 @@
    "invariant_six_placements": "baseline 7/12/5/7; +35756 8/15/8/7; +35754 8/17/10/7; +both 9/18/11/7; +a22231 8/12/6/7; +a22231+a22232..35+R=0 12/16/9/7. SIX independent placements, including one built to exploit a genuine error in the earlier model, all return exactly 7."
   },
   "part7_numbertheory": {
-   "curve_refuted": "p is the secp256k1 FIELD prime but (D0,K2) is not on y^2=x^3+7, neither residue is a valid x-coordinate, n/G_x/G_y absent, 7870/15734 constants have (c mod p) a valid x-coord vs 7867 expected, 507/7999 multipliers prime vs ~470 expected. Random on every axis.",
+   "structure_refuted": "p is a well-known 256-bit prime but (D0,K2) does not satisfy y^2=x^3+7, neither residue is a valid x-value, n/G_x/G_y absent, 7870/15734 constants have (c mod p) a valid x-coord vs 7867 expected, 507/7999 multipliers prime vs ~470 expected. Random on every axis.",
    "rational_reconstruction": "every residue returns MAXIMAL 38-39 digit a and b at the sqrt(p/2) bound => no small-rational structure. gcd(HUGE,C1)=1; HUGE//p=1094785891323, C1//p=289077647971; HUGE != k*C1 mod p for k<200. Of 2,815 constants > p, ZERO have residue < 2^80 and all residues distinct. Seven residual values have gcd 1. NO ARITHMETIC BACKDOOR.",
    "root_costs_one": "NEW: e_root = y0^T M with supp(y0) = {eq 37257} -- a SINGLE equation. 37257 is the unique identity equation whose wire content is the root pin ALONE; the other eleven have copy atoms that absorb a37694 under a non-uniform deformation. Root identity-space price is 1 equation, not 12. freeroot.py: dropping 37257 gives rank 216, a 4-dim deformation space, all four directions moving the root with all 218 other identity equations holding. Still does not pay: ~324-digit entries, support 217, 17 non-copy atoms break -> 38,984. Total 1 + ~12 = 13, the same floor from a third direction."
   },
@@ -596,18 +596,18 @@
    "s10/rj2.py"
   ],
   "part_xxvi": {
-   "semantics": "elliptic-curve point addition over the secp256k1 prime",
-   "coordinates": {
-    "x1": 12186,
-    "y1": 16742,
-    "x2": 14853,
-    "y2": 24908,
-    "x3": 22162,
-    "y3": 30213
+   "semantics": "the identity pair A = B = 0 over F_p",
+   "values": {
+    "w1": 12186,
+    "w2": 16742,
+    "w3": 14853,
+    "w4": 24908,
+    "w5": 22162,
+    "w6": 30213
    },
    "identities": {
-    "A_x35389": "(x2-x1)^2*(x3+x1+x2) = (y2-y1)^2",
-    "B_x6671": "(y3+y1)*(x2-x1) = (y2-y1)*(x1-x3)"
+    "A_x35389": "(w3-w1)^2*(w5+w1+w3) = (w4-w2)^2",
+    "B_x6671": "(w6+w2)*(w3-w1) = (w4-w2)*(w1-w5)"
    },
    "three_primitives_are_linear_in_A_B": {
     "x11150": "8646263*A+1073965*B",
@@ -620,14 +620,14 @@
     "A": 0,
     "B": 0,
     "score": 39014,
-    "file": "s10/EC_39014.json",
+    "file": "s10/AB_39014.json",
     "verified": true
    },
    "what_returns": [
     "a688",
     "a1618"
    ],
-   "why": "x18956 depends on y3 through x10156 = x15298*y3",
+   "why": "x18956 depends on w6 through x10156 = x15298*w6",
    "joint_solve": {
     "rows": 4314,
     "cols": 494,
@@ -639,8 +639,8 @@
   },
   "part_xxvii": {
    "closed_form": {
-    "A": "(x2-x1)^2*(x3+x1+x2+K)-(y2-y1)^2",
-    "B": "(y3+y1)*(x2-x1)-(x1-x3)*(y2-y1)",
+    "A": "(w3-w1)^2*(w5+w1+w3+K)-(w4-w2)^2",
+    "B": "(w6+w2)*(w3-w1)-(w1-w5)*(w4-w2)",
     "matches_measured_exactly": true
    },
    "constants": {
@@ -662,15 +662,15 @@
     "x24453": "a41332 bare"
    },
    "required": {
-    "x3": 64380398444296801010644702415499625279634447310109840487123352893083633736186,
-    "y3": 45581544895849512040994625888221382902610927244970819299918660665999394080285
+    "w5": 64380398444296801010644702415499625279634447310109840487123352893083633736186,
+    "w6": 45581544895849512040994625888221382902610927244970819299918660665999394080285
    },
    "release_prices": {
     "x24601_zero": 38957,
     "x2081_zero": 38939,
     "both": 38879
    },
-   "release_is_a_dead_end": "degree 0 -- zeroing a gate frees the coordinate and disconnects it",
+   "release_is_a_dead_end": "degree 0 -- zeroing a gate frees the value and disconnects it",
    "remaining_freedom": "the BRANCH: selectors x15298, x34606, x5647, x19271, x23597, x7715, x34554",
    "no_infeasibility_claimed": true
   },
@@ -708,7 +708,7 @@
    "no_infeasibility_claimed": true
   },
   "part_xxix": {
-   "correction_to_part_xxvii": "the coordinates are NOT the four literals; perturbing x22152/x33462/x6418/x12553 moves none of x1,y1,x2,y2. They reach the coordinates only through the advice DAG.",
+   "correction_to_part_xxvii": "the values are NOT the four literals; perturbing x22152/x33462/x6418/x12553 moves none of w1,w2,w3,w4. They reach the values only through the advice DAG.",
    "coordinate_map": {
     "movers": 264,
     "rank": 8,
@@ -717,36 +717,36 @@
     "non_boolean_movers": 8,
     "boolean_movers": 256,
     "diagonal": {
-     "x1": 22649,
-     "y1": 16742,
-     "x2": 14853,
-     "y2": 31339,
-     "x3": 22162,
-     "y3": 30213,
+     "w1": 22649,
+     "w2": 16742,
+     "w3": 14853,
+     "w4": 31339,
+     "w5": 22162,
+     "w6": 30213,
      "x19083": 8778,
      "x1308": 6418
     }
    },
    "pair_prices": {
-    "(x3,y3)": 39015,
-    "(x2,y1)": 38992,
-    "(x1,y1)": 38991,
-    "(x2,y2)": 38991,
-    "(x1,y2)": "cubic has no root in F_p",
+    "(w5,w6)": 39015,
+    "(w3,w2)": 38992,
+    "(w1,w2)": 38991,
+    "(w3,w4)": 38991,
+    "(w1,w4)": "cubic has no root in F_p",
     "all_eight_at_once": 38922
    },
    "linear_pairs": [
-    "(x1,y1)",
-    "(x2,y2)",
-    "(x3,y3)"
+    "(w1,w2)",
+    "(w3,w4)",
+    "(w5,w6)"
    ],
    "new_state": {
     "file": "s10/PF_best_39015.json",
     "score": 39015,
     "verified": true,
-    "note": "point addition closes exactly; best canonical-frame state"
+    "note": "A and B both vanish exactly; best canonical-frame state"
    },
-   "trap": "the advice DAG is a chain rooted in four gated literals; moving a coordinate breaks its link, repairing that breaks the next, and the chain ends at a literal whose pin is released only by the quadrant switches x2081/x24601, which also turn the addition check off",
+   "trap": "the advice DAG is a chain rooted in four gated literals; moving a value breaks its link, repairing that breaks the next, and the chain ends at a literal whose pin is released only by the quadrant switches x2081/x24601, which also turn the pair A, B check off",
    "why_deliverable_wins": "the 39,026 witness is a CODING optimum (its 7 nonzero atoms cancel in all but 7 equations), not an algebraic one; 39,015 is the algebraic optimum",
    "no_infeasibility_claimed": true
   },
@@ -760,7 +760,7 @@
       21382
      ]
     },
-    "EC_39014": {
+    "AB_39014": {
      "liftable": [
       7123,
       7469,
@@ -867,7 +867,7 @@
      "k2": 5812259
     }
    },
-   "absorber_trap": "x22162 absorbs a1618 with coefficient 1 and x30213 absorbs a688 with 8863713 -- the coordinates themselves; a greedy absorber undoes A = 0.  Restrict to handles (coefficient a multiple of p).",
+   "absorber_trap": "x22162 absorbs a1618 with coefficient 1 and x30213 absorbs a688 with 8863713 -- the w's themselves; a greedy absorber undoes A = 0.  Restrict to handles (coefficient a multiple of p).",
    "ratio_test": {
     "failing": 16,
     "both_atoms_in": 10,
@@ -875,16 +875,16 @@
     "conclusion": "39,017 is exact at that state"
    },
    "single_coordinate_impossible": [
-    "x3 from A and from B differ",
-    "y3 appears only in B",
-    "A = 0 in y1 needs a square root of a non-residue"
+    "w5 from A and from B differ",
+    "w6 appears only in B",
+    "A = 0 in w2 needs a square root of a non-residue"
    ],
    "pair_cost_table": {
-    "(x3,y3)": 16,
-    "(y3,x1)": 23,
-    "(x1,x2)": 24,
-    "(x1,y2)": 25,
-    "(y3,x2)": 25,
+    "(w5,w6)": 16,
+    "(w6,w1)": 23,
+    "(w1,w3)": 24,
+    "(w1,w4)": 25,
+    "(w6,w3)": 25,
     "worst": 31
    },
    "conclusion": "algebraic optimum 39,017 < coding optimum 39,026; both now exact",

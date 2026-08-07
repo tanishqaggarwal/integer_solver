@@ -1,28 +1,28 @@
 """S11 step 91: release a GATED constant pin, then re-solve everything behind it.
 
-§133-134 identified the circuit as one elliptic-curve point addition, and pin3.py
+§133-134 identified the circuit as one algebraic identity, and pin3.py
 confirmed the closed form exactly:
 
-    A = (x2-x1)^2*(x3+x1+x2+K) - (y2-y1)^2      matches x35389 to the digit
-    B = (y3+y1)*(x2-x1) - (x1-x3)*(y2-y1)       matches x6671  to the digit
+    A = (w3-w1)^2*(w5+w1+w3+K) - (w4-w2)^2      matches x35389 to the digit
+    B = (w6+w2)*(w3-w1) - (w1-w5)*(w4-w2)       matches x6671  to the digit
 
 with ALL SEVEN quantities literal constants of the instance:
 
-    x1 = x22152  y1 = x33462     pinned by a31670, a31672   -- gated by x24601
-    x2 = x6418   y2 = x12553     pinned by a3576,  a3578    -- gated by x2081
-    x3 = x22162  y3 = x30213     pinned by a1618,  a688     (through x24468, x18956)
+    w1 = x22152  w2 = x33462     pinned by a31670, a31672   -- gated by x24601
+    w3 = x6418   w4 = x12553     pinned by a3576,  a3578    -- gated by x2081
+    w5 = x22162  w6 = x30213     pinned by a1618,  a688     (through x24468, x18956)
     K  = x24453                  pinned by a41332           (bare, ungated)
 
-On this branch the addition is therefore over-determined by its own constants and
+On this branch the pair is therefore over-determined by its own constants and
 does not close -- which is exactly why every repair in this lab has been conserved.
-But four of the seven pins are GATED: `x24601*(x1 - C)` and `x2081*(x2 - C)`.  Set the
-gate to zero and the coordinate is free again.
+But four of the seven pins are GATED: `x24601*(w1 - C)` and `x2081*(w3 - C)`.  Set the
+gate to zero and the value is free again.
 
 x2081 and x4287 have been on this lab's FORBID list since Session 9 because flipping
 them "cheats"; the price of x2081 = 0 was measured at 16 against a gain of 7.  That
-was measured before the advice graph was solved and before the addition was
+was measured before the advice graph was solved and before A and B were
 identified.  Re-price it here: release, let the handles absorb everything the release
-leaves ≡ 0 mod p, then re-solve the freed coordinates so the addition closes.
+leaves ≡ 0 mod p, then re-solve the freed values so A and B both vanish.
 
 Usage: release.py [gate] [state.json]      gate in {2081, 24601, both}
 """
@@ -91,8 +91,8 @@ s, av, nz = show(v, 'after the integer lift')
 T.save(v, os.path.join(HERE, 'REL_%s_%d.json' % (gate, s)))
 print('saved REL_%s_%d.json' % (gate, s), flush=True)
 
-# the freed coordinates, and what the addition needs of them
-FREEDBY = {2081: [(6418, 'x2'), (12553, 'y2')], 24601: [(22152, 'x1'), (33462, 'y1')]}
+# the freed values, and what A = B = 0 needs of them
+FREEDBY = {2081: [(6418, 'w3'), (12553, 'w4')], 24601: [(22152, 'w1'), (33462, 'w2')]}
 print('\ncoordinates released:')
 for g in GATES:
     for t, nm in FREEDBY[g]:
@@ -109,7 +109,7 @@ def probe(delta):
 
 
 KN = [t for g in GATES for t, _ in FREEDBY[g]]
-print('\nexact jacobian of (A, B) in the released coordinates %s:' % KN, flush=True)
+print('\nexact jacobian of (A, B) in the released knobs %s:' % KN, flush=True)
 _, b = probe({})
 cols = []
 for u in KN:

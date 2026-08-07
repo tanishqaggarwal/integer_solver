@@ -1,17 +1,17 @@
-"""S11 step 92: close the addition THROUGH the advice solve.
+"""S11 step 92: drive A and B to zero THROUGH the advice solve.
 
-release.py freed the input coordinates by zeroing their gate, and then measured the
+release.py freed the input values by zeroing their gate, and then measured the
 Jacobian of (A, B) in them as identically zero.  That is correct and it is the point:
-the coordinates that enter the addition are x12186, x16742, x14853, x24908, which
+the values that enter A and B are x12186, x16742, x14853, x24908, which
 only EQUAL the released constants because the advice DAG puts them there.  Moving
 x6418 does nothing until the DAG is re-solved -- `x6418 -> x1308 -> x14853`.
 
 So the map to model is the composite
 
-    F(released coordinates)  =  (A, B)   after re-running the advice sweep
+    F(released values)  =  (A, B)   after re-running the advice sweep
 
 which is still polynomial (§122), so fpoly interpolates it exactly.  Scan one
-released coordinate for the roots of A, then the other for the roots of B, and
+released w for the roots of A, then the other for the roots of B, and
 combine.  Everything measured, nothing linearised.
 
 Usage: closer.py [gate] [state.json] [K]
@@ -30,7 +30,7 @@ gate = sys.argv[1] if len(sys.argv) > 1 else '24601'
 src = sys.argv[2] if len(sys.argv) > 2 else 'PIN_39013.json'
 K = int(sys.argv[3]) if len(sys.argv) > 3 else 8
 GATES = {'2081': [2081], '24601': [24601], 'both': [2081, 24601]}[gate]
-FREEDBY = {2081: [(6418, 'x2'), (12553, 'y2')], 24601: [(22152, 'x1'), (33462, 'y1')]}
+FREEDBY = {2081: [(6418, 'w3'), (12553, 'w4')], 24601: [(22152, 'w1'), (33462, 'w2')]}
 KN = [t for g in GATES for t, _ in FREEDBY[g]]
 
 v0 = L.load(src if os.path.isabs(src) else os.path.join(HERE, src))

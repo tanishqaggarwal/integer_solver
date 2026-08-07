@@ -1,9 +1,9 @@
 """S11 step 79: kernel directions + EXACT univariate polynomials along them.
 
-unipoly.py settled the single-coordinate question exactly, with no linearisation:
+unipoly.py settled the single-value question exactly, with no linearisation:
 along every free input that reaches a failing check, the gcd of all the checks that
 currently hold has degree 1 -- so d = 0 is the ONLY jump that breaks nothing.
-Single-coordinate freedom does not exist.  The freedom, if any, is multi-coordinate.
+Single-value freedom does not exist.  The freedom, if any, is multi-value.
 
 Interpolating a general multivariate polynomial is hopeless, but we do not need one.
 Use the two tools together:

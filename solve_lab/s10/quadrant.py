@@ -9,21 +9,21 @@ and the three quadrant indicators are exactly
 
     x15298 = s*t        x34606 = s*(1-t)        x5647 = (1-s)*t
 
-So the instance is a point-addition MULTIPLEXER, and reading a1618 and a688 without
+So the instance is a identity MULTIPLEXER, and reading a1618 and a688 without
 assuming a branch gives
 
-    x24468 ≡ x5647*x2 + x34606*x1 + x15298*x3   ≡ C2
-    x18956 ≡ x5647*y2 + x34606*y1 + x15298*y3   ≡ C1/8863713
+    x24468 ≡ x5647*w3 + x34606*w1 + x15298*w5   ≡ C2
+    x18956 ≡ x5647*w4 + x34606*w2 + x15298*w6   ≡ C1/8863713
 
-  (s,t) = (1,1)   x15298 = 1   ->  P3 = P1 + P2 must close, and x3, y3 are pinned
-  (s,t) = (1,0)   x34606 = 1   ->  the addition check VANISHES; instead x1 ≡ C2, y1 ≡ C1'
-  (s,t) = (0,1)   x5647  = 1   ->  the addition check VANISHES; instead x2 ≡ C2, y2 ≡ C1'
+  (s,t) = (1,1)   x15298 = 1   ->  A = B = 0 must close, and w5, w6 are pinned
+  (s,t) = (1,0)   x34606 = 1   ->  the A/B check VANISHES; instead w1 ≡ C2, w2 ≡ C1'
+  (s,t) = (0,1)   x5647  = 1   ->  the A/B check VANISHES; instead w3 ≡ C2, w4 ≡ C1'
   (s,t) = (0,0)                ->  x24468 ≡ 0 ≢ C2: dead
 
-i.e. "P3 = P1 + P2, or P2 is infinity and P3 = P1, or P1 is infinity and P3 = P2".
+i.e. "A = B = 0, or P2 is off and the first branch, or P1 is off and the second branch".
 Every session of this lab has worked inside (1,1) -- x2081 and x24548 have been on the
-FORBID list since Session 9 -- which is why the addition looked like a wall.  In the
-other two quadrants the addition is not checked at all.
+FORBID list since Session 9 -- which is why A and B looked like a wall.  In the
+other two quadrants A and B are not checked at all.
 
 This module goes to a quadrant, re-solves the advice DAG there, and then solves the
 checks that the quadrant switches ON, exactly: each is linear in a released or advice

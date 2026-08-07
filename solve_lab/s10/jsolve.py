@@ -1,6 +1,6 @@
 """S11 step 89: solve ALL the remaining congruences at once, at the equation level.
 
-Closing them one at a time oscillates -- ecfix zeroes the three EC primitives exactly
+Closing them one at a time oscillates -- abfix zeroes the three primitives exactly
 and breaks a688/a1618; advgraph re-solves the advice and the pair comes back.  That
 is the signature of a system being solved coordinate-wise when it needs to be solved
 jointly.
@@ -31,7 +31,7 @@ from fwdad import jac_column
 from intad import jacZ
 import suppfree
 P = ad.P
-src = sys.argv[1] if len(sys.argv) > 1 else 'EC_39014.json'
+src = sys.argv[1] if len(sys.argv) > 1 else 'AB_39014.json'
 v0 = L.load(src if os.path.isabs(src) else os.path.join(HERE, src))
 ad.fwd(v0, rounds=6)
 vm = [x % P for x in v0]

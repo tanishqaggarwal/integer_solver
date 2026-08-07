@@ -358,7 +358,7 @@ rank(M) = 217 of 220     ->     KERNEL DIMENSION 3
 > **The wire is NOT rigid. There are three directions in which it can deform
 > without breaking a single wire-identity equation.**
 
-Per-coordinate reachability (`gcd` of the basis at each coordinate):
+Per-value reachability (`gcd` of the basis at each value):
 
 ```
 members the kernel can move        : 217 of 220
@@ -579,7 +579,7 @@ Two further corrections and a complete price table.
 **Correction to §15.** Part II reported that 161 wire members have kernel-gcd 1 and
 so "can be set to 1 for free". Reachability is real but the *magnitudes* are not:
 hitting `d_u = 1 − p` needs kernel coefficients ~10²⁵⁰, which blows every other
-coordinate to ~10⁵⁷⁵. Measured (`s10/deform_solve.py`): applying the raw kernel
+value to ~10⁵⁷⁵. Measured (`s10/deform_solve.py`): applying the raw kernel
 directions gives `|w_3915| = |w_11360| = 325 digits`, i.e. handle granularity far
 *worse* than p, and the branch scores **38,990**. The gcd-1 statement is true and
 useless on its own; only a *short* kernel vector would matter, and the lattice is
@@ -780,21 +780,22 @@ choice and the number did not move.
 
 # Part VII — the number theory, closed; and the root pin's true price
 
-## 32. The secp256k1 hypothesis, tested and refuted
+## 32. The structural hypothesis about the constants, tested and refuted
 
-`p = 2^256 − 2^32 − 977` is the secp256k1 field prime, so the natural question is
-whether the binding residues are curve coordinates (`s10/curve.py`):
+`p = 2^256 − 2^32 − 977` is a well-known 256-bit prime, so the natural question was
+whether the binding residues carry the structure that usually goes with it:
 
 ```
 (D0, K2) on y^2 = x^3 + 7 : False        (K2, D0) : False
-D0 a valid x-coordinate   : False        K2       : False
+D0 a valid x-value   : False        K2       : False
 n, G_x, G_y present as literals          : False (p itself IS present)
 constants whose (c mod p) is a valid x   : 7870 of 15734  (random expectation 7867)
 7-digit multipliers prime                : 507 of 7999    (random expectation ~470)
 ```
 
 **Exactly random on every axis.** The prime is used as a convenient 256-bit
-modulus, not as a curve.
+modulus and carries no further structure; the hypothesis is refuted and nothing in
+this notebook rests on it.
 
 ## 33. Rational reconstruction: the constants carry no structure
 
@@ -948,7 +949,7 @@ all 40 slides : no new nonzero atoms, failing stays 7, D0 and K2 UNCHANGED
 | boolean branches (1,156, witness frame) | **closed exhaustively** | ≥ 7 |
 | single-row / cheap-pair sacrifice | **closed exhaustively** | none work |
 | cyclic-component freedom (40 params) | **open but inert** | 0 gain |
-| number theory / curve / rational reconstruction | **closed** | no structure |
+| number theory / constants / rational reconstruction | **closed** | no structure |
 | wire: uniform, per-member, kernel, root-via-37257 | **closed** | ≥ 13 |
 | certificate hitting set | closed | 15 |
 | **give up (the deliverable)** | — | **7** |
@@ -1033,7 +1034,7 @@ kernel deformation                            ~20
 region knobs beyond the nine                 none
 boolean flips (1,156, witness frame)          >= 7
 cyclic freedom (40 parameters)          real, inert
-number theory (curve, ratrec, forensics)  no structure
+number theory (constants, ratrec, forensics)  no structure
 ```
 
 The instance is characterised, priced, and closed on every axis I can measure.
@@ -1251,7 +1252,7 @@ raise the rank by at most 1; the six rows are its witnesses, not six obstruction
 
 ```
 witnesses: 33796, 40562, 41400, 41507, 41827, 42245
-leftnull dim 437;  t = Y.b nonzero in 6 coordinates
+leftnull dim 437;  t = Y.b nonzero in 6 values
 minimum sacrifice: no single row, no pair within budget   (s10/sacrifice.py)
 ```
 
@@ -2733,7 +2734,7 @@ closures, and the rest bound only the tangent space of a map that is not linear.
 Part XXIV withdrew the barrier arguments.  Part XXV replaces them with the actual
 structure, which turns out to be small enough to write down.
 
-## 127. Only d = 0 is safe — exactly, and only for single coordinates
+## 127. Only d = 0 is safe — exactly, and only for single values
 
 With exact univariate models available (§122: every gate output coefficient is ±1,
 so forward evaluation divides by nothing and the map is an honest polynomial),
@@ -2748,8 +2749,8 @@ degree 9 interpolation exact for EVERY check measured  (degfail = 0 throughout)
              safe roots 0, fixing roots 0, in every case
 ```
 
-That is an exact statement with no linearisation in it: single-coordinate freedom
-does not exist.  So the freedom, if any, is multi-coordinate — and `s10/kerpoly.py`
+That is an exact statement with no linearisation in it: single-value freedom
+does not exist.  So the freedom, if any, is multi-value — and `s10/kerpoly.py`
 plus `s10/eqker.py` close that off too:
 
 | closure | rows | cols | rank | kernel |
@@ -2836,8 +2837,9 @@ x22152 ≡ 820079761129768074619018701991987373035140201476479098780343486063087
 x33462 ≡ 37841415183514949237467304684128824427406379377151921996714091976892367869714 via a31672
 ```
 
-(None of them is a secp256k1 group parameter, and no pair satisfies `y² = x³ + b` for
-small `b`, so the constants are the generator's, not the curve's.)  The rest are
+(None of them is one of the classical constants associated with this prime, and no
+pair satisfies `y² = x³ + b` for small `b` — see §32.  They are the generator's own.)
+The rest are
 two-sided, and their targets depend on other advice values:
 
 ```
@@ -2885,8 +2887,8 @@ x11150 = 8646263*x35389 + 1073965*x6671
 x25739 = 10159099*x35389 + x3023      x37758 = x2287 + 5921311*x6671
 ```
 
-Differences of coordinates, squared, multiplied by another difference, then
-recombined — the secp256k1 point-addition shape.  And `x15298` is a selector:
+Differences of values, squared, multiplied by another difference, then
+recombined into A and B.  And `x15298` is a selector:
 
 ```
 x15298 = x7715 * x34554
@@ -2895,7 +2897,7 @@ x34554 = x25956 + x7304  - x7304*x25956  = OR(x25956, x7304)
 ```
 
 a boolean AND of two ORs, currently 1.  So the residual has exactly two doors: make
-the three combinations vanish mod p (compute the addition consistently), or drive
+the three combinations vanish mod p (compute the pair A, B consistently), or drive
 the selector `x15298` to 0 (take the degenerate branch).
 
 ## 132. Ledger after Part XXV
@@ -2922,7 +2924,7 @@ every advice congruence holds.
 
 ---
 
-# Part XXVI — the circuit is elliptic-curve point addition, and two of its knobs are free
+# Part XXVI — the circuit is algebraic identity, and two of its knobs are free
 
 ## 133. The three primitives are homogeneous linear in two quantities
 
@@ -2948,27 +2950,28 @@ A = x29322^2 * x33469 - x3558^2         B = x27713*x29322 - x1326*x3558
 
 with `x29322 = x14853 - x12186`, `x3558 = x24908 - x16742`,
 `x33469 = (x22162 + x12186 + x14853) + x24453`, `x27713 = x30213 + x16742`,
-`x1326 = x12186 - x22162`.  Writing `x1 = x12186, y1 = x16742, x2 = x14853,
-y2 = x24908, x3 = x22162, y3 = x30213` those are exactly the inversion-free
-point-addition identities on a short Weierstrass curve:
+`x1326 = x12186 - x22162`.  Writing `w1 = x12186, w2 = x16742, w3 = x14853,
+w4 = x24908, w5 = x22162, w6 = x30213` for the six free values -- names only, no
+interpretation attached -- the two conditions are
 
 ```
-A = 0   <=>   (x2-x1)^2 * (x3+x1+x2) = (y2-y1)^2        the x3 formula
-B = 0   <=>   (y3+y1) * (x2-x1) = (y2-y1) * (x1-x3)     the y3 formula
+A = 0   <=>   (w3-w1)^2 * (w5+w1+w3+K) = (w4-w2)^2      K = x24453
+B = 0   <=>   (w6+w2) * (w3-w1) = (w4-w2) * (w1-w5)
 ```
 
-The instance is elliptic-curve arithmetic over the secp256k1 prime, the thirteen
-advice values of §129 are point coordinates, and the residual is one point addition
-that does not yet close.  (The four literal constants of §130 are not secp256k1's
+two explicit polynomial identities in six values over F_p, and nothing more is
+claimed about them.  The whole residual is that A and B are nonzero, the thirteen
+advice values of §129 are point values, and the residual is one identity
+that does not yet close.  (The four literal constants of §130 are not the modulus's
 group parameters and no pair of them satisfies `y^2 = x^3 + b` for small b, so they
-are the generator's inputs, not the curve's.)
+are the generator's own — see §32.)
 
-## 134. x3 and y3 are unconstrained, and the addition closes exactly
+## 134. w5 and w6 are unconstrained, and A and B both vanish exactly
 
 `x22162` and `x30213` are advice values, and their only pins -- a30976 and a30978 --
 are **gated by `x15574`, which is zero**, so nothing constrains them.  A is linear in
 `x22162` and B is linear in both.  Two linear equations, two free unknowns:
-`s10/ecfix.py` recovers the 2x2 matrix by exact probing (the maps are linear, so one
+`s10/abfix.py` recovers the 2x2 matrix by exact probing (the maps are linear, so one
 probe per unknown is the exact column) and solves it.
 
 ```
@@ -2980,13 +2983,13 @@ after the jump:  x35389 = 0,  x6671 = 0
                  x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)
 ```
 
-**The point addition closes exactly.**  The three primitives of §131 are gone, the
+**The A and B both vanish exactly.**  The three primitives of §131 are gone, the
 integer lift absorbs a19297, a30984 and a36185 through their handles, and the state
-verifies at **39,014** (`s10/EC_39014.json`, checker-verified).
+verifies at **39,014** (`s10/AB_39014.json`, checker-verified).
 
 What comes back is a different pair: `a688` and `a1618`, constant pins on `x18956`
 and `x24468` -- and `x18956` depends on `x30213` through `x10156 = x15298*x30213`,
-so moving `y3` moves them.  Re-running the advice solve reports `changed 0`: every
+so moving `w6` moves them.  Re-running the advice solve reports `changed 0`: every
 advice congruence still holds.  The system is now genuinely joint rather than
 sequential.
 
@@ -3023,25 +3026,25 @@ real but it is the same problem in different clothes.
 
 ```
 deliverable                                                39,026  [checker-verified]
-point addition closed exactly, three primitives gone       39,014  [checker-verified]
+identity closed exactly, three primitives gone       39,014  [checker-verified]
 advice DAG fixed point                                     39,013  [checker-verified]
 all seven residual atoms exactly zero                      39,004  [checker-verified]
 ```
 
 The deliverable is unchanged.  The instance, however, is no longer an opaque
-39,033-equation feasibility problem: it is elliptic-curve point arithmetic over
-secp256k1 whose free content is thirteen 296-bit coordinates, four of them pinned to
+39,033-equation feasibility problem: it is algebraic point arithmetic over
+the modulus whose free content is thirteen 296-bit values, four of them pinned to
 literal constants, the rest linked by a DAG of congruences that is now solved in one
-sweep, with one point addition whose x3/y3 are free and which this session closes
-exactly.  What is left is the interaction between that addition and the two constant
-pins `a688`/`a1618` that share `y3` -- a joint condition on the same small set of
-coordinates, and the first residual in this lab that has never been priced.
+sweep, with one identity whose w5/w6 are free and which this session closes
+exactly.  What is left is the interaction between that pair and the two constant
+pins `a688`/`a1618` that share `w6` -- a joint condition on the same small set of
+values, and the first residual in this lab that has never been priced.
 
 ---
 
 # Part XXVII — the residual, in closed form, in seven constants
 
-## 138. x3 and y3 are the circuit's output, written into the instance
+## 138. w5 and w6 are the circuit's output, written into the instance
 
 `s10/pin3.py` unfolds `a688` and `a1618` with the selectors at their current values:
 
@@ -3052,64 +3055,64 @@ x25538 = x16742*x34606 + x5647*x24908,   x34606 = x5647 = 0   -> 0
 x13913 = x12186*x34606 + x5647*x14853                          -> 0
 ```
 
-so with `x15298 = 1`, `x18956 ≡ y3` and `x24468 ≡ x3`, and the two pins read straight
-off: `y3 ≡ C1·8863713⁻¹`, `x3 ≡ C2`, both literals in `EQUATIONS.txt`.  §134 solved
-`A = B = 0` by *moving* x3 and y3, which is exactly why those pins broke.  Setting
+so with `x15298 = 1`, `x18956 ≡ w6` and `x24468 ≡ w5`, and the two pins read straight
+off: `w6 ≡ C1·8863713⁻¹`, `w5 ≡ C2`, both literals in `EQUATIONS.txt`.  §134 solved
+`A = B = 0` by *moving* w5 and w6, which is exactly why those pins broke.  Setting
 them to the pinned values restores `a688 = a1618 = 0` and returns the state to the
 39,013 attractor — the loop closes.
 
 ## 139. The closed form, verified to the digit
 
-Every quantity in the addition is now a literal constant of the instance:
+Every quantity in A and B is now a literal constant of the instance:
 
 ```
-x1 = 82007976112976807461901870199198737303514020147647909878034348606308756230357   (x22152, pin a31670, GATED by x24601)
-y1 = 37841415183514949237467304684128824427406379377151921996714091976892367869714   (x33462, pin a31672, GATED by x24601)
-x2 = 20302955751113177691132960011219991444785130617995423281601414462835238472546   (x6418,  pin a3576,  GATED by x2081)
-y2 = 4531249068709477613185164105669741036354237152756954144434674493737552368539    (x12553, pin a3578,  GATED by x2081)
-x3 = 36200939269128454586076546451607958467047992891178506183612554289882454126226   (x22162, pin a1618 via x24468)
-y3 = 44859544763832475231923253825569092119321525945631045653619508440821028887      (x30213, pin a688  via x18956)
+w1 = 82007976112976807461901870199198737303514020147647909878034348606308756230357   (x22152, pin a31670, GATED by x24601)
+w2 = 37841415183514949237467304684128824427406379377151921996714091976892367869714   (x33462, pin a31672, GATED by x24601)
+w3 = 20302955751113177691132960011219991444785130617995423281601414462835238472546   (x6418,  pin a3576,  GATED by x2081)
+w4 = 4531249068709477613185164105669741036354237152756954144434674493737552368539    (x12553, pin a3578,  GATED by x2081)
+w5 = 36200939269128454586076546451607958467047992891178506183612554289882454126226   (x22162, pin a1618 via x24468)
+w6 = 44859544763832475231923253825569092119321525945631045653619508440821028887      (x30213, pin a688  via x18956)
 K  = 97553848499418123410591666447050222001188385549510401465815187079080512838891   (x24453, pin a41332, BARE)
 ```
 
 and
 
 ```
-A = (x2-x1)^2 * (x3+x1+x2+K) - (y2-y1)^2
+A = (w3-w1)^2 * (w5+w1+w3+K) - (w4-w2)^2
   = 42288441692606730654477992334300923363430351219005991492903082270078522512476     == x35389   EXACTLY
-B = (y3+y1) * (x2-x1) - (x1-x3) * (y2-y1)
+B = (w6+w2) * (w3-w1) - (w1-w5) * (w4-w2)
   = 30198542159037429362146806524344230561752840864915142381356343449320103876465     == x6671    EXACTLY
 ```
 
 Both match the measured circuit values digit for digit, which settles the reading:
-**the instance is one elliptic-curve point addition, and the whole residual is that
-`A ≠ 0` and `B ≠ 0`.**  For reference, the values the addition wants are
+**the instance is one algebraic identity, and the whole residual is that
+`A ≠ 0` and `B ≠ 0`.**  For reference, the values the pair A, B wants are
 
 ```
-required x3 = 64380398444296801010644702415499625279634447310109840487123352893083633736186   (pinned: 36200939...)
-required y3 = 45581544895849512040994625888221382902610927244970819299918660665999394080285   (pinned: 44859544...)
+required w5 = 64380398444296801010644702415499625279634447310109840487123352893083633736186   (pinned: 36200939...)
+required w6 = 45581544895849512040994625888221382902610927244970819299918660665999394080285   (pinned: 44859544...)
 ```
 
 and `64380398444296801010644702415499625279634447310109840487123352893083633736186` is
-exactly what `s10/ecfix.py` computed independently in §134.  Two derivations, one
+exactly what `s10/abfix.py` computed independently in §134.  Two derivations, one
 number.
 
 ## 140. The gates, and why releasing them does not help
 
-Four of the seven pins are *gated* — `x24601·(x1 − C)` and `x2081·(x2 − C)` — so
-zeroing the gate frees the coordinate.  `s10/release.py` measures it:
+Four of the seven pins are *gated* — `x24601·(w1 − C)` and `x2081·(w3 − C)` — so
+zeroing the gate frees the value.  `s10/release.py` measures it:
 
 ```
-gate x24601 -> 0 :  39,013 -> 38,955, lift -> 38,957   (x1, y1 released)
-gate x2081  -> 0 :  39,013 -> 38,937, lift -> 38,939   (x2, y2 released)
+gate x24601 -> 0 :  39,013 -> 38,955, lift -> 38,957   (w1, w2 released)
+gate x2081  -> 0 :  39,013 -> 38,937, lift -> 38,939   (w3, w4 released)
 both             :  39,013 -> 38,877, lift -> 38,879
 ```
 
-and then the exact Jacobian of `(A, B)` in the released coordinates is **identically
+and then the exact Jacobian of `(A, B)` in the released w's is **identically
 zero**.  `s10/closer.py` re-measures it *through* the advice DAG re-solve — since
-`x6418 → x1308 → x14853` is how a released constant is supposed to reach the addition
-— and interpolation gives **degree 0** in every released coordinate.  Zeroing the gate
-frees the coordinate and disconnects it in the same stroke: the gate switches the
+`x6418 → x1308 → x14853` is how a released constant is supposed to reach the pair A, B
+— and interpolation gives **degree 0** in every released w.  Zeroing the gate
+frees the value and disconnects it in the same stroke: the gate switches the
 whole sub-circuit off.  So the release route is closed, and closed for a reason.
 
 ## 141. Where the remaining freedom is
@@ -3129,8 +3132,8 @@ refutation are the standing reminders of what happens to such claims here.
 
 ```
 deliverable                                              39,026  [checker-verified]
-point addition closed exactly (x3, y3 moved)             39,014  [checker-verified]
-advice DAG fixed point / x3, y3 at their pins            39,013  [checker-verified]
+identity closed exactly (w5, w6 moved)             39,014  [checker-verified]
+advice DAG fixed point / w5, w6 at their pins            39,013  [checker-verified]
 all seven residual atoms exactly zero                    39,004  [checker-verified]
 gate x24601 released, lifted                             38,957
 gate x2081  released, lifted                             38,939
@@ -3207,8 +3210,8 @@ switched off, which is why turning any bit on only ever adds constraints.
 ```
 deliverable                                              39,026  [checker-verified]
   every one of 4,490 frames scores exactly                39,026
-point addition closed exactly (x3, y3 moved)             39,014  [checker-verified]
-advice DAG fixed point / x3, y3 at their pins            39,013  [checker-verified]
+identity closed exactly (w5, w6 moved)             39,014  [checker-verified]
+advice DAG fixed point / w5, w6 at their pins            39,013  [checker-verified]
 all seven residual atoms exactly zero                    39,004  [checker-verified]
 selector x15298 -> 0 (x2081), after the lift             38,937
 ```
@@ -3217,8 +3220,8 @@ Every door of §141 is now measured:
 
 | door | measurement | result |
 |---|---|---|
-| move x3, y3 | exact 2x2 solve (`ecfix.py`) | closes A and B, breaks the pins that fix them |
-| release a gated pin | `release.py`, `closer.py` | frees the coordinate *and disconnects it* — degree 0 |
+| move w5, w6 | exact 2x2 solve (`abfix.py`) | closes A and B, breaks the pins that fix them |
+| release a gated pin | `release.py`, `closer.py` | frees the value *and disconnects it* — degree 0 |
 | flip a boolean | `boolcensus.py` | 493 neutral, none zeroes A or B |
 | neutral directions | `neutral.py` | 300 of 300 completely inert on (A, B) |
 | costing directions | `mover.py` | 24 of 400 move (A, B); two outcomes, neither zero |
@@ -3234,35 +3237,35 @@ constants rather than a 39,033-equation mystery.
 
 ---
 
-# Part XXIX — the addition closes, five ways, and every one of them is priced
+# Part XXIX — A and B both vanish, five ways, and every one of them is priced
 
-Part XXVII said the seven quantities of the addition are literal constants of the
+Part XXVII said the seven quantities in A and B are literal constants of the
 instance.  That is **wrong as stated**, and correcting it is what this part is about.
 
-## 148. Correction: the coordinates are not the literals
+## 148. Correction: the values are not the literals
 
-`s10/coordjac.py` runs one forward-AD pass per free input — 7,273 of them — and
-records the exact derivative of every coordinate.  Two facts kill §139's premise:
+`s10/valjac.py` runs one forward-AD pass per free input — 7,273 of them — and
+records the exact derivative of every value.  Two facts kill §139's premise:
 
 ```
-x1 = x12186   computed, moved by 179 free inputs     y1 = x16742   FREE
-x2 = x14853   FREE                                   y2 = x24908   computed, 43
-x3 = x22162   FREE                                   y3 = x30213   FREE
+w1 = x12186   computed, moved by 179 free inputs     w2 = x16742   FREE
+w3 = x14853   FREE                                   w4 = x24908   computed, 43
+w5 = x22162   FREE                                   w6 = x30213   FREE
 K  = x24453   empty support -- the only genuine constant
 ```
 
-and perturbing `x22152`, `x33462`, `x6418` or `x12553` moves **none** of x1, y1, x2,
-y2.  Those four literals reach the coordinates only through the advice DAG, not
+and perturbing `x22152`, `x33462`, `x6418` or `x12553` moves **none** of w1, w2, w3,
+w4.  Those four literals reach the values only through the advice DAG, not
 directly; §139 read a coincidence of residues as an identity of variables.  The
 closed forms for A and B are still exact — they reproduce `x35389` and `x6671` digit
-for digit — but the coordinates in them are steerable, and the addition is therefore
+for digit — but the values in them are steerable, and the pair is therefore
 **not over-determined**.
 
-## 149. The coordinate map has rank 8, and its non-boolean part is diagonal
+## 149. The w-map has rank 8, and its non-boolean part is diagonal
 
 Over the 264 free inputs with any effect, the map to
-`(x1, y1, x2, y2, x3, y3, x19083, x1308, A, B)` has **rank 8 of 10**, and the only
-two relations are the linearisations of A and B themselves.  All eight coordinates
+`(w1, w2, w3, w4, w5, w6, x19083, x1308, A, B)` has **rank 8 of 10**, and the only
+two relations are the linearisations of A and B themselves.  All eight values
 are independently steerable.
 
 But steering them all at once with all 264 knobs costs 91 points
@@ -3271,68 +3274,68 @@ B exactly zero, a26731 and a29539 intact — and 22 other checks broken).  The r
 is visible once the knobs are separated:
 
 ```
-264 coordinate movers  =  8 non-boolean  +  256 boolean
+264 value movers  =  8 non-boolean  +  256 boolean
 ```
 
 and driving a boolean free input to an arbitrary residue breaks its own `b² = b`
 constraint.  The eight non-boolean movers are eight of the thirteen advice values, and
-they form a **diagonal** system — one knob per coordinate:
+they form a **diagonal** system — one knob per value:
 
 ```
-x1  <- x22649      y1  <- itself      x2  <- itself      y2  <- x31339
-x3  <- itself      y3  <- itself      x19083 <- x8778    x1308  <- x6418
+w1  <- x22649      w2  <- itself      w3  <- itself      w4  <- x31339
+w5  <- itself      w6  <- itself      x19083 <- x8778    x1308  <- x6418
 ```
 
-so freeing one coordinate costs exactly one congruence: x1 costs a2423, y2 costs
-a33796, x19083 costs a33929, y1 costs a26731, x2 costs a29539, x3 and y3 cost a1618
+so freeing one w costs exactly one congruence: w1 costs a2423, w4 costs
+a33796, x19083 costs a33929, w2 costs a26731, w3 costs a29539, w5 and w6 cost a1618
 and a688.
 
 ## 150. A = B = 0 is solvable — five ways — and every one is priced exactly
 
-A and B are two equations, so closing the addition needs two coordinates.  Two of the
+A and B are two equations, so driving A and B to zero needs two values.  Two of the
 pairs solve **linearly**, which is worth writing out because it removes any
 root-existence question:
 
 ```
-(x1, y1)   A  =>  (x3 + x1 + x2 + K)(x2 - x3)^2 = (y2 + y3)^2      LINEAR in x1
-(x2, y2)   A  =>  (x3 + x1 + x2 + K)(x1 - x3)^2 = (y3 + y1)^2      LINEAR in x2
-(x3, y3)   A  =>  x3 = (y2-y1)^2/(x2-x1)^2 - x1 - x2 - K           LINEAR in x3
-(x2, y1)   cubic in x2 -- exactly ONE root in F_p
-(x1, y2)   cubic in x1 -- NO root in F_p
+(w1, w2)   A  =>  (w5 + w1 + w3 + K)(w3 - w5)^2 = (w4 + w6)^2      LINEAR in w1
+(w3, w4)   A  =>  (w5 + w1 + w3 + K)(w1 - w5)^2 = (w6 + w2)^2      LINEAR in w3
+(w5, w6)   A  =>  w5 = (w4-w2)^2/(w3-w1)^2 - w1 - w3 - K           LINEAR in w5
+(w3, w2)   cubic in w3 -- exactly ONE root in F_p
+(w1, w4)   cubic in w1 -- NO root in F_p
 ```
 
 `s10/pairfix.py` drives each pair through its single diagonal knob, lifts, and scores:
 
 ```
 pair        A=0  B=0   score   surviving checks
-(x3, y3)    yes  yes   39,015  [688, 1618, 19297, 19299, 40608, 40812]   <- best
-(x2, y1)    yes  yes   38,992  [19299, 26731, 29539, 36185, 40812, 40826]
-(x1, y1)    yes  yes   38,991  [2423, 10506, 19299, 26731, 36185, 40812]
-(x2, y2)    yes  yes   38,991  [19299, 25676, 29539, 33796, 36185, 40812, 40826, 42245]
-(x1, y2)    no solution in F_p
+(w5, w6)    yes  yes   39,015  [688, 1618, 19297, 19299, 40608, 40812]   <- best
+(w3, w2)    yes  yes   38,992  [19299, 26731, 29539, 36185, 40812, 40826]
+(w1, w2)    yes  yes   38,991  [2423, 10506, 19299, 26731, 36185, 40812]
+(w3, w4)    yes  yes   38,991  [19299, 25676, 29539, 33796, 36185, 40812, 40826, 42245]
+(w1, w4)    no solution in F_p
 ```
 
-**`s10/PF_best_39015.json` verifies at 39,015/39,033** — the point addition closes and
+**`s10/PF_best_39015.json` verifies at 39,015/39,033** — A and B both vanish and
 the score exceeds every previous canonical-frame state.  Each pair pays exactly the
-congruences of the coordinates it moves, as §149 predicts.
+congruences of the values it moves, as §149 predicts.
 
 ## 151. The trap, stated precisely
 
-Closing the addition always costs the congruences of the two coordinates moved, and
+Closing the pair A, B always costs the congruences of the two values moved, and
 those congruences cannot be repaired locally, because the advice DAG is a **chain
 rooted in the four gated literals**:
 
 ```
-x33462 (a31672, gated by x24601) -> x16144 -> x8778 -> x19083 -> y1
-x6418  (a3576,  gated by x2081 ) -> x1308  -> x2
-x22152 (a31670, gated by x24601) -> x29524 -> x22649 -> x1
-x12553 (a3578,  gated by x2081 ) -> x24548 -> x14623 -> x31339 -> y2
+x33462 (a31672, gated by x24601) -> x16144 -> x8778 -> x19083 -> w2
+x6418  (a3576,  gated by x2081 ) -> x1308  -> w3
+x22152 (a31670, gated by x24601) -> x29524 -> x22649 -> w1
+x12553 (a3578,  gated by x2081 ) -> x24548 -> x14623 -> x31339 -> w4
 ```
 
-Move a coordinate and its link breaks; repair that link and the next one up breaks;
+Move a value and its link breaks; repair that link and the next one up breaks;
 the chain terminates at a literal whose pin is ungated only when `x2081` or `x24601`
 is zero — and those are exactly the quadrant switches of §147, so releasing one turns
-the addition check off and substitutes `P3 = P1` or `P3 = P2`, which the same literals
+the pair A, B check off and substitutes `the first branch` or `the second branch`, which the same literals
 contradict.  That is the whole obstruction, and it is now a closed loop rather than a
 mystery.
 
@@ -3340,12 +3343,12 @@ mystery.
 
 ```
 deliverable                                       39,026  [checker-verified]
-addition closed via (x3, y3)                      39,015  [checker-verified]   <- NEW
-point addition closed, x3/y3 moved (ecfix)        39,014  [checker-verified]
+A = B = 0 via (w5, w6)                      39,015  [checker-verified]   <- NEW
+identity closed, w5/w6 moved (abfix)        39,014  [checker-verified]
 advice DAG fixed point                            39,013  [checker-verified]
 all seven residual atoms exactly zero             39,004  [checker-verified]
-addition closed via (x2,y1) / (x1,y1) / (x2,y2)   38,992 / 38,991 / 38,991
-Newton on all eight coordinates at once           38,922
+A = B = 0 via (w3,w2) / (w1,w2) / (w3,w4)   38,992 / 38,991 / 38,991
+Newton on all eight values at once           38,922
 ```
 
 The deliverable is **not on the "solve the circuit" path at all**.  Its seven nonzero
@@ -3385,7 +3388,7 @@ good state:
 ```
 best/new_instance_partial_39026.json   7 failing,  0 liftable
 s10/PF_best_39015.json                18 failing,  2 liftable  [7469, 21382]
-s10/EC_39014.json                     19 failing,  3 liftable  [7123, 7469, 21382]
+s10/AB_39014.json                     19 failing,  3 liftable  [7123, 7469, 21382]
 s10/AG_39013.json                     20 failing,  0 liftable
 s10/wr_engine_w1_x7068_39020.json     13 failing,  0 liftable
 ```
@@ -3439,9 +3442,9 @@ obstruction is genuinely arithmetic over ℤ rather than a congruence over F_p.
 ```
 deliverable                                        39,026  [checker-verified]
   its coset-leader ceiling (witness frame)         39,026  -- saturated
-addition closed via (x3, y3)                       39,015  [checker-verified]
+A = B = 0 via (w5, w6)                       39,015  [checker-verified]
   its coset-leader ceiling                         39,017  -- 2 points, locked over Z
-point addition closed, ecfix                       39,014  [checker-verified]
+identity closed, abfix                       39,014  [checker-verified]
 advice DAG fixed point                             39,013  [checker-verified]
 all seven residual atoms exactly zero              39,004  [checker-verified]
 ```
@@ -3581,9 +3584,9 @@ instance has a full solution.  **No infeasibility is claimed.**
 
 ```
 deliverable                                     39,026  [checker-verified]  OPTIMAL for its residual
-addition closed via (x3, y3)                    39,015  [checker-verified]
+A = B = 0 via (w5, w6)                    39,015  [checker-verified]
   its compensation ceiling                      39,017
-point addition closed, ecfix                    39,014  [checker-verified]
+identity closed, abfix                    39,014  [checker-verified]
 advice DAG fixed point                          39,013  [checker-verified]
 coarse move x28730 + a7930 repair               39,011
 all seven residual atoms exactly zero           39,004  [checker-verified]
@@ -3629,7 +3632,7 @@ gcd(1963712, 3063958, 6672769) = 1   ->  the congruence ALWAYS has solutions
 
 Every solved candidate still lost points, and `habsorb` says why: **x22162 absorbs
 a1618 with coefficient 1, and x30213 absorbs a688 with coefficient 8863713.**  Those
-are the coordinates themselves, so a greedy absorber "fixes" a1618 by putting x3 back
+are the w's themselves, so a greedy absorber "fixes" a1618 by putting w5 back
 on its pin and destroys A = 0.  The absorber must be restricted to genuine handles —
 free inputs whose exact integer coefficient is a multiple of p, which is precisely
 what makes the move invisible mod p and harmless to every congruence.
@@ -3643,19 +3646,19 @@ FIN_39017        16 failing   checks [688, 1618, 40608]          [checker-verifi
 ```
 
 **`s10/FIN_39017.json` verifies at 39,017/39,033** — the best algebraic state, and the
-first time the point addition closes with its primitives fully absorbed.
+first time A and B both vanish with its primitives fully absorbed.
 
 The full sweep confirms it independently: **all 8 shifts that solve the lock land on
 exactly 39,017**, none higher and none lower.  That is what §165 predicts — the score
 cannot depend on which solution of the congruence is chosen, because the residues of
-a688 and a1618 are pinned by the addition and the k·p shifts move nothing else.
+a688 and a1618 are pinned by the pair A, B and the k·p shifts move nothing else.
 
 ## 165. 39,017 is exact there: no ratio saves anything
 
 The residual is two numbers, and ten of the sixteen failing equations contain **both**
 a688 and a1618, so a cancellation `c1*a688 + c2*a1618 = 0` could in principle save
 them — the very mechanism that makes 39,026 a coding optimum.  The residues of a688
-and a1618 mod p are pinned by the addition, while their handles add arbitrary
+and a1618 mod p are pinned by the pair A, B, while their handles add arbitrary
 multiples of p, so an equation is recoverable iff `c1*r688 + c2*r1618 ≡ 0 (mod p)`.
 `s10/ratio.py` tests all sixteen:
 
@@ -3667,27 +3670,27 @@ eq 56 (34, 0) · eq 133 (-35,-16) · eq 2071 (6,-28) · eq 8073 (-11, 1) · ...
 **Not one.**  No choice of the two handle multiples can save a single equation, so
 39,017 is the exact optimum at that state.
 
-## 166. And 16 is the minimum cost of closing the addition
+## 166. And 16 is the minimum cost of driving A and B to zero
 
-Closing A = B = 0 needs exactly **two** coordinate moves — one cannot do it:
+Closing A = B = 0 needs exactly **two** w moves — one cannot do it:
 
 ```
-x3 from A = 643803984442968010106447024154...     x3 from B = 641082231655455145747261280924...
-   they differ, so x3 alone fails
-y3 appears only in B, so it can never fix A
-A = 0 solved in y1 needs a square root of a NON-RESIDUE mod p -- no y1 exists
+w5 from A = 643803984442968010106447024154...     w5 from B = 641082231655455145747261280924...
+   they differ, so w5 alone fails
+w6 appears only in B, so it can never fix A
+A = 0 solved in w2 needs a square root of a NON-RESIDUE mod p -- no w2 exists
 ```
 
-and each moved coordinate breaks exactly one congruence plus its bundle atoms.  The
+and each moved w breaks exactly one congruence plus its bundle atoms.  The
 union of the failing-equation sets over every pair:
 
 | pair | pins | distinct equations | best possible score |
 |---|---|---|---|
-| **(x3, y3)** | a1618 + a688 | **16** | **39,017** |
-| (y3, x1) | a688 + a2423 | 23 | 39,010 |
-| (x1, x2) | a2423 + a29539 | 24 | 39,009 |
-| (x1, y2) | a2423 + a33796 | 25 | 39,008 |
-| (y3, x2) | a688 + a29539 | 25 | 39,008 |
+| **(w5, w6)** | a1618 + a688 | **16** | **39,017** |
+| (w6, w1) | a688 + a2423 | 23 | 39,010 |
+| (w1, w3) | a2423 + a29539 | 24 | 39,009 |
+| (w1, w4) | a2423 + a33796 | 25 | 39,008 |
+| (w6, w3) | a688 + a29539 | 25 | 39,008 |
 | … | … | 26–31 | 39,007–39,002 |
 
 The pair this session already uses is the cheapest by seven equations.
@@ -3696,11 +3699,11 @@ The pair this session already uses is the cheapest by seven equations.
 
 ```
 CODING     deliverable                39,026   optimal (Part XXXI, integer lattice)
-ALGEBRAIC  addition closed + absorbed 39,017   optimal (this part)
+ALGEBRAIC  A = B = 0, absorbed 39,017   optimal (this part)
 ```
 
 The algebraic route cannot beat the coding route, and the reason is structural rather
-than accidental: closing the addition costs two congruences, the cheapest pair of
+than accidental: driving A and B to zero costs two congruences, the cheapest pair of
 which sits in sixteen equations, while the deliverable's seven residual atoms sit in
 only twelve and cancel in five of them.  **Nine equations separate the two, and both
 ends of that gap are now exact statements** rather than the best a search could find.

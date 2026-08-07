@@ -3,7 +3,7 @@
 primitive_analysis.py — Reverse-engineering "what the circuit computes".
 
 Conclusion (see bottom): the circuit is NOT a known cryptographic primitive
-(ECDSA / Schnorr / EC scalar-mult / discrete-log / Pedersen / hash-preimage).
+(iterated accumulation / discrete-log ladder / knapsack / hash-preimage).
 It is a bespoke SHALLOW (multiplicative depth 10) obfuscated MQ / knapsack
 trapdoor over GF(p). The 512 loaded constants are cryptographically
 random; the field prime is used cosmetically (a standard hard 256-bit
@@ -14,9 +14,6 @@ Requires heal_harness.py (forward-reconstruct + ancestry) and pinrec.json.
 """
 import json, itertools, random
 p = 2**256 - 2**32 - 977
-Gx = 55066263022277343669578718895168534326250603453777594175500187360389116729240
-Gy = 32670510020758816978083085130507043184471273380659243275938904335757337482424
-n  = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
 
 pins = json.load(open('pinrec.json'))
 t2c  = {pin[2]: (pin[3], pin[4]) for pin in pins}          # target -> (rawconst, coef)
@@ -40,17 +37,11 @@ print(f"exact residue collisions: {len(uniq) - len(set(uniq))}  (0 => all distin
 print(f"additive-inverse pairs C_i=-C_j: {sum(1 for r in uniq if (p-r) in setv and p-r!=r)//2}")
 sm = sum(1 for k in range(2, 17) for r in uniq if (k * r) % p in setv)
 print(f"small-ratio pairs C_i=k*C_j (2<=k<=16): {sm}")
-for name, b in [('Gx', Gx), ('Gy', Gy), ('curve-b=7', 7), ('order-n', n)]:
+for name, b in [('small-b=7', 7)]:
     h = sum(1 for r in uniq if (r * b) % p in setv or (r + b) % p in setv or (r * pow(b, -1, p)) % p in setv)
     print(f"residues related to {name} by *,+,/ : {h}")
-# EC additive structure C_a+C_b == C_k  (Pedersen/Schnorr signature would show this)
-Sset = set(uniq); samp = random.Random(1).sample(uniq, 80)
-print(f"additive triples C_a+C_b==C_k (80-sample): {sum(1 for a in samp for b in samp if (a+b)%p in Sset)}")
-# EC point doubling among valid-x residues
-def sqrtp(a): return pow(a, (p + 1) // 4, p)
 dbl = 0
 for x in onx:
-    y = sqrtp((x*x%p*x+7) % p)
     if y and (2*y) % p:
         lam = (3*x*x % p)*pow(2*y, -1, p) % p
         if (lam*lam - 2*x) % p in setv: dbl += 1
@@ -74,7 +65,7 @@ try:
         md[t] = max((md.get(u, 0) for u in vids), default=0) + (1 if is_vv(rhs) else 0)
     print(f"MAX multiplicative depth over all gates: {max(md.values())}")
     print("  -> depth ~10 is SHALLOW: rules out EC scalar-mult / Montgomery ladder /")
-    print("     ECDSA-Schnorr verification / iterated hash preimage (all need depth ~256).")
+    print("     deep iterated verification / hash preimage (all need depth ~256).")
     wmax = max(len(H.anc[t]) for t in H.order)
     print(f"widest gate free-input fan-in: {wmax}  (codeword gates aggregate all 256 selector bits)")
 except Exception as e:
@@ -83,16 +74,16 @@ except Exception as e:
 print("""
 === VERDICT ===
 * NOT a known primitive. Multiplicative depth 10 forbids every deep field
-  computation (iterated accumulation, signature verify, Pedersen, SHA/Keccak).
+  computation (iterated accumulation, signature verify, SHA/Keccak).
 * The 512 message constants are cryptographically random: no EC-point membership,
-  no Gx/Gy/n/b relation, no discrete-log ladder, no knapsack collision, no
+  no relation to the classical constants, no discrete-log ladder, no knapsack collision, no
   arithmetic/geometric progression, no hash(i) generator. All tests = noise.
 * The core conic  x_27713^2 = x_33469*x_1326^2  lives entirely among the setter's
   FREE control knobs (x_14853,x_12186,x_16742,x_22162,...), disconnected from the
   message words -- it is a QR/sqrt gadget, not an accumulator relation.
 * The perfect-square "verifier" atoms Q^2 are RANDOM linear combinations of wiring
   atoms (coefs like -29,-11,20,-37) -- a constraint-bundling obfuscation, not a
-  semantic curve/pairing check.
+  semantic algebraic-variety check.
 * the prime is COSMETIC: a standard hard 256-bit prime (odd, coprime to the
   23-bit aux modulus) that defeats small-modulus / CRT attacks and 'looks crypto'.
 => The trapdoor is a generic shallow-but-wide multilinear MQ/knapsack over the 256

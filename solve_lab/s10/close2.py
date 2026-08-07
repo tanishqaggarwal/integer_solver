@@ -1,23 +1,23 @@
-"""S11 step 101: solve the addition in the pair (x1, y1) -- which is LINEAR -- and
+"""S11 step 101: solve A = B = 0 in the pair (w1, w2) -- which is LINEAR -- and
 steer x19083 with it so the congruence survives.
 
-Eliminating y1 between A and B gives, remarkably,
+Eliminating w2 between A and B gives, remarkably,
 
-    B  =>  y1 = [(x1-x3)*y2 - y3*(x2-x1)] / (x2-x3)
-    A  =>  (x3 + x1 + x2 + K) * (x2-x3)^2 = (y2+y3)^2
+    B  =>  w2 = [(w1-w5)*w4 - w6*(w3-w1)] / (w3-w5)
+    A  =>  (w5 + w1 + w3 + K) * (w3-w5)^2 = (w4+w6)^2
 
-and the second is **LINEAR in x1**.  So the pair (x1, y1) always has a solution, with
+and the second is **LINEAR in w1**.  So the pair (w1, w2) always has a solution, with
 no cubic and no root-existence question:
 
-    x1* = (y2+y3)^2/(x2-x3)^2 - x3 - x2 - K            y1* from B
+    w1* = (w4+w6)^2/(w3-w5)^2 - w5 - w3 - K            w2* from B
 
-Two of the four pairs behave this way -- (x1,y1) and (x2,y2) -- while (x2,y1) needs a
-cubic and (x3,y3) is what ecfix already used.
+Two of the four pairs behave this way -- (w1,w2) and (w3,w4) -- while (w3,w2) needs a
+cubic and (w5,w6) is what abfix already used.
 
-The reason this pair is the right one: y1 = x16742 is FREE, so y1* can just be
+The reason this pair is the right one: w2 = x16742 is FREE, so w2* can just be
 written in, and its congruence a26731 (x16742 = x19083) is repaired in the same move,
-because x19083 and x1 = x12186 are moved by almost the same free inputs (170 and 179,
-overlapping).  Steer BOTH at once -- x12186 to x1* and x19083 to y1* -- and A = B = 0
+because x19083 and w1 = x12186 are moved by almost the same free inputs (170 and 179,
+overlapping).  Steer BOTH at once -- x12186 to w1* and x19083 to w2* -- and A = B = 0
 while a26731 still holds and a29539 is never touched.
 
 Usage: close2.py [state.json] [ROUNDS] [NKNOB]
@@ -36,8 +36,8 @@ ROUNDS = int(sys.argv[2]) if len(sys.argv) > 2 else 4
 NK = int(sys.argv[3]) if len(sys.argv) > 3 else 60
 v = L.load(src if os.path.isabs(src) else os.path.join(HERE, src))
 ad.fwd(v, rounds=6)
-mv = json.load(open(os.path.join(HERE, 'coordmovers.json')))
-KN = [u for u in sorted(set(mv['x1']) | set(mv['y1_tgt']))
+mv = json.load(open(os.path.join(HERE, 'valmovers.json')))
+KN = [u for u in sorted(set(mv['w1']) | set(mv['y1_tgt']))
       if u not in (16742, 14853, 22162, 30213)]
 print('%s: %d knobs move x12186 or x19083' % (src, len(KN)), flush=True)
 
@@ -52,16 +52,16 @@ def report(v, tag):
 
 
 def target(v):
-    """x1*, y1* from the LINEAR elimination."""
-    x2, y2 = v[14853] % P, v[24908] % P
-    x3, y3, K = v[22162] % P, v[30213] % P, v[24453] % P
-    d = (x2 - x3) % P
+    """w1*, w2* from the LINEAR elimination."""
+    w3, w4 = v[14853] % P, v[24908] % P
+    w5, w6, K = v[22162] % P, v[30213] % P, v[24453] % P
+    d = (w3 - w5) % P
     if d == 0:
         return None
-    x1s = ((y2 + y3) % P) ** 2 % P * pow(d * d % P, -1, P) % P
-    x1s = (x1s - x3 - x2 - K) % P
-    y1s = (((x1s - x3) % P) * y2 - y3 * ((x2 - x1s) % P)) % P * pow(d, -1, P) % P
-    return x1s, y1s
+    w1s = ((w4 + w6) % P) ** 2 % P * pow(d * d % P, -1, P) % P
+    w1s = (w1s - w5 - w3 - K) % P
+    w2s = (((w1s - w5) % P) * w4 - w6 * ((w3 - w1s) % P)) % P * pow(d, -1, P) % P
+    return w1s, w2s
 
 
 def multi_steer(v, targets, knobs):
@@ -141,17 +141,17 @@ cur = list(v)
 for rnd in range(ROUNDS):
     tg = target(cur)
     if tg is None:
-        print('round %d: x2 == x3, degenerate' % rnd)
+        print('round %d: w3 == w5, degenerate' % rnd)
         break
-    x1s, y1s = tg
-    print('\nround %d: x1* = %s...   y1* = %s...'
-          % (rnd, str(x1s)[:24], str(y1s)[:24]), flush=True)
+    w1s, w2s = tg
+    print('\nround %d: w1* = %s...   w2* = %s...'
+          % (rnd, str(w1s)[:24], str(w2s)[:24]), flush=True)
     for K in (8, 20, min(NK, len(KN)), len(KN)):
-        w, ok = multi_steer(cur, [(12186, x1s), (19083, y1s)], KN[:K])
+        w, ok = multi_steer(cur, [(12186, w1s), (19083, w2s)], KN[:K])
         if not ok:
             print('   %-4d knobs: targets not reachable' % K, flush=True)
             continue
-        w[16742] = (w[16742] // P) * P + y1s % P
+        w[16742] = (w[16742] // P) * P + w2s % P
         ad.fwd(w, rounds=6)
         s, nz = report(w, '   %d knobs: steered' % K)
         w = lift(w)

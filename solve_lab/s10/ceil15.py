@@ -2,7 +2,7 @@
 
 §152 separated two different optima.  39,026 is a CODING optimum -- seven nonzero
 atoms arranged so their bundle combinations cancel in all but seven equations --
-while 39,015 is the ALGEBRAIC optimum, where the point addition actually closes.  The
+while 39,015 is the ALGEBRAIC optimum, where A and B both vanish.  The
 question that decides whether the algebraic path can ever overtake the coding one is
 how much coding headroom 39,015 itself has.
 

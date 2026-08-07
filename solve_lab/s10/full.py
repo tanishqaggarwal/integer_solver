@@ -1,8 +1,8 @@
-"""S11 step 103: Newton on the coordinates, then the advice DAG, then the lift -- looped.
+"""S11 step 103: Newton on the values, then the advice DAG, then the lift -- looped.
 
-newton8 converges: by round 1 the residual on all eight coordinate targets is ZERO,
+newton8 converges: by round 1 the residual on all eight value targets is ZERO,
 A and B are both exactly zero, and a26731/a29539 hold because x19083 and x1308 were
-dragged along as targets.  **The point addition closes with its congruences intact.**
+dragged along as targets.  **The A and B both vanish with its congruences intact.**
 
 What it costs is the OTHER advice congruences -- a33929 (x8778 = x16144), a2423,
 a21617, a7930, a33796 and their bundles -- because the 264 knobs feed those chains
@@ -11,7 +11,7 @@ each of those advice values is free and only has to follow its target.
 
 So compose the three exact operations and iterate:
 
-    Newton-step the eight coordinates  ->  Gauss-Seidel the advice DAG  ->  integer lift
+    Newton-step the eight values  ->  Gauss-Seidel the advice DAG  ->  integer lift
 
 Each is exact and measured; the loop is the only thing that is heuristic.
 
@@ -50,13 +50,13 @@ def report(v, tag):
 
 
 def targets(v):
-    x2, y2 = v[14853] % P, v[24908] % P
-    x3, y3, K = v[22162] % P, v[30213] % P, v[24453] % P
-    d = (x2 - x3) % P
-    x1s = (((y2 + y3) % P) ** 2 % P * pow(d * d % P, -1, P) - x3 - x2 - K) % P
-    y1s = (((x1s - x3) % P) * y2 - y3 * ((x2 - x1s) % P)) % P * pow(d, -1, P) % P
-    return {12186: x1s, 16742: y1s, 19083: y1s, 14853: x2, 24908: y2,
-            22162: x3, 30213: y3, 1308: v[1308] % P}
+    w3, w4 = v[14853] % P, v[24908] % P
+    w5, w6, K = v[22162] % P, v[30213] % P, v[24453] % P
+    d = (w3 - w5) % P
+    w1s = (((w4 + w6) % P) ** 2 % P * pow(d * d % P, -1, P) - w5 - w3 - K) % P
+    w2s = (((w1s - w5) % P) * w4 - w6 * ((w3 - w1s) % P)) % P * pow(d, -1, P) % P
+    return {12186: w1s, 16742: w2s, 19083: w2s, 14853: w3, 24908: w4,
+            22162: w5, 30213: w6, 1308: v[1308] % P}
 
 
 def step(v, tg, knobs):

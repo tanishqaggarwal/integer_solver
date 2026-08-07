@@ -1,19 +1,19 @@
 """S11 step 100: steer the two congruence targets to the cubic's solution.
 
-close.py sets x2 and y1 to the cubic's root and A and B become EXACTLY ZERO -- the
-point addition closes for the first time.  What it costs is the two advice
+close.py sets w3 and w2 to the cubic's root and A and B become EXACTLY ZERO -- the
+A and B both vanish for the first time.  What it costs is the two advice
 congruences whose left sides we just overwrote:
 
-    a26731   x16742 = x19083        we set x16742 = y1*, so x19083 must follow
-    a29539   x14853 = x1308         we set x14853 = x2*, so x1308  must follow
+    a26731   x16742 = x19083        we set x16742 = w2*, so x19083 must follow
+    a29539   x14853 = x1308         we set x14853 = w3*, so x1308  must follow
 
-and coordjac says those targets are not fixed: x19083 is moved by 170 free inputs and
+and valjac says those targets are not fixed: x19083 is moved by 170 free inputs and
 x1308 by 79.  So the endgame is to steer them.
 
-The complication is that the same inputs also move x1 = x12186 (179 of them), and the
-cubic's root depends on x1 -- so this is a fixed point, not a one-shot solve.  Iterate:
+The complication is that the same inputs also move w1 = x12186 (179 of them), and the
+cubic's root depends on w1 -- so this is a fixed point, not a one-shot solve.  Iterate:
 solve the exact linear system for the current targets, apply, recompute the cubic from
-the new x1 and y2, repeat.  Every step is measured, never predicted.
+the new w1 and w4, repeat.  Every step is measured, never predicted.
 
 Usage: steer.py [state.json] [ROUNDS]
 """
@@ -31,7 +31,7 @@ src = sys.argv[1] if len(sys.argv) > 1 else 'PIN_39013.json'
 ROUNDS = int(sys.argv[2]) if len(sys.argv) > 2 else 6
 v = L.load(src if os.path.isabs(src) else os.path.join(HERE, src))
 ad.fwd(v, rounds=6)
-mv = json.load(open(os.path.join(HERE, 'coordmovers.json')))
+mv = json.load(open(os.path.join(HERE, 'valmovers.json')))
 KN = sorted(set(mv['y1_tgt']) | set(mv['x2_tgt']))
 KN = [u for u in KN if u not in (16742, 14853, 22162, 30213)]
 print('%s: %d knobs move x19083 or x1308' % (src, len(KN)), flush=True)
@@ -47,17 +47,17 @@ def report(v, tag):
 
 
 def cubic_target(v):
-    x1, y2 = v[12186] % P, v[24908] % P
-    x3, y3, K = v[22162] % P, v[30213] % P, v[24453] % P
-    S = (y2 + y3) % P
-    cub = F.psub(F.pmul([(x3 + x1 + K) % P, 1],
-                        [x3 * x3 % P, (-2 * x3) % P, 1]), [S * S % P])
+    w1, w4 = v[12186] % P, v[24908] % P
+    w5, w6, K = v[22162] % P, v[30213] % P, v[24453] % P
+    S = (w4 + w6) % P
+    cub = F.psub(F.pmul([(w5 + w1 + K) % P, 1],
+                        [w5 * w5 % P, (-2 * w5) % P, 1]), [S * S % P])
     out = []
     for m in F.roots(cub):
-        if (m - x3) % P == 0:
+        if (m - w5) % P == 0:
             continue
-        w = S * ((m - x1) % P) % P * pow((m - x3) % P, -1, P) % P
-        out.append((m, (y2 - w) % P))
+        w = S * ((m - w1) % P) % P * pow((m - w5) % P, -1, P) % P
+        out.append((m, (w4 - w) % P))
     return out
 
 
@@ -149,7 +149,7 @@ for rnd in range(ROUNDS):
         print('round %d: cubic has no usable root' % rnd, flush=True)
         break
     m, Y1 = tg[0]
-    print('\nround %d: cubic root x2* = %s..., y1* = %s...'
+    print('\nround %d: cubic root w3* = %s..., w2* = %s...'
           % (rnd, str(m)[:22], str(Y1)[:22]), flush=True)
     for K in (12, 30, len(KN)):
         w, ok = steer(v, Y1, m, KN[:K])

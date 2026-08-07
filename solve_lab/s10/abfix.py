@@ -15,12 +15,12 @@ so with A = x35389 and B = x6671 the three conditions are HOMOGENEOUS LINEAR in
     x37758 =  8272701*A + 5921311*B
 
 a 3x2 system of rank 2, whose only solution is A ≡ B ≡ 0 (mod p).  And A and B are
-the two point-addition identities:
+the two the two identities:
 
-    A = x35389 = x29322^2*x33469 - x3558^2         (x2-x1)^2*(x3+x1+x2) = (y2-y1)^2
-    B = x6671  = x27713*x29322 - x1326*x3558       (y3+y1)*(x2-x1) = (y2-y1)*(x1-x3)
+    A = x35389 = x29322^2*x33469 - x3558^2         (w3-w1)^2*(w5+w1+w3) = (w4-w2)^2
+    B = x6671  = x27713*x29322 - x1326*x3558       (w6+w2)*(w3-w1) = (w4-w2)*(w1-w5)
 
-with x1 = x12186, y1 = x16742, x2 = x14853, y2 = x24908, x3 = x22162, y3 = x30213.
+with w1 = x12186, w2 = x16742, w3 = x14853, w4 = x24908, w5 = x22162, w6 = x30213.
 x22162 and x30213 are advice values whose only pins (a30976, a30978) are GATED by
 x15574, which is zero -- so they are unconstrained, and A is linear in x22162 while
 B is linear in both.  Two linear equations, two free unknowns.
@@ -28,7 +28,7 @@ B is linear in both.  Two linear equations, two free unknowns.
 The coefficients are recovered by exact evaluation rather than by hand: the maps are
 linear, so one probe per unknown gives the exact column.
 
-Usage: ecfix.py [state.json]
+Usage: abfix.py [state.json]
 """
 import os, sys
 HERE = '/home/user/integer_solver/solve_lab/s10'

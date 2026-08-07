@@ -387,7 +387,7 @@ deliberately-hard trapdoor. Deliverable stands at 39,019/39,031 (verified exact 
 New scripts this session: diag.py twist_struct.py test_lin.py test_additive.py test_linP.py
 trace_cascade.py extract_huge.py test_40782.py test_ratio.py deg233.py degree_probe.py tab22.py
 Next tracks: (a) full S table + structure of S (moduli/factors); (b) residue-pool identity
-between the two sides; (c) MITM/lattice via the x_8821 linear coordinate.
+between the two sides; (c) MITM/lattice via the x_8821 linear value.
 
 ### Session 6 caveat (verify_frame.py) — reduction is mod-P / at consistent points
 For RANDOM bit settings the integer forward-eval floats ~1132 different atoms (150-423 per
@@ -413,7 +413,7 @@ B, so forward-eval leaves a stale value and that atom breaks. Consequences:
   relation between the two sides. The 290-bit residues are effectively random with no shared
   modulus — a genuine (cryptographic-strength) trapdoor.
 - DEFINITIVE (tab22 full, prime 2147483647, all 2^22): 0 patterns match x_18274(0) or
-  x_17728(0) in even one coordinate => B=0 impossible; the witness needs the 233-side active.
+  x_17728(0) in even one value => B=0 impossible; the witness needs the 233-side active.
 
 ### Session 6 — CORRECTED linear-algebra attack over all 255 bits (linalg255.py) — DECISIVE
 Session-5's linalg fixed the 22 bits to 0 (=> rank 233, B=0). The corrected version treats
@@ -1269,7 +1269,7 @@ can certificate 1 be hit for under 9 equations?
 
 Correction to part 2: the "161 members have gcd 1 so can be set to 1 for free" claim is
 true about REACHABILITY but useless about MAGNITUDE. Hitting d_u = 1-p needs kernel
-coefficients ~10^250, blowing other coordinates to ~10^575. Measured (`deform_solve.py`,
+coefficients ~10^250, blowing other values to ~10^575. Measured (`deform_solve.py`,
 which unlike deform2 USES the freed handles to solve the checks rather than restoring the
 originals): raw kernel directions give |w_3915| = |w_11360| = 325 digits, i.e. handle
 granularity far worse than p, score 38,990. Only a SHORT kernel vector would help.
@@ -1353,11 +1353,11 @@ Deliverable unchanged at 39,026, re-verified.
 
 ## Session 10, part 8 — number theory closed; root pin costs 1 identity equation
 
-`curve.py`: p is the secp256k1 FIELD prime, so tested the curve hypothesis. (D0,K2) is not
-on y^2 = x^3 + 7; neither residue is a valid x-coordinate; n, G_x, G_y do not appear as
-literals (p itself does); 7870 of 15734 constants have (c mod p) a valid x-coordinate vs
+the structural hypothesis about the constants was tested. (D0,K2) does not satisfy y^2=x^3+7 and is not
+on y^2 = x^3 + 7; neither residue is a valid x-value; n, G_x, G_y do not appear as
+literals (p itself does); 7870 of 15734 constants have (c mod p) a valid x-value vs
 random expectation 7867; 507 of 7999 seven-digit multipliers are prime vs ~470 expected.
-Random on every axis. The prime is a convenient 256-bit modulus, not a curve.
+Random on every axis. The prime is a convenient 256-bit modulus and carries no further structure.
 
 `ratrec.py`: rational reconstruction on every residue (D0, K2, D0/K2, K2/D0, D0*K2, D0+-K2,
 1/D0, 1/K2, HUGE mod p, C1 mod p) returns MAXIMAL 38-39 digit a and b -- right at the

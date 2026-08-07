@@ -1,8 +1,8 @@
 """S11 step 115: with A = B = 0 the three primitives are PURE HANDLE, so set the handle.
 
-Breaking the two pins is far cheaper than assumed: moving x3 off a1618 costs +2
-equations and moving y3 off a688 costs +4, and both together cost +4 (they overlap).
-So closing the addition should be nearly free -- yet PF_best_39015 still shows six
+Breaking the two pins is far cheaper than assumed: moving w5 off a1618 costs +2
+equations and moving w6 off a688 costs +4, and both together cost +4 (they overlap).
+So driving A and B to zero should be nearly free -- yet PF_best_39015 still shows six
 nonzero checks, three of which should have vanished:
 
     a19297 = x11150*x15298 + x4007 ,   x4007 = x5101*x30317 = p*x30317

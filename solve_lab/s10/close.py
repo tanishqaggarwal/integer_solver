@@ -1,27 +1,27 @@
-"""S11 step 99: the addition HAS a solution -- eliminate y1, solve the cubic, set it.
+"""S11 step 99: A = B = 0 HAS a solution -- eliminate w2, solve the cubic, set it.
 
-coordjac.py destroys Part XXVII's premise.  Perturbing x22152, x33462, x6418 or
-x12553 moves none of x1, y1, x2, y2: those four literals are separate variables that
-merely carry the same residues at this state.  The coordinates that actually enter the
-addition are
+valjac.py destroys Part XXVII's premise.  Perturbing x22152, x33462, x6418 or
+x12553 moves none of w1, w2, w3, w4: those four literals are separate variables that
+merely carry the same residues at this state.  The values that actually enter the
+A and B are
 
-    x1 = x12186  computed (179 free inputs move it)      y1 = x16742  FREE
-    x2 = x14853  FREE                                    y2 = x24908  computed (43)
-    x3 = x22162  FREE                                    y3 = x30213  FREE
+    w1 = x12186  computed (179 free inputs move it)      w2 = x16742  FREE
+    w3 = x14853  FREE                                    w4 = x24908  computed (43)
+    w5 = x22162  FREE                                    w6 = x30213  FREE
     K  = x24453  the only genuine constant
 
-so with x1, y2, x3, y3, K held, A = 0 and B = 0 are two equations in the two FREE
-values y1 and x2.  Eliminate y1:
+so with w1, w4, w5, w6, K held, A = 0 and B = 0 are two equations in the two FREE
+values w2 and w3.  Eliminate w2:
 
-    B  =>  w = y2 - y1 = (y2+y3)(x2-x1)/(x2-x3)
-    A  =>  (x3 + x1 + m + K)(m - x3)^2 = (y2+y3)^2      m = x2
+    B  =>  w = w4 - w2 = (w4+w6)(w3-w1)/(w3-w5)
+    A  =>  (w5 + w1 + m + K)(m - w5)^2 = (w4+w6)^2      m = w3
 
 a CUBIC in m.  It has exactly one root in F_p:
 
-    x2* = 16923826268442975142014471089484050492795530131871084439458128176517372022747
-    y1* = 516432665673800566800661765887332652913826924065912564591822554577222065463
+    w3* = 16923826268442975142014471089484050492795530131871084439458128176517372022747
+    w2* = 516432665673800566800661765887332652913826924065912564591822554577222065463
 
-and at those values A = 0 and B = 0 exactly.  **A solution to the addition exists.**
+and at those values A = 0 and B = 0 exactly.  **A solution to A = B = 0 exists.**
 x14853 and x16742 are free variables, so the values can simply be written in; what it
 costs is their own congruences a29539 (x14853 = x1308) and a26731 (x16742 = x19083),
 whose targets are themselves moved by 79 and 170 free inputs -- so the cost is a
@@ -54,23 +54,23 @@ def report(v, tag):
 
 
 report(v, 'start')
-x1, y1, x2, y2 = v[12186] % P, v[16742] % P, v[14853] % P, v[24908] % P
-x3, y3, K = v[22162] % P, v[30213] % P, v[24453] % P
-S = (y2 + y3) % P
-cub = F.psub(F.pmul([(x3 + x1 + K) % P, 1],
-                    [x3 * x3 % P, (-2 * x3) % P, 1]), [S * S % P])
+w1, w2, w3, w4 = v[12186] % P, v[16742] % P, v[14853] % P, v[24908] % P
+w5, w6, K = v[22162] % P, v[30213] % P, v[24453] % P
+S = (w4 + w6) % P
+cub = F.psub(F.pmul([(w5 + w1 + K) % P, 1],
+                    [w5 * w5 % P, (-2 * w5) % P, 1]), [S * S % P])
 rs = F.roots(cub)
-print('\ncubic in x2 has %d root(s) in F_p' % len(rs), flush=True)
+print('\ncubic in w3 has %d root(s) in F_p' % len(rs), flush=True)
 best = report(v, 'baseline')[0]
 for m in rs:
-    w = S * ((m - x1) % P) % P * pow((m - x3) % P, -1, P) % P
-    Y1 = (y2 - w) % P
-    print('\n  x2* = %d\n  y1* = %d' % (m, Y1), flush=True)
+    w = S * ((m - w1) % P) % P * pow((m - w5) % P, -1, P) % P
+    Y1 = (w4 - w) % P
+    print('\n  w3* = %d\n  w2* = %d' % (m, Y1), flush=True)
     u = list(v)
     u[14853] = (u[14853] // P) * P + m
     u[16742] = (u[16742] // P) * P + Y1
     ad.fwd(u, rounds=6)
-    s, av, nz = report(u, '  after setting x2 and y1')
+    s, av, nz = report(u, '  after setting w3 and w2')
     print('     A = %d\n     B = %d' % (u[35389] % P, u[6671] % P), flush=True)
     # integer lift
     _, fl, SV = suppfree.build(u, modp=None)
