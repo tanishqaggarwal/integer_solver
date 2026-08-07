@@ -1,0 +1,6 @@
+baseline region:
+  R(8 atoms) P=7 |E|=12 maxsat=5 COST=7
+  cost 7 (expect 7)
+  exact check: 7 failing equations
+
+111 adjacent atoms; single-atom growth:

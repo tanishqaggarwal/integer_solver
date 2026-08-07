@@ -836,3 +836,80 @@ and `A(i3+i6) − B(i2−i5) ≡ 0 (mod P)`. What it verified are properties **o
 closed-form solution for `(i5, i6)` 300/300, operand-pair symmetry 200/200, order-independent
 iteration on the 256 constant pairs 300/300. **No solvability conclusion is drawn, and P notes
 its results point the other way.** This is the register the whole fleet is now writing in.
+
+---
+
+## Check-in 11 — SAT/SMT/CP is retired on measurement (agent R)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified twice from cold by R. Nothing R built
+scores above 39,013. No infeasibility is claimed anywhere in `agentR_work/`.
+
+### The angle is dead, and it was measured rather than asserted
+
+R proved each encoding satisfiable with `witness.py` **before** blaming any solver, and scaled
+siblings of identical shape rather than arguing from the full instance:
+
+| encoding | result |
+|---|---|
+| z3 QF_BV, 8-bit prime, all selectors pinned | sat, 119 s |
+| z3 QF_BV, same, selectors free (128 options) | timeout 300 s |
+| z3 QF_NIA, pinned and free | timeout 300 s |
+| CaDiCaL 1.9.5, bit-blasted CNF (8-bit, pinned; 57,299 v / 388,439 cl) | sat 107.6 s, 165,725 conflicts |
+| Glucose 4.2, same | sat 276.7 s, 353,100 conflicts |
+| CP-SAT free | 8-bit 0.7 s · 10-bit 4.6 s · **UNKNOWN at 300 s** for 12–28 bit |
+| CP-SAT at 31-bit | **MODEL_INVALID** — cannot represent the arithmetic |
+| uninterpreted-law variant | sat in 0.01 s — **vacuous**; +distinctness → unknown |
+
+CNF scales as ≈`863·m²` clauses/stage. **Extrapolated to the real instance: ≈1.4×10¹⁰ clauses /
+1.9×10⁹ variables ≈ 600 GB of DIMACS against 29 GB of disk.** The CNF cannot be written, let
+alone solved; where the tools can run they are ~10⁵× slower than brute force on the same
+instance. **SAT/SMT/CP is retired as a live angle**, and agent C's earlier abandonment of it now
+has a reproducible reason attached.
+
+### What the encoding target actually is — refuted, usefully
+
+**The reduced problem is not 96 coupled stage constraints; it is one scalar equation.** R
+re-derived and checked F's decode in its own code: the offset substitution kills `K`, all 248
+forced pin points **and the target** satisfy one relation (fitted from 2, verified on
+246 + target, 0 exceptions); the fold is commutative and associative (200 random triples each),
+**so the tree shape is irrelevant** and F's remaining decode — the 56 slot pairs and 24
+leaf-adjacent stages — is **not needed**. The 256 leaves form **one doubling chain** (9
+doubling-closed pieces, 8 splices of exactly one gap point each, one head → `ladder.json`); the
+order is a **256-bit prime** by Cornacchia.
+
+**F's requested validation PASSED**: ON-set {24601, 2081} → ladder indices {72, 235}, and the
+fold is **not** the target — exactly the prediction a correct evaluator had to produce. This is
+now the **fourth** independent model reading the deliverable as **two** live leaves, against L's
+single-leaf reading; L is settling it from the deliverable's own assignment.
+
+### Measurements on the real instance
+
+**Exhaustive Hamming weight ≤ 6 → no solution** (108 s meet-in-the-middle over all size-≤3
+subsets both sides), so the reduced unknown has weight **≥ 7**. BSGS to 2⁴⁴ was running at
+handoff and is resumable, but **enumeration stays retired as a lever** across the fleet.
+
+### A contradiction inside R's own report — sent back to R
+
+R's §(c) states that a different selector configuration does not cheaply beat 39,026, with
+optimistic ceilings of **≤39,020 single-bit** and **≤39,022 pair**. R's §(d) proposes running
+`s10/lattice3.py` on a **single-bit** configuration in the hope of beating 39,026. Both cannot
+be right. Either the ceiling binds and §(d) is dead before it starts, or the ceiling is scoped
+to the placements `gs2.solve` reaches and is silent about placements `lattice3` reaches — in
+which case **it is a statement about a knob set, not about the instance, and must be re-quoted
+that way everywhere it appears.** R scoped it correctly in `LOG.md` §7/§9 and has been asked to
+say which it is in the report itself, this being the exact failure mode behind five retractions.
+
+If the ceiling does not bind, the experiment is worth running and nobody has run it: the
+single-bit defect is 3 atoms against the deliverable's 7, `gs2` places it badly (20 equations,
+0 cancelling), and `lattice3` — the method that actually produced 39,026 — has never been
+pointed at single-bit footprints. Success criterion, R's own: **a placement into ≤12 equations
+with ≥6 cancelling beats the deliverable.** That is the same instrument four other agents have
+independently converged on — cancellation, not support.
+
+### Retired angles, cumulative
+
+- Generator inversion (user instruction, first fleet).
+- Level-by-level enumeration of the reduced problem (|S| = 1, 2, 3 exhausted; weight ≥ 7;
+  root meet-in-the-middle 2⁷⁸).
+- Incidence-only / structural pricing (three independent demonstrations: C, L, P).
+- **SAT / SMT / CP encodings of the reduced problem (R, this check-in).**

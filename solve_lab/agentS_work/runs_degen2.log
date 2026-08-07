@@ -8,3 +8,12 @@ BFS image configurations: 48 ; cone knobs probed per config: 333
   cfg12  zero=[20212]  responsiveness={'a7389': 4, 'a10187': 4, 'a20212': 181, 'a20215': 4, 'a28647': 4}
   cfg24  zero=[7389, 10187, 28647]  responsiveness={'a7389': 26, 'a10187': 27, 'a20212': 4, 'a20215': 3, 'a28647': 2}
   cfg36  zero=[20212]  responsiveness={'a7389': 12, 'a10187': 32, 'a20212': 181, 'a20215': 222, 'a28647': 42}
+
+=== summary over 48 configurations ===
+  a7389   exactly0&frozen(DEGENERATE)=0  exactly0&responsive=8  nonzero&responsive=40  nonzero&frozen=0
+  a10187  exactly0&frozen(DEGENERATE)=0  exactly0&responsive=8  nonzero&responsive=40  nonzero&frozen=0
+  a20212  exactly0&frozen(DEGENERATE)=0  exactly0&responsive=24  nonzero&responsive=24  nonzero&frozen=0
+  a20215  exactly0&frozen(DEGENERATE)=0  exactly0&responsive=0  nonzero&responsive=48  nonzero&frozen=0
+  a28647  exactly0&frozen(DEGENERATE)=0  exactly0&responsive=12  nonzero&responsive=36  nonzero&frozen=0
+
+DEGENERATE (zero and frozen) cases found: 0

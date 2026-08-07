@@ -371,3 +371,92 @@ Oracle for F           : `orefine.py` (+`orefine_sigs.pkl`, `orefine.log`), `ofi
                          `xslot.py`, `blocks_corrected.json`, `oracle_for_F.json`,
                          `xslot_report.json`
 Superseded             : `rfenum.py` (killed: 65k configs on the slow scorer; `rfenum2.py` replaces it)
+
+---
+
+# LOG_M ROUND 3 — the "obstruction" on equation 29125 does not exist. I withdraw it.
+
+## 22. What I claimed at check-in 8, and why it was wrong
+I reported *"the exact full solve fails with a divisibility obstruction on equation 29125
+(`rhs % -P != 0`)"* and called it "an arithmetic obstruction, not a search failure".
+**That was wrong.** The message was produced by **one elimination ordering inside a badly
+overdetermined window** — 86 rows against 19 knobs in `eqsolve.py`, 999 rows against 162 knobs in
+`eqsolve2.py`. Neither says anything about the instance. I should have tested the row itself
+before naming it an obstruction.
+
+## 23. The window-independent test (`eq29125.py`)
+For a single row, integer solvability is exact and needs no window:
+
+    sum_f coef_f * d_f = -s0   solvable over Z   <=>   gcd_f(coef_f)  |  s0
+
+Equation 29125: `issq=False`, 17 atoms, constant part 0, and exactly **one** currently-nonzero
+atom — **23617**, coefficient 1 — so `s0 = av[23617]`, a 729-digit integer with `v_P(s0)=0`.
+
+    knob set                     candidates  affine  knobs moving eq29125  gcd  g|s0
+    eqsolve 19-knob                  23        19            2              1   YES
+    eqsolve2 widened                451       162           12              1   YES
+    all cone(eq 29125 atoms)         26        23           12              1   YES
+
+**gcd = 1 in every knob set. Row 29125 is individually solvable.** In all three sets the 5 freed
+definer vars are present and affine; `x_28730` is the knob with a direct handle on atom 23617
+(`23617 = x_28730 - x_17499*x_9413`).
+
+All seven failing rows tested the same way (`eqsub.py` header):
+
+    eq 12231 gcd 1 | eq 12270 gcd 1 | eq 12350 gcd 1 | eq 14584 gcd 1
+    eq 18673 gcd 1 | eq 22044 gcd 40490 | eq 29125 gcd 1        -- all seven divide s0
+
+## 24. Removing the window entirely (`eqsub.py`)
+For every subset S of the 7 failures: solve "each row in S = 0", **apply it, re-propagate with
+`engine2.forward`, and measure the exact score with `fscore`** — so collateral damage is counted
+by measurement, not assumed by a window.
+
+    127 subsets solvable, 0 infeasible, largest solvable subset size 7
+    in every case the solver really zeroed its targets (k/k)
+
+    fix eq 12350 -> 10 failures (39023)    fix eq 22044 -> 28 failures (39005)
+    fix eq 18673 -> 10 failures (39023)    fix eq 14584 -> 34 failures (38999)
+    fix eq 12270 -> 11 failures (39022)    fix eq 29125 -> 34 failures (38999)
+    fix eq 12231 -> 18 failures (39015)    fix all 7    -> 44 failures (38989)
+
+    best over all 127 subsets: 39023   < baseline 39026
+
+**There is no obstruction anywhere. Every failing equation is repairable; every repair costs more
+than it gains.** 39,026 is a strict local optimum in equation space, and equation 29125 is not
+blocked — it is merely tied for the *most expensive* row to repair.
+
+## 25. Why the deliverable's residual is so cheap
+The 8 nonzero atoms are visible to exactly the 7 failing equations, nested, all with zero constant:
+
+    12270, 12350, 14584 : all 8          12231 : 23616,23617,36661,36662,36663,36664
+    18673 : 36660,36661,36662,36663      22044 : 23616,23617,36664
+    29125 : 23617 only
+
+The deliverable places its residual so that only 7 equations ever see it. Equation 29125 sees a
+single atom, and the knob that moves that atom is `x_28730` — **one of the 5 vars my fix freed**.
+Driving it to zero is exactly what E's orientation did by construction (§11.1); it costs 27 extra
+failures. That is the same trade the whole engine defect was hiding.
+
+## 26. Corrected answers
+- **Q1 what must divide what:** nothing obstructs; `gcd | s0` holds for all 7 rows.
+- **Q2 which knobs move either side:** 12 affine knobs on eq 29125; `x_28730` directly.
+- **Q3 eq 29125 or the window:** **the window**.
+- **Q4 "core infeasible" at 162 knobs — instance or widening:** **the widening** (999 rows vs 162
+  knobs, 6:1 overdetermined). Now proven, not argued: all 127 subsets are feasible.
+- **Q5 knob set:** `[642, 7068, 28730, 29854, 31864]` are in it and all affine, checked per run.
+
+## 27. On agent K's claim (unadjudicated, not accepted as input)
+K reports the 7 failures are one gate's off-pins forcing the root's two inputs equal so the root
+check vanishes identically, and that no configuration can make a stage degenerate, so the freedom
+needs broken pins. **My measurements neither confirm nor refute this** — the residual side cannot
+see intermediate stage values (§7 of round 1 established that for E's engine and it still holds).
+What I can say is only consistency: the residual is confined to 7 equations, and the one repair
+that most directly "restores" a check (zeroing atom 23617 via `x_28730`) is among the most
+expensive. A real test would need the circuit side: check whether the 8 nonzero atoms are exactly
+the off-pins of a single gate, which is F/K's decode to make, not mine.
+
+## 28. Score attempts round 3 — all below or equal to baseline, none above
+    every single-row repair ................ 38999 - 39023
+    every subset of the 7 (127 of them) .... best 39023
+    all 7 simultaneously ................... 38989
+No candidate file above 39,026 was produced (`ls M_sub_*.json` -> none).

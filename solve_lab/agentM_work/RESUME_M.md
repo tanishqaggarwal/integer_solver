@@ -82,18 +82,63 @@ So both adding and removing live leaves cost. **Nothing reached 39,026.**
 8 atoms nonzero **because they cancel inside the equations**: 8 nonzero atoms produce only
 **7 failing equations**. Minimising atoms is not minimising failures.
 
-### So I solved in EQUATION space instead (`eqsolve.py`, `eqsolve2.py`) — new, nobody had run it
+### So I solved in EQUATION space instead — new, nobody had run it
 Objective: choose knob deltas so each *equation* totals zero, allowing nonzero atoms.
-- All 5 PIN knobs are affine on the residual. 19 knobs / 86 equations: every equation is
-  knob-dependent, none unfixable.
-- Exact full solve **fails** with a divisibility obstruction on **equation 29125**
-  (`rhs % -P != 0`, P the 256-bit prime).
-- Greedy keeps **79/86** rows -> score **39,026**. i.e. **the deliverable already IS the optimum of
-  the equation-space solve over this knob set**, and the 7 failures are structurally forced.
-- Widened to **162 affine knobs / 999 equations** (`eqsolve2.py`): full solve **core infeasible**.
 
-This is the sharpest characterisation of the 39,026 barrier anyone has produced: it is not a
-search failure, it is an arithmetic obstruction visible in equation space.
+### !! WITHDRAWN: there is NO divisibility obstruction on equation 29125 !!
+I reported one at check-in 8. **It was wrong, and I withdraw it.** The message
+`rhs % -P != 0` came from **one elimination ordering inside a badly overdetermined window**
+(86 rows against 19 knobs), not from any invariant. Measured properly (`eq29125.py`, `eqsub.py`):
+
+- Single-row solvability is exact and window-independent: `sum_f coef_f d_f = -s0` is solvable
+  over Z **iff gcd(coef_f) | s0**. For equation 29125 the gcd is **1**. It divides everything.
+  **Row 29125 is individually solvable**, and when actually solved it *is* zeroed.
+- Same for all seven: gcd 1 for six of them, 40490 for eq 22044 — **all seven divide, all seven
+  are individually solvable.**
+- `eqsub.py` then removed the window question entirely: solve each subset of the 7 failures, then
+  **apply it, re-propagate, and measure the true score**, so collateral damage is counted by
+  measurement rather than assumed. Result: **all 127 non-empty subsets are solvable, 0 infeasible**,
+  including all 7 at once, and in every case the solver really does zero its targets.
+
+### What the barrier actually is: a minimum-cost residual, not an obstruction
+Every repair fixes its target and breaks strictly more elsewhere:
+
+| fix | failures 7 -> | score |
+|---|---|---|
+| eq 12350 | 10 | 39023 |
+| eq 18673 | 10 | 39023 |
+| eq 12270 | 11 | 39022 |
+| eq 12231 | 18 | 39015 |
+| eq 22044 | 28 | 39005 |
+| eq 14584 | 34 | 38999 |
+| eq 29125 | 34 | 38999 |
+| **all 7** | **44** | **38989** |
+
+Best over all 127 subsets: **39,023** — below the 39,026 baseline. So 39,026 is a **strict local
+optimum in equation space**, and equation 29125 is not obstructed but merely one of the two
+*most expensive* rows to repair.
+
+### Why the residual is so cheap: it is confined to 7 equations
+The 8 nonzero atoms are seen by exactly these 7 equations, nested, all with zero constant part:
+
+    eq 12270 / 12350 / 14584 : all 8 atoms      eq 12231 : 6 of them
+    eq 18673 : 36660,36661,36662,36663          eq 22044 : 23616,23617,36664
+    eq 29125 : 23617 only
+
+Equation 29125 sees a **single** nonzero atom, 23617 = `x_28730 - x_17499*x_9413`. The knob that
+moves it directly is **x_28730 — one of the 5 vars my fix freed**. Zeroing it is precisely what
+E's orientation did by construction, and it costs 27 extra failures.
+
+### Answers to the questions asked
+- **Q1 what divides what:** nothing obstructs — the gcd condition holds in all 7 cases.
+- **Q2 which knobs move it:** eq 29125 has 12 affine knobs; the direct one is `x_28730`.
+- **Q3 property of eq 29125 or of the window:** **of the window.** The row alone is solvable.
+- **Q4 is "core infeasible" at 162 knobs instance or widening:** **the widening.** That window was
+  **999 rows against 162 knobs** — 6:1 overdetermined, so generically infeasible regardless of the
+  instance. Now proven rather than argued: every one of the 127 subsets is feasible.
+- **Q5 knob set:** the 5 freed definer vars `[642, 7068, 28730, 29854, 31864]` **are** in it and
+  **all 5 are affine**, verified in every run (`eq29125.py` prints the check per knob set). The
+  widest set tried was every free var in the cone of every atom of the target equations.
 
 ---
 
