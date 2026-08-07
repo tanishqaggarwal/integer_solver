@@ -121,3 +121,20 @@ Verification rule for my states: values exceed Python's 4,300-digit string cap, 
 `checker.py` cannot PARSE them.  Use `python3 verifyE.py <file>` — it raises only that cap and
 calls checker.load_equations / load_assignment / evaluate_all unmodified.  Say so explicitly
 in any report; a bare "checker.py says" would be false for these values.
+
+## CORRECTION to the a10187/a20212 verdict — the boolean class was excluded, and it matters
+Measured by exact re-propagation at 0/1 (`boolknob.py`): **23 boolean flips have a residual
+delta nonzero mod p on a10187 and 178 on a20212.**  My §14 statement that every knob there
+enters with a coefficient divisible by p is FALSE — it held for the affine class only.
+The cluster is NOT mod-p sealed.
+What still blocks: the nonzero deltas carry only 1 distinct residue on a20212 and 3 on a10187,
+while the required multiplicities are full 256-bit numbers (k, m in LOG §15.1), so counting
+flips cannot supply the shift; and each flip drags in its own pin atoms, which the 8-knob
+cluster solve cannot reach (`boolsolve.py`), while flip + full pin repair tops out at 39,005
+(`boolfix.py`).
+**NEXT:** compose properly — take a bit from the 106 whose pin system is known integrally
+solvable (`bitsol_*.json`, `scan_B.pkl`, `scanfork_A.pkl`), apply its pin solution AND the
+cluster's 8 affine knobs in ONE simultaneous system rather than sequentially; the sequential
+composition is what fails, not either half.  Also: probe whether flipping a bit changes the
+three a10187 residues (they are the scarce resource), since §15.2 shows the residues are
+context-dependent.

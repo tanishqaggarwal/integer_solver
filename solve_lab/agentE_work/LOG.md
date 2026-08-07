@@ -239,3 +239,35 @@ of the four cluster atoms — 326 candidates, 248 cluster-affine, only 8 with a 
 disturbance set, and among the a20212 movers only 3 are non-boolean (x_11436 with coefficient
 exactly p, x_14393 with c2 = 0 mod p, x_14853 with coefficient -1 but it is the unknown itself).
 The 181 remaining movers of a20212 are all boolean selector bits.
+
+## 15. The 181 boolean movers, as 0/1 DECISIONS — §14's claim is FALSE as stated
+Measured by actual re-propagation at 0 and 1 (not derivatives), from `triple8_seed.json`
+(`boolknob.py`, `runs/boolknob.log`).  Census of the exact residual delta
+`Delta_b = resid(b=1) - resid(b=0)` over the 256 boolean movers in the two cones:
+
+| row | delta = 0 | delta = 0 (mod p) | **delta NONZERO mod p** |
+|---|---|---|---|
+| a10187 | 233 | 0 | **23** |
+| a20212 | 78  | 0 | **178** |
+
+**So a knob reaching a10187 and a20212 with content coprime to p DOES exist — 201 of them.**
+LOG §14's "every knob reaching a10187 or a20212 enters with a coefficient divisible by p" was
+measured on the AFFINE class only and generalised past the evidence.  Corrected here.
+
+### 15.1 But counting cannot close it
+The nonzero deltas are nearly all the *same* residue:
+  a20212: **one** distinct residue, 36200939269128454586076546451607958467047992891178506183612554289882454126226, x178
+  a10187: **three** residues, x21 / x1 / x1
+Required multiplicities to absorb R1, R2 (from the §14 rows) are full 256-bit numbers:
+  k = 101108319720394122322776115727804160327749809720865796405265564477795935003136 (a10187)
+  m = 106495465405897155704077983448098605801616252488421425517764957547039336632879 (a20212)
+so no subset of <=23 (resp. <=178) equal-residue flips supplies the needed shift by counting.
+Composition experiments (`boolsolve.py`, `boolfix.py`): flipping a bit brings in that bit's own
+pin atoms, and the 8-knob cluster solve then fails on the *pin* rows, not the cluster rows;
+flip + full iterated pin repair reaches at best the same 39,005.
+
+### 15.2 Context dependence — the same signature a third time
+In the affine picture at this state every knob on a10187/a20212 was mod-p trivial.  With two
+selectors already on, **178 booleans become mod-p nontrivial**.  The coefficient structure
+therefore genuinely depends on which selectors are on; the mod-p content of these rows is not
+a fixed property of the row.
