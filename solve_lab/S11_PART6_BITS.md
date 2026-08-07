@@ -204,3 +204,45 @@ certificates, not the applied solves.
 Channel C's residual atoms (a2423, a10506, a26731) are **different** from channel A's
 (a7930, a29539, a40826, a41512).  The obstruction genuinely changes shape between channels, which
 is precisely why channel A's invariant enumeration does not settle the instance.
+
+## 12. All three channels, side by side
+
+Each channel's response matrix was built from its own properly forward-evaluated state
+(`s11/data/resp_modp.pkl`, `resp_B.pkl`, `resp_C.pkl`), and each has its own certificates:
+
+    channel      message        failing checks   obstruction directions   residual atoms
+    A  x15298    {2081,24601}         4                   6               a7930 a29539 a40826 a41512
+    B  x5647     {91,490}             3                   4               a26719 a26721 (a26723 is NOT obstructed)
+    C  x34606    {24601}             15                   8               a2423 a10506 a26731  (after one solve)
+
+**Channel B is the closest to solvable**: fewest failing checks, fewest obstruction directions,
+and one of its three failures — a26723 — appears in no certificate at all, so it is fixable.
+Its four certificates all pin a26719 and a26721 together, tied to a688, a1618, a21050, a29253,
+a29539, a38567 and a40065.
+
+Its invariants do not factor as sharply as channel A's inv5.  Within channel B (U = 0, so no A or
+B bits) they are moved by **42 V-side bits** (22 C, 20 D) — 2^42, beyond exhaustive reach — and
+they show the same signature as channel A's (`s11/chanB3.py`, 700 channel-B messages):
+
+    invB0: 128 distinct values, zero never;  invB1: 325, never
+    invB2: 143 distinct values, zero never;  invB3: 254, never
+    number of invariants simultaneously zero: 0 in all 700
+
+## 13. The consistent signature, and the honest bottom line
+
+Every channel tells the same story: a handful of conserved quantities, each far more degenerate
+than a random GF(p) function, none of which is ever observed to vanish — exhaustively over 2^18
+in channel A, by sampling in B and C.
+
+What is proved: **at the checkpoint's own message, the obstruction is exact** — the certificates
+annihilate every knob that touches them, so that message cannot be completed to a full mod-p
+solution, and 39,026 is the ceiling there.  That is the first genuine explanation of the plateau.
+
+What is not proved: that no message works.  The certificates drift between messages (12 of 14
+knobs annihilated at a sibling), so the cross-message enumerations are strong screens rather than
+proofs, and the instance was presumably generated from a witness that satisfies everything.
+
+The remaining move, precisely stated: pick a shortlist of channel-B messages, derive the exact
+certificate for each (13 min per message with the cached pipeline), and test **that** message's
+own invariants for vanishing — rather than reusing another message's functional.  Channel B is the
+right place because it has the fewest obstruction directions and one already-free failure.
