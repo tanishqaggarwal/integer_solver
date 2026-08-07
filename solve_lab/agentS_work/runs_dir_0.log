@@ -3,3 +3,9 @@ pool: 48 BFS image points; worker 0/3 from index 13
 RESULT 15 other-rows-infeasible - - -
 [img18(|on|=2)] knobs=70 other-rows=61 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=9 (0s)
 RESULT 18 other-rows-infeasible - - -
+[img21(|on|=2)] knobs=82 other-rows=76 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=10 (3s)
+RESULT 21 other-rows-infeasible - - -
+[img24(|on|=3)] knobs=57 other-rows=54 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=6 (9s)
+RESULT 24 other-rows-infeasible - - -
+[img27(|on|=3)] knobs=64 other-rows=57 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=7 (0s)
+RESULT 27 other-rows-infeasible - - -

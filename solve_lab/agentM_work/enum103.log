@@ -1,0 +1,5 @@
+pool 102 handles, ranked by rt
+  top 15: [(642, 99), (28730, 99), (29854, 99), (31864, 99), (7068, 41), (30175, 34), (2218, 31), (34600, 31), (11425, 29), (5168, 27), (23538, 26), (15324, 25), (21279, 25), (1627, 24), (26732, 24)]
+
+calibration on the deliverable's four: 39008 -> 39026  PASSED
+reference points: deliverable 39026 (7 failing) ; cofactors zeroed 39021 (12 failing)

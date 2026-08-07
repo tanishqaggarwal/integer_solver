@@ -40,7 +40,12 @@ class CascadeP:
         self.g['v'] = v
         return eval(self.code[i], self.g)
 
-    def close(self, seed, order, forbid=()):
+    def close(self, seed, order, forbid=(), pin=None):
+        """pin: {var: atom_index}.  A pinned var may ONLY be derived by its own atom.  This is
+        the general forward-only guard: without it the closure happily solves a slot BACKWARDS
+        from a downstream consumer (e.g. x608 = x34606*x12186 drives x12186 when the
+        pass-through gate is on), which silently produces wrong slot values."""
+        pin = pin or {}
         """forbid: atom indices that may NOT be used to derive a variable.  Needed to stop
         the closure running the target pin BACKWARDS into the tree instead of folding
         the leaves forward."""
@@ -73,6 +78,8 @@ class CascadeP:
                 unk = [u for u in self.avars[i] if not known[u]]
                 if len(unk) != 1: continue
                 u = unk[0]
+                if u in pin and pin[u] != i:
+                    continue          # only u's own pin may derive it; leave the atom open
                 v[u] = 0; c0 = self.ev(i, v)
                 v[u] = 1; c1 = self.ev(i, v)
                 v[u] = 2; c2 = self.ev(i, v)

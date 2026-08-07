@@ -105,12 +105,34 @@ must be re-evaluated, never trusted from the model.)
 
 A ±1 descent over the 37-dimensional `ker_Z(M_region)` did not reduce the 69.
 
-## Step 8 — `localopt.py`: settling the whole local model
+## Step 8 — how much does collateral buy?  Exhaustively, for a budget of 0, 1 and 2: nothing
 
-`failing = (|R| - |A|) + |W|` where `A` = region rows zeroed and `W` = outside rows broken, so
-beating 7 needs `|W| <= |A| - (|R|-6)`. For each `A`, every outside row `i` with `A ∪ {i}` not
-integrally solvable must be broken, so `|W| >= |U_A|`. Checking `|U_A| <= |A| - (|R|-6)` for every
-integrally solvable `A` is an exact necessary condition. Run in progress.
+`drop.py`.  Let `W` be the outside equations we allow to break; admissible moves are then
+`ker_Z(M_{outside\W})`, and `g(W)` = max region rows integrally zeroable inside that lattice:
+
+        failing = (|R| - g(W)) + |W| ,   beating 7 needs   g(W) >= (|R|-6) + |W|.
+
+| budget | subsets swept | coverage | max g | needed | verdict |
+|--------|---------------|----------|-------|--------|---------|
+| \|W\|=0 | 1 | exhaustive | 5 | 6 | no |
+| \|W\|=1 | 139 | **exhaustive** | **5** | 7 | no |
+| \|W\|=2 | 9,591 | **exhaustive** | **5** | 8 | no |
+
+Each row of collateral bought would have to buy strictly more than one region row; in fact it buys
+**zero**.  `g` does not move off 5 anywhere in the swept budget.  Over `|W| <= 2` the local model
+cannot leave fewer than 7 failing equations at the witness placement.
+
+Separately, `mus.py` extracted a minimal integrally-unsolvable subset of the 151-row local model:
+**one MUS of size 31** (all 12 region rows plus 19 outside rows), after which the remaining 120
+rows are solvable.  So the obstruction is a single large coupled block, not many small independent
+ones — which is why the disjoint-MUS lower bound is only 1 and why the budget sweep above is the
+informative measurement.
+
+**Scope of this claim** (standing rule): knob set = all 49 free inputs of `Frame(POOL)` that move
+any atom of any region equation — strictly larger than the 7 zero-collateral knobs H used;
+selector configuration = the witness's own, from `best/new_instance_partial_39026.json` via
+`optN.BASEFV`.  It is a statement about this frame and this configuration, at collateral budget
+<= 2.  It is NOT a claim that nothing can move these rows in any frame.
 
 ---
 

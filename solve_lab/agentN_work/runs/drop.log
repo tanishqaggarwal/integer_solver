@@ -2,3 +2,9 @@
 === WITNESS [642, 28730, 29854, 31864] ===  |R|=12 outside=139 wide knobs=49
   |W|=0: g=5 (kernel dim 14)  need 6  -> no  (0.1s)
   |W|=1: 139 subsets, max g=5 (at W=[0]), need 7 -> no ; best failing so far 7 (16.8s)
+  |W|=2: 9591 subsets, max g=5 (at W=[0, 1]), need 8 -> no ; best failing so far 7 (1293.3s)
+  => over |W| <= 2 the local model cannot do better than 7 failing equations.
+
+=== D=[17499] ===  |R|=13 outside=142 wide knobs=53
+  |W|=0: g=5 (kernel dim 15)  need 7  -> no  (0.4s)
+  |W|=1: 142 subsets, max g=5 (at W=[0]), need 8 -> no ; best failing so far 8 (54.3s)

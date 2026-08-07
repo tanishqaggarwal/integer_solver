@@ -35,6 +35,7 @@ Work from `solve_lab/agentS_work/`. Symlinks to E's `orient.pkl`, `users.pkl`,
 | `relax.py` | relaxed selectors — genuine structural move, other rows infeasible (sec 6h) |
 | `structural.py` | row-deficiency analysis over all 72 logged configurations (sec 6i) |
 | `structural2.py` | finds off-shape full-row-rank configurations — the valid test cases (sec 6i) |
+| `dirsearch.py`,`combine.py` | deficiency-directed sweep; post-solve-class independence (sec 6j) |
 | `degen2.py` | degeneracy discriminator: zero AND unresponsive |
 | `selcouple.py`,`selcouple2.py` | selector-coupling census + classification |
 
@@ -368,6 +369,23 @@ other-rows system: `knobs=K other-rows=M kernel-dim=d`, so rank = K − d and
   infeasible. Full row rank over Q does not give solvability over Z; the residue conditions
   (`rhs % modulus != 0`) still bite.
 
+**⚠️ CORRECTION to the table above — I inflated it, the same way the trade walk inflated its VALID
+count.** The "47 feasible at deficiency 0" counts *log lines*, and **46 of them are cfg0's shape
+(54/47/7) repeated** across the kernel and trade runs — the same configuration re-measured, not 47
+configurations. Restricted to genuinely **distinct** configurations (the 22 image points swept):
+
+| deficiency | feasible | infeasible |
+|---|---|---|
+| 0 | **2** (img0, img4) | **6** (img1, img6, img9, img11, img18, img19) |
+| > 0 | **0** | **14** |
+
+So the honest reading: **deficiency > 0 ⟹ infeasible survives (14/14 here, 21/21 overall)** and is
+the real mechanism. But **deficiency 0 ⟹ feasible is only 2 of 8 (25%)**, not the ~92% the inflated
+table implied. Deficiency 0 is a necessary condition and a weak predictor, not a generator.
+That is the third time a count of repeated identical tests has masqueraded as independent
+evidence in my own work (§3 image closure, §6g VALID count, here). **Check for repeats before
+reporting any rate.**
+
 **The existence proof is `img4`** (`runs_kernel2.log`), verified directly from the log rather than
 from my scraper:
 
@@ -392,6 +410,37 @@ data points remain **2** (img0 at cfg0's class, img4 at a different class), both
 not configuration-independence and I am still not claiming it. But the residual side is no longer
 blocked on "we cannot make test cases" — it is blocked on running a deficiency-directed search,
 which is a concrete, bounded next step rather than an open-ended one.
+
+## 6j. THE DEFICIENCY-DIRECTED SEARCH — run, and it STARVED (`dirsearch.py`, `combine.py`)
+Pool: all 48 BFS image points (img4, the one existence proof, came from here). Sharded 3 ways.
+Independence criterion applied throughout is **post-solve** class distinctness; the pre-solve
+class is the trap and appears nowhere in `dirsearch.py` or `combine.py`.
+
+    image points analysed          : 24 of 48
+    other rows infeasible          : 22   (not test cases at all)
+    other rows solvable            :  2   -> blocked 2, SOLVED 0
+    INDEPENDENT test cases (distinct POST-SOLVE class): 2
+       a20215=22981624690591... a28647=44159679639019...  img0   blocked
+       a20215=84623865150894... a28647=47440525290535...  img4   blocked
+    starvation rate: 92%
+
+**The directed search starved, and I can now say why with a measured mechanism rather than a
+suspicion.** Feasibility requires deficiency 0 (necessary, 21/21 no exceptions); deficiency 0
+requires that breaking selectors adds knobs at least as fast as rows; and that in turn only
+happens at **very low weight** — both feasible configurations found in the entire campaign are
+|on| = 0 and |on| = 1. Every |on| ≥ 2 image point analysed so far is infeasible. The reachable
+low-weight pool is tiny (the BFS enumerates ~7 configurations at |on| ≤ 1) and is already
+exhausted, so there is no supply of independent test cases to be had from this pool at all.
+
+**Verdict: 2 independent test cases, both blocked. That is NOT configuration-independence and I
+am not claiming it.** It is the same 2 I had before the directed search; the search added 10 more
+analysed configurations and 0 new independent cases. The line closes with a measured reason —
+a 92% starvation rate and a structural account of it — rather than with a stretched claim.
+
+**If anyone wants to reopen it**, the only untried supply of low-deficiency configurations is
+*outside* the BFS-reachable pool: configurations at low weight that cfg0 cannot reach by flips
+(§3's retraction showed the reachable closure is local, so such configurations exist). Generating
+them needs a constructive method, not sampling — sampling is what starved here.
 
 ## 7. Scores
 - Best verified: **39,026** — the existing deliverable, re-verified by me with `checker.py`.

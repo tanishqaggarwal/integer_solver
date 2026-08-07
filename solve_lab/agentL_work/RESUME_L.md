@@ -349,6 +349,48 @@ The realizability filter therefore does NOT reduce M's 35,960 — I could not cu
 is the answer.  What it gives instead is a partition: 10 of the 15 can be circuit-driven, 5 can
 only ever be knobs, and at x27994 no assignment drives guards and checks at once.
 
+--------------------------------------------------------------------------------------------
+## 6e. THE ALIAS SLACK IS p x (FREE VAR) — Q'S GATE, ANSWERED  (`slack.py`, `slack2.py`)
+Q asked: is anything forcing x_4116 and its five sibling shared factors to zero?
+
+**The question dissolves: x_4116 is not a variable that could be nonzero.  IT IS THE CONSTANT p.**
+Evaluated from their definitions alone, with no free variable anywhere in the chain:
+
+    x4116 = x16153 = x1962 = x12682 = x19049 = x15616
+          = 115792089237316195423570985008687907853269984665640564039457584007908834671663 = p
+
+They are 6 of the **220 constant-p wires** in the instance (every constant multiple of p present
+has multiplier exactly 1).  **That is why they carry no unary pin — constants do not need
+pinning**, and it is why they are "shared": it is the same constant reused, 66 times for x4116.
+
+**GENERAL, NOT ANECDOTAL (`slack2.py`).**  Of the 12,232 wires defined as a product of two wires,
+the 3,681 that appear as slack in a residual atom (one free cofactor) are
+**3,681 / 3,681 of the form (constant multiple of p) x (free variable).  ZERO exceptions.**
+The other 7,697 products are the selector products sel*value, a different population.
+
+**CONSEQUENCE**
+    slack == 0  (mod p)  in EVERY assignment, unconditionally
+    => parent_input == mux_out  (mod p)  exactly
+    => **the coordinate hand-off follows the measured tree, unconditionally, mod p**
+    over Z the slack is a free multiple of p — the lift freedom.
+
+This corroborates my `slopes.py` result (all 3,681 handle slopes divisible by p, 0 exceptions)
+from a completely independent direction: that was numerical, this is structural.
+
+**WHAT THIS DOES AND DOES NOT CLOSE.**  It closes the hand-off **mod p** — Q's worry that the
+parent input is "the mux output plus an unpinned amount" is answered: the amount is p x (free
+var), which is 0 mod p.  It does **NOT** close the integer statement.  Over Z that slack is
+genuinely free, and its residue is exactly the **927 c>1 divisibility conditions** of the
+c > 1 bullet, which remain open (P's rank question).  So: **the mod-p reduction now closes on
+measurement; the Z statement still needs the 927.**  Anyone reporting the existence result as
+unconditional must say "mod p" or must first discharge the 927.
+
+**T's corrections to S6b, accepted:** the gap is **5, not 6**; the far side is **12, not 13**
+(the 13 was my own `build2`'s score, inflated by the un-converged repair I flagged); and only
+**4 of the 12 cofactors move anything** — x1329 (+3), x9413 (+4), x10903 (+3), x17325 (+4) —
+so **the cofactor freedom is 4-dimensional, not 12**.  The core claim (cancellation is a value
+property, support byte-identical) stands; my list was longer than the effect.
+
 ## 7. FILES (all in `agentL_work/`)
 Code: `trace.py ortree.py ortree2.py census.py wire.py link.py crux.py onset.py fail7.py
 handles.py handles2.py exp1.py model.py model2.py calib.py fold.py fold2.py global.py

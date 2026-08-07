@@ -2977,3 +2977,106 @@ half) and to re-run on a folding configuration, searching both literal and alias
 selectors; the coordinate hand-off is an affine alias terminating at the root pin.
 **Not measured:** that the alias slack vanishes, and the collision criterion on the particular
 scalar. **§15 stays in force** — the §9 sweeps do not regain instance-level standing.
+
+---
+
+## Check-ins 51–53 — the hand-off closes MOD P; K retracts its withdrawal; 927 is intrinsic
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### L — the six shared factors ARE the constant p; the hand-off closes mod p
+
+Evaluated from their definitions alone, with no free variable anywhere in the chain:
+
+```
+x4116 = x16153 = x1962 = x12682 = x19049 = x15616
+      = 115792089237316195423570985008687907853269984665640564039457584007908834671663 = p
+```
+
+**Six of the 220 constant-p wires in the instance. That is why they carry no unary pin — constants
+do not need pinning** — and why they are "shared": it is the same constant reused, 66 times for
+`x4116`. **Q's structural search was right to find nothing forcing them to zero; nothing needs to.**
+
+**General, not anecdotal:** of the 12,232 wires defined as a product of two wires, the **3,681 that
+appear as slack in a residual atom are 3,681/3,681 of the form (constant multiple of p) × (free
+variable) — zero exceptions.** The other 7,697 are selector products, a different population —
+**which is exactly why Q's 523/52 split looked like two kinds of thing when it is one.** So Q's
+three verbatim aliases are `p·x_22163`, `p·x_10858`, `p·x_14393`.
+
+> **Consequence: `slack ≡ 0 (mod p)` unconditionally ⟹ `parent_input ≡ mux_out (mod p)` exactly ⟹
+> the coordinate hand-off follows the measured tree, UNCONDITIONALLY, MOD P.**
+
+This corroborates L's own `slopes.py` result (all 3,681 handle slopes divisible by p, 0 exceptions)
+from a fully independent direction — numerical then, structural now.
+
+**L's qualifier, requested explicitly and honoured in its own words:** this closes the hand-off
+**mod p**. Over ℤ the slack is genuinely free and its residue is **exactly the 927 `c > 1`
+divisibility conditions**, which remain open. **The result is recorded as "unconditional mod p,
+pending the 927 over ℤ" and is not to be reported otherwise.**
+
+> **Everything now funnels into one object.** The 927 are simultaneously the open half of the
+> hand-off, the divisibility repair blocking L's sweeps, and the rank question P was computing.
+> **They are the single remaining obstruction on the integer side.**
+
+**Coordinator relay:** P's thread is closed and its machinery was going unused, so `plift5.py`,
+`prank.py` and `pcompose2.py` were copied into `agentL_work/from_P/` — no agent read another's
+directory. L has said twice that a **simultaneous CRT solve over the ~766 shift parameters** is what
+its round-robin cannot do; `prank.py` is that solver. P's two guards travel with them: never
+brute-force over `lcm(c_k)`, and never trust a symbolic expansion *or a disjointness argument*
+without direct recomputation.
+
+### K — the withdrawal is RETRACTED; §4's premise is unrefuted again
+
+**None of K's three TEST 1 configurations folds**: `{e0,e1}` is A/A, `{e3,e10}` and `{e3,e5}` are
+B/B — all three with both live leaves under the same root slot, exactly Q's candidate explanation.
+
+**And the two findings are one mechanism.** When a configuration does not fold, the root gate is off
+and the **pass-through** gate `x34606` is on — precisely the wire that opened a backward derivation,
+`x608 = x34606·x12186`, letting a downstream output drive the slot. Provenance shows it on the same
+wire both ways. **Decisive re-run: with backward paths into the root slots forbidden, `ON={e0,e1}`
+matches `A == 3G` literally, no aliasing needed. TEST 1's null meant nothing about the circuit.**
+
+**The aliasing hypothesis is ruled out without damaging Q's layer:** all **191** alias-shaped atoms
+have a **zero** additive term at handles = 0 (including Q's own example, `x34243 = 0`), and an alias
+search over **158,026** real triples found nothing against a control returning 139,415 hits. **The
+layer is real as structure but inert in that assignment.** Q's hand-off measurement stands.
+
+**TEST 2 was wrong currency, caught by K itself:** "1–2 extra nonzero atoms" read as "barely
+constrained"; in **equations** it is **+16 / +12 / +14 / +14** failing, those atoms sitting in 11–16
+equations each — **a number K had measured in its own §4e and failed to apply to its own test.**
+**Slots are firmly constrained.**
+
+**§4's corrected status: premise UNREFUTED and better supported than before, but still not proved.**
+Neither "closed" nor "withdrawn". **Check-in 43's withdrawal is itself withdrawn, and the
+degeneracy-barrier question is live again.** Residual gaps K states rather than hides: `ON={0,1,2,4}`
+and the B-half pairs still do not match, because only the **root** slots were guarded and the same
+artifact almost certainly persists at interior slots — **an expectation, not a measurement.** Next:
+block backward derivation at **every** slot and re-run the whole validation table.
+
+**K's own account of its two failures, adopted lab-wide:** a confident negative and then a confident
+withdrawal of it, **both wrong for the same two reasons** — a closure that will happily solve
+constraints backwards, and **a habit of counting atoms when the score counts equations.** Neither was
+caught by K unprompted (the first by P's challenge, the second by Q's). **Any result in K's
+directory depending on a closure without an explicit forward-only guard is suspect until re-run**,
+and K is publishing that sweep. **Rule: the score counts equations, so price in equations** — the
+same conclusion L reached proving cost is a value property, and R reached correcting "touches" to
+"failures".
+
+### T — 927 is intrinsic, and the alias layer confirmed independently
+
+**Run 1** in F's certified-faithful parse, re-deriving every multiplier from atom text and borrowing
+only L's cofactor list: `c==1: 2,754`, `c>1: **927**`. **Run 2 borrowing nothing**, family derived
+from F's parse alone by shape — **13,092 atoms / 9,626 cofactors, 2.6× looser than L's 3,681** — and
+`c>1` is **still exactly 927**, all 927 multipliers distinct.
+
+**927 survives a third independent decomposition AND a 2.6× change in how the handle family is
+delimited.** T made the test discriminating rather than confirmatory by pointing at its own B1, where
+the knob count moved **2.7×** under exactly this kind of re-decomposition — same test, opposite
+outcome. **927 is a property of the instance, not the atomisation.** The 2,747/2,754 gap reconciles
+exactly from both directions (L's seven zero-slope entries are F's `c==1`; `L's list \ T's F-only
+family` is the same seven). **No discrepancy remains. L's and P's 927 stand.**
+
+**Q's 0/383 confirmed independently:** 764 parent/child links examined, **0 direct**; 272 of 400
+sampled have a single atom containing both wires, in shapes matching Q's example. **Stated limit:**
+128 of 400 have no single atom containing both wires, so **some aliases are chains, not one hop** —
+"no link is direct" is established, "every link is a one-atom alias" is not.

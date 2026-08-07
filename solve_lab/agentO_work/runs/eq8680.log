@@ -1,0 +1,20 @@
+eq8680:  multiplier m = 1   squared-outer flag sq = True   number of terms = 1
+terms (coefficient, atom):
+   c=1      atom 37887   check=True  value=0
+        src: (x_4432 - x_19964 - x_28730 + 6 * (x_23754 - x_26874 * x_6947) + 15 * (6122989 * (x_21279 * x_2239) - x_23754) + -21 * (x_35619 - x_24490 * x_33168) +
+
+a37887 is in equations: [8680]
+current eq8680 value: 0
+
+terms whose atom is a CHECK (can be nonzero): [(1, 37887)]
+terms whose atom is a DEFINITION (identically zero in this frame): 0
+
+--- VERDICT on whether S = 0 is forced
+  eq8680 reduces to  1 * 1 * a37887 = 0  with a37887 = S^2.
+  Every other atom in the equation is a DEFINITION and is identically zero in any
+  assignment produced by this frame, so eq8680 holds  <=>  S^2 = 0  <=>  S = 0.
+  ==> S = 0 is FORCED for every assignment that satisfies eq8680.
+      This is unconditional -- it does not depend on any knob set.
+
+--- can anything move the OTHER check atoms of eq8680?
+DONE
