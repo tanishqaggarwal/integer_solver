@@ -117,3 +117,12 @@ outer 5: global nonzero 6, violated c-conditions 4, nonzero handle-less 2
      (x10424 ,x20930 ) |group|=1 NO JOINT ROOT mod 23 (exhaustive)
      (x10424 ,x27436 ) |group|=1 200 candidate(s) verified, guard rejected all
      (x10424 ,x30632 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x10424 ,x35256 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x10424 ,x36193 ) |group|=1 NO JOINT ROOT mod 23 (exhaustive)
+     (x20930 ,x27436 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x20930 ,x30632 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x20930 ,x35256 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x20930 ,x36193 ) |group|=1 NO JOINT ROOT mod 23 (exhaustive)
+     (x27436 ,x30632 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x27436 ,x35256 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x27436 ,x36193 ) |group|=1 NO JOINT ROOT mod 23 (exhaustive)

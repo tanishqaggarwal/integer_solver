@@ -5633,3 +5633,70 @@ re-proved on `K+`.**
 
 The scope heading is now `#`-level inside the boundary block — *"THE CLASSIFICATION IS CLOSED AT ATOM
 LEVEL AND OPEN AT EQUATION LEVEL"* — with an explicit instruction not to cite §2 without it.
+
+---
+
+## Check-in 96 — round 1's cocircuit search was materially incomplete (agent W)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified from cold.
+
+### The window method is retired, not just its run
+
+Head to head on the same `K+`:
+
+| | window | **exact** |
+|---|---|---|
+| supports at `s ≤ 3` | 1,485 | **3,184** |
+| supports at `s = 4` | 5,965 (cumulative) | **25,473** (that level alone) |
+| positive-dimensional nodes | skipped | **recorded**: 2,376 at `s≤3`, 65,619 at `s=4` |
+
+**The window found well under a quarter of the `s ≤ 4` supports** — and, decisively, **re-running the
+same method from more information sets does not fix it.** Round 1's *budget, not exhaustion* label
+was right, but **the gap is far larger than its 3.07M skip count suggested.**
+
+### W's replacement is an exact case split, not a better heuristic
+
+A weight-≤6 codeword is nonzero on at most `6−s` outside columns, so **among any `7−s` outside
+columns at least one vanishes at it.** Branch on that, recurse into `V ∩ ker φ_k`; depth `s−1`,
+branching `7−s` — **finite and complete.** And when fewer than `7−s` columns are live on `V`,
+**every point of `V` already has low weight, so the whole subspace is RECORDED rather than skipped.**
+*That is precisely the case round 1 threw away.*
+
+**Preconditions re-verified on `K+` first:** all 198 SAT rows homogeneous, `rank_Q(A_SAT) = 32`,
+system still ℚ-consistent (`rank = rank[A|b] = 34`). Round 1's structural result — only rank-dropping
+deletions matter, every break-set a union of minimal cocircuits — **reproduces verbatim** on the
+corrected knob set.
+
+### The negative that landed
+
+**60 minimal cocircuits** at `s ≤ 3` (`{1:6, 2:2, 3:2, 4:3, 5:7, 6:40}`), **every one re-verified
+genuinely rank-dropping over ℚ — 0 mod-p artefacts**; union closure **510 break-sets**; **4,318 exact
+integer solves in 69 s → BEST GAIN = 0.** Nothing beats 39,026 on the corrected knob set either.
+
+The six size-1 cocircuits are the same six essential rows — but there are **two** minimal size-2
+cocircuits, and **`{36489, 8985}` is one round 1 on `K = 34` never saw.** That is the concrete
+demonstration that the old knob set was hiding **structure**, not just numbers.
+
+Two exact reductions kept it cheap: kernels are **monotone** in the break-set so only
+**inclusion-maximal** break-sets need testing, and every mod-`2⁶¹−1` support is **re-verified over ℚ**.
+
+### Honest status of the frame-B optimality row
+
+`minbreak(P) = |P|`, gain 0 is confirmed on `K+` **over the essential-row family (exhaustive)** and
+over the **510 break-sets from the exact `s ≤ 3` enumeration**. **General breaks at `j = 4..7` remain
+budget — and after the head-to-head, that budget is *substantially* short, not marginally.**
+
+### Tasking, and a second parallelism cap
+
+W had **three** jobs running. Told to **kill 9543 outright** (the 3-information-set window run — it
+has just shown more information sets do not fix the window), **kill 28998**, and keep **29354**, the
+`s = 4`-only job, since W's own note says that lets `s = 4` persist without waiting on `s = 6` —
+the right granularity when a restart has hit this fleet twice today. Then `s = 5`, then `s = 6`,
+sequentially with checkpoints.
+
+**Report `s = 4` as its own result without waiting for `s = 6`.** Exhaustive `s = 4` alone would
+already extend the strongest exhaustive row in this region beyond anything round 1 could support,
+and given the 4× discrepancy at that level it is where surviving structure most likely hides.
+
+*Load context: 26 at the previous heartbeat, decaying past 19 after two other agents cut their shard
+counts. Eight compute processes on four cores is the working target.*

@@ -2,3 +2,6 @@
   [set 0] s=3 done: 1485 supports, 30s
   [set 0] s=4 done: 5965 supports, 333s
   [set 0] s=5 done: 15017 supports, 777s
+  [set 0] s=6 done: 28132 supports, 1685s
+[information set 0] NEW supports: 28132  (total 28132, degenerate skipped 9894150)
+  [set 1] s<=2 done: 28166 supports, 1686s

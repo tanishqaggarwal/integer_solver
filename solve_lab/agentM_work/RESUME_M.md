@@ -457,3 +457,29 @@ chain, never over chains.
 
 Corollary: the cofactor run does NOT supersede the handle-only run, and neither supersedes the
 row-order-varied run. All three are needed and the reported best is the max of the three.
+
+## R14.8 ROUND-14 RESULT (headline)
+    2^16 @ p80 handle knobs        COMPLETE 65,536/65,536, above 39,026: 0, best 39,026 @ witness
+    2^16 @ p80 max-3-row-orders    COMPLETE |W| = 0..7 (the whole 39,026 region), above: 0
+    2^16 @ p80 + cofactor knobs    COMPLETE |W| = 0..8, above: 0
+    2^18 @ p80                     COMPLETE |W| = 0..6, above: 0
+    checker.py agreements this round: 14 / 14, spanning 39,008 - 39,026
+    BEST VERIFIED SCORE STILL 39,026 = solve_lab/best/new_instance_partial_39026.json
+
+At |W| = 4 the witness {642, 28730, 29854, 31864} is the UNIQUE maximiser under all four
+instruments and over both the 16- and 18-handle incident sets. 39,026 never occurs at |W| >= 8.
+
+## R14.9 The next experiment, and why the enumeration cannot answer it
+Everything above prices SUBSETS of an incidence-filtered handle pool while every other free input
+stays at the deliverable's value. The one axis with real freedom left is the free inputs
+themselves: W's frame-B measurement says the obstruction inside K is pure INTEGRALITY (rank of
+[A|b] = 28, rhs not a pivot, so consistent over Q), and a lattice index is exactly what changing
+the other ~8,700 free inputs can move. **Pricing handle subsets cannot reach it — the knob set is
+the wrong object.** The instrument to build is a pricer whose knobs are free inputs chosen by
+which lattice column they move, not by handle incidence.
+
+## R14.10 Still running when I handed off (both checkpointed, safe to kill at any instant)
+    2^18 @ p80   wrapper pid 28845, python child 28848   -> r14_enum18_p80.log, enumsub18_p80.pkl
+    cofactor 2^16 wrapper pid 14873, python child 14875  -> r14_enumcof16.log, enumcof16_c4_p80.pkl
+Test with `kill -0 <pid>`; never match on the command line. Both print a per-size distribution
+the moment a support size completes, so the log is a valid measurement at any interruption point.
