@@ -238,3 +238,120 @@ def load_deliverable():
     for k, val in d.items():
         v[int(k.split('_')[1])] = int(val)
     return v
+
+
+# ============================================================================
+# TUNED PRICING -- the path that matters once L showed cancellation is a VALUE
+# property.  Pricing a site with its handles unset measures the wrong thing (the
+# deliverable's own site reads 13 failures unset against a true cost of 7), so a
+# candidate must have its handle values TUNED before its score means anything.
+#
+# Procedure: start from the uncorrupted baseline (all demoted atoms zero), take
+# the site's freed handles PLUS the free variables in the cones of its demoted
+# atoms (this is where the cofactors u live -- they were missing from
+# price_search and are exactly what the deliverable sets), then GREEDILY select
+# baseline-failing equations to zero, and MEASURE the true score at several
+# prefixes of that greedy solution.  Greedy is used because it is what recovered
+# the 39,026 trade-off in eqsolve; size<=2 subsets are far too weak.
+# ============================================================================
+
+def _greedy_rows(rows, rhs, order, budget, t0):
+    keep = []
+    sols = []
+    for i in order:
+        if time.time() - t0 > budget:
+            break
+        trial = keep + [i]
+        s, _, _ = sparse.solve_sparse([rows[j] for j in trial], [rhs[j] for j in trial],
+                                      verbose=False, maxcore=400, maxcorebits=5_000_000)
+        if s is not None:
+            keep = trial
+            sols.append((len(keep), s))
+    return keep, sols
+
+
+class TunedPricer(Pricer):
+    def price_tuned(self, handles, budget=180.0, depth=1, nprobe=8, want=False):
+        t0 = time.time()
+        freed, demote = closure(handles, depth=depth)
+        if freed is None:
+            return {'ok': False, 'why': 'closure exceeded cap'}
+        eng = E3.Eng(demote)
+        seed = {f: self.vd[f] for f in eng.FREE if self.vd[f] != 0}
+        for u in freed:
+            if self.v_unc[u]:
+                seed[u] = self.v_unc[u]
+            else:
+                seed.pop(u, None)
+        v0 = eng.forward(seed)
+        bad0 = eng.badatoms(v0)
+        FAILS = sorted(fscore.fails(bad0))
+        base_sc = NEQ - len(FAILS)
+
+        FS = set(eng.FREE)
+        cand = set(freed)
+        for a in demote:                       # <-- the cofactors u live here
+            try:
+                cand |= set(EB.cone(a)[1])
+            except Exception:
+                pass
+        for e in FAILS:
+            for c, a in H.eqt[e][2]:
+                if a >= 0:
+                    try:
+                        cand |= set(EB.cone(a)[1])
+                    except Exception:
+                        pass
+        cand = sorted(f for f in cand if f in FS)
+        aff, cols = _affine_cols(eng, v0, bad0, cand)
+
+        rows, rhs = [], []
+        for e in FAILS:
+            cm = collections.defaultdict(int); const = 0
+            for c, a in H.eqt[e][2]:
+                if a < 0:
+                    const += c
+                else:
+                    cm[a] += c
+            row = {}
+            for f in aff:
+                co = 0
+                for a, d in cols[f].items():
+                    c = cm.get(a)
+                    if c:
+                        co += c * d
+                if co:
+                    row[f] = co
+            rows.append(row)
+            rhs.append(-(const + sum(c * bad0[a] for a, c in cm.items() if a in bad0)))
+
+        order = [i for i in range(len(rows)) if rows[i]]
+        keep, sols = _greedy_rows(rows, rhs, order, budget * 0.7, t0)
+
+        best = (base_sc, None, None)
+        if sols:
+            idx = sorted(set(round(k * (len(sols) - 1) / max(1, nprobe - 1))
+                             for k in range(nprobe)))
+            for j in idx:
+                nk, s = sols[j]
+                ns = dict(seed)
+                for f, d in s.items():
+                    if d:
+                        ns[f] = v0[f] + d
+                try:
+                    v = eng.forward(ns)
+                    av = eng.badatoms(v)
+                    sc = fscore.score(av)
+                except Exception:
+                    continue
+                if sc > best[0]:
+                    best = (sc, nk, ns)
+                if time.time() - t0 > budget:
+                    break
+        out = {'ok': True, 'handles': list(handles), 'freed': freed, 'demote': demote,
+               'base_score': base_sc, 'nfail_base': len(FAILS), 'nknobs': len(aff),
+               'score': best[0], 'rows_kept': best[1], 'ngreedy': len(keep),
+               'secs': time.time() - t0}
+        if want and best[2] is not None:
+            out['seed'] = best[2]; out['eng'] = eng
+        return out

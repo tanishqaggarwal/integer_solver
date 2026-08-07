@@ -1669,3 +1669,73 @@ list — L can emit 6- and 8-handle variants spanning two adjacent sites if thos
 
 S's two-atom-equation lead remains queued behind the repair fix; L did not chase it, per the
 stated order. `|S| = 4` still running unattended (~20M/174M), not blocking.
+
+---
+
+## Check-in 24 — mod 23 lifts; the first favourable data point on the lift side (agent P)
+
+Deliverable unchanged: **39,026 / 39,033**. No score attempted this round.
+
+### The result
+
+At **block 2, |S| = 2, with the full 6-parameter model**, all three `c·P | R` conditions are
+**simultaneously satisfiable**. The mod-23 degeneracy P reported in check-in 19 and refused to
+call an obstruction **was an artifact of the 2-parameter model**, exactly as P suspected.
+
+```
+legal mu-steps (i1..i6)      : [4373213, 7633471, 1, 1, 1, 1]
+three conditions (c1,c2,c_k) : [(5788325,9395331,1), (9705029,4851321,1), (10233687,4279357,7038713)]
+7038713 = 11·23·43·647 ; root pairs (t1,t2) mod q: 20 / 22 / 41 / 645
+CRT solution                 : t1 = 0 , t2 = 383619
+shifted point still mod-P valid               : True
+condition 3 (c = 7038713) now divides exactly : True
+conditions 1 and 2 have modulus 1             : vacuous
+```
+
+### Why this one is trustworthy — and the method note that outlives it
+
+**The verdict comes from direct recomputation, not from the expansion.** P rebuilds the shifted
+integers `i_k + P·mu_k`, recomputes `N1, N2` from scratch and checks `P | N1`, `P | N2`,
+`c_k·P | R`; the expansion is used only to *search*.
+
+**That guard caught a real bug in P's own algebra** — the `n2` shift was coded as `A*h2` where
+the algebra gives `B*h2`. The first run reported "condition 3 divides: **False**" from direct
+recomputation while the expansion said the residual was 0, and **the disagreement is what exposed
+it.** After the fix the expansion is verified exact against direct recomputation on 5 random
+shifts. In P's own words: *had I trusted the expansion alone I would have reported the opposite
+result.*
+
+**Standing rule added on the strength of it: never trust a symbolic expansion without an
+independent direct-recomputation check.** Both guards are documented in `prank.py` — that one,
+and "do not brute-force over `lcm(c_k)`."
+
+P also flagged that its step derivation for `i3, i4` returned 1, could not be confirmed, and
+would be **optimistic if wrong** — then showed it is not load-bearing here, because the CRT
+solution has `t1 = 0` and uses only `i2`, whose step (7,633,471) is properly derived from its own
+leaf atom.
+
+### Scope — stated by P, kept verbatim in force
+
+**One block of 255 merges, one of the 927 conditions, at the one configuration where the system
+is genuinely decoupled.** It says nothing about whether the other 926 lift, whether they lift
+**simultaneously** (at `|S| > 2` several blocks are live and parameters couple through parent
+inputs, so the per-block CRT does not compose), or about larger `|S|`.
+
+Incidental and consistent: at block 2, **two of the three conditions have `c = 1` and are
+vacuous**, only one carries `c > 1` — matching the global 927 / 3,707 ≈ 25%.
+
+### Reduction status — unchanged for the fourth consecutive check-in
+
+**2,780 of 3,707 free at `c = 1`; 927 carrying `c·P | R`, satisfiability unproved.** P declined
+again to soften it, this time on the strength of a *favourable* result. L's matching 927 raises
+confidence in the count, not the satisfiability.
+
+### Next — composition, not more single blocks
+
+P's own handover, and its next task: the smallest case where coupling actually bites is
+**`|S| = 3` or `4` with two live merges in a parent/child relation** — the first configuration
+that can distinguish "each condition lifts individually" from "they lift simultaneously", which
+is what the reduction actually needs. The **`i3/i4` leaf-multiplier lookup must be fixed first**,
+since in a parent/child pair those parameters become load-bearing. If budget is short, P has been
+told to deliver the handover instead of a rushed number — `prank.py` runnable end to end, the fix
+in place, both guards documented, and one paragraph naming the configuration to run first.

@@ -49,11 +49,39 @@ dim 7), then compute the image lattice on (a20215, a28647):
 So the endgame condition at cfg0 is exactly `a20215 ≡ 0 (mod p)` **and** `a28647 ≡ 0 (mod p)`,
 and both are nonzero (…263210356252 and …695745279353).
 
-## 3. Half the condition is reachable; the other half is not (scoped)
+## 3. ⚠️ RETRACTED — I refuted this myself. Read this section before using anything below it.
+**Retraction 1 — the closure is LOCAL, not global** (`reach.py`). I described the §3 BFS as
+"terminated by exhaustion". It is exhaustive only over the closure reachable *from cfg0 under
+single flips*. I tested it against configurations it could not reach — random subsets of every
+weight, each with all 256 selectors set explicitly rather than a few flips off cfg0.
+**148 of 300 landed OUTSIDE the 48-tuple image, producing 14 new tuples.** Even |S| = 1 landed
+outside (cfg0 has x_1530 = x_1603 = 1, so "only this selector on" is 3 flips away, not 1).
+So "the image closed at 48 tuples" does **not** bind the instance.
+
+**Retraction 2 — "a20215 mod p is never 0" is true but is NOT an obstruction** (`reach2.py`).
+p is prime, so any knob moving a20215 by a step ≢ 0 (mod p) makes every residue reachable.
+At cfg0 **and** at random |S| = 17/64/128/200 configurations outside the closure, exactly 3 affine
+knobs move a20215 and **2 of them move it by ±1**: x_18956 (step +1) and x_31339 / x_30213
+(step −1). So a20215 ≡ 0 (mod p) is reachable *on its own*, trivially. My §3 measured the image of
+the **selector** map with affine knobs held fixed, and I over-read that as an obstruction.
+
+**What actually survives is §2, and only in its joint form.** x_18956 moves a20215 by 1 but pays
+8863713 into a747, whose only handle steps by p; keeping a747 satisfied forces
+8863713·n ≡ 0 (mod p), hence n ≡ 0 (mod p) since gcd(8863713, p) = 1 — so a20215 moves by
+multiples of p *only once the other rows must stay satisfied*. That is exactly the p·Z² image §2
+computed. §2 and §3 were never independent; §3 was a weaker restatement that dropped the "other
+rows stay satisfied" clause, which is the entire content.
+
+**Consequence for the tension with Q's existence result: there is no contradiction, and the fault
+was mine.** My result is a cfg0-*local* joint statement, the reachable space is demonstrably
+larger than I mapped, and nothing I measured forbids a satisfying assignment elsewhere.
+Do not cite §3 against any existence claim.
+
+## 3 (original, now scoped down to what it actually shows). Half the condition is reachable
 `bfs.py` — BFS over configurations, move set = **all 256 cluster booleans + the switch x_30163**,
 non-boolean affine knobs at cfg0 values (justified: §2 shows they act only in p·Z² on the pair).
-It **terminated by exhaustion** (gen6 produced 0 new), giving exactly **48 distinct mod-p
-5-tuples**:
+It terminated with no new tuples under single flips, giving 48 distinct mod-p 5-tuples.
+**This is a local closure only — see the retraction above.**
 
 | row | distinct values mod p | reaches 0 ? |
 |---|---|---|
@@ -67,11 +95,14 @@ It **terminated by exhaustion** (gen6 produced 0 new), giving exactly **48 disti
 configurations with **four of the five rows simultaneously 0 mod p** — but a20215 mod p was
 still only ever 44859544763832475231923253825569092119321525945631045653619508440821028887
 or 22981624690591324143788809642515852940280603493270692712106986169263210356252.
-`final.py` re-measured at two such configurations: a20215's handle step is still exactly p
-there, and the other rows go infeasible. **a20215 mod p = 0 is the one thing nothing reached.**
-Scope, stated plainly: move set = 256 cluster booleans + both switches + 75 affine cone knobs;
-base = triple8_seed. This is the whole cone of the 5 rows, so no free variable outside it can
-affect them — but bfs2 did not converge, so this is *measured*, not proved.
+`final.py` re-measured at two such configurations: a20215's handle step is still exactly p there,
+and the other rows go infeasible.
+**Correct reading of all of the above:** a20215 mod p = 0 is the one thing the *selector* map never
+reached with affine knobs held fixed. That is a fact about the selector map's image and nothing
+more. `reach2.py` shows affine knobs move a20215 by ±1 at every configuration tested, so a20215
+mod p = 0 is reachable outright; and `reach.py` shows the 48-tuple image is a local closure.
+Scope of the BFS, stated plainly: move set = 256 cluster booleans + the switches, affine knobs
+pinned at triple8_seed values, single flips from cfg0. **Not the whole space.**
 
 ### 3b. `lat5.py` corroboration (independent of the BFS mod-p reading)
 **Status: 22 of 48 configurations completed, 0 feasible; a20215 was in the bad set in 22 of 22.** The remainder was sharded across three
@@ -205,12 +236,17 @@ exceeds the largest signed subset difference. My corroboration is independent of
    `lat5p.py` instead, which takes `WK`/`NW` env vars and shards the configuration list across
    workers (`for w in 0 1 2; do WK=$w NW=3 python3 lat5p.py & done`). Note `lat5p.py` as written
    skips `i<18` — remove that guard to sweep from the start.
-2. **Let `bfs2.py` converge** (it had not; raise the time limit and the `frontier=nf[:40]` cap).
-   If it closes with a20215 mod p still taking 2 values, §3 becomes a closed statement over the
-   entire cone rather than a measurement.
-3. **Attack a20215 directly rather than the cluster.** a20215 is `x_24530 - x_5647 * x_24908`
-   with 274 cone free vars. Everything above says the whole endgame is the single condition
-   `a20215 ≡ 0 (mod p)`; that is now a much smaller target than "solve the instance".
+2. **Do NOT try to close the BFS.** `reach.py` settled it: the closure is local, half of random
+   configurations land outside, and no amount of extra BFS budget makes it a global statement.
+   The BFS was the wrong instrument — it explores the *domain* by adjacency when the thing that
+   matters is the *joint lattice condition*, which `lat2.system` + `sparse.solve_sparse` tests
+   directly at any configuration in ~40 s. Sample configurations, don't walk them.
+3. **The single live question is whether the joint p·Z² obstruction is configuration-independent.**
+   `reach3.py` runs the full exact solve at random configurations *outside* the BFS closure; it
+   was still running when I stopped (heavy CPU contention). This is the experiment that decides
+   whether §2 says anything about the instance or only about cfg0. If any random configuration
+   comes back FEASIBLE, §2 is cfg0-local too and the entire barrier story collapses in Q's favour.
+   Run `reach3.py` first, on an idle box.
 4. The cancellation code is where the score actually lives. 7 is the code's optimum for the
    deliverable's atom family; the untried question is whether a **different** residual family
    (there are many, one per basin) admits a weight-6 code. `basin2.py` generalises to any basin —

@@ -1,0 +1,35 @@
+P = [642, 1329, 9413, 10903, 17325, 28730, 29854, 31864]
+Eqs = [2554, 6816, 8124, 8680, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+rank over Z (echelon) = 8
+pivots (column, pivot value):
+   x_642 : pivot -1 (1 bits)
+   x_1329 : pivot 115792089237316195423570.. (256 bits)
+   x_9413 : pivot -11579208923731619542357.. (256 bits)
+   x_10903 : pivot -11579208923731619542357.. (256 bits)
+   x_17325 : pivot 854183999876705383747646.. (279 bits)
+   x_28730 : pivot -1 (1 bits)
+   x_29854 : pivot -1 (1 bits)
+   x_31864 : pivot 1 (1 bits)
+zero rows / consistency:
+   row 8: 0 = 0  -> OK
+   row 9: 0 = 0  -> OK
+   row 10: 0 = 0  -> OK
+   row 11: 0 = 0  -> OK
+   row 12: 0 = 0  -> OK
+
+back substitution:
+   x_31864 = rhs/pivot OK (2428 bits)
+   x_29854 = rhs/pivot OK (2428 bits)
+   x_28730 = rhs/pivot OK (0 bits)
+   x_17325: rhs / pivot NOT divisible  (pivot 279 bits, rhs 2440 bits)
+   x_10903: rhs / pivot NOT divisible  (pivot 256 bits, rhs 2446 bits)
+   x_9413: rhs / pivot NOT divisible  (pivot 256 bits, rhs 2419 bits)
+   x_1329: rhs / pivot NOT divisible  (pivot 256 bits, rhs 2448 bits)
+   x_642 = rhs/pivot OK (2433 bits)
+
+number of blocking divisibilities: 4
+   x_17325: gcd(pivot, rhs) = 2 bits; pivot/gcd = 278 bits
+   x_10903: gcd(pivot, rhs) = 1 bits; pivot/gcd = 256 bits
+   x_9413: gcd(pivot, rhs) = 1 bits; pivot/gcd = 256 bits
+   x_1329: gcd(pivot, rhs) = 1 bits; pivot/gcd = 256 bits
+DONE

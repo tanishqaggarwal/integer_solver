@@ -17,3 +17,7 @@ VALIDATION PASSED
 
 === THROUGHPUT ===
   price_given  : 0.53s per candidate  -> 6,736/hour
+  price_search : 120.2s for the deliverable's own four
+     -> base(uncorrupted) 39008, best 39020 via (5324, 9041), 40 affine knobs
+
+  product-defined variables found in my frame: 10381

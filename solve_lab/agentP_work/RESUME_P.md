@@ -468,3 +468,71 @@ correct parameter set, and I am not stating the reduction unconditionally.
 Knob set: 256 selectors, liveness derived; everything else mod P.
 
 ## 37. Best verified score: **39,026 / 39,033 — unchanged, not mine.**
+
+---
+# CHECK-IN 20 — mod 23 lifts. The deficiency was an artifact of the small model.
+
+## 38. Result
+At **block 2, |S| = 2, with the full 6-parameter model**, all three `c·P | R` conditions are
+**simultaneously satisfiable**. The mod-23 failure I reported last round was an artifact of the
+2-parameter model, exactly as I suspected. It is **not** an obstruction in the instance.
+
+Constructed, not argued:
+```
+ legal mu-steps (i1..i6)      : [4373213, 7633471, 1, 1, 1, 1]
+ three conditions (c1,c2,c_k) : [(5788325,9395331,1), (9705029,4851321,1), (10233687,4279357,7038713)]
+ 7038713 = 11 * 23 * 43 * 647 ; root pairs (t1,t2) mod q: 20 / 22 / 41 / 645
+ CRT solution                 : t1 = 0 , t2 = 383619
+ shifted point still mod-P valid                : True
+ condition 3 (c = 7038713) now divides exactly  : True
+ conditions 1 and 2 have modulus 1              : vacuous
+```
+
+## 39. Two things that make me trust this one
+1. **The verdict is confirmed by direct recomputation, not by my expansion.** I rebuild the
+   shifted integers `i_k + P·mu_k`, recompute `N1, N2` from scratch, and check `P | N1`,
+   `P | N2` and `c_k·P | R`. The expansion is only used to *search*.
+2. **That check caught a real bug in my own expansion.** I had written the `n2` shift as
+   `A*h2` where the algebra gives `B*h2`. The first run reported "condition 3 divides: False"
+   from the direct recomputation while my expansion said the residual was 0 — the disagreement
+   is what exposed it. After the fix the expansion is **verified exact against direct
+   recomputation on 5 random shifts**, and the CRT solution verifies directly.
+   Had I trusted the expansion alone I would have reported the opposite result last round.
+
+**Robustness note:** my step derivation for `i3, i4` returned 1, which I could not confirm and
+which would be *optimistic* if their true step is `c > 1`. It does not matter here — the CRT
+solution has `t1 = 0` and uses only parameter `i2`, whose step (7633471) is properly derived
+from its own leaf atom. The verdict rests on one correctly-derived parameter.
+
+## 40. Scope — one block, |S| = 2. I am not generalising it.
+This settles **block 2 at |S| = 2**, the configuration where I had established the system is
+genuinely decoupled. It is one block out of 255 merges and one of the 927 conditions.
+It says nothing about:
+* whether the other 926 conditions lift;
+* whether they lift **simultaneously** — at |S| > 2 several blocks are live at once and the
+  parameters couple through parent inputs, so the per-block CRT above does not compose;
+* larger `|S|`, which I did not touch this round.
+
+A useful incidental: at block 2, **two of the three conditions have modulus `c = 1` and are
+vacuous**; only one carries `c > 1`. That ratio is consistent with the global 927 / 3707 ≈ 25%.
+
+## 41. Reduction status — **unchanged and still conditional.**
+2,780 of 3,707 handles free at `c = 1`; **927 carrying `c·P | R`, satisfiability unproved.**
+One condition settled favourably at one block is not 927 conditions settled, and I am not
+softening the status on the strength of it. L's matching 927 raises confidence in the count,
+not the satisfiability. Knob set: 256 selectors, liveness derived; everything else mod P.
+
+## 42. Handover — the next step is coupling, not more single blocks
+`prank.py` runs the whole computation end to end and is left in a state where the next agent
+runs it rather than rebuilds it. To extend:
+1. **Do not brute-force `lcm(c_k)`** (I burned a run on that) and **do not trust an expansion
+   without the direct-recomputation check** (it cost me a wrong sign this round). Both guards
+   are already in `prank.py`.
+2. Generalise `step[]`: my leaf-multiplier lookup failed for `i3, i4`. Fix it before any
+   configuration where those parameters are load-bearing.
+3. The real open question is **composition**: at `|S| > 2` multiple blocks are live, block `j`'s
+   output lift shifts its parent's inputs, and the system stops being block-diagonal. The right
+   next measurement is `|S| = 3` or `|S| = 4` with two live merges in a parent/child relation —
+   that is the smallest case where coupling actually bites.
+
+## 43. Best verified score: **39,026 / 39,033 — unchanged, not mine.** No score attempted.
