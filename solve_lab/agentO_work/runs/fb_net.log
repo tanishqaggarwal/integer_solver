@@ -1,0 +1,13 @@
+knobs: 34
+rows 175  satisfied 168  failing 7
+
+=== TEST A: pay eq8680 (drop the S row), buy k >= 2 of the seven
+  k=7: none
+  k=6: none
+  k=5: none
+  k=4: none
+  k=3: none
+  k=2: none
+
+=== TEST B: pay eq8680 + one other satisfied row, buy k >= 3
+  k=3: none over any single extra payment

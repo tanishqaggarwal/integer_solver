@@ -1,0 +1,24 @@
+distinct atom terms: 47198
+atoms by number of DISTINCT equations containing them:
+     1 equations :   8166 atoms
+     2 equations :      2 atoms
+     3 equations :      5 atoms
+     4 equations :     22 atoms
+     5 equations :    113 atoms
+     6 equations :    357 atoms
+     7 equations :   1052 atoms
+     8 equations :   2384 atoms
+     9 equations :   4382 atoms
+    10 equations :   6243 atoms
+    11 equations :   7370 atoms
+    12 equations :   6894 atoms
+    13 equations :   5038 atoms
+    14 equations :   3009 atoms
+    15 equations :   1409 atoms
+    16 equations :    551 atoms
+    17 equations :    163 atoms
+    18 equations :     28 atoms
+    19 equations :     10 atoms
+atoms occurring in >= 2 equations: 39032 / 47198  (82.7%)
+atoms per equation: mean 11.5  min 1  max 25
+stage-core atoms by equation multiplicity: {1: 275, 4: 2, 5: 6, 6: 10, 7: 42, 8: 102, 9: 170, 10: 253, 11: 271, 12: 285, 13: 215, 14: 99, 15: 51, 16: 17, 17: 7, 18: 1, 19: 1}

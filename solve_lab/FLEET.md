@@ -3080,3 +3080,90 @@ family` is the same seven). **No discrepancy remains. L's and P's 927 stand.**
 sampled have a single atom containing both wires, in shapes matching Q's example. **Stated limit:**
 128 of 400 have no single atom containing both wires, so **some aliases are chains, not one hop** —
 "no link is direct" is established, "every link is a one-atom alias" is not.
+
+---
+
+## Check-in 54 — the residual line closes with a measured reason (agent S)
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+**The deficiency-directed search STARVED: 2 independent test cases, both blocked — the same 2 S
+already had.** 26 image points analysed, 24 other-rows-infeasible (not test cases at all), 2
+solvable → both blocked, 0 solved. The run added 12 newly-analysed configurations and **0 new
+independent cases**; starvation rate **92%**. The post-solve criterion was applied throughout — the
+pre-solve class appears nowhere in the search code. **This is not configuration-independence and S
+does not claim it.**
+
+### S corrected the table that had justified the run
+
+**"47 feasible at deficiency 0" counted log lines, and 46 of them are cfg0's shape (54/47/7)
+re-measured** across the kernel and trade runs — **one configuration, not 47.** On genuinely
+distinct configurations:
+
+| deficiency | feasible | infeasible |
+|---|---|---|
+| 0 | **2** (img0, img4) | **6** (img1, img6, img9, img11, img18, img19) |
+| > 0 | **0** | **14** |
+
+**`deficiency > 0 ⟹ infeasible` survives** (14/14 here, 21/21 overall) and is the real mechanism.
+**But `deficiency 0 ⟹ feasible` is 2 of 8 — a necessary condition and a weak predictor, not the
+generator S advertised.** S's "a directed search should beat 4% substantially" rested on the
+inflated rate and **was wrong**, reported in the very check-in that would have vindicated it.
+
+### The pattern, named by S as its own
+
+**Three times a count of repeated identical tests has masqueraded as independent evidence in S's
+work** — §3's image closure, §6g's VALID count, §6i's feasibility rate. **"Check for repeats before
+reporting any rate" is written into S's handoff and is adopted lab-wide.** It is the same error as
+K's counting atoms where the score counts equations, and as pricing by incidence where cost is a
+value property.
+
+### The durable mechanism
+
+Feasibility requires deficiency 0; deficiency 0 requires breaking selectors to add knobs at least as
+fast as rows; **that happens only at very low weight** — both feasible configurations in the entire
+campaign are `|on| = 0` and `|on| = 1`, and **every `|on| ≥ 2` point analysed is infeasible.** The
+reachable low-weight pool is **~7 configurations and was exhausted before the run started. There was
+no supply of independent cases to be had.** A measured reason, not a suspicion.
+
+**Reopening note, S's own:** the only untried supply is *outside* the BFS-reachable pool, which
+§3's retraction established exists — generating it needs a **constructive** method, since sampling
+is exactly what starved.
+
+**S's line is closed** and it has been asked to consolidate rather than open a new one, separating
+what stands (the endgame condition in joint form; the affine model exact across 18 displacements
+including coefficients to ±10⁶; `deficiency > 0 ⟹ infeasible` at 21/21; `img4` as an existence proof
+that valid independent cases exist outside the base's span) from what it retracted (§3 as
+base-local, Result B as vacuous by construction, §6i's inflated rate). `dirsearch` workers stopped;
+cores released.
+
+---
+
+## CAMPAIGN POSITION — everything funnels into the 927
+
+**Deliverable: 39,026 / 39,033**, `best/new_instance_partial_39026.json`, failing
+`[12231, 12270, 12350, 14584, 18673, 22044, 29125]`. **No agent has beaten it.**
+
+**Measured, and now unconditional mod p:** 256 leaves are `2^i·G`; **383/383** chord gadgets compute
+plain `P_a + P_b`; **383/383** slots implement identity / pass-through / sum; the slots form **one
+tree with a single root** over all 256 leaf selectors; **the coordinate hand-off follows that tree —
+`slack ≡ 0 (mod p)` unconditionally**, because every slack wire is a constant multiple of p times a
+free variable (3,681/3,681, zero exceptions).
+
+**The single remaining obstruction on the integer side: the 927 `c > 1` divisibility conditions.**
+They are simultaneously the open half of the coordinate hand-off, L's divisibility repair, P's rank
+question, and S's `p·ℤ²` lattice. **T has established they are intrinsic** — surviving a third
+independent decomposition and a 2.6× change in how the handle family is delimited, where the same
+test moved a knob count 2.7× in T's own earlier work.
+
+**Why 39,026 holds, now with a mechanism (O):** every one of the 7 failing equations is individually
+buyable, and **every purchase costs exactly `eq8680`**, whose only atom is a perfect square whose
+root is the **linear** constraint `S = 0` — which collapses the shift direction onto the handle
+direction and annihilates the freedom any repair needs. **No pair is buyable.** Scoped to 12 frame-B
+knobs and every 13-knob extension by an S-mover.
+
+**Live threads:** L on the simultaneous CRT solve over the ~766 shift parameters (now holding P's
+`prank.py`); M on the enumeration over the corrected 103-handle pool; O on whether `S = 0` is forced;
+Q on what the mod-p closure buys its six withdrawn sweeps; T on the slack check from F's parse;
+K on blocking backward derivation at every slot and re-running its validation table.
+**Closed threads:** P, R, S.

@@ -3,3 +3,4 @@ pool 102 handles, ranked by rt
 
 calibration on the deliverable's four: 39008 -> 39026  PASSED
 reference points: deliverable 39026 (7 failing) ; cofactors zeroed 39021 (12 failing)
+  [250] 91s  best 39026  last site (642, 28730, 7068, 37413)

@@ -391,6 +391,48 @@ unconditional must say "mod p" or must first discharge the 927.
 so **the cofactor freedom is 4-dimensional, not 12**.  The core claim (cancellation is a value
 property, support byte-identical) stands; my list was longer than the effect.
 
+--------------------------------------------------------------------------------------------
+## 6f. WHY THE ROUND-ROBIN CANNOT WORK: THE SHIFT SYSTEM IS NONLINEAR (`crt.py`)
+Inherited P's method (factor, prime-by-prime, CRT) and both guards.  **P's three files are NOT
+runnable here** — `plift5.py`, `prank.py`, `pcompose2.py` all load `model4.pkl`, `slp.pkl`,
+`blocks.pkl`, `leaves.pkl` from `agentP_work/` and `import pfold`, none of which were copied.
+I did not reach into that directory.  I took the method onto my own model instead.
+
+**Measured shape of the stuck conditions** (run the greedy repair to its fixpoint, then probe
+each surviving condition at shift t = 0, 1, 2 and check whether d(2) == 2*d(1)):
+
+    |S| = 2   1 stuck:  c = 6672769 (prime),  6 influencing wires,  **NONLINEAR**
+    |S| = 17  8 stuck:  c = 15194385 = 3^4*5*37517   NONLINEAR
+                        c = 3849267  = 3*19*67531    NONLINEAR
+                        c = 6672769  (prime)         NONLINEAR
+                        c = 10696593 = 3*3565531     NONLINEAR
+                        c = 10353929 = 127*81527     NONLINEAR
+                        c = 2264251  = 11*43*4787    NONLINEAR
+                        c = 10937191 = 449*24359     **LINEAR**, wires (23238,+1) (2964,-1)
+                        c = 13040669 = 19*199*3449   **LINEAR**, wires (10261,+1) (27156,-1)
+
+**This is the actual reason the round-robin fails, and it is not an ordering artefact** (S3
+already ruled ordering out).  Two things are going on at once:
+ 1. The two LINEAR conditions have d/p = +-1 on a *shared* wire, so greedy fixes one and the
+    next fix re-breaks it — pure simultaneity.
+ 2. The other six are genuinely **nonlinear** in the shifts: a shift enters the chord law
+    through a product, so after dividing by p a term p*t_w*t_v survives mod c.  A linear
+    solve over the shift parameters cannot express them.
+
+**This independently corroborates P's own expansion** from a different model: P's `n1'` carries
+`P*(E*b^2 + 2*a*A*b - d^2) + P^2*a*b^2` — quadratic and cubic in the shift parameters.  P had
+this right; my measurement confirms the nonlinearity is real and not specific to P's block.
+**So "a simultaneous CRT solve over the ~766 shift parameters" — my own phrasing, twice — is
+not by itself enough: the system is polynomial, not linear.**
+
+**CONCRETE NEXT STEP (cheap, and the right one).**  Do not brute-force: c is up to ~1.5e7 and
+E.run is ~0.07 s.  Instead **fit and solve exactly**: for a chosen wire the atom is a polynomial
+in t of degree <= 3 (P's expansion bounds it), so evaluate at t = 0,1,2,3, interpolate the
+coefficients exactly, then root-find mod each prime factor of c and CRT — c factors into small
+primes in 7 of the 8 cases above (3, 5, 11, 19, 43, 127, 199, 449, 3449, 4787, ...), where root
+finding is trivial.  Then **verify by direct recomputation**, per P's second guard.  The two
+linear conditions should be solved jointly with the rest, not greedily.
+
 ## 7. FILES (all in `agentL_work/`)
 Code: `trace.py ortree.py ortree2.py census.py wire.py link.py crux.py onset.py fail7.py
 handles.py handles2.py exp1.py model.py model2.py calib.py fold.py fold2.py global.py

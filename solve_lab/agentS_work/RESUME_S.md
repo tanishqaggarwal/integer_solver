@@ -416,8 +416,8 @@ Pool: all 48 BFS image points (img4, the one existence proof, came from here). S
 Independence criterion applied throughout is **post-solve** class distinctness; the pre-solve
 class is the trap and appears nowhere in `dirsearch.py` or `combine.py`.
 
-    image points analysed          : 24 of 48
-    other rows infeasible          : 22   (not test cases at all)
+    image points analysed          : 26 of 48
+    other rows infeasible          : 24   (not test cases at all)
     other rows solvable            :  2   -> blocked 2, SOLVED 0
     INDEPENDENT test cases (distinct POST-SOLVE class): 2
        a20215=22981624690591... a28647=44159679639019...  img0   blocked
@@ -433,7 +433,7 @@ low-weight pool is tiny (the BFS enumerates ~7 configurations at |on| ≤ 1) and
 exhausted, so there is no supply of independent test cases to be had from this pool at all.
 
 **Verdict: 2 independent test cases, both blocked. That is NOT configuration-independence and I
-am not claiming it.** It is the same 2 I had before the directed search; the search added 10 more
+am not claiming it.** It is the same 2 I had before the directed search; the search added 12 more
 analysed configurations and 0 new independent cases. The line closes with a measured reason —
 a 92% starvation rate and a structural account of it — rather than with a stretched claim.
 

@@ -12,6 +12,38 @@ constants read out of `EQUATIONS.txt` and verified against the equations themsel
 - **I did not beat it.** Nothing in `agentK_work/` is a better partial.
 - **No infeasibility is claimed.** The instance is *satisfiable*; see §5.
 
+### READ THIS FIRST (3) — SELF-AUDIT: which of my results came from an unguarded closure
+
+Two of my headline results were wrong because the closure solves constraints **backwards**.
+`cascadep.CascadeP.close` now takes `pin={var: atom}` — a per-variable guard restricting each
+slot/leaf wire to its own pin, so no consumer can drive it. (`forbid=` was the older, cruder
+global-atom version and only covered the target pins.) Sweep of everything in this directory:
+
+| result | closure? | status |
+|---|---|---|
+| leaf/target extraction, big-literal inventory (`k15`,`k16`) | no | **SAFE** — parsing + identity checks |
+| doubling chain, pair sums, low-weight searches (`k18`,`k19`) | no | **SAFE** |
+| group order `N`, Cornacchia, `N·G = identity` (`k21`) | no | **SAFE** — composition only |
+| law identities: commutativity/associativity/doubling (§4c) | no | **SAFE** |
+| degeneracy DPs and size bound (`k22`,`k32`,`k33`,`k36`) | no | **SAFE** given the supports |
+| support recovery (`k20` inflated → `k36` corrected) | no | **SAFE**, use `k36` |
+| variable classification (`k25`) | no | **SAFE** (regex bug separately fixed) |
+| equation-footprint / site-cost table (`k27`, §5) | no | **SAFE** — pure incidence |
+| §2 fold validation table (`k26`, `bside.log`) | **yes, unguarded** | **RE-RUN** → `k43.log` |
+| provenance back-cone (`k29`) | yes, partial | **INCOMPLETE** — my `ABOVE` set omitted `x608`/`x22978`, which is exactly the pass-through path that was doing the backward driving. The "no backward flow" conclusion was scoped too narrowly. |
+| "what is B" (`k31`) | yes, partial | **SUSPECT** — re-run before citing |
+| divergence localizer (`k34`) | yes | **UNUSABLE** as written (also uses inflated supports) |
+| 900 booleans inert (`k35`) | yes, partial | **RE-RUN** → `k44.log` §B |
+| dead-input gate stays off (`k38`) | yes, partial | **RE-RUN** → `k44.log` §A |
+| alias search (`k39`) | yes, partial | (A) **SAFE** — depends only on handles = 0; (B) moot |
+| slot cost in equations (`k41`) | yes, partial | **RE-RUN** → `k44.log` §C |
+| TEST 1 / TEST 2 (`k37`) | yes, partial | **RETRACTED** — see below |
+| handles absorb over Z, 0 conflicts (`k9`) | **yes, unguarded** | **SUSPECT** — integer cascade, never re-run with a guard. Cited in §6 as a load-bearing fact; treat as unverified. |
+
+**Rule I should have been applying, now stated: the score counts equations, so price in
+equations.** My TEST 2 failure was counting atoms; §5's table was already in equations and I
+did not carry that over. (Agents L and R reached the same rule from other directions.)
+
 ### READ THIS FIRST (2) — I OVER-WITHDREW. Both grounds were measurement errors.
 
 The section below withdrew §4 as a barrier on two tests. **Both tests were wrong, and I found

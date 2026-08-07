@@ -1,0 +1,29 @@
+knobs probed: 34   sample points t = [1, 2, 3, 5, 7]
+S is exactly affine in every knob: True   (exceptions: [])
+
+knobs with a non-affine check (these equations were DROPPED from the model):
+   x_950    non-affine on 1 checks [37887]
+   x_2081   non-affine on 5 checks [29466, 37887, 41400, 41827, 42245]
+   x_3629   non-affine on 1 checks [37887]
+   x_4287   non-affine on 2 checks [29465, 37887]
+   x_4432   non-affine on 1 checks [37887]
+   x_6947   non-affine on 1 checks [37887]
+   x_8976   non-affine on 1 checks [37887]
+   x_10422  non-affine on 1 checks [37887]
+   x_11099  non-affine on 1 checks [37887]
+   x_12553  non-affine on 1 checks [37887]
+   x_13195  non-affine on 1 checks [29467]
+   x_15120  non-affine on 1 checks [37887]
+   x_15324  non-affine on 1 checks [37887]
+   x_22526  non-affine on 1 checks [37887]
+   x_28730  non-affine on 1 checks [37887]
+   x_33168  non-affine on 1 checks [37887]
+   x_34600  non-affine on 1 checks [37887]
+   x_35531  non-affine on 1 checks [37887]
+union of non-affine checks: 7  [29465, 29466, 29467, 37887, 41400, 41827, 42245]
+
+detected by the original 2-point probe: 7  [29465, 29466, 29467, 37887, 41400, 41827, 42245]
+MISSED by the 2-point probe (would invalidate the model): []
+=> the two-point probe was sufficient; every kept row is exactly affine.
+   The negative result stands as an exact statement over the knob class.
+DONE

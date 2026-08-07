@@ -7,3 +7,5 @@ RESULT 16 other-rows-infeasible - - -
 RESULT 19 other-rows-infeasible - - -
 [img22(|on|=3)] knobs=64 other-rows=60 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=7 (11s)
 RESULT 22 other-rows-infeasible - - -
+[img25(|on|=3)] knobs=56 other-rows=57 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (5s)
+RESULT 25 other-rows-infeasible - - -

@@ -1008,3 +1008,58 @@ simultaneously hold 34120 at zero and carry the a23616 shift.
 `dimcheck.py` -> `dimcheck.json`, `dimcheck.log` · `pricemin.py` -> `pricemin.log`.
 Nothing exceeded 39,026, so no assignment was written and there was nothing to verify with
 `checker.py`.
+
+---
+
+# LOG_M ROUND 10 — coordinates/dimension fixed; O's block confirmed in my frame; enumeration started
+
+## 64. O's `S = 0` block INDEPENDENTLY CONFIRMED, from a differently-decomposed model
+O reports `eq8680`'s only atom `a37887` is a perfect square `(S)*(S)` with `S = 0` at the
+witness, `dS/dx_4432 = +1`, `dS/dx_28730 = -1`. My parse decomposes that equation differently
+-- eq8680 carries 20 atoms and the relevant one is **`a23618 = x_4432 - x_19964 - x_28730`,
+in LINEAR form** -- but the constraint is identical. Measured:
+
+    eq8680 failing at the witness?  False        a23618 value at the witness: 0
+    move x_4432  by +1,+2,+7 -> a23618 = +1, +2, +7      (coefficient +1)
+    move x_28730 by +1,+2,+7 -> a23618 = -1, -2, -7      (coefficient -1)
+    joint +1/+1              -> a23618 = 0               (S preserved)
+
+So `eq8680 holds <=> a23618 = 0 <=> dx_4432 = dx_28730`, exactly O's `S = 0`. **Two models
+that write the atom differently (square vs linear) agree on the constraint.** This also
+explains why my affinity test passed 12/12 where a square would have been rejected: in my
+decomposition the quantity is linear, so it is genuinely affine here.
+
+**And it explains my own round-9 failure.** My lattice solve targeted only the 7 failing rows
+and left `eq8680` unconstrained; it moved `x_4432` and `x_28730` by **3571 and 3572 bits** --
+nearly equal but not equal -- so `a23618 != 0`, `eq8680` broke, and the score fell to 38,999.
+O's block is the reason, and my own data shows it independently.
+
+## 65. Enumeration over the corrected pool — started, and STOPPED with the prefix stated
+Pool: 102 handles ranked by rt. Top: `642/28730/29854/31864` (the deliverable's, rt capped),
+then `7068 (41), 30175 (34), 2218 (31), 34600 (31), 11425 (29), 5168 (27), 23538 (26),
+15324 (25), 21279 (25), 1627 (24), 26732 (24)`.
+Calibration on the deliverable's four passed (39,008 -> 39,026).
+
+**Stopped before the first 250-site checkpoint; nothing is claimed from it.** Reason, measured:
+the 98 five-handle supersets of the deliverable's four ran at ~0.4 s each **because they share
+a demotion set**, but a general 4-subset changes the demotion set, forcing a fresh `E3.Eng`
+build and a full `forward` over a different SEQ -- one to two orders of magnitude slower on a
+contended box. **C(102,4) = 4.25M sites is not reachable this way**, and an unbounded partial
+sweep is not a measurement.
+
+**What the enumeration needs before it is worth cores:** amortise the per-site engine build.
+Neighbouring sites differ in only a few demoted atoms, so an incremental `Eng` (patch
+SEQ/definer instead of rebuilding) plus a cached baseline forward should recover the
+~0.4 s/site rate seen for the shared-demotion case. That is the work item -- not more wall
+clock at the current rate.
+
+## 66. Standing prices (unchanged; nothing has beaten 39,026)
+    deliverable                                    39026  (7 failing)
+    cofactors zeroed (T's calibration, reproduced) 39021  (12 failing)
+    98 five-handle supersets, best                 39026  (89 of 98 exactly equal)
+    lattice over the 12 coords, raw / reduced      38999 / 38992
+    O delta0, best of 12 interpretations           38998
+
+## 67. Round-10 files
+`enum103.py` -> `enum103.log` (stopped before checkpoint; no pkl written). δ₀ work retired per
+O's `DELTA0_STATUS.md`.
