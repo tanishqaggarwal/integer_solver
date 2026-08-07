@@ -1,0 +1,17 @@
+{
+ "m8_bv_pin": {
+  "answer": "sat",
+  "time": 119.09,
+  "stats": {},
+  "m": 8,
+  "logic": "bv",
+  "pinned": true,
+  "n": 8,
+  "p": 181,
+  "k": 59,
+  "constraints": 415,
+  "smt2_bytes": 29982,
+  "encode_time": 0.17,
+  "tmo": 300
+ }
+}
