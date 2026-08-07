@@ -97,3 +97,23 @@ outer 5: global nonzero 6, violated c-conditions 4, nonzero handle-less 2
      (x13880 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
      (x13880 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
      (x14047 ,x15237 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x14047 ,x19965 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x14047 ,x22362 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x14047 ,x23437 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x14047 ,x36590 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x15237 ,x19965 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x15237 ,x22362 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x15237 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x15237 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x19965 ,x22362 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x19965 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x19965 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x22362 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x22362 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x23437 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     no addable collateral -- giving up on ((x2820-x17195)-(8271997*x17079))
+  atom ((x17100*x14819)-(7038713*x20150))  c=7038713
+     round 0: |group|=1 (0 exact) wires=6 new pairs=15
+     (x10424 ,x20930 ) |group|=1 NO JOINT ROOT mod 23 (exhaustive)
+     (x10424 ,x27436 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x10424 ,x30632 ) |group|=1 200 candidate(s) verified, guard rejected all

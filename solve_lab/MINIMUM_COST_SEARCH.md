@@ -138,3 +138,57 @@ leaf-to-exponent assignment, the ordering of the 512 pin constants, anything ref
 rather than the mathematics. **That direction was closed by user instruction at the start of the
 campaign and the fleet has respected it throughout.** It is the only remaining lever, and it is the
 user's to open.
+
+---
+
+## 7. Can `w` be bounded? — the objective is flat
+
+**Measured, not argued.** Agent T closed the integer lift at `|S| = 2, 3, 5, 6, 7, 8, 17` and every
+one scores **exactly 39,018 with the identical 15-equation failing set** — precisely the footprint of
+the two target congruences, the only equations in the instance that depend on `k`.
+
+> **The objective is FLAT: every correctly-lifted configuration scores 39,018 regardless of its
+> weight, and 39,033 only at the exact answer. A cliff, not a gradient.**
+
+Consequences: **no measurement of the instance leaks any information about `w`**; and no local
+search, annealing, or gradient method can work, which is why every search in this campaign
+plateaued. Seven independent configurations, same score, same failing lines.
+
+### The null
+
+If `k` is uniform, `w ~ Binomial(256, ½)`: **mean 128, σ = 8**, so `w ∈ [104,152]` at 99.7% and
+`[120,136]` at 68%. `C(256,52) ≈ 2^117` — that range is unreachable.
+
+### What exhaustion buys, against a structured hypothesis
+
+`H_A`: the designer picked `w` uniform on `[1, Wmax]`. Missing at `W₀` gives likelihood ratio:
+
+| Wmax | W₀=7 | W₀=10 | W₀=12 | W₀=16 | W₀=20 |
+|---|---|---|---|---|---|
+| 12 | 2.4× | 6.0× | **killed** | — | — |
+| 20 | 1.5× | 2.0× | 2.5× | 5.0× | **killed** |
+| 30 | 1.3× | 1.5× | 1.7× | 2.1× | 3.0× |
+| 60 | 1.1× | 1.2× | 1.3× | 1.4× | 1.5× |
+
+**Exhaustion is only informative when it approaches `Wmax`.** Finishing `w ≤ 12` moves a `Wmax = 30`
+hypothesis by 1.7×. **The value is all in crossing the designer's bound, where the hypothesis dies
+outright rather than being nudged.**
+
+### The decisive threshold
+
+Costs: `w ≤ 12` → 2^38 · **`w ≤ 20` → 2^58** · `w ≤ 24` → 2^67 · `w ≤ 30` → 2^79.
+
+**2^58 is the number to aim at** — roughly 3 days on a thousand-GPU cluster; out of reach on this
+box, which does ~2^47 in eight hours. It is decisive both ways: it **finds `k`**, or it **refutes
+every "small designed weight" hypothesis up to 20 outright.** Signed-digit `m ≤ 20` costs 2^68 and
+covers strictly more (low weight, low run-length, short addition-subtraction chains).
+
+### Summary
+
+- **Hard lower bound:** `w ≥ 8` once the current level completes. The only rigorous statement
+  available; it grows about one level per 4× budget.
+- **Upper bound:** none exists and none is obtainable from the instance.
+- **The one real inference available:** clearing 2^58 licenses *"if this was designed with a
+  low-weight key, the weight exceeds 20"* — a bound on the designer's choice, not on the mathematics.
+
+**Everything below `w ≈ 20` is cheap enough to be worth doing and too weak to conclude much from.**

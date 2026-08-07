@@ -288,10 +288,21 @@ subspace is **recorded** instead of skipped, which is exactly the case round 1 t
 > was **much larger than the 3.07M skip count suggested**, and it is not closed by re-running
 > the same method on more information sets.
 
-### 7d.  What the exact enumeration gives, so far (`w_close3_s13.out`)
+### 7d.  RESULT so far: BEST GAIN = 0 on `K+` from the exact `s ≤ 3` enumeration
+`w_close3.py` / `w_close3_s13.json` / `w_close3_s13.out`.
+
 From the `s ≤ 3` exact data alone: **60 minimal cocircuits**, sizes `{1:6, 2:2, 3:2, 4:3, 5:7,
-6:40}`, **every one re-verified genuinely rank-dropping over ℚ (0 mod-p artefacts)**; union
+6:40}`, **every one re-verified genuinely rank-dropping over ℚ — 0 mod-p artefacts**; union
 closure to size ≤ 6 gives **510 break-sets**.
+
+> Against all 127 bought-sets, **4,318 exact integer solves in 69 s: BEST GAIN = 0.**
+> Not one bought-set of size `k` is buyable with any rank-dropping break-set of size `< k`.
+> **Nothing beats 39,026 on the corrected knob set either.**
+
+Two reductions make this cheap and both are exact: `ker_Q(A_SAT\B)` is monotone in `B` and
+integer feasibility is monotone in the kernel, so only the **inclusion-maximal** break-sets of
+each size need testing; and every minimal support from the mod-`2^61-1` search is re-verified
+over ℚ (a mod-p artefact would be a *harmless* extra test, but there were none).
 
 * The six size-1 cocircuits are the **same six essential rows** `{2554, 6816, 8124, 9123, 9421, S}`.
 * There are **two** minimal size-2 cocircuits — `{22563, 8687}` (round 1's) **and `{36489, 8985}`,

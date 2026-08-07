@@ -1623,3 +1623,47 @@ varying row order does not lose the 39,026 points.
 `H18 = H16 u {7945, 23822}`; the two extra atoms are incident only to eq8680 = `S^4 = 0`, forced
 in every satisfying assignment and holding at the witness. Sizes 0-3 COMPLETE, identical bests to
 2^16 (39,008 / 39,010 / 39,022 / 39,023), running into |W| = 4.
+
+## 97. Round-14 final state of all four instruments (jobs left running, all checkpointed)
+
+**I2 — handle knobs, p80 — 2^16 COMPLETE.** 65,536/65,536, 2,030 s, errors 0, above 39,026: **0**,
+equal 39,026: 114, BEST 39,026 at the witness. Full distribution in §94.
+
+**I4 — max over 3 greedy row orders, p80 — 2^16 COMPLETE through |W| = 7**, which is the entire
+region where 39,026 occurs (it never occurs at |W| >= 8 under any instrument):
+
+    |W|   0      1      2      3      4       5       6       7
+    best 39008  39021  39022  39023  39026   39026   39026   39026
+    @best   1      1      1      2      1      12      56      45
+
+**The counts at 39,026 are 1 / 12 / 56 / 45 — identical to the fixed-order run at every size.**
+Varying the greedy row order lifts the body of the distribution (|W| = 1 goes 39,010 -> 39,021)
+but does not add or remove a single 39,026 point. above 39,026: 0.
+
+**I3 — cofactor knobs, p80 — 2^16 COMPLETE through |W| = 8:**
+
+    |W|   0      1      2      3      4       5       6       7       8
+    best 39008  39021  39022  39023  39026   39026   39024   39024   39023
+    @best   1      1      3      3      1       1       4       1      23
+
+**I5 — 2^18 at p80 — COMPLETE through |W| = 6** (`H18 = H16 u {7945, 23822}`):
+
+    |W|   0      1      2      3      4       5       6
+    best 39008  39010  39022  39023  39026   39026   39026
+    @best   1      1      1      1      1      14      77
+
+**Across all four instruments, every completed support size, 2^12 + 2^16 + the 2^18 prefix:
+zero subsets above 39,026, zero errors, and the maximum is attained at the witness every time.
+At |W| = 4 the witness is the UNIQUE maximiser under every instrument and over both the 16- and
+the 18-handle sets.**
+
+## 98. Round-14 files
+    _rb_parse3.py _rb_dag.py  rebuild            calib_r14.py  -> calib_r14.log (gates)
+    gran2.py -> r14_gran2_16.log, gran2_16.json  (row-order granularity, 1,193 x 9)
+    enumsub3.py -> r14_enumord16.log             (max over row orders, ckpt enumsub3_16_o3_p80.pkl)
+    enumcof.py + enumcof_lib.py -> r14_enumcof16.log  (cofactor knobs, ckpt enumcof16_c4_p80.pkl)
+    find24.py -> r14_find24.log, find24.json     (located the 39,024 subsets)
+    xcheck14.py -> r14_xcheck.log, xcheck14.json ; r14_runchecker.sh -> r14_checker.log
+    r14_chain18.sh -> r14_enum18_p80.log         (2^18, started only after 2^16 finished)
+    assignments written: xc14_*.json (12), M_cof24_*.json (4)
+**No assignment above 39,026 exists to write. `grep -c "ABOVE 39026" r14_*.log` = 0 in every file.**

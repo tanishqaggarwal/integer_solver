@@ -1,1 +1,5 @@
 information set 32 rows, outside 166, dual basis verified
+  s=4 EXACT: 25473 new supports (total 25473)  305s  [leaves 755445, subspace-nodes 65619]
+
+EXACT enumeration complete for s = 4..4.  supports: 25473  elapsed 305s
+positive-dimensional (whole-subspace) nodes recorded rather than skipped: 65619
