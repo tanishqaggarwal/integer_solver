@@ -979,3 +979,17 @@ does exclude the specific mechanism blamed at `|S|=17`.
 ## AP. NEW FILES (twelfth pass)
 `t_sweep2.py` + `t_sweep2.log` + `job2.pid` · `close_T6.json`, `close_T7.json` (both
 checker-verified 39,018) · `t_leaf.py` (root-vs-collateral interrogation of the residue).
+
+## AQ. CORRECTION TO MY OWN §AG  [coordinator check-in 88]
+§AG recorded N's "eq8680 is exactly the one equation detaching `x_28730` buys, so O's Lemma *is*
+the 39,025 -> 39,026 step".  **N has retracted that**, by counterexample rather than argument:
+at `|R| = 13` row 8680 is in the region, OPT is **6** not 5, 8680 is integrally zeroable, and all
+16 detach states score 39,026 — `N_r13_39026.json` is built from `D = []`, **no detachment at
+all**, checker-verified 39,026 with the identical failing set.  **Two routes to `S = 0` exist.**
+* **O's Lemma is untouched** — `S^4 = 0 => S = 0`, unconditional; my eighth-pass audit was against
+  the raw decomposition, not against N's pricing.  What changed is how many ways the frame has to
+  satisfy it.  The ledger row keeps the Lemma and drops the "39,025 step" attribution.
+* **My 16-state reduction (§AF) is unaffected** and N re-confirmed it on the corrected model.
+* My `S^4` code note turned out to be load-bearing, not cosmetic: `optN.inner` did return `S^2`.
+  N measured the blast radius before reporting — exactly two non-affine rows in any model, zero
+  after stripping — which is now **rule 8** in LEDGER.md.

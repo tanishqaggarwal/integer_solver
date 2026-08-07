@@ -33,6 +33,13 @@ says which — five are in play: **39,033** (F, K, T), **39,277** (P), **40,727*
    and atom count were both wrong and its Lemma was untouched; a wrong degree bound in L's solver
    cannot produce a false verified root.  Ask what the conclusion actually rests on before retracting.
 
+8. **Measure the blast radius of a correction before reporting it.** — N, on T's `S⁴` flag: rather than
+   announce a defect, N numerically tested affineness over every knob and found **exactly two**
+   non-affine rows in any model and **zero** after stripping, then re-ran its whole analysis on the
+   corrected model and got identical results. A genuine defect that would otherwise have read as a
+   general collapse. The companion to rule 7: rule 7 asks what the conclusion rests on, rule 8
+   measures how far the error actually reaches.
+
 ---
 
 ## 1. VERIFIED
@@ -72,7 +79,7 @@ says which — five are in play: **39,033** (F, K, T), **39,277** (P), **40,727*
 | **Q's six restored sweeps** | valid because the fold is a group operation **mod p**, and the p-slack vanishes there — so the group model is exact in the ring the sweeps work in | Q; **reported**, T did not re-run the sweeps | T *did* verify the ladder and the group order they rest on (§1) |
 | **O's seven-way 1-for-1 trade** | over its **34 inputs**, **frame B's orientation** | O; **reported — T's audit is PARTIAL and reached no verdict.** T found (a) `K` rebuilt in the default orientation gives **23**, not 34 — frame-dependent, flagged not refuted; (b) the uniformity is **not** structurally forced (7 knobs move a failing row with `dS=0`), so it is a genuine search result resting on O's collateral accounting, which is **unaudited** | reproducing frame B and checking the collateral accounting |
 | **K §4** | **premise unrefuted, NOT established.** K's own file carries a DO NOT REBUILD THE GUARD header | K; **reported, T did not re-run** | — |
-| **N's OPT = 5 / `outside = 0` pricing, and the 924/924 p-obstruction** | under **`fwd2`'s orientation** and the witness region (|R| = 12/13). **T did not re-run these** — only the 16-state reduction they sit on. Independent of O's Lemma: the region excludes eq8680, and N established that O's Lemma is instead exactly the 39,025→39,026 step | N; **reported** | N's own re-orientation run |
+| **N's OPT = 5 pricing and the 924/924 p-obstruction** | witness region `|R| = 12`, `fwd2`'s orientation. **T did not re-run these** — only the 16-state reduction they sit on. **N re-ran its whole analysis on the model corrected for T's `S⁴` flag (eq8680 and eq13985 were the only two non-affine rows in any model, zero after stripping) and got identical results: 0 non-affine pairs, kernel dim 14, max g = 5, best failing 7.** At `|R| = 13`, however, OPT is **6** not 5, 8680 is integrally zeroable, and **all 16 detach states score 39,026** — so N **retracted** "the knobs cannot reach `S = 0`, so detaching `x_28730` is the only way", by counterexample (`N_r13_39026.json`, `D = []`, checker-verified 39,026). **"O's Lemma is the 39,025 → 39,026 step" is withdrawn — there are two routes to `S = 0`.** O's Lemma itself is untouched | N; **reported** | — |
 | **L's degree ≤ 3 bound** | real, not a 5-point aliasing artifact — **T re-fitted at 7, 9, 11 points, same top degree every wire**. But it bounds **cost, not correctness**: the recomputation guard rejects a bad root, so a wrong bound can only cause a *missed* solution | P, L; **T verified** (`t_deg.py`) | nothing about it can invalidate a verified result |
 | **L's closure generalises** | **ANSWERED — NO, and the cause is localised.** T ran the sweep on a nested chain: `|S|` = 2 (control), 3, 5, **6, 7** all close (2 nonzero atoms, **39,018**, identical 15-equation failing set); **`|S|`=8 fails** (3 atoms, **39,002**). **Not a size horizon — a single leaf, `x34974`.** Its residue `((x21408*x10138)-(15333171*x658))`, c = 3·7·19·83·463, has **no root on any of its 6 candidate wires and is blocked by collateral on none** — so it is **NOT** the `\|S\|`=17 shared-wire simultaneity but is consistent with **L's bivariate residue**. Scope: one ON-set per size; single-wire granularity | T ran it; `python3 agentT_work/t_sweep2.py && python3 agentT_work/t_leaf.py` | a two-wire shift clearing the residue, or another 8-leaf set that closes |
 
