@@ -314,3 +314,45 @@ mod p: rank 162 of 334 knobs (172 knob columns vanish), syndrome dim w = 324.
   a deeper campaign (3,000 trials) is in `runs/eqb16b.log`, and `runs/w6_16.log` runs the
   constructive weight-<=6 enumeration + mod-p + HNF at this depth.
 611 atoms admitted as free cancellers and 334 knobs produce no point cheaper than 7.
+
+## SOUNDNESS CHECK — is my equation-level code exposed to the raw-relaxation vacuity?
+Answer: the raw relaxation IS vacuous, my code is not that code, and I verified the
+difference rather than assuming it.  `soundness.py`, `soundness2.py`.
+
+(1) WHAT MY CODE SUPPORT RANGES OVER.  Not arbitrary atom vectors.  My code is
+    C = { N u : u in Q^K } with K a set of actual VARIABLES and N[e][j] = d(eq e)/d(knob j).
+    A support D means: some NONZERO KNOB DIRECTION u has n_e.u = 0 for every e outside D.
+    Realizability is in the construction: the knob->atom map has image a rank-<=|K|
+    sublattice of Z^|A| — at L=6, 109 knobs into 235 atoms, and exactly 109 atoms are
+    movable at all, the other 126 FROZEN at 0; at L=16, 334 of 611 movable, 277 frozen.
+
+(2) CONFIRMING THE RAW RELAXATION IS VACUOUS, INDEPENDENTLY, IN MY PARSE.
+    3,235 atoms occur in exactly one equation, so ||M e_a||_0 = 1 for each of them and
+    min over nonzero integer atom vectors of ||M a||_0 = 1.  That is right, and it is why
+    the raw minimum-distance relaxation cannot bound anything.
+
+(3) IS A WEIGHT-1 SUPPORT ADMISSIBLE IN MY FORMULATION?  It is not excluded by fiat — it
+    would be admissible if some knob direction isolated a single-equation atom.  It does
+    not occur, for three independently checked reasons:
+      * ZERO single-equation atoms are present in any of my windows (L=6: 0 of 235;
+        L=16: 0 of 611).  The low-occupancy atoms that ARE present are a35755-a35759,
+        occurring in 6-7 equations.
+      * Globally, NONE of the 3,235 single-equation atoms carries a private variable
+        (`cancel.py`), so none is independently settable anywhere in the instance —
+        the mechanism that would produce a weight-1 support is absent by construction of
+        the instance, not just absent from my windows.
+      * Empirically the minimum support is >= 4 RIGOROUSLY at L=6 (no 2- or 3-column
+        dependency among 721,764 subsets exhausted) and 6 as observed.
+    The specific witness raised (a39032) occurs in EIGHT equations in my parse, not one,
+    and has no private variable.
+
+(4) WHAT THE BOUND THEREFORE ESTABLISHES.  Unchanged and sound: for every integer
+    assignment agreeing with the deliverable outside K_L, at least 7 of the 39,033
+    equations fail.  Honest nuance: my code IS sensitive to low-occupancy atoms — the
+    observed minimum support 6 is exactly the equation set of a35758, which occurs in 6
+    equations.  Low occupancy drives the minimum support DOWN to 6; it does not drive it
+    to 1, because the atoms that would (the single-equation ones) are unreachable by any
+    knob.  And all 582 weight-6 supports fail the mod-p filter, which is what leaves 7.
+
+This is the same mechanism as the ker(M) reconciliation: realizability, not cancellation,
+is the binding ingredient, and it enters my construction through the knobs.

@@ -211,3 +211,17 @@ singular over GF(q) iff x divides the sequence minimal polynomial, i.e. iff its 
 NONSINGULAR (BM degree 70, nonzero trailing coefficient) and 3/3 rank-69 matrices reported SINGULAR
 (trailing coefficient exactly 0), with the true rank computed independently by dense elimination mod q.
 Then run on the real M for q = 2^31-1 and q = 2147483629 (see `wiedemann.log`).
+
+## 18. Sharpening the ker(M)=0 certificate
+- The 39,033 pivot coefficients used by the cascade take only **2 distinct values, all of absolute value
+  1 or 2** (1,144 of them are the even one).  So the whole argument is a unit/2-pivot cascade.
+- Divisibility of the pivots: 0 of 39,033 for every odd prime tested (3, 5, 7, 11, 13, 2^31-1); 1,144 for 2.
+  Therefore **rank(M) = 39,033 over Z and over every field of characteristic != 2** (the argument is
+  simply silent in characteristic 2, which is irrelevant here).
+- The cascade is order-independent: three randomized peeling disciplines each force 39,033/39,033 atoms.
+
+## 19. Exhaustive check of measured link (ii)  (`link2_sweep.py`, checkpointed to `link2_results.json`)
+For every one of the 256 conditional-pin booleans: turn it on (with a fixed partner in the other tree),
+repair the chains, and compare the resulting selected wire pair with that boolean's two pin constants
+mod p.  Runs ~65 s per boolean and checkpoints after each; every boolean completed so far matches.
+Resume by re-running the script -- it skips booleans already recorded.

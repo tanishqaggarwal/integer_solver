@@ -16,3 +16,4 @@ base support [23432, 23433, 36225, 36226, 36227, 36228, 36229, 37537, 37538, 234
   X7945    add=(11778, 11779)               |E|= 28 (+15 new) knobs=10 forced=0 active=28 nodes=  7294   58s  minfail > 6  (cannot beat 39,026)
   X9629    add=(20290, 20291)               |E|= 19 (+ 6 new) knobs=10 forced=0 active=19 nodes=  2068   16s  minfail > 6  (cannot beat 39,026)
   X37413   add=(11774, 11775)               |E|= 25 (+12 new) knobs=10 forced=0 active=25 nodes=  5518   47s  minfail > 6  (cannot beat 39,026)
+  X37254   add=(11775, 11917)               |E|= 42 (+29 new) knobs= 9 forced=0 active=42 nodes= 14591  110s  minfail > 6  (cannot beat 39,026)

@@ -193,5 +193,17 @@
   "knobs": 10,
   "minfail": null,
   "forced": 0
+ },
+ {
+  "tag": "X37254",
+  "add": [
+   11775,
+   11917
+  ],
+  "nE": 42,
+  "new": 29,
+  "knobs": 9,
+  "minfail": null,
+  "forced": 0
  }
 ]
