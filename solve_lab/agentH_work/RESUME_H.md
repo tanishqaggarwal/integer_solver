@@ -56,3 +56,24 @@ Run the closer *backwards*: choose a target region of <= 12 equations first, enu
 whose footprint lies inside it, and have close2 construct the atom VALUES to order — instead of
 closing greedily and accepting whatever region falls out.  That is the one thing my constructive
 tool can do that no search in this lab has done.
+
+## 6. The backwards closer — RUN, and it returns 7 (see LOG.md Step 9)
+`backreg.py` (global region census, 23,059 regions) -> `backgrow.py` (seeded growth) ->
+`backreal.py` (realizability) -> `backopt.py` (exact integer optimum) -> `backprice.py` (pricing).
+- The deliverable's region is |R|=12, |S|=8, **0 un-cancellable rows**.
+- Growth from the defect atoms reaches |R|=23, |S|=21, balance 2, unc 0 — combinatorial floor 4.
+- But only **9** free inputs move that region with zero collateral, and their image spans only the
+  original 7 atoms.  The other 14 atoms are unreachable (7 of them have EMPTY support).
+- The 23 rows are jointly linear in the 9 knobs; exact fraction-free integer elimination over all
+  row subsets of size <= 9 gives **max 16 of 23 rows zeroed = 7 failing.  Witness saturates it.**
+- Pricing the 14 unreachable atoms: cheapest is a22231 at 12 failing; none beats 7.
+
+**Conclusion: |R|-|S| (region shape) is the wrong objective.  The binding quantity is the RANK OF
+THE REALIZABLE KNOB IMAGE, which is 7 for every region reachable from the defect.  This is why
+construction cannot beat search here, and it is a statement about the instance, not about method.**
+
+## Single next experiment
+Attack the rank-7 knob image itself, not the region.  Enumerate free inputs whose collateral is
+SMALL BUT NONZERO (my pricing only kept zero-collateral knobs) and ask, for each, whether adding
+its direction to the 9-knob lattice raises the exact optimum by more than its collateral costs.
+`backprice.py` already computes the cost column; what is missing is the gain column.

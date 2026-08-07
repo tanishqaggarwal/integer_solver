@@ -170,3 +170,9 @@ x_36293	pins=[29805, 29806]	FEAS=False	msg=core infeasible	exact=None	4s
 x_36314	pins=[23932, 23933]	FEAS=False	msg=core infeasible	exact=None	4s
 x_36459	pins=[19263, 19264]	FEAS=False	msg=core infeasible	exact=None	7s
 x_36961	pins=[34442, 34443]	FEAS=False	msg=core infeasible	exact=None	4s
+x_37631	pins=[3039, 3040]	FEAS=False	msg=core too large (245x490)	exact=None	8s
+x_38288	pins=[8542, 31935, 31936, 39189]	FEAS=True	msg=ok	exact=(16, [])	7s
+x_38459	pins=[17121, 17122]	FEAS=False	msg=core infeasible	exact=None	3s
+x_38630	pins=[3844, 3845]	FEAS=True	msg=ok	exact=(16, [])	6s
+x_38643	pins=[23645, 23646]	FEAS=True	msg=ok	exact=(16, [])	9s
+x_38645	pins=[5096, 34187, 36921]	FEAS=False	msg=core infeasible	exact=None	8s
