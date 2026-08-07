@@ -1,3 +1,11 @@
 k=1 bits=[17760] -> residual atoms 0: []  fails=16
 k=1 bits=[22623] -> residual atoms 0: []  fails=16
 k=1 bits=[38625] -> residual atoms 0: []  fails=16
+k=2 bits=[18022, 17760] -> residual atoms 4: [26960, 26963, 26965, 40306]  fails=34
+k=2 bits=[21112, 24365] -> residual atoms 3: [28033, 28035, 28037]  fails=31
+k=2 bits=[5643, 4701] -> residual atoms 3: [28033, 28035, 28037]  fails=31
+k=3 bits=[21112, 21074, 28005] -> residual atoms 7: [26960, 26963, 26965, 28033, 28035, 28037, 40306]  fails=49
+k=3 bits=[27393, 4701, 2441] -> residual atoms 7: [5207, 5209, 5211, 28033, 28035, 28037, 40231]  fails=52
+k=3 bits=[17760, 12095, 3545] -> residual atoms 7: [26960, 26963, 26965, 28033, 28035, 28037, 40306]  fails=49
+k=4 bits=[2081, 22562, 35179, 28005] -> residual atoms 9: [21953, 21956, 28033, 28035, 28037, 31484, 31486, 31489, 35418]  fails=64
+k=4 bits=[490, 24517, 16586, 17760] -> residual atoms 6: [722, 724, 726, 21953, 21956, 35418]  fails=49

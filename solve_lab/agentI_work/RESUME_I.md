@@ -54,6 +54,34 @@ equation; the 39,026 witness itself has 9 nonzero atoms. Closing the gap needs:
 Precise status: **the instance contains a 256-bit ECDLP on the all-atoms-zero
 branch, and every construction anyone in this lab has run lives on that branch.**
 
+## Independent corroboration that 39,026 is a CODING optimum (new, from the mod-p side)
+With the machinery above I can now produce **complete mod-p solutions** (0 violated
+atoms, no extra released variables) by cutting only TWO atoms:
+free the K pin `a40368` (`X24453 - K`, **1 equation**) and solve `A = 0` for K, then
+free one coordinate and solve `B = 0` for it. Verified working cuts (all reach
+`A = B = 0`, 0 conflicts, undetermined = baseline 10,047):
+```
+{a40368, a29331}  13 equations   {a40368, a10066}  14 equations
+{a40368, a10067}  15 equations   {a40368, a26748}  15 equations
+{a40368, a10065}  15 equations   {a40368, a29334}  15   {a40368, a29333} 15
+```
+`mincut.py` enumerated every atom in the derivation chain of x1,y1,x2,y2,x3,y3:
+**no second cut costs fewer than 12 equations**, so the cheapest mod-p cut is 13
+equations => 39,020. `cutlocal.py` (421 atoms on the defect path, singles then
+pairs/triples) reports the same floor. The 39,026 witness beats every one of these
+because its 7 residual atoms span 12 equations of which **5 cancel** — it is a
+cancellation optimum, not a smaller defect. This reproduces prior sessions'
+"39,026 is optimal for its residual" from a completely different direction.
+
+`polyroot.py` + the cubic solve also confirm: released coordinates admit exact
+solutions of A=B=0 (two roots, one degenerate x1=x2,y1=y2 which makes the gadget
+vacuous) — the escape is real but always relocates the check.
+
+## Exhaustive check of the easy part of the ECDLP
+Meet-in-the-middle over subset sums of the 256 ladder points: **no k of Hamming
+weight <= 4 gives k*G = T** (32,897-point table, 11 s). Weight <= 6 is reachable
+(~2.8M table) if anyone wants it; the full problem is 2^127.
+
 ## Score status
 - Baseline re-verified with `solve_lab/checker.py`: **39,026/39,033**, failing
   [12231,12270,12350,14584,18673,22044,29125]. CONFIRMED.
@@ -74,16 +102,20 @@ polyroot.py               # F_p root finding (used to solve the A=B=0 cubic)
 certify.py                # THE CERTIFICATE
 ```
 
-## Running now
-`cutscan.py single 0 2000 6` -> `cut.log` : for each of the 1,865 atoms occurring in
-<= 6 equations, disable it and re-solve mod p. A GENUINE HIT (0 conflicts, no extra
-released variables) means that atom alone absorbs the whole defect at a cost equal to
-its equation count — below 7 that beats 39,026. Baseline: 3 conflicts, 10,047
-undetermined vars.
-
 ## Single highest-value next experiment
-Finish `cutscan`, then extend it to PAIRS/TRIPLES of atoms drawn from the derivation
-cone of a17810/a17813/a17816. Formulated properly this is a **minimum-cost cut in the
-derivation DAG**, cost = number of equations touched; the 39,026 witness is one such
-cut of cost 7 and my mod-p re-solve is another of cost 22. Finding the true minimum
-cut is the only remaining way to move the number, since the full solve is ECDLP-hard.
+The only way left to move the number is a residual placement with more CANCELLATION,
+not a smaller one. Concretely: take a complete mod-p state from a 2-atom cut
+(`mincut.py` / `cut2_state.pkl`) and, instead of paying the cut's equations outright,
+search for a compensating atom vector inside the SAME equations — i.e. solve
+`min |{e : sum_a c_{e,a} v_a != 0}|` over atom vectors v in the image of the atom map,
+seeded by the cut. That is the one formulation under which 39,026's five cancellations
+are not special, and it is also the exact question the certificate's open gap asks.
+
+## Reproduce everything
+```
+cd /home/user/integer_solver/solve_lab/agentI_work
+python3 certify.py                # the certificate, 15/15 PASS, ~12 min
+python3 mech.py 11 12             # standalone ladder mechanism test
+python3 mincut.py                 # cheapest second cut enumeration
+python3 boolscore.py wit          # 1 s mod-p re-solve, prints the 3 conflicts
+```

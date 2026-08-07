@@ -1,1 +1,5 @@
   size<=2 built 32896  2.0s
+  size<=3 built 2796416 subsets  182.4s
+sorted 2796416  194.8s
+weight<=3 hits: []
+  scanned 0/2796416  202s  found=0

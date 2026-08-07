@@ -17,3 +17,13 @@ targeted candidates: 421
   partial a20061 nconf=0 und=10065 eqs=13 X608 - X34606 * X12186
   partial a30470 nconf=0 und=10062 eqs=13 12846437 * (X14853 - X1308) - X29967
   200/421 t=515s
+  220/421 t=572s
+  240/421 t=632s
+  260/421 t=685s
+  partial a17804 nconf=2 und=10047 eqs=14 X35389 - (X17702 - X27762)
+  partial a17805 nconf=2 und=10047 eqs=14 X27713 - (X30213 + X16742)
+  partial a20062 nconf=0 und=10065 eqs=14 X22978 - X5647 * X14853
+  partial a20063 nconf=0 und=10062 eqs=14 X38045 - X15298 * X22162
+  partial a20071 nconf=0 und=10059 eqs=14 X29322 - (X14853 - X12186)
+  partial a20074 nconf=2 und=10047 eqs=14 X6240 - (X22162 + X12186)
+  280/421 t=735s
