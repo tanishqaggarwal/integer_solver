@@ -1,0 +1,22 @@
+handles 30 onleaves [2081, 24601]
+A 178 B 78
+deliverable seed in E model: fails=25 score=39008 atoms=5
+  NEW BEST fails=269 score=38764 pair=(13526,91) atoms=36
+  NEW BEST fails=235 score=38798 pair=(13526,438) atoms=31
+  NEW BEST fails=227 score=38806 pair=(13526,490) atoms=31
+  NEW BEST fails=126 score=38907 pair=(13526,2081) atoms=18
+1/31 a=13526  best=38907 (13526, 2081)  t=26s
+2/31 a=33822  best=38907 (13526, 2081)  t=53s
+3/31 a=31932  best=38907 (13526, 2081)  t=84s
+4/31 a=6143  best=38907 (13526, 2081)  t=114s
+  NEW BEST fails=89 score=38944 pair=(21266,2081) atoms=15
+5/31 a=21266  best=38944 (21266, 2081)  t=143s
+6/31 a=33951  best=38944 (21266, 2081)  t=173s
+7/31 a=27738  best=38944 (21266, 2081)  t=204s
+8/31 a=35079  best=38944 (21266, 2081)  t=238s
+9/31 a=33242  best=38944 (21266, 2081)  t=268s
+10/31 a=2229  best=38944 (21266, 2081)  t=297s
+11/31 a=34309  best=38944 (21266, 2081)  t=325s
+12/31 a=853  best=38944 (21266, 2081)  t=359s
+13/31 a=27592  best=38944 (21266, 2081)  t=383s
+14/31 a=15406  best=38944 (21266, 2081)  t=412s

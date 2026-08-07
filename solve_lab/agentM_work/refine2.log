@@ -1,0 +1,17 @@
+0/297 alloff  t=1s
+40/297 on4362  t=47s
+80/297 on11189  t=86s
+120/297 on17899  t=129s
+160/297 on23794  t=177s
+200/297 on30613  t=237s
+240/297 on35979  t=305s
+280/297 p23  t=371s
+BLOCKS: 8 [178, 41, 21, 6, 3, 3, 3, 1]
+ n=178  exact_node=-  cover=30973(88),24533(50),18237(21),4529(8),28970(4),36278(4),881(1) loose=2
+ n=41   exact_node=-  cover=4798(7),30547(7),33153(4),34562(3),17921(3),28981(3),9518(2),15431(2),22603(1) loose=9
+ n=21   exact_node=['21408']  cover=21408(21) loose=0
+ n=6    exact_node=-  cover=38247(1) loose=5
+ n=3    exact_node=-  cover=25698(2) loose=1
+ n=3    exact_node=-  cover=25841(1) loose=2
+ n=3    exact_node=-  cover=19327(1) loose=2
+ n=1    exact_node=-  cover=- loose=1

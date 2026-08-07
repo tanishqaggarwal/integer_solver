@@ -1,0 +1,15 @@
+building 4194304 baby steps...
+  1048576  21s
+  2097152  40s
+  3145728  60s
+  4194304  79s
+baby table done 82s
+  giant + 1048576  109s
+  giant + 2097152  137s
+  giant + 3145728  162s
+  giant + 4194304  191s
+  giant - 1048576  214s
+  giant - 2097152  237s
+  giant - 3145728  260s
+  giant - 4194304  290s
+no small k in the searched range; 290s

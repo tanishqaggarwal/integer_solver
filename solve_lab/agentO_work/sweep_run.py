@@ -3,9 +3,10 @@
 import sys, json, time, os
 sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentO_work')
 import sweep, engine as E
-out=sys.argv[1]; maxr=int(sys.argv[2]); maxv=int(sys.argv[3])
+out=os.path.abspath(sys.argv[1]) if os.path.isabs(sys.argv[1]) else "/home/user/integer_solver/solve_lab/agentO_work/"+sys.argv[1]; maxr=int(sys.argv[2]); maxv=int(sys.argv[3])
 combos=[[] if c=='empty' else [int(x) for x in c.split(',')] for c in sys.argv[4:]]
-BEST=os.environ.get('SAVEBEST')
+BEST=os.environ.get("SAVEBEST")
+if BEST and not os.path.isabs(BEST): BEST="/home/user/integer_solver/solve_lab/agentO_work/"+BEST
 f=open(out,'a',buffering=1)
 best=10**9
 for combo in combos:

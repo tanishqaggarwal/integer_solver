@@ -1,0 +1,17 @@
+weight<=2 stored, 32896, 0.6s
+weight<=3 stored: 2796416 keys, 2763520 level-3, 37.0s
+query weight<=2 done 37.4s
+  q 200000  43s
+  q 400000  48s
+  q 600000  52s
+  q 800000  56s
+  q 1000000  59s
+  q 1200000  70s
+  q 1400000  76s
+  q 1600000  82s
+  q 1800000  89s
+  q 2000000  93s
+  q 2200000  97s
+  q 2400000  101s
+  q 2600000  105s
+DONE weight<=6 exhaustive.  hits: []   107.6s

@@ -24,3 +24,10 @@ for s in sm['s_a']+sm['s_b']+sm['s_ab']:
     print('SEL x%d used in defs of: %s'%(s,uses.get(s)))
     for w in uses.get(s,[]):
         print('    x%d := %s'%(w,node_str(defrhs[w])[:200]))
+
+print()
+print('=== x4858 def:', node_str(defrhs.get(4858)) if 4858 in defrhs else 'FREE')
+for v in [4843,30800,12398,27914,35518,30176,22551,18213,13496,20593]:
+    print('x%d def=%s'%(v, node_str(defrhs[v])[:120] if v in defrhs else 'FREE'))
+    print('    used in:', [(w,node_str(defrhs[w])[:100]) for w in uses.get(v,[])][:4])
+    print('    res atoms:', [a[:120] for a in resby.get(v,[])][:4])

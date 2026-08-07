@@ -1,0 +1,8 @@
+    rnd0: cand=287 knobs+=32 tot=32 0s
+    rnd1: cand=517 knobs+=262 tot=294 1s
+    rnd2: cand=974 knobs+=719 tot=1013 2s
+    rnd3: cand=1336 knobs+=1081 tot=2094 2s
+    rnd4: cand=1192 knobs+=958 tot=3052 1s
+    rnd5: cand=614 knobs+=436 tot=3488 1s
+    system: {'knobs': 3488, 'rows': 2343, 'dropped_nonlin': 182, 'bad0': [20212, 20215, 20649, 20652, 23923, 23924, 28647, 32148]}
+    full unsat: core too large (510x1021) -> greedy over 2343 rows
