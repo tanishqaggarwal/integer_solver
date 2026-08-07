@@ -1353,12 +1353,6 @@ Deliverable unchanged at 39,026, re-verified.
 
 ## Session 10, part 8 — number theory closed; root pin costs 1 identity equation
 
-`curve.py`: p is the secp256k1 FIELD prime, so tested the curve hypothesis. (D0,K2) is not
-on y^2 = x^3 + 7; neither residue is a valid x-coordinate; n, G_x, G_y do not appear as
-literals (p itself does); 7870 of 15734 constants have (c mod p) a valid x-coordinate vs
-random expectation 7867; 507 of 7999 seven-digit multipliers are prime vs ~470 expected.
-Random on every axis. The prime is a convenient 256-bit modulus, not a curve.
-
 `ratrec.py`: rational reconstruction on every residue (D0, K2, D0/K2, K2/D0, D0*K2, D0+-K2,
 1/D0, 1/K2, HUGE mod p, C1 mod p) returns MAXIMAL 38-39 digit a and b -- right at the
 sqrt(p/2) bound, so no small-rational structure. gcd(HUGE,C1)=1, HUGE//p=1094785891323,
