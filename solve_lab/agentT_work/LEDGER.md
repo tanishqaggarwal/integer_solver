@@ -74,7 +74,7 @@ says which — five are in play: **39,033** (F, K, T), **39,277** (P), **40,727*
 | **K §4** | **premise unrefuted, NOT established.** K's own file carries a DO NOT REBUILD THE GUARD header | K; **reported, T did not re-run** | — |
 | **N's OPT = 5 / `outside = 0` pricing, and the 924/924 p-obstruction** | under **`fwd2`'s orientation** and the witness region (|R| = 12/13). **T did not re-run these** — only the 16-state reduction they sit on. Independent of O's Lemma: the region excludes eq8680, and N established that O's Lemma is instead exactly the 39,025→39,026 step | N; **reported** | N's own re-orientation run |
 | **L's degree ≤ 3 bound** | real, not a 5-point aliasing artifact — **T re-fitted at 7, 9, 11 points, same top degree every wire**. But it bounds **cost, not correctness**: the recomputation guard rejects a bad root, so a wrong bound can only cause a *missed* solution | P, L; **T verified** (`t_deg.py`) | nothing about it can invalidate a verified result |
-| **L's closure generalises** | **ANSWERED — NO.** T ran the sweep: `\|S\|` = 2 (control), 3, 5 all close (2 nonzero atoms, **39,018**, identical 15-equation failing set); **`\|S\|`=8 leaves a third atom** `((x21408*x10138)-(15333171*x658))` and scores **39,002**. **Closure is a small-`\|S\|` phenomenon; the boundary is between 5 and 8.** Scope: ONE ON-set per size (L's `Random(7)`), and it is *this solver* failing, not a proof of impossibility — shared-wire simultaneity is the live hypothesis | T ran it; `python3 agentT_work/t_sweep.py` | an 8-leaf ON-set that closes, or a two-wire joint shift clearing the residue |
+| **L's closure generalises** | **ANSWERED — NO, and the cause is localised.** T ran the sweep on a nested chain: `|S|` = 2 (control), 3, 5, **6, 7** all close (2 nonzero atoms, **39,018**, identical 15-equation failing set); **`|S|`=8 fails** (3 atoms, **39,002**). **Not a size horizon — a single leaf, `x34974`.** Its residue `((x21408*x10138)-(15333171*x658))`, c = 3·7·19·83·463, has **no root on any of its 6 candidate wires and is blocked by collateral on none** — so it is **NOT** the `\|S\|`=17 shared-wire simultaneity but is consistent with **L's bivariate residue**. Scope: one ON-set per size; single-wire granularity | T ran it; `python3 agentT_work/t_sweep2.py && python3 agentT_work/t_leaf.py` | a two-wire shift clearing the residue, or another 8-leaf set that closes |
 
 ---
 
@@ -97,7 +97,7 @@ says which — five are in play: **39,033** (F, K, T), **39,277** (P), **40,727*
 
 ## 4. GENUINELY OPEN
 
-1. **L's bivariate residue** — the last undischarged condition at `\|S\|=17`. The system is nonlinear (a `p·t_w·t_v` term survives mod c), so no linear solve expresses it.
+1. **L's bivariate residue** — the last undischarged condition at `\|S\|=17`, and now the likeliest reading of T's `\|S\|=8` residue too (no univariate root on any of 6 wires). **Concrete next test: 15 wire-pairs, bivariate root-find.** The system is nonlinear (a `p·t_w·t_v` term survives mod c), so no linear solve expresses it.
 2. **The collision criterion.**
 3. **The scalar recovery itself** — a 256-bit discrete log in a prime-order group with no exploitable structure. Q's position, which T's ladder check supports: ~2^128, and no amount of circuit decoding reduces it.
 4. **What the 278 crossed-index aliases' partner wires route through** was resolved (§3); but *whether every one of the 764 aliases is inert over ℤ* is exactly the 927 question (§2).

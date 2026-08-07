@@ -4,3 +4,5 @@
   region OPT with ALL 49 knobs, no collateral limit: 12 of 12 (exh=True)
   |W|=0: kernel dim 14, g=5, need 6 -> no
   |W|=1: 139 subsets exhaustive, max g=5 (W=[0]), need 7 -> no ; best failing 7 (16s)
+  |W|=2: 9591 subsets exhaustive, max g=5 (W=[0, 1]), need 8 -> no ; best failing 7 (848s)
+  => corrected model, |W| <= 2: best failing = 7 (score 39026)

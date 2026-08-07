@@ -927,3 +927,55 @@ an audit verdict on O and must not be quoted as one.**
 ## AM. NEW FILES (eleventh pass)
 `t_sweep.py` + `t_sweep.log` + `job.pid` · `close_T2ctl.json`, `close_T3.json`, `close_T5.json`,
 `close_T8.json` (all checker-verified above) · `t_oktrade.py`, `t_oktrade2.py` (parked O work).
+
+=============================================================================================
+# TWELFTH PASS — localising the |S|=8 break   [coordinator check-in 84]
+
+## AN. IT IS A SINGLE LEAF, NOT A SIZE HORIZON.  The leaf is **x34974**.  (`t_sweep2.py`)
+The sweep's ON-sets are nested, so I re-ran the missing sizes on the **same prefix**, passed
+explicitly rather than re-drawn from `Random(7)`, so nesting is guaranteed and not assumed:
+```
+   chain: [19745, 33287, 30242, 12422, 16586, 35110, 3545, 34974]
+   |S|=3  2 atoms  39,018  CLOSES
+   |S|=5  2 atoms  39,018  CLOSES
+   |S|=6  2 atoms  39,018  CLOSES     (+35110)
+   |S|=7  2 atoms  39,018  CLOSES     (+3545)
+   |S|=8  3 atoms  39,002  ** FAILS **(+34974)
+```
+> **The lift has no size horizon at these sizes.  Six of the eight leaves are free; adding
+> `x34974` is what introduces the surviving condition.**  `|S|` = 3, 5, 6, 7 all give the
+> identical two target congruences and the identical 15-equation failing set.
+
+## AO. AND IT IS **NOT** THE |S|=17 SIMULTANEITY — the two failures are different phenomena
+`t_leaf.py`.  Reloaded the `|S|=8` end state and interrogated the surviving condition
+`((x21408*x10138)-(15333171*x658))`, `c = 15333171 = 3*7*19*83*463`, against `closeS4`'s own
+refusal criterion — for every candidate wire, does a root exist, and if so is it refused because
+the global nonzero count fails to drop?
+```
+   candidate shift wires: 6
+   wires with a root but BLOCKED by collateral : 0
+   wires with NO ROOT AT ALL                   : 6
+```
+**Nothing is blocked by collateral.**  The `|S|=17` diagnosis was shared-wire simultaneity —
+clearing one condition re-breaks another on the same wire — and that is measurably **not** what
+is happening here: there is no root to refuse.  On all six wires the fitted polynomial in `t` has
+no zero mod `c`.
+
+> **The `|S|=8` failure and the `|S|=17` failure are two phenomena, not one.**
+
+**What it is consistent with, and this is the useful pointer:** a condition with no *univariate*
+root on any wire is exactly the shape of **L's bivariate residue** — the open item where a
+`p*t_w*t_v` term survives mod `c`, so no single-wire shift can express the solution.  So the right
+follow-up is **not** a joint solve over shared wires (that addresses simultaneity) but a **two-wire
+shift on this condition**: pick pairs from its 6 influencing wires and root-find the bivariate
+polynomial.  Six wires means 15 pairs — small.
+
+### AO1. Scope of the "no root" statement
+It is a statement about **the fitted polynomial** `fitc` returns on wires where `influences()` is
+true, at single-wire granularity.  It does not exclude (a) a two-wire or many-wire shift, (b) a
+wire that `influences()` screens out, or (c) a different route to the same ON-set entirely.  It
+does exclude the specific mechanism blamed at `|S|=17`.
+
+## AP. NEW FILES (twelfth pass)
+`t_sweep2.py` + `t_sweep2.log` + `job2.pid` · `close_T6.json`, `close_T7.json` (both
+checker-verified 39,018) · `t_leaf.py` (root-vs-collateral interrogation of the residue).

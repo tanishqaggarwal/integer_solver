@@ -393,3 +393,22 @@ set, and the variable entering O's `S` with `dS/dx_28730 = −1`. Three threads,
 - **CONFIRMED** (T): the 4-of-65 reduction, now by proof via the nonzero-defining-atom identity.
 - **REFUTED**: that a different global orientation changes the carriers. Over 10 orientations the
   failing equations always reduce to the same nine region atoms, and 37887 is never a definition.
+
+## Step 16 — the corrected model re-run end to end, and it reproduces
+
+`fixrows.py` rebuilds the witness model with BOTH square rows stripped to their linear cores and
+re-runs everything that depended on them:
+
+```
+|R|=12 outside=139 knobs=49 ; non-affine (row,knob) pairs AFTER the fix: 0
+outside rows nonzero at the witness after stripping: 0
+region OPT with ALL 49 knobs, no collateral limit: 12 of 12 (exh=True)
+|W|=0: kernel dim 14, g=5, need 6 -> no
+|W|=1:   139 subsets exhaustive, max g=5, need 7 -> no
+|W|=2: 9,591 subsets exhaustive, max g=5, need 8 -> no
+=> corrected model, |W| <= 2: best failing = 7 (score 39026)
+```
+
+Identical to the pre-correction numbers, and now on a model with **zero** non-affine rows. The
+witness-placement results were never at risk (neither square row is in that region); this makes that
+explicit rather than assumed.

@@ -1,2 +1,18 @@
 alignment bad (pre-repair): 4
 atoms with exactly 1 handle: 3681 of 9032
+nested chain: [19745, 33287, 30242, 12422, 16586, 35110, 3545, 34974]
+known: |S|=3 CLOSES, |S|=5 CLOSES, |S|=8 FAILS (3 atoms, 39002)
+
+=== |S|=6 tag=T6  ON-set=[19745, 33287, 30242, 12422, 16586, 35110]   (added leaf vs |S|=5: 35110) ===
+   NONZERO ATOMS = 2 of 9032   checker 39018 (15 failing)   WALL 133.3s
+      ((x18956-x37892)-x32237)
+      ((x24468-x13682)-(12354891*x34243))
+
+=== |S|=7 tag=T7  ON-set=[19745, 33287, 30242, 12422, 16586, 35110, 3545]   (added leaf vs |S|=6: 3545) ===
+   NONZERO ATOMS = 2 of 9032   checker 39018 (15 failing)   WALL 135.1s
+      ((x18956-x37892)-x32237)
+      ((x24468-x13682)-(12354891*x34243))
+
+================ VERDICT ================
+  |S|=3 closes (2 atoms) | |S|=5 closes (2) | |S|=6 2 atoms, 39018 | |S|=7 2 atoms, 39018 | |S|=8 FAILS (3, 39002)
+  -> SINGLE LEAF: x34974 (the 8th) is what breaks it.

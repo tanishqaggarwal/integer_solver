@@ -4667,3 +4667,85 @@ Recorded so it is not lost, with T's own framing:
 
 Artifacts `close_T2ctl/T3/T5/T8.json`, **all checker-verified and named distinctly from L's invalid
 `close_S3/S5/S8.json`**, which remain on disk and **still must not be read**.
+
+---
+
+## Check-in 85 — RETRACTION: "O's Lemma is the 39,025 → 39,026 step" is WITHDRAWN
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### The correction, and a headline of mine goes with it
+
+**T's `S⁴` code note was load-bearing, not cosmetic.** `atom_src[37887]` parses as a product of
+textually identical operands, so `optN.inner` strips one level and returns **`S²`, a quadratic** —
+exactly as T said.
+
+**N measured the blast radius before reporting the correction**, which is what kept a real defect
+from reading as a general collapse. A numeric affineness test over every knob at steps 1, 2, 3
+finds **exactly two non-affine rows in any model — eq8680 and eq13985 — and zero after both are
+stripped.**
+
+**What survives:** the witness region at `|R| = 12` contains neither row, and re-running the whole
+analysis on the corrected model reproduces it **identically** — 0 non-affine pairs, kernel dim 14,
+`|W|` = 0/1/2 exhaustive over 9,731 subsets, max g = 5, best failing 7. **The 924/924 p-obstruction
+and OPT = 5 stand, as does the 16-state reduction T proved.**
+
+**What does not:** at `|R| = 13` row 8680 **is** in the region, **OPT is 6 not 5**, **8680 is
+integrally zeroable and is in every optimal set**, and **all 16 detach states score 39,026 — not the
+39,025/39,026 split N had reported.**
+
+> **N RETRACTS "the knobs cannot reach `S = 0`, so detaching `x_28730` is the only way"** — and
+> retracted it **by exhibiting a counterexample rather than by argument**: `N_r13_39026.json`, built
+> from **`D = []`, no detachment at all**, largest variable 909 digits, **independently verified by
+> `checker.py` at 39,026/39,033 with the identical failing set. Two routes to `S = 0` exist.**
+
+> ### COORDINATOR RETRACTION
+> **"O's Lemma is precisely the 39,025 → 39,026 step" — recorded as a headline in check-in 74,
+> relayed to O, T and M, and reported to the user — is WITHDRAWN. It rested entirely on N's split.**
+> **O's Lemma itself is untouched:** `S⁴ = 0 ⟹ S = 0`, unconditional, audited by T. **What changed
+> is how many ways the frame has to satisfy it.** The ledger row keeps the Lemma as VERIFIED and
+> drops the attribution.
+>
+> **Not disturbed:** M's enumeration space reduction from 2¹⁸ to 2¹⁶ does **not** depend on the
+> split — it rests on the two extra atoms being incident *only* to eq8680, which holds at the
+> witness and is absent from the 12-equation far side.
+
+### Wholesale re-orientation — the 7 survive, and the carrier set is invariant
+
+`fwd5.py` rebuilds the frame from scratch under **10 global target rules**:
+
+| rule | defs | checks | score | failing | region atoms left nonzero |
+|---|---|---|---|---|---|
+| **fwd2 baseline** | 30,001 | 12,266 | **39,020** | 13 | — |
+| first | 30,970 | 11,297 | 38,996 | 37 | 35759, 35760 |
+| last | 23,170 | 19,097 | 39,006 | 27 | 22230, 35759, 35760 |
+| lowvar / highvar | 25,863 / 25,878 | — | 39,005 / 38,999 | 28 / 34 | 4 and 3 of the nine |
+| random ×5 | ~25,300 | — | 38,955–39,006 | 27–78 | 3–4 of the nine |
+| prefer (aimed at region) | 30,965 | 11,302 | **39,020** | **13** | 22229, 35759, 35760, 22231, 37887 |
+
+**No orientation beats the baseline**, and the best alternative **ties at 39,020 with the identical
+13 failing equations.** **In every one of the 10 orientations the failing equations reduce to
+nonzero atoms drawn from the same nine** `{22229, 22230, 22231, 35758, 35759, 35760, 35761, 35762,
+37887}` — **3 to 5 nonzero, never none. Which ones varies; the carrier set does not.**
+
+Two facts worth more than the table: **atom 37887 is a check in all 10 orientations** — no legal
+unit target, so **`S = 0` is always a value condition and never a structural one**, the global form
+of N's local result; and **fewer nonzero atoms is not better** — `last` and `random/4` leave only 4
+in the whole instance yet score 39,006, **because those atoms sit in more equations.**
+
+**Scope, N's own:** this is the **forward score** in each frame, not each frame's post-optimisation
+optimum — not computed because re-orientation is detachment, the region's knob set is 49 at every
+depth to saturation, and the detach lattice is closed at 16 states by T-verified proof.
+
+### N's next and last: stop linearising
+
+*Everything reachable by choosing a frame, a detach set, knob values, or collateral to budget 2 is
+closed at 39,026 — and **every model in that space is linear in the knobs**, while **the only two
+rows that were not linear turned out to be exactly where genuine nonlinearity lives.*** So: **solve
+the witness region's 12 rows as an integer POLYNOMIAL system in the 7 zero-collateral knobs**, via
+Gröbner / `msolve`, carrying the atoms' products rather than probing them away. **Report the
+system's dimension and degree before reporting whether it solves — if it is out of reach, the size
+is the result**, closed the way O closed its scan by pricing it rather than running it.
+
+N has also adopted T's identity in its write-up, which is what makes its 4-of-65 reduction checkable
+without its frame.
