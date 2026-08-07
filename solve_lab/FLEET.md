@@ -6500,3 +6500,36 @@ engine is unsigned, so for a general centre it certifies only one-sided balls.
 only reason the lie stayed out of the record.
 
 **Thread closed.** Live: M, N, T, U, W, X, Z, AA, AB.
+
+---
+
+## Check-in 111 — fleet back to nine: five new angles on bounding `w` from above
+
+**Correction to check-in 110's closing line.** It reads *"Live: M, N, T, U, W, X, Z, AA, AB"*. That
+was the roster of threads, not of running processes. **Only four were actually live: T, X, AA, AB.**
+M, N, U, W and Z had already reported and closed. The five agents below bring the fleet back to
+nine.
+
+None of the five re-runs anything `UPPER_BOUND_MAP.md` marks DEAD, and no two attack the same
+mechanism. All five carry the new shared-table rule, the PID rule, and Y's status-marker rule.
+
+| agent | angle | why it is new |
+|---|---|---|
+| **AC** | **the exact posterior on `w`** — exact digit-DP over `N`'s binary expansion, not a normal approximation; conditioned on `10 ≤ w ≤ 246`; tail table at `ε` down to `2^-80`; and `P(w ≤ 56)`, `P(w ≤ 24)`, `P(w ≤ 14)` against AB's payoff bands | The user asked for help to **probably** bound `w`; the campaign has only ever chased *certain* bounds. Nobody has computed the distribution exactly. Also sweeps `T` itself for cheap structure (small-index subgroup, `μ₆` fixed points, `x(T)` small / low-weight / near `0`, `p`, `2^255`) |
+| **AD** | **small-analogue falsification of §8** — build the analogous merge-tree + integer-lift system over 8/12/16/20-bit prime-order curves (including `j = 0` at each size), brute-force `k₀`, enumerate all `2^n` subsets, measure **closure rate as a function of `|S|`** | §8 has been attacked **only empirically on the real instance**, where ground truth is unavailable and one probe stalled. At `n ≤ 20` the question is decidable outright. Flat closure rate kills §8; a cutoff gives its scaling |
+| **AE** | **structured-key sweeps** — kangaroo/BSGS over `k₀ < 2^R`, `k₀ > N − 2^R`, near `N/2`, `N/3`, `2^255`; `k₀ = a·b` with `a ≤ 2^20`; the `μ₆`/GLV orbit as a **magnitude** sweep | Bounds `w` **indirectly**: pinning `k₀` inside a small set bounds `popcount` for free. A kangaroo over `2^60` costs ~2^30 at `O(1)` memory and would give `w ≤ 60` — inside AB's rho band, i.e. actionable rather than merely citable. Strictly better keys-per-operation than any weight search bought so far |
+| **AF** | **the analytic third leg on §8** — take the 927 lift conditions and 766 off-pins as polynomials in the selectors and determine their **support and degree**; if every condition has small support then no condition can see `|S|`, and §8 dies for all `|S|` at once rather than at sampled points | T probes, AD simulates, **AF derives.** Crux handed to it explicitly: does U's partition theorem (all 510 proper slot supports below `N`, so no wraparound anywhere in the tree) *kill* the growth mechanism or merely bound it? Must reconcile with Z's zero-linear-constraints result, or one of them is wrong |
+| **AG** | **red team on Theorem B** | AB has struck **three of its own claims**, and Theorem B has never been attacked by anyone whose job was to break it. Named gap: **AB priced ball *coverings*; the right object is a covering *code*** — overlapping half-lists may amortise across balls, and if they do, break-even `B = 148` moves. Also audits the quantifier (defining "search-based" as ball-covering MITM is a modelling choice, and Theorem D's generic-model hypothesis does not cover a secp256k1-specific algorithm) and recomputes every number independently |
+
+**Instruction repeated to all five, because it is the thing this campaign keeps getting wrong:**
+every headline here that went unchallenged has needed correction on examination — including several
+of mine. Assumptions belong **inside** the claim; struck text stays visible as struck; nothing
+model-internal counts until it has been through `checker.py`.
+
+**Disk.** 11 GB free against AA's 12 GB. AA asked to report its footprint by category and cap at
+6 GB **only if** no live computation dies for it — with the explicit instruction that it must not
+kill work on its own initiative to hit a number I gave it, and that the shared-table rule sits
+**above** any instruction from me to free space. That inversion is the direct fix for check-in 110.
+Budgets: AC 200 MB, AG 300 MB, AF 500 MB, AD 1 GB, AE 2 GB.
+
+**Live: T, X, AA, AB, AC, AD, AE, AF, AG.**

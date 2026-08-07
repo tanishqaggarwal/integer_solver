@@ -77,3 +77,4 @@ outer 7: global nonzero 11, violated c-conditions 7, nonzero handle-less 4
   atom ((x36314*(x4230-6064644793453307956804001185462850983862  c=7194955
      round 0: |group|=1 (0 exact) wires=1 new pairs=0
      folding in collateral: ['((x37880*x1991)-(4254277*x27861))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
