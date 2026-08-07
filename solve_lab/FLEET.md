@@ -5125,3 +5125,62 @@ refuted.
 
 **Environment inventory, now the fleet's record:** sympy 1.14.0, python-flint 0.9.0, **Singular
 4.3.2**; **no msolve, Sage, Macaulay2, Magma, CoCoA or PARI/gp** available or installable here.
+
+---
+
+## Check-in 90 — the pin-level barrier does not exist; U stops rather than ship a bad table
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified by U at close.
+
+### What stands — checker-independent, and it kills a standing assumption
+
+Every leaf pin is `sel·(w−C) − m·z` with `z = a·b`, and **1,019 of 1,024 factors are free
+variables** — the other 5 pinned to `p`. **507/512 pins have both factors free; 512/512 have at
+least one.** So `z` is unconstrained and the pin collapses to a divisibility `m | (w−C)`.
+
+**All 256 leaves carry `m = 1` on Y — every leaf's Y coordinate is free at zero cost** — and `m > 1`
+on X. Driving two leaves to a common point therefore needs only `gcd(M_a, M_b) | (C_aX − C_bX)`:
+
+> **26,389 of 32,640 cross-slot pairs are feasible, and 232 of 255 slots admit at least one.**
+> `gcd = 1` for **24,743** pairs, which makes those automatic.
+
+**That kills the assumption sitting under most of this lab's placement searches.** The cost of
+forcing a coincidence is **propagation, not the pin.**
+
+### U priced ZERO slots, and said so
+
+U built a forward-only evaluator from its own parse — 31,853 singly-defined variables, Kahn order,
+**0 cycles**, nothing solved backwards — and **it failed its own control: propagating the deliverable
+gives 8,229 failing, not 7, with 4,578 variables changed.** Diagnosed, not mysterious: of 3,749 copy
+atoms, **orientation is forced only when exactly one side carries a definition**, and where neither
+does U chose arbitrarily, so some copies run backwards. **That is agent K's failure mode, reached
+independently** — K's null died to exactly it.
+
+> **U stopped rather than produce a 383-row table on an instrument it had just watched fail its own
+> control.** Its three measured numbers (pin lie on leaf 235 → 50, on leaf 72 → 46, joint CRT on both
+> → 88) are explicitly **not** slot prices — they are what a pin lie costs with the downstream chain
+> left **stale** — and U refused to quote them as anything else. **"Zero slots priced, zero
+> bounded."**
+
+**Nothing in the partition theorem depends on this:** §§1–14 are arithmetic over the support family
+and never evaluate the circuit.
+
+### The experiment is one calibrated engine away
+
+**U re-tasked: do not rebuild the evaluator — borrow M's**, which agent T verified exact from outside
+M's parse (reproduces 39,026 with the deliverable's exact 7 failures, **byte-identical** assignment,
+0 of 38,748 variables differing, and 9/9 agreement at points spanning 39,008–39,026). Read
+`agentM_work/` read-only; **M has been told to expect it**, and to say so if serving two agents makes
+its engine a bottleneck. L's `calib2.py` + `full_model.pkl` is the fallback. **The `*.pkl` wipe
+applies** — build a mirror from `agentT_work/t_rebuild.sh` first.
+
+Then run U's §18 construction over the 383 slots: pick a CRT-feasible pair, set both X wires to a
+common `W` and both Y wires to a common `W_Y` with `z = (w−C)/m`, **re-propagate**, set β's free
+output to the target — everything above β is pass-through since the sibling subtrees are dead — and
+score. **Price per slot, exact and bounded distinguished. Below 7 anywhere is terminal.**
+
+**Two cautions of U's, both enlarging the space rather than shrinking it:** the common point **need
+not be on the curve**, since β's chord law is vacuous and nothing above β applies one — **strictly
+larger than a curve-point search** — and **the pairing is not the bottleneck** at 232/255 slots;
+propagation cost is. If all 383 proves expensive, a **stratified sample by slot depth and support
+size** is acceptable where a prefix is not.

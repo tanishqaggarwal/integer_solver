@@ -1,0 +1,49 @@
+{
+ "n_atoms": 9032,
+ "n_handleless": 5351,
+ "n_handled": 3681,
+ "shape_shared": 1201,
+ "categories": {
+  "other free vars only": 2733,
+  "depends on leaf selectors": 290,
+  "NO free variable at all (constant atom)": 2328
+ },
+ "trials": [
+  [
+   1,
+   2,
+   0
+  ],
+  [
+   2,
+   2,
+   0
+  ],
+  [
+   8,
+   14,
+   0
+  ],
+  [
+   17,
+   35,
+   0
+  ],
+  [
+   32,
+   52,
+   1
+  ],
+  [
+   64,
+   104,
+   2
+  ]
+ ],
+ "ever_nonzero": [
+  "(x12827-(x31566*x24511))",
+  "(x23514-(x6677*x23504))",
+  "(x32693-(x23503*x15035))"
+ ],
+ "with_shift_wire": 33
+}

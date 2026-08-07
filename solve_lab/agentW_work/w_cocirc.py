@@ -124,27 +124,6 @@ for s in range(3, 7):
     print('  s=%d (window %d): %d hits, %d supports, %.0fs' % (s, WIN, cnt, len(found), time.time()-t0), flush=True)
 print('degenerate (skipped) subsets: %d' % degenerate)
 
-# exact verification over Q of every candidate
-def rankQ(rows):
-    b = []
-    for e in rows:
-        w = [Fraction(S.rows[e].get(u, 0)) for u in KN]
-        for bp, bv in b:
-            if w[bp] != 0:
-                f = w[bp]; w = [a - f * x for a, x in zip(w, bv)]
-        p = next((i for i, x in enumerate(w) if x != 0), None)
-        if p is not None:
-            d = w[p]; b.append((p, [x / d for x in w]))
-    return len(b)
-
-
-ver = []
-for T in sorted(found, key=lambda t: (len(t), sorted(map(str, t)))):
-    keep = [e for e in S.SAT if e not in T]
-    if rankQ(keep) < 26:
-        ver.append(sorted(T, key=str))
-print('\nCOCIRCUIT-CONTAINING SETS of size <= 6, exactly verified over Q: %d' % len(ver))
-for T in ver:
-    print('   size %d : %s' % (len(T), [str(x) for x in T]))
-json.dump([[str(x) for x in T] for T in ver], open('w_cocirc.json', 'w'), indent=1)
-print('elapsed %.0fs' % (time.time() - t0))
+json.dump([sorted(map(str, T)) for T in sorted(found, key=lambda t: (len(t), sorted(map(str, t))))],
+          open('w_cocirc_raw.json', 'w'), indent=1)
+print('raw candidate supports dumped: %d  (elapsed %.0fs)' % (len(found), time.time()-t0))

@@ -13,11 +13,14 @@ import sys, os, itertools, json, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import w_setup as S
 
-cc = [frozenset(int(x) if x != 'S' else 'S' for x in T) for T in json.load(open('w_cocirc.json'))]
+cc = [frozenset(int(x) if x != 'S' else 'S' for x in T) for T in json.load(open('w_cocirc_raw.json'))]
 minimal = [c for c in cc if not any(d < c for d in cc)]
 minimal = sorted(set(minimal), key=lambda c: (len(c), sorted(map(str, c))))
 print('cocircuit-containing sets enumerated: %d ; MINIMAL ones: %d' % (len(cc), len(minimal)))
-for c in minimal: print('   size %d : %s' % (len(c), sorted(map(str, c))))
+from collections import Counter as _C
+print('  minimal by size:', dict(sorted(_C(len(c) for c in minimal).items())))
+for c in minimal:
+    if len(c) <= 2: print('   size %d : %s' % (len(c), sorted(map(str, c))))
 
 # all unions of minimal cocircuits with total size <= 6
 Bs = {frozenset()}

@@ -322,3 +322,90 @@ never incidence) the cheapest assignment that makes that slot's two inputs coinc
 slots have far smaller supports than the root and were never priced this way.  If any slot comes
 in below 7, that is the campaign's terminal result; if none does, 7 acquires a mechanism instead
 of an exhaustion.
+
+---
+
+# CHECK-IN 87 FOLLOW-UP — the slot-pricing experiment: PARTIAL, and I did not price a single slot
+
+**I did not deliver per-slot prices.**  I got two-thirds of the way and the instrument failed
+calibration.  What follows separates what is checker-verified from what is not.
+
+## 15. The pin-level barrier does not exist (`w1_zfactors.py`, `w2_wire.py`, `w3_crt.py`)
+
+Every leaf pin is `sel·(w − C) − m·z = 0` and **512/512 `z` wires are defined as a product
+`z = a·b`**.  Measured over all 512:
+
+* **1019 of the 1024 factors are FREE variables** (no definition, no constant pin).  The other
+  5 are pinned to `p`.  **507/512 pins have BOTH factors free; 512/512 have at least one.**
+* So `z` is unconstrained and the pin reduces to a pure divisibility: `m | (w − C)`.
+* **All 256 leaves carry `m = 1` on their Y wire and `m > 1` on their X wire** (256 distinct
+  X moduli).  So **every leaf's Y coordinate is completely free at zero cost.**
+* For two leaves to be driven to a *common* coordinate pair, Y is free and X needs
+  `W ≡ C_aX (mod M_a)`, `W ≡ C_bX (mod M_b)` — solvable iff `gcd(M_a,M_b) | (C_aX − C_bX)`.
+  Over all 32,640 cross-slot leaf pairs: **26,389 are feasible**, and **232 of 255 slots admit
+  at least one feasible pair**.  `gcd = 1` for 24,743 pairs, which makes them automatic.
+
+**So the price of a coincidence is not paid at the pin.**  This kills the assumption most of
+this lab's placement searches were built on, and it is measured, not argued.
+
+## 16. What the price IS paid for — measured with `checker.py`'s own compiled equations
+
+Harness: `checker.load_equations()` once (28 s), then `evaluate_all` per candidate.  Deliverable
+re-scores **7 failing** through the harness, so the scorer is calibrated.  Three candidates, all
+on the deliverable's own leaf pair (exponents 72 and 235), all **checker-verified**:
+
+| candidate | failing |
+|---|---|
+| deliverable (route lie) | **7** |
+| pin lie: leaf 235's wires := leaf 72's constants | **50** |
+| pin lie: leaf 72's wires := leaf 235's constants | **46** |
+| joint CRT: one common `W` on both leaves (`gcd = 3`, divides) | **88** |
+
+**These are NOT slot prices and must not be quoted as such.**  They are what a pin lie costs
+*without re-propagating the downstream chain* — the mux pass-through atoms below the slot still
+carry the old values, and the checker counts every one.  The honest reading is only:
+**the cost lives in the propagation, not in the pin.**
+
+## 17. THE INSTRUMENT FAILED CALIBRATION — stated before any number derived from it
+
+I built a forward-only evaluator from my own parse (`w5_eval.py`): 31,853 variables with a single
+definition each, a Kahn topological order with **0 cycles**, every variable recomputed from its
+**own** definition, nothing ever solved backwards.
+
+**Calibration test: propagate the deliverable and re-score.  Result: 8,229 failing, not 7, with
+4,578 variables changed.**  The evaluator is therefore **wrong** and **no slot was priced with
+it.**  Diagnosis: of the 3,749 copy atoms, orientation is only forced when exactly one side
+carries a definition; where neither does I picked a direction arbitrarily, so some copies run
+backwards.  **That is precisely K's failure mode, reached independently, and it is why I am
+reporting a gap rather than a table.**
+
+Nothing in §§1–14 depends on this evaluator — the partition theorem is pure arithmetic over the
+support family and never evaluates the circuit.
+
+## 18. HANDOVER — how to actually run check-in 87's experiment
+
+**Do not rebuild the evaluator.**  A calibrated one already exists and is audited: L's
+`calib2.py` + `full_model.pkl` builds an assignment from an ON-set and orientations, and **M's
+incremental engine was verified EXACT by T outside M's parse** — driven on the witness subset it
+reproduces 39,026 with the deliverable's exact 7 failures and is byte-identical to the
+deliverable (0 of 38,748 vars differ).  Drive **that** over the 383 slots.
+
+The construction to drive, per slot β with subtrees `I`, `J`:
+
+1. pick `ℓ_a ∈ I`, `ℓ_b ∈ J` with `gcd(M_a,M_b) | (C_aX − C_bX)` — §15 gives 26,389 such pairs
+   and the per-slot counts;
+2. turn on exactly those two selectors; set both X wires to the CRT value `W`, both Y wires to a
+   common `W_Y`, and each `z = (w − C)/m` (free, §15);
+3. **re-propagate** the whole live path — this is the step my instrument could not do;
+4. β's two inputs now coincide, so its residuals vanish identically and its output is free;
+   everything above β is pass-through because the sibling subtrees are dead, so set β's output to
+   the target and the root carries it;
+5. score with the exact scorer and record the failing count **per slot**.
+
+Below 7 anywhere is terminal.  At or above 7 everywhere turns the deliverable's 7 from an
+exhaustion into a mechanism.
+
+**Two cautions from what I did measure.**  (i) The point `(W, W_Y)` need not be a curve point —
+β's chord law is vacuous and nothing above β applies one — so the search space is larger than a
+curve-point search and must not be restricted to leaf values.  (ii) 232 of 255 slots admit a
+feasible pair, so the pairing is not the bottleneck; the propagation cost is.
