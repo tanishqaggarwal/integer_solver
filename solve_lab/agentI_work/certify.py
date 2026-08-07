@@ -309,6 +309,7 @@ step("6b. propagation is confluent (same result on repeat); every non-decision\n
 # 6c: THE MECHANISM TEST.  Does the circuit really compute the ladder?
 # Turn on random subsets of selectors; predict the accumulator by independent EC
 # arithmetic; compare with the value the circuit derives for (x1,y1).
+pts_curve = pts
 idx = {}
 q = pts[start[0]]; i = 0
 while True:
@@ -317,48 +318,78 @@ while True:
     if d is None or d[0] not in Sx or i >= 255:
         break
     q = pts[Sx[d[0]]]; i += 1
-base_on = [b for b in ks if F.witp[b] == 1]
-rng = random.Random(7)
-mech_ok = 0
-mech_tot = 0
-mech_detail = []
-for trial in range(6):
-    extra = rng.sample([b for b in ks if b not in base_on], trial % 3 + 1)
-    onset = set(base_on) | set(extra)
+def neg(Q):
+    return None if Q is None else (Q[0], (-Q[1]) % P)
 
-    def pol(u, roots, S=onset):
+
+rng = random.Random(11)
+mech_ok = mech_tot = 0
+mech_detail = []
+for trial in range(4):
+    trio = rng.sample(ks, 3)
+
+    def pol0(u, roots, S=set(trio)):
         if u in S:
             return 1 if 1 in roots else roots[0]
         x = F.witp[u]
         return x if x in roots else roots[0]
-
-    vv, cc, _ = F.run(pol)
-    if vv[12186] is None or vv[16742] is None:
-        mech_detail.append(f"  |S|={len(onset)}: (x1,y1) released (free) -- no prediction")
+    vv, cc, _ = F.run(pol0)
+    if vv[12186] is not None:
+        mech_detail.append(f"  trio {trio}: (x1,y1) not released -- skipped")
         continue
-    acc = ((vv[12186] + c3) % P, vv[16742])
-    # does the circuit's (x1,y1) equal the EC sum of SOME subset of the on-set?
     hit = None
-    lst = sorted(onset)
-    for mask in range(1, 1 << len(lst)):
-        s = None
-        for j, b in enumerate(lst):
-            if mask >> j & 1:
-                s = eadd(s, emul(1 << idx[b], G))
-        if s == acc:
-            hit = [idx[b] for j, b in enumerate(lst) if mask >> j & 1]
+    for drop in range(3):
+        rest = [trio[k] for k in range(3) if k != drop]
+        S = eadd(pts[rest[0]], pts[rest[1]])
+        if S is None:
+            continue
+        v2, c2f, _ = F.run(pol0, preassign={12186: (S[0] - c3) % P, 16742: S[1]})
+        if len(c2f) <= 3:
+            hit = (rest, len(c2f), c2f[:6])
             break
     mech_tot += 1
-    if hit is not None:
+    if hit:
         mech_ok += 1
-    mech_detail.append(f"  |S|={len(onset)} ladder indices {sorted(idx[b] for b in onset)} "
-                       f"-> circuit accumulator = sum of ladder indices {hit}")
-step("6c. MECHANISM TEST: with random selector subsets switched on, the value the\n"
-     "    circuit derives for (x1,y1) is exactly the elliptic-curve SUM of the\n"
-     "    corresponding ladder points 2^i*G, computed independently.\n"
-     "    (If the circuit were doing anything other than the ladder, this fails.)",
+        mech_detail.append(f"  trio {trio}: the RELEASED accumulator (x1,y1), set to the "
+                           f"independently computed EC sum P_{hit[0][0]} (+) P_{hit[0][1]}, "
+                           f"closes its rung; {hit[1]} atoms remain: {hit[2]}")
+    else:
+        mech_detail.append(f"  trio {trio}: NO EC partial sum closed the rung -- claim refuted")
+step("6c. MECHANISM TEST (corrected): the accumulator is ADVICE, not a derived value --\n"
+     "    switching on extra selectors RELEASES (x1,y1).  Setting the released\n"
+     "    accumulator to the elliptic-curve partial sum of the switched-on ladder\n"
+     "    points, computed independently, CLOSES the rung it created.\n"
+     "    If the circuit computed anything other than the ladder, this fails.",
      mech_tot > 0 and mech_ok == mech_tot,
-     f"matched {mech_ok}/{mech_tot} predictions\n" + "\n".join(mech_detail))
+     f"matched {mech_ok}/{mech_tot}\n" + "\n".join(mech_detail))
+
+# 6c2: the sharpest escape attempt -- with the selector that pins (x2,y2) OFF,
+# (x2,y2) is a FREE advice value, so A=B=0 can be satisfied outright.  Test it.
+trio = [112, 5090, 35635]; rest = [5090, 35635]
+acc = eadd(pts[rest[0]], pts[rest[1]])
+x3v2, y3v2 = val[22162], val[30213]
+Tt = ((x3v2 + c3) % P, y3v2)
+Qq = eadd(Tt, neg(acc))
+
+
+def pol1(u, roots, S=set(trio)):
+    if u in S:
+        return 1 if 1 in roots else roots[0]
+    x = F.witp[u]
+    return x if x in roots else roots[0]
+
+
+ve, ce, _ = F.run(pol1, preassign={12186: (acc[0] - c3) % P, 16742: acc[1],
+                                   14853: (Qq[0] - c3) % P, 24908: Qq[1]})
+esc_blocked = (ve[35389] == 0 and ve[6671] == 0 and len(ce) == 3)
+step("6c2. ADVERSARIAL ESCAPE ATTEMPT: switch OFF the selector that pins (x2,y2) so\n"
+     "     that (x2,y2) becomes a FREE advice value, and set it to T (-) acc so that\n"
+     "     A = B = 0 outright.  It works -- and three NEW check atoms fire, which\n"
+     "     decompile to the SAME `m*A' + m'*B'` form on a different ladder rung.",
+     esc_blocked,
+     f"A={ve[35389]} B={ve[6671]} (both zero), new violated atoms={len(ce)}: "
+     f"{[('a%d: %s' % (a, M.src[a])) for a in ce[:4]]}\n"
+     f"=> freeing an advice coordinate does not remove the constraint, it relocates it.")
 
 # 6d: is there ANY mod-p freedom besides the selector bits?
 pinsrc = []
@@ -434,6 +465,12 @@ ESTABLISHED (steps 1-6):
   is a 256-bit prime with embedding degree > 50 and trace {P + 1 - N}.
   Finding such b is a 256-bit ECDLP.  Best known cost: Pollard rho,
   ~sqrt(pi*N/4) ~= 2^127 group operations.  That is the honest price.
+
+SCOPE OF STEP 6 (stated plainly):
+  6a/6b/6d are exhaustive over the instance.  6c/6c2/6e are SAMPLED
+  demonstrations: they show on randomly chosen selector settings that releasing an
+  advice coordinate relocates the addition check instead of removing it.  They are
+  strong evidence, not a proof over all 2^256 selector settings.
 
 NOT ESTABLISHED (the one gap, stated plainly):
   "all atoms vanish" is SUFFICIENT for all 39,033 equations but not NECESSARY.

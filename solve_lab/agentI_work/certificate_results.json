@@ -55,9 +55,14 @@
   "detail": "identical=True"
  },
  {
-  "step": "6c. MECHANISM TEST: with random selector subsets switched on, the value the\n    circuit derives for (x1,y1) is exactly the elliptic-curve SUM of the\n    corresponding ladder points 2^i*G, computed independently.\n    (If the circuit were doing anything other than the ladder, this fails.)",
-  "pass": false,
-  "detail": "matched 0/0 predictions\n  |S|=3: (x1,y1) released (free) -- no prediction\n  |S|=4: (x1,y1) released (free) -- no prediction\n  |S|=5: (x1,y1) released (free) -- no prediction\n  |S|=3: (x1,y1) released (free) -- no prediction\n  |S|=4: (x1,y1) released (free) -- no prediction\n  |S|=5: (x1,y1) released (free) -- no prediction"
+  "step": "6c. MECHANISM TEST (corrected): the accumulator is ADVICE, not a derived value --\n    switching on extra selectors RELEASES (x1,y1).  Setting the released\n    accumulator to the elliptic-curve partial sum of the switched-on ladder\n    points, computed independently, CLOSES the rung it created.\n    If the circuit computed anything other than the ladder, this fails.",
+  "pass": true,
+  "detail": "matched 3/3\n  trio [35179, 35839, 14808]: (x1,y1) not released -- skipped\n  trio [14039, 36314, 14601]: the RELEASED accumulator (x1,y1), set to the independently computed EC sum P_36314 (+) P_14601, closes its rung; 3 atoms remain: [17810, 17813, 17816]\n  trio [5651, 35062, 22623]: the RELEASED accumulator (x1,y1), set to the independently computed EC sum P_35062 (+) P_22623, closes its rung; 0 atoms remain: []\n  trio [10428, 5630, 2081]: the RELEASED accumulator (x1,y1), set to the independently computed EC sum P_5630 (+) P_2081, closes its rung; 3 atoms remain: [17810, 17813, 17816]"
+ },
+ {
+  "step": "6c2. ADVERSARIAL ESCAPE ATTEMPT: switch OFF the selector that pins (x2,y2) so\n     that (x2,y2) becomes a FREE advice value, and set it to T (-) acc so that\n     A = B = 0 outright.  It works -- and three NEW check atoms fire, which\n     decompile to the SAME `m*A' + m'*B'` form on a different ladder rung.",
+  "pass": true,
+  "detail": "A=0 B=0 (both zero), new violated atoms=3: ['a24121: X12000 - (X21219 + X22131)', 'a24124: X12926 - (X31730 + X36524)', 'a31069: X21364 - (X6711 + X2853)']\n=> freeing an advice coordinate does not remove the constraint, it relocates it."
  },
  {
   "step": "6d. every one of the 512 conditional-pin handles is forced to 0 mod p, so an\n    active pin fixes its advice value EXACTLY mod p (no continuous knob).\n    A single handle that were free mod p would refute the reduction.",

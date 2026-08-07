@@ -2,3 +2,13 @@
   runs tested 32896  hits []  14.8s
 --- PHASE B: BSGS, baby=2^22 giant=2^22  => covers k < 2^44 ---
 --- PHASE B: BSGS, baby=2^22 giant=2^22  => covers k < 2^44 ---
+  baby steps built 221.9s
+  sorted 225.7s
+    giant 524288/4194304  33s
+    giant 1048576/4194304  73s
+  baby steps built 231.7s
+  sorted 236.5s
+    giant 1572864/4194304  114s
+    giant 524288/4194304  41s
+    giant 2097152/4194304  151s
+    giant 1048576/4194304  79s

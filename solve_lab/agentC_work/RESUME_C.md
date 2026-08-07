@@ -23,7 +23,13 @@ Installed (absent before): z3-solver, python-sat, cvc5, python-flint, ortools, s
    slack as the deliverable's 12/8 cluster in half the equations, so `failing = 7 - 3 + c`
    (6 -> 39,027 if c = 2; 4 -> 39,029 if c = 0).
 
-## SINGLE HIGHEST-VALUE NEXT EXPERIMENT
+## PRIORITY-1 OUTCOME: REFUTED (see LOG.md Step 9)
+The x_10513 cluster's 12x8 matrix has rank 8 = |S|, kernel ZERO: the 5 "compensators" are shadow
+atoms (fixed linear combinations in their own square equations), so they add no freedom.  Exact
+minimum for that cluster is >= 11 failing, not 6.  Measured construction: 38,988.  39,026 stands.
+`eq20538 = 30*a8427` alone is a single-atom guard, the analogue of eq29125 = a22230.
+
+## SUPERSEDED (kept for the record) — the reasoning that led to the refuted prediction
 Build the x_10513 plan (`plan10513.py` gives control seeds + detach set, already handles the
 `X = T + p*t` choice that makes the pin multiplier divide) and solve its endgame EXACTLY instead of
 greedily: enumerate the 3 atoms whose equations lie inside the 7-equation cluster, write the

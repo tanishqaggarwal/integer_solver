@@ -4,3 +4,12 @@ iter 0: violated 2 [731, 31571]
   cone 3743 vars, knobs 524
     col 0/524  0s
     col 100/524  24s
+    col 200/524  54s
+    col 300/524  83s
+    col 400/524  120s
+    col 500/524  153s
+  Jacobian 966 x 524, nnz 2221  (160s)
+  rank 426 / 524 cols, INCONSISTENT ROWS 2  (0s)
+  -> tangent system inconsistent at this point
+
+FINAL violated mod p: [731, 31571]

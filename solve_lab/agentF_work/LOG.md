@@ -80,3 +80,34 @@ verified constant across 8 bit pairs and random coordinate perturbations; y-law 
   free dial helps without a joint solve.
 - Therefore beating 39,026 requires a *syndrome-decoding* search over realizable atom vectors, not more
   circuit reasoning.
+
+## Multi-modular / p-adic results (agent F core deliverable)
+1. **Curve identification (independent).** Shift X = x + K/3 mod p with the measured K.  Then 253 of the 256
+   conditional-pin bits give a point (X_j, y_j) with y^2 - X^3 EQUAL to the same constant
+   b = 64019533680030876408443198762210829058751700634554282185987325820393598524794,
+   and the TARGET point (K1 + K/3, K2) lies on the SAME curve.  So the object is
+      E_b : y^2 = x^3 + b  over  F_p,  p = secp256k1 field prime  (a sextic twist of secp256k1, j=0).
+   The correct pin ordering (which constant is x, which is y) is thereby determined for every bit.
+2. **Group order, computed and verified independently.**  From 4p = t^2 + 27 m^2 with t = p+1-n_secp256k1
+   the six j=0 twist orders are enumerated; exactly one annihilates points of E_b:
+      N = 115792089237316195423570985008687907852837564279074904382605163141518161494337   (256 bits)
+   Verified: annihilates 5 random points of E_b; no other candidate order does.
+   **N is PRIME**: no factor below 10^6, sympy.isprime = True, Miller-Rabin bases 2..100 all pass.
+   => Pohlig-Hellman is worthless on E_b; there is no small-order or smooth structure to exploit.
+   Quadratic twist order = 3^2 * 13^2 * 3319 * 22639 * (211-bit prime) -- also useless (and irrelevant:
+   the target is on E_b, and a static instance admits no invalid-curve interaction).
+   N-1 = 2^6 * 3 * 149 * 631 * (231-bit prime).
+3. **The obstruction is EXACTLY at p — proved computationally.**  `modq.py` builds a forward engine over
+   Z/qZ and repairs residuals mod q.  For q in {4093, 7919, 65537, 104729, 1000003, 15485863, 999999937,
+   1000000007, 2147483647, 2^61-1, 10^12+39} the FULL system is solved: **0 nonzero residual atoms and 0 of
+   39,033 equations failing mod q**, in ~4 s each.
+   Structural reason: every pin/chain check has the shape  A - B = M*p*h  with h a free variable.  Mod any
+   q coprime to M*p the handle term M*p*h is surjective, so every such check is VACUOUS mod q; only the
+   boolean constraints survive and they are satisfied by any single-bit-on configuration.
+   At q = p the handle term dies identically and the pins bite -- that is where all the content is.
+   => I's prediction "no mod-p freedom except the selector bits; the lift obstruction concentrates at p"
+      is CONFIRMED by direct construction, not by inference.
+4. **My 39,022 residual is the same point-addition object.**  Atoms 3132 `(x4432-x19964)-x28730` and
+   7251 `(x7068-x2099)-(7376877*x642)` are the two chain rows that force (x2,y2) to bit x2081's pinned
+   point; the deliverable state instead sets (x2,y2)=(x1,y1) (the degenerate doubling that makes
+   A = B = 0 identically) and pays with those same two chain atoms.

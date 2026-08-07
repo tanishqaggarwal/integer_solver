@@ -3,7 +3,7 @@ import sys, time
 sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentE_work')
 import intsolve
 
-def solve_sparse(rows, rhs, names=None, verbose=True):
+def solve_sparse(rows, rhs, names=None, verbose=True, maxcore=500):
     R=[dict(r) for r in rows]; B=list(rhs)
     n=len(R); alive=set(range(n))
     fixed={}      # var -> forced value
@@ -49,6 +49,8 @@ def solve_sparse(rows, rhs, names=None, verbose=True):
     core=[i for i in alive if R[i]]
     if verbose: print(f"  elim: {nsing} singletons, {len(subs)} unit pivots, core {len(core)} rows, {time.time()-t0:.1f}s",flush=True)
     corevars=sorted(set().union(*[set(R[i]) for i in core])) if core else []
+    if len(core)>maxcore or len(corevars)>maxcore:
+        return None,'core too large (%d rows, %d vars)'%(len(core),len(corevars)),fixed
     sol=dict(fixed)
     if core:
         if verbose: print(f"  core vars {len(corevars)}",flush=True)
