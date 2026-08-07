@@ -26,7 +26,8 @@ solve_group3 = C.solve_group3
 EXCAP = 60000        # prime powers up to this are solved EXHAUSTIVELY over t_w
 SAMPW = 400          # t_w samples above it
 TRIES = 200          # CRT combinations tested per group
-ROUNDS = 4           # collateral-refinement rounds per pair
+ROUNDS = 4           # collateral-refinement rounds per atom
+PAIRCAP = 40         # wire pairs examined per round
 rnd = random.Random(20260807)
 
 def binom_mod(t, k, m):
@@ -72,22 +73,130 @@ def joint_rootsets(CF, GROUP, q, e):
                 break
     return out, exhaustive, m
 
+# ------------------------------------------------------------------ T34: MIXED constraints
+# An atom with NO handle cannot absorb anything, so its condition is R == 0 EXACTLY over Z, not
+# R == 0 mod c.  A group can now carry both kinds on the same wire pair.  Observed shape at
+# |S|=32: the exact condition depends on ONE of the two wires and is LINEAR there, so it PINS
+# that wire to a single integer and the divisibility conditions are then univariate on the other.
+
+def is_exact(a):
+    """True if atom a has no handle -- it must be exactly zero over Z."""
+    s = SL.get(a)
+    return not (s and s % p == 0 and abs(s)//p > 1)
+
+def newton_int_roots(u):
+    """integer roots of the integer polynomial given by Newton coeffs u (sum u[k]*C(t,k)).
+    'ALL' if identically zero, [] if none, None if the degree is beyond what is implemented."""
+    u = list(u)
+    top = max([k for k in range(len(u)) if u[k]], default=-1)
+    if top < 0:
+        return 'ALL'
+    if top == 0:
+        return []
+    if top == 1:                       # u0 + u1*t
+        return [-u[0]//u[1]] if u[0] % u[1] == 0 else []
+    if top == 2:                       # u0 + u1*t + u2*t(t-1)/2  -> 2u0 + (2u1-u2)t + u2 t^2
+        A, B, Cc = u[2], 2*u[1]-u[2], 2*u[0]
+        D_ = B*B - 4*A*Cc
+        if D_ < 0:
+            return []
+        import math
+        r = math.isqrt(D_)
+        if r*r != D_:
+            return []
+        out = []
+        for s_ in (-B+r, -B-r):
+            if s_ % (2*A) == 0:
+                out.append(s_//(2*A))
+        return sorted(set(out))
+    return None
+
+def exact_pins(CF, EX, D, log, w, v):
+    """resolve every exact condition to a pin on t_w and/or t_v.
+    returns (setw, setv, ok).  setw/setv are None when unconstrained."""
+    setw = setv = None
+    for a in EX:
+        cf = CF[a]
+        depw = any(cf[k][l] for k in range(1, D+1) for l in range(D+1))
+        depv = any(cf[k][l] for k in range(D+1) for l in range(1, D+1))
+        if not depw and not depv:
+            if cf[0][0] != 0:
+                return None, None, False          # constant nonzero: unfixable on this pair
+            continue
+        if depw and depv:
+            log('        exact condition depends on BOTH wires -- not implemented, pair skipped')
+            return None, None, False
+        if depw:
+            rs = newton_int_roots([cf[k][0] for k in range(D+1)])
+            tgt = 'w'
+        else:
+            rs = newton_int_roots([cf[0][l] for l in range(D+1)])
+            tgt = 'v'
+        if rs is None:
+            log('        exact condition of degree >2 -- not implemented, pair skipped')
+            return None, None, False
+        if rs == 'ALL':
+            continue
+        if not rs:
+            return None, None, False              # no integer root: unsatisfiable on this pair
+        if tgt == 'w':
+            setw = set(rs) if setw is None else (setw & set(rs))
+            if not setw:
+                return None, None, False
+        else:
+            setv = set(rs) if setv is None else (setv & set(rs))
+            if not setv:
+                return None, None, False
+    return setw, setv, True
+
+def mod_tv_sets(CF, MOD, tw, D):
+    """with t_w pinned, the divisibility conditions are univariate in t_v: per prime power the
+    intersection of the allowed residues.  Exhaustive."""
+    PP = {}
+    for a in MOD:
+        for q, e in factor(abs(SL[a])//p).items():
+            PP[q] = max(PP.get(q, 0), e)
+    per = []
+    for q in sorted(PP):
+        e = PP[q]; m = q**e
+        cand = None
+        for a in MOD:
+            fa = factor(abs(SL[a])//p)
+            if q not in fa:
+                continue
+            ma = q**min(e, fa[q])
+            rs = tv_roots(CF[a], tw, ma, q, min(e, fa[q]), D)
+            if ma < m:
+                rs = set(b for b in range(m) if b % ma in rs)
+            cand = rs if cand is None else (cand & rs)
+            if not cand:
+                return None
+        per.append((m, sorted(cand if cand is not None else range(m))))
+    return per
+
 def joint_pair(vv, a0, base, log):
-    """try to clear atom a0 with a joint two-wire shift; True if an accepted shift was applied."""
-    WS = sorted(set(x for x in vars_of(E.atoms[a0]) if x in SHIFT) |
-                set(x for x in atomvalvars[a0] if x in SHIFT))
-    WS = [w for w in WS if influences(vv, a0, w)]
-    c0 = abs(SL[a0])//p
-    log('  atom %s  c=%d  wires=%d pairs=%d' % (a0[:56], c0, len(WS), len(WS)*(len(WS)-1)//2))
+    """clear atom a0 with a joint two-wire shift.  The group grows by folding in whatever the
+    global guard says the candidate broke, and the wire set grows with it.  Mixed exact/mod."""
+    def wires_of(a):
+        ws = set(x for x in vars_of(E.atoms[a]) if x in SHIFT) | \
+             set(x for x in atomvalvars[a] if x in SHIFT)
+        return [x for x in sorted(ws) if influences(vv, a, x)]
+    kind = 'EXACT (handle-less)' if is_exact(a0) else 'c=%d' % (abs(SL[a0])//p)
+    GROUP = [a0]
     r0 = E.run(vv)
     ZERO0 = set(i for i, x in enumerate(r0) if x == 0)
-    for w, v in itertools.combinations(WS, 2):
-        GROUP = [a0]; CF = {}
-        for rd in range(ROUNDS):
-            okfit = True
+    log('  atom %s  %s' % (a0[:56], kind))
+    tried_pairs = set()
+    for rd in range(ROUNDS):
+        WSET = sorted(set(x for a in GROUP for x in wires_of(a)))
+        pairs = [pr for pr in itertools.combinations(WSET, 2) if pr not in tried_pairs]
+        log('     round %d: |group|=%d (%d exact) wires=%d new pairs=%d'
+            % (rd, len(GROUP), sum(1 for a in GROUP if is_exact(a)), len(WSET), len(pairs)))
+        newatoms = collections.Counter()
+        for w, v in pairs[:PAIRCAP]:
+            tried_pairs.add((w, v))
+            CF = {}; okfit = True
             for a in GROUP:
-                if a in CF:
-                    continue
                 cf = C.fit2(vv, E.residx[a], w, v)
                 if cf is None or not all(
                         C.probe2(vv, E.residx[a], w, tw, v, tv)//p == C.peval2_exact(cf, tw, tv)
@@ -95,34 +204,71 @@ def joint_pair(vv, a0, base, log):
                     okfit = False; break
                 CF[a] = cf
             if not okfit:
-                log('     (x%d,x%d) no valid fit -- skipped' % (w, v)); break
-            PP = {}
-            for a in GROUP:
-                for q, e in factor(abs(SL[a])//p).items():
-                    PP[q] = max(PP.get(q, 0), e)
-            per = []; dead = None
-            for q in sorted(PP):
-                rs, exh, m = joint_rootsets(CF, GROUP, q, PP[q])
-                per.append((m, rs))
-                if not rs:
-                    dead = (m, exh); break
-            if dead:
-                log('     (x%-6d,x%-6d) |group|=%d  NO JOINT ROOT mod %d %s'
-                    % (w, v, len(GROUP), dead[0], '(exhaustive)' if dead[1] else '(sampled)'))
-                break
-            mods = [m for m, _ in per]; sets = [rs for _, rs in per]
-            seen = set(); tried = cleared = 0; newatoms = collections.Counter()
-            while tried < TRIES:
-                pick = [rs[rnd.randrange(len(rs))] for rs in sets]
-                tw = crt_list([(x, m) for (x, _), m in zip(pick, mods)])
-                tv = crt_list([(y, m) for (_, y), m in zip(pick, mods)])
-                if tw is None or tv is None or (tw, tv) in seen:
-                    tried += 1; continue
-                seen.add((tw, tv)); tried += 1
+                continue
+            D = len(CF[a0])-1
+            EX = [a for a in GROUP if is_exact(a)]
+            MOD = [a for a in GROUP if not is_exact(a)]
+            cands = []
+            if EX:
+                setw, setv, ok = exact_pins(CF, EX, D, log, w, v)
+                if not ok:
+                    continue
+                if setw is not None and setv is not None:
+                    cands = [(x, y) for x in sorted(setw)[:6] for y in sorted(setv)[:6]]
+                elif setw is not None:
+                    for x in sorted(setw)[:4]:
+                        per = mod_tv_sets(CF, MOD, x, D) if MOD else []
+                        if per is None:
+                            continue
+                        if not per:
+                            cands.append((x, 0)); continue
+                        mods = [m for m, _ in per]; sets = [rs for _, rs in per]
+                        for _ in range(TRIES):
+                            y = crt_list([(rs[rnd.randrange(len(rs))], m)
+                                          for rs, m in zip(sets, mods)])
+                            if y is not None:
+                                cands.append((x, y))
+                elif setv is not None:
+                    for y in sorted(setv)[:4]:
+                        cands.append((0, y))       # symmetric case; t_w left at 0
+                else:
+                    cands = []
+            if not EX or not cands:
+                if EX and not cands:
+                    continue
+                PP = {}
+                for a in MOD:
+                    for q, e in factor(abs(SL[a])//p).items():
+                        PP[q] = max(PP.get(q, 0), e)
+                per = []; dead = None
+                for q in sorted(PP):
+                    rs, exh, m = joint_rootsets(CF, MOD, q, PP[q])
+                    per.append((m, rs))
+                    if not rs:
+                        dead = (m, exh); break
+                if dead:
+                    log('     (x%-6d,x%-6d) |group|=%d NO JOINT ROOT mod %d %s'
+                        % (w, v, len(GROUP), dead[0], '(exhaustive)' if dead[1] else '(sampled)'))
+                    continue
+                mods = [m for m, _ in per]; sets = [rs for _, rs in per]
+                seen = set()
+                for _ in range(TRIES):
+                    pick = [rs[rnd.randrange(len(rs))] for rs in sets]
+                    tw = crt_list([(x, m) for (x, _), m in zip(pick, mods)])
+                    tv = crt_list([(y, m) for (_, y), m in zip(pick, mods)])
+                    if tw is None or tv is None or (tw, tv) in seen:
+                        continue
+                    seen.add((tw, tv)); cands.append((tw, tv))
+            cleared = 0
+            for tw, tv in cands[:TRIES]:
                 if (tw, tv) == (0, 0):
                     continue
-                if not all(C.probe2(vv, E.residx[a], w, tw, v, tv) % abs(SL[a]) == 0
-                           for a in GROUP):
+                good = True
+                for a in GROUP:
+                    y = C.probe2(vv, E.residx[a], w, tw, v, tv)
+                    if (y != 0) if is_exact(a) else (y % abs(SL[a]) != 0):
+                        good = False; break
+                if not good:
                     continue
                 cleared += 1
                 snap = vv[:]
@@ -137,14 +283,15 @@ def joint_pair(vv, a0, base, log):
                     if rn[i]:
                         newatoms[E.res[i]] += 1
                 vv[:] = snap
-            add = [a for a, _ in newatoms.most_common() if a not in GROUP and a in SL and SL[a]
-                   and abs(SL[a])//p > 1][:3]
-            log('     (x%-6d,x%-6d) |group|=%d  %d roots verified, guard rejected all; '
-                'collateral %s' % (w, v, len(GROUP), cleared,
-                                   [a[:44] for a in add] or 'none addable'))
-            if not add:
-                break
-            GROUP += add
+            if cleared:
+                log('     (x%-6d,x%-6d) |group|=%d %d candidate(s) verified, guard rejected all'
+                    % (w, v, len(GROUP), cleared))
+        add = [a for a, _ in newatoms.most_common() if a not in GROUP][:3]
+        if not add:
+            log('     no addable collateral -- giving up on %s' % a0[:44])
+            break
+        log('     folding in collateral: %s' % [a[:44] for a in add])
+        GROUP += add
     return False
 
 def handleless_pass(vv, base, log):
@@ -249,9 +396,10 @@ def close(S, tag, outer_max=16, logf=None):
         r = E.run(vv)
         viol = [a for a in SL if r[E.residx[a]] != 0 and SL[a] and r[E.residx[a]] % abs(SL[a]) != 0
                 and not any(t in a for t in TGT)]
-        if not viol:
+        hl = [a for a in E.res if r[E.residx[a]] and a not in SL]      # handle-less, exact-zero
+        if not viol and not hl:
             log('   only the two TARGET congruences remain -- CLOSED'); break
-        if not any(joint_pair(vv, a, base, log) for a in viol):
+        if not any(joint_pair(vv, a, base, log) for a in viol+hl):
             log('   joint two-wire pass also stalled -> stop'); break
         gen += 1
     relift(vv); r = E.run(vv)

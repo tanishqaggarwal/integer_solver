@@ -5,3 +5,5 @@ dual basis verified (identity block)
   s=3 (window 8): 11197 hits, 756 supports, 6s
   s=4 (window 8): 44831 hits, 2438 supports, 62s
   s=5 (window 6): 15938 hits, 4017 supports, 119s
+  s=6 (window 6): 6256 hits, 5419 supports, 223s
+degenerate (skipped) subsets: 3070206

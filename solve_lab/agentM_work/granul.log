@@ -1,3 +1,9 @@
 sample: 794 witness-supersets (|W|<=8) + 1000 uniform = 1784 distinct
   [200/1784] 8s  moved 68  above 0
   [400/1784] 17s  moved 174  above 0
+  [600/1784] 27s  moved 291  above 0
+  [800/1784] 35s  moved 457  above 0
+  [1000/1784] 39s  moved 525  above 0
+  [1200/1784] 45s  moved 592  above 0
+  [1400/1784] 51s  moved 647  above 0
+  [1600/1784] 57s  moved 711  above 0
