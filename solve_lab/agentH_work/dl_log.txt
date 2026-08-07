@@ -21,3 +21,9 @@
     giant 4194304/4194304  304s
   BSGS done 530.2s  found=None
 --- PHASE C: k = 2^a * s with s < 2^22 (strip trailing zeros) ---
+    giant 3145728/4194304  232s
+    giant 3670016/4194304  265s
+    giant 4194304/4194304  296s
+  BSGS done 532.5s  found=None
+--- PHASE C: k = 2^a * s with s < 2^22 (strip trailing zeros) ---
+  shifted-target hits: []
