@@ -1,0 +1,7 @@
+BASE AB=(42288441692606730654477992334300923363430351219005991492903
+  label {'x1': 22649, 'y1': 16742, 'x2': 14853, 'y2': 31339, 'x3': 22162, 'y3': 30213}
+  oncurve [True, True, True]  D= (260804552382287676499348643079575183681078666509844284975030804219777
+bit x47     ninc=0 nzc=0 nres=9 oncurve=None AB=None D=None
+bit x91     ninc=0 nzc=0 nres=8 oncurve=None AB=None D=None
+bit x112    ninc=0 nzc=0 nres=9 oncurve=None AB=None D=None
+bit x438    ninc=0 nzc=0 nres=10 oncurve=None AB=None D=None

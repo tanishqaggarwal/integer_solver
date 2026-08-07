@@ -1,0 +1,6 @@
+feasible B bits: 50
+--- PAIRS ---
+pair (13195, 3545): FEAS=True vars=833 rows=651 exact=(31, [28033, 28035, 28037]) msg=ok (7s)
+pair (16586, 28645): FEAS=True vars=724 rows=584 exact=(31, [28033, 28035, 28037]) msg=ok (6s)
+pair (1530, 1603): FEAS=True vars=151 rows=127 exact=(36, [722, 724, 726]) msg=ok (5s)
+pair (22562, 2441): FEAS=True vars=342 rows=335 exact=(31, [28033, 28035, 28037]) msg=ok (6s)
