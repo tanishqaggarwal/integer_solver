@@ -1,6 +1,18 @@
 # RESUME_F — agent F (multi-modular / p-adic lifting).  NO curve/group framing; integer polynomials only.
 
-## READ THIS FIRST — the infeasibility argument is WITHDRAWN.  The instance is OPEN.
+## READ THIS FIRST — the instance is a 96-STAGE COMBINATION TREE.  Infeasibility WITHDRAWN.  Wide open.
+96 gates carry exactly 3 checks each, each with its OWN distinct six-tuple of free inputs (96 gates,
+96 six-tuples).  Gate-support sizes over the 256 conditional-pin booleans:
+   0:7  1:20  2:32  3:9  4:11  6:2  7:4  8:1  9:1  10:1  11:1  14:1  21:2  22:1  50:1  88:1  256:1
+That is a binary tree: 256 pin constants are the leaves, 96 internal stages each combine TWO values into
+one, the root (gate x15298, support 256) must produce (K1 mod p, K2 mod p).
+**Stage x24533 fully decoded and its law CONFIRMED EXACTLY**: inputs (x14681,x38551) and (x25591,x736),
+output (x11532,x5186); the gate is 1 iff both inputs are live; its three checks are linear in the output,
+rank 2, consistent, and the output they demand equals chordK(A,B) digit for digit with the SAME universal
+K = 97553848499418123410591666447050222001188385549510401465815187079080512838891 as the root stage.
+So the accumulator COMPOSES.  The reachable root value is exponential in the number of active leaves.
+My 13,884-pair enumeration covered depth-0 configurations only; **section 7 of LOG.md is invalid**.
+
 One thing is proved: **rank(M) = 39,033, dim ker(M) = 0** (three independent computations).  That closes
 the "cancelling nonzero residual" route and makes all-atoms-zero *equivalent* to a full solve.
 It does NOT make the instance infeasible.  My section-7 exhaustion assumed at most one ON boolean per

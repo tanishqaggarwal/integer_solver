@@ -1,0 +1,17 @@
+start bad [20215, 28647]
+  x_6083: affine=True touches [7389, 28647]
+  x_11436: affine=True touches [20212]
+  x_14393: affine=True touches [20212]
+  x_14853: affine=True touches [20212, 28647]
+  x_22820: affine=True touches [20215]
+  x_26489: affine=True touches [7389]
+  x_31339: affine=True touches [10187, 20215]
+  x_37012: affine=True touches [10187]
+rows: [7389, 10187, 20212, 20215, 28647]
+  a7389: (1..)*d6083 + (-1157920892373..)*d26489 = 0..
+  a10187: (1..)*d31339 + (-9196452048535..)*d37012 = 0..
+  a20212: (11579208923731..)*d11436 + (-1430598641189..)*d14393 + (-1..)*d14853 = 0..
+  a20215: (-1157920892373..)*d22820 + (-1..)*d31339 = 289754281272824465743389..
+  a28647: (-1..)*d6083 + (1..)*d14853 = 188049657743073295813414..
+  elim: 0 singletons, 3 pivots, core 2x5, 0.0s
+5-ROW SUBSYSTEM -> core entries too large (5470 bits)

@@ -21,3 +21,22 @@ base closed state score 39018
   950/1147  100s  best score so far 39017
   1000/1147  107s  best score so far 39017
   1050/1147  112s  best score so far 39017
+  1100/1147  118s  best score so far 39017
+
+stage A complete: 1147 carriers priced in 122s
+carriers with rank > deficit: 0
+  x_7497   a688    nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_22820  a30982  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_14393  a30980  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_194    a2554   nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_253    a11974  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_257    a14447  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_348    a27388  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_400    a12983  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_485    a3332   nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_628    a39520  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_734    a39518  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_762    a14916  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_1005   a15091  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_1019   a34644  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017
+  x_1107   a20261  nz=3  |R|=16  |S|=4   deficit=12  knobs=2   rank=2   failing=16  score=39017

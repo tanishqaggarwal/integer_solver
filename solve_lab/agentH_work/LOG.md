@@ -202,3 +202,47 @@ realizable image is wide enough to out-run the region it lives in.
 **Scope:** exact for defect placement at a single cascade pin, single-selector closure, deltas
 {+-1, +-p}, subset enumeration capped at min(knobs, rank, 6).  Not a proof that no frame anywhere
 admits 39,027.
+
+## Step 12 — HANDLE-CARRIER SWEEP (complete, not sampled)
+**Correction to my own step-11 next-experiment note:** x_7497, x_11436, x_22820, x_14393 are NOT
+solo handles — they occur in 2-3 check atoms each.  The real class is the free inputs occurring in
+exactly ONE check atom: 1,865 of them, of which `handles.py` measures **1,143 with granularity
+exactly p** and 722 dormant (zero effect).  Zero have any other granularity.
+
+Construction (a handle carries the defect in multiples of p, not as a residue): from the closed
+one-selector state, move the handle one step (its carrier atom shifts by m*p), FREEZE the handle so
+it cannot absorb, re-close everything else, then price the placement.
+
+`hsweep.py` — **all 1,147 carriers priced (1,143 solo + the 4 named non-solo), 122 s.  No sampling.**
+
+  signature (nz,|R|,|S|,deficit,knobs,rank,failing,score)        count
+  (3, 16,  4, 12, 2, 2, 16, 39017)                                440
+  (4, 29,  5, 24, 3, 3, 29, 39004)                                 80
+  (4, 30,  5, 25, 3, 3, 30, 39003)                                 56
+  (4, 28,  5, 23, 3, 3, 28, 39005)                                 47
+  (4, 27,  5, 22, 3, 3, 27, 39006)                                 37
+  ... 39,017 is the maximum; the tail runs down to 38,997
+
+  rank    : {2: 441, 3: 619, 4: 79, 5: 8}      max rank 5
+  deficit : min 12, median ~24, max 31
+  **carriers with rank > deficit: 0.  Minimum gap deficit - rank = 10.**
+
+Stage B (exact integer optimum) was not needed: the winning criterion is rank > deficit and no
+handle carrier comes within 10 of it, so none can beat 7 regardless of the optimum's exact value.
+Nothing was written to disk; verifyE.py was not needed (no candidate state).
+
+### Why handles are structurally worse than pins
+A solo handle appears in exactly one check atom by definition, so breaking it yields a region with
+only 4-6 inside-atoms and 2-3 zero-collateral knobs — rank 2-5 against deficits of 12-31.  A handle
+is the narrowest possible carrier: it has no siblings to cancel against.  The 440 carriers at the
+identical signature (3,16,4,12,2,2,16,39017) are handles whose carrier atom sits in the same
+16-equation shell, which is the generic shape of the whole class.
+
+## FINAL PICTURE — every carrier class in the instance is now priced
+  class                     carriers   best score   any rank > deficit?
+  witness placement                1      39026      YES (rank 7 > deficit 4)  <-- unique
+  cascade pins                    20      39018      no (rank <= 6, deficit 9-23)
+  p-quantised solo handles     1,143      39017      no (rank <= 5, deficit >= 12)
+  named non-solo handles           4      39017      no
+**The witness placement is the ONLY carrier in the entire instance whose realizable knob-image rank
+exceeds its balance deficit.  7 failing is the floor across every carrier class.**

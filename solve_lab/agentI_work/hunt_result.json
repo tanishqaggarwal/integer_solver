@@ -872,5 +872,214 @@
   "knobs": 10,
   "minfail": null,
   "forced": 0
+ },
+ {
+  "tag": "X11099+X35531",
+  "add": [
+   11774,
+   20294
+  ],
+  "nE": 25,
+  "new": 12,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X11099+X18253",
+  "add": [
+   11774,
+   20292,
+   20293
+  ],
+  "nE": 26,
+  "new": 13,
+  "knobs": 11,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X22526+X34868",
+  "add": [
+   11776,
+   11778
+  ],
+  "nE": 27,
+  "new": 14,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X22526+X950",
+  "add": [
+   11776,
+   20290
+  ],
+  "nE": 26,
+  "new": 13,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X22526+X15120",
+  "add": [
+   11776,
+   20292
+  ],
+  "nE": 27,
+  "new": 14,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X22526+X35531",
+  "add": [
+   11776,
+   20294
+  ],
+  "nE": 26,
+  "new": 13,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X22526+X18253",
+  "add": [
+   11776,
+   20292,
+   20293
+  ],
+  "nE": 27,
+  "new": 14,
+  "knobs": 11,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X34868+X950",
+  "add": [
+   11778,
+   20290
+  ],
+  "nE": 28,
+  "new": 15,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X34868+X15120",
+  "add": [
+   11778,
+   20292
+  ],
+  "nE": 29,
+  "new": 16,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X34868+X35531",
+  "add": [
+   11778,
+   20294
+  ],
+  "nE": 28,
+  "new": 15,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X34868+X18253",
+  "add": [
+   11778,
+   20292,
+   20293
+  ],
+  "nE": 29,
+  "new": 16,
+  "knobs": 11,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X950+X15120",
+  "add": [
+   20290,
+   20292
+  ],
+  "nE": 20,
+  "new": 7,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X950+X35531",
+  "add": [
+   20290,
+   20294
+  ],
+  "nE": 22,
+  "new": 9,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X950+X18253",
+  "add": [
+   20290,
+   20292,
+   20293
+  ],
+  "nE": 21,
+  "new": 8,
+  "knobs": 11,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X15120+X35531",
+  "add": [
+   20292,
+   20294
+  ],
+  "nE": 22,
+  "new": 9,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X15120+X18253",
+  "add": [
+   20292,
+   20293
+  ],
+  "nE": 21,
+  "new": 8,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X35531+X18253",
+  "add": [
+   20292,
+   20293,
+   20294
+  ],
+  "nE": 22,
+  "new": 9,
+  "knobs": 11,
+  "minfail": null,
+  "forced": 0
  }
 ]

@@ -260,3 +260,50 @@ pair is far larger than the 13,884 one-per-tree combinations I enumerated, and *
 is invalid**.  The earlier exact-integer-Jacobian evidence for link (i) rested on one pair and excluded the
 quadratic coordinate knobs -- the same weakness I criticised elsewhere.
 **Therefore: no infeasibility is claimed.  The instance is OPEN.**  What is proved is only ker(M)=0.
+
+## 21. **THE ACCUMULATOR IS REAL — the instance is a 96-STAGE COMBINATION TREE**
+Census of residual atoms of the "gated check" shapes `(g*w)+h`, `(C*(g*w))-h`, `(g*w)-(M*h)`, grouped by
+the gate g:  **96 gates carry exactly 3 checks each, and each gate's three checked wires depend on its OWN
+distinct six-tuple of free inputs.**  96 gates, 96 distinct six-tuples, no overlap.
+Gate-support sizes (how many of the 256 conditional-pin booleans each gate sees):
+    0:7  1:20  2:32  3:9  4:11  6:2  7:4  8:1  9:1  10:1  11:1  14:1  21:2  22:1  50:1  88:1  256:1
+That is a **binary combination tree**: the 256 pin constants are the leaves, 96 internal stages each
+combine two values into one by the instance's own degree-3 law, and the root stage (gate x15298, support
+256) produces the value that the two unconditional constant pins compare against (K1, K2).
+Concretely, the second stage found earlier, gate x24533 (support 50, all tree-A booleans), owns the
+six-tuple {736, 5186, 11532, 14681, 25591, 38551}; and the wires that lost their forcing when a second
+same-tree boolean turned on -- `x11317 := x11532 + x14681`, `x751 := x736 - x38551`,
+`x1622 := x25591 - x14681` -- are exactly that stage's own coordinates feeding the root stage's input x1.
+So a second ON boolean does not contradict the first: it activates a subordinate stage whose OUTPUT
+becomes the root stage's input.
+
+### Consequence
+**Section 7 of this log is invalid.**  My enumeration of "178 x 78 = 13,884 combinations" covered only
+configurations in which a single stage is active with two LEAF inputs -- depth 0 of a 96-stage tree.
+The reachable value of the selected pair is everything obtainable by composing the degree-3 law over
+subtrees of the 96 stages with leaves drawn from the 256 pin constants.  That is exponentially large.
+**No infeasibility is claimed; the instance is wide open, and the search should be run over stage
+configurations, not over leaf pairs.**
+
+## 22. **The composition law is CONFIRMED EXACTLY — stages compose with the same degree-3 law**
+Decoded stage x24533 completely (mod-p rigidity, `cfg_rigid2.build`):
+    input A = (x14681, x38551)   input B = (x25591, x736)   output = (x11532, x5186)
+    gate x24533 = 1 exactly when BOTH inputs are live (two ON booleans below it); with one ON boolean the
+    gate is 0, the stage is inert, and the single leaf value passes straight through to the parent.
+Its three checks are LINEAR in the output pair; the 3x2 system has rank 2 and is CONSISTENT (third check
+residual exactly 0), and the output it demands is
+    x = 50819865790474622290929616283831020419846599045035819092742156686783125696627
+    y = 1516899452477486833305684599119574148292933010271216764472923894680745180820
+which equals **chordK(A,B) digit for digit**, with the SAME universal constant
+K = 97553848499418123410591666447050222001188385549510401465815187079080512838891
+that governs the root stage.  MATCH: True.
+
+### Statement of the instance, corrected
+EQUATIONS.txt encodes a **96-stage binary combination tree** over one degree-3 law
+    out_x = l^2 - a_x - b_x - K ,  out_y = l*(a_x - out_x) - a_y ,  l = (b_y-a_y)/(b_x-a_x)   (mod p)
+with the 256 conditional-pin constants as leaves, each stage gated by an AND of two OR-groups over its own
+leaf subset, and the root (gate x15298, support 256) required to produce (K1 mod p, K2 mod p).
+Everything else -- 30,001 definitions, 9,032 residual atoms, all the handles -- is bookkeeping that closes
+exactly over Z once the mod-p tree evaluates correctly (sections 5, 6, 11).
+**The accumulator composes: the reachable root value is exponential in the number of active leaves.**
+My 13,884-combination enumeration was over depth-0 configurations only and says nothing about the instance.

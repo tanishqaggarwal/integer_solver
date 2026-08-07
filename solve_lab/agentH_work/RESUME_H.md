@@ -72,9 +72,29 @@ one region.**  Cascade pins have only 2-3 zero-collateral knobs because a pin's 
 consumed closing the pin itself; the witness sits at the one place where NINE free inputs act with
 zero collateral.
 
+## 9. HANDLE-CARRIER SWEEP - complete, and it closes the carrier census (LOG.md Step 12)
+Correction to my own earlier note: x_7497/x_11436/x_22820/x_14393 are NOT solo handles (2-3 check
+atoms each).  The real class is 1,865 free inputs in exactly one check atom, of which **1,143 have
+granularity exactly p** and 722 are dormant; none has any other granularity.
+`hsweep.py` priced **all 1,147** (1,143 solo + 4 named), 122 s, no sampling.
+  rank {2:441, 3:619, 4:79, 5:8}; deficit 12-31; best score 39,017; 440 share one signature.
+  **carriers with rank > deficit: 0.  Minimum gap deficit-rank = 10.**
+Stage B was unnecessary: nothing comes within 10 of the criterion.  A solo handle is the narrowest
+possible carrier - one check atom by definition, so no siblings to cancel against.
+
+### Carrier census, complete
+  witness placement      1 carrier   39026   rank 7 > deficit 4   <-- the unique winner
+  cascade pins          20 carriers  39018   rank <= 6, deficit 9-23
+  solo handles       1,143 carriers  39017   rank <= 5, deficit >= 12
+  named non-solo         4 carriers  39017   no
+**The witness is the only carrier in the instance whose realizable knob-image rank exceeds its
+balance deficit.  7 is the floor across every carrier class, not just the cascade.**
+
 ## Single next experiment
-The sweep covers carriers that are cascade PINS.  The one carrier class left unpriced is a defect
-placed on a HANDLE rather than a pin - the p-quantised quotient variables (x_7497, x_11436,
-x_22820, x_14393 and their ~1,240 siblings).  A handle carries the defect in multiples of p rather
-than in a residue, so its region and its knob image are different objects from anything in the
-table above.  Run `sweep.py` with the carrier set replaced by the handle atoms.
+The census covers carriers that are single atoms.  The one class untested is a defect split across
+TWO carriers at once (e.g. one cascade pin plus one handle), where the deficits add but the knob
+images may union to a higher rank.  `hsweep.py`'s stage-A pricing runs unchanged on a pair; the
+20 x 1,143 grid is ~23k placements at ~0.1 s each.  Only pairs whose combined rank exceeds their
+combined deficit can win, and the per-carrier table above bounds that: max combined rank 7+5=12
+against min combined deficit 4+12=16, so a pair can win only if the union region SHRINKS - which is
+the precise thing to test.
