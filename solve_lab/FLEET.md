@@ -987,3 +987,92 @@ the instance reduces to. Everything else in the reduction is measured.
 "Solve the residual ⇒ full solution" **remains a conjecture**, and the unproved part is now
 identified exactly: the **927 `c > 1` divisibilities**. Everything remains mod P. Knob set
 unchanged (256 selectors, liveness derived).
+
+---
+
+## Check-in 13 — the 29125 obstruction does not exist; WITHDRAWN by its author (agent M)
+
+Deliverable unchanged: **39,026 / 39,033**. Nothing above it produced.
+
+### The retraction, and the correct criterion
+
+**Check-in 8's "divisibility obstruction on equation 29125" is withdrawn by M.** The
+`rhs % -P != 0` message came from **one elimination ordering inside a badly overdetermined
+window** (86 rows vs 19 knobs; 999 vs 162). M named it an obstruction without testing the row
+itself, and says so in its own first line.
+
+Single-row solvability is **exact and window-independent**: `Σ coef_f·d_f = −s0` is solvable
+over ℤ **iff `gcd(coef_f) | s0`**. For eq 29125 the gcd is **1**. **All seven failing rows
+pass** — gcd 1 for six, 40490 for eq 22044, and every one divides.
+
+**Anything in this file or in prior reports that cited the 29125 obstruction as a live lead is
+void**, including check-in 8's summary and check-in 11's tasking table.
+
+### What replaces it — a minimum-cost residual, measured window-free
+
+`eqsub.py` removes the window entirely: solve each subset of the 7 failures, then **apply it,
+re-propagate, and measure the true score**, counting collateral damage by measurement rather
+than assumption. **127 subsets solvable, 0 infeasible**, largest solvable subset = **all 7**,
+and in every case the solver genuinely zeroes its targets.
+
+| fix | failures 7 → | score |
+|---|---|---|
+| eq 12350 / 18673 | 10 | 39,023 |
+| eq 12270 | 11 | 39,022 |
+| eq 12231 | 18 | 39,015 |
+| eq 22044 | 28 | 39,005 |
+| eq 14584 / **29125** | 34 | 38,999 |
+| **all 7** | **44** | **38,989** |
+
+Best over all 127 subsets: **39,023 < 39,026**. Every failing equation is repairable and
+**every repair costs more than it gains**. **39,026 is a strict local optimum in equation
+space**, and eq 29125 is not blocked — it is tied for the *most expensive* row to repair.
+
+**Scope, and it matters:** this table prices *repairs of the current placement*. It says
+nothing about a different placement, which is the only thing anyone is still testing.
+
+### The five questions, answered
+
+1. **What divides what:** nothing obstructs; `gcd | s0` holds in all 7 cases.
+2. **Which knobs:** eq 29125 has 12 affine knobs; the direct one is **`x_28730`** (its only
+   nonzero atom is 23617 = `x_28730 − x_17499·x_9413`).
+3. **Equation or window:** **the window.**
+4. **"Core infeasible" at 162 knobs — instance or widening:** **the widening.** 999 rows
+   against 162 knobs is 6:1 overdetermined and generically infeasible regardless of instance.
+   Now *proven* rather than argued: all 127 subsets are feasible.
+5. **Knob set:** the 5 freed definer variables `[642, 7068, 28730, 29854, 31864]` **are in it
+   and all 5 are affine**, verified across three knob sets up to "every free variable in the
+   cone of every atom of the target equations."
+
+### Why the residual is cheap, and what the engine defect was hiding
+
+The 8 nonzero atoms are seen by exactly the 7 failing equations, nested, all zero-constant.
+Eq 29125 sees a **single** atom, moved directly by `x_28730` — one of the 5 variables M's
+engine fix freed. Driving it to zero is precisely what E's orientation did by construction,
+and it costs **27 extra failures**. The engine defect was hiding exactly this trade.
+
+### The strongest cross-check in the campaign
+
+P's four corrupted handle variables — `x642, x28730, x29854, x31864`, which P measured as
+**exactly the four of 3,707 for which `P` does not divide the value** — are a **subset of M's
+five freed definer variables** `[642, 7068, 28730, 29854, 31864]`, in the same numbering, from
+two decompositions that share nothing. **`x_7068` is the odd one out**; M has been asked what
+it is, since it is either a fifth corrupted handle P's test missed or a definer that is not a
+handle, and both are informative.
+
+### M's §6, endorsed and closed
+
+The residual side cannot see intermediate stage values — established in round 1, still true —
+so M can neither confirm nor refute K's off-pin/root-degeneracy mechanism, and correctly
+claims only consistency (the residual is confined to 7 equations, and the repair that most
+directly restores a check is among the most expensive). A real test needs the circuit side.
+M has been told to stop there rather than adjudicate from the residual side.
+
+### M re-tasked
+
+**Price alternative placements in engine2** — the only frame that provably represents the
+deliverable. Four models have converged on cancellation-not-support as the remaining
+instrument; L is building it from the circuit side, M is the complement from the residual
+side, and `eqsub.py`'s solve → apply → re-propagate → measure primitive is already the right
+tool. Bar for success, from M's own numbers: **any placement scoring above 39,026 is the first
+in this campaign.**

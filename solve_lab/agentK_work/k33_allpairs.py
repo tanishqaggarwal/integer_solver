@@ -101,18 +101,26 @@ def walk(m, plus, minus):
     return None if c else (x, y)
 
 
+expof = {s: frozenset(sel2exp[u] for u in s) for s in sets}
+maskval = {s: sum(1 << e for e in expof[s]) for s in sets}
+
+# EXACT PRUNE.  x - y = N with y >= 0 forces x >= N, and x <= maskval(J1).  So the "+" side
+# must have maskval >= N.  This is a necessary condition, so pruning on it loses nothing.
+plusside = [s for s in sets if maskval[s] >= N]
+print('supports that could serve as the "+" side (maskval >= N):', len(plusside))
+assert all(TOP in s for s in plusside), 'consistency: any such support must own exponent 255'
+
 hits = []
 tested = 0
-expof = {s: frozenset(sel2exp[u] for u in s) for s in sets}
-for a in withtop:
+for a in plusside:
     ja = expof[a]
     for b in sets:
         if a is b or (a & b): continue          # must be disjoint
         jb = expof[b]
         tested += 1
-        if walk(N, ja, jb) is not None or walk(N, jb, ja) is not None:
-            hits.append((len(ja), len(jb)))
-print('disjoint pairs tested (superset of all real stage pairs):', tested)
+        if walk(N, ja, jb) is not None:
+            hits.append(('plus=%d minus=%d' % (len(ja), len(jb))))
+print('disjoint pairs tested (superset of all real stage pairs, after the exact prune):', tested)
 print('pairs admitting  x - y = +-N :', hits or 'NONE')
 print()
 print('CONCLUSION: no stage anywhere can have its two inputs carry equal coordinate pairs.'

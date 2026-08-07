@@ -131,10 +131,10 @@ All use `fastg.py` (Jacobian + gmpy2 + Montgomery batch inversion, ~40k group op
 |---|---|---|
 | `dlp_bsgs.py` | k < 2^44 and N-k < 2^44 | **none** (275 s) |
 | `lowwt.py` | Hamming weight(k) <= 6 | **none** (127 s) |
-| `wt7.py` | Hamming weight(k) <= 7 | see `wt7.log` |
-| `window.py` | all ON-bits inside a 34-bit window (k = a*2^s, a < 2^34) | see `window.log` |
-| `smallmul.py` | m*T on the ladder for m <= 10^7, i.e. k = 2^i/m mod N | see `smallmul.log` |
-| `lam.py` | (1) k = +-lambda^j * 2^i ; (2) k = a + b*lambda, \|a\|,\|b\| < 2^21 | (1) none; (2) see `lam.log` |
+| `wt7.py` | Hamming weight(k) <= 7 | **stopped** at ~2% (CPU contention, load 19 on 4 cores); re-runnable, ~3 h alone |
+| `window.py` | all ON-bits inside a 34-bit window (k = a*2^s, a < 2^34) | **none** (2865 s) |
+| `smallmul.py` | m*T on the ladder for m <= 10^7, i.e. k = 2^i/m mod N | **none** (249 s) |
+| `lam.py` | (1) k = +-lambda^j * 2^i ; (2) k = a + b*lambda, \|a\|,\|b\| < 2^21 | **none, both** (258 s) |
 
 `lam.py` also **confirms the endomorphism**: with beta a cube root of 1 mod p, phi(X,Y) = (beta X, Y)
 equals multiplication by a cube root lambda of 1 mod N.  It gives at best a sqrt(3) speedup, so it

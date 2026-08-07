@@ -145,21 +145,72 @@ honest `leaf(2081)`; that lie surfaces only at the gate-21279 off-pins, cost 7 e
 --------------------------------------------------------------------------------------------------
 ## 4. THE DEGENERACY ROUTE IS CLOSED (a complete, non-heuristic negative)
 
-A stage is degenerate iff its two children fold to the *same* point (equal x AND equal y;
-`a_x=b_x, a_y=-b_y` gives `x35389 = -(2a_y)^2 != 0`, so that case does not work).
+A stage is degenerate iff its two children carry the *same* coordinate pair (equal x AND equal
+y; `a_x=b_x, a_y=-b_y` gives `x35389 = -(2a_y)^2 != 0`, so that case does not work).
 For a stage whose children own disjoint exponent sets `J1, J2`:
 
 ```
 x = sum_{S1} 2^e  (bits in J1),   y = sum_{S2} 2^f  (bits in J2),   need x ≡ y (mod N)
 ```
-`2^255 < N < 2^256`.
-* **interior stage** (`|J1|+|J2| = n < 256`): `|x-y| < 2^n <= 2^255 < N`, so `x = y`, and
-  disjoint bit sets force `x = y = 0`. **Impossible.**
-* **root** (`J1 = IA` 178 bits, `J2 = IB` 78 bits, together all of 0..255): `|x-y| < 2^256 < 2N`,
-  so `x - y = ±N`. Every bit position belongs to exactly one side, so the schoolbook addition
-  `x = y + N` has **no free choice at any bit** — it is a deterministic 256-step carry walk.
-  `k22_dp.py` runs it in both directions: **both terminate with a nonzero final carry.**
-  **Impossible.**
+
+### 4a. Which modulus bounds the walk — the question agent P raised, answered
+
+**The governing modulus is `N`**, the order of the chain base: measured, not assumed —
+`k21_order.py` composes the chain with itself `N` times and lands on the law's identity, and
+`N` is prime, so the order is `1` or `N`, and the base is not the identity.
+
+**`N` does NOT exceed 2^256.** It is just below it:
+`2^256 - N = 432420386565659656852420866390673177327`. So if the argument needed
+"modulus > largest signed subset difference", it would be **broken**, and P is right to press.
+
+It needs something weaker, which does hold, by a factor of about two:
+
+```
+every stage:  |x - y|  <=  sum_{e in J1 u J2} 2^e  <  2^256  <  2N        [2N - 2^256 > 0, asserted in k32]
+```
+so the multiples of `N` in range are exactly `k = 0, +1, -1`. `k = 0` needs `x = y` on disjoint
+bit supports, i.e. `x = y = 0`, excluded because both halves must be live. **`k = ±1` therefore
+exhausts the cases and a two-direction carry walk is complete.** The right condition to quote is
+`2N > 2^256`, i.e. `N > 2^255`, not `N > 2^256`.
+
+### 4b. My interior-stage argument was WRONG. Corrected here.
+
+I had written: "interior stage with `n < 256` leaves has `|x-y| < 2^n <= 2^255 < N`". **That is
+false.** A stage's exponent set is an arbitrary subset of `{0..255}`, not an initial segment —
+a stage owning exponent 255 has `x >= 2^255` no matter how few leaves it has. Only the root case
+was argued correctly. P's challenge is what surfaced this; it is exactly the "case the author
+had not enumerated" pattern. The repair:
+
+`|x-y| = N > 2^255` forces one side's set `J` to have `sum_{e in J} 2^e >= N`. But
+`sum_{e<=254} 2^e = 2^255 - 1 < N`. **So a degenerate side must own exponent 255** — only stages
+containing that one leaf are candidates, and the walk gains a third per-bit case: positions
+outside `J1 u J2` are available to neither side, so the walk can now die mid-way, not only at
+the final carry.
+
+* `k32_allstages.py` — the 12 nested supports owning exponent 255, both directions each,
+  the unassigned leaf tried on either side: **all 12 fail.**
+* `k33_allpairs.py` — **does not trust my tree recovery at all.** K32's chain contained two
+  distinct same-size sets, so it is not provably a nest. K33 instead tests *every disjoint pair*
+  of recovered supports, in both directions. Every real stage pair is among them, so extra pairs
+  only make the test stricter. Result in `k33.log`.
+
+### 4c. Restated without any premise about how the instance was built
+
+P notes, correctly, that "256 leaves at distinct exponents in an order-`N` arithmetic" would be
+a construction premise. It is not assumed here — every ingredient is a **verified identity among
+the file's own constants**:
+
+| identity | check | result |
+|---|---|---|
+| the law is commutative | 3000 random pairs of file constants | 0 failures |
+| the law is associative | 3000 random triples | 0 failures |
+| `leaf(e+1) == law(leaf(e), leaf(e))` | all 255 steps | 0 failures |
+| `N`-fold composition of the base == identity | direct | holds |
+| every leaf and the target satisfy `Y^2 = X^3 + b` | 256 + 1 | all satisfy |
+
+Associativity + commutativity is what licenses "fold(S) depends only on the *set* S", and the
+doubling identities are what turn a subset into the integer `sum 2^e`. Nothing about the
+instance's provenance is used.
 
 Knob set for this claim: **all 256 leaf selector bits, over all 2^256 configurations, with
 every other variable free.** Configuration: any. It is a statement about the exponent
