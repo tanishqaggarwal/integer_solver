@@ -1,0 +1,5 @@
+CALIBRATION on the 39,026 deliverable cluster (observed failing = 7)
+  |E|=12 |S|=8  ->  min weight = 5   (observed 7)
+  classifier-free bound does NOT reproduce the deliverable exactly
+
+GLOBAL SCAN

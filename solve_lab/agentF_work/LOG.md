@@ -161,3 +161,33 @@ Same greedy repair, same code path, ON booleans (24601, 2081):
 versus 0 / 0 in ~3.5 s for EVERY other modulus tried (60 of them, up to 255 bits).  Checkpointed as
 `modm_results/P_p.json`, `modm_results/P_pp2.json`.  This is the sharpest single measurement in the lab:
 the difficulty of EQUATIONS.txt is localised at one prime literal.
+
+## 15. **ker(M) = 0 — the campaign's gate, answered exactly**
+`buildM.py` assembles M (rows = equations, cols = atoms, coefficients from the spine decomposition, with
+repeated atoms inside one equation merged): **39,033 x 39,033, 525,982 nonzeros**, row degree 1..24
+(mean 13.48), column degree 1..22 (mean 13.48), max |coefficient| 80, no zero row or column.
+Exactly ONE row and ONE column have degree 1.
+
+`peel.py` / `peel_cert.py`: a **characteristic-free peeling argument**.  A row whose surviving support is a
+single atom j with nonzero coefficient forces r_j = 0 over Z.  Starting from the single degree-1 row, the
+cascade **forces all 39,033 atoms to zero** in 2 s.
+
+    forced 39033 atoms of 39033      ->      rank(M) = 39033 ,   dim ker(M) = 0
+
+The elimination order is saved as a **checkable certificate** (`peel_order.npy`, 39,033 pairs
+(atom j, row i)) and re-verified by an independent pass that reloads M from disk and checks, for every
+step, that row i contains atom j with a nonzero coefficient and that every OTHER atom of row i was
+already forced zero at an earlier step.  **Certificate verified: True.**
+This is exact and holds over Z and over every field of characteristic > 80 (the largest |coefficient|).
+
+### Consequence
+**Any integer assignment satisfying all 39,033 equations must make all 39,033 atoms exactly zero.**
+So the "all-atoms-zero" model is not a restriction at all -- it is equivalent to a full solve.  Every
+optimality statement in this lab that was conditional on that model is therefore unconditional in that
+respect, and the cancelling-residual route to a full solution does not exist.
+Combined with the exhaustion in section 7 (at most one ON boolean per OR-tree; the selected wire values
+are then pin constants mod p; all 178 x 78 = 13,884 combinations checked against the degree-3 congruence,
+zero solutions) this says the instance is infeasible -- **conditional only on the two measured (not
+symbolically proved) links**: (i) that two ON booleans in the same OR-tree are always contradictory,
+verified by exact integer Jacobian on one such pair, and (ii) that an ON boolean forces the selected wire
+to its pin constant mod p, verified on 9 different boolean choices.  I state those as measurements.

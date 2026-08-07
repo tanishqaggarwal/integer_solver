@@ -1,0 +1,10 @@
+new_instance_partial_39026.json failing=7 ; instance has 42267 atoms, 39033 equations, 38748 variables
+L0   atoms=24     eqs=27     vars=56     knobs=9      EXCLUDED=47     nonlinear_atoms=0     [0s]
+L1   atoms=51     eqs=55     vars=118    knobs=15     EXCLUDED=103    nonlinear_atoms=0     [0s]
+L2   atoms=88     eqs=94     vars=202    knobs=32     EXCLUDED=170    nonlinear_atoms=0     [0s]
+L3   atoms=125    eqs=125    vars=286    knobs=58     EXCLUDED=228    nonlinear_atoms=0     [0s]
+L4   atoms=163    eqs=162    vars=374    knobs=80     EXCLUDED=294    nonlinear_atoms=0     [0s]
+L5   atoms=199    eqs=198    vars=456    knobs=107    EXCLUDED=349    nonlinear_atoms=0     [0s]
+L6   atoms=235    eqs=230    vars=537    knobs=109    EXCLUDED=428    nonlinear_atoms=0     [0s]
+L7   atoms=276    eqs=265    vars=632    knobs=122    EXCLUDED=510    nonlinear_atoms=0     [0s]
+L8   atoms=318    eqs=304    vars=727    knobs=159    EXCLUDED=568    nonlinear_atoms=0     [0s]
