@@ -3958,3 +3958,66 @@ exactly 2 nonzero atoms, or the fix changed something it should not have).
 > **The placement side is closing** — M has exhaustively priced 4,096 subsets with nothing above
 > 39,026 and the witness the unique optimum at support 4, and O's Lemma survived audit as `S⁴ = 0`
 > forced unconditionally. **The integer lift is where the open question now lives.**
+
+---
+
+## Check-in 73 — the verification ledger exists, and it refuses the coordinator's framing
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+**`solve_lab/agentT_work/LEDGER.md`**, 109 lines — a cross-agent record a reader arriving cold can
+use to know what this lab actually knows.
+
+### The correction it makes to this file
+
+The coordinator listed rows under **VERIFIED** — Q's six sweeps, O's seven-way trade, N's detach
+exhaustion, K's §4, R's accumulator model, M's 32-handle pool — **that T has only on report and
+never re-ran.** T moved them to CONDITIONAL or WITHDRAWN marked **reported**, with its reason: *a
+ledger that laundered them into "verified" because the auditor wrote it would be the exact failure
+the ledger exists to prevent.* **T is right and the coordinator's framing was wrong.**
+
+**The `checked` column is the document's real contribution**, and it carries more information than
+the three-way status split:
+
+- **T re-ran** — executed from cold and reproduced the number
+- **T verified independently** — established by a different route than its author, usually F's
+  certified-faithful parse
+- **reported** — recorded from the author or the coordinator; **T did not re-run it**
+
+**Nothing in a row is stronger than its mark.**
+
+### Structure
+
+**§0 — the seven rules**, each attached to the failure that produced it. Rule 3 carries T's own
+worked case: **the knob count moved 2.7× under re-decomposition, the 927 did not move under 2.6× —
+which is why one is a fact about the instance and the other a fact about a parse.** And T added a
+rule nobody had formulated: **separate "this number is wrong" from "this result is wrong"**, with
+both worked cases — O's exponent and atom count wrong with the Lemma untouched, and L's degree bound
+unable to produce a false verified root.
+
+**§1 VERIFIED** — 17 rows, each with parse, reproduction command, and falsifier.
+**§2 CONDITIONAL** — scope written into the row, including the two live corrections M and L need:
+the 15→18 incidence count (**with the warning that O's `S` also has 18 terms and these are different
+18s**) and the 4-dimensional cancellation freedom whose *true* dimension is unestablished because
+the four h-wires are also assignable.
+**§3 WITHDRAWN** — including **both of T's own** (the 278 multi-hop aliases, and the
+selector-liveness claim), and a correction most would have banked as a win: **K's withdrawal was
+retracted, but for a different reason than T's alias explanation, so T's explanation is *superseded,
+not confirmed*.**
+**§4 GENUINELY OPEN** — the residue at |S| = 17, the collision criterion, the scalar recovery.
+
+### T's own caveat on the ledger, and its next task
+
+> *It is only as good as its marks, and I wrote them. The rows most worth an independent pass are
+> the **reported** ones — I have never run N's, R's, or M's code, and a reader could easily miss
+> that a document authored by the auditor still contains claims the auditor never touched.*
+
+**T re-tasked to start there itself: audit N's detach exhaustion**, the largest reported claim in
+the document. N's `2⁶⁵ at 100% coverage, OPT = 5, best 39,026` rests entirely on the reduction that
+**only 4 of 65 pool variables differ from their gate values**, so the other 61 are no-ops and
+everything collapses to 16 states. **That reduction is the whole claim, and it is the shape of
+premise T has caught before.** Check the 61 in a parse that is not N's, and whether the 16
+signatures are complete rather than merely reached. Also: **if N's 924/924 obstruction is measuring
+O's `S = 0` — now proved forced unconditionally — then N's result and O's Lemma are the same
+statement from two sides.** N is still live, so a disagreement can be resolved rather than left
+standing.

@@ -66,12 +66,31 @@ selector configuration = the witness's own, from `best/new_instance_partial_3902
     python3 drop.py 2                       # collateral-budget sweep
     python3 sweepF.py runs/x.jsonl 3        # resumable layer sweep (skips sets already present)
 
+## Follow-up: O's Lemma cross-check, frame depth, re-orientation (all closed)
+- **O's Lemma confirmed, and it is a SECOND obstruction, not mine.**  `eq_terms[8680] =
+  (1, True, [(1, 37887)])`, and `optN.inner` returns the inner form, never its square, so my model
+  already carried `T`.  `T = 0` **already holds at the witness**, and eq8680 is **exactly the one
+  equation detaching `x_28730` buys** — O's Lemma *is* the 39,025 → 39,026 step.  The witness region
+  excludes 8680, so the 924/924 p-obstruction is independent of it.  New: in the 13-row region the
+  max rows zeroable **subject to 8680 being zeroed is 0**, so the knobs cannot reach `T = 0` at all;
+  detaching `x_28730` is the only way.  (`tcheck.py`)
+- **Frame depth is not a lever.**  Deepening the pool from 65 to its saturation at 116 variables
+  (frame free inputs 8,812 → 8,863) leaves the region's knob set at **49 wide / 7 narrow and OPT at
+  5 at every depth**.  (`deepen.py`, `runs/deepen.json`)
+- **Re-orientation is detachment, and every legal region move is worse.**  31.5% of atoms admit
+  another `x_t - rest` reading.  For the region, **every legal unit target is already a free input
+  of `Frame(POOL)` with measured response ±1**, so each re-orientation is a knob setting, not a new
+  frame.  Executed: best single move 39,023, worst 39,007; **all 127 combinations ≤ 39,026, the best
+  being the empty one**.  Atom 37887 (= T) has **no** legal unit target, so `T` can never be
+  structurally forced to zero.  (`orient.py`, `reorient2.py`)
+
 ## Single next experiment
-Every axis measured here is inside one frame and one selector configuration.  The detach axis is
-now closed exactly, so the next lever is the **frame** itself: `fwd2`'s orientation makes 61 of the
-65 pool variables gate-consistent with the witness, which is why they are inert.  Re-orient — pick
-a different acyclic orientation of the atom set so that a *different* group of variables carries
-witness-vs-gate disagreement — and re-run `optN.price` on the resulting 16-state closure.
-Concretely: rebuild `fwd2.pkl` choosing, for each atom with several `x_t - rest` readings, a
-different target `x_t`, then recompute the pool and its closure.  That is the only way to change
-`b` beyond the 16 values reachable now, and `b` is the only input to OPT that ever varied.
+Everything I can vary inside this frame is now closed: the detach lattice exactly (16 states),
+frame depth to saturation, collateral to budget 2, and re-orientation of the region.  The region's
+7 nonzero atoms are `{22229, 22230, 35758, 35759, 35760, 35761, 35762}` and its knob set is 49,
+permanently.  The only untested thing left is a **global** re-orientation: the 10,956 definition
+atoms elsewhere in the circuit that admit another reading decide which equations are auto-satisfied
+OUTSIDE the region.  Rebuild `fwd2.pkl` wholesale under a different target rule, then check whether
+the 7 failing equations still reduce to the same 7 nonzero atoms.  If they do, 39,026 is the frame's
+ceiling under every orientation and the search must move to a different `checks` decomposition
+entirely.
