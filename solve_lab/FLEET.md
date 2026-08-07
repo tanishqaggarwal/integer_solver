@@ -3533,3 +3533,92 @@ obstruction is measuring O's `T = 0` — if so, N's exhaustive detach result and
 same statement from two sides.
 
 **Closed threads: P, R, S, K, Q. Live: L, M, N, O, T.**
+
+---
+
+## Check-ins 65–66 — the hand-off covers all 764; the incident set is 18, not 15
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### T — both loose ends closed, one of them against its own work
+
+**The 278 were T's own artifact.** It had matched `OUT[n][j]` against `OUT[child][j]` index-to-index,
+but **L's `calib2` had already measured the per-node coordinate alignment** (188 orient=1, 67
+orient=0), so at a flipped node the partner is `OUT[child][1−j]`. Re-paired:
+
+```
+aliased via SAME coordinate index : 486
+aliased via CROSSED index         : 278
+still no one-atom alias           :   0
+TOTAL                             : 764
+slack wire is a p-handle (= p·u)  : 764 of 764
+```
+
+**Every parent/child link is a one-atom affine alias whose slack is exactly `p·u`. The mod-p closure
+covers all 764, not 486 — Q's hand-off result is complete and the qualification T had flagged does
+not exist.** T's "0 of 764 direct" stands; its "278 multi-hop" is **withdrawn**.
+
+**The 26 reconciles exactly — and costs three atoms.** `mine \ L = 33`, `L \ mine = 7`,
+`33 − 7 = 26`, `3,707 − 33 + 7 = 3,681`. The **7** L counts and T does not are **not p-handles at
+all** (neither operand in the p-class). The **33** T counts and L does not are **genuine p-handles**
+(`h = p·u`, `u` free) **whose guards are stage checks and leaf pins rather than slot links** — L's
+census shape is scoped to slot-link guards.
+
+**Three of the 33 are incident to the baseline-failing set**, all satisfying the exact criterion T
+verified across all 3,681 with zero violations:
+
+```
+u=x10422   (x23642-(x8173*x10422))    guard ((x34600-x30108)+x23642)           -> 12231 12350 14584 29125
+u=x15120   (x18253-(x4339*x15120))    guard ((x13502*x3629)-x18253)            -> 12231 12350 14584 29125
+u=x35531   (x37720-(x14466*x35531))   guard ((9994531*(x13502*x8976))-x37720)  -> 12231 12350 14584 29125
+```
+
+> **L's "of 3,681 atoms exactly 15 are incident" is missing 3. The true count is 18, so M's
+> enumeration space is 2¹⁸ = 262,144, not 2¹⁵ = 32,768.**
+
+**The filter logic is sound** — T confirmed L's criterion on all 3,681 — **but it ranged over a
+census that omits stage-check and leaf-pin guarded handles.** M has been told to re-run the
+incidence filter over the full p-handle family (3,707, or 3,714 counting both operand orders) before
+enumerating. T's note on the failure mode: **the opposite of the earlier knob-count problem — not a
+count that moved under re-decomposition, but a family delimited by guard shape when the defining
+property is `h = p·u`.**
+
+**T re-tasked: audit L's `|S| = 2` closure**, the newest load-bearing claim and one nobody has looked
+at — specifically whether "0 undischarged" means all 927 were checked or only those the repair
+flagged; whether the exact solution verifies by **direct recomputation** rather than through the
+fitted polynomial; and whether the degree-≤3 bound is load-bearing for the root-finding.
+
+### K — thread consolidated and closed
+
+`RESUME_K.md` now opens with scores, then **"CLOSED. Status at close, in one paragraph"** — the arc
+(negative → withdrawal → retraction of the withdrawal → failed attempt to settle), every correction
+found by someone else's challenge, **§4 stated as: premise UNREFUTED, NOT ESTABLISHED — do not cite
+it as a barrier and do not cite it as withdrawn** — then the audit table with its axis stated up
+front. `k9` marked *SUSPECT, do not lean on it*, with the note that **the conclusion no longer needs
+it** (L's constant-p result and T's proof carry it). `k29` marked *INCOMPLETE IN A WAY THAT HID THE
+BUG*, generalised in the file to: **a negative from a hand-built check is only as good as the
+enumeration of what the check looks for.** The guard diagnosis is retained under a **DO NOT REBUILD
+THE GUARD** header.
+
+**K also corrected two section headings at close** — §2 still claimed the evaluator was "VALIDATED"
+and §4 that the route was "CLOSED" — noting that a reader skimming headings would otherwise have
+picked up exactly the two claims the thread spent its length walking back.
+
+### Q — thread consolidated and closed
+
+`RESUME_Q.md` rewritten as a document: **what is measured** (group parameters; 256/256 leaves as one
+doubling chain; 383/383 gadgets by Schwartz–Zippel; the 178|78 census from gadget arity; 383/383
+quadrant muxes on identical coefficients; the liveness tree with nothing unaccounted; **the
+coordinate hand-off mod p, stated inline with the 927 named as the ℤ residue rather than
+footnoted**; all-atoms-zero forced; the restored search table with `wt7` quoted as *33.7% covered, a
+partial, not a bound*); **what it retracted and why**, including the six sweeps' full journey; **the
+two rules** — *a count derived from one parse is a fact about that parse until reconciled*, naming
+all five atom counts and their differing kernel dimensions, and *decline to close on structure
+alone*, with both instances; then what is open and whose it is, and an artifact index mapping each
+script to the claim it establishes.
+
+**Q's own gloss on its withdrawal, which is better than the coordinator's:** *"the withdrawal was
+not restraint, it was bookkeeping — the expensive part was resisting the restoration at 188/383 and
+at one slot, when the shape was clearly right."*
+
+**Closed threads: P, R, S, K, Q. Live: L, M, N, O, T.**

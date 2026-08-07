@@ -5,3 +5,43 @@ round 0: 8 stuck
    wire x23238  cleared 2 condition(s) jointly, t=79784602390776 (13s, verified)
    wire x16419  cleared 1 condition(s) jointly, t=5518125    (0s, verified)
    wire x36106  cleared 1 condition(s) jointly, t=3476715    (0s, verified)
+   wire x14853  cleared 1 condition(s) jointly, t=3804150    (30s, verified)
+   wire x28246  cleared 1 condition(s) jointly, t=2404745    (0s, verified)
+   wire x21589  cleared 1 condition(s) jointly, t=1795161    (0s, verified)
+   wire x27156  cleared 1 condition(s) jointly, t=10400373   (0s, verified)
+round 1: 2 stuck
+   wire x27156  cleared 1 condition(s) jointly, t=1550230    (0s, verified)
+   wire x28246  cleared 1 condition(s) jointly, t=3525692    (12s, verified)
+round 2: 2 stuck
+   wire x9776   cleared 1 condition(s) jointly, t=1890710    (0s, verified)
+   wire x10261  cleared 1 condition(s) jointly, t=1550230    (0s, verified)
+round 3: 2 stuck
+   wire x9776   cleared 1 condition(s) jointly, t=6051501    (17s, verified)
+   wire x10261  cleared 1 condition(s) jointly, t=1345905    (0s, verified)
+round 4: 2 stuck
+   wire x9776   cleared 1 condition(s) jointly, t=4302428    (0s, verified)
+   wire x10261  cleared 1 condition(s) jointly, t=11694764   (0s, verified)
+round 5: 2 stuck
+   wire x9776   cleared 1 condition(s) jointly, t=3639783    (17s, verified)
+   wire x10261  cleared 1 condition(s) jointly, t=1173832    (0s, verified)
+round 6: 2 stuck
+   wire x27928  cleared 1 condition(s) jointly, t=740207     (0s, verified)
+   wire x10261  cleared 1 condition(s) jointly, t=11866837   (0s, verified)
+round 7: 1 stuck
+   wire x10261  cleared 1 condition(s) jointly, t=1101146    (0s, verified)
+round 8: 1 stuck
+   wire x10261  cleared 1 condition(s) jointly, t=11939523   (0s, verified)
+round 9: 1 stuck
+   wire x10261  cleared 1 condition(s) jointly, t=1829908    (0s, verified)
+round 10: 1 stuck
+   wire x10261  cleared 1 condition(s) jointly, t=11210761   (0s, verified)
+round 11: 1 stuck
+   wire x10261  cleared 1 condition(s) jointly, t=1546594    (0s, verified)
+round 12: 1 stuck
+   wire x10261  cleared 1 condition(s) jointly, t=11494075   (0s, verified)
+round 13: 1 stuck
+   wire x10261  cleared 1 condition(s) jointly, t=776634     (0s, verified)
+round 14: 1 stuck
+   wire x10261  cleared 1 condition(s) jointly, t=12264035   (0s, verified)
+FINAL |S|=17: 1 undischarged, 3 nonzero atoms
+   residue c=2264251    ((x38170*x15286)-(2264251*x9216))
