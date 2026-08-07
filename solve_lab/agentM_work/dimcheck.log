@@ -1,0 +1,46 @@
+deliverable in my frame: score 39026, failing [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+
+=== (1) T calibration: deliverable with the 12 cofactors zeroed ===
+  score 39021   failing 12: [2554, 6816, 8124, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+  T expects 39021 / 12 / [2554, 6816, 8124, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+  MATCH score True   MATCH list True
+  support (bad atoms) [23616, 23617, 36659, 36660, 36661, 36662, 36663, 36664]
+  deliverable support [23616, 23617, 36659, 36660, 36661, 36662, 36663, 36664]   support identical: True
+
+  ==> PRICE AGAINST 7 -> 12  (gap 5)
+
+=== (2a) which of the 12 cofactors are LIVE (zero each alone) ===
+  x_105    value          0  zeroing -> failures   7  delta +0   dead (already 0)
+  x_1329   value  2171 bits  zeroing -> failures  10  delta +3   LIVE
+  x_3387   value          0  zeroing -> failures   7  delta +0   dead (already 0)
+  x_5081   value          0  zeroing -> failures   7  delta +0   dead (already 0)
+  x_5676   value          0  zeroing -> failures   7  delta +0   dead (already 0)
+  x_9413   value  2163 bits  zeroing -> failures  11  delta +4   LIVE
+  x_10903  value  2172 bits  zeroing -> failures  10  delta +3   LIVE
+  x_11436  value          0  zeroing -> failures   7  delta +0   dead (already 0)
+  x_14393  value          0  zeroing -> failures   7  delta +0   dead (already 0)
+  x_14768  value          0  zeroing -> failures   7  delta +0   dead (already 0)
+  x_17325  value  2162 bits  zeroing -> failures  11  delta +4   LIVE
+  x_22820  value          0  zeroing -> failures   7  delta +0   dead (already 0)
+  LIVE cofactors: [1329, 9413, 10903, 17325]  -> dimension 4
+
+=== (2b) the four broken-atom wires: free here? and live? ===
+  x_642    free in BASE harness:     0  free in MY frame:     1  value 2400 bits  zeroing -> +5
+  x_28730  free in BASE harness:     0  free in MY frame:     1  value  295 bits  zeroing -> +5
+  x_29854  free in BASE harness:     0  free in MY frame:     1  value 2405 bits  zeroing -> +3
+  x_31864  free in BASE harness:     0  free in MY frame:     1  value 2404 bits  zeroing -> +4
+  LIVE wires: [642, 28730, 29854, 31864]  -> dimension 4
+
+=== (2c) carriers ===
+  x_7068   free in BASE:     0  free here:     1  +1 -> failures  23 (delta +16)
+  x_4432   free in BASE:     1  free here:     1  +1 -> failures  28 (delta +21)
+  x_9118   free in BASE:     1  free here:     1  +1 -> failures  10 (delta +3)
+  x_8731   free in BASE:     1  free here:     1  +1 -> failures  11 (delta +4)
+
+=== TRUE DIMENSION ===
+  live cofactors 4: [1329, 9413, 10903, 17325]
+  live wires     4: [642, 28730, 29854, 31864]
+  carriers        4: [7068, 4432, 9118, 8731]
+  UNION: 12 coordinates -> [642, 1329, 4432, 7068, 8731, 9118, 9413, 10903, 17325, 28730, 29854, 31864]
+
+wrote dimcheck.json

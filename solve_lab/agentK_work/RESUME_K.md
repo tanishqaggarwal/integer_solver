@@ -276,6 +276,37 @@ case, and the system still closes with 5–6 nonzero atoms against a baseline of
 a completely wrong 256-bit value onto a root slot costs only **1–2 extra nonzero atoms**. That
 is not the behaviour of a wire pinned by routing.
 
+### 4.0d THE ALIASING EXPLANATION FOR TEST 1 — checked, and it does NOT rescue the premise
+
+Q measured an additive/aliasing layer between a slot's mux output and its parent's input
+(shape `x24468 = x13682 + 12354891*x34243`), which would make a literal search come back empty
+even though the composition is present. `k39_alias.py` tested exactly that. **Both halves come
+back against the aliasing explanation:**
+
+* **(A) the aliasing terms are ZERO in this closure.** There are **191 atoms of alias shape**,
+  and **0 of them have a nonzero additive term** here — including Q's own example
+  (`x34243 = 0`, so `x24468 - x13682 = 0`). I seed handles to 0, and the hand-off layer's
+  additive terms are exactly those handles, so in my assignment the layer collapses to the
+  identity and **a literal search was already the right search.**
+* **(B) the alias search finds nothing either.** Searching `v[w] ± c·v[t] == V` over
+  **158,026 (wire, wire, coefficient) triples taken from real atoms** — so only pairs the
+  circuit actually relates — the predicted composition appears in **no** alias form, for X
+  shifted, X raw, or Y. **Control**: the same search for a value known to be on a wire returns
+  **139,415 hits**, so the search is sound and the null is not a bug in it.
+
+**So the null stands: for `ON={e0,e1}` the composition is represented nowhere — not literally,
+not aliased.** Q's hand-off layer is real as structure; it simply does not explain my result,
+because at handles = 0 it is inert. Those two findings are compatible — a layer can exist and
+be identity-valued in a given assignment — so this is not a contradiction with Q's census, and
+Q's coordinate hand-off measurement should not be treated as refuted by it.
+
+**A third explanation neither of us listed, which I think is the real one:** the composition may
+be neither absent-by-construction nor hidden-by-aliasing but simply **not determined** by the
+constraints in that configuration — my closure then leaves those wires at 0. That is the same
+phenomenon TEST 2 shows from the other side, and it is what "routing is a constraint, not a
+propagation" means operationally. `k40` (provenance of the A slot wires) and `k41` (does forcing
+a wrong slot value cost *equations*, not just atoms) separate these.
+
 **CONSEQUENCE: step 2 is not established, and on this evidence it looks false as I stated it.**
 Q and T's "routing is a constraint, not a propagation" is corroborated by my own measurements,
 against my earlier reading. Therefore:

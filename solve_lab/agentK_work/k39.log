@@ -1,0 +1,14 @@
+ON exponents [0, 1]  predicted composition X=127950974... Y=826779032...
+
+(A) the hand-off / aliasing layer in THIS closure
+    x24468 = 0   x13682 = 0   x34243 = 0   12354891*x34243 = 0
+    x24468 - x13682 = 0
+    atoms of alias shape: 191 ; of those with a NONZERO additive term here: 0
+
+(B) alias search: v[w] +- c*v[t] == V over variables that co-occur in an atom
+    (wire, wire, coefficient) triples from real atoms: 158026
+    X_shifted  : NOT FOUND in any alias form
+    X_raw      : NOT FOUND in any alias form
+    Y          : NOT FOUND in any alias form
+
+    CONTROL (searching for a value known to be on a wire): 139415 hits -> search works

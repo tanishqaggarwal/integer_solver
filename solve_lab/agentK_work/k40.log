@@ -1,0 +1,20 @@
+=== ON [0, 1]
+   x12186  A.x slot       derived_by=(x608-(x34606*x12186))
+        value+shift=394060739...   ==predX: False
+   x23927  A mux source   derived_by=((x12186-x23927)-x25758)
+        value+shift=394060739...   ==predX: False
+   x16742  A.y slot       derived_by=((6788513*(x16742-x19083))-x9254)
+        value+shift=226477568...   ==predX: False
+   x19083  A mux src y    derived_by=(x19083-(x6361+x23758))
+        value+shift=226477568...   ==predX: False
+   wires SEEDED (not derived): 900 of 3844
+=== ON [0, 1, 3]
+   x12186  A.x slot       derived_by=((x12186-x23927)-x25758)
+        value+shift=127950974...   ==predX: True
+   x23927  A mux source   derived_by=(x23927-(x7429+x26835))
+        value+shift=127950974...   ==predX: True
+   x16742  A.y slot       derived_by=((6788513*(x16742-x19083))-x9254)
+        value+shift=386168108...   ==predX: False
+   x19083  A mux src y    derived_by=(x19083-(x6361+x23758))
+        value+shift=386168108...   ==predX: False
+   wires SEEDED (not derived): 900 of 3844

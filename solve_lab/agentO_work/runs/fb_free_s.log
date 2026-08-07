@@ -1,0 +1,59 @@
+checks reached by the 12 knobs: [7928, 7930, 22229, 22230, 22231, 35758, 35759, 35760, 35761, 35762, 37887, 41512]
+free inputs supporting a37887: 26
+
+free inputs that MOVE S, by outside-equation collateral:
+   x_4432   dS=1  outside-checks   0  outside-equations    0   <<< in the 12
+   x_28730  dS=-1  outside-checks   0  outside-equations    0   <<< in the 12
+   x_6947   dS=260b  outside-checks   1  outside-equations   10
+   x_33168  dS=260b  outside-checks   1  outside-equations   11
+   x_950    dS=280b  outside-checks   1  outside-equations   13
+   x_8976   dS=-39978124  outside-checks   2  outside-equations   13
+   x_35531  dS=258b  outside-checks   2  outside-equations   13
+   x_22526  dS=261b  outside-checks   3  outside-equations   13
+   x_12553  dS=-1  outside-checks   1  outside-equations   14
+   x_10422  dS=259b  outside-checks   2  outside-equations   14
+   x_34600  dS=-5  outside-checks   2  outside-equations   14
+   x_11099  dS=284b  outside-checks   3  outside-equations   14
+   x_15324  dS=-27  outside-checks   3  outside-equations   14
+   x_3629   dS=28  outside-checks   2  outside-equations   15
+   x_15120  dS=261b  outside-checks   2  outside-equations   15
+   x_4287   dS=3042b  outside-checks   6  outside-equations   29
+   x_2081   dS=295b  outside-checks  27  outside-equations  117
+
+candidates outside the current 12: [6947, 33168, 950, 8976, 35531, 22526, 12553, 10422, 34600, 11099, 15324, 3629, 15120, 4287, 2081]
+cheapest such: [(6947, 10), (33168, 11), (950, 13), (8976, 13), (35531, 13)]
+
+--- add the cheapest S-movers one at a time
+   x_6947 (collateral 10 eqs): knobs=13 rows=32 (sat 25, fail 7)
+   x_6947 (collateral 10 eqs): nothing buyable
+   x_33168 (collateral 11 eqs): knobs=13 rows=34 (sat 27, fail 7)
+   x_33168 (collateral 11 eqs): nothing buyable
+   x_950 (collateral 13 eqs): knobs=13 rows=36 (sat 29, fail 7)
+   x_950 (collateral 13 eqs): nothing buyable
+   x_8976 (collateral 13 eqs): knobs=13 rows=38 (sat 31, fail 7)
+   x_8976 (collateral 13 eqs): nothing buyable
+   x_35531 (collateral 13 eqs): knobs=13 rows=38 (sat 31, fail 7)
+   x_35531 (collateral 13 eqs): nothing buyable
+   x_22526 (collateral 13 eqs): knobs=13 rows=43 (sat 36, fail 7)
+   x_22526 (collateral 13 eqs): nothing buyable
+   x_12553 (collateral 14 eqs): knobs=13 rows=44 (sat 37, fail 7)
+   x_12553 (collateral 14 eqs): nothing buyable
+   x_10422 (collateral 14 eqs): knobs=13 rows=40 (sat 33, fail 7)
+   x_10422 (collateral 14 eqs): nothing buyable
+   x_34600 (collateral 14 eqs): knobs=13 rows=40 (sat 33, fail 7)
+   x_34600 (collateral 14 eqs): nothing buyable
+   x_11099 (collateral 14 eqs): knobs=13 rows=42 (sat 35, fail 7)
+   x_11099 (collateral 14 eqs): nothing buyable
+   x_15324 (collateral 14 eqs): knobs=13 rows=42 (sat 35, fail 7)
+   x_15324 (collateral 14 eqs): nothing buyable
+   x_3629 (collateral 15 eqs): knobs=13 rows=38 (sat 31, fail 7)
+   x_3629 (collateral 15 eqs): nothing buyable
+   x_15120 (collateral 15 eqs): knobs=13 rows=38 (sat 31, fail 7)
+   x_15120 (collateral 15 eqs): nothing buyable
+   x_4287 (collateral 29 eqs): extra nonlinear checks [29465]
+   x_4287 (collateral 29 eqs): knobs=13 rows=51 (sat 44, fail 7)
+   x_4287 (collateral 29 eqs): nothing buyable
+   x_2081 (collateral 117 eqs): extra nonlinear checks [29466, 41400, 41827, 42245]
+   x_2081 (collateral 117 eqs): knobs=13 rows=131 (sat 124, fail 7)
+   x_2081 (collateral 117 eqs): nothing buyable
+DONE

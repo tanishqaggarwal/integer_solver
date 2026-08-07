@@ -858,3 +858,75 @@ for the zero-collateral carriers, but not exclusively.
 `sweep.py` (fast validated tuner) · `pricelead.py` -> `pricelead.pkl` (98 five-handle sites) ·
 `pricelead2.py` (six-handle, stopped for the O target) · `pricedelta.py` -> `pricedelta.log`.
 Nothing above 39,026 produced anywhere. Baseline stands.
+
+---
+
+# LOG_M ROUND 8 — O's delta0 priced. Minimal representatives do NOT reduce collateral.
+
+## 53. What I confirmed of O's model (empirically, in my frame)
+The right instrument is a +1 probe and re-propagation, not the `occ[]` listing -- `occ[]`
+includes atoms whose coefficient is zero at this configuration (e.g. `x_21279 = 0` kills the
+apparent `x_9118 -> x_25297 -> x_2099 -> a23616` path). Measured:
+
+    move x_9118 by +1 -> changes region atom 36660 ONLY.  outside atoms changed: NONE
+    move x_8731 by +1 -> changes region atom 36662 ONLY.  outside atoms changed: NONE
+    move x_7068 by +1 -> changes region atom 23616  AND outside atom 34120
+    move x_4432 by +1 -> changes region atom 23618  AND outside atom 8721
+
+**O's zero-collateral claim for the two free carriers is CONFIRMED.** The two derived carriers
+leak to exactly **one** outside atom each. (I first read `occ[]` and wrote that none of the four
+was private; that was wrong and the probe corrects it.)
+
+**And atom 34120 is the one that drives 12 of the 25 baseline equations (LOG 47).** So `x_7068`
+is doing double duty: it buys 12 of the deliverable's 18 fixes, and it is also the only route
+for the a23616 shift. That is the tension in one variable.
+
+## 54. delta0 priced -- it does not land, and the reduction does not help
+Applied from the deliverable in my frame, carriers shifted and O's `z` on the private set:
+
+    variant                                   score   region still failing
+    A  direct, z as increments                38998   7/13
+    B  direct, z absolute                     38992   13/13
+    C  MINIMAL REPRESENTATIVES, increments    38993   12/13
+    C  minimal representatives, absolute      38992   13/13
+    D  reduce only the x_7068 carrier         38995   10/13
+    E  reduced carriers only, no z            38992   13/13
+    E  free carriers only                     39022   11/13
+
+Reduction achieved: **d1 2440 -> 22 bits** (`-3228258`, mod 7376877), d2 2419 -> 255,
+d3 2406 -> 255, d4 2429 -> 253, with the compensations that hold the region atoms fixed
+(`x_642 += (d1r-d1)/7376877`, `x_28730 -= (d2-d2r)`, `x_9413 += (d2-d2r)/p`).
+
+> **The bet is refuted. Shrinking the first carrier from 2440 bits to 22 did not reduce
+> collateral -- it made it slightly worse (38,993 vs 38,998). Collateral here is structural,
+> not magnitude-driven.** The cost is that `x_7068` moves atom 34120 at all, and 34120 costs
+> 12 equations whether it is perturbed by 2^2440 or by 2^22.
+
+I also swept all 12 sign/mode conventions (carrier +/-, z +/-, z as increment/absolute/omitted):
+**best remains 38,998 with 7 of the 13 region equations still failing.** Under no interpretation
+I tried does delta0 make the region hold in the realisable system.
+
+## 55. But the target itself IS reachable -- I reached it independently
+My own region solve (LOG 51, `pricedelta.py`, carriers in the knob set) makes **13/13 hold**, at
+score **38,984** (49 equations of collateral). So the discrepancy is not "the region cannot be
+satisfied"; it is that **O's particular delta0 does not satisfy it once propagation is real**,
+while a different point in the same coset does, expensively.
+
+Two readings, and I cannot separate them from my side alone:
+  (a) my mapping of O's boundary shifts onto variable increments is not the one O intends --
+      O should state whether the a23616 shift moves `x_7068` or `x_2099`, and whether `z` is an
+      increment from the witness or an absolute value; or
+  (b) O's 9-atom/13-equation region model omits a constraint that full propagation enforces.
+The probe results in section 53 are evidence for (b) being small -- the carriers behave exactly
+as O describes -- which makes (a) the more likely gap.
+
+## 56. Standing summary of measured prices (nothing has beaten 39,026)
+    deliverable                                  39026
+    O delta0, best of 12 interpretations         38998
+    my own solve making all 13 region eqs hold   38984
+    all 7 failures forced to hold (my solve)     38989
+    98 five-handle supersets, best               39026 (89 of 98 exactly equal)
+
+## 57. Round-8 files
+`delta0.py` -> `delta0.log`. Nothing above 39,026 was produced, so no assignment was written to
+disk and there was nothing to verify with `checker.py`.

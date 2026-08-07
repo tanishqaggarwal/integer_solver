@@ -319,3 +319,96 @@ independently computed fold".  Three things that test cannot see:
 the hypothesis that broke) · `t_fold.py` / `t_fold2.py` (fold-vs-group-sum probe + the control that
 reproduces Q's §5b: C1 on 4 wires, group sum on 0) · `t_spaces.py` (Q and S are on the identical
 256 booleans — the "different spaces" hypothesis is refuted) · `t_bfs_audit.py` (item 2, dropped).
+
+=============================================================================================
+# THIRD PASS — audit of agent L's cancellation result (coordinator check-ins 33 / 37)
+
+## J. ACCEPTED CORRECTION TO MY OWN SECOND PASS (section G)
+Q's symbolic solve of the mux layer explains my measurement: a leaf pin is `sel*(w - C) - z`,
+so the coordinate lands on the wire only once `z` is separately forced to 0.  **Routing IS
+determined — by a simultaneous system rather than by propagation.**  My 0/256 and 0/12 numbers
+stand as measurements, but they measure the weakness of unit propagation, not an absence of
+determination.  **"Liveness is not determined by the selectors" is NOT established and I withdraw
+it**; the correct statement is the narrower one, "forward evaluation from the selectors does not
+realise an ON-set".  My §G2 item 4 (OFF leaf's y-wire = 0, and `(w,0)` is not a curve point) is
+also resolved by Q: the identity value is `(0,0)` and only ever passes through, never entering a
+chord, because `cC = ab = 0` whenever a child is dead.  §G2 items 1-3 (the design objections) are
+unaffected.
+
+## K. L'S CANCELLATION RESULT — CONFIRMED, from an independent direction  (`t_cancel.py`)
+Tested from the DELIVERABLE side rather than through L's constructor, so the result does not
+inherit the un-converged divisibility repair L itself flags.  Zero L's 12 cofactor vars in the
+deliverable and measure both the exact score and the nonzero-atom support (support read in F's
+decomposition, certified faithful in T2):
+```
+deliverable as given            7 nonzero atoms   FAILING  7  [12231,12270,12350,14584,18673,22044,29125]
+same, L's 12 cofactors zeroed   7 nonzero atoms   FAILING 12  [+2554,6816,8124,9123,9421]
+support IDENTICAL: True
+```
+* **All 12 are free variables** (12 of 12, agent E's parse).
+* **The support is byte-identical and the cost differs by 5.**
+> **"Cancellation is a value property, not a support property" is ESTABLISHED.**  The search
+> really is site x handle-values, and M's premise is sound.
+
+### K1. Two corrections to the numbers M should be using
+1. **The gap is 5, not 6, and the far side is 12, not 13.**  From the deliverable, zeroing the
+   12 gives **12** failing, not 13.  L's 13 is its *own* build2's score; **one of L's 13 is not
+   explained by the 12 cofactors** and is almost certainly the un-converged repair L flagged.
+   Price against 7 -> 12.
+2. **Eight of the twelve do nothing — the list of 12 is really a list of 4.**  Zeroing each alone:
+```
+   x1329  +3     x9413  +4     x10903 +3     x17325 +4        <- the real cancellation knobs
+   x105 x3387 x5081 x5676 x11436 x14393 x14768 x22820  ->  +0 each
+```
+   The 8 no-ops are **already 0 in the deliverable**, so "the deliverable sets them to specific
+   nonzero integers" is false for two thirds of the list.  Only x1329, x9413, x10903, x17325 are
+   nonzero there.  The cancellation degree of freedom is **4-dimensional, not 12**.
+
+### K2. **M IS PRICING THE WRONG VARIABLES** — flag this before the lattice solve  (`t_cofactor.py`)
+The coordinator reports M pricing an exact lattice target on **x642 and x28730**, "two of the
+twelve cofactor variables in L's claim".  Neither is in L's twelve, and neither is a cofactor:
+```
+   x642    free=False   occurs in 2 atoms      x17325 (its cofactor)  free=True  1 atom
+   x28730  free=False   occurs in 2 atoms      x9413  (its cofactor)  free=True  1 atom
+   x31864  free=False   occurs in 2 atoms      x10903 (its cofactor)  free=True  1 atom
+   x29854  free=False   occurs in 2 atoms      x1329  (its cofactor)  free=True  1 atom
+```
+x642/x28730 are the **P-multiples h** — defined wires, each appearing in two atoms (its own
+definition and the guard above it).  The free knobs are the **cofactors u**: x17325 and x9413.
+L's own §6c table states the pairing correctly (`h=x28730 u=x9413`, `h=x642 u=x17325`); the
+conflation is downstream of L.  **A lattice solved over x642/x28730 as if they were free is
+solving over the wrong coordinates** — and note they are exactly the two whose cofactors carry
+the largest single-variable effect (+4 each), so the error is in the most load-bearing place.
+
+### K3. THE PREMISE UNDER THE 15-ATOM FILTER — CONFIRMED ACROSS ALL 3,681  (`t_cofactor.py`)
+L's criterion `equation e contains atom a  <=>  u_a in vars(e)` rests on "every residual atom has
+exactly one free cofactor u, occurring nowhere else".  Checked in F's certified-faithful parse
+against `checker.load_equations()`'s own varsets:
+```
+   cofactors that are free variables            : 3681 / 3681
+   cofactors occurring in exactly ONE atom      : 3681 / 3681   (violations: 0)
+   cofactors with eqs(u) == eqs(atom_u) exactly : 3681 / 3681   (mismatches: 0)
+```
+**The criterion is sound, and so is the "of 3,681 atoms exactly 15 are incident" filter that M is
+enumerating against.**  This is the one place in this pass where a premise I expected to be soft
+held completely.
+
+### K4. THIRD CALIBRATION POINT for L's exact in-memory scorer
+L calibrated on two points (deliverable -> 7, assign_L1 -> 15).  A third, verified with the
+`checker.py` CLI, not just in memory:
+> **deliverable with x105 x1329 x3387 x5081 x5676 x9413 x10903 x11436 x14393 x14768 x17325 x22820
+> removed -> `satisfied 39021/39033 (12 failing)`,
+> failing `[2554, 6816, 8124, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]`.**
+My in-memory scorer (`checker.load_equations` + `evaluate_all` in-process) agreed exactly.
+
+## L. STILL NOT DONE
+* **Item 3 (is the 927 decomposition-dependent).**  Not started; ranks below the above.
+* **Whether tuning the 4 real cofactors can beat 7.**  That is M's search, not an audit; but note
+  the space is 4-dimensional over free vars whose defining atoms the deliverable already breaks,
+  so x642/x28730/x31864/x29854 are *also* effectively assignable in a partial assignment — the
+  live space is larger than 4 and M should establish its true dimension before solving a lattice.
+* Q's Schwartz-Zippel census artifacts were still absent when I last looked.
+
+## M. NEW FILES (third pass)
+`t_cancel.py` (L's 12, support + score, one-at-a-time) · `t_cofactor.py` (3,681-cofactor premise;
+h-vs-u).  Reproduce: `cd solve_lab/agentT_work && python3 t_cancel.py && python3 t_cofactor.py`.

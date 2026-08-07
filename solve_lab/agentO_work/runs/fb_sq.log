@@ -1,0 +1,21 @@
+a37887 = (S)*(S) confirmed; S has 690 chars
+S at the witness = 0   (a37887 = 0)
+S is linear in every knob; dS/dknob = {'x_28730': -1, 'x_4432': 1}
+nonlinear checks: [37887]   (handled analytically via S)
+  eq8680 contains a37887; with S=0 its remaining row is EMPTY (rhs 0)
+rows: 30 (including the S row)
+witness satisfies 23 rows, fails 7
+
+sanity: witness-satisfied set (with S row) solvable: True
+
+--- buy failing equations, keeping every satisfied row AND S = 0
+   no solvable subset of size 7
+   no solvable subset of size 6
+   no solvable subset of size 5
+   no solvable subset of size 4
+   no solvable subset of size 3
+   no solvable subset of size 2
+   no solvable subset of size 1
+
+nothing buyable even with S handled analytically
+DONE

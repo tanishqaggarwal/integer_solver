@@ -349,3 +349,35 @@ at every slot, so the coordinate composition almost certainly follows the same t
 **I verified the tree on the liveness side, not on the coordinate side**, and I am not going to
 claim the coordinate hand-off on the strength of an isomorphism I did not measure.
 Existence therefore remains conditional on that one layer; §15 stays in force.
+
+## 21. (e) CHARACTERISED — IT IS AN AFFINE ALIAS, BUT THE SLACK IS NOT PINNED (`qalias.py`)
+What sits between a slot's mux output M and its parent's input P, read verbatim off the instance:
+```
+x_17675 - x_20820 - x_36780             P = M + Q        Q = x_36780 = x_4116 * x_22163
+6910381*(x_15439 - x_18440) - x_11630   k*(P - M) = Q    Q = x_11630 = x_1962 * x_10858
+x_24468 - x_13682 - 12354891*x_34243    ROOT PIN = M + k*Q,  Q = x_34243 = x_16153 * x_14393
+```
+Across all 766 mux outputs: **573 alias to a parent slot input, 2 alias to the ROOT PIN**, 191 use a
+shape I did not chase.  Forms: `P = M + Q` 192, `k*(P-M) = Q` 192, `P = M + k*Q` 191.
+**All 575 slack wires are products of two wires.**  So layer (e) *is* the affine alias
+`parent_input = mux_output + (multiple of) a product`, and the root pin is the top slot's mux output
+under exactly that alias — the coordinate composition follows the same tree measured in §19.
+
+**But the slack is not forced to zero, as far as I can measure.**  Of the 575 slack products,
+523 have both factors used elsewhere and 52 have a factor occurring in exactly ONE term (wholly
+unconstrained).  The shared factors — `x_4116` (66 terms), `x_16153`, `x_1962`, `x_12682`,
+`x_19049`, `x_15616` — carry **no unary pin at all**: no boolean constraint, no zero pin.  I could
+not exhibit anything forcing `Q = 0`.  Until something does, the parent input is the mux output plus
+an unpinned amount, and **the coordinate hand-off is not determined by the tree**.
+So (e) does **not** close, and **§15 stays in force**.
+
+**Bearing on agent K's null result.**  Two candidate explanations, and I measured only the first:
+1. **Measured (my §5b):** in the 39,026 deliverable the group sum appears on **0** wires — because
+   that assignment never folds at all (one leaf propagates 92 wires, the other is cut after 5).
+   At any configuration that does not fold, a search for the composition must come up empty
+   whatever the aliasing does.
+2. **Structural, not measured:** if the alias slack is nonzero, the composition sits on the mux
+   output wire but *not* on the parent's input wire, so a literal search would find it on at most
+   one wire even in an assignment that does fold.
+K's null therefore does not by itself show the circuit fails to force compositions; but neither does
+my work show that it does.  I would not let a barrier withdrawal rest on the null alone.

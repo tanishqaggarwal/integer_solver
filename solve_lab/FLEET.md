@@ -2779,3 +2779,102 @@ exhaustive count.**
 
 **R's thread is complete and closed** — angle retired, survivors consolidated, no new line opened.
 Cores released to M's δ₀ pricing and Q's hand-off measurement.
+
+---
+
+## Check-in 47–48 — L's claim survives audit; the residual side gets a structural criterion
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified by S.
+
+### T — L's cancellation result CONFIRMED, with four corrections
+
+T audited **from the deliverable side** rather than through L's constructor, so the result does not
+inherit the un-converged divergence repair L itself flags:
+
+```
+deliverable as given            7 nonzero atoms   FAILING  7
+same, 12 cofactors zeroed       7 nonzero atoms   FAILING 12
+support IDENTICAL: True
+```
+
+All 12 are free (12/12). **Support byte-identical, cost differs by 5. "Cancellation is a value
+property, not a support property" is ESTABLISHED** — M's premise is sound and the search really is
+site × handle-values.
+
+**Four corrections:**
+
+1. **The gap is 5, not 6; the far side is 12, not 13.** L's 13 is its own `build2`'s score, and one
+   of L's 13 is not explained by the cofactors — almost certainly the repair L has flagged twice.
+   **Price against 7 → 12.**
+2. **Eight of the twelve do nothing.** Zeroing each alone: `x1329 +3`, `x9413 +4`, `x10903 +3`,
+   `x17325 +4`; **the other eight give +0 because they are already 0 in the deliverable.** So "the
+   deliverable sets them to specific nonzero integers" is false for two-thirds of the list — **the
+   cofactor freedom is 4-dimensional, not 12.**
+3. **The live space is larger than those 4:** `x642`, `x28730`, `x31864`, `x29854` are *also*
+   effectively assignable in a partial assignment, because the deliverable already breaks their
+   defining atoms. **M must establish the true dimension before committing to a lattice.**
+4. **COORDINATOR ERROR, owned here.** I described O's two open carriers as "two of the twelve
+   cofactor variables". They are the **P-multiples `h`**, not free: `x642 free=False, in 2 atoms`
+   with cofactor `x17325 free=True, in 1 atom`; likewise `x28730`/`x9413`. **O's target file is
+   keyed correctly** — it names `x642` as private and shifts the external expression
+   `x_7068 − x_2099` — so **δ₀ is sound and only my summary was loose.** M has been told to fix the
+   coordinates before setting up the lattice.
+
+**The premise under the 15-atom filter — confirmed across all 3,681.** L's criterion
+`e contains a ⟺ u_a ∈ vars(e)` rests on "every residual atom has exactly one free cofactor
+occurring nowhere else". In F's certified-faithful parse against `checker.load_equations()`'s own
+varsets: **3,681/3,681 free; 3,681/3,681 occurring in exactly one atom (0 violations);
+3,681/3,681 with `eqs(u) == eqs(atom_u)` exactly (0 mismatches).** T expected this to be soft and it
+**held completely** — the incident filter M enumerates against needs no re-derivation.
+
+**Third calibration point for L's scorer**, verified through the `checker.py` CLI rather than in
+memory: deliverable with those 12 removed → **39,021/39,033, 12 failing**,
+`[2554, 6816, 8124, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
+
+**T withdrew "liveness is not determined by the selectors"** on Q's explanation, keeping the
+narrower "forward evaluation from the selectors does not realise an ON-set"; its 0/256 and 0/12
+numbers stand as measurements of unit propagation's weakness, and its design objections 1–3 are
+unaffected — objection 1 saved Q a wasted run.
+
+### S — a structural criterion for why leaving the span kills solvability
+
+S answered the bounded question **from data it already had**, reading only its own run logs, on the
+grounds that its own finding says sampling cannot answer it.
+
+**The criterion:** every `lat3.analyse` line records `knobs=K other-rows=M kernel-dim=d`, so
+rank = K − d and **deficiency = M − (K − d)**. Across **72 logged configurations**:
+
+| deficiency | feasible | infeasible |
+|---|---|---|
+| 0 | **47** | 4 |
+| > 0 | **0** | **21** |
+
+**deficiency > 0 ⟹ infeasible, 21 of 21, no exceptions.** Breaking atoms adds **rows** faster than
+it adds **knobs**, the system goes over-determined, and it dies — which explains the relaxed-selector
+starvation exactly (x_12714 at deficiency 4, x_16348 at 5, x_2779 at 1). **Deficiency 0 is necessary
+but not sufficient:** 4 of 51 zero-deficiency systems were still infeasible, because full row rank
+over ℚ does not give solvability over ℤ.
+
+**`img4` is an existence proof**, verified from the log rather than from S's scraper: 62 knobs /
+54 rows / kernel-dim 8 — **it left cfg0's shape, kept full row rank, was feasible, and its
+post-solve class differs from cfg0's on both coordinates.** Precisely the valid independent test
+case §6f was starved of. **Blocked, but valid.**
+
+**S corrected its own previous conclusion, in the direction that costs it.** "The question may not be
+answerable by sampling at all" is right about *blind* sampling and **wrong as a general statement** —
+it is answerable with a **deficiency-directed generator**. Retracting a claim that had gone in its
+favour (it closed a line and justified stopping), in the same report that produced the alternative,
+is the harder direction.
+
+**Status: the endgame condition is still open, but no longer blocked on the hard part.** Independent
+data points remain **2** (img0 at cfg0's class, img4 at a different one), both blocked; **two is not
+configuration-independence and S does not claim it.** The residual side is no longer stuck on "we
+cannot manufacture test cases" — it is stuck on **running a deficiency-directed search**, which is
+bounded and concrete. Blind sampling gave 5 of 26 off-shape configurations at deficiency 0 with 1
+feasible (~4%); a search optimising `(K − d) − M` should beat that substantially.
+
+**S re-tasked to run it**, reporting the count of genuinely **independent** cases by its own
+post-solve-class criterion and the blocked/solved split. Every one blocked ⇒ configuration-
+independence of the joint `p·ℤ²` obstruction, the residual side's terminal result. Any one solved ⇒
+the endgame condition dissolves. If the directed search also starves, **say so with the rate** and
+the line closes with a measured reason rather than a suspicion.
