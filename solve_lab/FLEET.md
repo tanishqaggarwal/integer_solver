@@ -4443,3 +4443,54 @@ constant-p finding that closed the coordinate hand-off mod p; and the 15→18 co
 incidence count, and the CRT-is-sufficient prescription it had stated twice.
 
 **Closed threads: P, R, S, K, Q, L. Live: M, N, O, T.**
+
+---
+
+## Check-in 81 — L consolidated and closed
+
+Deliverable unchanged: **39,026 / 39,033**, which L never improved on.
+
+`RESUME_L.md`, 761 lines, 25 sections, with the **handover to T at the top**: the job, the script
+(`closeS4.py`; `closeS.py`/`closeS2.py`/`closeS3.py` marked **provenance-only, do not run**), the
+PID-based invocation, and the control spec — **exactly 2 nonzero atoms of 9,032, reproducing 39,018,
+~186 s expected.** Then the six extras from the failed run with their cause, and — the part that
+makes it a real handover — **what to check first if it fails again**:
+
+> whether `solve_group3` ever returns a non-`None` `t`. **If never**, the global guard is too strict
+> and `n < base` should relax to `n <= base` with a no-cycling check. **If it returns `t` and the
+> count still rises**, the bug is in `relift` inside `nzcount`, not the solver.
+
+**What stands** — ten items, none depending on the unfinished sweep: the 383/383 calibration and
+256/256 pins; the mod-p reduction (corroborated when the deliverable's own root wires held the target
+L derived independently); **the constant-p finding closing the hand-off unconditionally mod p at
+3,681/3,681**; fit-and-solve at a **measured** 186 s/configuration; the degree-≤3 bound confirmed on
+an unshared decomposition; cost tracking the largest prime factor; the structural influence map;
+**`|S| = 2` closed over ℤ and verified by T, not by L**; component sizes `[1,1]` with the
+path-dependence that killed L's own bivariate claim; and cancellation as a value property.
+
+**What L retracted** — six items, **corrected in place with the originals marked superseded rather
+than deleted**: the 2^178 count, the one-leaf ON-set reading, S6h's bivariate obstruction, the false
+"13 minutes", the 15-atom incidence count, and its own **twice-repeated** "CRT is what's needed"
+prescription.
+
+**§6m unchanged: the question is open — five attempts, no `|S| = 3/5/8` data.**
+
+### Two notes from the handover
+
+**On the `|S| = 4` fold sweep — do not resume it.** Alive at 116.8M / 174.8M; let it finish and
+record the result if it lands, **but it is not worth restarting if it dies.** L's reasoning, and it
+is the cleanest statement of why enumeration was never the route: **`|S| = 1, 2, 3` all came back
+empty, 174M is a negligible corner of 2²⁵⁶, and a randomly built instance would have `|S| ≈ 128`.**
+
+**L flagged the stale artifacts itself**, independently of the coordinator's caution to T:
+`close_S3.json`, `close_S5.json`, `close_S8.json` exist from the `closeS2.py` run L had reported as
+never finishing. **L did not check them and does not claim them** — they came from the version whose
+control gave 8 nonzero atoms, so they are almost certainly contaminated by the same guard-scope
+defect. **They should be deleted or ignored, not read.**
+
+**L's own summary of its thread, kept:** *the diagnosis every round was real and each fix was
+correct; the walls were process and performance, and the last may have been nothing but a process
+lifetime — which is exactly why someone else running the script is the right next step rather than a
+sixth round from me.*
+
+**Closed threads: P, R, S, K, Q, L. Live: M, N, O, T.**
