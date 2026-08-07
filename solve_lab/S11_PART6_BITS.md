@@ -158,3 +158,49 @@ The honest reading: channel A is very likely unable to produce a full solution f
 and the effort belongs in channels B (`x5647`, 3 failing checks) and C (`x34606`, certificates as
 small as two rows).  Deriving the exact certificate for a shortlist of messages there — 15 min
 each with the cached pipeline — is the concrete next move.
+
+---
+
+# Part XIX — the configuration space, swept completely
+
+## 10. Fifteen classes, and why the checkpoint's message is special
+
+`U = OR(A-leaf, B-leaf)`, `V = OR(C-leaf, D-leaf)`, and the two mirrors are the ANDs:
+`x38170 = A-leaf AND B-leaf`, `x3896 = C-leaf AND D-leaf`.  So the configuration space is
+(which of A,B fire) x (which of C,D fire) = 16 classes, one killed by the OR gate.  `s11/cls1.py`
+builds a representative message for each; `s11/cls2.py` repeats it with the *best* bit from each
+tree (from the weight-1 scan):
+
+    U-side     V-side     m2 m1  best message              failing checks
+    ('B',)     ('C',)     0  0   {x2081, x24601}              4
+    ('A','B')  ('C',)     1  0   {x1413, x2081, x24601}      14
+    ('B',)     ('C','D')  0  1   {x2081, x3545, x24601}      14
+    ('B',)     ()         0  0   {x24601}                    15
+    ...
+    ('A','B')  ('C','D')  1  1   {x1413,x2081,x3545,x24601}  35
+
+Two clean regularities: **the count grows with the number of trees fired**, and **turning a
+mirror on always costs** — which makes sense, since a mirror being 1 activates the checks it
+gates (a26719/a26721/a26723 for x3896; the a688/a1618/a40608 core for x38170).  With the mirror
+off those checks read `0 = p*handle` and are vacuous.
+
+The checkpoint's class — one B bit, one C bit, both mirrors off — is uniquely good, and within it
+only three bit pairs reach 4.  That is why eleven sessions converged there.
+
+## 11. Solving a channel, not just scoring it
+
+Raw counts are biased: every message inherits whatever free-input background it was built on, and
+`gmp16_base` was tuned for channel A.  The fair measure is the residual *after* solving the
+continuous system (`s11/solveres.py`):
+
+    channel C ({x24601}, U=1,V=0):  15 failing checks  ->  3 after one linear solve
+                                    residual a2423, a10506, a26731  (27 equations)
+
+For channel A the same one-shot solve makes things worse (6 -> 15), which is a nonlinearity
+artefact — the required delta is large and the affine model stops holding, so that number is not
+channel A's residual and should not be read as one.  The exact statements per channel are the
+certificates, not the applied solves.
+
+Channel C's residual atoms (a2423, a10506, a26731) are **different** from channel A's
+(a7930, a29539, a40826, a41512).  The obstruction genuinely changes shape between channels, which
+is precisely why channel A's invariant enumeration does not settle the instance.
