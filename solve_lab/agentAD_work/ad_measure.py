@@ -117,6 +117,10 @@ def summarize(name, per_draw, n):
     for w in sorted(agg):
         c, t, pin = agg[w]
         print('   %3d : %8d/%-8d %7.4f   %7.4f' % (w, c, t, c / t, pin / t))
+    for i, (tab, _d) in enumerate(per_draw):
+        print('    draw %d: %s   Bmax=%d' % (
+            i, ' '.join('%d:%d/%d' % (w, tab[w][0], tab[w][1]) for w in sorted(tab)),
+            bmaxes[i]))
     print('    Bmax per draw: %s' % bmaxes)
     print('    Bmax == n in %d/%d draws' % (sum(1 for b in bmaxes if b == n), len(bmaxes)))
     return agg, bmaxes
@@ -166,8 +170,11 @@ def main():
     if mode == 'quick':
         out['quick'] = block('quick', ('8',), 4, 0.25, (2, 3, 4, 5), ncurve=2)
     elif mode == 'main':
-        out['main'] = block('main', ('8', '12', '16'), 6, 0.25,
+        out['main'] = block('main', ('8', '12'), 12, 0.25,
                             (2, 3, 4, 5, 7, 8, 9, 11, 13))
+    elif mode == 'main16':
+        out['main16'] = block('main16', ('16',), 6, 0.25,
+                              (2, 3, 4, 5, 7, 8, 9, 11, 13))
     elif mode == 'perprime':
         for q in (2, 3, 5, 7):
             out['q%d' % q] = block('q=%d' % q, ('8', '12'), 6, 0.25, (q,), ncurve=3)

@@ -44,3 +44,5 @@ DONE data/d_p2p257.txt sz=3 range=[0,512) n=22108160 zero=0 28.9s
 SHARD5
 DONE data/d_p2p257.txt sz=3 range=[0,512) n=22108160 zero=0 32.9s
 SHARD6
+DONE data/d_p2p257.txt sz=3 range=[0,512) n=22108160 zero=0 47.4s
+SHARD7

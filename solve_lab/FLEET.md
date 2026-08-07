@@ -6820,3 +6820,87 @@ a stated alternative model. Nobody is to investigate how the instance was produc
 
 AH wrote `drvB.log`, `pidA.txt` and `pidB.txt` to the **repository root** instead of
 `agentAH_work/`. Harmless, caught immediately, routed to AH.
+
+---
+
+## Check-in 115 — AI establishes custody; the audit finds one live hazard and four latent ones
+
+Both orphaned jobs were **alive**; neither needed restarting. Artefact `agentAI_work/CUSTODY.md`,
+footprint 1 MB, nothing deleted, no deletion recommended.
+
+### Job A — X's rotational sweep: **running, and the invariant holds**
+
+PID 30892 confirmed as `./rotall.sh` **via `/proc/30892/cmdline` and `/proc/30892/cwd`** rather than by
+name — the rule from check-in 110 applied correctly. Started 21:15:59, **135 s/rotation** measured
+(9 in 1,239 s), ETA ≈ 02:05 UTC.
+
+AI wrote `verify_rot.py` and made it **stronger than the check I specified**: as well as the six
+shard counts summing to `C(128,5) = 264,566,400`, it checks **each shard against its own closed
+form** `Σ_{m=lo}^{hi−1} C(127−m, 4)` — because **two compensating errors would pass the sum alone.**
+**All 9 completed rotations: `delta = +0`, every shard matching. `HIT` count 0.**
+
+Partial result stated as X stated it, unchanged: 9 completed rotations exclude
+`{S : |S| = 10, ∃ j completed with |S ∩ A_j| = 5}` — **not "9/128 of `|S| = 10` exhausted"**, and
+`|S| ≤ 10` is not claimable until all 128 finish.
+
+### Job B — AB's `d_reg(4)`: **running, no read-off yet**
+
+PID 6881 confirmed as `python3 ab_dreg3.py 2 4`, 3,220 s elapsed, state R, ~51 % CPU. `dreg3.log`
+ends at the `d=5, 21057 × 17091` line with no result — **expected, not a hang**: the line is written
+only when the rank completes, and the comparable `n = 3, d = 5` step was 12× smaller. Not restarted;
+`CUSTODY.md` records that it must not be.
+
+### X's restored tables — independently confirmed, with two checks X did not claim
+
+Both md5s match, key count 177,589,056 matches **and is forced by the file size** (`1420712448/8`),
+first two and last two keys match. AI added: **keys ascending on a stride sample**, and `bm4.bin`
+exactly `1<<29`.
+
+### Disk — not an emergency, and I was pressuring the wrong resource
+
+Free space **oscillates 9.8–11.6 GB in a sawtooth** driven by job A's per-rotation scratch
+(`rt_*.bin` → merge → delete). **The sweep is in disk steady state, so 119 more rotations do not mean
+119 more GB.** `agentAA_work` is largest at 11,275 MB but **flat**.
+
+> **Memory is the tighter resource: 16 GB, no swap, and job B holds ~3 GB. An OOM would take the
+> non-restartable job.**
+
+AI's sampler (PID 2490) writes `ALARMS.log` on <6 GB disk, <1 GB MemAvailable, either job dying, or
+any `HIT`. **That file does not exist — all clear.** I have withdrawn the disk pressure I put on AA.
+
+### Audit — **no fabricated record found anywhere**
+
+Every number testable against a closed form is correct: job A's rotations; Y's `rep_comp.txt`
+(`32,640 / 2,763,520 / 174,792,640 / 8,809,549,056` = `C(256,2..5)` exactly); and AA's shell markers
+never outrun its engine `DONE` lines across 64 files. All 10 instances are in `CUSTODY.md` §5 by file
+and line; **AI edited nothing.**
+
+**One live hazard, routed immediately:**
+
+> **`agentAA_work/aa_shard.sh:11-12` — running now as PID 13873, and it is Y's failure mode with an
+> extra turn of the screw.** Engine output fully masked (`>/dev/null 2>&1`), `echo "SHARD$s"`
+> unconditional, **and line 10's resume guard keys on that same shell-written marker** — so a
+> segfaulted shard would be recorded done **and permanently skipped on every restart**. In Y's case a
+> dead scan was merely mis-recorded; here the gap would become invisible and self-healing in the
+> wrong direction. **No damage yet.** AA instructed to test exit codes, unmask stderr to per-shard
+> logs, re-key the resume guard onto the engine's own `DONE` line, and re-verify the shards already
+> marked done against engine output rather than markers.
+
+**Three latent, routed:**
+
+1. **`agentT_work/t_rebuild{,2,3}.sh` look protected and are not.** All three open with `set -e`, but
+   every step is `python3 X.py | tail -3`, and **a pipeline's status is `tail`'s**, so `set -e` never
+   fires and a crashing `buildall.py` still reaches `=== REBUILD DONE`. No `pipefail` in any of them.
+   T instructed to add it and re-run whatever its probe state depends on.
+2. **Agent AE is running the exact `gcc … 2>&1 | head -30 && echo BUILD_OK` pattern** that produced
+   X's fabricated count. **This instance genuinely succeeded** (binary newer than source, executes),
+   but the pattern is live on the fleet. Routed.
+3. **`agentY_work/yrun.sh` is the unfixed twin of the already-fixed `yorbit_run.sh`** — its records
+   are true but its mechanism is not. Y's thread is closed; recorded here as dormant so a successor
+   does not trust it.
+
+**And a bug in X's own watchdog:** `agentX_work/rotall.pid` holds **30889**, the launching bash,
+because **`$!` captured the `setsid` wrapper** rather than the script. X's watcher (PID 9890) is
+therefore monitoring the wrong process and **would not notice the sweep dying.** AI hit the identical
+bug in its own sampler and fixed it by having the script write its own `$$` — which is the general
+fix and should be the fleet default.
