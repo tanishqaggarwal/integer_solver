@@ -34,7 +34,7 @@ if __name__=='__main__':
     for a,g in gran.items():
         hist['p' if g==P else ('0' if g==0 else ('1' if g==1 else str(g) if g<10**9 else 'other'))]+=1
     print('granularity histogram:', dict(hist))
-    json.dump({str(a):[solo[a],str(gran[a])] for a in solo}, open('handles.json','w'))
+    json.dump({str(a):[solo[a],str(gran[a])] for a in solo}, open('/home/user/integer_solver/solve_lab/agentA_work/handles.json','w'))
     # which of the residual-region atoms have private handles?
     for a in env.SEVEN+[22231,37887,29090,39166,40066,40932,40005,40121]:
         print('  a%-6d private=%s gran=%s'%(a, solo.get(a,[]), 'p' if gran.get(a)==P else gran.get(a)))
