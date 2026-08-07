@@ -1520,3 +1520,36 @@ The non-monotonicity finding itself stands and is now doubly evidenced: the coun
 12 -> 1 at |W| = 5, and the three subsets that fall are identified by name. It also confirms the
 rule: **max over instruments, never within one.** Under that rule those three subsets are 39,026,
 as they always were.
+
+## 91. The 39,024 point is checker-verified, and its failing set lands on W's cocircuit
+`checker.py` on `M_cof24_39024_642-23754-28730-29854-31864.json`:
+
+    satisfied 39024/39033  (9 failing)
+    failing [8687, 12231, 12270, 12350, 14584, 18673, 22044, 22563, 29125]
+
+**Engine 39,024 == checker 39,024** (13th independent agreement this round, 13/13), and the
+failing set is **the deliverable's exact 7 plus {8687, 22563}** — which is precisely the pair
+agent W identified as *"a genuine minimal cocircuit with no essential row"* when W refuted its own
+claim that redundant-row breaks are worthless. **My cofactor-tuned placement pays exactly W's
+cocircuit and nothing else.** Two agents, two frames, one pair of line numbers.
+
+## 92. Cofactor instrument, sizes 0-6 COMPLETE over 2^16 — and the pattern is consistent
+    |W|  handle knobs only (p80)              closure u 4 cofactors (p80)
+      0  39008                                39008
+      1  39010                                39021
+      2  39022  (1)                           39022  (3)
+      3  39023  (1)                           39023  (3)
+      4  39026  (1)  <- witness, unique       39026  (1)  <- witness, still unique
+      5  39026  (12)                          39026  (1)   39024:3  39023:30  39022:283  39021:1,048
+      6  39026  (56)                          39024  (4)   39023:45  39022:686  39021:2,268
+
+The widened instrument is **better in the body and worse at the top**: it lifts the mass upward
+(at |W| = 6, 2,268 subsets reach 39,021 where the handle-only run had 8 at 39,020) but its greedy
+loses the 39,026 points above |W| = 4. Same non-monotonicity, now visible at every size.
+
+**The one place the two instruments AGREE is the place that matters: |W| = 4, complete over all
+1,820 four-element supports, best 39,026, count 1, the witness — under both knob sets.**
+
+`checker.py` on the cofactor run's own 39,026 point (witness u {34113}):
+**39,026/39,033, failing exactly [12231,12270,12350,14584,18673,22044,29125]. Agreement 14/14
+this round.**

@@ -1,6 +1,6 @@
-shard 0 pid 2193
-shard 1 pid 2194
-shard 2 pid 2195
-shard 3 pid 2203
-consistent shard 0 pid 23290
-consistent shard 1 pid 23291
+pinned shard 0 pid 4150
+pinned shard 1 pid 4151
+pinned shard 2 pid 4152
+pinned shard 3 pid 4153
+consistent shard 0 pid 4154
+consistent shard 1 pid 4157

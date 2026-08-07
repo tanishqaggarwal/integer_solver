@@ -317,3 +317,10 @@ response). The lattice is a RELAXATION of `pgap.py`'s exact saturation lattice, 
 `gap_p >= 1` there implies `gap_p >= 1` exactly — the safe direction for a hunt.
 **Calibration: the deliverable's own setting gives `LAT dim=15 rk_Q=8 rk_p=4 gap_Q=0 gap_p=1`,
 i.e. exactly `pgap.py`'s `gap_p = 1` with every rank shifted +1, which is what a relaxation must do.**
+
+## In flight at time of writing (resumable, PIDs in `runs/pselrank.pid`)
+    python3 pselrank.py pselrank_s<S>.jsonl <S> 4               # pinned regime, 4 shards
+    python3 pselrank.py pselrankC_s<S>.jsonl consistent <S> 2   # consistent regime, 2 shards
+    python3 pselsum.py [pinned|consistent]                      # the gap_p distribution
+Both skip any tag already recorded IN THEIR OWN REGIME, so a restart resumes for free.
+51 structural configurations per regime (`psel.configs()`), ~200 s each under fleet contention.

@@ -26,3 +26,9 @@ outer 4: global nonzero 4, violated c-conditions 3, nonzero handle-less 1
      (x2404  ,x14370 ) |group|=1 200 candidate(s) verified, guard rejected all
      folding in collateral: ['((x2404-x34427)-(9516871*x32385))', '((x22366*x5209)-(8054097*x37199))']
      round 1: |group|=3 (0 exact) wires=8 new pairs=27
+     (x664   ,x2404  ) |group|=3 200 candidate(s) verified, guard rejected all
+     (x664   ,x4860  ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     (x664   ,x7814  ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     (x664   ,x14370 ) |group|=3 200 candidate(s) verified, guard rejected all
+     (x664   ,x15967 ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     (x664   ,x24959 ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)

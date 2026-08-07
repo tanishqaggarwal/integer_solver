@@ -3,8 +3,11 @@ import os, sys, json, glob
 from collections import Counter, defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+REG = sys.argv[1] if len(sys.argv) > 1 else 'pinned'
+pat = 'pselrankC_*.jsonl' if REG == 'consistent' else 'pselrank_*.jsonl'
+print('=== REGIME: %s   (%s) ===' % (REG, pat))
 rows = []
-for f in sorted(glob.glob(os.path.join(HERE, 'runs', 'pselrank*.jsonl'))):
+for f in sorted(glob.glob(os.path.join(HERE, 'runs', pat))):
     for ln in open(f):
         try:
             rows.append(json.loads(ln))
@@ -22,16 +25,17 @@ for r in sk:
     print('   SKIP %-26s %s' % (r['tag'], r.get('note', '')))
 
 print()
-hdr = ('%-26s %-4s %-6s %-5s %-5s %-4s | %-4s %-4s %-4s | %-5s %-4s %-4s %-4s %-4s' %
-       ('tag', 'live', 'score', '|R|', 'knobs', 'na', 'arQ', 'arp', 'agp',
-        'dim', 'lrQ', 'lrp', 'lgQ', 'lgp'))
+hdr = ('%-26s %-4s %-6s %-5s %-5s | %-4s %-4s | %-5s %-4s %-4s %-4s %-4s | %-4s %-4s | %s' %
+       ('tag', 'live', 'score', '|R|', 'knobs', 'arQ', 'agp',
+        'dim', 'lrQ', 'lrp', 'lgQ', 'lgp', 'rkq', 'gq', 'score<='))
 print(hdr)
 print('-' * len(hdr))
 for r in sorted(ok, key=lambda r: (r['nlive'], r['R'])):
-    print('%-26s %-4d %-6d %-5d %-5d %-4d | %-4d %-4d %-4d | %-5d %-4d %-4d %-4d %-4d' %
-          (r['tag'], r['nlive'], r['score'], r['R'], r['knobs'], r['nonaffine_entries'],
-           r['amb_rk_Q'], r['amb_rk_p'], r['amb_gap_p'],
-           r['lat_dim'], r['lat_rk_Q'], r['lat_rk_p'], r['lat_gap_Q'], r['lat_gap_p']))
+    print('%-26s %-4d %-6d %-5d %-5d | %-4d %-4d | %-5d %-4d %-4d %-4d %-4d | %-4s %-4s | %s' %
+          (r['tag'], r['nlive'], r['score'], r['R'], r['knobs'],
+           r['amb_rk_Q'], r['amb_gap_p'],
+           r['lat_dim'], r['lat_rk_Q'], r['lat_rk_p'], r['lat_gap_Q'], r['lat_gap_p'],
+           r.get('lat_rk_q'), r.get('lat_gap_q_ctl'), r.get('score_ub_p')))
 
 print()
 print('=== DISTRIBUTION of lattice gap_p ===')
@@ -50,6 +54,13 @@ print('=== mod-p rank DEFICIENCY rk_Q - rk_p on the lattice ===')
 c = Counter(r['lat_deficiency'] for r in ok)
 for k in sorted(c):
     print('  deficiency = %-3d : %3d configurations' % (k, c[k]))
+print('=== CONTROL prime q (same size, unrelated): deficiency rk_Q - rk_q, and gap_q ===')
+c = Counter(r.get('lat_deficiency_ctl') for r in ok)
+for k in sorted(c, key=lambda x: (x is None, x)):
+    print('  deficiency = %-4s : %3d configurations' % (k, c[k]))
+c = Counter(r.get('lat_gap_q_ctl') for r in ok)
+for k in sorted(c, key=lambda x: (x is None, x)):
+    print('  gap_q      = %-4s : %3d configurations' % (k, c[k]))
 
 z = [r for r in ok if r['lat_gap_p'] == 0]
 print()
