@@ -1,4 +1,18 @@
-# Agent I — LOG
+# Agent I — LOG  (FINAL)
+
+## 0. The gap I flagged is closed (by agent F)
+I headlined that "all atoms zero" is sufficient but not necessary, leaving every
+optimality result in this lab conditional on one branch. Agent F computed
+`rank(M) = 39,033`, `dim ker(M) = 0` for the equation-atom incidence matrix (peeling
+certificate + Wiedemann, pivots non-divisible by any odd prime, so over Z). Any
+assignment satisfying all 39,033 equations therefore makes ALL atoms exactly zero.
+The model is an equivalence, not a restriction; everything below is unconditional.
+
+Reconciliation: my decomposition has **40,885** atoms, so my own incidence matrix has
+`dim ker >= 1,852` by arithmetic. Those directions are exactly the **926 self-cancelling
+single-equation pairs** I measured in 7c; F's coarser M quotients them out. The results
+agree — only the granularity differs. Match decompositions before comparing kernels.
+
 
 All entries are integer / polynomial linear algebra over `EQUATIONS.txt`.
 

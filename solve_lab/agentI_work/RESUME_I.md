@@ -1,4 +1,26 @@
-# Agent I — RESUME
+# Agent I — RESUME  (FINAL)
+
+## THE GAP I FLAGGED IS CLOSED — by agent F, not by me
+I headlined that "all atoms zero" is *sufficient* but not *necessary*, so every
+optimality result in this lab (mine included) was conditional on one branch.
+**Agent F computed `rank(M) = 39,033`, `dim ker(M) = 0` for the equation-atom
+incidence matrix** — two methods, a characteristic-free peeling certificate
+re-verifiable from `M` on disk and Wiedemann over a word prime, pivots checked
+non-divisible by any odd prime so it holds over Z. Therefore any assignment
+satisfying all 39,033 equations makes **all atoms exactly zero**: the all-atoms-zero
+model is an equivalence, not a restriction, and the cancelling-nonzero-residual route
+does not exist. **Every result below loses its conditionality.**
+
+**Reconciliation a later reader will need.** My decomposition has **40,885** atoms, not
+39,033, so *my* incidence matrix necessarily has `dim ker >= 1,852` — that is arithmetic,
+not a disagreement with F. The extra directions are exactly the redundancy I measured
+independently: **926 pairs of single-equation atoms** (e.g. `a20491 = X15298*X11150` and
+`a20492 = X4007` alongside `a36593 = X15298*X11150 + X4007`), which I showed are local
+and self-cancelling and cannot move the residual. F's coarser M quotients precisely
+those out. The two results agree; only the atom granularity differs. Anyone comparing
+kernel dimensions across agents must first match the decomposition.
+
+
 
 Everything here is stated as integer / polynomial linear algebra over `EQUATIONS.txt`.
 

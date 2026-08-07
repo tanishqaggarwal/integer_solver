@@ -319,5 +319,17 @@
   "knobs": 10,
   "minfail": null,
   "forced": 0
+ },
+ {
+  "tag": "X19964+X22526",
+  "add": [
+   1631,
+   11776
+  ],
+  "nE": 39,
+  "new": 26,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
  }
 ]
