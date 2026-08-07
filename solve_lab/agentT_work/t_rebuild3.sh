@@ -2,6 +2,8 @@
 # T35 (post second restart): the FULL chain.  t_rebuild.sh omitted ortree2.py and handles.py,
 # which handles2/buildall depend on -- ran by hand last time.  This is the complete script.
 set -e
+set -o pipefail   # T37: a pipeline reports its LAST command, so `python3 X.py | tail -3`
+                   # made `set -e` a no-op -- a crashing stage still reached "REBUILD DONE".
 export PYTHONDONTWRITEBYTECODE=1
 MF=/home/user/integer_solver/solve_lab/agentT_work/mirror/F
 ML=/home/user/integer_solver/solve_lab/agentT_work/mirror/L

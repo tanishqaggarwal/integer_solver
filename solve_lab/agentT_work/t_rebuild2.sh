@@ -1,4 +1,6 @@
 set -e
+set -o pipefail   # T37: a pipeline reports its LAST command, so `python3 X.py | tail -3`
+                   # made `set -e` a no-op -- a crashing stage still reached "REBUILD DONE".
 export PYTHONDONTWRITEBYTECODE=1
 ML=/home/user/integer_solver/solve_lab/agentT_work/mirror/L
 cd $ML

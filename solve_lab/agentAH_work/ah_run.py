@@ -54,6 +54,29 @@ J.nzcount = nzcount
 
 CAP = int(os.environ.get('AH_CAP', '0'))   # 0 = fleet routine verbatim
 
+# ---------------------------------------------------------------- exact fast root enumeration
+# AH_FASTROOTS=1 swaps closeS3's brute-force `rootset_pp` for ah_roots, which returns the SAME
+# SET via agent T's own t_poly.roots_pp.  This is an enumeration change, not an algorithm change;
+# ah_roots_selftest.py checks set equality against the brute-force original on the instance's own
+# prime powers.  Needed because one brute-force call can cost 1.7e7 big-int evaluations.
+# ---------------------------------------------------------------- closure-ORDER knobs (controls)
+# Neither changes the algorithm or the guards; both change only the ORDER in which the same
+# candidate shifts are offered.  Used as the "different closure order" control: if a score
+# ceiling is real it must survive both.
+RNDSEED  = int(os.environ.get('AH_RND', '0'))      # 0 = the fleet's random.Random(20260807)
+WIREORD  = os.environ.get('AH_WIREORD', 'desc')    # 'desc' = the fleet's -len(atoms) ordering
+if RNDSEED:
+    import random as _r
+    J.rnd = _r.Random(RNDSEED)
+    C.rnd = _r.Random(RNDSEED)
+FASTROOTS = int(os.environ.get('AH_FASTROOTS', '0'))
+AHR = None
+if FASTROOTS:
+    import ah_roots as AHR
+    assert _g3 is _g3['roots_c'].__globals__, 'roots_c does not share solve_group3 globals'
+    assert _g3 is _g3['rootset_pp'].__globals__, 'rootset_pp does not share those globals'
+    _g3['rootset_pp'] = AHR.make(_g3['peval'])
+
 def solve_group3_capped(vv, V, w, gen, base):
     """CONTROL VARIANT ONLY (enabled with AH_CAP>0).  Identical to the fleet's
     solve_group3 except that the CRT product over the violated atoms' root sets is
@@ -143,8 +166,13 @@ def close(S, outer_max):
                 t = (-(cur//gg))*pow((d//gg) % mm, -1, mm) % mm if mm > 1 else 0
                 vv[w] = old+p*t; fx += 1; break
         stats['relift_rounds'] = rd+1
+        log('   [pre] relift round %d: %d bad atoms, %d fixed, t=%.0fs'
+            % (rd, len(bad), fx, time.time()-T0))
         if fx == 0:
             break
+    stats['prelift_s'] = round(time.time()-T0, 1)
+    log('   [pre] fixpoint done in %.0fs (%d rounds)'
+        % (stats['prelift_s'], stats['relift_rounds']))
     gen = 0
     TGT = ('x24468', 'x18956')
     safe = vv[:]                      # last guard-consistent state
@@ -180,7 +208,9 @@ def close(S, outer_max):
                           set(q for q in atomvalvars[a] if q in SHIFT)):
                     wires[w].append(a)
             prog = 0
-            _wl = sorted(wires.items(), key=lambda kv: -len(kv[1]))
+            _wl = sorted(wires.items(),
+                         key=(lambda kv: len(kv[1])) if WIREORD == 'asc'
+                         else (lambda kv: -len(kv[1])))
             log('   single-wire pass over %d wires (max atoms/wire %d)'
                 % (len(_wl), max([len(x[1]) for x in _wl], default=0)))
             _hb = time.time()
@@ -248,7 +278,9 @@ if __name__ == '__main__':
             'nz_atoms': len(nz), 'n_atoms': len(E.res), 'nz_list': nz[:20],
             'sampled_root_misses': SAMPLED_MISS[0], 'exhaustive_root_misses': EXHAUST_MISS[0],
             'trace': trace, 'relift_rounds': stats['relift_rounds'],
-            'cost': COST, 'cap': CAP,
+            'cost': COST, 'cap': CAP, 'fastroots': FASTROOTS,
+            'rndseed': RNDSEED, 'wireord': WIREORD,
+            'root_stats': (AHR.STATS if AHR else None),
             'json': out}
     json.dump(meta, open(os.path.join(AH, 'meta_%s.json' % tag), 'w'), indent=1)
     log('DONE tag=%s n=%d seed=%d reason=%s wall=%.1f nz_atoms=%d sampled_miss=%d exh_miss=%d'

@@ -1267,3 +1267,55 @@ budget ~2x CPU per doubling of `|S|` plus a fixed tail.**
 Start state at that seed: **66 nonzero atoms, 62 violated `c>1` conditions, 4 handle-less** — an
 independent draw, not a prefix.  Two handle-less atoms cleared by the *guarded* pass, the rest by
 joint pairs; **no forced step was needed at this seed**.
+
+## BE. **THE SEED-7 `|S| = 128` STALL WAS THE SAMPLING ASYMMETRY — it CLOSES once fixed**
+The decisive control, because it isolates the fix from the seed: **same ON-set, same `|S|`, only
+the solver changed.**
+```
+   |S|=128 seed 7, BEFORE the transpose fix : stalled at outer 8, 3 nonzero atoms,
+                                              residue ((x2820-x17195)-(8271997*x17079)), c = 71*116507,
+                                              every pair reporting `NO JOINT ROOT mod 116507 (SAMPLED)`
+   |S|=128 seed 7, AFTER  the transpose fix : CLOSED, 2 nonzero atoms, 2,289 s
+                                              -- `116507` never appears in the log at all:
+                                                 the transposed scan finds roots immediately
+   checker.py -> 39018/39033, the identical 15-equation failing set
+   F's parse  -> exactly 2 nonzero atoms, footprint == failing set
+```
+> **The `|S| = 128` stall the fleet was reading as a possible upper-bound constraint was my
+> solver's search asymmetry.  Rule 9 for the third time on my own thread, and this time I had
+> the counter-example in hand within the hour.**  Both `|S| = 128` points — the seed-7 chain and
+> the independent seed 59 — now close, checker-verified, with the identical 15-equation footprint.
+
+### BE1. ASYMMETRY OF EVIDENCE — the rule I am applying to the runs still in flight
+`T250s31` (`|S|=250`, seed 31) and `T192s47` (`|S|=192`, seed 47) were **launched before the
+transpose fix landed** and are running the older `joint_rootsets`.  That matters in one direction
+only:
+* **a CLOSURE from the older solver is fully valid** — the guards are identical, every candidate
+  root is verified by direct recomputation of every atom in the group, the global nonzero count
+  must strictly decrease, and the dumped assignment is checked by `checker.py` and F's parse;
+* **a STALL from the older solver is NOT informative**, because it can be the sampling asymmetry
+  BE just demonstrated.  **If either stalls it will be re-run with the fixed solver before any
+  number from it is reported**, and reported as *a stall with a named reason*, never as a failure
+  to close.
+
+## BF. TOOLING DEFECT IN MY OWN REBUILD SCRIPTS — found by agent AI, real, fixed  (`T37`)
+`t_rebuild.sh` / `t_rebuild2.sh` / `t_rebuild3.sh` all opened with `set -e` and ran every stage as
+`python3 X.py | tail -3`.  **A pipeline's exit status is its LAST command's**, so `tail` succeeded
+even when a stage crashed: `set -e` never fired and a broken build still printed `=== REBUILD
+DONE`.  My first rebuild after this restart is the proof — `handles2`, `buildall`, `calib2` and
+`slopes` **all** raised `FileNotFoundError` and the script still reported DONE and exit 0.
+**Fixed: `set -o pipefail` in all three.**  But the deeper repair is that a status marker must
+never be the evidence, so:
+> **`t_verify_mirror.py`** — checks the mirror against **22 closed-form quantities** (F: 39,033
+> atoms / 39,033 equations / 30,001 defs; L: 383 OR nodes, 254 internal + 256 leaves = 510 tree
+> entries, 254 selectors, 3,681 handle vars, handle ∪ value = 8,747 free vars, 383 model nodes,
+> 256 live / 128 dead leaves, 256 pins, orient hist 188/67/128 DEAD, 3,681 slope atoms with
+> 2,747 `c==1` + 7 zero-slope + **927** `c>1`, 0 slopes not divisible by p) and **exits nonzero on
+> any mismatch**.  `--deep` adds the end-to-end reload of `close_T8.json` (3 nonzero atoms, 9,032
+> residual atoms).
+**And it has been observed to fail**: its first run exited 1 on three quantities.  All three were
+**my own mis-keyed expectations, not defects** — `ortree2['tree']` holds internal nodes *and*
+leaves (510 = 254 + 256), `selmap` is one selector per OR node (254, not 256), and `handles.py`
+*prints* 3,707 (the probe count) while storing L's 3,681 census, a gap I had already reconciled
+myself as 3,707 − 33 + 7 = 3,681.  Rule 7 in the small: the numbers were wrong, the mirror was not.
+Current status: **22/22, 0 mismatches, exit 0.**

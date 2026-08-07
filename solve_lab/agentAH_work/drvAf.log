@@ -1,0 +1,13 @@
+[A] START n4_s101f 21:45:42
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+DONE tag=n4_s101f n=4 seed=101 reason=CLOSED_TARGETS_ONLY wall=16.2 nz_atoms=2 sampled_miss=0 exh_miss=0
+[A] EXIT n4_s101f rc=0 21:46:08
+[A] START n2_s101f 21:46:08
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+DONE tag=n2_s101f n=2 seed=101 reason=CLOSED_TARGETS_ONLY wall=11.3 nz_atoms=2 sampled_miss=0 exh_miss=0
+[A] EXIT n2_s101f rc=0 21:46:32
+[A] START n96_s101f 21:46:32
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032

@@ -1,0 +1,9 @@
+S(seed=101,n=16) = [15064, 26005, 22351, 12422, 4940, 7029, 3216, 18348, 21305, 25908, 38625, 24774, 17406, 35537, 8757, 10513]
+outer 0: global nonzero 8, violated c-conditions 8, nonzero handle-less 0
+   single-wire pass over 35 wires (max atoms/wire 2)
+   single-wire pass: 5 accepted
+outer 1: global nonzero 2, violated c-conditions 2, nonzero handle-less 0
+   single-wire pass over 8 wires (max atoms/wire 1)
+   single-wire STALLED -> joint two-wire pass
+   only the two TARGET congruences remain -- CLOSED
+DONE tag=n16_s101f n=16 seed=101 reason=CLOSED_TARGETS_ONLY wall=52.8 nz_atoms=2 sampled_miss=0 exh_miss=0

@@ -82,3 +82,4 @@ outer 7: global nonzero 11, violated c-conditions 7, nonzero handle-less 4
      round 1: |group|=2 (0 exact) wires=6 new pairs=15
      (x4230  ,x12522 ) |group|=2 NO JOINT ROOT mod 1438991 (sampled)
      (x4230  ,x23852 ) |group|=2 NO JOINT ROOT mod 1438991 (sampled)
+     (x4230  ,x29180 ) |group|=2 NO JOINT ROOT mod 1438991 (sampled)

@@ -79,8 +79,11 @@ Per-ball cost `rep(W)·Vol₁₂₈(⌈W/2⌉)` with the **exact** partition fac
 `rep(W) = C(256,128)/(C(W,⌈W/2⌉)·C(256−W,128−⌈W/2⌉))` — which tends to `√(πW/2)` for small `W`
 (`rep(10) = 3.98` vs 3.96) and is **`rep(256) = 1.0000` exactly**, since at full radius every split is
 already balanced — plus a suffix minimum for monotonicity (a radius-`W` ball is searchable by any
-`W' ≥ W` procedure). **Certificate: `W = 256` returns 2^128.0000, exact.** Crossover **`w = 106`**,
-break-even **`B = 148`** (agent Z independently: 106 / 149 — a rounding difference, not an argument).
+`W' ≥ W` procedure). ~~**Certificate: `W = 256` returns 2^128.0000, exact.** Crossover **`w = 106`**, break-even
+**`B = 148`**.~~ **ALL THREE STRUCK — see S6.** The certificate is vacuous; `rep(W)` was 2× too
+large for odd `W`; and 106/148 are the **unbounded-memory** numbers from the column I struck through
+myself in S3 and then quoted as the headline one section later. **Memory-aware at 2^30 the crossover
+is `w = 53` and the break-even is `B = 201`.**
 
 > **The surviving qualitative claim, unchanged through three corrections: every search-based upper
 > bound on `w` is either vacuous or costs essentially what solving costs — and solving returns `w`
@@ -163,8 +166,9 @@ which is trivial once `k₀` is known.
 ## S5. The one live thread
 
 **§8 — an instance-side constraint on `|S|` — is the only mechanism that escapes Theorem B, because
-it is not a search.** It remains **UNSETTLED**, with its **original** payoff band (`w ≲ 56` to beat
-rho, `w ≲ 24` to be actionable), not the inflated one I briefly claimed.
+it is not a search.** It remains **UNSETTLED**. Its payoff band, **memory-aware on this box** (S6 item 1; the round-1
+`C(256,B/2)` table in §8 is retracted and must not be used): **`w ≲ 53` to beat rho at 2^30 memory**,
+**`w ≲ 14` to be actionable at 2^47 time**.
 
 The fleet has been reading its own evidence backwards: **every confirmed integer-lift closure is at
 `|S| ≤ 64`** (1,2,3,5,6,7,8,17,32,64 → 39,018, identical 15-equation footprint). Those rule out
@@ -1040,3 +1044,168 @@ not installed, or a sparse F4).
 a generic-model, average-case bound **with the encoding knob now inside the statement**; Theorem B
 prices ball-covering MITM; §14.2 assumes vOW golden-collision search with random access. `w` remains
 unknown, no non-vacuous upper bound exists, and §8 is open.
+
+
+---
+
+# ROUND 5 — adjudication of agent AG's red-team audit
+
+`solve_lab/agentAG_work/THEOREM_B_AUDIT.md`. Recomputed here in `ab_adjudicate.py` / `adj.log`.
+**Three items conceded in full, one conceded with a precision, one rebutted, and AG's failed attack
+verified as an honest failure.** Net: **Theorem B as I stated it is false; AG's restatement is
+better than mine and I adopt it.**
+
+## S6.0 AG's failed attack is honestly failed — the no-carry step is CORRECT
+
+The coordinator asked me to check this first because everything in AG's attack 1 (and the floor in
+attack 3) collapses without it. It holds, and more generally than AG claims:
+
+> For **any** split of `{0..255}` into `L, R` — contiguous or not — `k = k_L + k_R` with **disjoint
+> bit supports**, so there are no carries and `wt(k) = wt(k_L) + wt(k_R)` exactly. Every MITM
+> therefore certifies a **combinatorial rectangle**, balls sharing a half-list merge for free, and
+> the amortisation the coordinator was asking about **is already inside my model**.
+
+Verified on 20 000 random (split, `S`) pairs including non-contiguous splits: **0 failures**.
+
+I also re-derived AG's floor by its second route, which uses no rectangles at all: after `m` generic
+queries a scalar is excluded only as the unique root of one of `≤ C(m,2)` pair equations or `m`
+direct tests, so excluding `Z` scalars needs `m ≥ √(2Z)`. Checked at `Z = 2^58, 2^143, 2^188, 2^254`
+— matches `√(2Z)` to 0.01 bits. **Attack 1 fails, and AG reported it as failing.**
+
+## S6.1 CONCEDED — the memory propagation failure is real, and it is the number that matters
+
+In round 3 I built the memory-aware reach table, **struck the unbounded-memory column as
+unreachable**, and then quoted `w = 106 / B = 148` — values from that struck column — as the
+headline of the AUTHORITATIVE SUMMARY one section later. **That is the same defect as round 3's,
+committed one section apart.**
+
+Recomputed in one model (my own vOW cost, per-ball cost capped at rho since any ball can be searched
+by solving outright, rho = 2^126.533):
+
+| memory | crossover `w` | **break-even `B`** | dead band | AG |
+|---|---|---|---|---|
+| **2^30 (this box)** | **53** | **201** | `[54, 200]` | 52 / 201 |
+| 2^40 | 56 | 198 | `[57,197]` | 56 / 198 |
+| 2^60 | 64 | 190 | `[65,189]` | 64 / 190 |
+| ~~unbounded~~ | ~~109~~ | ~~145~~ | — | 106 / 148 |
+
+Break-even matches AG exactly at every memory; the crossover differs by 1 at 2^30 because I apply
+S6.3's odd-`W` fix and AG quotes its pre-fix value. **`B = 201` is +9.1σ on the null and the dead
+band widens from 41 to 147 — the barrier is materially STRONGER than I published.**
+
+**AG's caution, which I endorse rather than seize on:** my *struck* round-1 break-even was 198 and
+the memory-aware answer is 201. **These are close for entirely unrelated reasons** — round 1 was a
+wrong time-only cost model, 201 is a correct memory-aware one. **Coincidence, not vindication.**
+
+**Also conceded:** §8's payoff table still ran the retracted `C(256,B/2)` model. It is retracted;
+S5 now carries the memory-aware band (`w ≲ 53` to beat rho at 2^30, `w ≲ 14` actionable at 2^47).
+
+## S6.2 CONCEDED — the quantifier is wrong, and worse than AG's framing suggests
+
+> ~~"Every search-based upper bound on `w` is a Hamming-ball covering of `{wt > B}`."~~ **FALSE.**
+
+You may instead cover **`{wt ≤ B}`**. AG frames the rescue as success probability, but the concession
+is larger than that: **exhausting `{w ≤ B}` is a zero-error DECIDER.** A hit proves `w ≤ B`; a miss
+proves `w > B`. At `B = 20` that costs 2^50.3 while my model priced the same decision at 2^128 — an
+overprice of **2^77.7**, not attributable to one-sidedness at all.
+
+Consequently my round-2 line *"the gap is ≤ 2^3 everywhere, nothing large is left on the table"* is
+**false outside `B ≥ 128`, the only range I tabulated.** Struck.
+
+**I adopt AG's repair**, which matches my own Theorem D at every `B` rather than only near 128:
+
+> **For every `B`, deciding `[w ≤ B]` costs `Θ(√min(|{w ≤ B}|, |{w > B}|))`** — achieved to within
+> ~2^2.7 by exhausting whichever side is smaller, and matched from below by Theorem D.
+
+and its **trichotomy**: every search-based upper bound is (i) vacuous, (ii) priced at solving, or
+(iii) cheap but one-sided — yielding a bound only with the null probability that the bound is true,
+in which branch it has produced `k₀`. **Branch (iii) is where the campaign's entire low-weight
+programme lives, and it was missing from my statement.** The zero-error hypothesis that my theorem
+silently needed now appears inside it.
+
+**Nothing strategic changes; the classification does — and near `B ≈ 128` both sides are ≈2^255, so
+`√min ≈ 2^127.5 ≈` solving. The qualitative conclusion survives, restated more strongly.**
+
+## S6.3 CONCEDED — `rep(W)` is exactly 2× too large for every odd `W`
+
+For odd `W = 2c−1` the split `(⌊W/2⌋, ⌈W/2⌉)` is equally admissible — both sides are `≤ ⌈W/2⌉`, the
+only constraint the half-lists impose — and I counted only one of the two. AG's proof re-checked
+symbolically: `C(2c−1,c) = C(2c−1,c−1)` and `C(257−2c,128−c) = C(257−2c,129−c)`, both twin central
+binomials of odd rows — **verified for all `c = 1..128`**. Denominator is exactly twice mine,
+**0 exceptions over `W = 1..255`**.
+
+Effect (unbounded memory): crossover **106 → 109**, break-even **148 → 145** — **reproducing AG's
+predicted post-fix values exactly from independent code**. The error **overcharged the attacker**,
+i.e. erred toward overstating my own barrier — the same direction as the Theorem-D constant Z caught.
+
+## S6.4 CONCEDED, with one precision — the `W = 256` certificate is vacuous
+
+`Vol₁₂₈(128) = 340282366920938463463374607431768211456 = 2^128` **exactly**. So **any** model
+`rep(W)·Vol₁₂₈(⌈W/2⌉)` with `rep(256) = 1` returns 2^128 at `W = 256` identically, whatever `rep`
+does elsewhere. It tests one boundary value and is blind to the odd-`W` error (256 is even). **This
+is the vacuous-plant failure mode, in my own flagship certificate. Conceded.**
+
+**The precision I do claim:** the test was *not* vacuous for the model it **refuted** — round 2's
+`√W·Vol₁₂₈(W//2)` has `rep(256) = 16` and returned 2^132.0, a genuine failure that I acted on. **The
+test can refute a model with `rep(256) ≠ 1`; it cannot confirm one with `rep(256) = 1`.** I used it
+for the second purpose, which it cannot serve. A certificate that *can* fail is AG's comparison
+against `√Z`.
+
+## S6.5 CONCEDED — zero-error costs more than I charged
+
+`rep(W)` is the **Las Vegas expectation** over random splits; a *proof* needs a deterministic
+splitting system. AG's construction — 128 cyclic windows of length 128, with `f(i)+f(i+128) = W` and
+`|f(i+1)−f(i)| ≤ 1`, so some window balances by discrete IVT — is correct (the argument needs
+`i = 0..128`, i.e. 129 windows, a triviality). Deterministic factor `≤ 2^7` against `rep ≈ 2^2–2^3.5`,
+so I **underprice a zero-error proof by ≤ 2^5**. Conservative for the negative conclusion, and it
+partly cancels S6.3. Not load-bearing.
+
+## S6.6 REBUTTED — AG's §4.4 contradicts AG's own §1.3
+
+> AG §4.4: *"`cover(B) = 2^128.000` exactly for every `B ≤ 148`."*
+
+**False for `B ∈ [143, 148]`.** Computed here: the largest `B` with `cover(B) = 2^128.000` exactly is
+**142**; from `B = 143` the minimising `W` stops being the saturated one.
+
+| B | 100 | 120 | 128 | 140 | **142** | **143** | 148 | 152 |
+|---|---|---|---|---|---|---|---|---|
+| `cover(B)` | 2^128.000 | 2^128.000 | 2^128.000 | 2^128.000 | **2^128.000** | **< 2^128** | **2^126.854** | 2^125.695 |
+
+**AG's own §1.3 table lists `cover(148) = 2^126.85`** — its §4.4 contradicts its §1.3 six sections
+later. The error is in the literal claim only.
+
+**AG's conclusion is right and I adopt it in the corrected form:** `cover(B) ∈ [2^126.533, 2^128.000]`
+for every `B ≤ 148` — **a band of 2^1.467** — so proving `w ≤ 0` (i.e. producing `k₀`) is only 2^1.47
+dearer than proving `w ≤ 148`. **There is no cliff at 148, and the word "break-even" invites a
+reading of the curve that the curve does not support.** Quote the band, not an equality.
+
+## S6.7 CONCEDED — disk, both numbers wrong, conclusion hardens
+
+AG measured **4.92×10³** random 4 KiB reads/s under `O_DIRECT` against my asserted 10²/s — I was
+**2^5.6 too pessimistic** — and `df` here confirms **11.3 GB free, not ~30 GB**, i.e. **2^28.4
+entries at 32 B/entry, FEWER than the 2^30 RAM figure. Disk currently buys negative memory.**
+
+**Both numbers in my sentence were wrong and the conclusion hardens**: vOW gains only `√M`, so a
+`≤ 2^0` memory gain against a `≥ 2^14` slowdown is catastrophic. **Disk is not a way out.** Worth
+saying plainly: *a conclusion that survives its own supporting numbers being wrong is worth more
+than one that was never checked.*
+
+## S6.8 Where this leaves the map
+
+**§8 is untouched and remains rank 1**, unsettled, with the memory-aware payoff band above. AG did
+not attack it.
+
+**AG's uncovered gap is mine.** A **non-generic algebraic certificate** — a refutation of
+`{ladder equations} ∧ {Σsᵢ > B}` in the coordinate ring of `E/F_p` — is missed by Theorem B (not a
+covering) and by Theorem D (which excludes the encoding). AG's sharp observation: **certificate
+*size* is never the barrier, since `k₀` is itself a 256-bit certificate verifiable by one scalar
+multiplication, so a short proof of `w ≤ B` always exists.** Only the **cost of finding one** can be
+a barrier — and that is exactly the `d_reg` question, measured at `n = 2, 3` only. `n = 4` (PID 6881)
+is under agent AI's custody with my read-off applied.
+
+**Adopt AG's restatement of Theorem B (its §6) in place of mine**, with S6.6's correction to its
+§4.4 and S6.1's crossover of 53.
+
+**Standing caveat, restated because this round retracted more of my own work than any other.** No
+infeasibility claim about the instance follows from any of this. `w` remains unknown, no non-vacuous
+upper bound has been established by anyone, and §8 is open.

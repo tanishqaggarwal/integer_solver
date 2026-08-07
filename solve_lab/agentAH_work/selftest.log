@@ -1,0 +1,6 @@
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+distinct (q,e) over all handle cofactors: 919  max q^e = 16595977
+testing exhaustively against brute force on the 491 prime powers <= 400000
+SELFTEST: 1984 comparisons, 0 mismatches
+stats {'fast': 864, 'brute': 1115, 'fallback': 4, 'all': 1}

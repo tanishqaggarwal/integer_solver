@@ -1,0 +1,14 @@
+S(seed=101,n=24) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357, 7151, 33095, 21702, 24912, 12072, 14823, 29670, 17790, 5651, 30613, 14928, 29545, 30823, 12714, 8487]
+outer 0: global nonzero 16, violated c-conditions 16, nonzero handle-less 0
+   single-wire pass over 73 wires (max atoms/wire 2)
+   single-wire pass: 12 accepted
+outer 1: global nonzero 3, violated c-conditions 3, nonzero handle-less 0
+   single-wire pass over 12 wires (max atoms/wire 1)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x10261-x8912)-(13040669*x27539))  c=13040669
+     round 0: |group|=1 (0 exact) wires=2 new pairs=1
+     (x10261 ,x27156 ) |group|=1 200 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x38170*x15286)-(2264251*x9216))', '((x30973*x25513)-(1707229*x4242))']
+     round 1: |group|=3 (0 exact) wires=12 new pairs=65
+     (x5096  ,x5460  ) |group|=3 NO JOINT ROOT mod 19 (exhaustive)
+     (x5096  ,x5616  ) |group|=3 NO JOINT ROOT mod 19 (exhaustive)

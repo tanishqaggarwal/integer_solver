@@ -1,3 +1,10 @@
 S(seed=101,n=2) = [15064, 26005]
 outer 0: global nonzero 3, violated c-conditions 3, nonzero handle-less 0
    single-wire pass over 8 wires (max atoms/wire 2)
+     [hb] wire 4/8  nz-guard evals=3  sg3 calls=5  sg3 time=171s  accepted=1  t=176s
+   single-wire pass: 1 accepted
+outer 1: global nonzero 2, violated c-conditions 2, nonzero handle-less 0
+   single-wire pass over 8 wires (max atoms/wire 1)
+   single-wire STALLED -> joint two-wire pass
+   only the two TARGET congruences remain -- CLOSED
+DONE tag=n2_s101 n=2 seed=101 reason=CLOSED_TARGETS_ONLY wall=232.0 nz_atoms=2 sampled_miss=0 exh_miss=0

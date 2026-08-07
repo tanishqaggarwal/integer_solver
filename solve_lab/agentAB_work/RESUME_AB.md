@@ -3,7 +3,9 @@
 **Mandate:** enumerate every mechanism that could bound the solution's Hamming weight `w` FROM
 ABOVE, settle each DEAD or LIVE. Theory, not search. Deliverable: `UPPER_BOUND_MAP.md` (this dir).
 
-**Status: COMPLETE (round 4 = final pass). Read `UPPER_BOUND_MAP.md` §AUTHORITATIVE SUMMARY first — it supersedes §0–14 wherever they differ.**
+**Status: COMPLETE (round 5 = adjudication of agent AG's red-team audit; see §S6 of UPPER_BOUND_MAP.md — three concessions in full, one with a precision, one rebuttal).**
+
+**Status: (round 4 pass). Read `UPPER_BOUND_MAP.md` §AUTHORITATIVE SUMMARY first — it supersedes §0–14 wherever they differ.**
 
 **Status: (round 3 history). ROUND-1 THEOREM B NUMBERS RETRACTED; ROUND-2 COST FIX SUPERSEDED; THEOREM D'S HEADLINE STRUCK. §14 of UPPER_BOUND_MAP.md is authoritative.** No compute process launched, no long job running, nothing to resume mid-flight.
 Everything below is reproducible from cold in < 3 minutes.
@@ -45,6 +47,51 @@ cost must be 2^128; round-1's model returned 2^251.7, corrected returns 2^132.0.
   nearly doubles the payoff band for §8.
 * **Caveat stated, not buried:** memory binds. ~2^30 entries on this box ⇒ `w ≤ 10`. A memory-aware
   costing of low-weight MITM has not been done by anyone and is a cheap concrete follow-up.
+
+## ROUND 5 — agent AG red-teamed Theorem B. Adjudication.
+
+**Theorem B as I stated it is false. AG's restatement is better and I adopt it.**
+
+* **AG's failed attack failed honestly.** Its no-carry step is **CORRECT** and more general than
+  claimed: for *any* split of `{0..255}` the two partial sums have **disjoint bit supports**, so
+  `wt(k)=wt(k_L)+wt(k_R)` exactly and every MITM certifies a rectangle. 20 000 random (split, `S`)
+  pairs incl. non-contiguous: 0 failures. Its `√Z` floor re-derived independently via generic-query
+  counting (`m ≥ √(2Z)`, matches to 0.01 bits at four `Z`). Amortisation was already in my model.
+* **CONCEDED (item 1, the one that matters).** `w = 106 / B = 148` are from the **unbounded-memory
+  column I struck through myself in S3** and then quoted as the headline one section later.
+  Memory-aware at 2^30: **crossover `w = 53`, break-even `B = 201` (+9.1σ), dead band `[54,200]`.**
+  Break-even matches AG at every memory. **The barrier is stronger than I published.** AG's caution
+  endorsed: my struck round-1 value was 198 and this is 201 — **coincidence, not vindication.**
+  §8's payoff table was still running the retracted `C(256,B/2)` model; retracted and replaced.
+* **CONCEDED (item 2), and worse than AG's framing.** You may cover `{wt ≤ B}` instead. That is a
+  **zero-error decider** — hit ⇒ `w ≤ B`, miss ⇒ `w > B` — costing 2^50.3 at `B = 20` where my model
+  said 2^128, an overprice of **2^77.7 not attributable to one-sidedness**. My "gap ≤ 2^3 everywhere"
+  is struck. Adopted AG's law: **deciding `[w ≤ B]` costs `Θ(√min(|{w≤B}|,|{w>B}|))`**, matching
+  Theorem D at *every* `B`, plus its trichotomy. The zero-error hypothesis is now inside the theorem.
+* **CONCEDED (item 3a).** `rep(W)` exactly 2× too large for odd `W`; proof re-checked symbolically,
+  0 exceptions over `W = 1..255`. Moves 106→109, 148→145 — **reproducing AG's predicted values from
+  independent code.** Erred toward overstating my own barrier.
+* **CONCEDED with a precision (item 3b).** `Vol₁₂₈(128) = 2^128` exactly, so the `W = 256`
+  certificate cannot fail for any model with `rep(256)=1`. Vacuous plant, in my flagship certificate.
+  *Precision:* it **did** refute round 2's model (`rep(256)=16`, returned 2^132.0). It can refute a
+  model with `rep(256) ≠ 1`; it cannot confirm one with `rep(256) = 1`. I used it for the latter.
+* **CONCEDED (item 3c).** `rep` is the Las Vegas expectation; a zero-error proof needs a
+  deterministic splitting system (AG's 128 cyclic windows, correct — the IVT needs 129). I underprice
+  by ≤ 2^5. Partly cancels 3a. Not load-bearing.
+* **REBUTTED (item 3d).** AG's §4.4 *"`cover(B) = 2^128.000` exactly for every `B ≤ 148`"* is **false
+  for `B ∈ [143,148]`**: the largest such `B` is **142**, and `cover(148) = 2^126.854` — **which is
+  what AG's own §1.3 table says.** §4.4 contradicts §1.3. AG's *conclusion* is right and adopted in
+  corrected form: `cover(B) ∈ [2^126.533, 2^128.000]` for all `B ≤ 148`, **a band of 2^1.467, no
+  cliff at 148**.
+* **CONCEDED (item 4).** Disk: AG measured 4.92e3 random reads/s vs my 10²/s (**2^5.6 off**); `df`
+  here shows **11.3 GB free, not 30 GB** → 2^28.4 entries, **fewer than RAM**. Both my numbers wrong;
+  **conclusion hardens.**
+* **§8 untouched, still rank 1.** AG's uncovered gap — a non-generic algebraic certificate in the
+  coordinate ring of `E/F_p`, missed by B (not a covering) and D (excludes the encoding), where
+  **certificate size is never the barrier because `k₀` is itself a 256-bit certificate** — **is my
+  `d_reg` question.** PID 6881 is under agent AI's custody; do not restart it.
+
+Adjudication script: `ab_adjudicate.py`, log `adj.log`.
 
 ## ROUND 3 — four corrections, two of them to round 2
 

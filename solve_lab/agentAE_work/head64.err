@@ -1,0 +1,18 @@
+SELFTEST_OK
+STATUS jumps=7864320 dps=56 cands=0 t=10.1 rate=0.780M/s
+STATUS jumps=17235968 dps=135 cands=0 t=20.2 rate=0.855M/s
+STATUS jumps=28049408 dps=206 cands=0 t=30.3 rate=0.926M/s
+STATUS jumps=37879808 dps=274 cands=0 t=40.4 rate=0.938M/s
+STATUS jumps=46268416 dps=344 cands=0 t=50.4 rate=0.917M/s
+STATUS jumps=53084160 dps=402 cands=0 t=60.5 rate=0.878M/s
+STATUS jumps=59703296 dps=464 cands=0 t=70.5 rate=0.847M/s
+STATUS jumps=65667072 dps=507 cands=0 t=80.5 rate=0.816M/s
+STATUS jumps=72220672 dps=553 cands=0 t=90.5 rate=0.798M/s
+STATUS jumps=79298560 dps=612 cands=0 t=100.6 rate=0.788M/s
+STATUS jumps=86441984 dps=662 cands=0 t=110.6 rate=0.782M/s
+STATUS jumps=93650944 dps=722 cands=0 t=120.6 rate=0.776M/s
+STATUS jumps=101056512 dps=783 cands=0 t=130.6 rate=0.774M/s
+STATUS jumps=108724224 dps=848 cands=0 t=140.7 rate=0.773M/s
+STATUS jumps=116981760 dps=913 cands=0 t=150.8 rate=0.776M/s
+STATUS jumps=126353408 dps=987 cands=0 t=160.8 rate=0.786M/s
+STATUS jumps=133562368 dps=1047 cands=0 t=170.8 rate=0.782M/s

@@ -1,0 +1,72 @@
+{
+ "tag": "n16_s101f",
+ "n": 16,
+ "seed": 101,
+ "S": [
+  3216,
+  4940,
+  7029,
+  8757,
+  10513,
+  12422,
+  15064,
+  17406,
+  18348,
+  21305,
+  22351,
+  24774,
+  25908,
+  26005,
+  35537,
+  38625
+ ],
+ "reason": "CLOSED_TARGETS_ONLY",
+ "outer_reached": 1,
+ "outer_max": 16,
+ "budget": 1800,
+ "wall": 52.8,
+ "import_s": 12.2,
+ "nz_atoms": 2,
+ "n_atoms": 9032,
+ "nz_list": [
+  "((x18956-x37892)-x32237)",
+  "((x24468-x13682)-(12354891*x34243))"
+ ],
+ "sampled_root_misses": 0,
+ "exhaustive_root_misses": 0,
+ "trace": [
+  {
+   "outer": 0,
+   "nz": 8,
+   "viol": 8,
+   "hl": 0,
+   "t": 24.2
+  },
+  {
+   "outer": 1,
+   "nz": 2,
+   "viol": 2,
+   "hl": 0,
+   "t": 52.4
+  }
+ ],
+ "relift_rounds": 60,
+ "cost": {
+  "nz": 279,
+  "sg3": 37,
+  "sg3_t": 25.181687831878662,
+  "sg3_maxcombo": 0,
+  "capped": 0
+ },
+ "cap": 0,
+ "fastroots": 1,
+ "rndseed": 0,
+ "wireord": "desc",
+ "root_stats": {
+  "fast": 30,
+  "brute": 52,
+  "fallback": 0,
+  "all": 0
+ },
+ "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_n16_s101f.json"
+}

@@ -1,0 +1,64 @@
+
+############ pool=(2,) frac=1.0
+
+-- n= 8 p=241 j0=True   (0.2s, primes=[(2, 1)])
+   draw 0  Bmax=7   rho=0.8155  model-Bmax=7    counts=1,8,22,40,46,32,13,2,0
+   draw 1  Bmax=7   rho=0.7949  model-Bmax=7    counts=1,8,23,49,55,36,13,2,0
+   draw 2  Bmax=7   rho=0.8026  model-Bmax=7    counts=1,8,22,40,44,29,11,2,0
+   draw 3  Bmax=7   rho=0.8026  model-Bmax=7    counts=1,8,22,40,44,29,11,2,0
+   draw 4  Bmax=7   rho=0.7862  model-Bmax=7    counts=1,8,26,46,50,34,13,2,0
+   draw 5  Bmax=7   rho=0.7905  model-Bmax=7    counts=1,8,22,38,38,23,9,2,0
+   draw 6  Bmax=7   rho=0.7756  model-Bmax=7    counts=1,8,27,50,55,36,13,2,0
+   draw 7  Bmax=7   rho=0.7949  model-Bmax=7    counts=1,8,23,49,55,36,13,2,0
+   rho: min=0.7756 median=0.7949 ; Bmax: [7, 7, 7, 7, 7, 7, 7, 7] ; n-Bmax: [1, 1, 1, 1, 1, 1, 1, 1]
+
+-- n= 8 p=241 j0=True   (0.2s, primes=[(2, 1)])
+   draw 0  Bmax=6   rho=0.6545  model-Bmax=6    counts=1,8,22,28,25,12,4,0,0
+   draw 1  Bmax=7   rho=0.7846  model-Bmax=7    counts=1,8,25,42,43,28,11,2,0
+   draw 2  Bmax=6   rho=0.6545  model-Bmax=6    counts=1,8,22,28,25,12,4,0,0
+   draw 3  Bmax=6   rho=0.6545  model-Bmax=6    counts=1,8,22,28,25,12,4,0,0
+   draw 4  Bmax=7   rho=0.8084  model-Bmax=7    counts=1,8,23,34,37,24,11,2,0
+   draw 5  Bmax=6   rho=0.6545  model-Bmax=6    counts=1,8,22,28,25,12,4,0,0
+   draw 6  Bmax=7   rho=0.7846  model-Bmax=7    counts=1,8,25,42,43,28,11,2,0
+   draw 7  Bmax=7   rho=0.7846  model-Bmax=7    counts=1,8,25,42,43,28,11,2,0
+   rho: min=0.6545 median=0.7846 ; Bmax: [6, 7, 6, 6, 7, 6, 7, 7] ; n-Bmax: [2, 1, 2, 2, 1, 2, 1, 1]
+
+-- n=12 p=4093 j0=True   (5.4s, primes=[(2, 1)])
+   draw 0  Bmax=12  rho=0.9963  model-Bmax=11   counts=1,12,48,144,281,394,421,348,224,110,39,9,1
+   draw 1  Bmax=12  rho=0.9696  model-Bmax=11   counts=1,12,50,157,310,432,447,351,213,99,34,8,1
+   draw 2  Bmax=12  rho=0.9642  model-Bmax=11   counts=1,12,58,157,289,391,404,325,203,97,34,8,1
+   draw 3  Bmax=12  rho=0.9943  model-Bmax=11   counts=1,12,48,138,259,362,382,309,198,99,37,9,1
+   draw 4  Bmax=12  rho=0.9691  model-Bmax=11   counts=1,12,50,158,312,433,445,350,213,99,34,8,1
+   draw 5  Bmax=12  rho=0.9940  model-Bmax=11   counts=1,12,50,153,315,466,527,441,270,123,41,9,1
+   draw 6  Bmax=12  rho=0.9737  model-Bmax=11   counts=1,12,53,187,384,549,575,454,273,124,41,9,1
+   draw 7  Bmax=12  rho=0.9693  model-Bmax=11   counts=1,12,50,157,312,434,447,351,213,99,34,8,1
+   rho: min=0.9642 median=0.9737 ; Bmax: [12, 12, 12, 12, 12, 12, 12, 12] ; n-Bmax: [0, 0, 0, 0, 0, 0, 0, 0]
+
+-- n=12 p=4093 j0=True   (4.8s, primes=[(2, 1)])
+   draw 0  Bmax=10  rho=0.6856  model-Bmax=10   counts=1,12,48,138,245,296,249,148,61,16,2,0,0
+   draw 1  Bmax=11  rho=0.8496  model-Bmax=11   counts=1,12,51,157,316,427,418,303,161,61,15,2,0
+   draw 2  Bmax=11  rho=0.7877  model-Bmax=11   counts=1,12,58,153,262,326,304,211,109,39,9,1,0
+   draw 3  Bmax=10  rho=0.6853  model-Bmax=10   counts=1,12,48,122,206,241,204,123,51,14,2,0,0
+   draw 4  Bmax=11  rho=0.8530  model-Bmax=11   counts=1,12,52,168,347,484,487,357,190,71,17,2,0
+   draw 5  Bmax=11  rho=0.8068  model-Bmax=11   counts=1,12,50,148,295,407,401,286,146,51,11,1,0
+   draw 6  Bmax=11  rho=0.8471  model-Bmax=11   counts=1,12,53,181,374,522,518,374,196,72,17,2,0
+   draw 7  Bmax=11  rho=0.8496  model-Bmax=11   counts=1,12,51,157,316,427,418,303,161,61,15,2,0
+   rho: min=0.6853 median=0.8471 ; Bmax: [10, 11, 11, 10, 11, 11, 11, 11] ; n-Bmax: [2, 1, 1, 2, 1, 1, 1, 1]
+
+-- n=16 p=65521 j0=True   (62.0s, primes=[(2, 1)])
+   draw 0  Bmax=13  rho=0.7287  model-Bmax=14   counts=1,16,98,401,1144,2371,3700,4396,3957,2650,1276,420,86,8,0,0,0
+   draw 1  Bmax=14  rho=0.7922  model-Bmax=14   counts=1,16,111,471,1412,3112,5214,6654,6469,4768,2629,1055,292,50,4,0,0
+   draw 2  Bmax=13  rho=0.7166  model-Bmax=14   counts=1,16,112,471,1348,2788,4292,4978,4349,2828,1332,431,86,8,0,0,0
+   draw 3  Bmax=13  rho=0.7210  model-Bmax=14   counts=1,16,110,449,1256,2574,3982,4706,4213,2796,1332,431,86,8,0,0,0
+   draw 4  Bmax=14  rho=0.7931  model-Bmax=14   counts=1,16,103,475,1457,3176,5210,6572,6385,4732,2625,1056,292,50,4,0,0
+   rho: min=0.7166 median=0.7287 ; Bmax: [13, 14, 13, 13, 14] ; n-Bmax: [3, 2, 3, 3, 2]
+
+-- n=16 p=65521 j0=True   (64.6s, primes=[(2, 1)])
+   draw 0  Bmax=14  rho=0.7558  model-Bmax=14   counts=1,16,93,361,1020,2066,3115,3609,3243,2258,1215,491,141,25,2,0,0
+   draw 1  Bmax=15  rho=0.8440  model-Bmax=15   counts=1,16,111,466,1371,2997,5041,6598,6749,5376,3296,1520,509,116,16,1,0
+   draw 2  Bmax=14  rho=0.7805  model-Bmax=14   counts=1,16,112,462,1278,2552,3847,4493,4117,2964,1659,702,214,42,4,0,0
+   draw 3  Bmax=13  rho=0.6708  model-Bmax=13   counts=1,16,108,421,1103,2092,2960,3160,2551,1543,683,212,42,4,0,0,0
+   draw 4  Bmax=15  rho=0.8808  model-Bmax=15   counts=1,16,96,438,1289,2731,4419,5611,5656,4531,2864,1407,522,139,24,2,0
+   rho: min=0.6708 median=0.7805 ; Bmax: [14, 15, 14, 13, 15] ; n-Bmax: [2, 1, 2, 3, 1]
+
+written ad_scale.json

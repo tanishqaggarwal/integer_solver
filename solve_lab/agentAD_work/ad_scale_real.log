@@ -1,0 +1,46 @@
+
+############ pool=(2, 3, 4, 5, 7, 8, 9, 11, 13) frac=0.25
+
+-- n= 8 p=241 j0=True   (5.8s, primes=[(3, 2), (13, 1)])
+   draw 0  Bmax=7   rho=0.7750  model-Bmax=7    counts=1,8,27,50,55,35,13,2,0
+   draw 1  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,28,56,70,55,28,8,1
+   draw 2  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,28,56,70,55,28,8,1
+   draw 3  Bmax=8   rho=0.9999  model-Bmax=7    counts=1,8,27,52,64,51,27,8,1
+   draw 4  Bmax=8   rho=0.9999  model-Bmax=7    counts=1,8,27,52,64,51,27,8,1
+   draw 5  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,28,56,70,55,28,8,1
+   draw 6  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,28,56,70,55,28,8,1
+   draw 7  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,28,56,70,55,28,8,1
+   rho: min=0.7750 median=0.9999 ; Bmax: [7, 8, 8, 8, 8, 8, 8, 8] ; n-Bmax: [1, 0, 0, 0, 0, 0, 0, 0]
+
+-- n= 8 p=241 j0=True   (4.9s, primes=[(3, 2), (13, 1)])
+   draw 0  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,28,56,70,55,28,8,1
+   draw 1  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,27,56,70,55,28,8,1
+   draw 2  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,28,56,70,55,28,8,1
+   draw 3  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,28,56,70,55,28,8,1
+   draw 4  Bmax=8   rho=0.9997  model-Bmax=7    counts=1,8,26,48,58,47,26,8,1
+   draw 5  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,28,56,70,55,28,8,1
+   draw 6  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,28,56,70,55,28,8,1
+   draw 7  Bmax=8   rho=n/a     model-Bmax=8    counts=1,8,28,56,70,55,28,8,1
+   rho: min=0.9997 median=0.9997 ; Bmax: [8, 8, 8, 8, 8, 8, 8, 8] ; n-Bmax: [0, 0, 0, 0, 0, 0, 0, 0]
+
+-- n=12 p=4093 j0=True   (37.6s, primes=[(3, 2), (5, 1), (11, 1), (13, 1)])
+   draw 0  Bmax=12  rho=1.0105  model-Bmax=12   counts=1,12,63,202,450,732,879,774,492,220,66,11,1
+   draw 1  Bmax=12  rho=1.0181  model-Bmax=12   counts=1,12,61,190,420,692,849,762,490,220,66,11,1
+   draw 2  Bmax=12  rho=n/a     model-Bmax=12   counts=1,12,66,220,495,792,924,792,495,220,66,11,1
+   draw 3  Bmax=12  rho=1.0069  model-Bmax=12   counts=1,12,64,208,465,752,894,780,493,220,66,11,1
+   draw 4  Bmax=12  rho=n/a     model-Bmax=12   counts=1,12,66,220,495,792,924,792,495,220,66,11,1
+   draw 5  Bmax=12  rho=n/a     model-Bmax=12   counts=1,12,66,220,495,792,924,792,495,220,66,11,1
+   draw 6  Bmax=12  rho=n/a     model-Bmax=12   counts=1,12,66,220,495,792,924,792,495,220,66,11,1
+   draw 7  Bmax=12  rho=n/a     model-Bmax=12   counts=1,12,66,220,495,792,924,792,495,220,66,11,1
+   rho: min=1.0069 median=1.0105 ; Bmax: [12, 12, 12, 12, 12, 12, 12, 12] ; n-Bmax: [0, 0, 0, 0, 0, 0, 0, 0]
+
+-- n=12 p=4093 j0=True   (51.0s, primes=[(3, 2), (5, 1), (11, 1), (13, 1)])
+   draw 0  Bmax=12  rho=1.0069  model-Bmax=12   counts=1,12,64,208,465,752,894,780,493,220,66,11,1
+   draw 1  Bmax=12  rho=1.0069  model-Bmax=12   counts=1,12,64,208,465,752,894,780,493,220,66,11,1
+   draw 2  Bmax=12  rho=n/a     model-Bmax=12   counts=1,12,66,220,495,792,924,792,495,220,66,11,1
+   draw 3  Bmax=11  rho=0.8518  model-Bmax=11   counts=1,12,63,198,422,640,696,536,285,100,21,2,0
+   draw 4  Bmax=11  rho=0.8457  model-Bmax=11   counts=1,12,65,210,450,672,714,540,285,100,21,2,0
+   draw 5  Bmax=12  rho=n/a     model-Bmax=12   counts=1,12,66,220,495,792,924,792,495,220,66,11,1
+   draw 6  Bmax=12  rho=n/a     model-Bmax=12   counts=1,12,66,220,495,792,924,792,495,220,66,11,1
+   draw 7  Bmax=12  rho=n/a     model-Bmax=12   counts=1,12,66,220,495,792,924,792,495,220,66,11,1
+   rho: min=0.8457 median=1.0069 ; Bmax: [12, 12, 12, 11, 11, 12, 12, 12] ; n-Bmax: [0, 0, 0, 1, 1, 0, 0, 0]

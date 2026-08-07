@@ -1,0 +1,4 @@
+SELFTEST_OK
+STATUS jumps=5111808 dps=154 cands=0 t=10.1 rate=0.505M/s
+STATUS jumps=12845056 dps=389 cands=0 t=20.2 rate=0.635M/s
+STATUS jumps=20512768 dps=612 cands=0 t=30.3 rate=0.677M/s

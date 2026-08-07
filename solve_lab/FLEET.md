@@ -6904,3 +6904,88 @@ because **`$!` captured the `setsid` wrapper** rather than the script. X's watch
 therefore monitoring the wrong process and **would not notice the sweep dying.** AI hit the identical
 bug in its own sampler and fixed it by having the script write its own `$$` — which is the general
 fix and should be the fleet default.
+
+---
+
+## Check-in 116 — AB adjudicates AG: three concessions, one precision, one rebuttal that lands
+
+**Net: Theorem B as AB stated it is false. AG's restatement supersedes it**, with AB's correction to
+AG's §4.4 and crossover 53. Both documents carry the struck text visible.
+
+### AB checked AG's foundation first, as instructed — and generalised it
+
+> For **any** split of `{0..255}`, contiguous or not, the two partial sums have **disjoint bit
+> supports**, so there are no carries and `wt(k) = wt(k_L) + wt(k_R)` exactly.
+
+AG had argued this for the contiguous `2^128` split; **it holds for every split**, which makes the
+rectangle picture stronger, not weaker. 20,000 random (split, `S`) pairs including non-contiguous
+splits: **0 failures.** AB also re-derived the `√Z` floor by AG's *second* route (generic-query
+counting) and matches to **0.01 bits** at four values of `Z`. **Attack 1 fails, AG reported it as
+failing, and the amortisation I had nominated was already inside the model.**
+
+### Item 1 — memory: **CONCEDED**, and it is the number that matters
+
+> The propagation failure is real and embarrassing: I struck the unbounded-memory column in S3 and
+> then quoted `106/148` — values *from that column* — as the headline one section later.
+
+Memory-aware at 2^30: **crossover `w = 53`, break-even `B = 201` (+9.1σ), dead band `[54, 200]`.**
+AB's break-even matches AG at every memory tested; **the crossover differs by 1 because AB applies
+the odd-`W` fix AG had not.** §8's payoff table was indeed still running the retracted `C(256,B/2)`
+model — retracted and replaced. AB endorsed AG's caution rather than seizing on it: **round-1's
+struck 198 against this 201 is coincidence, not vindication.**
+
+### Item 2 — the quantifier: **CONCEDED, and the concession is larger than AG's framing**
+
+> AG frames the rescue as success probability. It's worse than that: exhausting `{w ≤ B}` is a
+> **zero-error decider** — hit ⇒ `w ≤ B`, miss ⇒ `w > B`. At `B = 20` that costs 2^50.3 where my
+> model said 2^128, an overprice of **2^77.7 not attributable to one-sidedness at all.**
+
+"Gap ≤ 2^3 everywhere" struck. AG's law adopted — deciding `[w ≤ B]` costs
+`Θ(√min(|{w≤B}|,|{w>B}|))`, matching Theorem D at *every* `B` — and the zero-error hypothesis the
+theorem silently needed now appears **inside** it.
+
+### Item 3 — two conceded, one with a precision, **one rebutted**
+
+- **`rep(W)` 2× too large for odd `W`: conceded.** Re-checked symbolically for all `c = 1..128`,
+  0 exceptions. Moves 106 → 109 and 148 → 145, **reproducing AG's predicted post-fix values exactly
+  from independent code.**
+- **`W = 256` certificate: conceded**, with a precision AB is entitled to. It was **not** vacuous for
+  the model it *refuted* — round 2's had `rep(256) = 16` and returned 2^132.0. **It can refute a
+  model with `rep(256) ≠ 1`; it cannot confirm one with `rep(256) = 1`, and AB used it for the
+  latter.** That is the right distinction and worth keeping as a general lesson about certificates.
+- **Zero-error splitting system: conceded**, ≤ 2^5, and it partly cancels the odd-`W` fix. (AG's IVT
+  needs **129** windows, not 128 — a triviality, recorded for the file.)
+- **REBUTTED, and it lands: AG's §4.4 contradicts AG's own §1.3.** *"`cover(B) = 2^128.000` exactly
+  for every `B ≤ 148`"* is **false for `B ∈ [143,148]`**; the largest such `B` is **142**, and
+  `cover(148) = 2^126.854` — **which is what AG's own §1.3 table lists.** AB adopts the conclusion
+  corrected: **`cover(B) ∈ [2^126.533, 2^128.000]` for all `B ≤ 148`, a band of 2^1.467, no cliff at
+  148.**
+
+### Item 4 — disk: **CONCEDED cleanly**
+
+`df` confirms **11.3 GB free, not 30 GB** → 2^28.4 entries, **fewer than RAM**; AG's measured
+4.92×10³ reads/s makes AB **2^5.6 too pessimistic**. Both numbers wrong, **conclusion hardens** — vOW
+gains only `√M`, so ≤2^0 memory against ≥2^14 slowdown.
+
+### The synthesis, recomputed here against the corrected band
+
+`P(w ∉ [54,200]) = **2^-67.327** = 5.4e-21` (`P(w ≤ 53) = 2^-71.238`, `P(w ≥ 201) = 2^-67.426`).
+The one-step change in the band moves the figure by 0.07 bits — **the conclusion is insensitive to
+the crossover dispute.**
+
+> **With probability `1 − 2^-67.3`, `w` lies inside the band where no upper bound on `w` is cheaper
+> than solving the instance outright.**
+
+### Two corrections to AB's own report
+
+1. **AB misattributed PID 6881**, calling it *"AG's `d_reg` job"*. It is **AB's own** — AI confirmed
+   it as `python3 ab_dreg3.py 2 4` from `/proc`. Custody is unaffected (AI owns it either way) and AB
+   correctly did not touch it, but the record should not carry a wrong owner.
+2. §8's payoff band is now **`w ≲ 53` to beat rho, `w ≲ 14` actionable** — tightened from the
+   original `56 / 24`. Against AC's posterior that is `P = 2^-71.2` and `2^-180.8` respectively.
+
+**§8 confirmed untouched and still rank 1.** AB endorses AG's formulation of the remaining gap as the
+sharpest anyone has produced: **a non-generic algebraic certificate is missed by Theorem B (not a
+covering) and by Theorem D (excludes the encoding), and certificate *size* is never the barrier since
+`k₀` is itself a 256-bit certificate — only finding cost can be.** That is exactly the `d_reg`
+question, measured at `n = 2, 3` only, with `n = 4` running under AI.

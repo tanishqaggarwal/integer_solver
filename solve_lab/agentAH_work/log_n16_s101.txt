@@ -1,0 +1,3 @@
+S(seed=101,n=16) = [15064, 26005, 22351, 12422, 4940, 7029, 3216, 18348, 21305, 25908, 38625, 24774, 17406, 35537, 8757, 10513]
+outer 0: global nonzero 8, violated c-conditions 8, nonzero handle-less 0
+   single-wire pass over 35 wires (max atoms/wire 2)

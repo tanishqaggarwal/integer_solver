@@ -42,7 +42,8 @@ rows = []
 for x in sorted(D['manifest'], key=lambda z: (z['tier'], -(z['reach'] or 0))):
     t = x['tag']
     f7 = os.path.join(HERE, 'runs', 'r_d_%s.txt' % t)          # full-table, m<=7
-    fs = os.path.join(HERE, 'runs', 'rs_%s.txt' % t)           # 8 shard passes, m<=7
+    fs = os.path.join(HERE, 'runs', 'rs_%s.txt' % t)           # 8 shard passes (legacy aggregate)
+    fsh = [os.path.join(HERE, 'runs', 'rs_d%s.s%d.txt' % (t, i)) for i in range(8)]  # per-shard evidence
     f6 = os.path.join(HERE, 'runs6', 'r6_d_%s.txt' % t)        # a<=3 table, m<=6
     c7, cs, c6 = counts(f7), counts(fs), counts(f6)
     # m<=7 by the monolithic table: exactly one exhaustive DONE per b=1,2,3
@@ -50,15 +51,21 @@ for x in sorted(D['manifest'], key=lambda z: (z['tier'], -(z['reach'] or 0))):
     # m<=7 by shard passes: the 8 passes partition the table (shard = key>>61), so a size is
     # exhausted only when ALL EIGHT passes emitted the full candidate count for it
     oks = all(cs.get(b, []).count(EXP[b]) == 8 for b in (1, 2, 3))
+    csh = [counts(p) for p in fsh]
+    okh = all(all(c.get(b, []).count(EXP[b]) >= 1 for b in (1, 2, 3)) for c in csh)
+    oks = oks or okh
     ok6 = all(c6.get(b, []).count(EXP[b]) >= 1 for b in (1, 2, 3))
     m = 7 if (ok7 or oks) else (6 if ok6 else 0)
+    nsh = sum(1 for c in csh if all(c.get(b, []).count(EXP[b]) >= 1 for b in (1, 2, 3)))
     ev = ('full-table' if ok7 else ('8/8 shard passes' if oks else
           ('%d/8 shard passes' % min(cs.get(b, []).count(EXP[b]) for b in (1, 2, 3))
-           if cs else ('a<=3 table' if ok6 else 'NEVER RUN'))))
+           if cs else ('%d/8 shard passes' % nsh if nsh else
+                       ('a<=3 table' if ok6 else 'NEVER RUN')))))
     if m == 6 and not ok7 and not oks: ev = 'a<=3 table'
-    h = hits(f7) + hits(fs) + hits(f6)
-    z = zeros(f7) + zeros(fs) + zeros(f6)
-    n = sum(sum(v) for v in list(c7.values()) + list(cs.values()) + list(c6.values()))
+    h = hits(f7) + hits(fs) + hits(f6) + sum(hits(p) for p in fsh)
+    z = zeros(f7) + zeros(fs) + zeros(f6) + sum(zeros(p) for p in fsh)
+    n = sum(sum(v) for v in list(c7.values()) + list(cs.values()) + list(c6.values())
+            + [vv for c in csh for vv in c.values()])
     rows.append((t, x['tier'], x['reach'], m, ev, n, z, h))
 
 print('%-11s %-5s %-6s %-5s %-20s %-14s %-5s %s' %
