@@ -11,3 +11,7 @@ rows 175  satisfied 168  failing 7
 
 === TEST B: pay eq8680 + one other satisfied row, buy k >= 3
   k=3: none over any single extra payment
+  k=4: none over any single extra payment
+
+BEST OVERALL: 39026
+DONE

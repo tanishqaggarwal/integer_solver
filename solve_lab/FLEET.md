@@ -3167,3 +3167,107 @@ knobs and every 13-knob extension by an S-mover.
 Q on what the mod-p closure buys its six withdrawn sweeps; T on the slack check from F's parse;
 K on blocking backward derivation at every slot and re-running its validation table.
 **Closed threads:** P, R, S.
+
+---
+
+## Check-ins 55–57 — the slack is PROVED pinned to p; the 927 system is NONLINEAR
+
+Deliverable unchanged: **39,026 / 39,033**. Nothing above it anywhere.
+
+### T — a proof, not a measurement: the six factors are forced to p
+
+```
+1. deliverable values: all six are EXACTLY p                              (6 of 6)
+2. copy-equivalence class under atoms of shape (xA - xB):
+      the six lie in ONE class, rooted at x26064, of 220 wires
+      all 220 set to exactly p in the deliverable                     (220 of 220)
+3. atoms anywhere in the whole instance containing the literal p:  EXACTLY ONE
+      (x26064 - p)
+```
+
+**M is faithful** (T's own test) and **ker(M) = 0** (F's peel certificate, re-verified by T), so
+every atom is zero in any full solution ⟹ `(x26064 − p) = 0` forces `x26064 = p`, and each copy atom
+propagates it across the class. **That is why Q found no unary pin: the pin exists, once, on a wire
+220 copies away.**
+
+**The question was productively malformed — nothing forces the six to zero, and nothing should.
+They are forced to p.** The slack **is** pinned, to `p·u` rather than to 0. **Q was right to decline
+closure on the alias shape alone, and right that nothing forces those factors to zero.**
+
+**Consequence, in T's formulation and recorded as the standing form:** mod p the slack vanishes
+identically, the alias is exact, the hand-off follows the measured tree, and **the reduction closes
+mod p on measurement**; over ℤ it does not, and the residue is precisely the `c·p | R` conditions —
+**the 927**. **Nothing downstream needs restating provided every statement of the reduction says
+mod p.** L's does; any claiming closure over ℤ without discharging the 927 does not.
+
+> **"Q's slack is not pinned" and "L's and P's 927" are the same phenomenon from two sides.**
+
+**Two loose ends T flagged itself**, both now its task: **(1)** of 764 aliased links, **486 are
+one-atom and 278 multi-hop, and 0 of the 278 have a p-class wire in an incident atom** — so they do
+not terminate in the six or anywhere in the p-class, and **if they route through something else the
+mod-p closure is scoped to 486 of 764**; **(2)** a **26-atom gap** — 3,707 atoms of shape `(w − P·u)`
+against L's 3,681 residual census, which L uses as the basis of its incidence criterion.
+
+### L — the shift system is NONLINEAR; L corrects its own prescription
+
+**L has said twice that a simultaneous CRT solve over the ~766 shift parameters is what its
+round-robin cannot do. It is not sufficient, and L corrected itself.** Probing each surviving
+condition at `t = 0, 1, 2` and checking `d(2) == 2·d(1)`:
+
+- **2 conditions genuinely linear** (`c = 10937191`, `c = 13040669`), each with `d/p = ±1` on a
+  **shared** wire — greedy fixes one and the next re-breaks it. **Pure simultaneity; a linear CRT
+  solve handles these.**
+- **6 genuinely nonlinear**: a shift enters the chord law through a product, so after dividing by p a
+  term **`p·t_w·t_v` survives mod c**. **No linear solve over the shift parameters can express them.**
+
+**This independently corroborates P's expansion from a different model** — P's `n1'` carried
+`P·(E·b² + 2aAb − d²) + P²·a·b²`, quadratic and cubic in the shift parameters. **P had the shape
+right; L's measurement confirms the nonlinearity is real and not an artifact of P's single block** —
+and it explains concretely why P's 2-parameter model was too small in a way a 6-parameter one fixed:
+**the missing terms are cross-terms.**
+
+**L's recipe, now its task:** do not brute-force (`c` to ~1.5×10⁷ at ~0.07 s per run). **Fit and
+solve exactly** — the atom is a polynomial in `t` of degree ≤ 3 (P's expansion bounds it), so
+evaluate at `t = 0,1,2,3`, interpolate coefficients exactly, root-find mod each prime factor of `c`,
+and CRT; **seven of the eight `c`'s factor into small primes** (3, 5, 11, 19, 43, 127, 199, 449,
+3449, 4787, …). **Solve the two linear conditions jointly with the rest, not greedily.** Then verify
+by **direct recomputation**, per P's second guard.
+
+**Coordinator relay completed:** the first relay of P's scripts was incomplete — L flagged that all
+three load `model4.pkl`, `slp.pkl`, `blocks.pkl`, `leaves.pkl` and `import pfold`, none of which had
+been copied, **and did not reach into P's directory.** All five are now in `agentL_work/from_P/`.
+
+### M — δ₀ retired; the magnitude bet REFUTED; enumeration stopped with a reason
+
+**The magnitude bet is dead, and it was the coordinator's.** I told M that O's file made the shift a
+23-bit condition rather than a 2440-bit one, so a minimal representative might cost far less.
+**M measured it: a +1 move of `x_7068` already costs 16 equations, and every single-coordinate
+reduction scored worse than raw (38,993 against 38,998 compensated). The penalty is incurred at the
+first bit.**
+
+**M confirmed O's `S = 0` from a differently-decomposed model** — where O sees `a37887 = (S)·(S)`, a
+square, **M's parse writes the same quantity linearly** as `a23618 = x_4432 − x_19964 − x_28730`,
+and measured `eq8680 holds ⟺ a23618 = 0 ⟺ δx_4432 = δx_28730`. **Two models that write the atom
+differently agree on the constraint.** It also explains why M's affinity test passed 12/12 where a
+square should have been rejected, **and M's own round-9 failure**: its solve moved `x_4432` and
+`x_28730` by **3571 against 3572 bits** — nearly equal but not equal — breaking `S = 0` and dropping
+to 38,999. **O's block was in M's own data.**
+
+**Coordinates and dimension measured, not assumed:** 4 live cofactors (reproducing T's numbers
+exactly), 4 broken-atom wires assignable only because the deliverable breaks their defining atoms,
+4 carriers — **true dimension 12, all affine**, with only `x_7068 → 34120` and `x_4432 → 8721`
+leaving the region. T's calibration reproduced exactly (**39,021 / 12 failing**, same list), and M
+diagnosed its own earlier "13": it came from zeroing **16** variables, not the 12 cofactors alone.
+
+**Enumeration stopped before the first checkpoint, with a stated reason and nothing claimed from
+it.** The 98 five-handle supersets ran at ~0.4 s each **because they share a demotion set**; a
+general 4-subset forces a fresh engine build and a full forward over a different SEQ — one to two
+orders slower — so **`C(102,4) = 4.25M` is not reachable that way.** M's work item: **amortise the
+per-site engine build** (patch `SEQ`/definer incrementally, cache the baseline forward). M has been
+asked to keep it interruptible, because if L's fit-and-solve lands, **the result needs pricing and
+checker verification in a frame that provably represents the deliverable, and M's is the only one
+that does.**
+
+**M's standing price table:** deliverable 39,026 (7) · cofactors zeroed 39,021 (12) · 98 five-handle
+supersets best 39,026 (89 exactly equal) · 12-coordinate lattice raw/reduced 38,999 / 38,992 ·
+O's δ₀ best of 12 interpretations 38,998.

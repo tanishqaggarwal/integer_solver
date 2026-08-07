@@ -472,3 +472,65 @@ which I still have not read now that the artifacts exist).
 ## Q. NEW FILES (fourth pass)
 `t_927.py` + `t_927.json` (927, L's list borrowed) · `t_927b.py` (927, nothing borrowed) ·
 `t_alias.py` (0/764 direct, alias shapes).
+
+=============================================================================================
+# FIFTH PASS — the last gate: are the six shared slack factors forced to zero?
+(coordinator check-in 51; answered from F's certified-faithful parse, independent of L's model)
+
+## R. ANSWER: **NO — and nothing should force them to zero.  They are forced to p.**
+`t_slack.py`, `t_slack2.py`, `t_slack3.py`, `t_slack4.py`.
+The six shared factors `x_4116, x_16153, x_1962, x_12682, x_19049, x_15616` are not slack that
+ought to vanish.  **They are the modulus p, replicated as wires.**
+
+```
+   1. deliverable values:  all six are EXACTLY p = 2^256 - 2^32 - 977   (6 of 6)
+   2. copy-equivalence class under atoms of shape (xA - xB):
+         the six lie in ONE class, rooted at x26064, of 220 wires
+         all 220 are set to exactly p in the deliverable (220 of 220)
+   3. atoms anywhere in the whole instance containing the literal p:  EXACTLY ONE
+         (x26064 - 115792089237316195423570985008687907853269984665640564039457584007908834671663)
+```
+**This is a proof, not a measurement.**  M is faithful (audit T2) and `ker(M) = 0` (F's peel
+certificate, re-verified in T2), so **every atom is zero in any full solution**.  Then
+`(x26064 - p) = 0` forces `x26064 = p`, and each copy atom `(xA - xB) = 0` propagates it across
+the whole 220-wire class.  The six are forced — **to p, not to zero.**
+
+### R1. WHAT THAT MEANS FOR THE REDUCTION — the hand-off is exact MOD P, not over Z
+The "slack" wires are the products `(w - (P*u))` with P in the p-class — **3,707 such atoms** —
+i.e. `w = p*u`.  So the slack term in the coordinate hand-off is **p times a free cofactor**:
+* **mod p it vanishes identically** -> the alias is exact, the hand-off does follow the measured
+  tree, and **the reduction closes mod p on measurement**, which is exactly what L's §3 already
+  stated ("MOD P, the 39,033-equation system reduces to ... the target congruence");
+* **over Z it does not vanish** -> the residue is precisely the extra integer conditions
+  `c*p | R`, i.e. **the 927** confirmed intrinsic in my fourth pass.
+
+> **Q's "the slack is not pinned" and L's/P's "927 extra integer conditions" are the same
+> phenomenon seen from two sides.**  The slack *is* pinned — to `p*u`, not to 0.  Q was right to
+> decline to close the existence result on the shape of the alias alone, and right that nothing
+> forces those factors to zero; the resolution is that they are forced to p, so the closure is
+> mod p and the 927 are exactly what is left over Z.  **Nothing downstream needs restating,
+> provided every statement of the reduction says MOD P** — L's does; any that says "over Z"
+> without discharging the 927 does not.
+
+### R2. Honest discrepancy
+3,707 atoms of shape `(w - (P*u))` with P in the p-class, against L's 3,681 residual atoms and my
+own fourth-pass family of 3,681 — a gap of **26**.  I did not chase it.  It does not touch the
+927 (which reproduced exactly, twice, including from a 13,092-atom family), but whoever uses 3,681
+as a closed census should reconcile the 26 first.
+
+## S. THE CHAINED-ALIAS LIMIT — resolved, and the answer is NOT the six  (`t_slack4.py`)
+Folding in my fourth-pass caveat, over the full set rather than a 400 sample:
+```
+   aliased parent/child links : 764     one-atom aliases : 486     multi-hop : 278
+   multi-hop links with a p-class wire in an incident atom :   0 of 278
+```
+**The 278 multi-hop aliases do not terminate in the six shared factors, or anywhere in the
+p-class.**  They route through something else, which I did not identify.  So: "no parent/child
+link is direct" is established (T18, 0 of 764); "every alias is one hop" is false (486 of 764);
+and **what the other 278 route through is open** and is the one loose end I am leaving.
+
+## T. NEW FILES (fifth pass)
+`t_slack.py` (unary-pin census over the six) · `t_slack2.py` (every atom, definer, values) ·
+`t_slack3.py` (p-class, the unique literal-p atom, the slack products) · `t_slack4.py` (forcing
+chain + the 278 multi-hop aliases).
+Reproduce the answer: `cd solve_lab/agentT_work && python3 t_slack3.py`.

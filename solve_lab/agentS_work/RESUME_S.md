@@ -1,5 +1,87 @@
 # RESUME_S — agent S (lattice methods), self-contained handoff
 
+> **LINE CLOSED.** No further work planned on the residual side. Read §A/§B/§C below before
+> anything else; they tell you what to trust, what not to, and the one mistake I kept making.
+> Best score I verified: **39,026** (the existing deliverable). **I did not beat it.**
+
+## §A. WHAT STANDS
+1. **The endgame condition, in its JOINT form** (§2). At cfg0, over the complete affine knob set
+   (54 knobs — every single-row knob, plus each atom's pure handle), eliminate the two target
+   rows, solve the other 47 exactly over Z (feasible, kernel dim 7); the reachable lattice on
+   (a20215, a28647) is exactly **p·Z²** and the required offset is not in it. The "joint" is the
+   whole content: x_18956 moves a20215 by 1 but pays 8863713 into a747, whose only handle steps
+   by p, so keeping a747 satisfied forces 8863713·n ≡ 0 (mod p), hence n ≡ 0 (mod p).
+   **Scope: cfg0-local.** Never shown configuration-independent — see §B2, §6j.
+2. **The pure-handle structure** (§2). 1,815 free variables each move exactly one atom, affinely,
+   by exactly ±p. An atom is satisfiable iff its residual is ≡0 modulo its handle step. Only
+   a28647 and a726 are unhandled among the atoms in play; a726 is never bad.
+3. **The affine model is EXACT, not merely locally linear** (§6f, `kernel.py`). All 18 kernel
+   displacements — particular solution, 6 random small-coefficient, 4 with coefficients to
+   **±10⁶**, all 7 unit kernel vectors — land on bad atoms exactly {a20215, a28647}, 28 fails,
+   39,005, with the measured structure invariant (54 knobs / 47 rows / kernel dim 7) every time.
+   Not one displacement broke the other rows.
+4. **`deficiency > 0 ⟹ infeasible`, 21 of 21, no exceptions** (§6i). With rank = K − d and
+   deficiency = M − rank, breaking atoms adds rows faster than knobs, the system goes
+   over-determined, and it dies. This is the mechanism behind every starvation I hit.
+5. **`img4` is an existence proof** (§6i) that valid independent test cases outside the base's
+   span exist: 62 knobs / 54 rows / kernel dim 8, full row rank, **feasible**, post-solve class
+   differing from cfg0's on **both** coordinates. Blocked, but valid.
+6. **Saturation, stronger than previously recorded** (§4): cross-class as well as within-class;
+   both non-boolean knobs (x_30163, x_11559) are switches, identical delta for every nonzero
+   value tested from 1 to 10²⁰. The selector→residual map is one-hot selection, **not** a
+   subset-sum — see §6d for why this does not contradict a free independent subset *domain*.
+
+## §B. WHAT I RETRACTED, AND WHY
+1. **§3's image closure — RETRACTED as base-local.** I called the 48-tuple BFS image "closed by
+   exhaustion". It is closed only under single flips *from cfg0*. `reach.py`: **148 of 300**
+   configurations landed outside, giving 14 new tuples. Even |S| = 1 lands outside, because cfg0
+   has x_1530 = x_1603 = 1 so "only this selector on" is three flips away.
+2. **"a20215 ≡ 0 (mod p) is unreachable" — RETRACTED outright.** p is prime, so any knob moving
+   it by a step ≢ 0 (mod p) makes every residue reachable, and two do: x_18956 (+1) and
+   x_31339/x_30213 (−1), at cfg0 *and* outside the closure. §3 measured the image of the selector
+   map with affine knobs pinned and I over-read it as an obstruction. **Do not cite §3 against
+   any existence claim.**
+3. **§6f Result B — vacuous by construction.** Kernel motion changes a20215 only by multiples of
+   p (that IS the p·Z² result), so the mod-p class is invariant along the kernel and 18/18
+   "blocked" cannot mean anything about configuration-independence. My own script printed the
+   wrong conclusion; fixed, with a correction appended to `runs_kernel.log`.
+4. **§6i's rate — RETRACTED as inflated.** "47 feasible at deficiency 0" counted *log lines*;
+   46 were cfg0's shape re-measured. On distinct configurations it is **2 feasible / 6
+   infeasible**. `deficiency 0 ⟹ feasible` is 2 of 8 — a necessary condition and a weak
+   predictor, **not** the generator I advertised. My "a directed search should beat 4%
+   substantially" rested on that inflated number and was wrong.
+
+## §C. THE PATTERN — repeat-counting, and the rule
+Three times a count of **repeated identical tests** masqueraded as independent evidence in my own
+work: §3's image closure (single-flip repeats read as a global closure), §6g's VALID count (the
+trade walk is one test repeated — all four trade knobs already lie inside the 54-knob span
+`lat3.analyse` optimises over, so the re-solve washes the displacement out), and §6i's inflated
+deficiency rate. In each case the fix is the same:
+
+> **RULE: check for repeats before reporting any rate.** State what makes two data points
+> independent *before* counting them. For this problem the criterion is the **post-solve** class:
+> measuring the class at the displaced point, before the re-solve, turns one test into an
+> apparent N.
+
+## §D. STATUS AND REOPENING
+**2 independent test cases, both blocked** (img0, img4) — that is not configuration-independence
+and I do not claim it. The deficiency-directed search (§6j) analysed 28 of 48 image points at a
+**93% starvation rate** and produced **0 new independent cases**. Measured reason: feasibility
+needs deficiency 0, which needs knobs to grow at least as fast as rows, which happens only at
+very low weight — both feasible configurations in the whole campaign are |on| = 0 and |on| = 1,
+and the reachable low-weight pool (~7 configurations) was exhausted before the run started.
+
+**The only untried supply** is low-weight configurations *outside* the BFS-reachable pool. §B1
+established such configurations exist. Generating them needs a **constructive** method —
+sampling is exactly what starved here.
+
+**Cross-reference, reported to me and NOT verified by me** (flagged so nobody launders it through
+my file): the campaign reports the coordinate hand-off now closing unconditionally mod p, with the
+Z statement being 927 `c > 1` divisibility conditions, and that those 927 survived a third
+decomposition. If that holds, my p·Z² lattice and those 927 are plausibly the same obstruction
+seen from two sides — but **I did not test that**, and my p·Z² result is cfg0-local (§A1), so it
+cannot carry an instance-wide claim on its own.
+
 ## 0. Verification rules
 - Baseline `../best/new_instance_partial_39026.json` = **39,026/39,033**, re-verified by me with
   plain `solve_lab/checker.py` (failing `[12231,12270,12350,14584,18673,22044,29125]`).
@@ -416,13 +498,13 @@ Pool: all 48 BFS image points (img4, the one existence proof, came from here). S
 Independence criterion applied throughout is **post-solve** class distinctness; the pre-solve
 class is the trap and appears nowhere in `dirsearch.py` or `combine.py`.
 
-    image points analysed          : 26 of 48
-    other rows infeasible          : 24   (not test cases at all)
+    image points analysed          : 28 of 48
+    other rows infeasible          : 26   (not test cases at all)
     other rows solvable            :  2   -> blocked 2, SOLVED 0
     INDEPENDENT test cases (distinct POST-SOLVE class): 2
        a20215=22981624690591... a28647=44159679639019...  img0   blocked
        a20215=84623865150894... a28647=47440525290535...  img4   blocked
-    starvation rate: 92%
+    starvation rate: 93%
 
 **The directed search starved, and I can now say why with a measured mechanism rather than a
 suspicion.** Feasibility requires deficiency 0 (necessary, 21/21 no exceptions); deficiency 0
@@ -433,7 +515,7 @@ low-weight pool is tiny (the BFS enumerates ~7 configurations at |on| ≤ 1) and
 exhausted, so there is no supply of independent test cases to be had from this pool at all.
 
 **Verdict: 2 independent test cases, both blocked. That is NOT configuration-independence and I
-am not claiming it.** It is the same 2 I had before the directed search; the search added 12 more
+am not claiming it.** It is the same 2 I had before the directed search; the search added 14 more
 analysed configurations and 0 new independent cases. The line closes with a measured reason —
 a 92% starvation rate and a structural account of it — rather than with a stretched claim.
 

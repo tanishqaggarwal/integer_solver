@@ -1,0 +1,67 @@
+E's parse of eq8680:
+   multiplier m = True   squared-outer sq = 1   terms = 20
+   coefficient 1 on atom 23618
+        length 26 chars
+        is a literal square (S)*(S): False
+   coefficient 6 on atom 23619
+        length 26 chars
+        is a literal square (S)*(S): False
+   coefficient 15 on atom 23620
+        length 38 chars
+        is a literal square (S)*(S): False
+   coefficient -21 on atom 23621
+        length 27 chars
+        is a literal square (S)*(S): False
+   coefficient -13 on atom 23622
+        length 17 chars
+        is a literal square (S)*(S): False
+   coefficient -13 on atom 23623
+        length 7 chars
+        is a literal square (S)*(S): False
+   coefficient 25 on atom 20448
+        length 24 chars
+        is a literal square (S)*(S): False
+   coefficient 1 on atom 20449
+        length 36 chars
+        is a literal square (S)*(S): False
+   coefficient 25 on atom 20450
+        length 26 chars
+        is a literal square (S)*(S): False
+   coefficient 28 on atom 20451
+        length 26 chars
+        is a literal square (S)*(S): False
+   coefficient 1 on atom 20452
+        length 27 chars
+        is a literal square (S)*(S): False
+   coefficient -4 on atom 20453
+        length 38 chars
+        is a literal square (S)*(S): False
+   coefficient 23 on atom 11875
+        length 26 chars
+        is a literal square (S)*(S): False
+   coefficient -5 on atom 11876
+        length 17 chars
+        is a literal square (S)*(S): False
+   coefficient -5 on atom 11877
+        length 7 chars
+        is a literal square (S)*(S): False
+   coefficient 20 on atom 11878
+        length 27 chars
+        is a literal square (S)*(S): False
+   coefficient -27 on atom 11879
+        length 37 chars
+        is a literal square (S)*(S): False
+   coefficient 35 on atom 11880
+        length 27 chars
+        is a literal square (S)*(S): False
+   coefficient 17 on atom 11881
+        length 26 chars
+        is a literal square (S)*(S): False
+   coefficient -14 on atom 11882
+        length 26 chars
+        is a literal square (S)*(S): False
+
+E's parser DISAGREES: terms=20 sq=1 -- the Lemma is parser-dependent.
+
+equations mentioning atom 23618: [2554, 6816, 8124, 8680, 9421, 12231, 12270, 12350, 14584, 22044, 29125]
+DONE

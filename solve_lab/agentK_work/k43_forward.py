@@ -31,6 +31,11 @@ e2s = {ch['exp'][str(i)]: ch['sel'][str(i)] for i in range(256)}
 #   ((xW-xZ)-xH)   ((xW-xZ)+xH)   ((K*(xW-xZ))-xH)   ((xW-xZ)-(K*xH))   ((K*(xW-xZ))-(K*xH))
 PAT = [re.compile(r'^\(\(x(\d+)-x(\d+)\)[-+]\(?(?:\d+\*)?x\d+\)?\)$'),
        re.compile(r'^\(\(\d+\*\(x(\d+)-x(\d+)\)\)[-+]\(?(?:\d+\*)?x\d+\)?\)$')]
+# CRITICAL: only FREE variables may be pinned.  A DEFINED variable must always stay derivable
+# from its own definition -- pinning one (my first attempt did) over-constrains the closure and
+# breaks configurations that previously worked, e.g. ON=[0].  That produced 0/18 instead of
+# 6/18 and was a bug in this map, not a fact about the circuit.
+FREE = set(C.E.free)
 pin = {}
 dup = 0
 for i, nm in enumerate(C.names):
@@ -38,6 +43,7 @@ for i, nm in enumerate(C.names):
         m = p.match(nm)
         if m:
             w = int(m.group(1))
+            if w not in FREE: break
             if w in pin: dup += 1
             else: pin[w] = i
             break
@@ -47,7 +53,7 @@ for i, nm in enumerate(C.names):
     m = leafpin.match(nm)
     if m:
         w = int(m.group(2))
-        if w not in pin: pin[w] = i
+        if w in FREE and w not in pin: pin[w] = i
 print('slot/leaf wires given an exclusive pin: %d   (ambiguous, skipped: %d)' % (len(pin), dup))
 
 

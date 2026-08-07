@@ -381,3 +381,54 @@ So (e) does **not** close, and **§15 stays in force**.
    one wire even in an assignment that does fold.
 K's null therefore does not by itself show the circuit fails to force compositions; but neither does
 my work show that it does.  I would not let a barrier withdrawal rest on the null alone.
+
+## 22. RULING ON SECTION 15 — PARTIAL RESTORATION, WITH A NEW AND DIFFERENT GATE (`qmult.py`)
+L's result closes the hand-off mod p: the six shared factors are the constant p (220 such wires in
+the instance), so every slack term is `p * (free variable)` and `parent_input = mux_out (mod p)`
+unconditionally.  My §21 could not see this because I looked for something *forcing* the factors to
+zero; nothing needs to force a constant.  The 523/52 split I reported was one population, not two.
+
+**Does the mod-p qualifier hurt the six searches?  No — and here is why.**  `dlp_bsgs.py`,
+`lowwt.py`, `wt7.py`, `window.py`, `smallmul.py`, `lam.py` are all *negative* results of the form
+"no k in family F has kG = T".  The direction they need is
+
+>  a satisfying assignment with ON-set S exists  ==>  k = sum_{i in S} 2^i satisfies kG = T
+
+and every step of that implication is a point identity **mod p** — the leaves, the chord gadgets,
+the quadrant muxes, the tree, and now the hand-off.  The 927 `c > 1` conditions over Z are about
+**constructing** an integer lift, i.e. the *converse* (existence) direction.  So the Z gap sits on
+the existence claim, not on the negatives.  **On that count mod p is exactly the modulus they
+needed**, and my §15 condition is met.
+
+**But measuring it exposed a different assumption I had never checked, and it does not hold on rank
+grounds.**  I had been assuming that satisfying the bundled equations forces the individual atoms to
+zero.  Counting occurrences **without** deduplication (the earlier "every atom in 1 equation" figure
+was an artefact of `gates.jsonl` being deduplicated):
+
+* **47,198 distinct atom terms across 39,033 equations**, mean **11.5 atoms per equation**;
+* **82.7%** of atoms occur in **>= 2** equations (mode 11, max 19); 8,166 occur in exactly one;
+* stage-core atoms: 275 in one equation, the rest spread over 4-19.
+
+The incidence matrix therefore has **more columns (47,198) than rows (39,033)**, so its null space
+has dimension **>= 8,165**.  **The bundling does not force the atoms to zero on rank grounds.**
+That does not prove compensation is achievable — atoms are constrained functions of wires, not free
+coordinates — but it does mean the implication above is not established.
+
+**Ruling.**  The six programs move from *group-model only* to **instance-level conditional on
+atom-forcing** — strictly stronger than where §15 left them, strictly weaker than unconditional.
+I am not restoring them fully.  The gate that remains is new, smaller, and precisely stated:
+
+> Does the null space of the atom-incidence matrix contain a vector **realisable by an actual wire
+> assignment**?  Rank counting says the null space is non-empty; realisability is the open part.
+
+That is agent A's object, not mine.  It also bears on the lab's scoring frame, which treats the atom
+as the unit of failure: the 39,026 partial has 7 nonzero atoms and exactly 7 failing equations, yet
+the median atom sits in 11 equations — worth checking whether its 7 lie among the 8,166 singletons.
+
+**Follow-up measurement (same script).**  The 39,026 partial's 7 failing equations
+`[12231, 12270, 12350, 14584, 18673, 22044, 29125]` contain 20, 8, 24, 20, 3, 2 and 15 atoms.
+Only **eq 22044** contains singleton atoms (both of its 2).  In the other six, every atom occurs in
+**6-15** equations.  So a single nonzero atom there would generically break many equations, yet only
+7 break in total.  Either the nonzero atoms are very few and concentrated, or **compensation between
+atoms is already happening in the lab's best assignment**.  That is a concrete, cheap handle on the
+atom-forcing question and it belongs with agent A's incidence matrix.

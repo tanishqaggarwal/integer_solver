@@ -232,3 +232,30 @@ Full write-up in **`DELTA0_STATUS.md`** (read it before using `DELTA0_FOR_M.json
   holds for **all seven** failures, and the mechanism is `S = 0`.
 - Files: `fb_probe.py`, `fb_solve.py`, `fb_max.py`, `fb_nl.py`, `fb_sq.py`, `fb_free_s.py`,
   `emit_delta0.py`; handoff `DELTA0_FOR_M.json` / `.md` + **`DELTA0_STATUS.md`**; logs in `runs/`.
+
+## 9. Check-in 49 round — S = 0 IS FORCED.  Answer: option (2).  See `EQ8680_LEMMA.md`.
+- **Lemma (unconditional, parser-independent):** `eq8680 = T²` with `T` a LINEAR form in atoms
+  (20 of them, coefficients 1,6,15,−21,−13,−13,25,1,25,28,1,−4,23,−5,−5,20,−27,35,17,−14 in E's
+  numbering).  A square has a single zero locus, so **every satisfying assignment has T = 0**.
+  In H's frame `T = S`.
+- **I nearly claimed this from H's parse alone**, where eq8680 has *one* term (`a37887 = T²`),
+  and the argument would have been "no other atom to compensate with".  E's independent parser
+  sees **20 terms, issq=True**.  Both agree mathematically, but the one-term version was a
+  bundling artifact; the correct reason is that a square vanishes only on a hyperplane.
+  Cross-check: `eq8680_crosscheck.py`, `runs/eq8680_cross.log`.
+- `a23618 = x_4432 − x_19964 − x_28730` enters `T` with coefficient exactly **+1**, and is the
+  sole carrier of the `L` shift δ₀ needs.  `dT/dx_4432 = +1`, `dT/dx_28730 = −1`, zero
+  elsewhere → `T = 0` is exactly `δx_4432 = δx_28730`, killing that direction.
+- **Scoped theorem:** with `K` = (15 free inputs reaching a nonzero region atom) ∪ (26 carriers
+  of `T`) = **34**, every assignment agreeing with the witness outside `K` scores ≤ 39,026.
+  190 equations in scope, all 7 failures reachable, 175 exactly-affine rows.
+  Zero-collateral: nothing buyable at any size.  Pay 1 (eq8680): no pair.  Pay 2: no triple.
+  **The trade is exactly 1-for-1 and cannot be leveraged.**
+- **Model exactness verified**: 5-point probe (t=1,2,3,5,7) finds precisely the same 7
+  non-affine checks as the 2-point probe, **none missed**, so the negative result is sound.
+  The 16 dropped rows are permissive (none currently fails), strengthening the negative.
+- **Not global**: scope is 34 of 8,751 free inputs, frame B's orientation, and Test B was
+  budget-capped.  The one door left open: a deliberately budgeted multi-atom compensation among
+  `T`'s other 19 atoms.
+- Files: `eq8680.py`, `eq8680_crosscheck.py`, `fb_U.py`, `fb_net.py`, `fb_lincheck.py`;
+  `EQ8680_LEMMA.md`; logs in `runs/`.

@@ -158,3 +158,14 @@ k=4 sets=338520 done=0 todo=338520 audit_rate=0.002
 314000/338520  0.0138s/set  eta 5.6 min  signatures=16 audits=633/0 bad  best=39026
 316000/338520  0.0137s/set  eta 5.2 min  signatures=16 audits=635/0 bad  best=39026
 318000/338520  0.0137s/set  eta 4.7 min  signatures=16 audits=639/0 bad  best=39026
+320000/338520  0.0137s/set  eta 4.2 min  signatures=16 audits=644/0 bad  best=39026
+322000/338520  0.0136s/set  eta 3.7 min  signatures=16 audits=649/0 bad  best=39026
+324000/338520  0.0136s/set  eta 3.3 min  signatures=16 audits=656/0 bad  best=39026
+326000/338520  0.0135s/set  eta 2.8 min  signatures=16 audits=661/0 bad  best=39026
+328000/338520  0.0135s/set  eta 2.4 min  signatures=16 audits=666/0 bad  best=39026
+330000/338520  0.0135s/set  eta 1.9 min  signatures=16 audits=669/0 bad  best=39026
+332000/338520  0.0134s/set  eta 1.5 min  signatures=16 audits=671/0 bad  best=39026
+334000/338520  0.0134s/set  eta 1.0 min  signatures=16 audits=674/0 bad  best=39026
+336000/338520  0.0133s/set  eta 0.6 min  signatures=16 audits=679/0 bad  best=39026
+338000/338520  0.0133s/set  eta 0.1 min  signatures=16 audits=682/0 bad  best=39026
+DONE k=4 shard=1: 338520 sets, 16 distinct (R,b) signatures, 682 audits with 0 mismatches, best=39026, 74.7 min

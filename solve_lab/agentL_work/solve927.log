@@ -1,0 +1,13 @@
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+
+=== |S|=2 : fit-and-solve on the greedy fixpoint ===
+  round 0: 1 stuck
+     SOLVED c=6672769   deg=2 wire x24908  t=2990790    (17s, verified exactly)
+  ALL c>1 CONDITIONS DISCHARGED after 1 outer rounds
+  FINAL: 0 undischarged, 2 nonzero atoms (2 = the target congruences)
+
+=== |S|=17 : fit-and-solve on the greedy fixpoint ===
+  round 0: 8 stuck
+     SOLVED c=15194385  deg=1 wire x16419  t=5518125    (1s, verified exactly)
+     SOLVED c=3849267   deg=3 wire x36106  t=3476715    (0s, verified exactly)
