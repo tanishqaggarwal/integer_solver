@@ -7236,3 +7236,66 @@ which is exactly what T is running now.
 **Direction note AF supplied, and it is the right one:** everything classifies solutions of
 `atoms = 0`, a subset of `equations = 0`. AF's conclusion is a **positive**, so the inclusion runs the
 safe way. **Agent K's two wrong verdicts were both negatives; this is not one.**
+
+---
+
+## Check-in 120 — `d_reg(4) ≥ 6`: the last named gap closes on its pre-registered read-off
+
+**PID 6881 has exited and the read-off is unambiguous**, applied exactly as AB wrote it *before* the
+result existed:
+
+```
+d=5 : rank(M)=15947  rank(M+targets)=15950   not yet   (6305s)
+d=6 : 105720 rows x 72858 support-cols = 7.70e+09 cells -- OVER CAP (4.0e+08)
+   -> n=4 solving degree >=6   (6330s)
+MEASURED SOLVING DEGREES: {2: '=4', 3: '=5', 4: '>=6'}
+```
+
+`not yet` at `d = 5` was AB's **second** branch: **`d_reg(4) ≥ 6`, sequence 4, 5, ≥6 — strictly
+increasing at every measured step.** AB's §9.12 verdict is **not** re-opened. `d = 6` is over this
+box's cap either way, so `≥ 6` is the strongest positive statement obtainable here, as AB said in
+advance.
+
+**Why this closes the last gap.** Agents AB and AG, after an adversarial round in which each found
+real errors in the other, **independently named the same single mechanism as the one neither theorem
+excludes**:
+
+> A **non-generic algebraic certificate** is missed by Theorem B (it is not a covering) and by
+> Theorem D (it excludes the encoding); and since `k₀` is itself a 256-bit certificate, **certificate
+> size is never the barrier — only *finding* cost can be.**
+
+Finding cost for that route is governed by the solving degree, and the solving degree **is not
+saturating**. Elimination is affordable only if `d_reg ≲ 11` (Macaulay width 2^83.2 columns at
+`d = 16` ⇒ 2^197.1 at `ω = 2.37`), and — as AB established and I repeat because it is the load-bearing
+point — **a term order cannot be the missing ingredient: `d_reg` is a property of the ideal, not of
+the order.**
+
+**Stated in the weak form, which is all three points support**, and AB's own caution stands:
+
+> **`d_reg` increases with `n` over the measured range rather than saturating at a small constant.**
+> The strong form (`d_reg ≈ n+2 ⇒ ≈ 258 at n = 256`) is **not claimed.** Three points cannot support
+> extrapolation to 256, and AB marked it that way from the start.
+
+**A flat `d_reg` was the only way the verdict could have been wrong, and it is not flat.**
+
+### Where the campaign now stands on the upper-bound question
+
+| route | status |
+|---|---|
+| **every search-based bound** | priced by the corrected Theorem B; dead band **`[54, 200]`**, break-even 201 at 2^30 memory |
+| **§8, the one non-search mechanism** | capped by AF's Theorem 4 at **`w ≤ 128`** — below the null mean, far above the payoff band |
+| **non-generic algebraic certificate** | the last named gap; solving degree measured **4, 5, ≥6 — increasing, not saturating** |
+| **the probabilistic answer** | 90 % interval **`w ∈ [115, 141]`**; whole campaign moved the distribution by TV `2^-201.6` |
+
+> **`P(w ∉ [54,200]) = 2^-67.3`.** And per AG's caveat, which is the correct standing of this
+> figure: it draws its force from **AC's posterior — a prior over `w`** — not from a proof about this
+> instance. **It is not an infeasibility claim.**
+
+**Still genuinely open and running:** T's `|S| = 192 / 250` independent-seed probes, which now test
+AF's pre-registered prediction of 39,018/39,033 on the same 15-line footprint; X's rotation sweep at
+**19/128**; AD's small-analogue enumeration; AE's structured-key sweeps; AH's `|S|` landscape, now
+past `n = 255`; AA's `c0` at `m ≤ 8`.
+
+Custody note: AI's `ALARMS.log` still does not exist — disk, memory and both custodial jobs clear
+throughout. **Job B completed under custody and its read-off was applied from the pre-registered
+rule, not reconstructed afterwards.** That is the procedure working exactly as intended.

@@ -82,6 +82,11 @@ if RNDSEED:
     import random as _r
     J.rnd = _r.Random(RNDSEED)
     C.rnd = _r.Random(RNDSEED)
+BIGROOT = int(os.environ.get('AH_BIGROOT', '0'))
+AHJ = None
+if BIGROOT:
+    import ah_joint as AHJ
+    AHJ.install(J)
 FASTROOTS = int(os.environ.get('AH_FASTROOTS', '0'))
 AHR = None
 if FASTROOTS:
@@ -302,6 +307,7 @@ if __name__ == '__main__':
             'trace': trace, 'relift_rounds': stats['relift_rounds'],
             'cost': COST, 'cap': CAP, 'fastroots': FASTROOTS,
             'rndseed': RNDSEED, 'wireord': WIREORD, 'memcap_gb': MEMCAP_GB,
+            'bigroot': BIGROOT, 'bigroot_stats': (AHJ.STATS if AHJ else None),
             'peak_rss_kb': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
             'root_stats': (AHR.STATS if AHR else None),
             'json': out}

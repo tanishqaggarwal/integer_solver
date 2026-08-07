@@ -44,3 +44,21 @@ S(seed=101,n=128) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357,
    [pre] relift round 42: 79 bad atoms, 77 fixed, t=161s
    [pre] relift round 43: 79 bad atoms, 77 fixed, t=165s
    [pre] relift round 44: 79 bad atoms, 77 fixed, t=169s
+   [pre] relift round 45: 78 bad atoms, 76 fixed, t=173s
+   [pre] relift round 46: 79 bad atoms, 77 fixed, t=177s
+   [pre] relift round 47: 79 bad atoms, 77 fixed, t=181s
+   [pre] relift round 48: 79 bad atoms, 77 fixed, t=184s
+   [pre] relift round 49: 79 bad atoms, 76 fixed, t=187s
+   [pre] relift round 50: 79 bad atoms, 77 fixed, t=190s
+   [pre] relift round 51: 78 bad atoms, 75 fixed, t=193s
+   [pre] relift round 52: 77 bad atoms, 74 fixed, t=197s
+   [pre] relift round 53: 79 bad atoms, 77 fixed, t=200s
+   [pre] relift round 54: 79 bad atoms, 77 fixed, t=204s
+   [pre] relift round 55: 78 bad atoms, 76 fixed, t=208s
+   [pre] relift round 56: 77 bad atoms, 74 fixed, t=211s
+   [pre] relift round 57: 79 bad atoms, 77 fixed, t=215s
+   [pre] relift round 58: 78 bad atoms, 76 fixed, t=219s
+   [pre] relift round 59: 78 bad atoms, 75 fixed, t=223s
+   [pre] fixpoint done in 222s (60 rounds)
+outer 0: global nonzero 81, violated c-conditions 78, nonzero handle-less 3
+   single-wire pass over 382 wires (max atoms/wire 2)

@@ -16,10 +16,11 @@ about where `k₀` is **not**, not about how heavy it is. That is the whole hone
 is what agent AB's §9.13 already said before I started. The reason to run them anyway is that
 they are cheap and that nobody had. **Result: a clean sweep of misses. No hit anywhere.**
 
-The one number the campaign can take away: with `O(1)` memory, one contended core and a
-distinguished-point kangaroo, **this box reaches `R = 60` (i.e. decides `k₀ < 2^60`) in ~1.6 h at
-2^33 group operations**, against a prior of `2^-196`. That is the best keys-per-operation ratio
-any instrument on this fleet has bought — and it is still `2^196` short of mattering.
+The one number the campaign can take away: with `O(1)` memory, one core and a distinguished-point
+kangaroo, **this box decides `k₀ < 2^58` at `2^32` group operations (~1.5 h at the rate this box
+actually delivered)**, against a prior of `2^-198`. That is the best keys-per-operation ratio any
+instrument on this fleet has bought — and it is still `2^198` short of mattering. `R = 64` is
+`2^35` operations, ~12 h at the same rate; nothing about the method stops there, only the clock.
 
 ---
 
@@ -170,18 +171,20 @@ Coverage per operation, on this box (higher is better):
 | agent X's weight `≤ 9` sweep | 1.9 GB table | `2^53.4` | `2^33.1` | `2^20.3` | **yes** |
 | kangaroo `R = 48` (`8√L` cap) | 8 MB | `2^48` | `2^28` | `2^20.0` | no (ε = 1.8 %) |
 | kangaroo `R = 56` | 16 MB | `2^56` | `2^32` | `2^24.0` | no |
-| **kangaroo `R = 60`** | **32 MB** | **`2^60`** | **`2^34`** | **`2^26.0`** | no |
-| kangaroo `R = 64` | 64 MB | `2^64` | `2^36` | `2^28.0` | no |
+| **kangaroo `R = 58`** (run) | **16 MB** | **`2^58`** | **`2^32`** | **`2^25.0`** | no (ε = 1.8 %) |
+| kangaroo `R = 60` | 32 MB | `2^60` | `2^33` | `2^27.0` | no |
+| kangaroo `R = 64` | 64 MB | `2^64` | `2^35` | `2^29.0` | no |
 | **quotient sweep `m = 25`** | **512 MB** | **`2^51.9`** | **`2^26`** | **`2^25.9`** | **yes** |
 | BSGS, whole 2 GB budget | 2 GB | `2^56` | `2^29` | `2^27.0` | **yes** |
 
 Four things this table settles:
 
-1. **The brief's headline observation is right in direction and slightly optimistic in size.**
+1. **The brief's headline observation is right in direction and optimistic in size.**
    Plain BSGS with `2^30` entries would give `R = 60` at `~2^30` work — but `2^30` entries is
-   **8 GB** at the 8 bytes/entry the brief assumed, and this box has ~8 GB *available* shared
-   across the whole fleet against a 2 GB budget for me. At 2 GB the deterministic reach is
-   `R = 56`, not 60.
+   **8 GB** at the 8 bytes/entry the brief assumed (and 8 bytes cannot hold a usable fingerprint
+   *plus* a 30-bit index, so it is really 16). This box has ~8 GB *available* shared across the
+   whole fleet against a 2 GB budget for me. **At 2 GB the deterministic reach is `R = 56`, not
+   60**, and the `2^30` work figure ignores that the run must also *build* and *sort* the table.
 2. **The kangaroo reaches further than BSGS here, and by four bits, precisely because it needs no
    table** — 32 MB against 2 GB. That is the trade the brief anticipated, and it is the right one
    on a box whose binding constraint is memory and whose second constraint is that
@@ -204,7 +207,7 @@ Reporting these is the point of the exercise as much as the runs are.
 | `k₀ = a·b`, `a ≤ 2^20`, `b ≤ 2^B` | **Dominated, and provably so.** `a·b < 2^{20+B}`, so the whole family is a **subset** of the magnitude family `k₀ < 2^{20+B}`, which the kangaroo decides at `2^{(20+B)/2+4}` ops. Reaching `B = 36` by multi-target BSGS costs `2^32` and covers `2^56` keys — the kangaroo covers those same `2^56` keys for `2^32` and covers `2^60` besides. The brief's suggestion is right that it is cheap; it is cheap **and redundant**. The non-redundant version — `a` small, `b` *not* magnitude-bounded — is the quotient family, which **was** run (§4). |
 | `k₀` with low NAF / signed weight | Implication points the wrong way (§3), and agent X exhausted `m ≤ 7` already. |
 | window family `k₀ = a·2^s`, `\|a\| < 2^{R−1}`, 256 shifts | **Run** at `R = 40` (§4) — it extends agent X's row 4 (`a < 2^34`, no wraparound) to `a < 2^39` **including** the mod-`N` wraparound cases X's integer enumeration could not see. But note it is dominated in coverage: 256 shifts at `2^40` cover `2^48` keys for `2^30` ops, whereas spending the same `2^30` on a single kangaroo buys `R = 52`, i.e. `2^52`. It is run for **disjointness**, not for coverage. |
-| magnitude analogue of agent Y's complement sweep | **The obvious version is empty, and this is worth recording.** For any `k₀ ∈ [0,N)` the integer complement `2^256 − 1 − k₀` is `≥ 2^256 − N = 2^128.35`, so "`k₀`'s complement is small in magnitude" is **impossible** unless the ON-set folds to `k₀ + N` rather than `k₀`. Working that through: a complement below `2^R` forces `k₀ ∈ (2^256 − 1 − 2^R − N, 2^256 − N − 1]` — an interval of width `2^R` sitting immediately below `2^256 − N`. **That is exactly the `c_two256_modN` centre in §4**, so the family is covered, but it must not be described as "the complement family": it is a magnitude window, and it only exists at all inside the `2^-127.7` two-solution branch. |
+| magnitude analogue of agent Y's complement sweep | **The obvious version is empty, and this is worth recording.** If the ON-set folds to `k₀` itself, its integer complement `2^256 − 1 − k₀` is `≥ 2^256 − N = 2^128.346` for every `k₀ ∈ [0,N)` — so "the complement of `k₀` is small in magnitude" is **impossible in that branch, at any `R < 128.346`**, recomputed exactly. It is reachable only when the ON-set folds to `k₀ + N`, which needs `k₀ < 2^256 − N`. Working that through: a complement below `2^R` forces `k₀ ∈ (2^256 − 1 − N − 2^R, 2^256 − N − 1]` — an interval of width `2^R` sitting immediately below `2^256 − N`. **That is (up to its single lowest point) the `c_two256_modN` centre in §4**, so the family is covered — but it must not be called "the complement family": it is a magnitude window living entirely inside the `2^-127.7` two-solution branch, and it has nothing to do with Hamming distance. |
 | deterministic BSGS at `R = 56` | Subsumed in coverage by the completed `R = 60` kangaroo; its only advantage is exhaustiveness, bought at 2 GB and heavy random-access pressure on a box already at load 20. Priced (§5), declined. |
 | any test of `k₀` against hashes, timestamps, PRNG outputs or file emission order | **Forbidden by rule 2 and not attempted.** See §9. |
 

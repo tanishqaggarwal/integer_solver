@@ -386,8 +386,22 @@ independent Python before the engine ran, and `k·G == T'` re-checked on the cur
 `aa_deep8.sh`: outer loop = **16 balanced `s0` chunks**, inner loop = **8 table shards**. All eight
 shards of a chunk finish before the next chunk starts, so *"chunks 0..j complete"* is an **exact
 fraction of the m = 8 candidate space**, not a vague partial. Total 2,796,682,240 candidates × 8
-shard passes = 22.4 × 10⁹ candidate-evaluations. Evidence-keyed resume, exit codes tested, stderr
-to `shardlogs8/`.
+shard passes = **22.4 × 10⁹ candidate-evaluations**. Evidence-keyed resume, exit codes tested,
+stderr to `shardlogs8/`.
+
+**Status at hand-off — IN FLIGHT, and reported as an exact fraction, never as a claim.** First
+unit closed clean: `DONE data/d_c0.txt sz=4 range=[0,9) n=192557240 zero=0 320.7s` — the count is
+exactly the closed form for that range. **1 of 128 shard-units complete, 0 hits, 0 degenerate
+`dx = 0` events.** Measured 600 k candidate-evals/s under load ~20 (against 2.7 M/s uncontended),
+so the projection is **~43 min per chunk, ~10.4 h for the full `m ≤ 8`**. Coverage is reported by
+`aa_prog8.py`, which counts a chunk **only** when all eight shard passes carry the engine's own
+exhaustive `DONE` line, and lists partially-run chunks separately without counting them.
+Engine PID recorded in `deep8_pid.txt`, located by **open-file ownership** (`/proc/*/fd`), not by
+command-line matching.
+
+*(A note against my own earlier confusion: the `.pid` files that "vanished" were not swept by the
+environment — `cd X && setsid … &` backgrounds the `cd` too, so `echo $! > f` wrote the file in the
+original working directory. My bug, found and stated.)*
 
 ### 7.4 What it buys, stated against a model rather than as a bound on `w`
 

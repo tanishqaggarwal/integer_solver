@@ -106,3 +106,9 @@ DONE rot=17 range=[25,38) n=43591977 zero=0 95.8s
 DONE rot=17 range=[10,17) n=46798731 zero=0 99.6s
 DONE rot=17 range=[38,128) n=43949268 zero=0 101.2s
 DONE rot=17 range=[0,5) n=48495006 zero=0 103.1s
+DONE rot=18 range=[17,25) n=40623462 zero=0 72.0s
+DONE rot=18 range=[5,10) n=41107956 zero=0 73.7s
+DONE rot=18 range=[25,38) n=43591977 zero=0 83.4s
+DONE rot=18 range=[0,5) n=48495006 zero=0 85.3s
+DONE rot=18 range=[10,17) n=46798731 zero=0 86.9s
+DONE rot=18 range=[38,128) n=43949268 zero=0 87.0s

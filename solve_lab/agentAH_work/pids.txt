@@ -1,3 +1,4 @@
-A=16409 driver (|S|=96,128,160,192,224,240,248,252,255 ascending, seeds 101/202/303)
-B2=13871 driver (|S|=255,248,240,224 descending, seeds 101/202/303)
-WD=703 rss watchdog for pre-guard pids 19733,21626
+orphaned verbatim runs (will write their own meta):
+  9740  n128_s101f  (|S|=128 seed101, verbatim, 3GB cap, 3600s budget)
+ 13873  n255_s101f  (|S|=255 seed101, verbatim, 3GB cap, 3600s budget)
+WD=703 exited

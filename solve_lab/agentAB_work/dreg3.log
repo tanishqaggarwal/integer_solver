@@ -26,3 +26,9 @@
      d=4 :   3365 rows x   3247 support-cols = 1.09e+07 cells (build 0s)
         rank(M)=2838  rank(M+targets)=2841   not yet   (19s)
      d=5 :  21057 rows x  17091 support-cols = 3.60e+08 cells (build 0s)
+        rank(M)=15947  rank(M+targets)=15950   not yet   (6305s)
+     d=6 : 105720 rows x  72858 support-cols = 7.70e+09 cells (build 6s)
+        OVER CAP (4.0e+08) -- cannot decide this degree on this box
+     -> n=4 solving degree >=6   (6330s)
+
+MEASURED SOLVING DEGREES: {2: '=4', 3: '=5', 4: '>=6'}
