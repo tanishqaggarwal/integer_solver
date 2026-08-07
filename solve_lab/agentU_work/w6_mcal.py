@@ -1,6 +1,6 @@
 """W6: CALIBRATION ONLY of M's engine as a forward propagator, before any pricing."""
 import sys, json, time
-sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentM_work')
+sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentU_work/mirror'); 
 sys.path.insert(0,'/home/user/integer_solver/solve_lab')
 t0=time.time()
 import engine3 as E3
