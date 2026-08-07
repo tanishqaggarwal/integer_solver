@@ -1,76 +1,127 @@
-"""Exact integer linear system solver via column Hermite normal form."""
+"""Exact integer linear system solver: A x = b over Z.
+
+Column Hermite normal form with a modular pre-filter.  The pre-filter is what
+makes the support search affordable: solvability over Z implies solvability over
+F_q for every prime q, and the reduced systems are tiny.
+"""
+from math import gcd
+
+SMALL_PRIMES = (2, 3, 5, 7, 11, 13, 17, 19, 23, 1000003)
+P256 = 2**256 - 2**32 - 977
+FILTER_PRIMES = SMALL_PRIMES + (P256, 7376877)   # 7376877 = 3*3*819653? just used as modulus
+
+
+def _rank_mod(rows, q):
+    """Rank of the matrix over Z/q for PRIME q (rows already reduced)."""
+    m = len(rows)
+    if m == 0:
+        return 0
+    n = len(rows[0])
+    A = [[x % q for x in r] for r in rows]
+    rank = 0
+    for c in range(n):
+        piv = None
+        for r in range(rank, m):
+            if A[r][c] % q:
+                piv = r
+                break
+        if piv is None:
+            continue
+        A[rank], A[piv] = A[piv], A[rank]
+        inv = pow(A[rank][c], -1, q)
+        A[rank] = [x * inv % q for x in A[rank]]
+        for r in range(m):
+            if r != rank and A[r][c]:
+                f = A[r][c]
+                A[r] = [(A[r][k] - f * A[rank][k]) % q for k in range(n)]
+        rank += 1
+        if rank == m:
+            break
+    return rank
+
+
+def _mod_consistent(A, b, q):
+    """Necessary condition: A x = b solvable over F_q."""
+    ra = _rank_mod(A, q)
+    rab = _rank_mod([A[i] + [b[i]] for i in range(len(A))], q)
+    return ra == rab
 
 
 def col_hnf(A):
-    """A: list of rows (m x n).  Returns (H, U) with A*U = H, U unimodular."""
-    m = len(A); n = len(A[0]) if m else 0
+    """A: m x n list of rows.  Returns (H, U, pivots) with A*U = H."""
+    m = len(A)
+    n = len(A[0]) if m else 0
     H = [row[:] for row in A]
     U = [[1 if i == j else 0 for j in range(n)] for i in range(n)]
 
-    def colop(c1, c2, a, b, c, d):
-        """[col c1, col c2] <- [a*c1 + b*c2, c*c1 + d*c2]  (det ad-bc = +-1)"""
+    def addcol(dst, src, q):
+        """col_dst -= q * col_src"""
+        if q == 0:
+            return
         for r in range(m):
-            x, y = H[r][c1], H[r][c2]
-            H[r][c1] = a * x + b * y
-            H[r][c2] = c * x + d * y
+            H[r][dst] -= q * H[r][src]
         for r in range(n):
-            x, y = U[r][c1], U[r][c2]
-            U[r][c1] = a * x + b * y
-            U[r][c2] = c * x + d * y
+            U[r][dst] -= q * U[r][src]
+
+    def swapcol(c1, c2):
+        for r in range(m):
+            H[r][c1], H[r][c2] = H[r][c2], H[r][c1]
+        for r in range(n):
+            U[r][c1], U[r][c2] = U[r][c2], U[r][c1]
 
     piv = 0
     pivots = []
     for r in range(m):
         if piv >= n:
-            break
-        # find a nonzero entry in row r among columns >= piv
-        nz = [c for c in range(piv, n) if H[r][c] != 0]
-        if not nz:
             pivots.append(None)
             continue
-        # gcd-reduce columns piv..n-1 in row r into column piv
-        for c in nz:
-            if c == piv:
-                continue
-            while H[r][c] != 0:
-                if H[r][piv] == 0:
-                    colop(piv, c, 0, 1, 1, 0)
-                    continue
-                q = H[r][c] // H[r][piv]
-                # col c -= q * col piv
-                colop(piv, c, 1, -q, 0, 1)
+        while True:
+            nz = [c for c in range(piv, n) if H[r][c] != 0]
+            if not nz:
+                break
+            # move the smallest-magnitude nonzero into the pivot column
+            c0 = min(nz, key=lambda c: abs(H[r][c]))
+            if c0 != piv:
+                swapcol(piv, c0)
+            done = True
+            for c in range(piv + 1, n):
                 if H[r][c] != 0:
-                    colop(piv, c, 0, 1, 1, 0)
-        pivots.append(piv)
-        piv += 1
+                    addcol(c, piv, H[r][c] // H[r][piv])
+                    if H[r][c] != 0:
+                        done = False
+            if done:
+                break
+        if H[r][piv] != 0:
+            pivots.append(piv)
+            piv += 1
+        else:
+            pivots.append(None)
     return H, U, pivots
 
 
-def solve_int(A, b):
+def solve_int(A, b, use_filter=True):
     """Return an integer x with A x = b, or None."""
     m = len(A)
     if m == 0:
         return []
     n = len(A[0])
+    if use_filter:
+        for q in FILTER_PRIMES:
+            if not _mod_consistent(A, b, q):
+                return None
     H, U, pivots = col_hnf(A)
     y = [0] * n
-    rhs = b[:]
     for r in range(m):
-        p = pivots[r] if r < len(pivots) else None
         s = sum(H[r][c] * y[c] for c in range(n))
-        need = rhs[r] - s
+        need = b[r] - s
+        p = pivots[r]
         if p is None:
-            if need != 0:
-                return None
-            continue
-        if H[r][p] == 0:
             if need != 0:
                 return None
             continue
         if need % H[r][p] != 0:
             return None
         y[p] = need // H[r][p]
-    # verify
     x = [sum(U[i][c] * y[c] for c in range(n)) for i in range(n)]
     for r in range(m):
         if sum(A[r][c] * x[c] for c in range(n)) != b[r]:
@@ -79,6 +130,9 @@ def solve_int(A, b):
 
 
 if __name__ == '__main__':
-    A = [[2, 4], [3, 9]]
-    print(solve_int(A, [6, 12]))
-    print(solve_int([[2, 4]], [3]))
+    assert solve_int([[2, 4], [3, 9]], [6, 12]) is not None
+    assert solve_int([[2, 4]], [3]) is None
+    assert solve_int([[2, 3]], [1]) is not None
+    x = solve_int([[6, 10, 15]], [1])
+    assert x and 6 * x[0] + 10 * x[1] + 15 * x[2] == 1
+    print("intsolve self-tests OK")

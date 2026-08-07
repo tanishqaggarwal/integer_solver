@@ -141,3 +141,32 @@ finds x_1329, x_8731, x_10903, x_29854, x_31864 -- including x_8731, direction
 (0,0,0,0,0,1,0), which type (A) rejects.  Neither dominates; jgen3.py unions them.
 Type (A) alone: exhaustive HNF search says k=5 maximal (all 924 six-subsets and all
 792 seven-subsets have no integer solution) => 39026 optimal for that lattice.
+
+## OFF-MANIFOLD ROUTE: exhaustively closed, no improvement
+score = 39033 - ||M a||_0.  Two bounds on failures for a support T:
+  LB1 = #{equations meeting T in exactly ONE atom}   -- RIGOROUS (such rows cannot cancel)
+  LB2 = |R| - |T| + 1                                -- heuristic filter only, valid when
+        every (|T|-1)-subset of rows has full rank; NOT a theorem.
+
+1. jcode.py: the deliverable's 7 atoms touch only |R|=12 equations with LB1=1.  Every
+   other reachable residual is far worse (2-atom on-manifold: |R|=29, LB1=29 because
+   a8583 and a30271 share no equation at all).  "Fewer nonzero atoms is better" is
+   FALSE; the binding quantity is the co-occurrence footprint.
+2. jcluster.py / jgen2.py / jgen3.py: reachable atom vectors are a* + L.  Two move
+   types generate DIFFERENT lattices (move alone vs move + re-derive forward cone);
+   unioned, L has 10 generators.  Exhaustive Hermite-normal-form search over ALL
+   subsets: k=12,11,10,9,8,7 and all 924 six-subsets have NO integer solution;
+   k=5 is maximal => 39026.  Independently reproduced with the 7-generator lattice.
+3. jexpand.py/jknobfit.py: 900 atoms are FREE KNOBS (private occurrence-1 linear
+   variable => value settable to any integer, zero side effects, no q-congruence).
+   They would supply unconstrained coordinates -- but ZERO of them share an equation
+   with any reachable residual, so they cannot cancel anything.
+4. jscan2.py: swept T = T0 u occ(v) over all 38748 variables for four bases, plus
+   pair sweeps.  The minimum bound over every reachable support is 6, attained ONLY
+   inside the deliverable's own cluster (vars x_642, x_1329, x_9413, x_10903, x_17325,
+   x_29854, x_31864 -- exactly its generators).  The couple of LB=6 entries from the
+   "empty" base presuppose a full solution as the base state, which does not exist.
+
+CONCLUSION: 39026 is optimal for its cluster under an exhaustive integral search over
+the largest lattice I can generate, and no other reachable support has a better
+profile.  No state above 39026 was produced, so nothing new was written to best/.
