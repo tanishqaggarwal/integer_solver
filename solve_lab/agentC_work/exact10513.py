@@ -6,7 +6,6 @@
 import sys, json, time, collections, itertools
 sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentC_work')
 from close4 import *
-from plan10513 import plan
 W='/home/user/integer_solver/solve_lab/agentC_work/'
 TC={r[3]:r for r in json.load(open(W+'truecost.json'))}
 b=10513
@@ -45,4 +44,3 @@ def rank(mat):
         r+=1
     return r
 print('rank(M) over Q =',rank(M))
-ctrl,det=plan(b,4279 if 4279 else 47)

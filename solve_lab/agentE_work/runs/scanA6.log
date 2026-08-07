@@ -39,3 +39,18 @@ x_7029	pins=[8542, 32752, 32753]	FEAS=True	msg=ok	exact=(16, [])	8s
 x_7151	pins=[30455, 30456, 40626]	FEAS=True	msg=ok	exact=(16, [])	6s
 x_7745	pins=[29796, 29797, 39969, 40707]	FEAS=False	msg=core infeasible	exact=None	3s
 x_7780	pins=[4375, 4376]	FEAS=True	msg=ok	exact=(16, [])	6s
+x_8319	pins=[29261, 29262, 40512]	FEAS=False	msg=core infeasible	exact=None	39s
+x_8441	pins=[29744, 29745]	FEAS=True	msg=ok	exact=(16, [])	7s
+x_8757	pins=[18004, 18005]	FEAS=False	msg=core infeasible	exact=None	3s
+x_9294	pins=[27757, 27758]	FEAS=False	msg=core infeasible	exact=None	4s
+x_9601	pins=[22273, 22274]	FEAS=True	msg=ok	exact=(16, [])	7s
+x_10255	TIMEOUT	45s
+x_10428	pins=[7112, 7113]	FEAS=True	msg=ok	exact=(16, [])	7s
+x_10591	pins=[26814, 26815]	FEAS=False	msg=core infeasible	exact=None	7s
+x_10746	pins=[5046, 5047]	FEAS=True	msg=ok	exact=(16, [])	5s
+x_11026	pins=[9521, 9522]	FEAS=True	msg=ok	exact=(16, [])	6s
+x_11170	pins=[31475, 32445]	FEAS=False	msg=core infeasible	exact=None	4s
+x_11777	pins=[17728, 17729]	FEAS=True	msg=ok	exact=(16, [])	5s
+x_12072	pins=[2758, 2759, 40424]	FEAS=False	msg=core infeasible	exact=None	4s
+x_12134	pins=[22745, 35729]	FEAS=True	msg=ok	exact=(16, [])	7s
+x_12422	pins=[14777, 14778]	FEAS=False	msg=core infeasible	exact=None	6s

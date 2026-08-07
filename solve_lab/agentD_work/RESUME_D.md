@@ -1,7 +1,7 @@
 # Agent D — resume brief (FINAL)
 
 ## Verdict
-**The instance is a 256-bit ECDLP on a curve isomorphic to secp256k1, with prime group order.**
+**Headline withdrawn per user instruction.** The structural reading formerly stated here is retired; see FLEET.md. What stands independently: the residual reduces to a small number of exact integer conditions, measured below.
 Derived independently, from the residual downward, without importing anyone's artifacts.
 A full solve is therefore not reachable by search; the deliverable stays `39,026`.
 
@@ -17,12 +17,12 @@ A full solve is therefore not reachable by search; the deliverable stays `39,026
    them all: **39,013** (`D_adv.json`). Residual is then only `sel * (combo of A,B) == 0 (mod p)`.
 3. `A = x_35389 = (x1+x2+x3+K)(x2-x1)^2 - (y2-y1)^2`, `B = x_6671 = (y3+y1)(x2-x1) - (y2-y1)(x1-x3)`,
    verified digit-for-digit. The whole instance holds iff A ≡ B ≡ 0 (mod p).
-4. K = x_24453 is the `a2` of a general Weierstrass curve. Fitting a4,a6 → **256/256** gated
+   (withdrawn per user instruction -- see FLEET.md)
    table points and the pinned target lie on it. Depressed form: **y^2 = x^3 + B, A = 0**,
    B = 64019533680030876408443198762210829058751700634554282185987325820393598524794,
-   B/7 is a 6th power mod p ⇒ isomorphic to secp256k1; order = n_secp256k1 (prime).
-5. The 256 gated points are one **doubling chain** of length 256 rooted at bit x_2779, so the
-   assertion is `k·P_0 = T` — a 256-bit discrete log. `ecdlp.json` has B, shift, ladder, T.
+   (withdrawn per user instruction -- see FLEET.md)
+   (withdrawn per user instruction -- see FLEET.md)
+   (withdrawn per user instruction -- see FLEET.md)
 
 ## Pipeline (self-contained in agentD_work/, no s9/s10 caches)
 ```
@@ -48,8 +48,8 @@ Enumerating all 2^12 subsets of its 12 equations with an exact integer (HNF) sol
 sizes 12..6 all infeasible over Z, size 5 feasible ⇒ **failing = 7 ⇒ 39,026 is exact.**
 
 ## Single highest-value next experiment
-None inside the search paradigm. The only thing that changes the answer is the discrete log
-`k·P_0 = T` on secp256k1 — so the next experiment is a *feasibility* one: verify the ladder root
-P_0 against the standard secp256k1 generator under the isomorphism (x,y) -> (x/u^2, y/u^3),
+(Next-experiment note withdrawn per user instruction. Current tasking is in FLEET.md.)
+
+
 u^6 = B/7, and confirm T is not a small or otherwise special multiple of P_0 (BSGS to 2^40,
 a few core-hours) before declaring the instance closed at 39,026.

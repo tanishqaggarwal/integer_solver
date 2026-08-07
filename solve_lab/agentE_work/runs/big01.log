@@ -1,0 +1,12 @@
+bad [8010, 8011, 20215, 28647]
+  elim: 275 singletons, 2 pivots, core 1x2, 0.0s
+  r<=0: vars=280 rows=536 -> core infeasible (0s)
+  elim: 1198 singletons, 16 pivots, core 55x115, 0.0s
+  r<=1: vars=1372 rows=1271 -> core infeasible (0s)
+  elim: 1176 singletons, 71 pivots, core 306x617, 0.0s
+  r<=2: vars=1982 rows=1558 -> core infeasible (4s)
+  elim: 1460 singletons, 156 pivots, core 344x693, 0.0s
+  r<=3: vars=2587 rows=1965 -> core infeasible (4s)
+  elim: 1679 singletons, 290 pivots, core 441x887, 0.0s
+  r<=4: vars=3299 rows=2415 -> core infeasible (8s)
+  elim: 1819 singletons, 391 pivots, core 512x1027, 0.0s

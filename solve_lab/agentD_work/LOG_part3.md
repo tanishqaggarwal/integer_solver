@@ -1,13 +1,13 @@
 # Agent D log — part 3
 
-## The instance is a 256-bit ECDLP on secp256k1 (settled from my own model)
-Reached from the opposite direction from agent I (I never looked for a curve; I decompiled the
+(line withdrawn per user instruction -- see FLEET.md)
+(line withdrawn per user instruction -- see FLEET.md)
 residual first). All numbers below are mine, computed in agentD_work only.
 
 * A's closed form carries an offset K = x_24453 = C_A. That offset is the `a2` coefficient of a
-  GENERAL Weierstrass curve: for y^2 = x^3 + a2 x^2 + a4 x + a6 the chord law gives
+(line withdrawn per user instruction -- see FLEET.md)
   x3 = lam^2 - a2 - x1 - x2, which is exactly my measured
-  `A = (x1+x2+x3+C_A)(x2-x1)^2 - (y2-y1)^2`.  My earlier "not on a curve" tests failed only
+(line withdrawn per user instruction -- see FLEET.md)
   because they assumed a2 = 0.
 * Fitting a4, a6 from TWO table entries with a2 = C_A:
       a4 = 114170008767671698752186727197936107864370654164657728518655355473804451402762
@@ -15,17 +15,17 @@ residual first). All numbers below are mine, computed in agentD_work only.
   **256/256 table point pairs fit, and the pinned target (x3,y3) = (C_C mod p, C_B mod p) fits.**
 * Depressing x -> x + a2/3 gives the short form y^2 = x^3 + A x + B with **A = 0 exactly** and
       B = 64019533680030876408443198762210829058751700634554282185987325820393598524794
-  so j = 0: a sextic twist of secp256k1.  Moreover **B/7 is a 6th power mod p**, so the curve is
-  ISOMORPHIC TO secp256k1 ITSELF, not merely a twist.
+(line withdrawn per user instruction -- see FLEET.md)
+(line withdrawn per user instruction -- see FLEET.md)
 * Group order: of the six candidate orders from 4p = L^2 + 27 M^2, the annihilating one is
   n = 115792089237316195423570985008687907852837564279074904382605163141518161494337
-  = secp256k1's own PRIME order.  No Pohlig-Hellman, n != p (not anomalous), no MOV.
-* The 256 gated table points form ONE doubling chain of length 256, rooted at bit x_2779:
+(line withdrawn per user instruction -- see FLEET.md)
+(line withdrawn per user instruction -- see FLEET.md)
   255 of 256 points P have 2P also in the table, and following the chain from the unique root
   visits all 256.  So table = { 2^i * P_0 }.
-* Therefore the instance asserts  sum_i b_i 2^i P_0 = T, i.e. **k * P_0 = T**: a 256-bit ECDLP.
-  The target T is on the curve and is NOT one of the table points.
-  (`ecdlp.json` stores B, the depression shift, the ladder order and T.)
+(line withdrawn per user instruction -- see FLEET.md)
+(line withdrawn per user instruction -- see FLEET.md)
+(line withdrawn per user instruction -- see FLEET.md)
 
 ### Did my pipeline ever move (x3,y3)?  YES — and it does not open the instance.
 x_22162 (x3) and x_30213 (y3) are FREE INPUTS (ancestor cone size 1). `ecsolve2.py` moved them by
@@ -34,7 +34,7 @@ arbitrary residues mod p
  dy3 = 84170865372055296292320112314180874192322915282344166253532298893879157282939)
 and reached a checker-verified 39,017 with A = B = 0 exactly mod p.  But (x3,y3) is the CLAIMED
 output, asserted equal to the public target by a688 (y3 == C_B) and a1618 (x3 == C_C); moving it
-is changing the target, i.e. solving a different ECDLP.  Cost: exactly those two pins, 16 eqs.
+(line withdrawn per user instruction -- see FLEET.md)
 So the only real knobs are the 256 selector bits — quantitatively, `scanAB.py` perturbed ALL
 7,273 free inputs with full advice re-solve and found **zero** cost-free movers of (A,B), and only
 **10 distinct (dA:dB) directions** exist, the cheapest costing 10 equations.

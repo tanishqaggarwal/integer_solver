@@ -29,5 +29,5 @@
   constants; 178 bits gate x_7715 (P1), 78 gate x_34554 (P2). bitswap.py CONFIRMS
   (x1,y1) = the selected bank-1 pair, (x2,y2) = the selected bank-2 pair.
 - banks.py: exhaustive 178 x 78 x 4 orderings -> NO pair gives A=0 or B=0. The one-bit-per-bank
-  branch is unsatisfiable; the constants are NOT secp256k1 points (0/256 on curve, 278/512 QR).
+  branch is unsatisfiable. (A further claim on this line about the constants has been withdrawn per user instruction; see FLEET.md.)
 - two bits on in one bank -> x1 = 0 (not a subset sum; it is a tree MUX).

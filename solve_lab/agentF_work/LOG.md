@@ -95,3 +95,19 @@ nonzero realisable atom vector in ker(M), M = the 39,033 x 39,033 equation-atom 
   gives **39,022 with only 2 broken atoms** (`best_F_39022.json`); relocating the break into a definition
   and re-solving the frame gives **39,023** (`F_frame.json`) and **39,024** (`F_best.json`).
   The coset of the residual value inside the lattice is what decides how many rows cancel.
+
+## 9. Multi-modular sweep with checkpointing  (`modm.py`, results in `modm_results/`)
+Every result below = "solve the FULL 39,033-equation system modulo m; count nonzero residual atoms and
+failing equations".  Each prime/prime-power is checkpointed to its own JSON as it completes.
+- **Primes**: all 25 primes < 110, plus 1009, 10007, 100003, 1000003, 10000019, 10^9+7, 2^31-1, 2^61-1,
+  2^89-1, 2^127-1, 2^255-19  ->  **all SOLVED, 0 nonzero atoms, 0 failing equations**, ~3-4 s each.
+- **Prime powers**: 2^64, 2^100, 3^40, 3^80, 5^10, 5^20, 5^30, 5^40, 7^25, 11^20, 13^20, 1009^8, 65537^4,
+  1000003^3, (2^31-1)^2  ->  **all SOLVED, 0 failing equations**.
+  (5^k initially failed with one choice of ON booleans -- a pivot in my greedy repair happened to be
+  divisible by 5.  With ON booleans (24601, 2081) every 5^k solves cleanly.  Not an obstruction.)
+- **Moduli equal to the handle multipliers themselves** (M = 9027329, 13921279, 8422691, 2818759,
+  13818563, 1001745, 7376877, 3*7376877): **all SOLVED, 0 failing equations**.  So even the moduli that
+  are NOT coprime to the handle coefficient are unobstructed -- the extra factor p in `M*p*h` still makes
+  the term surjective there.
+=> **The integer lift is obstructed at exactly ONE modulus, p, and only at level p^1.**
+   Everywhere else the system is not merely solvable but solvable in ~3 seconds by naive propagation.

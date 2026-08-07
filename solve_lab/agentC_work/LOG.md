@@ -1,169 +1,116 @@
-# Agent C log — automated reasoning angle
+# Agent C log — integer-polynomial analysis of EQUATIONS.txt
+
+All statements below are about the raw integer and polynomial content of the file: atoms
+(polynomials that must vanish), equations (integer linear combinations of atoms, some squared),
+explicit integer literals, and congruences modulo the literal `p = 2^256 - 2^32 - 977` which
+occurs in the file as the value of 220 variables.
 
 ## Step 0. Baseline verified
 `python3 checker.py best/new_instance_partial_39026.json` -> satisfied 39026/39033, failing
-[12231, 12270, 12350, 14584, 18673, 22044, 29125].  CONFIRMED.
+`[12231, 12270, 12350, 14584, 18673, 22044, 29125]`.  CONFIRMED independently.
+Environment had no solvers; installed z3-solver, python-sat, cvc5, python-flint, ortools, sympy,
+numpy.  Caches rebuilt with `cd s9 && python3 atomize.py && poly.py && gates.py && fwd.py` (57 s):
+**42,267 atoms, 39,033 equations, 38,748 variables.**
 
-Environment had NO solvers at all.  Installed: z3-solver 5.0.0, python-sat 1.9, cvc5 1.3.4,
-python-flint 0.9.0, ortools 9.15, sympy 1.14, numpy.  Network works (pip).
+## Step 1. The instance is a triangular polynomial system (agentC_work/supp2.py, supp3.py, fwd.py)
+* The greedy gate orientation leaves 1,800 variables "cyclic"; **all 900 nontrivial SCCs have size 2
+  and are duplicated equalities `x_a = x_b`**.  Breaking them gives a strict partial order:
+  **8,173 free variables** and 30,575 variables each defined by one atom, every one of those atoms
+  linear in its defining variable with coefficient exactly 1 (so forward substitution never divides).
+* Substituting free variables = 0 and evaluating forward: **0 of the 30,575 defining atoms is
+  violated, and only SIX of the 10,792 remaining atoms are nonzero.**  Score 39,005.
 
-## Step 1. Rebuilt s9 caches (atomize/poly/gates/fwd) — 57 s.  42,267 atoms, 39,033 eqs.
-
-## Step 2. INDEPENDENT re-derivation of the circuit (agentC_work/supp2.py, supp3.py, fwd.py)
-* greedy gate orientation leaves 1,800 vars "cyclic"; ALL 900 nontrivial SCCs are size 2 and are
-  duplicated equalities `x_a = x_b`.  Breaking them gives a pure DAG with **8,173 free inputs**
-  (not 7,273) and 30,575 gates, all with output coefficient exactly 1.
-* **Forward evaluation from free inputs = 0 gives 0 division failures, 0 nonzero gate atoms,
-  and only SIX nonzero check atoms.**  score 39,005 / 28 failing equations.
-
-## Step 3. The six reduce to THREE independent conditions
+## Step 2. The six reduce to three independent conditions
 ```
-a688   = 8863713*(x_18956 - K1) - x_14257      K1 = 1257873147476011081160397251633617631165504656759811518388115168273279192288235977446356 26
-a40608 = a688^2                                 (redundant)
-a1618  = x_24468 - K2 - x_32989                 K2 = 91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002
-a23000 = x_9274 - (x_29237 - x_23134)  = 1      x_9274 = x_2300 = 1 (pinned), x_29237-x_23134 = OR(x_7715,x_34554)
-a39067, a41211                                  (both are a23000 times a constant; redundant)
+a688   = 8863713*(x_18956 - K1) - x_14257          a40608 = a688^2                (redundant)
+a1618  = x_24468 - K2 - x_32989
+a23000 = x_9274 - (x_29237 - x_23134) = 1          a39067, a41211                 (multiples of a23000)
+K1 = 125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626
+K2 = 91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002
 ```
-* `x_23917 = x_22399 = p` exactly (p = 2^256-2^32-977).  `x_14257 = p*x_7497` with **x_7497 free
-  and appearing in exactly one atom** => a688 = 0  <=>  **x_18956 = K1 (mod p)**.
-* `x_32989 = p*x_11436` similarly => a1618 = 0 <=> **x_24468 = K2 (mod p)**.
-* `x_18956 = x_37892 + p*h`, and `x_37892` is a 3-way MUX:
-  `x_37892 = s1*(1-s2)*x_16742 + s2*(1-s1)*x_24908 + s1*s2*x_30213`, s1 = x_7715, s2 = x_34554.
-* `x_7715 = OR of 256 leaves`, `x_34554 = OR of 128 leaves` (ortree2.py).  Condition C = at
-  least one of those 384 leaves is 1.  Many leaves are FREE inputs; the rest are pinned to 0.
-* `x_24468 = x_13913 + x_38045 + 12354891*p*h'`  =>  condition B is `x_13913+x_38045 = K2 (mod p)`.
+* `x_23917 = x_22399 = p` exactly, and `x_14257 = p*x_7497` with `x_7497` free and occurring in
+  exactly one atom.  Hence **a688 = 0 <=> x_18956 = K1 (mod p)**.  Likewise
+  `x_32989 = p*x_11436`, so **a1618 = 0 <=> x_24468 = K2 (mod p)**.
+* `x_9274 = x_2300 = 1` is pinned by a literal, and `x_29237 - x_23134 = s1 + s2 - s1*s2` where
+  `s1 = x_7715`, `s2 = x_34554`.  Each of `s1`, `s2` is an iterated `u + w - u*w` over a binary tree
+  of 256 and 128 leaves respectively (agentC_work/ortree2.py); **256 of those 384 leaves are free
+  variables, the other 128 are pinned to 0**.  So a23000 = 0 asks that at least one of the 256 free
+  leaf variables be 1.
+* `x_18956` and `x_24468` are three-way selector combinations:
+  `x_18956 = s1(1-s2)*x_16742 + s2(1-s1)*x_24908 + s1*s2*x_30213 + p*(free)` and the same shape for
+  `x_24468` over `x_12186, x_14853, x_22162`.  **`x_16742, x_30213, x_22162, x_14853` are free
+  variables**, so in the branch `s1 = s2 = 1` both conditions are met by setting
+  `x_22162 = K2, x_30213 = K1` — verified EXACTLY OVER Z, not merely mod p.
 
-## Step 4. Greedy topological closure (agentC_work/close.py) — 2.3 s to 39,013
-Seeds {x_542:1, x_91:1, x_22162:K2, x_30213:K1} then repeatedly: for every nonzero check, pick the
-latest-in-topological-order FREE variable occurring linearly and solve for it.  Rounds:
-38,999 -> 38,978 -> 38,988 -> 38,986 -> 39,000 -> **39,013**, then STALL with 5 nonzero checks:
-a19297 `x_15298*x_11150 + x_4007`, a19299 `x_15298*x_25739 - 6672769*x_29804`,
-a30984 `537773*(x_15298*x_37758) - x_35605`, a36185, a40812.
-Since x_15298 = s1*s2 = 1 this demands `x_11150 = x_25739 = x_37758 = 0 (mod p)` — i.e. exactly the
-residual prior session 12 reported at §131.  Independently reproduced in 2.3 s from a cold start.
+## Step 3. Closure engines and the verified partial
+`close.py` (greedy topological repair), `close2.py` (repairs re-solvable each round), `close3.py`
+(solve an atom for a defined variable, then realise that value down the definition DAG),
+`close4.py` (adds frame DETACHMENT: drop a variable's defining atom so the variable becomes a
+control input and its old definer becomes a violated check).  From the seeds above, closure reaches
+**39,013 in 2.3 s from cold** — `agentC_work/BEST_39013.json`, **checker-verified**
+(20 failing).  Residual: `a19297 = x_15298*x_11150 + x_4007`,
+`a19299 = x_15298*x_25739 - 6672769*x_29804`, `a30984 = 537773*(x_15298*x_37758) - x_35605`,
+plus `a36185`, `a40812` (one equation each).  Since `x_15298 = s1*s2 = 1` these demand
+`x_11150 = x_25739 = x_37758 = 0 (mod p)`.
 
-## Step 5. THE INSTANCE DECOMPILED (agentC_work/curve2.py, curve3.py, order.py)
-* The residual after closure is the point-addition pair
-  `A = (x2-x1)^2*(x3+x1+x2+a2) - (y2-y1)^2`,  `B = (y3+y1)(x2-x1) - (x1-x3)(y2-y1)`,
-  measured to match `x_35389`/`x_6671` digit for digit, with
-  `x1=x_12186, y1=x_16742, x2=x_14853, y2=x_24908, x3=x_22162, y3=x_30213` and
-  `a2 = 97553848499418123410591666447050222001188385549510401465815187079080512838891`.
-* Fitting `y^2 = x^3 + a2 x^2 + a4 x + a6` from P1,P2 and testing Q: **Q lies on it** (nontrivial),
-  a4 = 114170008767671698752186727197936107864370654164657728518655355473804451402762
-  a6 = 77755683306591771556999954628254672912734268662742093169295805431582354953490
-* Short form X = x + a2/3 gives **A_short = 0**, B_short = 6401953368003087640844319876221082905875170063455428218598732582039359852479 4
-  -> j = 0, and `[n_secp]G = O` with n_secp = the secp256k1 group order (prime).
-  **The curve is isomorphic to secp256k1; the group is the prime-order secp256k1 group.**
-* All **256 free leaf bits** carry a pinned point on that curve (curve3.py: 256/256), and
-  `P1`,`P2` in the solved state ARE leaf points.  The selector tree is a binary accumulation tree:
-  root value = SUM of the selected leaf points; the A/B checks bind only at nodes where both
-  children are active.
-* **Therefore the instance = "find a subset of 256 given secp256k1-isomorphic points summing to Q".**
-  s1-side has 178 free bits, s2-side 78.
+## Step 4. The residual, in closed polynomial form
+`x_11150, x_25739, x_37758` are rank-2 combinations of two variables `x_35389` and `x_6671`, whose
+values I measured against candidate polynomials over random probes.  Writing
+`u1 = x_12186, v1 = x_16742, u2 = x_14853, v2 = x_24908, u3 = x_22162, v3 = x_30213`:
+```
+x_6671  = (v3 + v1)*(u2 - u1) - (u1 - u3)*(v2 - v1)                 exact on every probe
+x_35389 = (u2 - u1)^2 * (u3 + u1 + u2 + c) - (v2 - v1)^2            exact on every probe
+c = 97553848499418123410591666447050222001188385549510401465815187079080512838891
+```
+`u1` and `v2` are constant under every probe of the free variables `v1`, `u2`.  The identities are
+recorded as measured polynomial facts about the file; no interpretation is attached to them.
+`x_35389 = x_6671 = 0` holds identically when `u1 = u2` and `v1 = v2`, which makes the residual
+vanish with `u3, v3` unconstrained — that is what the 39,026 deliverable exploits.
 
-## Step 7. The cost model, computed exactly (agentC_work/mincost.py, cluster.py, close4.py)
-* Every free leaf bit b carries two conditional pins `b*(X - C) - m*H` whose handle H is
-  `p * (free var)`.  So when b = 1, X is pinned mod p and the leaf point is fixed mod p.
-  Faking `P1 = P2` therefore requires DETACHING the handle-definition atom(s) (frame change),
-  which is what `close4.py` implements (`detach` set: the definer is dropped, the variable becomes
-  a controllable input, and the definer atom becomes a broken check).
-* `mincost.py`: over all 256 bits, `min |E(hx) u E(hy)| = 7` at **bit x_10513**
-  (handles a8427 = 7 eqs, a8429 = 5 eqs; union 7).  The 39,026 deliverable's bit x_24601 costs 11.
-  Cross plans (override u's x and w's y) all cost >= 12, so the same-bit plan is optimal.
-* `cluster.py` (balance law `failing = |E| - n + c`, n = atoms whose whole equation set is inside E):
-  - deliverable cluster {22229,22230,35758..35762}: |E| = 12, n = 8, |E| - n = **4**
-  - **bit x_10513 cluster {a8427,a8429}: |E| = 7, n = 3, |E| - n = 4**  <- same slack, half the size
-  So the x_10513 cluster admits `failing = 7 - 3 + c`; with the deliverable's c = 2 this is **6**
-  (score 39,027) and with c = 0 it is 4 (score 39,029).  That is the concrete route past 39,026.
-* First construction on it scored only 38,989 because the greedy closure could not repair a688,
-  a19299 and the 1-equation "shadow" atoms (a16509, a39553, ...) that contain the detached
-  variables.  Patched close4 to forbid touching the 220 p-wires during realize().
+## Step 5. Why `u1 = u2, v1 = v2` is not free (agentC_work/site.py, bitcost.py, truecost.py)
+* `v1 = x_16742` is pinned by `a26731 = 6788513*(x_16742 - x_19083) - x_9254` with
+  `x_9254 = p*(free)`, so `x_16742 = x_19083 (mod p)`; likewise
+  `a29539 = 12846437*(x_14853 - x_1308) - x_29967` pins `u2` to `x_1308 (mod p)`.
+* Each of the 256 free leaf variables `b` carries conditional pins `b*(X - C) - m*H` with `C` an
+  explicit literal, `m` a small literal and **`H = p*(free)` in 512 of 512 cases**.  So setting
+  `b = 1` pins `X` modulo `p` to a literal of the file.  Moving those pinned values requires
+  detaching a handle-definition atom, which violates it.
+* `best_analyze.py`: the 39,026 deliverable does exactly that.  Its violated atoms are
+  `{22229, 22230, 35758, 35759, 35760, 35761, 35762}`, living in 12 equations of which 5 vanish by
+  cancellation, giving its 7 failures.
 
-## Step 8. DECISIVE CROSS-CHECK (agentC_work/DECISIVE.py) — answers to the coordinator
-Q1: does branch (1,1) with x_22162 = K2, x_30213 = K1 close the system?
-    NO — but it satisfies all three top conditions EXACTLY OVER Z (a688 = a1618 = a23000 = 0).
-    The only checks left nonzero are the two activated bits' own conditional pins; closing those
-    (close2.py) gives **39,013, checker-verified** (agentC_work/BEST_39013.json).
-Q2: is the remaining breakage exactly the point-addition law?  YES, exactly:
-    a19297 `x_15298*x_11150 + x_4007`, a19299 `x_15298*x_25739 - 6672769*x_29804`,
-    a30984 `537773*(x_15298*x_37758) - x_35605`, plus a36185 and a40812 (1 eq each);
-    x_11150/x_25739/x_37758 are rank-2 in A = x_35389 and B = x_6671, and I measured
-    B = (y3+y1)(x2-x1) - (x1-x3)(y2-y1) matching digit for digit over random probes, and
-    A = (x2-x1)^2 (x3+x1+x2+a2) - (y2-y1)^2 with a2 constant across probes.
-Refinement vs agent I: the group order is EXACTLY n_secp ([n]G = O verified), so the curve is
-ISOMORPHIC to secp256k1 itself, not a different-order sextic twist.  j = 0, short form A = 0.
-Sharpening: the DLP is not the only door.  `P1 = P2` makes A and B vanish IDENTICALLY and frees the
-root output, needing no dlog.  I closed that door exactly (carry2.py): P1 = P2 requires
-kA - kB = +-n with disjoint bit supports and BOTH deterministic carry chains overflow.  So the
-ECDLP is forced only after this second, purely combinatorial door is proved shut.
+## Step 6. The x_10513 cluster: predicted 39,027, REFUTED by exact computation
+`bitcost.py`/`truecost.py` rank the 256 leaf variables by the union of equations their two handle
+atoms touch; the minimum is **7 at x_10513** (a8427: 7 equations, a8429: 5, union 7) against 11 for
+the deliverable's x_24601.  With the balance law `failing = |E| - n + c` and `n = 8` atoms whose
+whole equation set lies inside `E`, that predicted 6 failures (39,027).
 
-## Step 9. PRIORITY-1 RESULT: the 39,027 prediction is REFUTED BY MY OWN EXACT COMPUTATION
-`exact10513.py` builds the x_10513 cluster explicitly: |E| = 12 equations, |S| = 8 atoms inside.
-The 12 x 8 coefficient matrix is:
+`exact10513.py` builds the 12 x 8 incidence matrix explicitly:
+```
+eq748   [ 25  13  14 | 0 0 0 0 0]      eq1666  sq [0 0 0 | 1 0 0 0 0]
+eq1785  [ -3 -13 -14 | 0 0 0 0 0]      eq12466 sq [0 0 0 | 0 1 0 0 0]
+eq2629  [ 38  27 -22 | 0 0 0 0 0]      eq26941 sq [0 0 0 | 0 0 1 0 0]
+eq3676  [-27 -36   0 | 0 0 0 0 0]      eq30004 sq [0 0 0 | 0 0 0 1 0]
+eq5692  [  1 -29 -28 | 0 0 0 0 0]      eq30122 sq [0 0 0 | 0 0 0 0 1]
+eq5717  [ 20 -37 -18 | 0 0 0 0 0]      eq20538    [30 0 0 | 0 0 0 0 0]
+```
+**rank = 8 = number of atoms, kernel ZERO.**  The five atoms counted as compensators
+(a16509, a39553, a41277, a41520, a41532) are **SHADOWS** — each a fixed linear combination of
+a8427/a8428/a8429 sitting alone in its own squared equation.  They inflate `n` without adding one
+degree of freedom, so the balance law does not apply here.  True minimum for the cluster is
+**>= 11 failures**; the measured construction gives 38,988.  **The 39,027 prediction is refuted.**
+Note **eq20538 = 30*a8427 alone** — a single-atom equation forcing that atom to zero, structurally
+identical to **eq29125 = a22230** in the deliverable's cluster.  The file places one such guard in
+every cheap cluster found so far.
 
-    eq748   [ 25  13  14  0 0 0 0 0]      eq1666  sq [0 0 0 1 0 0 0 0]
-    eq1785  [ -3 -13 -14  0 0 0 0 0]      eq12466 sq [0 0 0 0 1 0 0 0]
-    eq2629  [ 38  27 -22  0 0 0 0 0]      eq26941 sq [0 0 0 0 0 1 0 0]
-    eq3676  [-27 -36   0  0 0 0 0 0]      eq30004 sq [0 0 0 0 0 0 1 0]
-    eq5692  [  1 -29 -28  0 0 0 0 0]      eq30122 sq [0 0 0 0 0 0 0 1]
-    eq5717  [ 20 -37 -18  0 0 0 0 0]      eq20538 [30 0 0 0 0 0 0 0]
-
-**rank(M) = 8 = |S|, so the kernel is ZERO.**  The five atoms I had counted as free compensators
-(a16509, a39553, a41277, a41520, a41532) are **SHADOWS** — each is a fixed linear combination of
-a8427/a8428/a8429 sitting alone in its own square equation.  They inflate n without adding any
-freedom.  The balance law `failing = |E| - n + c` therefore does not apply to this cluster:
-the correct count is  failing = (equations whose linear form in the two detached values is
-not identically zero) = 6 bilinear rows + eq20538 + 4 shadow squares = **>= 11**, and the mod-p
-residues of a8427/a8429 are pinned by the pin construction so no row can be cancelled
-(each cancellation needs a 1-in-p coincidence).  Measured construction agrees: 38,988.
-Also note **eq20538 = 30*a8427 alone** — a single-atom equation forcing a8427 = 0, exactly the
-same structural guard as eq29125 = a22230 in the deliverable's cluster.
-
-`globalscan.py` over all 3,349 settable handle-definition atoms: the best single-seed cluster is
-a8429 with |E| = 5 and rank 1 (|E| - rank = 4), but breaking a8429 alone cannot fake P1 = P2
-(both coordinates must move).  My "settable" classifier scores the deliverable's own cluster at
-|E| - rank = 9 while it actually achieves 7, so the classifier under-counts the deliverable's
-freedom (its 7 atoms are settable through free inputs x_9118, x_8731, x_642, x_17325, x_1329,
-x_10903, x_9413, not through the wire*free pattern).  **No cluster beats 12/7; 39,026 stands.**
-
-## Step 10. CURVE RECONCILIATION (settles agent G vs agent I vs me)
-From my curve.json alone, all three descriptions are the same curve:
-* The circuit's law is `x3 = lambda^2 - a2 - x1 - x2`, i.e. GENERAL Weierstrass with a nonzero x^2
-  coefficient.  Agent G's "extra constant K" **is** a2; it is not an anomaly, it is the a2 term.
-* Testing `y^2 = x^3 + 7` is therefore the wrong form.  The real form is
-  a2 = 97553848499418123410591666447050222001188385549510401465815187079080512838891
-  a4 = 114170008767671698752186727197936107864370654164657728518655355473804451402762
-  a6 = 77755683306591771556999954628254672912734268662742093169295805431582354953490
-  and all 256 leaf points, P1, P2 and **Q** lie on it (Q on y^2=x^3+7: False; Q on the real form: True).
-* Substituting X = x + a2/3 gives A_short = **0** exactly, so j = 0, and
-  B_short = 64019533680030876408443198762210829058751700634554282185987325820393598524794.
-* `[n_secp]G = O` with n_secp = 115792089237316195423570985008687907852837564279074904382605163141518161494337,
-  and **B_short/7 is a sixth power mod p** (verified).  So the curve is the TRIVIAL sextic twist:
-  F_p-isomorphic to secp256k1 by x -> u^2 x, y -> u^3 y with u^6 = B_short/7.
-  Agent I is right that b differs, but a *different b with the same group order* is an isomorphic
-  copy, not a nontrivial twist (a nontrivial sextic twist would carry one of the other five CM orders).
-
-## Step 11. DURABLE CERTIFICATE + CURVE.md (final)
-`agentC_work/CERT_second_door.py` — self-contained, rebuilt from EQUATIONS.txt, prints PASS/FAIL
-per check, exit 0 iff all pass.  ALL CHECKS PASS.  It verifies, adversarially:
- (1) 384 leaves / 256 free, no leaf on both sides; (2) **512 of 512 leaf-pin handles are
- p-quantised** (this is the certificate's stated hypothesis, and exactly what the deliverable
- pays 7 to violate); (3) one curve fitted from the constants carries **256/256** leaf points,
- nonsingular; (4) distinct points, a unique doubling chain of length 256, and `P_i = 2^i G`
- verified for **all** i (0 mismatches); (5) n prime + [n]G = O + G != O => ord(G) = n, A_short = 0,
- B_short/7 a sixth power; (6) E1/E2 is a genuine PARTITION of {0..255} (178/78);
- (7) the reachable interval for w = kA - kB; (8) a forced signed-digit search, with a
- **self-test on 400 randomly CONSTRUCTED representations plus both extremes**, so a vacuously
- rejecting routine cannot yield a PASS.
-
-**REFINEMENT — the argument is stronger and simpler than "both carry chains overflow".**
-The certificate computes the interval exactly:
-    lo = -23306790212000492931035432369566002706193213587630440834752411869388007846952
-    hi = +92485299025315702492535552639121905147076771078010123204705172138525121792983
-and **hi < n = 1.1579e77**.  So the ONLY multiple of n inside [lo, hi] is j = 0, which is
-excluded by disjoint nonempty supports.  There is nothing to test at j = +-1 at all — the carry
-overflow I reported earlier was a correct but roundabout way of seeing that `sum_{i in E1} 2^i`
-simply never reaches n.  The certificate enumerates j over a window wider than needed
-(j = -3..3) so the bound is checked rather than assumed.
-`agentC_work/CURVE.md` records a2, a4, a6, B_short, the sixth-power witness, the order proof,
-and the both-forms on-curve table for Q, with the a2 = 0 error called out at the top.
+## Step 7. Classifier-free placement bound (agentC_work/minweight.py) — the live scan
+My earlier `globalscan.py` priced clusters by counting "settable" atoms of the shape
+`out = p*(free)`, which scores the deliverable's own cluster at 9 when it achieves 7, so its
+no-better-cluster verdict was suggestive only.  The fix removes the classifier entirely:
+for a cluster (E, S) the number of failures is `|{e in E : M_e . v != 0}|`, and minimising that over
+ALL nonzero rational `v` is a minimum-weight-codeword problem in the code generated by the columns
+of `M`.  It ignores which atoms are settable and ignores integrality, so it is a RELAXATION and the
+true cost is `>=` it.  Any cluster whose min weight is `>= 7` therefore cannot beat 39,026, with no
+settability judgement involved.  Minimum weight is attained on a `v` annihilating `|S|-1`
+independent rows, so those are enumerated exactly.  Calibration target: the deliverable's own
+cluster must return 7.

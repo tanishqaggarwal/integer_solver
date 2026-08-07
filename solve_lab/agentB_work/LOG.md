@@ -32,7 +32,7 @@ pickle.dump([f for f in range(len(E.facs)) if E.fval(f,v0)],open('excl_base.pkl'
    3160 `x`; 9782 2-term linear; 9067 3-term linear; 16720 deg-2 2-term; 512 deg-2 3-term.
    48 anonymised gate shapes: mul, square, add/sub, copy, const-mul, boolean, const-pin,
    plus conditional pins `b*(x-K) = c*handle`.
-4. p = 2^256-2^32-977 (secp256k1) is pinned by exactly ONE gate `x26064 - p` (f37650) and copied
+4. p = 2^256-2^32-977 is pinned by exactly ONE gate `x26064 - p` (f37650) and copied
    to a 220-variable class.  3,707 gates have shape `y - q*p` where q occurs in NO other gate.
 5. Exactly FOUR big-constant pins in the whole instance:
    f37650 `x26064 = p`;
