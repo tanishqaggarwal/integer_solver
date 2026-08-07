@@ -5,3 +5,4 @@ side A sorted 59s
   B 1048576  77s
   B 2097152  98s
 side B built 112s
+no k of Hamming weight <= 6.  collisions inspected: 0   127s
