@@ -1,0 +1,2 @@
+SELFTEST_OK
+STATUS jumps=4587520 dps=255 cands=0 t=10.1 rate=0.452M/s

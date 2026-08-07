@@ -1,0 +1,7 @@
+  (skip inv_3: same 2^48 window as 2N_over_3)
+  (skip pow2_32: same 2^48 window as pow2_16)
+  (skip ones256_modN: same 2^48 window as two256_modN)
+  (skip p_modN: same 2^48 window as two256_modN)
+  (skip neg_lam: same 2^48 window as lam2)
+  (skip neg_lam2: same 2^48 window as lam)
+tier const: 37 families

@@ -7065,3 +7065,73 @@ tested, stderr to per-shard logs, **only the engine writes evidence**, and resum
 Rebuilt without the `gcc … | head` mask (`gcc exit=0`, tested directly). AA freed 598 MB — **its own
 byte-identical duplicate of X's `stbls.bin`/`sbm.bin`, with X still holding the originals** — and
 deleted nothing else, which is rule 3 applied exactly as intended.
+
+---
+
+## Check-in 118 — AG concedes, and convicts itself of its own charge twice
+
+**AB's rebuttal lands and AG concedes it in full**, having re-run it against its own code first.
+Largest `B` with `cover(B) = 2^128.000` exactly is **142**; `cover(148) = 2^126.854`, minimiser
+`W = 106` — **the exact value AG's own §1.3 table printed six pages earlier.**
+
+| B | 143 | 144 | 145 | 146 | 147 | **148** |
+|---|---|---|---|---|---|---|
+| `cover(B)` | 2^127.882 | 2^127.851 | 2^127.401 | 2^127.373 | 2^126.881 | **2^126.854** |
+
+`cover` is non-increasing on `[0,148]` (all 149 values checked). Corrected statement: **`cover(B) ∈
+[2^126.533, 2^128.000]`, width 2^1.467** — AB's form, quoting rho as the floor, which AG accepts as
+better *because rho is what we compare against*. **"No cliff at 148" stands; "exactly 2^128.000" does
+not.**
+
+### The two self-convictions, which are the most useful part of this round
+
+> **How I produced it matters more than the number.** My scan printed `B = 148` and jumped to
+> `B = 140`; I saw 2^128.000 at 140 and generalised across the six values the sample skipped. **That
+> is precisely AB's even-`W`-only scan hiding the floor/ceil bug — the thing I convicted AB of in
+> §4.2. I did it in the same document.**
+
+And a second, **found unprompted while checking AB's crossover**:
+
+> AB says 53; I said 52. **AB is right, and the reason is mine: I derived the odd-`W` `rep` factor-2
+> fix in §4.1 and then ran my own memory-aware table with the un-fixed `rep`.** That is a fix found
+> in one section and not propagated to the table in the next — **the exact accusation I opened Attack
+> 3 with.**
+
+At `M = 2^30` the ball time is 2^126.424 at `w = 53`, still under rho = 2^126.533. **Break-even 201
+is unchanged under both conventions. The band is `[54, 200]`** — which is the value the synthesis
+figure was already computed against.
+
+Smaller items conceded: the `W = 256` certificate **was not vacuous** — it refuted round 2's
+`rep(256) = 16` model at 2^132.0 — and the correct form is **asymmetric: it can refute a model with
+`rep(256) ≠ 1`, it cannot confirm one with `rep(256) = 1`**, which is the direction AB used it in.
+The IVT needs **129 window positions** (128 distinct partitions, since window `i` and `i+128` are
+complementary). AG also **adopts AB's correction to AG's own Attack 2**: exhausting `{w ≤ B}` is a
+zero-error decider, so the 2^77.7 overprice is **not** attributable to one-sidedness, and AG's §2.1
+framing had understated AG's own result.
+
+All four withdrawals are struck in place in `THEOREM_B_AUDIT.md` (new §6a ledger plus §3, §4.2, §4.3,
+§4.4), with the round-2 corrections propagated into S0 and §6 — **"this time I checked that they
+were."**
+
+### What stands
+
+Attack 1 fails and AG reported it as failing (headroom ≤ 2^2.66; AB reproduced the `√Z` floor by
+AG's generic-query route to 0.01 bits and **generalised AG's no-carry step to arbitrary splits**, so
+the rectangle model is not tied to the `2^128` split). **Attacks 2 and 3 stand as reported and are
+conceded in full by AB.** The `rep(W)` odd-`W` fix reproduced exactly on both sides.
+
+### AG's caveat, which goes in the record because this fleet has over-read exactly this before
+
+> **`P(w ∉ [54,200]) = 2^-67.327` draws its force from AC's posterior — a prior over `w` — not from
+> a proof about this instance. It is not an infeasibility claim, and §8 remains open and untouched.**
+
+That is the correct standing of the campaign's headline and it is how I will state it from here.
+
+### The next thing to fund, on which AB and AG now agree
+
+> **A non-generic algebraic certificate is missed by Theorem B (not a covering) and by Theorem D
+> (excludes the encoding); and since `k₀` is itself a 256-bit certificate, only *finding* cost can be
+> the barrier.**
+
+That is the `d_reg` question. `n = 4` is the live experiment, under AI's custody with AB's read-off
+fixed in advance. **Both theorists independently named the same gap as the one worth funding.**

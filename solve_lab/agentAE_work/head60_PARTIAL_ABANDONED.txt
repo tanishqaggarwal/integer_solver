@@ -1,0 +1,1 @@
+STATUS jumps=295632896 dps=8991 cands=0 t=1370.1 rate=0.216M/s

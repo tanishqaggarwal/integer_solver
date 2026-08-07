@@ -62,3 +62,21 @@ S(seed=101,n=32) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357, 
    [pre] fixpoint done in 94s (60 rounds)
 outer 0: global nonzero 25, violated c-conditions 24, nonzero handle-less 1
    single-wire pass over 106 wires (max atoms/wire 2)
+   single-wire pass: 20 accepted
+outer 1: global nonzero 4, violated c-conditions 3, nonzero handle-less 1
+   single-wire pass over 9 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+      *** x34218 += p*322948684674 zeroes (x23514-(x6677*x23504)) (exact, recomputed)
+outer 2: global nonzero 3, violated c-conditions 3, nonzero handle-less 0
+   single-wire pass over 9 wires (max atoms/wire 1)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x30613*(x7849-2893142071079425220598526201020797013844  c=14656137
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x25026*x1924)-(15070823*x14159))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     *** (x5389 += p*82612867463765 , x7849 += p*103701360968681) |group|=2  global 3 -> 2
+outer 3: global nonzero 2, violated c-conditions 2, nonzero handle-less 0
+   single-wire pass over 8 wires (max atoms/wire 1)
+   single-wire STALLED -> joint two-wire pass
+   only the two TARGET congruences remain -- CLOSED
+DONE tag=n32_s101f n=32 seed=101 reason=CLOSED_TARGETS_ONLY wall=213.8 nz_atoms=2 sampled_miss=0 exh_miss=0

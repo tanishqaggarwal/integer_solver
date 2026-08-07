@@ -35,3 +35,4 @@ outer 3: global nonzero 8, violated c-conditions 7, nonzero handle-less 1
    single-wire STALLED -> joint two-wire pass
   atom ((x22366*x5209)-(8054097*x37199))  c=8054097
      round 0: |group|=1 (0 exact) wires=6 new pairs=15
+     (x664   ,x4860  ) |group|=1 200 candidate(s) verified, guard rejected all
