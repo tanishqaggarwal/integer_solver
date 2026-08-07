@@ -544,3 +544,11 @@ scan size 3 range [0,256): 2763520 candidates, zero-events 0, 2.1s
   i0=32 done cum=20211757 62.6s
   i0=33 done cum=20056729 74.2s
   i0=34 done cum=19978099 74.7s
+  i0=35 done cum=19579260 77.5s
+  i0=36 done cum=21938426 82.2s
+  i0=37 done cum=21759745 83.4s
+  i0=38 done cum=21657679 84.3s
+  i0=39 done cum=21235620 86.7s
+  i0=40 done cum=23571781 89.8s
+  i0=41 done cum=23370309 92.6s
+  i0=42 done cum=23245665 99.7s
