@@ -9,3 +9,9 @@ candidate clusters (ranked by |E| - |inside|): [(12, 8, 10513), (11, 6, 14039), 
       *** PRICES BELOW 7 -- written to /home/user/integer_solver/solve_lab/agentC_work/PRICED_0_bit8319.json
   x_3216   |E|=25  |S|=2   resblocked=0   maxsat=25  PRICE=0    (state 38997, 31s)
       *** PRICES BELOW 7 -- written to /home/user/integer_solver/solve_lab/agentC_work/PRICED_0_bit3216.json
+  x_33434  |E|=21  |S|=2   resblocked=0   maxsat=21  PRICE=0    (state 38995, 22s)
+      *** PRICES BELOW 7 -- written to /home/user/integer_solver/solve_lab/agentC_work/PRICED_0_bit33434.json
+  x_4279   |E|=24  |S|=3   resblocked=0   maxsat=24  PRICE=0    (state 39004, 45s)
+      *** PRICES BELOW 7 -- written to /home/user/integer_solver/solve_lab/agentC_work/PRICED_0_bit4279.json
+  x_490    |E|=22  |S|=2   resblocked=0   maxsat=22  PRICE=0    (state 38995, 31s)
+      *** PRICES BELOW 7 -- written to /home/user/integer_solver/solve_lab/agentC_work/PRICED_0_bit490.json
