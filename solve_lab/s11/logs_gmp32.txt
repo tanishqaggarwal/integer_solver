@@ -1,0 +1,29 @@
+gate atoms by #equations: {1: 1, 4: 1, 5: 10, 6: 39, 7: 189, 8: 577, 9: 1518, 10: 3144, 11: 4881, 12: 6152}
+gate atoms in <=6 equations: 51
+   0/51 hits=0 (0s)
+gates whose freed output touches a KEY row: 4  (7s)
+   a36244 (cost 4 eqs) frees x3432: touches [25676, 42245, 29539, 40826]  total checks moved 17
+   a36245 (cost 5 eqs) frees x24219: touches [25676, 42245, 29539, 40826]  total checks moved 16
+   a34869 (cost 6 eqs) frees x10257: touches [29539, 40826]  total checks moved 12
+   a36246 (cost 6 eqs) frees x5077: touches [25676, 42245, 29539, 40826]  total checks moved 16
+atoms in <=6 equations: 3305  (51 gates)
+candidate equation-unions of size <=6: 5289289
+distinct clusters: 5289289
+   cost 1: 1 atoms (1 gates) (41332,)
+   cost 1: 1 atoms (0 gates) (71,)
+   cost 1: 1 atoms (0 gates) (72,)
+   cost 1: 1 atoms (0 gates) (386,)
+   cost 1: 1 atoms (0 gates) (704,)
+   cost 1: 1 atoms (0 gates) (761,)
+   cost 1: 1 atoms (0 gates) (762,)
+   cost 1: 1 atoms (0 gates) (954,)
+   cost 1: 1 atoms (0 gates) (1047,)
+   cost 1: 1 atoms (0 gates) (1248,)
+   cost 1: 1 atoms (0 gates) (1249,)
+   cost 1: 1 atoms (0 gates) (1313,)
+   0/5289289 (0s)
+   150/5289289 (18s)
+   300/5289289 (36s)
+   450/5289289 (54s)
+   600/5289289 (73s)
+   750/5289289 (91s)

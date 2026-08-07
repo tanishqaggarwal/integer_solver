@@ -1,0 +1,6 @@
+movers: 226
+  by current value: {'bool': 220, 'other': 6}
+  affine movers: 2
+  cheapest affine movers (u, value, extra broken checks):
+     x22162 val=91416258160755 extra_broken=1
+     x30213 val=12578731474760 extra_broken=2

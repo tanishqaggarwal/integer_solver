@@ -19,7 +19,7 @@ and the two pins read off directly:
 Both C1 and C2 are literals in EQUATIONS.txt.  So w5 and w6 are not free after all --
 they are the circuit's OUTPUT POINT, written into the instance.  §134 solved A = B = 0
 by moving them, which is why the pins broke.  Set them to the pinned values instead
-and the remaining question becomes the honest one: does the identity pair close for
+and the remaining question becomes the honest one: does the two-condition primitive close for
 the input values the rest of the circuit forces?
 
 Usage: pin3.py [state.json]
@@ -35,7 +35,7 @@ import suppfree
 P = ad.P
 C1 = 1114942656963403660822546820446916783439088877768247923308647546252105232931473698035897478439338
 C2 = 91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002
-src = sys.argv[1] if len(sys.argv) > 1 else 'AB_39014.json'
+src = sys.argv[1] if len(sys.argv) > 1 else 'P2_39014.json'
 v = L.load(src if os.path.isabs(src) else os.path.join(HERE, src))
 ad.fwd(v, rounds=6)
 av = L.all_atom_values(v)

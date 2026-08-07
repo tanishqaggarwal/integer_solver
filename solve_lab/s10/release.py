@@ -1,6 +1,6 @@
 """S11 step 91: release a GATED constant pin, then re-solve everything behind it.
 
-§133-134 identified the circuit as one algebraic identity, and pin3.py
+§133-134 identified the circuit's residual as one two-condition primitive, and pin3.py
 confirmed the closed form exactly:
 
     A = (w3-w1)^2*(w5+w1+w3+K) - (w4-w2)^2      matches x35389 to the digit

@@ -1,0 +1,13 @@
+free inputs: 7273
+one forward eval: 0.08s
+base residues nonzero: [True, True, True, True, True, True]  base failing checks: 6
+   213/7273 live=50 (27s)
+   403/7273 live=100 (51s)
+   642/7273 live=150 (82s)
+   868/7273 live=200 (111s)
+   1066/7273 live=250 (136s)
+   1333/7273 live=300 (170s)
+   1520/7273 live=350 (193s)
+   1713/7273 live=400 (217s)
+   1958/7273 live=450 (248s)
+   2174/7273 live=500 (275s)

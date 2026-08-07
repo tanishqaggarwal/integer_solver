@@ -1353,12 +1353,6 @@ Deliverable unchanged at 39,026, re-verified.
 
 ## Session 10, part 8 — number theory closed; root pin costs 1 identity equation
 
-the structural hypothesis about the constants was tested. (D0,K2) does not satisfy y^2=x^3+7 and is not
-on y^2 = x^3 + 7; neither residue is a valid x-value; n, G_x, G_y do not appear as
-literals (p itself does); 7870 of 15734 constants have (c mod p) a valid x-value vs
-random expectation 7867; 507 of 7999 seven-digit multipliers are prime vs ~470 expected.
-Random on every axis. The prime is a convenient 256-bit modulus and carries no further structure.
-
 `ratrec.py`: rational reconstruction on every residue (D0, K2, D0/K2, K2/D0, D0*K2, D0+-K2,
 1/D0, 1/K2, HUGE mod p, C1 mod p) returns MAXIMAL 38-39 digit a and b -- right at the
 sqrt(p/2) bound, so no small-rational structure. gcd(HUGE,C1)=1, HUGE//p=1094785891323,
@@ -1465,6 +1459,292 @@ Minimum sacrifice 3 rows {a3578, a26731, a35759} at cost 37 equations; sizes 1, 
 
 **Deliverable unchanged at 39,026.**
 
+---
+
+## Session 11 — the circuit decoded as a program (see `S11_SEMANTICS.md`)
+
+Deliverable unchanged and re-verified: `best/new_instance_partial_39026.json` -> 39,026/39,033.
+
+**Method shift.** Sessions 1-10 modelled the instance as atom algebra (lattices, kernels,
+inconsistency certificates, hitting sets, wire deformation). Session 11 read it as a
+compiled arithmetic circuit and decoded the program. Caches rebuilt from scratch first
+(`atomize.py` -> 0 mismatches / 39,033 equations).
+
+| experiment | script | result |
+|---|---|---|
+| clean all-zero frame | `s11/fw.py` | **6 bad checks**, 28 failing, 39,005 — two independent clusters |
+| a40608 identity | `s11/solveW.py` | `a40608 = (W − C)²`; perfect-square discriminant, double root = a688's demand |
+| boolean cluster | `s11/sem.py` | `a23000 = (1−U)(1−V)`, `U=OR(x_8599,x_21839)`, `V=OR(x_7304,x_25956)` |
+| OR-tree bit census | `s11/scan.py` | 88/90/37/41 bits; every single bit switches its node |
+| 3-way MUX channels | `s11/chan2.py` | `U·V`, `(1−U)V`, `U(1−V)`; only U=V=1 frees both arithmetic slots |
+| arithmetic cluster | `s11/build2.py` | **a688 = a1618 = a40608 = 0 exactly** |
+| core rank reduction | `s11/probe6.py` | each core's 3 checks are rank 2 in 2 quantities |
+| control map (all 7,273 free inputs, generic point) | `s11/scangen.py` | 6 equations, 12 controls, 2 decoupled blocks |
+| base-point scan (the trap) | `s11/scanall.py` | `x25118`,`x34220` show ZERO controls — their derivatives vanish at the origin |
+| Newton attempts | `newt.py`,`newt2.py`,`blocks.py`,`tri2.py` | all cycle — see below |
+| **cubic solve** | `s11/polyroot.py`, `s11/solveA.py` | **ALL SIX STRUCTURAL TARGETS ZERO**, first seed, <1s |
+| pin-chain forensics | `s11/pinned.py`, `s11/partners.py` | every control pinned; each partner has exactly ONE live control |
+| closure attempts | `close2.py`,`close3.py`,`simul.py`,`assemble.py` | greedy/monotone/simultaneous all thrash on the load pins |
+
+**The key result.** Eliminating `x_4879` between the two group-1 core equations gives
+`x_23776·x_2401² = x_26196²`, i.e. a CUBIC `y³ + K y² − q² ≡ 0 (mod p)` in
+`y = x_33708 − x_14515`. Cubic roots mod p are invisible to Jacobian / Newton / beam /
+null-space methods — which is precisely why every earlier session reported the core
+"rigid" and why my own Newton runs (newt, newt2, blocks, tri2 — ~30 seeds each) cycled
+forever. Cantor-Zassenhaus factorisation solves it instantly, and with it BOTH cores and
+BOTH gap conditions fall simultaneously. That system had never been solved before.
+
+**Why the score did not move.** Solving the structural system is necessary, not sufficient.
+All 12 controls are pinned mod p by always-active linking checks `c·(X−Y) = p·handle`
+(`a21050`: x_16441≡x_4920, `a34580`: x_33708≡x_10170, `a33796`: x_31339≡x_6858), each
+partner has exactly one live control (`x_23210`, `x_33129`, `x_32125`), and those chains
+terminate in bit-gated load pins `bit·(X − HUGE − c·p·h) = 0` (verified end-to-end for
+`x_23210` via `a38567`/bit 91). So each core residue is a function of the MESSAGE ALONE,
+and the structural solution is reachable only through a subset-sum over the 256 load
+constants. Best constructive score in the new frame: 39,013; the 39,026 checkpoint's
+defect placement remains far cheaper in equation terms (7 vs 20-28).
+
+**Next.** The whole problem is now exactly one question: find a bit subset whose load
+constants drive the three residues `x_4920 / x_10170 / x_6858` to the values the cubic
+solution requires. Per-bit contributions are one cheap forward-eval each
+(`s11/quick.py` is ~170x faster than a full forward); then meet-in-the-middle or LLL on
+the 3-residue lattice over 256 bits.
+
+### Session 11 addendum — the binding constraint measured
+
+`s11/freedom.py`: perturb each of the 12 controls; every LINKING pin (a21050, a34580,
+a33796, a26731, a29539, a15030, a9193, a31938, a31940) is individually closable, so the
+controls are not individually pinned.
+`s11/ordered.py`: hard-staged closure after the structural solve reaches 15 bad checks;
+stages close 7-11 atoms each but contend for the same handles, and free sweeps diverge to 27.
+`close2.py`: strict monotone acceptance halts at step 0 — no single repair reduces the bad
+count, the signature of a system needing a simultaneous close.
+`simul.py`: one exact integer solve over all bad checks against 74-130 cone handles reports
+the joint system inconsistent.
+
+Conclusion: the residual deficit is a RANK deficit in the handle map. The six structural
+conditions are satisfiable (proved constructively, §6), but the handles realising them are
+shared with the load-pin/linking-check system and the combined system is over-determined.
+That is sessions 9-10's "deficit of 2", now with a mechanism.
+
+---
+
+## Session 11, Part II — the channel taxonomy and the deficit made topological (`S11_PART2.md`)
+
+**The move that unlocked it:** read the 39,026 checkpoint in the new structural coordinates
+(`s11/wit.py`). It sits at U=V=1 with **both mirror gates off** and only 2 message bits on.
+My Part-I 4-bit configuration had lit both mirror cores for nothing.
+
+| experiment | script | result |
+|---|---|---|
+| checkpoint in structural coords | `wit.py` | a=0,b=1,c=1,d=0; ab=cd=0; both gaps already 0 |
+| channel taxonomy | `cfg.py`, `two.py`, `uv01.py` | in every 2-bit config all 4 core quantities and both gaps are already 0 |
+| best branch U=0,V=1 bits (490,91) | `uv01build.py` | a688=a1618=a40608=0 EXACTLY; only 5 checks left |
+| linking closes | `tri7.py` | a7881<-x2751, a21050<-x16441, a26839<-x18751, a40065<-x28955 |
+| the 8640431 condition | `quad8640431.py`, `quad3.py` | gamma(k,l) has bidegree (2,3); interpolation verified on a held-out point; CRT over 53 x 163027 gives gamma = 0 |
+| after gamma=0 + closure | `closehit2.py` | **only 2 bad checks**: a14445, a27139 |
+| exhaustive control scan (7,253 free inputs) | `last4.py` | a14445 & a34580 share ONE non-bit control (x_33129); a27139 & a33796 share ONE (x_37088); mirror has NO non-bit control |
+| defect pricing | `cheapdefect.py` | 28 / 25 / **15** equations for the three absorbing options |
+| verification | `checker.py` | `s11/data/finish3_named.json` -> **39,018 / 39,033** |
+
+**THE RESULT.** After everything upstream is solved constructively, the residue is exactly two
+constraint pairs, each with exactly ONE shared non-bit control. That is the "deficit of 2" that
+sessions 9 and 10 kept re-measuring in different coordinates — and it is **topological**:
+`x_33129` is the free variable of a14445 and simultaneously feeds
+`x_15111 -> x_20541 -> x_10170`, the other side of a34580. Changing which message bits are on
+changes values, never this incidence, so no message choice removes the collision.
+
+**Why 39,026 still wins.** The deficit is 2 in every channel; what differs is the *price of the
+absorbing set*. In the (490,91) branch the cheapest absorber is the mirror trio at 15 equations
+(breaking it frees x_31339/x_33708 for a34580/a33796, and x_33129/x_37088 then close
+a14445/a27139). In the checkpoint's channel the absorber is the x_2099 ladder — seven atoms
+occupying only 7 equations. Cheapness of the absorber, not the size of the deficit, decides the
+score.
+
+**Next lever:** find a channel whose 2-deficit can be absorbed by two 1-equation checks
+(there are many such checks; that would score ~39,031), or find a second non-bit control
+reaching x_10170 or x_6858. `s11/last4.py` currently returns none.
+
+### Session 11, Part III — the deficit is a theorem, not an observation
+
+`s11/boolform.py`: every one of the 256 message bits carries an explicit boolean check
+`b^2 - b = 0` (13-14 equations each), so bits are NOT continuous controls. That closes the one
+loophole that would have dissolved the deficit.
+
+`s11/hall.py`: maximum bipartite matching between the 14 live constraints of the (490,91)
+branch and their non-bit controls (from the exhaustive 7,273-input scan) gives
+**matching 12, DEFICIT = 2**, with unmatched = the two mirror residuals, and an explicit
+**Hall violator**: 9 constraints over 8 controls.
+
+`s11/pairprice.py`: absorber pricing — cheapest pair a688+a1618 = 15 equations, mirror trio = 15.
+`s11/compensate.py`: no atom has an equation-footprint proportional to any absorber.
+`s11/realise3.py`: constrained equation-space solve over the full 173-equation region with 26
+exact-linear handles returns NONE.
+
+Net: the branch floor is 15 (achieved, verified 39,018). The checkpoint's 7 wins because its
+absorber — the x_2099 ladder — occupies only 7 equations. Score is decided by the absorber's
+equation footprint, and the deficit itself is 2 in every channel examined.
+
+### Session 11, Part V — breaking gates (the checkpoint's actual mechanism)
+
+`fw.forward` on the checkpoint gives 37 failing, not 7: its score rests on five BROKEN GATE
+atoms. The whole session-11 pipeline forward-evaluates, so it had structurally excluded that
+strategy.
+
+`s11/breakgate.py`, `s11/cheapgates.py`: 817 gate atoms live in <= 8 equations; cheapest is
+a41332 [1 eq] -> frees x_24453, then a36244 [4 eq] -> x_3432. Scanned at a SOLVED state (the
+derivatives vanish at the raw baseline), 12 cheap gates move the mirror residuals — which had
+no non-bit control at all. Breaking a41332 + a36244 costs 5 equations and would give 39,028 if
+they supplied two independent directions.
+
+`s11/joint6.py`: they do not. The joint 6x6 Newton closes 3 of 6 and stalls at all 12 random
+starts — singular Jacobian, because x_24453 and x_3432 reach the mirror through the same
+channel as x_31339 / x_33708. Gate-breaking buys ONE dimension for 5 equations; the cheapest
+remaining single absorber (a40065, 10 equations) brings the total back to 15.
+
+Net: the deficit of 2 survives gate-breaking. Session best stays 39,018 (verified); deliverable
+stays 39,026.
+
+### Session 11, Part VI — as an INTEGER PROGRAM (`S11_PART3_IP.md`, `s11/ip1.py`..`ip11.py`)
+
+Dropped the circuit reading and treated the instance as 38,748 integer variables / 39,033
+polynomial equations, minimising violated equations.
+
+- ip1: min-cost defect placement, exact over 2^14 subsets -> optimum **15** for the (490,91)
+  channel; certifies the 39,018 construction optimal for that channel.
+- ip2: global lower bound. Absorbers must lack a private handle (121 of 10,792 checks have one);
+  cheapest absorbing pair = **2 equations**, so no score above 39,031 anywhere. Also: the
+  checkpoint's 7 atoms span 12 equations but only 7 fail -> CANCELLATION is real, objective must
+  be over equations.
+- ip3/ip4: minimum-weight coset ||b + G k||_0 with an integer kernel, iterated as integer Newton
+  -> independently returns 15. Two different exact methods agree.
+- ip5/ip7/ip8: the checkpoint as a raw IP (no forward-eval, so the broken gates survive).
+  System 130x69 after locality reduction. allow = 0, 1, 2 ALL infeasible. Every subset passes a
+  modular screen but fails over Z -> the obstruction is divisibility, not rank.
+- ip9/ip10: THE RESULT. Consistent over Q; solution supported on exactly the seven x_2099 ladder
+  variables; least d with M x = d*rhs integer-solvable is **2458959 * p** (3 * 819653 * p), and
+  every proper divisor fails.
+
+So the whole wall at 39,026 is ONE divisibility by 2458959*p. ip11: 0 of 7 failing values are
+divisible by p (gcd 1). Next target, exactly: reach a state whose failing values are 0 mod p —
+then the obstruction is the 7-digit 2458959, which the quad3.py CRT machinery already handles.
+
+### Session 11, Part VII — the p-factor is universal (`s11/ip12.py`, `s11/ip13.py`)
+
+Computed the invariant factor D of the residual integer program at every saved state, across
+constructions built by completely different routes:
+
+    39026 checkpoint  D/p = 2458959      39018 finish3   D/p = 8640431
+    closehit2 (39005) D/p = 1            three / tri7 / eqopt2 / cheapdefect  D/p = 8640431
+    consistent over Q 7/7 ; p | D 7/7 ; cofactors {1, 2458959, 8640431}
+
+Both small cofactors are handle multipliers and both are CRT-clearable (Part II cleared
+8640431). The p never leaves. At closehit2 the invariant is EXACTLY p — ip13 confirms
+M x = d*rhs unsolvable for d = 1, 2, 3 on the 357x190 system.
+
+STATEMENT: every reachable state leaves a residual integer program that is solvable over Q and
+whose sole integrality obstruction is a single factor of p = 2^256 - 2^32 - 977. That is what
+ten sessions circled as p-quantisation / conserved obstruction / deficit of 2 / "7 is an
+invariant" — one invariant factor, the same everywhere. A full solve requires removing the p,
+i.e. reaching a state whose failing right-hand side is already p-divisible.
+
+### Session 11, Part VIII — the p-factor cannot be removed locally (`s11/ip14.py`, `ip15.py`, `ip18.py`)
+
+A full solve needs a state whose failing right-hand side is p-divisible (then the single factor
+of p in the invariant is absorbed). That is a GF(p) question, hence cheap — but it must be asked
+inside moves that keep the satisfied equations satisfied.
+
+- ip14 (all variables, no constraint): solvable at all three states — but meaningless, since it
+  uses quadratic variables and ignores the preservation requirement.
+- ip15 shows why: applying the unconstrained GF(p) step at closehit2 takes 28 failing to 6,097
+  (satisfied equations become nonzero multiples of p).
+- ip18 asks it properly, inside the integer kernel of the collateral block:
+    checkpoint 130x69, kernel dim 2  -> Stage A NOT solvable
+    39018      245x152, kernel dim 10 -> Stage A NOT solvable
+  and no subset works either — not even one failing value can be made p-divisible while
+  preserving the rest.
+
+Loop closed: sole obstruction is one factor of p; absorbing it needs a p-divisible RHS; and that
+is unreachable inside every preserving move. Deliverable unchanged at 39,026.
+
+### Session 11, Part IX — CORRECTION: my obstruction proofs were about restricted move sets
+
+Asked to reason hard about breaking the wall, the thing that gave way was my own argument.
+
+- `perm.py`: for every failing equation, count variables with genuine mod-p leverage — 26,15,30,
+  25,6,9,16 at the checkpoint; 12..27 at 39,018. ZERO are permanently unfixable. The wall is
+  coupling, not rigidity.
+- `hensel.py` (fast p-adic test): with the exact-linear filter the system is unsolvable even MOD P
+  at 130x69, 300x183, 500x324, 900x598, 1400x1014. The filter (f(u+2)-f(u)==2(f(u+1)-f(u))) keeps
+  only linearly-entering variables and rejects every quadratic one — exactly where the leverage is.
+  With the TRUE symbolic Jacobian (`newtonp.py`) the mod-p region system solves in 11s.
+- `relax.py`: the compensator filter rejected 126 of 176 candidates.
+- `closure.py`: closing the checkpoint's failing region reaches 26,598 equations and 28,232
+  variables — the problem does not localise, so no local certificate is a global proof.
+
+Withdrawn as global claims: "sole obstruction is one factor of p", "p is universal",
+"p-divisibility unreachable inside preserving moves". Still standing: the verified 39,018
+construction, and the per-channel optima correctly scoped to their move sets.
+
+Corrected next step: a GLOBAL mod-p Newton with the true Jacobian, exploiting the triangular gate
+structure. Reaching an assignment with every equation = 0 mod p leaves a residual of p*r, which
+the p-quantised handles absorb exactly — a clean two-stage route to a full solve.
+
+## Session 11, Parts X-XI — the obstruction, exactly, and cleared
+
+- Reduced the 39,026 checkpoint's defect to nine atoms / fifteen equations with nine fully-local
+  knobs, derived the reachable coset in closed form, and PROVED by drop-set enumeration that
+  7 failing equations is the exact local optimum (`s11/local1.py`, re-derived generically and
+  validated by `s11/localopt2.py`).
+- Rank of the 15x9 system is 9, so the entire obstruction is three congruences:
+  p | x9118, p | x8731, p | x28730.
+- x9118 and x8731 are FREE inputs, so those congruences are reachable: `s11/fix2.py` zeroes all
+  nine atoms for the first time.  The defect relocates to the copy network of x7068.
+- Independent route: x4287 = 1 => x21279 = 1 => x7075 = 0 annihilates both hard congruences
+  (T = 5113045*x7075*x9118, U = x7075*x8731) and turns x2099 into the free variable x9118.  The
+  three congruences it switches on collapse to x27177 = 0 and x4306 = 0 (mod p), affine in
+  x9118/x8731, and `s11/sw6.py` solves them.
+- Both routes wall at a19297, a19299, a30984: checks with NO free variable, whose only content
+  is the live MUX channel x15298 = U*V.  In the x5647 channel x15298 = 0 and they are vacuous —
+  which is why the 39,018 branch is worth re-pricing with these tools.
+- Best reached along the new routes: 39,013 and 38,999.  Deliverable unchanged at 39,026.
+
+## Session 11, Parts XIV-XVI — the mod-p reduction
+
+- Mod p every handle vanishes (all are `free * wire`, wire = p), so the instance is a plain GF(p)
+  circuit.  A global forward evaluation costs 0.08 s, satisfies all 31,475 gates, and leaves
+  exactly SIX failing checks.  Two clear for free (x9118 -> a35759, x8731 -> a35760, no
+  collateral).  The barrier is four GF(p) numbers: a7930, a29539, a40826, a41512.
+- Cached the exact response of every free input on every check: 1,726 live knobs.  The maximal
+  continuous system (2,595 x 1,726) has full column rank and is INCONSISTENT.
+- Bits are frozen continuously: each message bit is the only knob touching its own load-pin row.
+  Removing bits gives readable certificates; the smallest has 8 rows and exposes a deficit of 1.
+- Bits are non-additive (pairs disagree with the sum of singles on x1308), no single flip
+  improves, and exactly 256 of the 1,156 free bits are real -- the other 900 change nothing.
+- Breaking a gate buys a knob at a price of |its equations|; catalogued the cheap ones
+  (a36244 costs 4 and reaches the deficit rows).  One knob is not enough (the residual must land
+  in the enlarged column space, a 559-dimensional condition), and not even all 725 cheap-gate
+  knobs together close it.
+- 7 failing equations is optimal at this base over continuous knobs + gate purchases + drops.
+- Channel algebra completed: U = OR(x8599,x21839), V = OR(x7304,x25956); x2081 feeds V and
+  x24601 feeds U; the third channel U*(1-V) is reachable and was never explored.
+
+## Session 11, Parts XVII-XVIII — the message bits, and invariants
+
+- Census of the 256 real message bits: 900 of the 1,156 free booleans are provably inert; the
+  256 partition into OR-trees of 88/90/37/41; each owns exactly two load pins with private
+  loaded variables; minimum message weight is 1 (the OR gate needs one bit).
+- Exhaustive weight-2 scan (32,640 messages): minimum 4 failing checks, achieved by exactly
+  three messages -- {x24601,x2081} (the checkpoint) and two siblings {x24601,x4287},
+  {x24601,x13195}, all failing the same four atoms with different residues.
+- Obstruction certificates are CONSERVED QUANTITIES: INV_y = sum y_a r_a is constant under every
+  continuous move and must vanish for a full solve.  Computable in 0.08 s per message, 3.9 ms
+  with a cone-restricted evaluator (2,888 of 38,748 variables).
+- inv5 is a function of the C-subset alone and only 18 bits move it.  All 2^18 = 262,144 subsets
+  enumerated exhaustively: 232 distinct values, zero never attained.
+- Scope: exactly conserved at the message where it was derived (14/14 knobs annihilated) -- so
+  the checkpoint's message provably cannot be completed.  Only 12/14 at a sibling, so across
+  messages it is a screen and not a proof.
 ## Session 11 — the residual is one trade, and here is its ledger
 
 Deliverable unchanged at **39,026 / 39,033** (re-verified with `checker.py`). What

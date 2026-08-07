@@ -1,0 +1,39 @@
+scanned 256 single-bit messages (33s)
+  distribution: {15: 1, 17: 3, 19: 3, 21: 5, 22: 7, 23: 15, 24: 48, 25: 44, 26: 60, 27: 47, 28: 17, 29: 3, 30: 3}
+  best:
+    x 24601 tree B U=1 V=0  failing checks mod p =  15  [688, 1618, 7930, 21617, 25676, 29539]
+    x  2081 tree C U=0 V=1  failing checks mod p =  17  [688, 1618, 2423, 7930, 10506, 26731]
+    x  4287 tree C U=0 V=1  failing checks mod p =  17  [688, 1618, 2423, 7930, 10506, 26731]
+    x 13195 tree C U=0 V=1  failing checks mod p =  17  [688, 1618, 2423, 7930, 10506, 26731]
+    x 12054 tree C U=0 V=1  failing checks mod p =  19  [688, 1618, 2423, 7930, 10506, 21617]
+    x 16586 tree C U=0 V=1  failing checks mod p =  19  [688, 1618, 2423, 7930, 10506, 21617]
+    x 24365 tree C U=0 V=1  failing checks mod p =  19  [688, 1618, 2423, 7930, 10506, 21617]
+    x  6503 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 17406 tree C U=0 V=1  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 20622 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 21266 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 22595 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x  6821 tree C U=0 V=1  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 16214 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 17760 tree C U=0 V=1  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 21074 tree C U=0 V=1  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 30420 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 35062 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 5988, 7930, 10506]
+    x 38643 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x   438 tree C U=0 V=1  failing checks mod p =  23  [688, 1618, 2423, 7930, 10506, 21617]
+   0/262144 distinct=1 zeros=0 (0s)
+   20000/262144 distinct=179 zeros=0 (86s)
+   40000/262144 distinct=194 zeros=0 (171s)
+   60000/262144 distinct=194 zeros=0 (258s)
+   80000/262144 distinct=201 zeros=0 (345s)
+   100000/262144 distinct=201 zeros=0 (429s)
+   120000/262144 distinct=201 zeros=0 (515s)
+   140000/262144 distinct=227 zeros=0 (603s)
+   160000/262144 distinct=229 zeros=0 (690s)
+   180000/262144 distinct=231 zeros=0 (775s)
+   200000/262144 distinct=232 zeros=0 (861s)
+   220000/262144 distinct=232 zeros=0 (948s)
+   240000/262144 distinct=232 zeros=0 (1034s)
+   260000/262144 distinct=232 zeros=0 (1119s)
+COMPLETE: 262144 subsets, 232 distinct inv5 values, zeros 0 (1128s)
+  multiplicity profile: [(1, 83), (3, 54), (127, 21), (381, 18), (57, 11), (174, 9)]

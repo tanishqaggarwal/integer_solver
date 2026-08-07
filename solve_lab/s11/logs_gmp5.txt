@@ -1,0 +1,4 @@
+after the two free knobs: [7930, 29539, 35760, 40826, 41512]
+  start failing checks mod p: 5 [7930, 29539, 35760, 40826, 41512]
+  it0: system 20x8 -> inconsistent (0s)
+total 3s

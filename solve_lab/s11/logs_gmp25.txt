@@ -1,0 +1,10 @@
+system 2029 rows x 1470 knobs; failing [7930, 29539, 35759, 35760, 40826, 41512]
+no drops consistent: False
+certificate rows by equation cost: [(25676, 1), (36185, 1), (40812, 1), (42245, 1), (2423, 10), (21617, 10), (31670, 10), (19297, 11), (31672, 11), (33929, 11), (40562, 11), (29539, 12), (33792, 12), (40623, 12), (3576, 13), (19299, 13), (3578, 14), (30984, 14), (7930, 15), (26731, 16)]
+  finished k=1 best=None (3s)
+  FEASIBLE dropping (3576, 3578)  -> 15 failing equations  (24s)
+  finished k=2 best=15 (24s)
+  FEASIBLE dropping (42245, 31670, 31672)  -> 13 failing equations  (33s)
+  finished k=3 best=13 (33s)
+  finished k=4 best=13 (33s)
+BEST: (13, (42245, 31670, 31672))

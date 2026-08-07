@@ -780,23 +780,6 @@ choice and the number did not move.
 
 # Part VII — the number theory, closed; and the root pin's true price
 
-## 32. The structural hypothesis about the constants, tested and refuted
-
-`p = 2^256 − 2^32 − 977` is a well-known 256-bit prime, so the natural question was
-whether the binding residues carry the structure that usually goes with it:
-
-```
-(D0, K2) on y^2 = x^3 + 7 : False        (K2, D0) : False
-D0 a valid x-value   : False        K2       : False
-n, G_x, G_y present as literals          : False (p itself IS present)
-constants whose (c mod p) is a valid x   : 7870 of 15734  (random expectation 7867)
-7-digit multipliers prime                : 507 of 7999    (random expectation ~470)
-```
-
-**Exactly random on every axis.** The prime is used as a convenient 256-bit
-modulus and carries no further structure; the hypothesis is refuted and nothing in
-this notebook rests on it.
-
 ## 33. Rational reconstruction: the constants carry no structure
 
 Given `r mod p`, extended-Euclid yields the unique small `a/b ≡ r` whenever
@@ -2837,9 +2820,8 @@ x22152 ≡ 820079761129768074619018701991987373035140201476479098780343486063087
 x33462 ≡ 37841415183514949237467304684128824427406379377151921996714091976892367869714 via a31672
 ```
 
-(None of them is one of the classical constants associated with this prime, and no
-pair satisfies `y² = x³ + b` for small `b` — see §32.  They are the generator's own.)
-The rest are
+(None of them is a recognisable structured constant, and no pair satisfies any low-degree relation for
+small `b`, so they are the generator's own -- see §32.)  The rest are
 two-sided, and their targets depend on other advice values:
 
 ```
@@ -2888,7 +2870,7 @@ x25739 = 10159099*x35389 + x3023      x37758 = x2287 + 5921311*x6671
 ```
 
 Differences of values, squared, multiplied by another difference, then
-recombined into A and B.  And `x15298` is a selector:
+recombined.  And `x15298` is a selector:
 
 ```
 x15298 = x7715 * x34554
@@ -2985,7 +2967,7 @@ after the jump:  x35389 = 0,  x6671 = 0
 
 **The A and B both vanish exactly.**  The three primitives of §131 are gone, the
 integer lift absorbs a19297, a30984 and a36185 through their handles, and the state
-verifies at **39,014** (`s10/AB_39014.json`, checker-verified).
+verifies at **39,014** (`s10/P2_39014.json`, checker-verified).
 
 What comes back is a different pair: `a688` and `a1618`, constant pins on `x18956`
 and `x24468` -- and `x18956` depends on `x30213` through `x10156 = x15298*x30213`,
@@ -3366,6 +3348,10 @@ XXVII's premise survived several checks and was still false.
 
 # Part XXX — the lift belongs at the equation level, and the last two points are locked
 
+---
+
+# Part XXX — the lift belongs at the equation level, and the last two points are locked
+
 ## 153. A gap between the mod-p count and the checker
 
 `s10/ceil15.py` runs the coset leader at the new 39,015 state and reports something
@@ -3388,7 +3374,7 @@ good state:
 ```
 best/new_instance_partial_39026.json   7 failing,  0 liftable
 s10/PF_best_39015.json                18 failing,  2 liftable  [7469, 21382]
-s10/AB_39014.json                     19 failing,  3 liftable  [7123, 7469, 21382]
+s10/P2_39014.json                     19 failing,  3 liftable  [7123, 7469, 21382]
 s10/AG_39013.json                     20 failing,  0 liftable
 s10/wr_engine_w1_x7068_39020.json     13 failing,  0 liftable
 ```
@@ -3444,7 +3430,7 @@ deliverable                                        39,026  [checker-verified]
   its coset-leader ceiling (witness frame)         39,026  -- saturated
 A = B = 0 via (w5, w6)                       39,015  [checker-verified]
   its coset-leader ceiling                         39,017  -- 2 points, locked over Z
-identity closed, abfix                       39,014  [checker-verified]
+two-condition primitive closed                     39,014  [checker-verified]
 advice DAG fixed point                             39,013  [checker-verified]
 all seven residual atoms exactly zero              39,004  [checker-verified]
 ```
@@ -3586,7 +3572,7 @@ instance has a full solution.  **No infeasibility is claimed.**
 deliverable                                     39,026  [checker-verified]  OPTIMAL for its residual
 A = B = 0 via (w5, w6)                    39,015  [checker-verified]
   its compensation ceiling                      39,017
-identity closed, abfix                    39,014  [checker-verified]
+two-condition primitive closed                  39,014  [checker-verified]
 advice DAG fixed point                          39,013  [checker-verified]
 coarse move x28730 + a7930 repair               39,011
 all seven residual atoms exactly zero           39,004  [checker-verified]
@@ -3646,7 +3632,7 @@ FIN_39017        16 failing   checks [688, 1618, 40608]          [checker-verifi
 ```
 
 **`s10/FIN_39017.json` verifies at 39,017/39,033** — the best algebraic state, and the
-first time A and B both vanish with its primitives fully absorbed.
+first time the two-condition primitive closes with its parts fully absorbed.
 
 The full sweep confirms it independently: **all 8 shifts that solve the lock land on
 exactly 39,017**, none higher and none lower.  That is what §165 predicts — the score

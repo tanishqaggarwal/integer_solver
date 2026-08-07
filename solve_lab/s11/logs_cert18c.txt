@@ -1,0 +1,7 @@
+system 1095x863  rank mod p = 750
+obstructing left-kernel rows: 3
+  certificate support 3: [1618, 26719, 29539]  (equations 30)
+  certificate support 2: [26719, 26723]  (equations 15)
+  certificate support 2: [26719, 26721]  (equations 13)
+SMALLEST certificate support = 2 rows, spanning 15 equations
+  rows by #equations: [(11, 26719), (12, 26723)]

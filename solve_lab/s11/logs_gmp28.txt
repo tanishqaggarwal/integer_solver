@@ -1,0 +1,44 @@
+gate atoms by #equations: {1: 1, 4: 1, 5: 10, 6: 39, 7: 189, 8: 577, 9: 1518, 10: 3144, 11: 4881, 12: 6152}
+gate atoms in <=6 equations: 51
+   0/51 hits=0 (0s)
+gates whose freed output touches a KEY row: 4  (7s)
+   a36244 (cost 4 eqs) frees x3432: touches [25676, 42245, 29539, 40826]  total checks moved 17
+   a36245 (cost 5 eqs) frees x24219: touches [25676, 42245, 29539, 40826]  total checks moved 16
+   a34869 (cost 6 eqs) frees x10257: touches [29539, 40826]  total checks moved 12
+   a36246 (cost 6 eqs) frees x5077: touches [25676, 42245, 29539, 40826]  total checks moved 16
+failing checks: [7930, 29539, 40826, 41512]
+re-measured 1470 knob responses at the base (199s)
+system 2029x1470; inconsistent rows 6
+certificate supports: [13, 13, 15, 13, 13, 8]
+testing 817 gate atoms with cost <= 8
+   0/817 hits=0 (0s)
+   200/817 hits=9 (28s)
+   400/817 hits=16 (54s)
+   600/817 hits=29 (80s)
+   800/817 hits=42 (107s)
+gates that break at least one certificate: 44
+   a36244 cost=4 eqs frees x3432: breaks certificates [0, 1, 2, 3, 4, 5]  moves 17 checks
+   a36245 cost=5 eqs frees x24219: breaks certificates [0, 1, 2, 3, 4, 5]  moves 16 checks
+   a34869 cost=6 eqs frees x10257: breaks certificates [0, 1, 2, 3, 4]  moves 12 checks
+   a36246 cost=6 eqs frees x5077: breaks certificates [0, 1, 2, 3, 4, 5]  moves 16 checks
+   a124 cost=7 eqs frees x26140: breaks certificates [0, 1, 2, 3, 4]  moves 11 checks
+   a7671 cost=7 eqs frees x18863: breaks certificates [0, 1, 2, 3, 4]  moves 10 checks
+   a21417 cost=7 eqs frees x22968: breaks certificates [0, 1, 2, 3, 4, 5]  moves 9 checks
+   a35494 cost=7 eqs frees x1799: breaks certificates [0, 1, 2, 3, 4]  moves 10 checks
+   a36129 cost=7 eqs frees x17067: breaks certificates [0, 1, 2, 3, 4, 5]  moves 16 checks
+   a123 cost=8 eqs frees x29111: breaks certificates [0, 1, 2, 3, 4]  moves 11 checks
+   a4295 cost=8 eqs frees x38314: breaks certificates [0, 1, 2, 3, 4]  moves 11 checks
+   a5423 cost=8 eqs frees x37575: breaks certificates [0, 1, 2, 3, 4, 5]  moves 17 checks
+   a8721 cost=8 eqs frees x20078: breaks certificates [0, 1, 2, 3, 4]  moves 13 checks
+   a8927 cost=8 eqs frees x25378: breaks certificates [0, 1, 2, 3, 4]  moves 11 checks
+   a12782 cost=8 eqs frees x17508: breaks certificates [0, 1, 2, 3, 4, 5]  moves 15 checks
+   a16054 cost=8 eqs frees x14893: breaks certificates [0, 1, 2, 3, 4]  moves 9 checks
+   a17726 cost=8 eqs frees x32499: breaks certificates [0, 1, 2, 3, 4, 5]  moves 4 checks
+   a17728 cost=8 eqs frees x36136: breaks certificates [0, 1, 2, 3, 4, 5]  moves 4 checks
+   a17740 cost=8 eqs frees x33045: breaks certificates [0, 1, 2, 3, 4]  moves 13 checks
+   a18077 cost=8 eqs frees x14598: breaks certificates [0, 1, 2, 3, 4]  moves 12 checks
+   a19468 cost=8 eqs frees x25619: breaks certificates [0, 1, 2, 3, 4]  moves 10 checks
+   a21418 cost=8 eqs frees x33700: breaks certificates [0, 1, 2, 3, 4, 5]  moves 9 checks
+   a21516 cost=8 eqs frees x25033: breaks certificates [0, 1, 2, 3, 4]  moves 14 checks
+   a24706 cost=8 eqs frees x17979: breaks certificates [0, 1, 2, 3, 4]  moves 13 checks
+   a24804 cost=8 eqs frees x18232: breaks certificates [0, 1, 2, 3, 4]  moves 10 checks

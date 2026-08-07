@@ -1,0 +1,6 @@
+gate candidates 725 (cheapest [(36244, 4), (7514, 5), (8429, 5), (19271, 5), (19596, 5), (23171, 5)])
+check candidates 2702 (cheapest [(40960, 1), (40966, 1), (40963, 1), (40969, 1), (40970, 1), (40972, 1), (40982, 1), (40984, 1)])
+  ng=0 done, best=7, tested=697 (86s)
+  ng=1 done, best=7, tested=991 (125s)
+  ng=2 done, best=7, tested=1027 (129s)
+BEST: (7, None, None)

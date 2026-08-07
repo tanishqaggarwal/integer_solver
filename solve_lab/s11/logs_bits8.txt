@@ -1,0 +1,59 @@
+scanned 256 single-bit messages (32s)
+  distribution: {15: 1, 17: 3, 19: 3, 21: 5, 22: 7, 23: 15, 24: 48, 25: 44, 26: 60, 27: 47, 28: 17, 29: 3, 30: 3}
+  best:
+    x 24601 tree B U=1 V=0  failing checks mod p =  15  [688, 1618, 7930, 21617, 25676, 29539]
+    x  2081 tree C U=0 V=1  failing checks mod p =  17  [688, 1618, 2423, 7930, 10506, 26731]
+    x  4287 tree C U=0 V=1  failing checks mod p =  17  [688, 1618, 2423, 7930, 10506, 26731]
+    x 13195 tree C U=0 V=1  failing checks mod p =  17  [688, 1618, 2423, 7930, 10506, 26731]
+    x 12054 tree C U=0 V=1  failing checks mod p =  19  [688, 1618, 2423, 7930, 10506, 21617]
+    x 16586 tree C U=0 V=1  failing checks mod p =  19  [688, 1618, 2423, 7930, 10506, 21617]
+    x 24365 tree C U=0 V=1  failing checks mod p =  19  [688, 1618, 2423, 7930, 10506, 21617]
+    x  6503 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 17406 tree C U=0 V=1  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 20622 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 21266 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x 22595 tree B U=1 V=0  failing checks mod p =  21  [688, 1618, 2423, 7930, 10506, 21617]
+    x  6821 tree C U=0 V=1  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 16214 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 17760 tree C U=0 V=1  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 21074 tree C U=0 V=1  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 30420 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x 35062 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 5988, 7930, 10506]
+    x 38643 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
+    x   438 tree C U=0 V=1  failing checks mod p =  23  [688, 1618, 2423, 7930, 10506, 21617]
+   0/32640 best=26 (0s)
+   4000/32640 best=10 (522s)
+   8000/32640 best=4 (1049s)
+   12000/32640 best=4 (1570s)
+   16000/32640 best=4 (2082s)
+   20000/32640 best=4 (2600s)
+   24000/32640 best=4 (3119s)
+   28000/32640 best=4 (3653s)
+   32000/32640 best=4 (4169s)
+done (4252s).  distribution: {4: 3, 6: 3, 8: 1, 9: 3, 10: 9, 11: 6, 12: 4, 13: 5, 14: 3, 15: 12, 16: 22, 17: 34}
+best weight-2 messages:
+   {x2081, x24601} trees CB  failing = 4  [7930, 29539, 40826, 41512]
+   {x4287, x24601} trees CB  failing = 4  [7930, 29539, 40826, 41512]
+   {x13195, x24601} trees CB  failing = 4  [7930, 29539, 40826, 41512]
+   {x12054, x24601} trees CB  failing = 6  [7930, 21617, 29539, 37662, 40826, 41512]
+   {x16586, x24601} trees CB  failing = 6  [7930, 21617, 29539, 37662, 40826, 41512]
+   {x24365, x24601} trees CB  failing = 6  [7930, 21617, 29539, 37662, 40826, 41512]
+   {x17406, x24601} trees CB  failing = 8  [7930, 21617, 23777, 29426, 29539, 37662, 40826, 41512]
+   {x6821, x24601} trees CB  failing = 9  []
+   {x17760, x24601} trees CB  failing = 9  []
+   {x21074, x24601} trees CB  failing = 9  []
+   {x438, x24601} trees CB  failing = 10  []
+   {x1530, x24601} trees CB  failing = 10  []
+   {x5643, x24601} trees CB  failing = 10  []
+   {x14808, x24601} trees CB  failing = 10  []
+   {x22562, x24601} trees CB  failing = 10  []
+   {x23751, x24601} trees CB  failing = 10  []
+   {x24601, x27393} trees BC  failing = 10  []
+   {x24601, x34974} trees BC  failing = 10  []
+   {x24601, x38625} trees BC  failing = 10  []
+   {x490, x24601} trees CB  failing = 11  []
+   {x5910, x24601} trees CB  failing = 11  []
+   {x12095, x24601} trees CB  failing = 11  []
+   {x16348, x24601} trees CB  failing = 11  []
+   {x18022, x24601} trees CB  failing = 11  []
+   {x24601, x28005} trees BC  failing = 11  []

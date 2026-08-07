@@ -1,0 +1,6 @@
+free vars moving the core trio: 8  (2s)
+  of which PRESERVE x11150,x25739,x37758 = 0 mod p: 4
+     x7497 touches  [True, False, True]
+     x11436 touches  [False, True, False]
+     x14393 touches  [False, True, False]
+     x22820 touches  [True, False, True]

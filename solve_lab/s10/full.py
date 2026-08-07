@@ -2,7 +2,7 @@
 
 newton8 converges: by round 1 the residual on all eight value targets is ZERO,
 A and B are both exactly zero, and a26731/a29539 hold because x19083 and x1308 were
-dragged along as targets.  **The A and B both vanish with its congruences intact.**
+dragged along as targets.  **The two-condition primitive closes with its congruences intact.**
 
 What it costs is the OTHER advice congruences -- a33929 (x8778 = x16144), a2423,
 a21617, a7930, a33796 and their bundles -- because the 264 knobs feed those chains

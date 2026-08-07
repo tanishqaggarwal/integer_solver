@@ -9,7 +9,7 @@ each of those the combination is `c1*a688 + c2*a1618` with every other atom zero
 the equation holds as soon as the two values sit in the right ratio -- exactly the
 cancellation mechanism that makes the 39,026 deliverable a coding optimum (§152).
 
-The residues of a688 and a1618 mod p are fixed (the identity pair pins w5 and w6 mod
+The residues of a688 and a1618 mod p are fixed (the primitive pins w5 and w6 mod
 p), but their handles add arbitrary multiples of p.  So write
 
     a688 = r688 + p*s ,   a1618 = r1618 + p*t ,    s, t free integers

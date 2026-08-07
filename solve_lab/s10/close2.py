@@ -12,7 +12,7 @@ no cubic and no root-existence question:
     w1* = (w4+w6)^2/(w3-w5)^2 - w5 - w3 - K            w2* from B
 
 Two of the four pairs behave this way -- (w1,w2) and (w3,w4) -- while (w3,w2) needs a
-cubic and (w5,w6) is what abfix already used.
+cubic and (w5,w6) is the pair abfix already used.
 
 The reason this pair is the right one: w2 = x16742 is FREE, so w2* can just be
 written in, and its congruence a26731 (x16742 = x19083) is repaired in the same move,

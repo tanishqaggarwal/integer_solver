@@ -1,0 +1,3 @@
+base failing: (7930, 29539, 35759, 35760, 40826, 41512)
+bits preserving the failing set: 900  (145s)
+  of those, bits that MOVE the six residues: 0

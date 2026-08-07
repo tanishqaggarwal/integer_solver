@@ -91,6 +91,25 @@ s10/budget6fast.json
 s10/msgsweep.json
 s10/msg_*.json
 
+# session 11 regenerable intermediates (written into s9/ because lib.py chdirs there)
+s9/theta_*.json
+s9/J_*.json
+s9/build*.json
+s9/run*.json
+s9/assemble.json
+s9/simul.json
+s9/solve.json
+s9/final_state.json
+s9/rep_state.json
+s9/controls.json
+s9/gstab.json
+s9/jac.json
+s9/scanall.json
+s9/scangen.json
+s9/cone_controls.json
+s9/bitsets.json
+s9/halves.json
+s11/__pycache__/
 # session 11 intermediates (regenerable; keep only the two reproducible seeds
 # s10/mod9118_0.json = canonical frame at 39,009 and s10/beam_39016.json)
 s10/*.log

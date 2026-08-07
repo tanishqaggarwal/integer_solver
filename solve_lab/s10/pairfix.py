@@ -18,8 +18,8 @@ costs exactly one congruence:
     w4  free  <=>  break a33796 (x31339 = x6858)       w3 free <=> break a29539
     w2t free  <=>  break a33929 (x8778  = x16144)      w5, w6 <=> break a1618/a688
 
-and A = B = 0 needs exactly TWO of the six values.  Two of the six pairs solve LINEARLY --
-(w1,w2) and (w3,w4) -- one needs a cubic, and (w5,w6) is abfix.  So price every pair:
+and A = B = 0 needs exactly TWO values.  Two of the six pairs solve LINEARLY --
+(w1,w2) and (w3,w4) -- one needs a cubic, and (w5,w6) solves linearly.  So price every pair:
 free its two values, set them to the exact solution, lift, and measure.
 
 Usage: pairfix.py [state.json]

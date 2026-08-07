@@ -1,0 +1,13 @@
+   depth0: NEW BEST failing=24 score=39009 atoms=[21617, 29539, 37662, 40826]
+  depth0: 2 states, beam best=24 atoms=[21617, 29539, 37662, 40826] (0s)
+  depth1: 3 states, beam best=27 atoms=[25676, 29539, 33796, 40826, 42245] (1s)
+  depth2: 5 states, beam best=30 atoms=[29539, 33796, 40562, 40826, 42245] (2s)
+   depth3: NEW BEST failing=20 score=39013 atoms=[19297, 19299, 30984, 36185, 40812]
+  depth3: 6 states, beam best=20 atoms=[19297, 19299, 30984, 36185, 40812] (3s)
+  depth4: 6 states, beam best=31 atoms=[12108, 19297, 19299, 30984, 36185, 37662, 40812] (6s)
+  depth5: 7 states, beam best=36 atoms=[21617, 25676, 29539, 37662, 40562, 40826] (8s)
+  depth6: 7 states, beam best=43 atoms=[19297, 19299, 21617, 25676, 30984, 36185, 37662, 40562, 40812] (12s)
+  depth7: 6 states, beam best=48 atoms=[19297, 19299, 21617, 30984, 33796, 36185, 37662, 40562, 40812, 42245] (15s)
+  depth8: 3 states, beam best=38 atoms=[19297, 19299, 25676, 30984, 33796, 36185, 40562, 40812, 42245] (19s)
+BEST failing=20 score=39013 broken atoms=[19297, 19299, 30984, 36185, 40812]
+path: ((7930, 24548), (21617, 14623), (25676, 31339), (29539, 14853))
