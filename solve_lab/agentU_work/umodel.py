@@ -22,8 +22,13 @@ WZ=pickle.load(open('/home/user/integer_solver/solve_lab/agentU_work/w_z.pkl','r
 WCON={}
 for e,(w,m,z,Cc) in XY['X'].items(): WCON[w]=(m,z,Cc,'X',e)
 for e,(w,m,z,Cc) in XY['Y'].items(): WCON[w]=(m,z,Cc,'Y',e)
-# lifted leaf point tuple in PIN wire order
+# lifted leaf point in PIN wire order, and canonical {'X':..,'Y':..}
 LIFT={s:tuple(WCON[w][2] for w in PIN[s][0]) for s in PIN}
+AXIS={s:tuple(WCON[w][3] for w in PIN[s][0]) for s in PIN}   # e.g. ('Y','X') or ('X','Y')
+LIFTC={s:{WCON[w][3]:WCON[w][2] for w in PIN[s][0]} for s in PIN}
+def to_pin(s, canon):
+    """canon = {'X':vx,'Y':vy} -> tuple in PIN[s][0] wire order"""
+    return tuple(canon[a] for a in AXIS[s])
 
 # parent map + depth
 par={}
@@ -54,7 +59,10 @@ def buildvals(S, routeval, beta=None, betaval=None):
     for L in tree:
         if tree[L] is None:
             isl[L]=L in S
-            valn[L]=routeval.get(L, LIFT.get(L)) if L in S else None
+            if L in S:
+                c=routeval.get(L)
+                valn[L]=to_pin(L,c) if c is not None else LIFT.get(L)
+            else: valn[L]=None
     for n in order:
         a,b=tree[n]; la,lb=isl[a],isl[b]; isl[n]=la or lb
         def proj(ch,side):
@@ -78,7 +86,8 @@ def assignment(S, routeval=None, pinval=None, beta=None, betaval=None):
     v={}
     for L in S:
         ws=PIN[L][0]; v[L]=1
-        vals=pinval.get(L, LIFT[L])
+        pc=pinval.get(L)
+        vals=to_pin(L,pc) if pc is not None else LIFT[L]
         for w,c in zip(ws,vals):
             v[w]=c
             m,z,Cc,ax,e=WCON[w]

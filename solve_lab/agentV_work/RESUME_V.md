@@ -227,3 +227,178 @@ At a budget of **2·10⁷ enumeration points per prime power** (~1 minute of `ro
 > **Scope, stated as the rules require:** knob set = the `SHIFT` wires L's `influences()` admits
 > (2,300 of them); configuration = the `Random(7)` `|S| = 17` ON-set at its greedy fixpoint, and
 > the structural graph over all 927 which is configuration-independent. Budget stated above.
+
+---
+---
+
+# SECOND TASK — THE HANDLE-LESS ATOM POPULATION
+
+An atom's **handle** is a free variable in its cone that moves it by an exact multiple of `p`, so
+the lift can absorb any residual into it. `relift` is indexed by handle and `SL` only has rows for
+atoms that have one. **An atom with no handle has nothing to absorb into: it must be exactly zero
+over ℤ**, and `closeS4`'s machinery never sees it.
+
+## 6. THE SPLIT IS EXACT AND THE RELATION IS A MATCHING  (`v_hless.py`, 49 s)
+
+```
+9,032 atoms = 5,351 handle-less  +  3,681 with exactly ONE handle  +  0 with two or more
+   of the 3,681:  2,747 c == 1   |   927 c > 1   |   7 zero-slope
+```
+
+The 3,681 / 2,747 / 927 / 7 figures are L's published census reproduced from my own mirror, so the
+mirror is faithful. **No atom has two handles** — the handle relation is a partial matching, which
+is why `atomh[a]` is either a singleton or empty and never anything else.
+
+### 6.1 "No handle" is very nearly a SHAPE property
+
+| atom shape | handle-less | handled | |
+|---|---|---|---|
+| `(X*(1-X))` | 1,144 | 0 | **only handle-less** |
+| `(X*(X-1))` | 1,139 | 0 | **only handle-less** |
+| `(X-(X*X))` | 864 | 0 | **only handle-less** |
+| `(X-(X+0))` | 836 | 0 | **only handle-less** |
+| `(X-X)` | 167 | 0 | **only handle-less** |
+| `((X*X)-X)` | 1,201 | 474 | both |
+| `((X*X)+X)`, `((K*(X*X))-X)`, `((X*X)-(K*X))`, `((X*(X-K))-(K*X))`, … | 0 | 726 / 722 / 480 / 256 / … | **only handled** |
+
+**4,150 of 5,351 (78%) handle-less atoms have a shape that occurs among handled atoms zero times.**
+The handle-less population is dominated by **booleanity constraints** (`x(x−1) = 0`, `x(1−x) = 0`,
+`x − x² = 0`) and **copy identities** (`x − y = 0`, `x − (y+0) = 0`). Those are exactly the atoms
+that *should* have no cofactor: there is nothing for a multiple of `p` to hide in. **Only one shape,
+`((X*X)-X)`, is genuinely ambiguous** (1,201 vs 474).
+
+### 6.2 The mechanism, and it is not shape — it is the cone
+
+`atomh` is computed over the atom's **free-variable closure**, so "handle-less" means *no handle
+variable appears anywhere in the cone*. Measured over the 5,351:
+
+```
+2,328  have NO free variable at all   -- structurally constant, identically zero, can never fail
+2,733  depend only on free vars that are not handles and not leaves
+  290  depend on leaf selectors
+free-variable-count histogram: {0: 2328, 1: 2989, 3: 24, 4: 2, 5: 4, 6: 2, 7: 1, 9: 1}
+```
+
+**43% of the population is a constant that cannot be nonzero under any assignment**, and 56% depends
+on a single free variable. Only 34 atoms depend on more than one.
+
+### 6.3 The population that a shift can even touch is 33, not 5,351
+
+```
+handle-less atoms with at least one SHIFT wire in scope:  33 of 5,351
+SHIFT-wire-count histogram: {0: 5318, 1: 26, 3: 4, 4: 3}
+```
+
+**All 33 have the identical shape `(x_A − (x_B · x_C))`** — a product definition, the one family in
+the handle-less population that is neither a booleanity constraint nor a copy. The other 5,318
+cannot be moved by any shift the solver has; and (§7) none of them is ever nonzero, so that is not
+a gap.
+
+---
+
+## 7. THE GROWTH CURVE  (`v_hcurve.py`) — it switches on between |S| = 20 and 24, then crawls
+
+Measured at the constructor's greedy fixpoint, **four ON-sets per size** (seed 7 is L's own
+convention so the row is comparable with T's; 101/202/303 test whether size or draw is doing the
+work). Handle-less nonzero count:
+
+| \|S\| | seed 7 | 101 | 202 | 303 |
+|---|---|---|---|---|
+| 1–20 | 0 | 0 | 0 | 0 |
+| 24 | **2** | 0 | **2** | 0 |
+| 32 | **2** | **1** | **2** | 0 |
+| 40 | **2** | **1** | **2** | 0 |
+| 48 | **2** | **1** | **3** | **1** |
+| 64 | **3** | **1** | **3** | **1** |
+| 96 | **3** | **2** | **4** | **1** |
+
+> **It is neither flat nor linear: it switches on at a threshold between \|S\| = 20 and \|S\| = 24
+> and then grows roughly logarithmically.** From `|S|` = 24 to 96 — a fourfold increase — the count
+> goes from 2 to 3. Over the same range the *global* nonzero count goes 36 → 177 and the `c>1`
+> violation count 12 → 54, both roughly linear in `|S|`. **The handle-less population is the one
+> quantity in this system that does not scale with the ON-set.**
+
+**And the draw matters as much as the size**: at `|S| = 32` the four seeds give 2, 1, 2, 0. A
+one-ON-set-per-size measurement would have reported any of those as "the" value.
+
+**Which atoms:** across every size and seed, only **six distinct** handle-less atoms are ever
+nonzero — `x23514`, `x3178`, `x23642`, `x11231`, `x12827`, `x32693` (naming them by their left
+operand). **All six are members of the 33 that have a SHIFT wire.** Not one of the 5,318 unreachable
+handle-less atoms has ever been observed nonzero.
+
+---
+
+## 8. REACHABILITY — AND THE RESIDUE IS A GUARD ARTIFACT, NOT AN OBSTRUCTION
+
+### 8.1 Every one has an exact integer root, and it is linear  (`v_hwho.py`, 147 s)
+
+For each handle-less atom observed nonzero, on each influencing wire, fit `R(t)` and look for
+`R(t) = 0` **exactly over ℤ** (not mod anything — a handle-less atom has nothing to absorb a
+remainder into), then **verify by direct recomputation**:
+
+```
+(x12827-(x31566*x24511))   3 wires : x8185  EXACT t=-13189448     degree 1
+                                     x13454 EXACT t= 13189448     degree 1
+(x23514-(x6677*x23504))    1 wire  : x34218 EXACT t= 322948684674 degree 1
+(x3178-(x13720*x21170))    1 wire  : x19965 EXACT t= 850093191878 degree 1
+```
+
+**Degree 1 in every case, exact integer root in every case, 4 roots over 3 atoms.** T's observation
+is **typical, not lucky** — and the reason is structural: these atoms are `x_A − x_B·x_C` and the
+shift enters through one factor linearly.
+
+### 8.2 The collateral is exactly ONE atom, and it is always a HANDLED one  (`v_hreach.py`, 16 s)
+
+Taking each root at `|S| = 32` and recomputing everything:
+
+| atom cleared | breaks | class of what it breaks |
+|---|---|---|
+| `(x23514-(x6677*x23504))` | `((14625173*(x7781-x14172))-x36501)` | **handled, c == 1** |
+| `(x3178-(x13720*x21170))` | `((x14047-x19324)-(3914361*x6389))` | **handled, c > 1 (c = 3,914,361)** |
+
+**Neither breaks another handle-less atom.** And the two classes it does break are not residues in
+the same sense: `c == 1` is absorbed by `relift` outright, and `c > 1` is a divisibility condition —
+precisely what the existing solver discharges.
+
+**So `closeS4` refuses these roots for a measurable reason:** its guard is *"the global nonzero
+count must strictly decrease"*, and a 1-for-1 trade does not decrease it. **The guard scores a
+handle-less atom and a `c == 1` atom as equally bad. They are not.**
+
+### 8.3 The fix, tested rather than argued  (`v_hclose.py`, 337 s at |S| = 32)
+
+Replace the scalar guard with a **lexicographic** one — `(handle-less nonzero, global nonzero)` must
+strictly decrease — keeping every other guard (exact zero by direct recomputation; the `c>1` pass
+unchanged):
+
+```
+|S| = 32, seed 7
+greedy fixpoint          handle-less 2, global 18
+c>1 pass  : 10 accepted  handle-less 2, global  6
+x34218 += p*322948684674 handle-less 2 -> 1, global 6 -> 5
+x19965 += p*850093191878 handle-less 1 -> 0, global 5 -> 5   <-- the trade closeS4 refuses
+FINAL: NONZERO ATOMS = 5 of 9032, HANDLE-LESS 0
+    ((x18956-x37892)-x32237)                    TARGET CONGRUENCE
+    ((x24468-x13682)-(12354891*x34243))         TARGET CONGRUENCE
+    ((x22366*x5209)-(8054097*x37199))           c = 8,054,097    undischarged c>1
+    ((x14047-x19324)-(3914361*x6389))           c = 3,914,361    undischarged c>1
+    ((x14370-x17131)-(10573909*x2482))          c = 10,573,909   undischarged c>1
+```
+
+**Dumped and checker-verified** (`close_V32h.json` → `38,983 / 39,033`, 50 failing) — the assignment
+is real, not model-internal. The score is below the deliverable because this ON-set does not fold to
+the target, which is a mod-p fact and exactly why the two target congruences are nonzero; the metric
+that matters here is **nonzero atoms of 9,032, and the handle-less part of it is 0**.
+
+> **STATED AS A POPULATION PROPERTY WITH ITS SCOPE.** Over `|S| ∈ {24, 32, 40, 48, 64, 96}` and four
+> ON-set draws per size: every handle-less atom observed nonzero (six distinct, all of shape
+> `x_A − x_B·x_C`, all among the 33 with a SHIFT wire) is **linear in that wire and has an exact
+> integer root**, and taking that root breaks **one** atom, which is **handled** in every case
+> observed. **At `|S| = 32` the whole handle-less residue was discharged to zero and the result
+> checker-verified.** I have **not** found a handle-less atom that is unreachable while nonzero, so
+> **no hard obstruction is claimed here** — this remains a solver-coverage gap, and the coverage is
+> now closed at one configuration by a one-line change to the guard.
+>
+> **What this does NOT establish:** the six were found by sampling, not exhaustion — I have not
+> shown that no ON-set makes one of the other 27 shift-reachable handle-less atoms nonzero, nor
+> that the 5,318 wire-less ones are unreachable *in principle* rather than merely never observed
+> nonzero. The `|S| = 32` closure is one ON-set at one size.
