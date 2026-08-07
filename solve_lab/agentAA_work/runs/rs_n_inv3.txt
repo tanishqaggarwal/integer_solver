@@ -36,3 +36,13 @@ DONE data/d_n_inv3.txt sz=3 range=[0,512) n=22108160 zero=0 23.3s
 SHARD1
 DONE data/d_n_inv3.txt sz=3 range=[0,512) n=22108160 zero=0 20.1s
 SHARD2
+DONE data/d_n_inv3.txt sz=3 range=[0,512) n=22108160 zero=0 23.6s
+SHARD3
+DONE data/d_n_inv3.txt sz=3 range=[0,512) n=22108160 zero=0 12.1s
+SHARD4
+DONE data/d_n_inv3.txt sz=3 range=[0,512) n=22108160 zero=0 20.8s
+SHARD5
+DONE data/d_n_inv3.txt sz=3 range=[0,512) n=22108160 zero=0 26.6s
+SHARD6
+DONE data/d_n_inv3.txt sz=3 range=[0,512) n=22108160 zero=0 24.6s
+SHARD7

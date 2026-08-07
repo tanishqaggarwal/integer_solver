@@ -310,3 +310,37 @@ exit 2 and a clear message.
 
 > **Two lessons, both general: an unchecked `mmap` turns a missing input into fake output, and
 > piping a compiler through `head` turns a failed build into a passing one.**
+
+---
+
+## 10. `|S| = 10` ROTATIONAL SWEEP — RUNNING (restartable)
+
+Driver: `rotall.sh` (PID in `rotall.pid`, test with `kill -0`), looping `j = 0..127` over
+`rotone.sh <j> rrep_real.txt`. Each rotation: 6 build sessions → 6 parallel sorts → `merge` →
+`bitmap` → 6 scan sessions, then the 2.1 GB table is replaced by the next rotation's, so **disk stays
+flat at ~2.6 GB for this sweep**. Measured **~130 s per rotation** → ~4.6 h for all 128.
+
+* Completion is recorded **per rotation** in `rotdone.txt` (`ROT <j> DONE` only when all six ranges
+  wrote a `DONE` line). `rotall.sh` skips already-done rotations, so it is **restartable by simply
+  re-running it**.
+* `rotprog.py` reports the **correct** partial statement and estimates the excluded measure by
+  sampling random 10-sets.
+
+**Read the partial correctly.** After completing a set `R` of rotations the excluded family is
+`{S : |S| = 10, ∃ j ∈ R with |S ∩ A_j| = 5}` — **not** "a fraction of `|S| = 10` exhausted".
+`|S| ≤ 10` becomes claimable **only when all 128 rotations complete**. Sets like `{0,…,9}` have
+exactly one balanced rotation, so no rotation may be skipped.
+
+**Standing citable bounds remain:** unsigned `|S| ≤ 9` exhausted; signed-digit `m ≤ 7` exhausted
+(alphabet `±2^e`, `e ≤ 255`); `k > 2⁵²` and `N − k > 2⁵²`.
+
+### Files added in this phase
+| file | what |
+|---|---|
+| `xrotmath.py` | validates the covering claim + finds the unique-rotation adversarial set |
+| `xrot.c` / `xrot` | the rotational engine (`build` / `merge` / `bitmap` / `scan`) |
+| `rotone.sh`, `rotall.sh`, `scanphase.sh`, `sortchunk.py` | per-rotation and full drivers |
+| `xrotplant.py`, `rplant_tight.txt` | the awkward-rotation plant (`S = {0..9}`) |
+| `rrep_tight5.txt` (HIT) / `rrep_tight6.txt` (0 hits) | the positive test and its negative control |
+| `rrep_real.txt`, `rotdone.txt`, `rotprog.py` | the live sweep, its per-rotation ledger, honest progress |
+| `xrot_tbl.bin`, `xrot_bm.bin` | **my** rotation tables — deliberately NOT named `tbl*`/`bm*` |

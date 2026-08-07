@@ -82,6 +82,12 @@ cost must be 2^128; round-1's model returned 2^251.7, corrected returns 2^132.0.
 floor and is **optimal to within `rep(W) ≤ 2^4`**; my "within 2^1 at `B = 20`" is exact at 1.50.
 **No room left in the algorithm — class size is the whole story.**
 
+**OPEN COMPUTE AT HANDOFF:** PID **6881** (`ab_dreg3.py 2 4`, log `dreg3.log`) — `n=4` at `d=5`,
+a 21057×17091 rank over `GF(10007)`, ~¼ core at load 14. `n=2→4` and `n=3→5` are already reproduced
+in that log. Read-off: `ALL SELECTORS PINNED` ⇒ `d_reg(4)=5` ⇒ growth is **sublinear** and §9.12 is
+**re-opened**; `not yet` ⇒ `d_reg(4)≥6` ⇒ strictly increasing on three points and the weak form is
+confirmed. `d=6` is over cap on this box either way. Nothing else in my thread depends on it.
+
 **`d_reg` MEASURED (partial).** Singular is **not installed** in this container; measured with my own
 Macaulay/XL over `GF(q)` via python-flint. Needed two model fixes first: saturate the degenerate
 `R_j = P_j` branch (a spurious positive-dimensional component that invalidated my first run), and

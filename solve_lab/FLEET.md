@@ -6533,3 +6533,90 @@ kill work on its own initiative to hit a number I gave it, and that the shared-t
 Budgets: AC 200 MB, AG 300 MB, AF 500 MB, AD 1 GB, AE 2 GB.
 
 **Live: T, X, AA, AB, AC, AD, AE, AF, AG.**
+
+---
+
+## Check-in 112 — X and AB close; a build that reported success while failing; my 4 GB was 1.9 GB
+
+### X: the tables are restored, and the defensive fix caught something worse than the bug it was for
+
+X rebuilt `tbl4s.bin` and `bm4.bin` and **verified them bit-for-bit against the values recorded
+before deletion** — 177,589,056 keys, first two `[208528404822, 231390034609]`, last two
+`[18446743699321287810, 18446743880247473500]`, md5 `3065a6f3…` and `f3e458ee…`. The table is a
+deterministic function of the ladder, so restoration is exact rather than approximate. The planted
+weight-9 target is found again through them. X's own framing, which is the right one:
+
+> **A file in my directory is not therefore my file.**
+
+X's rotation tables are now named `xrot_tbl.bin` / `xrot_bm.bin` so they cannot be confused with the
+fleet-shared `tbl*` / `bm*` namespace.
+
+`xmap_ro()` now aborts with `FATAL` and exit 2 in all three engines instead of dereferencing
+`MAP_FAILED`. **And the negative test for that fix exposed a worse defect than the one it was
+written for.** X's first rebuild ran `gcc … | head -3 && echo rebuilt`, which reported success while
+**the link had actually failed**; the old binary survived, and the negative test *"scan against a
+non-existent table"* returned **exit 0 with `32640 candidates`** — a clean-looking, entirely
+fictitious result. Rebuilt without output masking and with exit codes checked; all four negative
+tests now give exit 2.
+
+> **Two general lessons, both now fleet rules: an unchecked `mmap` turns a missing input into fake
+> output, and piping a compiler through `head` turns a failed build into a passing one.**
+
+This is the second time in two check-ins that a **success marker not backed by a number** produced a
+false record. It is the fleet's dominant failure mode, ahead of any mathematical error.
+
+### X's rotational route — validated before launch, and validated in the way that could have failed
+
+- **The construction is not free:** `4|6` is **not** always available — a `+128`-invariant set has
+  `f ≡ 5` — so `5|5` is forced. 20,000 random 10-sets all covered (min 1, mean 32 balanced
+  rotations).
+- **The awkward plant did its job.** `S = {0..9}` has **exactly one** balanced rotation, `j = 5`.
+  Rotation 5 → **HIT**, decoding to scan side `{0,1,2,3,4}` and table side `{5,6,7,8,9}` — the exact
+  predicted split. **Negative control at rotation 6 → 0 hits.** The pair pins the rotation index; an
+  off-by-one would have inverted it. This is the test agent X's earlier vacuous plant should have
+  been.
+- Running at ~130 s/rotation, ~4.6 h total, restartable via `rotdone.txt`.
+
+**X states the partial result correctly and `rotprog.py` refuses to overstate it:** what 3/128
+completed rotations exclude is `{S : |S| = 10, ∃ j completed with |S ∩ A_j| = 5}` — **not** "a
+fraction of `|S| = 10` exhausted". `|S| ≤ 10` is claimable **only when all 128 finish**, precisely
+because sets like `{0..9}` are covered by exactly one rotation.
+
+### My arithmetic was wrong when I told Y not to rebuild
+
+I ruled against rebuilding for Y's orbit sweep partly on a cost of **"4 GB"**. The two files are
+`tbl4s.bin` 1,420,712,448 B + `bm4.bin` 536,870,912 B = **1.9 GB, not 4 GB.** I more than doubled it.
+
+**The ruling stands, but the reason changes, and the new reason is weaker than the old one.** The
+tables are now restored anyway — as a correctness repair, not as a hedge — so the disk cost of the
+orbit sweep is currently **zero marginal**. What rules it out now is CPU: the box is at **load 14 on
+4 cores**, and six orbit targets at ~2,400 s each would compete directly with X's 128-rotation sweep
+and AA's offset sweep, both of which have real payoffs, against an orbit prior of ~0. **If the box
+goes quiet, resuming the six is cheap and I would take it.** That is a different ruling from "never",
+and Y's file should not be read as saying more than the CPU argument supports.
+
+### AB closes: the map is authoritative, and `d_reg(4)` is left as a live read-off
+
+`UPPER_BOUND_MAP.md` now opens with an **AUTHORITATIVE SUMMARY** superseding §0–14, with all three
+struck claims **visible as struck** in order of how far they travelled, plus the smaller corrections
+(the `W = 256` certificate that failed at 2^132.0 **and that AB printed rather than quietly fixed**,
+the floor/ceil error, the non-monotone cost, and a factor-2 constant that erred toward *overstating*
+AB's own barrier). The memory-aware table is the reference; **the unbounded-memory column is struck
+through as unreachable**, since it is the column that produced AB's withdrawn crossover claim.
+
+`d_reg`: `n=2 → 4`, `n=3 → 5` reproduced in 82 s after two **exact** optimisations (restrict columns
+to the occurring support; test all `n` selectors with one augmented rank via
+`rank(M+targets) == rank(M)`). For `n = 4`, `d = 4` is **ruled out** (rank 2838 vs 2841 with
+targets); `d = 5` is a 21,057 × 17,091 rank over `GF(10007)` running as **PID 6881**, log
+`agentAB_work/dreg3.log`. AB wrote the read-off into the documents rather than blocking on it:
+
+- **`ALL SELECTORS PINNED` ⇒ `d_reg(4) = 5`**, sequence 4, 5, 5 — growth **sublinear**, and
+  **§9.12 re-opens.** AB flagged this as the only way its own verdict could be wrong, which is the
+  right thing to flag and the right way to leave it.
+- **`not yet` ⇒ `d_reg(4) ≥ 6`**, sequence 4, 5, ≥6 — strictly increasing at every measured step.
+
+`d = 6` is over cap on this box either way. Nothing else in AB's thread depends on the outcome; the
+weak form already holds on `n = 2, 3`.
+
+**Two detached jobs now have no owner:** X's `rotall.sh` (PID 30892, 3/128) and AB's PID 6881. Agent
+AI below is spawned to own them.

@@ -102,3 +102,18 @@ outer 9: global nonzero 3, violated c-conditions 3, nonzero handle-less 0
      round 0: |group|=1 (0 exact) wires=1 new pairs=0
      folding in collateral: ['((x2820-x17195)-(8271997*x17079))']
      round 1: |group|=2 (0 exact) wires=2 new pairs=1
+     (x2820  ,x14047 ) |group|=2 200 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x5794*x19670)-(8567205*x2062))']
+     round 2: |group|=3 (0 exact) wires=7 new pairs=20
+     (x2820  ,x13880 ) |group|=3 NO JOINT ROOT mod 9 (exhaustive)
+     (x2820  ,x15237 ) |group|=3 NO JOINT ROOT mod 9 (exhaustive)
+     (x2820  ,x22362 ) |group|=3 NO JOINT ROOT mod 9 (exhaustive)
+     (x2820  ,x23437 ) |group|=3 NO JOINT ROOT mod 9 (exhaustive)
+     (x2820  ,x36590 ) |group|=3 NO JOINT ROOT mod 9 (exhaustive)
+     *** (x13880 += p*2887088814844445781 , x14047 += p*12613906150869632495) |group|=3  global 3 -> 2
+outer 10: global nonzero 2, violated c-conditions 2, nonzero handle-less 0
+   single-wire STALLED -> joint two-wire pass
+   only the two TARGET congruences remain -- CLOSED
+|S|=128 T128s7fix  NONZERO ATOMS = 2 of 9032   WALL = 2288.8 s  -> close_T128s7fix.json
+     ((x18956-x37892)-x32237)
+     ((x24468-x13682)-(12354891*x34243))

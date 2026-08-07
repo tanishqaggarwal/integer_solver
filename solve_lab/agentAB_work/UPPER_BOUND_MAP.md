@@ -132,7 +132,17 @@ columns cannot affect rank; all `n` selectors tested with one augmented rank):
 |---|---|---|---|
 | 2 | 8 | 11 | **4** |
 | 3 | 13 | 17 | **5** |
-| 4 | 18 | 23 | **PENDING** |
+| 4 | 18 | 23 | **≥ 5, pending** — `d=4` ruled out (rank 2838 vs 2841 with targets); `d=5` is a 21057×17091 rank still running |
+
+**Pending run:** PID **6881**, log `agentAB_work/dreg3.log`, launched detached; the box is at load
+14 on 4 cores so it is getting ~¼ core. **How to read it when it lands:**
+`ALL SELECTORS PINNED` at `d=5` ⇒ `d_reg(4) = 5`, which would make the sequence 4, 5, 5 — growth
+*sublinear*, and **§9.12 would no longer be settled**; that is the outcome to shout about.
+`not yet` at `d=5` ⇒ `d_reg(4) ≥ 6`, sequence 4, 5, ≥6 — strictly increasing at every step measured,
+and the weak form below is confirmed on three points. `d=6` is over cap on this box either way, so
+`≥6` is the strongest positive statement obtainable here. **Nothing in this document depends on
+which way it goes except the width of the evidence for the weak form**, which already holds on
+`n = 2, 3`.
 
 **Weak form — this is the claim, and the only one the data supports:** `d_reg` **increases with `n`**
 over the measured range, rather than saturating at a small constant. **A flat `d_reg` was the only

@@ -1,0 +1,48 @@
+DONE data/d_n_lam.txt sz=1 range=[0,512) n=512 zero=0 0.5s
+SHARD0
+DONE data/d_n_lam.txt sz=1 range=[0,512) n=512 zero=0 0.3s
+SHARD1
+DONE data/d_n_lam.txt sz=1 range=[0,512) n=512 zero=0 0.2s
+SHARD2
+DONE data/d_n_lam.txt sz=1 range=[0,512) n=512 zero=0 0.1s
+SHARD3
+DONE data/d_n_lam.txt sz=1 range=[0,512) n=512 zero=0 0.1s
+SHARD4
+DONE data/d_n_lam.txt sz=1 range=[0,512) n=512 zero=0 0.0s
+SHARD5
+DONE data/d_n_lam.txt sz=1 range=[0,512) n=512 zero=0 0.0s
+SHARD6
+DONE data/d_n_lam.txt sz=1 range=[0,512) n=512 zero=0 0.0s
+SHARD7
+DONE data/d_n_lam.txt sz=2 range=[0,512) n=130560 zero=0 2.2s
+SHARD0
+DONE data/d_n_lam.txt sz=2 range=[0,512) n=130560 zero=0 1.7s
+SHARD1
+DONE data/d_n_lam.txt sz=2 range=[0,512) n=130560 zero=0 2.9s
+SHARD2
+DONE data/d_n_lam.txt sz=2 range=[0,512) n=130560 zero=0 1.1s
+SHARD3
+DONE data/d_n_lam.txt sz=2 range=[0,512) n=130560 zero=0 1.8s
+SHARD4
+DONE data/d_n_lam.txt sz=2 range=[0,512) n=130560 zero=0 0.9s
+SHARD5
+DONE data/d_n_lam.txt sz=2 range=[0,512) n=130560 zero=0 0.7s
+SHARD6
+DONE data/d_n_lam.txt sz=2 range=[0,512) n=130560 zero=0 1.5s
+SHARD7
+DONE data/d_n_lam.txt sz=3 range=[0,512) n=22108160 zero=0 19.0s
+SHARD0
+DONE data/d_n_lam.txt sz=3 range=[0,512) n=22108160 zero=0 10.0s
+SHARD1
+DONE data/d_n_lam.txt sz=3 range=[0,512) n=22108160 zero=0 21.5s
+SHARD2
+DONE data/d_n_lam.txt sz=3 range=[0,512) n=22108160 zero=0 18.6s
+SHARD3
+DONE data/d_n_lam.txt sz=3 range=[0,512) n=22108160 zero=0 22.2s
+SHARD4
+DONE data/d_n_lam.txt sz=3 range=[0,512) n=22108160 zero=0 19.0s
+SHARD5
+DONE data/d_n_lam.txt sz=3 range=[0,512) n=22108160 zero=0 10.2s
+SHARD6
+DONE data/d_n_lam.txt sz=3 range=[0,512) n=22108160 zero=0 26.7s
+SHARD7
