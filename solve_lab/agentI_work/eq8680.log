@@ -1,0 +1,8 @@
+eq8680 has 18 atoms; private-variable PAIRS inside it:
+   knob X37413: a11774(coef +20, d=1) a11775(coef -27, d=-8481759)   net effect on eq8680 core = 229007513
+   knob X23822: a11776(coef +35, d=1) a11777(coef +17, d=-1)   net effect on eq8680 core = 18
+   knob X9629: a20290(coef +25, d=1) a20291(coef +1, d=-13523997)   net effect on eq8680 core = -13523972
+   knob X18253: a20292(coef +25, d=1) a20293(coef +28, d=-1)   net effect on eq8680 core = -3
+   knob X37720: a20294(coef +1, d=1) a20295(coef -4, d=-1)   net effect on eq8680 core = 5
+   knob X23754: a23435(coef +6, d=1) a23436(coef +15, d=-1)   net effect on eq8680 core = -9
+
