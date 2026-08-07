@@ -1,0 +1,7 @@
+support 9 atoms, |E|=12
+cascade-repairable atoms held at zero: 1817
+dependent variables: 1817
+KNOBS after cascade closure: 7  [642, 1329, 9413, 10903, 17325, 29854, 31864]
+usable linear knobs: 7   rejected: 0
+PROVED minfail >= 7 with 7 cascade knobs (all C(12,<=6) subsystems integrally unsolvable)
+12s

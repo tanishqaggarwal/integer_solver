@@ -134,3 +134,10 @@ x_30207	pins=[4965, 4966]	FEAS=True	msg=ok	exact=(16, [])	8s
 x_30242	pins=[16797, 16798, 40544]	FEAS=True	msg=ok	exact=(16, [])	10s
 x_30420	pins=[5156, 5157]	FEAS=True	msg=ok	exact=(16, [])	10s
 x_30613	pins=[34253, 36489]	FEAS=False	msg=core infeasible	exact=None	5s
+x_30673	pins=[5746, 5747]	FEAS=True	msg=ok	exact=(16, [])	7s
+x_30823	pins=[17558, 17559]	FEAS=False	msg=core infeasible	exact=None	5s
+x_31767	pins=[30446, 30447, 40626]	FEAS=True	msg=ok	exact=(16, [])	7s
+x_31932	pins=[33973, 33974]	FEAS=False	msg=core infeasible	exact=None	4s
+x_32092	pins=[36904, 36905]	FEAS=False	msg=core infeasible	exact=None	3s
+x_32368	pins=[10004, 10005]	FEAS=True	msg=ok	exact=(16, [])	8s
+x_32558	pins=[9080, 37423, 40626]	FEAS=True	msg=ok	exact=(16, [])	7s

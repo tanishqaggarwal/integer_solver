@@ -100,3 +100,11 @@ atoms that reduce the conflict count: 31 [40368, 18873, 24195, 18872, 20061, 304
   GENUINE CUT (18873, 17804, 17815) touches 27 equations
   GENUINE CUT (18873, 17804, 17811) touches 27 equations
   GENUINE CUT (18873, 17804, 17813) touches 27 equations
+  GENUINE CUT (18873, 17804, 17812) touches 28 equations
+  GENUINE CUT (18873, 17805, 17814) touches 27 equations
+  GENUINE CUT (18873, 17805, 31788) touches 40 equations
+  GENUINE CUT (18873, 17805, 17810) touches 26 equations
+  GENUINE CUT (18873, 17805, 17815) touches 27 equations
+  GENUINE CUT (18873, 17805, 17811) touches 26 equations
+  GENUINE CUT (18873, 17805, 17813) touches 27 equations
+  GENUINE CUT (18873, 17805, 17812) touches 27 equations

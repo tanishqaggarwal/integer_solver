@@ -37,30 +37,39 @@ def unit_solvable(a, y):
     return abs(c1) == 1
 
 
-def close(SUP, maxrounds=12):
-    """Return (R, dependent, knobs).  R = atoms held at zero by a dependent var."""
-    T = set(SUP)
+def close(SUP, cap=2000):
+    """Return (R, dep, knobs) with incremental counters.
+
+    cnt_out[y] = number of atoms of y that are NOT yet inside (support u repaired).
+    y can serve as the dependent variable of atom b iff cnt_out[y] == 1 and that
+    single outside atom is b.  Adding b to the repaired set decrements cnt_out.
+    """
+    INSIDE = set(SUP)
     R = set()
-    dep = {}                       # variable -> atom that keeps it pinned
-    for _ in range(maxrounds):
-        knobs = {x for x in v2a if x not in dep and set(v2a[x]) <= (T | R)}
-        added = False
-        for b in range(M.na):
-            if b in T or b in R:
+    dep = {}
+    cnt_out = {y: sum(1 for a in v2a[y] if a not in INSIDE) for y in v2a}
+    # atoms that currently have a usable dependent variable
+    work = collections.deque(range(M.na))
+    inq = bytearray(b'\x01') * M.na
+    while work and len(R) < cap:
+        b = work.popleft(); inq[b] = 0
+        if b in INSIDE:
+            continue
+        pick = None
+        for y in M.avars[b]:
+            if y in dep:
                 continue
-            # candidate dependent variables inside b
-            for y in M.avars[b]:
-                if y in dep or y in knobs:
-                    continue
-                if set(v2a[y]) - (T | R | {b}):
-                    continue
-                if not unit_solvable(b, y):
-                    continue
-                R.add(b); dep[y] = b; added = True
-                break
-        if not added:
-            break
-    knobs = sorted({x for x in v2a if x not in dep and set(v2a[x]) <= (T | R)})
+            if cnt_out[y] == 1 and b in v2a[y] and unit_solvable(b, y):
+                pick = y; break
+        if pick is None:
+            continue
+        R.add(b); INSIDE.add(b); dep[pick] = b
+        for y in M.avars[b]:
+            cnt_out[y] -= 1
+            for a2 in v2a[y]:
+                if a2 not in INSIDE and not inq[a2]:
+                    inq[a2] = 1; work.append(a2)
+    knobs = sorted(y for y in v2a if y not in dep and cnt_out[y] == 0)
     return R, dep, knobs
 
 
