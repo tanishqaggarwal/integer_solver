@@ -1,0 +1,17 @@
+  n=2 : 8 vars (2 boolean), 11 generators
+     d=2 :     14 rows x     17 support-cols = 2.72e+02 cells (build 0s)
+        rank(M)=13  rank(M+targets)=14   not yet   (0s)
+     d=3 :     89 rows x     84 support-cols = 7.64e+03 cells (build 0s)
+        rank(M)=75  rank(M+targets)=76   not yet   (0s)
+     d=4 :    375 rows x    277 support-cols = 1.04e+05 cells (build 0s)
+        rank(M)=269  rank(M+targets)=269   ALL SELECTORS PINNED  <== SOLVING DEGREE   (0s)
+     -> n=2 solving degree =4   (0s)
+
+  n=3 : 13 vars (3 boolean), 17 generators
+     d=2 :     22 rows x     28 support-cols = 7.00e+02 cells (build 0s)
+        rank(M)=21  rank(M+targets)=23   not yet   (0s)
+     d=3 :    216 rows x    232 support-cols = 5.08e+04 cells (build 0s)
+        rank(M)=192  rank(M+targets)=194   not yet   (0s)
+     d=4 :   1368 rows x   1197 support-cols = 1.64e+06 cells (build 0s)
+        rank(M)=1095  rank(M+targets)=1097   not yet   (1s)
+     d=5 :   6494 rows x   4679 support-cols = 3.04e+07 cells (build 0s)
