@@ -211,3 +211,15 @@ scan data/d_aFF00.txt sz=3 [0,512): 22108160 cand zero=0 22.7s
 OFFSET_DONE aFF00 hits=0
 scan data/d_a0001.txt sz=1 [0,512): 512 cand zero=0 0.0s
 scan data/d_a0001.txt sz=2 [0,512): 130560 cand zero=0 0.7s
+scan data/d_a0001.txt sz=3 [0,512): 22108160 cand zero=0 44.1s
+OFFSET_DONE a0001 hits=0
+scan data/d_aFFFF.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_aFFFF.txt sz=2 [0,512): 130560 cand zero=0 1.5s
+scan data/d_aFFFF.txt sz=3 [0,512): 22108160 cand zero=0 42.1s
+OFFSET_DONE aFFFF hits=0
+scan data/d_a32_1.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_a32_1.txt sz=2 [0,512): 130560 cand zero=0 0.9s
+scan data/d_a32_1.txt sz=3 [0,512): 22108160 cand zero=0 40.5s
+OFFSET_DONE a32_1 hits=0
+scan data/d_a32_F.txt sz=1 [0,512): 512 cand zero=0 0.3s
+scan data/d_a32_F.txt sz=2 [0,512): 130560 cand zero=0 4.7s

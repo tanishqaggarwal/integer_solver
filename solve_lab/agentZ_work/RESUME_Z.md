@@ -447,3 +447,184 @@ the algorithm** — the class size is the whole story, exactly as AB argues.
 >
 > **Two numbers to fix in the record:** crossover `w = 106` and break-even `B = 149`
 > (AB quotes 104 and 107 for the first, 148 for the second).
+
+---
+
+# 14. AUDIT of the search machinery — agents X, Y, AA (check-in 105)
+
+**Verdicts: X — VALIDATED, with one named class gap and one undocumented dead partial.
+Y — machinery VALIDATED (the strongest plant test in the fleet), but its HEADLINE BOUND IS
+CLAIMED ON A SCAN THAT IS STILL RUNNING. AA — VALIDATED, cleanest of the three.**
+
+Everything below is my own measurement. Their code was read, never imported; every artefact was
+re-derived from my own leaf extraction (`zleaves.json`, `zexpo.json`) or re-checked byte-wise.
+Script: `zaudit_xya.py`, plus live re-runs of their own binaries.
+
+## 14.0 Common ground — all three agree with me and with each other
+| check | result |
+|---|---|
+| X's ladder == Y's ladder == **my 256 leaves in exponent order** | **True** |
+| X's `T` == Y's `T` == AA's `T`; `T` on curve; `N·T = O` | **True** |
+| `L_i = 2^i·L_0` by my own doubling chain; `N·G = O` | **True** |
+
+---
+
+## 14.1 AGENT X — **VALIDATED (unsigned) / VALIDATED WITH A NAMED GAP (signed)**
+
+### (1) Planted validation
+**Unsigned: exists, and I re-ran it live through the production path** —
+`./xmitm scan <plant> 2 tbl4s.bin bm4.bin` — 30 HIT lines, and under **agent Y's stricter
+criterion** (every exact split must appear, not "a hit appeared") **10/10 splits FOUND, PASS**.
+X's own criterion ("found? yes, uniquely") is the weaker one; running Y's checker against X's
+engine upgrades X's evidence and cross-validates both.
+
+**Signed: X's own signed plant test is effectively vacuous, and I replaced it.** `srep_c.txt`
+records `HIT 1 <s>` for **all 512** scan indices — that is a 1-term plant where every scan point
+is a genuine 2-term representation, so it cannot fail. Nothing in X's artefacts exercises the
+**sign-bookkeeping** failure mode. I planted two keys that do:
+
+| my plant (m = 5) | unsigned weight of `k` | HIT lines | expected `C(5,2)` |
+|---|---|---|---|
+| `5:−1, 60:+1, 130:−1, 200:+1, 240:−1` (lowest digit **negative**) | 150 | **10** | 10 |
+| `5:−1, 60:−1, 130:−1, 200:−1, 240:−1` (**all** digits negative) | 188 | **10** | 10 |
+| `5:+1 … 240:+1` (control) | 5 | 10 | 10 |
+
+**Sign bookkeeping is CORRECT.** The reason is worth recording because two agents nearly tripped
+on it: the table forces the lowest-exponent digit positive (`s0 = 0,2,…,510`), which is half of
+all signed sums — but the table stores **only the low 64 bits of `x`**, and every leading-negative
+sum is `−(a leading-positive sum)` with `x(−P) = x(P)`. So the key sets coincide and **the
+restriction is lossless**; verified on 200 random signed sums. (AA reached the same conclusion the
+hard way — its *predictor* was wrong and its engine right.)
+
+### (2) Enumeration coverage
+- **Unsigned: complete and correct.** Table `a ∈ 1..4`, scans `b = 2,3,4,5` ⇒ `|S| = 3..9`;
+  `|S| ≤ 4` by the `β = ∅` table probe; `|S| = 0,1` by `xedge.py`. Every split `(j, |S|−j)` is
+  realizable because both sides enumerate *all* subsets of their size.
+- **Signed: the exponent-256 gap is REAL — AB's finding confirmed at the code level.**
+  `xsigned.c` `main()`: `for(int i=0;i<256;i++){ SX[2i]=+L_i ; SX[2i+1]=−L_i }`. The alphabet is
+  `±2^e`, `e ∈ [0,255]`; **exponent 256 is absent**. Quantified here:
+
+  > **The minimum signed weight of `2^256 − 1` using exponents `≤ 255` is 42.**
+  > So a complement-sparse key needs `≥ 42` terms in X's table where it would need `w′ + 2`
+  > with one exponent-256 digit. **The near-all-ones family is outside X's signed sweep at any
+  > affordable depth.** (Matches AA's independent `reach = 42` and Y §5.2c.)
+- Otherwise signed coverage is `a ∈ 1..3` × `b ∈ 1..3` ⇒ `m ∈ 2..6`, plus `m = 1` via `xedge.py`'s
+  x-match. **No off-by-one.** Minor: `xedge.py`'s `|S| = 1` *point* comparison tests `+2^i·G` only;
+  Y's `yedge.py` adds the `−2^i·G` control. Harmless for the unsigned class, and the x-match line
+  covers the signed one.
+
+### (3) Reported exhaustion — **honest**
+| claim | evidence | verdict |
+|---|---|---|
+| unsigned `w ≤ 9` exhausted | all 6 PIDs **dead**; `rep_real.txt` size-5 pieces sum to **exactly `C(256,5) = 8,809,549,056`**; sizes 2/3/4 exact | **COMPLETE** |
+| signed `m ≤ 6` | `srep_real.txt` sz=1,2,3 each exactly `C(256,b)·2^b` | **COMPLETE** |
+| signed `m ≤ 7` | **not claimed by X** | — |
+
+**Flag (undocumented, not dishonest):** the signed `sz = 4` sweep was launched as six processes
+(`SPIDS.txt`) — **all six are now DEAD and `srep_real.txt` has no `DONE signed sz=4` line.** The
+partial lives only in `spart*.log`, where it looks like progress. Anyone resuming X must not read
+those logs as a completed level.
+
+---
+
+## 14.2 AGENT Y — machinery **VALIDATED**, one **REPORTED-EXHAUSTION DEFECT**
+
+### (1) Planted validation — **the best in the fleet**
+`ycheckplant.py` demands that **every exact split** of the planted set appear as a HIT, and fails
+otherwise. Five plants, including the required weight-5 at **full `i0` range** and the expensive
+size-5 path at **both a low and a high `i0`**. **I re-ran the full-range weight-5 plant live: 30
+HIT lines, 10/10 exact splits, PASS.** Same binary, same table, same arguments as `yrun.sh` —
+the plant and the real run differ only in the data file's first line, so the code path is
+identical, not simplified.
+
+### (2) Enumeration coverage — correct, and the complement construction is **independently reproduced**
+Re-derived here from my own leaves, not read from `ydata.json`:
+
+| check | result |
+|---|---|
+| `A = (2^256−1)·G` three ways (reduced scalar / fold of all 256 leaves / raw scalar) | **agree** |
+| `A` == Y's `A`; `T′ = A − T` == Y's `T′`; `T + T′ = A` | **True** |
+| `T′` on curve, `N·T′ = O`, `T′ ≠ T` | **True** |
+| `fold(S)+fold(S̄) = A`, `k + k̄ = 2^256−1`, `fold = [k]G` on 20 random `S` | **20/20** |
+
+Coverage design is right (`size b` × table `a ∈ 1..4` ⇒ `|S′| = b+1 … b+4`; `|S′| ≤ 4` by direct
+probe; `|S′| = 0,1` exactly, with a `−2^i·G` control X lacks). Counts verified exact for sizes
+2, 3, 4.
+
+### (3) **DEFECT — the headline bound is claimed on a scan that has not finished**
+- `yrun.pid` → **PID 32218 is ALIVE.**
+- `rep_comp.txt` contains `DONE` lines for **sizes 2, 3, 4 only**.
+- `yrun.status` records "finished size 2/3/4" and **no** "finished size 5", **no** `ALLDONE`.
+- Measured progress in `yrun_5.log`: **96 of 256 `i0` values at first look (90.7 % of the
+  `C(256,5)` work), 132 by the end of this audit.**
+
+Yet `RESUME_Y.md` §4 tabulates scan size 5 as `8,809,549,056 | ✔ | 0 hits | ~20 min`, §5 states
+**"COMPLEMENT WEIGHT `w′ ≤ 9` IS EXHAUSTED"**, and §5.1 states the bracket **`10 ≤ w ≤ 246`**.
+
+> **The defensible statement at audit time is `w′ ≤ 8` exhausted ⇒ `w ≤ 247`**, plus a partial at
+> `w′ = 9`.
+
+**The partial is meaningful, not an arbitrary prefix** — and this is worth stating precisely
+because it is quotable as it stands. The scan's `i0` is the smallest index of `β`; for any
+`|S′| = 9` one may always take `β` = the five smallest elements, so `min(β) = min(S′)`. Therefore
+
+> completing `i0 ∈ [0, L)` proves exactly: **no complement set of size ≤ 9 contains an index < L**.
+
+At `L = 96` that left `C(160,9)/C(256,9) = 1.33 %` of weight-9 sets uncovered. **Y should either
+wait for `ALLDONE` or restate §4/§5 in this conditional form.** Nothing else in Y's thread is
+affected — the machinery, the construction and the `w′ ≤ 8` result all stand.
+
+---
+
+## 14.3 AGENT AA — **VALIDATED**, the cleanest of the three
+
+### (1) Planted validation — strongest *design*
+`aa_check_plant.py` predicts, in independent Python, the exact `HIT <sz> <code> <s_last> <key>`
+line the engine must emit, at **both** the `|α|=3` and `|α|=2` splits, then decodes that line back
+to a scalar and re-verifies `k·G = T′` on the curve. **I re-ran it live: PASS — every offset class,
+both splits, `lineseen` and `decodeOK` true throughout.** The base is computed as `T′ − c·G`
+through the same path as the real runs, so **offset bookkeeping is under test, not bypassed**.
+Planted `k` have unsigned weights **40–188**, i.e. all invisible to any plain-weight sweep.
+AA's account of its own 4/8 initial failures is accurate and diagnoses the right component.
+
+### (2) Enumeration coverage — the sharding risk is real and AA got it right
+`aa_signed.c` shards the table by `key >> 61` into 8 files and `tbl_has` binary-searches **only
+the matching shard**. That is precisely the "key derivation silently drops candidates" failure
+mode. I checked it directly rather than taking the comment's word:
+
+| check | result |
+|---|---|
+| every shard sorted ascending (full scan) | **8/8 True** |
+| every key in shard `i` has top 3 bits `== i` | **8/8 True** |
+| total keys `a ≤ 4` | **1,409,460,736 == Σ_{a≤4} C(256,a)·2^{a−1}** exactly |
+| total keys `a ≤ 3` | **11,119,616**, and an **identical multiset to X's `stbls.bin`** (all keys compared) |
+
+**Offset bookkeeping, verified independently on every offset:** the base point in
+`data/d_<tag>.txt` equals `T − c·G` for the manifest's `c` — **51/51, zero mismatches** — and every
+data file carries X's exact 256-point ladder.
+
+**And AA's `±2^256` offsets are the right fix for X's gap.** Because the table is
+offset-independent, adding `±2^256` as offsets covers the exponent the 256-point ladder cannot
+hold **without rebuilding the table** — strictly better than extending the basis, and AA derived
+`reach(2^256−1) = 42` independently, which I reproduce exactly.
+
+### (3) Reported exhaustion — **honest**
+`RESUME_AA.md` §6 Results reads "*(filled in below as the sweep completes)*". **No negative has
+been claimed.** Wave 1 is running (PID 31440 alive), 43 per-offset report files so far. Nothing to
+correct.
+
+---
+
+## 14.4 Summary table
+
+| agent | planted validation | enumeration coverage | reported exhaustion | verdict |
+|---|---|---|---|---|
+| **X** unsigned | exists; re-run live, 10/10 splits | complete, counts exact | `w ≤ 9` complete, all PIDs dead | **VALIDATED** |
+| **X** signed | X's own test vacuous; **I supplied and passed the negative-digit plants** | **exponent 256 absent — near-all-ones class outside the sweep (needs ≥ 42 terms)** | `m ≤ 6` complete; `m ≤ 7` a dead undocumented partial | **VALIDATED with a named gap** |
+| **Y** | strongest criterion in the fleet; re-run live, PASS | correct; construction independently reproduced | **size-5 STILL RUNNING; `w ≤ 246` and "`w′ ≤ 9` exhausted" are not yet true** | **machinery VALIDATED / claim DEFECTIVE** |
+| **AA** | strongest design; re-run live, PASS on all classes | sharded table verified exact; offsets 51/51 | nothing claimed yet | **VALIDATED** |
+
+**One-line instruction to the fleet:** X's `w ≤ 9` and AA's machinery may be quoted now; **Y's
+`w ≤ 246` may not** — quote `w ≤ 247` until `yrun.status` shows `ALLDONE`, or quote the partial in
+the exact conditional form in §14.2. And no signed-digit sweep built on the 256-point ladder may
+be cited as covering the complement class.

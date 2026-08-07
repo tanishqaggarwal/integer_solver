@@ -15,3 +15,14 @@
      d=4 :   1368 rows x   1197 support-cols = 1.64e+06 cells (build 0s)
         rank(M)=1095  rank(M+targets)=1097   not yet   (1s)
      d=5 :   6494 rows x   4679 support-cols = 3.04e+07 cells (build 0s)
+        rank(M)=4509  rank(M+targets)=4509   ALL SELECTORS PINNED  <== SOLVING DEGREE   (81s)
+     -> n=3 solving degree =5   (82s)
+
+  n=4 : 18 vars (4 boolean), 23 generators
+     d=2 :     30 rows x     39 support-cols = 1.33e+03 cells (build 0s)
+        rank(M)=29  rank(M+targets)=32   not yet   (0s)
+     d=3 :    398 rows x    456 support-cols = 1.83e+05 cells (build 0s)
+        rank(M)=364  rank(M+targets)=367   not yet   (0s)
+     d=4 :   3365 rows x   3247 support-cols = 1.09e+07 cells (build 0s)
+        rank(M)=2838  rank(M+targets)=2841   not yet   (19s)
+     d=5 :  21057 rows x  17091 support-cols = 3.60e+08 cells (build 0s)

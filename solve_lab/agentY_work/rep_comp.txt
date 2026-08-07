@@ -1,3 +1,4 @@
 DONE size=2 range=[0,256) n=32640 zero=0 0.0s
 DONE size=3 range=[0,256) n=2763520 zero=0 0.3s
 DONE size=4 range=[0,256) n=174792640 zero=0 23.5s
+DONE size=5 range=[0,256) n=8809549056 zero=0 2432.2s
