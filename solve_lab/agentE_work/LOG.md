@@ -271,3 +271,46 @@ In the affine picture at this state every knob on a10187/a20212 was mod-p trivia
 selectors already on, **178 booleans become mod-p nontrivial**.  The coefficient structure
 therefore genuinely depends on which selectors are on; the mod-p content of these rows is not
 a fixed property of the row.
+
+## 16. Simultaneous composition (not sequential) — runs, does not close
+`simul.py <bits>`: flip a bit whose pin system is known integrally solvable, then build ONE
+closure over *every* bad atom (cluster rows AND the bit's pin rows) with the cluster's 8 knobs
+folded into the same knob set, and solve as a single integer system.  Eight bits, both trees:
+
+| bit | one system | max simultaneously solvable rows | blocking rows | exact score |
+|---|---|---|---|---|
+| x_10428 | 483 knobs x 330 rows | 324/330 | 20649,20652,23207,**28647**,32148,37872 | 38,972 |
+| x_11026 | 195 x 131 | 125/131 | 16664,20649,20652,28452,**28647**,32148 | 38,968 |
+| x_38459 | 248 x 170 | 164/170 | 17121,20649,20652,**28647**,32148,38686 | 38,977 |
+| x_490   | 720 x 449 | 440/449 | **20215**,26960,26963,26965,**28647**,30479,30480,40306,40475 | 38,977 |
+| x_2081  | 765 x 478 | 470/478 | **20215**,26215,26960,26963,26965,**28647**,35416,40306 | 38,961 |
+| x_4287  | 765 x 478 | 470/478 | same as x_2081 | 38,961 |
+| x_5910  | 717 x 447 | 438/447 | **20215**,26960,...,**28647**,40306,40475 | 38,975 |
+| x_12054 | 689 x 436 | 427/436 | **20215**,26960,...,**28647**,32856,35851,40306,40616 | 38,974 |
+
+The mechanism works — hundreds of rows are satisfied simultaneously — but no bit closes it, and
+**a28647 is in every blocking set, for every bit, in both trees.**  a20215 blocks in all
+b-tree cases.  Nothing beat 39,005.
+
+## 17. The a10187 residues MOVE — and they move the wrong way (`resmove.py`)
+Baseline (selectors x_1530, x_1603 on): a10187 has 2 delta classes, `zero` x233 and one
+nonzero-mod-p residue x21; a20212 has the single nonzero residue x178 and `zero` x76.
+**After flipping ANY of x_490, x_2081, x_4287, x_5910, x_12054 the a10187 nonzero class is
+annihilated: 1 class, `zero` x253.**  a20212's 178-class survives unchanged.
+R1 mod p and R2 mod p are IDENTICAL across all five flips — the targets are stable while the
+available residues are not.
+
+So my §15.1 counting argument does not survive as stated (the multiset is not fixed), but the
+motion destroys the scarce resource rather than creating it: turning on a third selector
+removes a10187's only mod-p content.
+
+## 18. THE LOAD-BEARING STATEMENT
+Three independent sightings, in three different frames, now say the same thing:
+**the mod-p content of a row is not a property of the row; it is a property of which selectors
+are on.**  Here: at 2 selectors, 178 booleans move a20212 nontrivially mod p and 21 move
+a10187; at 3 selectors, a10187's class is empty.  In the affine picture at the same state, all
+of them were mod-p trivial.
+**Therefore every mod-p rigidity / pinning / "coefficient divisible by p" argument in this lab
+— including my own LOG 14 — is conditional on a selector configuration that was not stated
+when the argument was made.**  Any such claim must be re-quoted with its configuration, or it
+is not a claim about the instance.

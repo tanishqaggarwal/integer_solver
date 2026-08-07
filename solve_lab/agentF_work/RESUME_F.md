@@ -12,6 +12,14 @@ rank 2, consistent, and the output they demand equals chordK(A,B) digit for digi
 K = 97553848499418123410591666447050222001188385549510401465815187079080512838891 as the root stage.
 So the accumulator COMPOSES.  The reachable root value is exponential in the number of active leaves.
 My 13,884-pair enumeration covered depth-0 configurations only; **section 7 of LOG.md is invalid**.
+**The law is UNIFORM**: `stage_law2.py` searched all role partitions and all coordinate orderings for
+every stage -- 72 of 72 stages with a full six-tuple obey chord-with-offset, and the offset is the SAME
+universal K in all 72, zero exceptions (the other 24 stages have only 4 free inputs: leaf-adjacent stages
+where one input is a literal).  Tree depth 6, root gate x15298 (support 256); structure in `tree96.json`.
+**Link (ii) sweep FINISHED, 256/256 booleans, 0 contradictions**: 248 fully confirm, 8 only partially
+derived and every derived value is still a pin constant of its boolean (3 of those carry only one pin).
+So the remaining task is: choose a subset of the 256 leaves whose fold through the fixed tree hits the
+target (K1 mod p, K2 mod p).
 
 One thing is proved: **rank(M) = 39,033, dim ker(M) = 0** (three independent computations).  That closes
 the "cancelling nonzero residual" route and makes all-atoms-zero *equivalent* to a full solve.

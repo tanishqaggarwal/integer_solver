@@ -138,3 +138,24 @@ cluster's 8 affine knobs in ONE simultaneous system rather than sequentially; th
 composition is what fails, not either half.  Also: probe whether flipping a bit changes the
 three a10187 residues (they are the scarce resource), since §15.2 shows the residues are
 context-dependent.
+
+## Simultaneous composition: RUN.  Works mechanically, does not close (LOG 16)
+`simul.py <bit...>` builds ONE system (bit's pin rows + cluster rows + cluster knobs) and
+solves 324-470 of 330-478 rows at once.  Eight bits, both trees, best 38,977 — below 39,005.
+**a28647 is in every blocking set for every bit; a20215 in every b-tree case.**
+
+## The residues DO move (LOG 17) — but the wrong way
+Flipping any third selector ANNIHILATES a10187's only nonzero-mod-p delta class (21 -> 0),
+while a20212's 178-class and both targets R1, R2 mod p are unchanged.  My 15.1 counting
+argument is therefore not valid as stated, but the motion removes the scarce resource.
+
+## LOAD-BEARING (state this in any downstream argument)
+The mod-p content of a row is a property of **which selectors are on**, not of the row.
+Every mod-p rigidity / pinning claim in this lab, mine included, is conditional on a selector
+configuration that was not recorded when the claim was made.  Re-quote with configuration.
+
+## NEXT
+a28647 (`x_36433 - (x_36990 + x_19239)`) is the single invariant blocker across every
+composition tried.  Attack it alone: enumerate ALL knobs reaching it — affine AND boolean, at
+several selector configurations, since 17 shows the answer is configuration-dependent — and
+ask for one whose delta is coprime to p at a configuration where a20215 is also reachable.

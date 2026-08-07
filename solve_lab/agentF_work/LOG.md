@@ -307,3 +307,40 @@ Everything else -- 30,001 definitions, 9,032 residual atoms, all the handles -- 
 exactly over Z once the mod-p tree evaluates correctly (sections 5, 6, 11).
 **The accumulator composes: the reachable root value is exponential in the number of active leaves.**
 My 13,884-combination enumeration was over depth-0 configurations only and says nothing about the instance.
+
+## 23. Both sweeps FINISHED — final numbers
+**Link (ii), EXHAUSTIVE (256/256 booleans, `sweep_ii.json`)**
+  - contradictions derived: **0** (no boolean disagrees with anything);
+  - **248 / 256** fully confirm: both selected wires derived and both equal that boolean's pin constants;
+  - **8** only partially derived (7 give 1 of 2 coordinates, 1 gives 0) -- and every value that WAS derived
+    is a pin constant of that boolean, so none of the 8 disagrees; 3 of them (18184, 22579, 33434) are the
+    booleans that carry only ONE pin, so a second coordinate cannot be forced by design.
+  Link (ii) therefore holds with **zero counterexamples**; the 8 are engine incompleteness, not conflict.
+
+**Link (i): REFUTED as an argument (`sweep_i.json`)**  Same-tree pairs produce no contradiction; they
+activate a subordinate stage.  The sweep's coverage number is "fraction tested", never "fraction excluded".
+
+## 24. The stage law is UNIFORM across the whole tree
+`stage_law2.py` searches, for every stage, all role partitions AND all coordinate orderings (which member
+of a pair is x, which is y, which input comes first), solving the 3x2 linear system once per partition and
+testing the 16 orderings arithmetically; 2 independent random input draws must agree.
+    stages with a full six-tuple of free inputs analysed : 72
+      admit a chord-with-offset law                      : 72   (100%)
+      and the offset is the SAME UNIVERSAL K             : 72   (100%, zero exceptions)
+      offset different from K                            : 0
+      no consistent law                                  : 0
+    stages skipped (six-tuple has only 4 free inputs -- leaf-adjacent stages, one input is a literal): 24
+So all 96 stages run ONE law, with ONE constant
+K = 97553848499418123410591666447050222001188385549510401465815187079080512838891.
+
+## 25. FINAL STATEMENT OF THE INSTANCE
+EQUATIONS.txt is a **96-stage binary combination tree of depth 6** over the single degree-3 law
+    out_x = l^2 - a_x - b_x - K,  out_y = l*(a_x - out_x) - a_y,  l = (b_y - a_y)/(b_x - a_x)   (mod p)
+with the **256 conditional-pin constants as leaves**, each stage gated by an AND of two OR-groups over its
+own leaf subset (gate = 1 iff both of its inputs are live, otherwise the live input passes through), and
+the root stage (gate x15298, support 256) required to produce (K1 mod p, K2 mod p).
+Everything else closes exactly over Z: ker(M) = 0 forces all atoms to vanish, the definition graph is a
+DAG, and the handles absorb every quotient (sections 5, 6, 11, 15).
+**The task is therefore: choose a subset S of the 256 leaves so that folding the fixed tree gives the
+target.  The reachable set is exponential in |S|.  Every enumeration in this campaign, mine included,
+covered only depth-0 configurations.**

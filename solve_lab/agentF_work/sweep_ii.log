@@ -243,9 +243,15 @@
 250/256 bit 35839  tree B match=True  conflicts=0   running: match 242, conflict 0, t=2400s
 251/256 bit 35979  tree B match=True  conflicts=0   running: match 243, conflict 0, t=2408s
 252/256 bit 36044  tree B match=True  conflicts=0   running: match 244, conflict 0, t=2418s
- 34175  tree B match=True  conflicts=0   running: match 238, conflict 0, t=2486s
-247/256 bit 34974  tree B match=True  conflicts=0   running: match 239, conflict 0, t=2494s
-248/256 bit 35179  tree B match=True  conflicts=0   running: match 240, conflict 0, t=2502s
-249/256 bit 35740  tree B match=True  conflicts=0   running: match 241, conflict 0, t=2510s
-250/256 bit 35839  tree B match=True  conflicts=0   running: match 242, conflict 0, t=2518s
-251/256 bit 35979  tree B match=True  conflicts=0   running: match 243, conflict 0, t=2526s
+253/256 bit 37147  tree B match=True  conflicts=0   running: match 245, conflict 0, t=2426s
+254/256 bit 37862  tree B match=True  conflicts=0   running: match 246, conflict 0, t=2435s
+255/256 bit 38055  tree B match=True  conflicts=0   running: match 247, conflict 0, t=2444s
+256/256 bit 38625  tree B match=True  conflicts=0   running: match 248, conflict 0, t=2451s
+DONE  248/256 booleans confirm link (ii);  DISAGREEING: ['1544', '12814', '14644', '18184', '22579', '28785', '33434', '13195']
+=0   running: match 243, conflict 0, t=2526s
+252/256 bit 36044  tree B match=True  conflicts=0   running: match 244, conflict 0, t=2535s
+253/256 bit 37147  tree B match=True  conflicts=0   running: match 245, conflict 0, t=2544s
+254/256 bit 37862  tree B match=True  conflicts=0   running: match 246, conflict 0, t=2553s
+255/256 bit 38055  tree B match=True  conflicts=0   running: match 247, conflict 0, t=2561s
+256/256 bit 38625  tree B match=True  conflicts=0   running: match 248, conflict 0, t=2568s
+DONE  248/256 booleans confirm link (ii);  DISAGREEING: ['1544', '12814', '14644', '18184', '22579', '28785', '33434', '13195']
