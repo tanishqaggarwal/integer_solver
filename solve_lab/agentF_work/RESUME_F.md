@@ -29,9 +29,19 @@ moved deeper than the root.  This is what makes the tree attackable.
 **Wiring**: each stage input slot is a free variable w with a residual atom `((w - z) - handle)` where z
 is a sum of exactly THREE `selector*value` terms -- a 3-way gated mux over child outputs or leaf
 constants (same shape as the root's `x13682 = x34606*x1 + x5647*x2 + x15298*x3`).  39 of 144 slots decoded.
+**Mux decode statistics** (`mux.py` -> `mux_wiring.json`, |Z| = 7,202 always-zero wires used to strip
+handles): of the 288 slot wires, 116 unfold to a 3-term gated mux, 64 to a 1-term source, and 108 are not
+mux-fed at all -- their atom shapes identify them as conditional LEAF pins (`(X*(X-C))-(C*X)`,
+`(X*(X-C))-X`) or as stage CHECK atoms, i.e. output wires.  47 of 72 stages fully wired; **56 stages still
+have an undecoded slot pair and NOTHING was filled by guess.**
+**Root split measured: inA leaf support 178 booleans, inB leaf support 78.**  Lopsided, so a
+meet-in-the-middle at the root needs 2^78 on the smaller side -- hopeless.  Memory ceiling here is about
+2^24-2^25 hash entries (1-2 GB), i.e. an even split of ~48-50 bits.  The meeting point MUST go deeper,
+which per-stage invertibility permits.  Also: the space is NOT 2^256 flat subsets -- each slot is a 3-way
+or 1-way mux, so a configuration is a live-branch choice per stage plus the gated leaf pattern; COUNT
+those configurations before enumerating anything.
 **NOT DONE, and nothing should be believed from it until it is**: the fold evaluator is not built and not
-validated, and no subset search has been run.  Finish the mux decode for all 144 slots, build the
-evaluator, and validate it by reproducing the deliverable's own ON-set {24601, 2081} before searching.
+validated, and no subset search has been run.
 
 One thing is proved: **rank(M) = 39,033, dim ker(M) = 0** (three independent computations).  That closes
 the "cancelling nonzero residual" route and makes all-atoms-zero *equivalent* to a full solve.

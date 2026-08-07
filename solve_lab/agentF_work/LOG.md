@@ -388,3 +388,38 @@ x15298 required to produce (K1 mod p, K2 mod p).
 Artifacts for the next session: `tree96.json` (stages, six-tuples, gate supports, containment depth),
 `stage_roles.json` (per-stage input/output role assignment and coordinate ordering for all 72 full stages),
 `sweep_ii.json`, `sweep_i.json`, `M.npz`, `peel_order.npy`.
+
+## 30. Mux decode — statistics, honestly (`mux.py` -> `mux_wiring.json`)
+Handles identified structurally: |Z| = **7,202** wires that are == 0 (mod p) for EVERY assignment
+(closure over the definition DAG seeded by the literal p).  Terms containing a Z-wire drop out mod p, so
+what remains in a residual atom is `c1*w + c2*z` and z is the slot's source.
+Over the 288 slot wires (144 slots x 2 coordinates) of the 72 full stages:
+    116 wires -> source unfolds to a **3-term gated mux** (internal input, 3 candidate children)
+     64 wires -> source unfolds to a **1-term source** (single child, no choice)
+    108 wires -> no mux source, and their atom shapes identify what they are instead:
+                   48  ((X*(X-C))-(C*X))  and  48  ((X*(X-C))-X)   = the conditional LEAF pins
+                   45  ((C*(X*X))-X)      and  45  ((X*X)+X)       = stage CHECK atoms (output wires)
+                    5+3+2 others
+    (the shape counts exceed 108 because a wire can appear in several atoms)
+So the wiring is readable and nothing is guessed: internal slots are 3-way or 1-way muxes, the rest are
+either leaves pinned by a boolean or stage outputs.  **56 stages still lack a fully decoded slot pair**
+(`mux_wiring.json` covers 47 of 72); those need the remaining atom shapes handled before the evaluator can
+be trusted.  I have NOT filled any slot by guess.
+
+## 31. Root split measured — the meet-in-the-middle exponent is LOPSIDED
+Root stage x15298: inA = (x12186, x16742) <- sources (x23927, x19083), leaf support **178 booleans**;
+inB = (x14853, x24908) <- sources (x1308, x17601), leaf support **78 booleans**.  Output (x22162, x30213).
+So a meet-in-the-middle AT THE ROOT would need 2^78 on the smaller side -- hopeless.
+Memory ceiling on this box: a hash table of 2^27 entries at 64 bytes is 8.6 GB, so realistically
+**2^24 to 2^25 entries (1-2 GB)** is the limit, i.e. an even split of about 48-50 bits.  Far below 78.
+**Therefore the meeting point MUST be pushed deeper**, which the per-stage invertibility (section 26)
+permits: invert the target down through inB's chain to an internal node whose own leaf support is small
+enough to enumerate.  Note also that the search is NOT over 2^256 flat subsets -- each slot is a 3-way (or
+1-way) mux, so a configuration is a choice of live branch per stage plus the leaf on/off pattern the gating
+allows; counting those configurations is the first thing to do before any enumeration.
+
+## 32. Steps 2 and 3 were NOT reached
+The evaluator is not built and not validated, and no search was run.  Nothing in this section should be
+read as a search result.  Remaining, in order: finish the 56 undecoded stages, build the evaluator,
+validate on the deliverable's ON-set {24601, 2081} (the prediction that must hold is: root = fold of those
+two leaves, NOT the target), then push the meeting point deeper and enumerate.
