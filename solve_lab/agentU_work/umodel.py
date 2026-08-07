@@ -4,7 +4,7 @@ scored with checker.py, propagated with M's engine (mirror/).
 """
 import sys, pickle
 sys.set_int_max_str_digits(2000000)
-LDIR='/home/user/integer_solver/solve_lab/agentT_work/mirror/L/'
+LDIR='/home/user/integer_solver/solve_lab/agentU_work/mirror/L/'
 M=pickle.load(open(LDIR+'full_model.pkl','rb'))
 C=pickle.load(open(LDIR+'calib2.pkl','rb'))
 NODE=M['NODE']; OUT=M['OUT']; tree=M['tree']; live=set(M['live']); link=M['link']

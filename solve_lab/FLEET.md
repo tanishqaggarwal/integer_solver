@@ -5447,3 +5447,51 @@ not 10, is what this window reaches.**
 256-bit scalar, `P(weight ≤ 9) ≈ 2⁻²⁰³`. This is a cheap lottery ticket, worth buying because a hit
 is total rather than incremental — **not** because it is likely. X must also **verify its machinery
 finds a planted answer before reporting any negative.**
+
+---
+
+## Standing note — what is known about `k`, and why it is all global
+
+Compiled for the user, and handed to agent X to turn into a **verified** artifact at
+`agentX_work/K_CONSTRAINTS.md` (each row: who established it, in which model, exhaustive or
+bounded, and what would falsify it). **X verifies rather than copies; anything it cannot reproduce
+is marked unverified.**
+
+| constraint | source | standing |
+|---|---|---|
+| **weight ≥ 7** (w ≤ 6 exhausted, 108 s MITM; w ≤ 7 at 33.7%) | Q | mod p; X is finishing it |
+| **not in bottom or top 2⁴⁴** (BSGS both ends) | Q | mod p |
+| **not confined to any 34-bit window** (2,865 s) — the ON-bits are **spread, not clustered** | Q | mod p |
+| **not a small multiple** of a ladder point, `m ≤ 10⁷` | Q | mod p |
+| **not in the endomorphism orbit**; no `k = a + bλ` with `\|a\|,\|b\| < 2²¹` | Q | mod p; endomorphism confirmed, worth only √3 |
+| **the solution is essentially unique** — `2²⁵⁶ − N ≈ 2¹²⁸`, so one or two valid ON-sets, two only with probability ~2⁻¹²⁸ | coordinator | X to re-derive |
+
+**The caveat carried on the whole list:** Q **withdrew the instance-level standing of all six of its
+search programs**, because they computed the fold **inside the group model** without checking the
+circuit agrees. Since then L closed the coordinate hand-off **unconditionally mod p** (every slack
+wire is a constant multiple of `p` times a free variable, **3,681/3,681, zero exceptions**) and Q
+confirmed the mux layer implements identity / pass-through / sum at the slots it checked.
+**Q was asked to rule on whether that restores its searches and its thread closed before it
+answered.** So every row above is stated **"established mod p"**, and **X is asked to make the
+ruling** — it is genuinely open.
+
+### The structural point, and X is asked to test it rather than assume it
+
+**Every constraint above is GLOBAL — a statement about `k` as a number — and not one of them
+constrains an individual bit.** The apparent reason: **the fold is a group homomorphism of the
+selector vector**, which is also why meet-in-the-middle here is generic. So no measurement of the
+target leaks anything about bit *i* without solving the whole thing.
+
+**X is asked whether that is exactly right** — is there *any* measurement of the target, or of the
+instance's structure, yielding information about a single bit position or a small set of them?
+**If there is genuinely none, a proof that no per-bit information is extractable is itself a citable
+result**, and it tells the fleet to stop looking. Priority: the weight sweep wins if they compete for
+cores, since the sweep is the thing that could end the problem.
+
+### The one avenue that could yield per-bit information, and it is gated
+
+The remaining source would be **how the instance was constructed** — the leaf-to-exponent
+assignment, the ordering of the 512 pin constants, anything reflecting a generator rather than the
+mathematics. **That direction was ruled out by user instruction at the start of the campaign and the
+fleet has respected it throughout.** It has now been flagged to the user three times without a
+ruling. **It remains closed unless and until the user opens it explicitly.**

@@ -1,8 +1,8 @@
 """Fast forward-evaluation harness: free inputs -> all vars -> violated atoms."""
 import pickle, re, collections, json, math, sys
-m=pickle.load(open('/home/user/integer_solver/solve_lab/agentM_work/model3.pkl','rb'))
+m=pickle.load(open('/home/user/integer_solver/solve_lab/agentU_work/mirror/E/model3.pkl','rb'))
 atoms=m['atoms']; eqt=m['eq_terms']
-d=pickle.load(open('/home/user/integer_solver/solve_lab/agentM_work/dag.pkl','rb'))
+d=pickle.load(open('/home/user/integer_solver/solve_lab/agentU_work/mirror/E/dag.pkl','rb'))
 info=d['info']; FREE=sorted(d['free'])
 VAR=re.compile(r'x_(\d+)'); NV=38748
 avars=[sorted(vs) for _,vs in info]
@@ -42,10 +42,11 @@ def _bootstrap():
     return definer, seq
 
 import os
-if os.path.exists('orient.pkl'):
-    O=pickle.load(open('orient.pkl','rb')); definer=O['definer']; SEQ=O['seq']
+_OR='/home/user/integer_solver/solve_lab/agentU_work/mirror/orient.pkl'
+if os.path.exists(_OR):
+    O=pickle.load(open(_OR,'rb')); definer=O['definer']; SEQ=O['seq']
 else:
-    definer,SEQ=_bootstrap(); pickle.dump({'definer':definer,'seq':SEQ}, open('orient.pkl','wb'))
+    definer,SEQ=_bootstrap(); pickle.dump({'definer':definer,'seq':SEQ}, open(_OR,'wb'))
 
 # build explicit solved expression per var in SEQ, as a compiled closure
 # var u defined by atom i: atom is linear or quadratic in u -> solve numerically each time.

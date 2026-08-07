@@ -149,6 +149,11 @@ def exact_pins(CF, EX, D, log, w, v):
                 return None, None, False
     return setw, setv, True
 
+def transpose_cf(cf):
+    """swap the roles of t_w and t_v in a Newton coefficient table (cf[k][l], k over t_w)."""
+    D = len(cf)-1
+    return [[cf[j][i] for j in range(D+1)] for i in range(D+1)]
+
 def mod_tv_sets(CF, MOD, tw, D):
     """with t_w pinned, the divisibility conditions are univariate in t_v: per prime power the
     intersection of the allowed residues.  Exhaustive."""
