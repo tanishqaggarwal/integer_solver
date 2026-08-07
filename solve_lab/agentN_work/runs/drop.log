@@ -1,0 +1,4 @@
+
+=== WITNESS [642, 28730, 29854, 31864] ===  |R|=12 outside=139 wide knobs=49
+  |W|=0: g=5 (kernel dim 14)  need 6  -> no  (0.1s)
+  |W|=1: 139 subsets, max g=5 (at W=[0]), need 7 -> no ; best failing so far 7 (16.8s)

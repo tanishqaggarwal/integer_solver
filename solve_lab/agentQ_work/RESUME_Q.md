@@ -217,3 +217,54 @@ configurations, the fold equalled `k*G`, was on the curve, and gave **300 distin
 (300/300).  Under the fold model the reachable set of root values is all of Z/N, so no genuine
 *global* closure at a few dozen tuples can exist.  Section 12 still stands on its own: the remaining
 unverified link in my chain is the **routing layer**, not the stage law.
+
+## 14. THE ROUTING TEST — RUN NON-CIRCULARLY, AND IT DOES NOT CLOSE (`qsolve.py`, `qrun2.py`, `qdegen2.py`)
+`qsolve.py` parses **every term of every equation** (47,198 distinct terms) and does unit
+propagation mod p: any term with exactly one unknown variable is solved for it (linear, or
+quadratic with a repeated root).  Nothing is assigned by hand, so nothing is presupposed.
+
+**(a) Selectors only — the non-circular run (`qrun2.py`).**  Set the 256 selector bits and nothing
+else; let the leaf coordinates be *solved* from the pin atoms.
+
+| weight | ON-leaf X solved | OFF-leaf X solved | OFF-leaf Y forced to 0 | gadget outputs | root |
+|---|---|---|---|---|---|
+| 1 | **0/1** | 0/255 | 219/255 | 25/383 | no |
+| 2 | **0/2** | 0/254 | 219/254 | 25/383 | no |
+| 3 | **0/3** | 0/253 | 217/253 | 25/383 | no |
+| 5 | **0/5** | 0/251 | 215/251 | 25/383 | no |
+| 7 | **0/7** | 0/249 | 214/249 | 25/383 | no |
+| 128 | **0/128** | 0/128 | 111/128 | 13/383 | no |
+
+At weight 1: 520/8,583 free inputs solved, 3,236/38,748 wires known, **0 contradictions**.
+Turning a selector ON does **not** put that leaf's coordinate on any wire.  This reproduces agent
+T's 0-of-256 arrival count independently, from a different parse, and it **contradicts** the report
+that liveness is fully determined by the selectors with a configuration space of exactly 2^256.
+**In my frame too: routing is a constraint, not a propagation.**  "Set the selectors and evaluate"
+is not a well-posed test of this instance.
+
+**(b) OFF leaves are not the identity as points.**  With a selector OFF the leaf's y-wire is forced
+to **0** (measured at ~86% of OFF leaves; the rest stay unknown).  The group has prime odd order, so
+there is no 2-torsion and `(w,0)` is not a curve point.  Identity behaviour therefore cannot come
+from the leaf value — it must come from the **mux coefficients**.  That layer is the crux and I have
+not verified it.
+
+**(c) The degenerate branch is vacuous, not doubling (`qdegen2.py`).**  Feed a gadget two EQUAL live
+points.  Then dx = dy = 0, so R1 = S*dx^2 - dy^2 = 0 and R2 = A*dx - B*dy = 0 **whatever the output
+is**: with the output set to a random wrong value the residual still vanishes, **383/383**.  So the
+circuit does not implement point doubling; where two coinciding points meet at a gadget the output
+is unconstrained.  The fold picture needs no two equal points ever to meet, which is not guaranteed.
+
+## 15. RETRACTION OF THE STANDING OF SECTION 9
+`dlp_bsgs.py`, `lowwt.py`, `wt7.py`, `window.py`, `smallmul.py`, `lam.py` all computed the fold
+**inside the group model** and never checked that the circuit agrees at those configurations.
+Section 14(a) shows the circuit-side check does not close, and the low-weight regime (1,2,3,5,7) is
+exactly where those sweeps live.  **Their clean-miss verdicts are therefore evidence about the group
+model, not about the instance**, and I withdraw them as instance-level evidence until the mux layer
+is verified.  The searches themselves are correct and re-runnable; it is their standing that changes.
+
+## 16. STATUS OF THE EXISTENCE RESULT
+Still **conditional**, and now on a sharper thing than in section 12: it holds if and only if the
+**mux-coefficient layer** makes an OFF leaf act as the identity and routes each gadget's output to
+the next gadget's input.  Sections 11(b) and 11(c) are unaffected and remain measured: all 383
+gadgets enforce plain `P_a + P_b` for distinct inputs, and the gadget census is a combination tree
+over 256 leaves.  What is *not* established is that the selector bits pick out a subset at all.

@@ -1,0 +1,58 @@
+feasible a-bits 56, b-bits 50
+
+at E cfg0:
+   K1  = 0 bits   mod p = ZERO   mod 2458959 = 0
+   L   = 0 bits   mod p = ZERO   mod 2458959 = 0
+   K2  = 0 bits   mod p = ZERO   mod 2458959 = 0
+   J   = 0 bits   mod p = ZERO   mod 2458959 = 0
+  empty          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a1931          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a3106          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a3216          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a3320          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a3414          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a3707          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a4362          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a5148          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a7029          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a7151          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a7780          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a8441          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b91            K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b438           K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b490           K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b1530          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b1603          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b2081          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b2441          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b2455          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b2460          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b3545          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b4287          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  b4701          K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a1931+b91      K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a3106+b438     K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a3216+b490     K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a3320+b1530    K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a3414+b1603    K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a3707+b2081    K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a4362+b2441    K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a5148+b2455    K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a7029+b2460    K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+  a7151+b3545    K1=   0b L=   0b K2=    0b J=    0b | modp zero: K1=True L=True K2=True J=True
+(6s)
+
+--- variability across 35 configurations
+  K1  distinct values   1/35   distinct mod p   1   distinct mod 2458959   1   always zero mod p: True
+  L   distinct values   1/35   distinct mod p   1   distinct mod 2458959   1   always zero mod p: True
+  K2  distinct values   1/35   distinct mod p   1   distinct mod 2458959   1   always zero mod p: True
+  J   distinct values   1/35   distinct mod p   1   distinct mod 2458959   1   always zero mod p: True
+
+--- are the four correlated?  (do any two always move together)
+  K1 vs L: 1 distinct pairs (independent would be up to 1)
+  K1 vs K2: 1 distinct pairs (independent would be up to 1)
+  K1 vs J: 1 distinct pairs (independent would be up to 1)
+  L vs K2: 1 distinct pairs (independent would be up to 1)
+  L vs J: 1 distinct pairs (independent would be up to 1)
+  K2 vs J: 1 distinct pairs (independent would be up to 1)
+DONE

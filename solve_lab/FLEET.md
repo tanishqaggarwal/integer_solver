@@ -2196,3 +2196,83 @@ two agents have redirected their whole search — are L's 12 cofactor variables 
 them to the deliverable's values move 13 → 7? Plus two adjacent premises: L's scorer is calibrated
 on only two points, and L's incidence criterion rests on "every residual atom has exactly one free
 cofactor occurring nowhere else" **across all 3,681**.
+
+---
+
+## Check-in 35–36 — the stage checks are vacuous at this baseline; the kernel test starves
+
+Deliverable unchanged: **39,026 / 39,033**. Nothing above it produced or verified.
+
+### L — realizability answered in the negative, and the "strongest lead" is reinterpreted
+
+**L could not cut M's space, and says so as the result.** All 32,768 subsets are formally runnable
+and worth pricing: freeing a handle always works, because at `sel_ab = 0` the check
+`((x21279·x9106) − (13523997·x9629))` collapses to `−13523997·x9629`, so demoting `x9629` supplies
+a **pure unconstrained additive term** in whichever equations contain it — arguably the best
+cancellation knob available, precisely because it is uncoupled from circuit values. **M is not
+pricing noise and will not be redirected again.**
+
+**The 15 sit on exactly four nodes, in three mechanistic classes:**
+
+| node / role | atoms | driven when |
+|---|---|---|
+| x27994 vab guards | x31864, x29854 | `sel_ab(x27994) = 0` |
+| x27994 stage checks | x23754, x35619, x9629 | `sel_ab(x27994) = 1` |
+| x4971.va / .vb, x36871.vb slot links | x28730, x642, x37413, x34113, x28355 | always |
+| x35155, x14803 stage checks | x1844, x29305, x2892, x23822, x7945 | **never** |
+
+**Hard result 1 — five of the 15 are permanently vacuous.** A node's stage checks are gated by
+`sel_ab`, which requires **both** child subtrees to contain a live leaf. Live-leaf counts: x27994
+`1|1`, x4971 `2|1`, x36871 `2|1` all reach 1 — but **x35155 `1|0` and x14803 `1|0`** have one child
+subtree entirely dead, so their `sel_ab` is **0 in all 2²⁵⁶ configurations.** Those five can never
+carry a circuit-derived value in any reachable configuration.
+
+**Hard result 2 — and it reinterprets check-in 32's lead.** At x27994 the guards `(1−sel_ab)·vab`
+and the checks `sel_ab·(…)` are **mutually exclusive**. **The deliverable runs at
+`sel_ab(x27994) = 0`** (measured, `x21279 = 0`). So `x23754`, `x35619`, `x9629` are **vacuous
+there — not overlooked.** They carry no circuit content at the deliverable's configuration.
+
+**Consequence for the run M is executing:** the prioritised supersets remain worth pricing, but a
+hit must be read as a **cancellation knob, not a structural cut** — it would not generalise to
+other sites or ON-sets the way a cut would. Same caveat, permanently, for the five vacuous atoms.
+
+**The axis this opens.** To get those three as **genuine circuit-driven** corruptions requires
+`sel_ab(x27994) = 1` — an ON-set with a live leaf in **both** child subtrees — i.e. a **different
+free-input configuration** from the deliverable's. M's 25 equations are verified at **one**
+free-input configuration across two orientations, so **that regime is exactly the untested one**,
+and M's own caveat bites precisely here. **After the current run, recomputing the incident set at a
+configuration with `sel_ab(x27994) = 1` is the highest-value next step** — it decides whether the
+filter is configuration-stable, and it is the only route by which the highest-incidence atoms in
+the system become real cuts rather than free knobs.
+
+### S — the affine model is exact; the configuration-independence test starved
+
+**Result A, recorded as a result:** the affine model is **exact, not merely locally linear.** All
+**18 displacements along the affine kernel** — particular solution, 6 random small-coefficient, 4
+with coefficients to ±10⁶, all 7 unit kernel vectors — land on bad atoms exactly
+`{a20215, a28647}`, 28 fails, **39,005**, identical to cfg0, with **not one breaking the other
+rows**, and the measured structure invariant every time (54 knobs, 47 other rows, kernel dim 7).
+
+**Result B, reported by S as nearly vacuous, and correctly:** kernel motion changes a20215 only by
+multiples of p — **that is the `p·ℤ²` result** — so the residual's mod-p class is invariant along
+the kernel **by construction**, and membership cannot change unless the measured knob set changes.
+A structural-stability test, which passed; **not** a configuration-independence test.
+
+**S caught the §3 error reappearing in its own script.** `kernel.py`'s closing line printed
+"evidence it is a statement about the instance"; S fixed the script **and appended a correction to
+`runs_kernel.log`** so a later reader cannot be misled by the stale line.
+
+**`kernel2.py` starved.** 14 BFS image points, 5 distinct mod-p classes: **blocked 2, solved 0,
+other-rows-infeasible 12.** Only 2 of 14 were valid test cases; the other 12 could not be brought
+to a near-solution at all and therefore say nothing. **Two blocked data points do not establish
+configuration-independence. Per S's explicit instruction, this is NOT recorded as such — the
+question remains open.**
+
+**Why it starved, and S's fix (its next task):** a valid case must **both** move the mod-p class
+**and** admit a near-solution, and BFS image points mostly fail the second. Generate them the other
+way round — **start from the cfg0 near-solution and move by the 1-for-1 trade knobs `x_14853`,
+`x_6083`, `x_31339`, `x_18956`**, which change the class while preserving solvability far better
+than selector flips, re-solving the other rows after each. That searches near-solutions **by class**
+rather than sampling classes and hoping. S has been asked to report the **starvation rate**, since
+that decides whether the question is answerable this way at all — and to say plainly if even the
+trade knobs starve, which would close the line honestly rather than leave it looking open.

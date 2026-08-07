@@ -1,0 +1,93 @@
+
+=== against MY 25-equation baseline (the union L filtered on): 25 equations, 78 atoms, 59 of those atoms are DEFINER atoms -> 59 incident handles ===
+  x26732  atom 34121  rt 14  [product     ] x_26732 - x_11425 * x_4432
+  x1627   atom 34122  rt 14  [product     ] x_1627 - x_2218 * x_15324
+  x5168   atom 34119  rt 13  [linear/other] x_5168 - (x_21718 + x_31465)
+  x23538  atom 34118  rt 12  [product     ] x_23538 - x_30175 * x_9280
+  x28730  atom 23617  rt 11  [product     ] x_28730 - x_17499 * x_9413  <== DELIVERABLE
+  x23754  atom 23619  rt 11  [product     ] x_23754 - x_26874 * x_6947  <== L-NAMED
+  x31465  atom 18173  rt 10  [product     ] x_31465 - x_2218 * x_34600
+  x25442  atom 22547  rt 10  [linear/other] x_25442 - (x_22342 + x_10861)
+  x7068   atom 23616  rt 10  [linear/other] x_7068 - x_2099 - 7376877 * x_642
+  x642    atom 36664  rt 10  [product     ] x_642 - x_28599 * x_17325  <== DELIVERABLE
+  x10861  atom 39003  rt 10  [product     ] x_10861 - x_30175 * x_27711
+  x22342  atom 39004  rt 10  [linear/other] x_22342 - (x_26732 + x_1627)
+  x21718  atom 18172  rt  9  [product     ] x_21718 - x_11425 * x_7068
+  x36826  atom 22548  rt  9  [linear/other] x_36826 - (x_34600 - x_7068)
+  x31864  atom 36663  rt  9  [bare        ] x_31864  <== DELIVERABLE
+  x38492  atom 18171  rt  8  [linear/other] x_38492 - (1 - x_30175)
+  x9629   atom 20448  rt  8  [product     ] x_9629 - x_30095 * x_950  <== L-NAMED
+  x18253  atom 20451  rt  8  [linear/other] x_13502 * x_3629 - x_18253
+  x10250  atom 22549  rt  8  [linear/other] x_10250 - (x_15324 - x_4432)
+  x35619  atom 23623  rt  8  [bare        ] x_35619  <== L-NAMED
+  x7062   atom 39005  rt  8  [product     ] x_7062 - x_36826 * x_36826
+  x11543  atom 39006  rt  8  [linear/other] x_11543 - (x_9280 + x_7068)
+  x2218   atom 18170  rt  7  [product     ] x_2218 - x_11075 * x_18992
+  x18723  atom 39007  rt  7  [linear/other] x_18723 - (x_11543 + x_34600)
+  x623    atom 39071  rt  7  [linear/other] x_623 - (x_18723 + x_24453)
+  x4863   atom 2444   rt  6  [product     ] x_4863 - x_10250 * x_10250
+  x10376  atom 2445   rt  6  [linear/other] x_10376 - (x_6480 - x_4863)
+  x11425  atom 2780   rt  6  [product     ] x_11425 - x_26188 * x_17008
+  x18992  atom 18169  rt  6  [linear/other] x_18992 - (1 - x_26188)
+  x37720  atom 20453  rt  6  [linear/other] 9994531 * (x_13502 * x_8976) - x_37720
+  x29854  atom 36659  rt  6  [product     ] x_29854 - x_22665 * x_1329  <== DELIVERABLE
+  x6480   atom 39072  rt  6  [product     ] x_6480 - x_623 * x_7062
+  x22916  atom 2446   rt  5  [linear/other] x_22916 - (x_27711 + x_4432)
+  x33001  atom 2447   rt  5  [product     ] x_33001 - x_22916 * x_36826
+  x23227  atom 2448   rt  5  [linear/other] x_23227 - (x_7068 - x_9280)
+  x17008  atom 2779   rt  5  [linear/other] x_17008 - (1 - x_11075)
+  x34600  atom 11876  rt  5  [linear/other] x_34600 - x_30108
+  x23642  atom 11877  rt  5  [bare        ] x_23642
+  x37413  atom 11878  rt  5  [product     ] x_37413 - x_34660 * x_11099  <== L-NAMED
+  x30175  atom 2778   rt  4  [product     ] x_30175 - x_26188 * x_11075
+  x1844   atom 36657  rt  4  [product     ] x_1844 - x_19530 * x_21574
+  x4971   atom 2776   rt  3  [linear/other] x_4971 - (x_24981 - x_28098)
+  x36505  atom 2777   rt  3  [linear/other] x_36505 - x_4971
+  x2892   atom 6354   rt  3  [bare        ] x_2892
+  x15324  atom 11879  rt  3  [linear/other] x_15324 - x_37254 - 8481759 * x_37413
+  x12394  atom 17264  rt  3  [linear/other] x_12394 - 3337463 * x_4598
+  x21488  atom 17265  rt  3  [linear/other] x_21488 - (x_5444 + x_12394)
+  x28098  atom 17266  rt  3  [product     ] x_28098 - x_26188 * x_11075
+  x24981  atom 17267  rt  3  [linear/other] x_24981 - (x_26188 + x_11075)
+  x29305  atom 36655  rt  3  [product     ] x_29305 - x_28969 * x_1613
+  x15422  atom 2449   rt  2  [product     ] x_15422 - x_10250 * x_23227
+  x28355  atom 6351   rt  2  [linear/other] 179131 * (x_27500 - x_12143) - x_28355  <== L-NAMED
+  x18140  atom 6347   rt  1  [linear/other] x_16583 * x_32230 - 8092045 * x_18140
+  x34113  atom 6349   rt  1  [linear/other] x_22043 - x_4264 - x_34113  <== L-NAMED
+  x23822  atom 11880  rt  1  [product     ] x_23822 - x_30754 * x_22526
+  x7945   atom 11882  rt  1  [product     ] x_7945 - x_29084 * x_34868
+  x23669  atom 15920  rt  1  [linear/other] x_23669 - 6331293 * x_4598
+  x36215  atom 17262  rt  1  [linear/other] x_36215 - (x_28871 + x_23669)
+  x5444   atom 17263  rt  1  [linear/other] x_5444 - 12983971 * x_37639
+
+=== against the L-style 13-equation baseline: 13 equations, 40 atoms, 22 of those atoms are DEFINER atoms -> 22 incident handles ===
+  x28730  atom 23617  rt 11  [product     ] x_28730 - x_17499 * x_9413  <== DELIVERABLE
+  x23754  atom 23619  rt 11  [product     ] x_23754 - x_26874 * x_6947  <== L-NAMED
+  x7068   atom 23616  rt 10  [linear/other] x_7068 - x_2099 - 7376877 * x_642
+  x642    atom 36664  rt 10  [product     ] x_642 - x_28599 * x_17325  <== DELIVERABLE
+  x31864  atom 36663  rt  9  [bare        ] x_31864  <== DELIVERABLE
+  x9629   atom 20448  rt  8  [product     ] x_9629 - x_30095 * x_950  <== L-NAMED
+  x18253  atom 20451  rt  8  [linear/other] x_13502 * x_3629 - x_18253
+  x35619  atom 23623  rt  8  [bare        ] x_35619  <== L-NAMED
+  x37720  atom 20453  rt  6  [linear/other] 9994531 * (x_13502 * x_8976) - x_37720
+  x29854  atom 36659  rt  6  [product     ] x_29854 - x_22665 * x_1329  <== DELIVERABLE
+  x34600  atom 11876  rt  5  [linear/other] x_34600 - x_30108
+  x23642  atom 11877  rt  5  [bare        ] x_23642
+  x37413  atom 11878  rt  5  [product     ] x_37413 - x_34660 * x_11099  <== L-NAMED
+  x1844   atom 36657  rt  4  [product     ] x_1844 - x_19530 * x_21574
+  x2892   atom 6354   rt  3  [bare        ] x_2892
+  x15324  atom 11879  rt  3  [linear/other] x_15324 - x_37254 - 8481759 * x_37413
+  x29305  atom 36655  rt  3  [product     ] x_29305 - x_28969 * x_1613
+  x28355  atom 6351   rt  2  [linear/other] 179131 * (x_27500 - x_12143) - x_28355  <== L-NAMED
+  x18140  atom 6347   rt  1  [linear/other] x_16583 * x_32230 - 8092045 * x_18140
+  x34113  atom 6349   rt  1  [linear/other] x_22043 - x_4264 - x_34113  <== L-NAMED
+  x23822  atom 11880  rt  1  [product     ] x_23822 - x_30754 * x_22526
+  x7945   atom 11882  rt  1  [product     ] x_7945 - x_29084 * x_34868
+
+--- cross-checks ---
+deliverable four in the 25-set: {642: True, 28730: True, 29854: True, 31864: True}
+L-named handles in the 25-set : {23754: True, 35619: True, 9629: True, 37413: True, 34113: True, 28355: True}
+25-set vs my earlier 32-pool: |25-set| 59, in 32 29, NOT in 32 [623, 4971, 5168, 5444, 7068, 10250, 10376, 11543, 12394, 15324, 17008, 18140, 18253, 18723, 18992, 21488, 22342, 22916, 23227, 23669, 24981, 25442, 28355, 34113, 34600, 36215, 36505, 36826, 37720, 38492]
+13-set is subset of 25-set: True
+
+wrote exact_incident.json  (59 incident handles vs 25-eq baseline)
