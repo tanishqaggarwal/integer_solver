@@ -3645,6 +3645,11 @@ FIN_39017        16 failing   checks [688, 1618, 40608]          [checker-verifi
 **`s10/FIN_39017.json` verifies at 39,017/39,033** — the best algebraic state, and the
 first time the point addition closes with its primitives fully absorbed.
 
+The full sweep confirms it independently: **all 8 shifts that solve the lock land on
+exactly 39,017**, none higher and none lower.  That is what §165 predicts — the score
+cannot depend on which solution of the congruence is chosen, because the residues of
+a688 and a1618 are pinned by the addition and the k·p shifts move nothing else.
+
 ## 165. 39,017 is exact there: no ratio saves anything
 
 The residual is two numbers, and ten of the sixteen failing equations contain **both**

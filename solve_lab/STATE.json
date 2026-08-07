@@ -895,7 +895,12 @@
     "s10/finish.py",
     "s10/ratio.py",
     "s10/algside.py"
-   ]
+   ],
+   "lock_solutions_swept": {
+    "shifts_tried": 8,
+    "all_scored": 39017,
+    "note": "independent confirmation that the residues, not the k*p part, fix the score"
+   }
   }
  }
 }
