@@ -15,7 +15,9 @@ pins = json.load(open(os.path.join(HERE, '..', 'agentF_work', 'pins.json')))
 print('pins:', len(pins), 'shift c = K/3 =', c)
 
 pts = []
-for g, ((v1, k1), (v2, k2)) in pins.items():
+for g, vv in pins.items():
+    if len(vv) != 2: continue
+    (v1, k1), (v2, k2) = vv
     pts.append((g, v1, k1 % p, v2, k2 % p))
 
 def fit(P, Q):
