@@ -4,3 +4,10 @@ zero columns of H (weight-1 codewords): 0
   dependent-column search size 2: 2278 subsets, found: NONE [0s]
   dependent-column search size 3: 50116 subsets, found: NONE [8s]
   dependent-column search size 4: 814385 subsets, found: NONE [236s]
+  dependent-column search size 5: 10424128 subsets, found: NONE [3185s]
+  RIGOROUS: no <= 5 dependent columns -> minimum support weight >= 6
+  greedy-ISD trial 1: support weight 17 [0s]
+  greedy-ISD trial 1: support weight 13 [0s]
+  greedy-ISD trial 1: support weight 10 [0s]
+  greedy-ISD trial 1: support weight 6 [0s]
+greedy-ISD: 5957 trials, 5957 usable, lightest support SEEN = 6, supports<=6 found = 924

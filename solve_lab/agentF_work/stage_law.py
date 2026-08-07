@@ -48,7 +48,8 @@ def probe(six, ws, assign):
 
 
 def try_roles(six, ws, rnd):
-    """Return (inA, inB, out) as index pairs into `six`, or None."""
+    """Search ALL role splits; return a chordK match if any exists."""
+    fallback = None
     for out in itertools.combinations(range(6), 2):
         rest = [i for i in range(6) if i not in out]
         for inA in itertools.combinations(rest, 2):
@@ -70,19 +71,21 @@ def try_roles(six, ws, rnd):
             if (c1[2] * dx + c2[2] * dy + b0[2]) % p: continue      # third check inconsistent
             got = (dx, dy)
             for P, Q in ((A, B), (B, A)):
-                w = chordK(P, Q)
-                if w == got:
+                if chordK(P, Q) == got:
                     return (inA, inB, out, 'chordK', (P is A))
-            return (inA, inB, out, 'LINEAR_BUT_NOT_chordK', got)
-    return None
+            if fallback is None:
+                fallback = (inA, inB, out, 'LINEAR_BUT_NOT_chordK', got)
+    return fallback
 
 
 if __name__ == '__main__':
     rnd = random.Random(5)
-    ok = 0; other = []; fail = []
+    ok = 0; other = []; fail = []; skipped = []
     t0 = time.time()
     for g in sorted(stages, key=lambda g: -len(tree[str(g)]['gsup'])):
         six = tree[str(g)]['six']; ws = wire_atom[g]
+        if len(six) != 6 or len(ws) < 3:
+            skipped.append((g, len(six), len(ws))); continue
         r = try_roles(six, ws, rnd)
         if r is None: fail.append(g); continue
         if r[3] == 'chordK': ok += 1
@@ -90,4 +93,5 @@ if __name__ == '__main__':
     print('stages verified to obey chordK exactly : %d of %d' % (ok, len(stages)))
     print('stages linear but NOT chordK           : %d  %s' % (len(other), other[:6]))
     print('stages with no consistent role split   : %d  %s' % (len(fail), fail[:12]))
+    print('stages skipped (support != 6 free inputs) : %d  %s' % (len(skipped), skipped[:8]))
     print('elapsed %.0fs' % (time.time() - t0))

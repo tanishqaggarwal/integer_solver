@@ -3,7 +3,7 @@ import sys, time, heapq
 sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentE_work')
 import intsolve
 
-def solve_sparse(rows, rhs, names=None, verbose=True, maxcore=400, maxbits=200000):
+def solve_sparse(rows, rhs, names=None, verbose=True, maxcore=400, maxbits=200000, maxcorebits=4000):
     R=[dict(r) for r in rows]; B=list(rhs)
     n=len(R); alive=set(i for i in range(n))
     colidx={}
@@ -74,7 +74,7 @@ def solve_sparse(rows, rhs, names=None, verbose=True, maxcore=400, maxbits=20000
     if core:
         mb=max((abs(x).bit_length() for i in core for x in R[i].values()), default=0)
         mb=max(mb, max((abs(B[i]).bit_length() for i in core), default=0))
-        if mb>4000:
+        if mb>maxcorebits:
             return None,'core entries too large (%d bits)'%mb,fixed
     sol=dict(fixed)
     if core:

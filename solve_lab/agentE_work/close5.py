@@ -26,7 +26,7 @@ rows=[{f:cols[f][a] for f in KN if a in cols[f]} for a in rowsA]
 rhs=[-bad0.get(a,0) for a in rowsA]
 for a,r,b in zip(rowsA,rows,rhs):
     print(f"  a{a}: " + " + ".join(f"({str(c)[:14]}..)*d{f}" for f,c in r.items()) + f" = {str(b)[:24]}..",flush=True)
-sol,msg,_=sparse.solve_sparse(rows,rhs,names=rowsA,verbose=True,maxcore=100)
+sol,msg,_=sparse.solve_sparse(rows,rhs,names=rowsA,verbose=True,maxcore=100,maxcorebits=2000000)
 print("5-ROW SUBSYSTEM ->",msg,flush=True)
 if sol is not None:
     ns=dict(s)

@@ -202,3 +202,40 @@ string-conversion cap, so `checker.py` cannot *parse* the file with default sett
 `verifyE.py` raises only that cap and then calls `checker.load_equations`,
 `checker.load_assignment` and `checker.evaluate_all` unmodified:
     python3 verifyE.py triple8_39005.json  ->  satisfied 39005/39033 (28 failing)
+
+## 14. a20215 / a28647 — the affine solve, and the exact reason it stops
+Knob set built as instructed: every free variable in the cones of x_24908 and of
+(x_6083, x_33708), plus the cones of the four cluster atoms, **with the non-boolean integer
+handles explicitly included** (the inclusion that unlocked the triple).
+
+### 14.1 The cluster is a closed 5-row system
+From `triple8_seed.json` (bad = {20215, 28647}) six integer knobs have their entire
+disturbance set inside {7389, 10187, 20212, 20215, 28647}; adding the two non-boolean movers
+of a20212 gives eight.  Exact rows (`close5.py`, `runs/close7.log`):
+
+    a7389 :   d_6083  - p*d_26489                       = 0
+    a10187:   d_31339 - c1*d_37012                      = 0
+    a20212:   p*d_11436 + c2*d_14393 - d_14853          = 0
+    a20215: - p*d_22820 - d_31339                       = R1
+    a28647: - d_6083 + d_14853                          = R2
+
+R1 = resid(a20215), R2 = resid(a28647).
+
+### 14.2 Why it is infeasible — measured, not assumed
+    R1 mod p = 22981624690591324143788809642515852940280603493270692712106986169263210356252
+    R2 mod p = 44159679639019146557987083382852396884224992023970032213706899677695745279353
+    c1 = d(a10187)/dx_37012 : 279 bits, **c1 = 0 (mod p)**
+    c2 = d(a20212)/dx_14393 : 280 bits, **c2 = 0 (mod p)**
+So a10187 forces `d_31339 = 0 (mod p)` while a20215 wants `d_31339 = -R1 (mod p)`;
+a20212 forces `d_14853 = 0 (mod p)` while a28647+a7389 want `d_14853 = R2 (mod p)`.
+**Every knob that reaches a10187 or a20212 enters with a coefficient divisible by p**, so both
+chains are mod-p trivial and the two non-zero residues R1, R2 cannot be absorbed.
+This is the same shape as "a row pins a knob to zero" — an independent second instance of it.
+
+### 14.3 What would break it
+A knob reaching a10187 or a20212 with coefficient **coprime to p**.  Searched: the full cones
+of x_24908, x_6083, x_33708, x_24530, x_36433, x_36990, x_19239, x_26386, x_27475, x_5647 and
+of the four cluster atoms — 326 candidates, 248 cluster-affine, only 8 with a contained
+disturbance set, and among the a20212 movers only 3 are non-boolean (x_11436 with coefficient
+exactly p, x_14393 with c2 = 0 mod p, x_14853 with coefficient -1 but it is the unknown itself).
+The 181 remaining movers of a20212 are all boolean selector bits.

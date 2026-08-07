@@ -100,3 +100,24 @@ single-bit branch (LOG.md §11), so they are frame-independent within my model.
 NEXT: close a20215 / a28647 by an affine solve over the free variables in the cones of
 x_24908 and of (x_6083, x_33708) — never attempted; the knob search there must include the
 non-boolean integer handles, which is exactly what unlocked the triple.
+
+## a20215 / a28647 (the two rows the instance now binds on) — RUN, and the reason it stops
+The cluster closes into an exact 5-row system over 8 integer knobs (LOG.md §14).  Infeasible,
+and the mechanism is measured: `c1 = d(a10187)/dx_37012` and `c2 = d(a20212)/dx_14393` are both
+**= 0 (mod p)**, so a10187 pins `d_31339 = 0 (mod p)` and a20212 pins `d_14853 = 0 (mod p)`,
+while a20215 and a28647 need those knobs to hit `-R1` and `R2` mod p, and
+R1 mod p = 22981624690591324143788809642515852940280603493270692712106986169263210356252,
+R2 mod p = 44159679639019146557987083382852396884224992023970032213706899677695745279353,
+both non-zero.  Every knob reaching a10187/a20212 enters mod-p trivially; the only non-boolean
+movers of a20212 are x_11436 (coefficient exactly p), x_14393 (c2 = 0 mod p) and x_14853 itself.
+
+**NEXT:** find a knob reaching a10187 or a20212 with coefficient COPRIME to p.  That is the
+single quantity that decides this cluster.  Search beyond the cones tried (326 candidates so
+far), and treat the 181 boolean selector movers of a20212 as 0/1 decisions rather than affine
+variables — the boolean class was excluded by the affineness filter, and excluding a knob class
+by filter is exactly the error that produced the earlier false barrier.
+
+Verification rule for my states: values exceed Python's 4,300-digit string cap, so
+`checker.py` cannot PARSE them.  Use `python3 verifyE.py <file>` — it raises only that cap and
+calls checker.load_equations / load_assignment / evaluate_all unmodified.  Say so explicitly
+in any report; a bare "checker.py says" would be false for these values.
