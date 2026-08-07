@@ -57,3 +57,28 @@ tests each survivor with exact HNF.  [running]
 `gmax_enl.py`: 48,068 ISD trials found **no code support of weight <= 6 at all**, so in
 the enlarged region every integer knob vector violates >= 7 rows.  The current point
 attains exactly 7.  Enlarging the movable set makes the bound STRONGER, not weaker.
+
+## THEOREM (exhaustive, exact) — 7 failing equations is optimal in the 39,026 region
+`model31.py`: a37887 is a PERFECT SQUARE as a polynomial in the region knobs,
+a37887 = Q^2 with Q affine in 8 knobs (verified coefficient-by-coefficient).  So eq 8680
+is not a quadratic constraint at all: it is one more AFFINE row.  Complete model =
+31 nontrivial affine rows, 22 knobs, 35 atoms, 41 equations.
+`full31.py`: rank(N) = 22 = #knobs and the whole 31-row system is Q-CONSISTENT (unique
+rational solution W, non-integral).  Therefore any integer point's violated set must
+contain a code support.  Exhaustive information-set enumeration: minimum support = 6,
+38,760 supports of weight 6, none smaller.  All 38,760 admissible violation sets of size
+<= 6 FAIL mod-p consistency -> 0 integral.  Hence >= 7 violations for every integer knob
+vector, and 7 is attained.  **39,026 is exactly optimal in this basin, proven over Z.**
+
+## Frame-2 generator scan (ripple_test.py, scan2099.py) -- prices, measured
+cost 0: x9118, x8731, x642, x29854, x31864, x1329, x10903, x9413, x17325 (9 free gens)
+cost 13: x7068 and **x6418** (x6418 moves alpha0 by exactly -1 -- the fine control of C1)
+cost 16: x28730 | cost 38: x4287 | cost 109: x2081 | cost 3: x6947, x21574 | 4: x1613
+5: x33168 | 7: x950 | 9: x15120.  The cone of x2099 u x28730 is only 18 variables.
+
+## Congruence restatement (sharpened)
+alpha0 + 7376877*alpha6 = x7068 - x2099 - 7376877*p*x17325, so
+  C1 <=> (x7068 - x2099) mod p fixed ;  C2 <=> x28730 mod p fixed.
+At AG_39013 and mod9118_0 BOTH residues are exactly 0 -- because in the canonical frame
+x7068 = 7376877*x642 + x2099 and x28730 = p*x9413 are GATE IDENTITIES.  So C1/C2 are the
+price of the 39,026 frame, not an arithmetic obstruction of the instance.

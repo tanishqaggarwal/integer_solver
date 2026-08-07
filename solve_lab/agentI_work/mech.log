@@ -1,0 +1,18 @@
+PART A: 0/0 random selector pairs behave exactly as `P_i (+) P_j =? T` on the curve
+  pair (X35179,X35839): coordinates not all determined -- skipped
+  pair (X35179,X14808): coordinates not all determined -- skipped
+  pair (X14039,X36314): coordinates not all determined -- skipped
+  pair (X14601,X5651): coordinates not all determined -- skipped
+  pair (X35062,X22623): coordinates not all determined -- skipped
+  pair (X10428,X5630): coordinates not all determined -- skipped
+  pair (X2081,X31767): coordinates not all determined -- skipped
+  pair (X35179,X11368): coordinates not all determined -- skipped
+  pair (X1203,X3414): coordinates not all determined -- skipped
+  pair (X3216,X1746): coordinates not all determined -- skipped
+  pair (X14808,X18732): coordinates not all determined -- skipped
+  pair (X1603,X35835): coordinates not all determined -- skipped
+PART B: 4/4 triples close the newly created rung with the EC partial sum
+  trio [24601, 34715, 15064]: setting (x1,y1) := P_34715 (+) P_15064 leaves 3 violated atoms [17810, 17813, 17816] (the single remaining rung)
+  trio [17899, 22492, 38645]: setting (x1,y1) := P_22492 (+) P_38645 leaves 3 violated atoms [17810, 17813, 17816] (the single remaining rung)
+  trio [112, 5090, 35635]: setting (x1,y1) := P_5090 (+) P_35635 leaves 0 violated atoms [] (the single remaining rung)
+  trio [21266, 32669, 4940]: setting (x1,y1) := P_32669 (+) P_4940 leaves 0 violated atoms [] (the single remaining rung)

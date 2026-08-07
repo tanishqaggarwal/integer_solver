@@ -1,0 +1,45 @@
+x_91	pins=[21548, 21549, 40530]	vars=502	rows=441	nl=109	FEAS=True	msg=ok	exact=(16, [])	3s
+x_438	pins=[36924, 36925]	vars=438	rows=403	nl=109	FEAS=True	msg=ok	exact=(16, [])	4s
+x_490	pins=[30479, 30480, 40475]	vars=654	rows=531	nl=116	FEAS=True	msg=ok	exact=(16, [])	3s
+x_1203	pins=[12143, 38540]	vars=460	rows=401	nl=97	FEAS=False	msg=core infeasible	exact=None	2s
+x_1530	pins=[33208, 33209]	vars=811	rows=650	nl=122	FEAS=True	msg=ok	exact=(16, [])	4s
+x_1603	pins=[9822, 9823]	vars=438	rows=403	nl=109	FEAS=True	msg=ok	exact=(16, [])	3s
+x_2081	pins=[3939, 3940]	vars=604	rows=512	nl=114	FEAS=True	msg=ok	exact=(16, [])	3s
+x_2441	pins=[13402, 13403, 40550]	vars=502	rows=441	nl=109	FEAS=True	msg=ok	exact=(16, [])	3s
+x_2455	pins=[9695, 9696]	vars=474	rows=419	nl=112	FEAS=True	msg=ok	exact=(16, [])	3s
+x_2460	pins=[15551, 25418]	vars=437	rows=389	nl=100	FEAS=True	msg=ok	exact=(16, [])	3s
+x_3420	pins=[34248, 34249]	vars=460	rows=401	nl=97	FEAS=False	msg=core infeasible	exact=None	2s
+x_3545	pins=[26041, 26042]	vars=438	rows=389	nl=100	FEAS=True	msg=ok	exact=(16, [])	2s
+x_3591	pins=[17759, 17760, 40550]	vars=268	rows=243	nl=59	FEAS=False	msg=core infeasible	exact=None	1s
+x_4287	pins=[3930, 3931]	vars=604	rows=512	nl=114	FEAS=True	msg=ok	exact=(16, [])	3s
+x_4701	pins=[21557, 21558, 40530]	vars=501	rows=440	nl=109	FEAS=True	msg=ok	exact=(16, [])	2s
+x_5090	pins=[26852, 37134, 38223]	vars=875	rows=657	nl=119	FEAS=False	msg=core infeasible	exact=None	3s
+x_5643	pins=[15696, 15697]	vars=400	rows=379	nl=105	FEAS=True	msg=ok	exact=(16, [])	3s
+x_5910	pins=[28389, 28390, 40475]	vars=653	rows=530	nl=116	FEAS=True	msg=ok	exact=(16, [])	3s
+x_6312	pins=[32816, 32817]	vars=436	rows=389	nl=100	FEAS=True	msg=ok	exact=(16, [])	2s
+x_6821	pins=[15705, 31005]	vars=387	rows=374	nl=105	FEAS=True	msg=ok	exact=(16, [])	3s
+x_7142	pins=[8576, 8577]	vars=670	rows=533	nl=104	FEAS=False	msg=core infeasible	exact=None	2s
+x_7401	pins=[1827, 1828]	vars=826	rows=652	nl=122	FEAS=True	msg=ok	exact=(16, [])	3s
+x_8370	pins=[12160, 12161]	vars=670	rows=533	nl=104	FEAS=False	msg=core infeasible	exact=None	2s
+x_8487	pins=[2867, 2868]	vars=670	rows=533	nl=104	FEAS=False	msg=core infeasible	exact=None	2s
+x_9260	pins=[4270, 4271, 40287]	vars=671	rows=534	nl=104	FEAS=False	msg=core infeasible	exact=None	2s
+x_10513	pins=[9282, 9283, 40483, 40550]	vars=268	rows=243	nl=59	FEAS=False	msg=core infeasible	exact=None	1s
+x_10836	pins=[37224, 37225]	vars=276	rows=230	nl=53	FEAS=False	msg=core infeasible	exact=None	1s
+x_11189	pins=[12151, 12152]	vars=453	rows=399	nl=97	FEAS=False	msg=core infeasible	exact=None	1s
+x_11368	pins=[16688, 16689, 22933]	vars=608	rows=514	nl=114	FEAS=True	msg=ok	exact=(16, [])	2s
+x_12054	pins=[32856, 35851, 40616]	vars=603	rows=512	nl=114	FEAS=True	msg=ok	exact=(16, [])	3s
+x_12095	pins=[30697, 30698, 40475]	vars=654	rows=531	nl=116	FEAS=True	msg=ok	exact=(16, [])	2s
+x_13195	pins=[3948, 3949]	vars=604	rows=512	nl=114	FEAS=True	msg=ok	exact=(16, [])	3s
+x_13710	pins=[12907, 21991]	vars=434	rows=388	nl=100	FEAS=True	msg=ok	exact=(16, [])	2s
+x_14808	pins=[37151, 37152]	vars=655	rows=531	nl=116	FEAS=True	msg=ok	exact=(16, [])	4s
+x_14823	pins=[19919, 19920]	vars=655	rows=531	nl=116	FEAS=True	msg=ok	exact=(16, [])	3s
+x_16348	pins=[16970, 16971]	vars=653	rows=530	nl=116	FEAS=True	msg=ok	exact=(16, [])	2s
+x_16586	pins=[19206, 19207]	vars=604	rows=513	nl=114	FEAS=True	msg=ok	exact=(16, [])	3s
+x_16827	pins=[34718, 38315]	vars=438	rows=403	nl=109	FEAS=True	msg=ok	exact=(16, [])	5s
+x_17083	pins=[32807, 32808]	vars=276	rows=230	nl=53	FEAS=False	msg=core infeasible	exact=None	2s
+x_17378	pins=[34636, 36942, 40483]	vars=323	rows=278	nl=63	FEAS=False	msg=row 23194: 13498337281747983773380062942930960173195071139414151601195	exact=None	5s
+x_17406	pins=[38062, 38063]	vars=603	rows=512	nl=114	FEAS=True	msg=ok	exact=(16, [])	9s
+x_17760	pins=[8010, 8011]	vars=415	rows=393	nl=110	FEAS=True	msg=ok	exact=(16, [])	7s
+x_18022	pins=[3598, 13042]	vars=653	rows=530	nl=116	FEAS=True	msg=ok	exact=(16, [])	4s
+x_20564	pins=[8900, 8901]	vars=875	rows=657	nl=119	FEAS=False	msg=core infeasible	exact=None	3s
+x_20837	pins=[33937, 33938]	vars=203	rows=171	nl=40	FEAS=False	msg=core infeasible	exact=None	1s

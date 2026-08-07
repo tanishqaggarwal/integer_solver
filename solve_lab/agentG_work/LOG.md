@@ -98,3 +98,18 @@ session-9 "branch obligation" residue 333711591557354725375342526507165015928253
 independently and exactly.
 Frame 4287+13195 gives 4 unknowns (x8731,x9118,x14853,x31339) and 13 polynomials;
 `g33_solve2.py` eliminates all four and leaves 4 nonzero residuals. Not a solution.
+
+## Exp G39–G40 — the message bits REWIRE the coordinates (partial; scans stopped)
+`g39_pinscan.py`: flipping one message bit changes WHICH WIRE feeds a coordinate.
+e.g. bit x47 moves y1's chain from x8778 to x8060 and x1 from x22649 to x28548, both of
+which are pinned to 0 by a32226 / a20109. So the message selects the six coordinates from
+a MUX tree of pinned wires — and selection and pinning are the SAME bit, which is the
+trapdoor: a wire cannot be selected and left free at the same time.
+`g40_affine.py` (written, not completed): tests whether the bits act affinely on (A,B).
+That measurement is the input to the LLL / low-density-subset-sum attack in RESUME_G.
+
+## STOP checkpoint (coordinator)
+`g27_bigscan.py` (full exact per-boolean reduce) reached ~250/1156; `g39_pinscan.py`
+~300/1156; both terminated. Partial pickles: `bigscan_all.pkl`, `pinscan.pkl`.
+Best verified score remains the inherited 39,026 — I did not beat it.
+All my artifacts are under solve_lab/agentG_work/; no shared file was modified.

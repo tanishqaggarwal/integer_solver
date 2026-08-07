@@ -120,12 +120,18 @@ def main():
     res = {}
     t0 = time.time()
     out = os.path.join(HERE, f'cut_{mode}_{lo}_{hi}_{maxeq}.json')
+    base_und = sum(1 for x in base_val if x is None)
+    print("baseline undetermined vars:", base_und, flush=True)
     for i, a in enumerate(cands[lo:hi]):
         val, conf = C.run(disable=(a,))
+        und = sum(1 for x in val if x is None)
         if len(conf) < len(base_conf):
-            res[a] = {'nconf': len(conf), 'conf': conf[:10],
+            genuine = (len(conf) == 0 and und <= base_und + 1)
+            res[a] = {'nconf': len(conf), 'conf': conf[:10], 'und': und,
+                      'genuine': genuine,
                       'eqs': len(M.atom_eqs[a]), 'src': M.src[a][:100]}
-            print(f"  HIT a{a} nconf={len(conf)} eqs={len(M.atom_eqs[a])} {M.src[a][:80]}",
+            print(f"  {'GENUINE HIT' if genuine else 'weak hit'} a{a} nconf={len(conf)} "
+                  f"und={und}(base {base_und}) eqs={len(M.atom_eqs[a])} {M.src[a][:80]}",
                   flush=True)
         if i % 100 == 0:
             json.dump({str(k): v for k, v in res.items()}, open(out, 'w'))

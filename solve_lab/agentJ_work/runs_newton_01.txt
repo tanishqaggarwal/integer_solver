@@ -1,0 +1,5 @@
+branch (0,1) start violated: [731, 31571]
+
+iter 0: violated 2 [731, 31571]
+  cone 3743 vars, knobs 524
+    col 0/524  0s

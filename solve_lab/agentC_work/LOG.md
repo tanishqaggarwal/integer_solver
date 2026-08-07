@@ -78,3 +78,21 @@ residual prior session 12 reported at §131.  Independently reproduced in 2.3 s 
 * First construction on it scored only 38,989 because the greedy closure could not repair a688,
   a19299 and the 1-equation "shadow" atoms (a16509, a39553, ...) that contain the detached
   variables.  Patched close4 to forbid touching the 220 p-wires during realize().
+
+## Step 8. DECISIVE CROSS-CHECK (agentC_work/DECISIVE.py) — answers to the coordinator
+Q1: does branch (1,1) with x_22162 = K2, x_30213 = K1 close the system?
+    NO — but it satisfies all three top conditions EXACTLY OVER Z (a688 = a1618 = a23000 = 0).
+    The only checks left nonzero are the two activated bits' own conditional pins; closing those
+    (close2.py) gives **39,013, checker-verified** (agentC_work/BEST_39013.json).
+Q2: is the remaining breakage exactly the point-addition law?  YES, exactly:
+    a19297 `x_15298*x_11150 + x_4007`, a19299 `x_15298*x_25739 - 6672769*x_29804`,
+    a30984 `537773*(x_15298*x_37758) - x_35605`, plus a36185 and a40812 (1 eq each);
+    x_11150/x_25739/x_37758 are rank-2 in A = x_35389 and B = x_6671, and I measured
+    B = (y3+y1)(x2-x1) - (x1-x3)(y2-y1) matching digit for digit over random probes, and
+    A = (x2-x1)^2 (x3+x1+x2+a2) - (y2-y1)^2 with a2 constant across probes.
+Refinement vs agent I: the group order is EXACTLY n_secp ([n]G = O verified), so the curve is
+ISOMORPHIC to secp256k1 itself, not a different-order sextic twist.  j = 0, short form A = 0.
+Sharpening: the DLP is not the only door.  `P1 = P2` makes A and B vanish IDENTICALLY and frees the
+root output, needing no dlog.  I closed that door exactly (carry2.py): P1 = P2 requires
+kA - kB = +-n with disjoint bit supports and BOTH deterministic carry chains overflow.  So the
+ECDLP is forced only after this second, purely combinatorial door is proved shut.

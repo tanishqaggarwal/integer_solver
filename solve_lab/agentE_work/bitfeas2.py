@@ -3,7 +3,7 @@ import sys, json, time, pickle
 sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentE_work')
 import engine as E, fast, sparse
 C=125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626
-CORE={20212,20215,24403,747,4872,4877}
+CORE={20212,20215,24403,747}
 MAXR=int(__import__('os').environ.get('MAXR','5'))
 MAXV=int(__import__('os').environ.get('MAXV','3000'))
 

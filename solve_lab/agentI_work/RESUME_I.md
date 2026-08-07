@@ -1,60 +1,69 @@
-# Agent I — RESUME (build-from-scratch / complete-search angle)
+# Agent I — RESUME
 
-## HEADLINE RESULT (new, checkable, changes the whole picture)
-**The instance reduces exactly to a 256-bit ECDLP on a prime-order elliptic curve.**
-Derived from scratch, not assumed. Chain of evidence, each step reproducible:
+## HEADLINE: the instance contains a 256-bit ECDLP on its all-atoms-zero branch
 
-1. Propagation from EMPTY over Z (`prop.py`) forces 5,624 vars with zero conflicts.
-   The ONLY large constants pinned anywhere are `p = 2^256-2^32-977` (220 vars,
-   secp256k1's field prime) and `K = 97553848499418123410591666447050222001188385549510401465815187079080512838891`
-   (9 vars). Everything else pinned is 0 or 1.
-2. **3,707 atoms have the form `X - p*H` where every handle H occurs in NO other atom**
-   (verified). So each is exactly the assertion `X == 0 (mod p)` with a free quotient
-   => the mod-p abstraction of this instance is EXACT.
-3. Mod-p propagation with *effective-support* reduction (a var whose coefficient dies is
-   not an unknown) determines **28,701 / 38,748 vars from 1,156 boolean decisions in ~1 s**
-   (`boolscore.py`). Exactly **3 atoms** are then violated:
-   `a17810: X2287 - 8272701*X35389`, `a17813: X21889 - 8646263*X35389`,
-   `a17816: X25156 - 10159099*X35389`. Rank 2 in (X35389, X6671) => forces
-   **X35389 = X6671 = 0**.
-4. Tracing those two (independently reproduced):
-   `X35389 = (x2-x1)^2*(x3+x1+x2+K) - (y2-y1)^2`,
-   `X6671  = (y3+y1)(x2-x1) - (y2-y1)(x1-x3)`,
-   with x1=X12186, y1=X16742, x2=X14853, y2=X24908, x3=X22162, y3=X30213. Verified
-   digit-for-digit against the propagated values.
-5. **The K offset is removable**: substituting u = x + K/3 turns these into the standard
-   short-Weierstrass addition law. Under that substitution the 512 conditional-pin
-   constants become points on **y^2 = x^3 + b**,
-   `b = 64019533680030876408443198762210829058751700634554282185987325820393598524794`
-   (219/256 directly, the other 37 after swapping/negating the pin pair) — a sextic
-   twist of secp256k1 (same p, a = 0, different b). The target point is on it too.
-6. **Group order N = 115792089237316195423570985008687907852837564279074904382605163141518161494337
-   — 256 bits and PRIME** (Cornacchia 4p = L^2+27M^2, order verified by killing a point).
-7. **185 of the 219 on-curve table points have their double also in the table** => the 256
-   selectors index a doubling ladder {2^i G}. The assertion the instance makes is
-   `SUM_{i: b_i=1} 2^i G = P_target`, i.e. **k*G = P_target with k the 256 selector bits**.
-8. All 512 conditional-pin handles are forced to 0 mod p (checked), and every "door"
-   factor (X38100, X22399, X23917, X11360, ...) is a copy of p, i.e. 0 mod p. So there is
-   **no mod-p knob anywhere except the selector bits**, and setting them is exactly ECDLP.
+**Machine-checkable certificate: `python3 solve_lab/agentI_work/certify.py`**
+(needs only EQUATIONS.txt; rebuilds its own caches; prints PASS/FAIL per step;
+writes `certificate_results.json`; log in `certify.log`).
 
-=> **No repair of the 39,026 basin, and no search over this instance, reaches 39,033
-without solving a 256-bit ECDLP.** 39,026 is a coding optimum, not a near-miss.
+Steps 0–5b VERIFIED PASS. Step 6 is the adversarial/weight-bearing step.
 
-## Status / best score
-- Baseline re-verified by me: 39,026/39,033 (`best/new_instance_partial_39026.json`).
-- My own mod-p re-solve places the residual in 3 atoms spanning 22 equations => 39,011.
-  WORSE placement than the witness's (7 atoms, 12 equations, 7 fail). Not written out.
+| step | claim | status |
+|---|---|---|
+|0| 39,033 eqs, 40,885 distinct atoms, every atom deg<=2 | PASS |
+|1| **3,707 atoms are `X - p*H` and every handle H occurs in NO other atom** -> each is exactly `X == 0 (mod p)` with a free quotient, so the mod-p abstraction is EXACT | PASS |
+|2a| Z-propagation from EMPTY forces 5,624 vars, 0 conflicts; only large pinned constants anywhere are `p=2^256-2^32-977` (220 vars) and `K` (9 vars) | PASS |
+|2b| mod-p propagation with effective-support determines 28,701 vars from 1,156 boolean decisions, leaving EXACTLY 3 violated atoms `X_k - m_k*X35389` | PASS |
+|2c| three different m_k, each X_k an independent multiple of X6671 -> rank 2 -> **X35389 = X6671 = 0 forced** | PASS |
+|3| **exact symbolic identities** (back-substitution of the instance's own atoms, sympy, not numeric agreement): `X35389 = (x2-x1)^2(x3+x1+x2+K)-(y2-y1)^2`, `X6671 = (y3+y1)(x2-x1)-(y2-y1)(x1-x3)` with x1=X12186 y1=X16742 x2=X14853 y2=X24908 x3=X22162 y3=X30213 K=X24453 | PASS |
+|4| `u = x + K/3` turns these into the STANDARD Weierstrass addition law; the 512 conditional-pin constants become 256 points on `y^2 = x^3 + b`, 219/256 directly and 256/256 after swap/negate; target T on it | PASS |
+|5| group order **N = 115792089237316195423570985008687907852837564279074904382605163141518161494337 is a 256-bit PRIME**; the 256 table points form ONE doubling ladder of length exactly 256 | PASS |
+|5b| embedding degree > 50, not anomalous (N != p) | PASS |
+|6a-e| adversarial: no non-boolean branch; propagation confluent; **mechanism test** — circuit's (x1,y1) equals the independently computed EC sum of the switched-on ladder points; all 512 pin handles forced 0 mod p; releasing a coordinate makes A=B=0 solvable but re-creates the identical gadget one rung up | running |
 
-## Commands
+**Constants for the record**
 ```
-cd /home/user/integer_solver/solve_lab/agentI_work
-python3 parse.py && python3 poly.py && python3 dag.py   # caches (~1 min)
-python3 model.py <assign.json>     # exact score, 0.1 s (matches checker.py)
-python3 boolscore.py wit           # 1 s mod-p re-solve, prints the 3 conflicts
+p = 2^256-2^32-977                (secp256k1 field prime; curve b is NOT 7)
+b = 64019533680030876408443198762210829058751700634554282185987325820393598524794
+N = 115792089237316195423570985008687907852837564279074904382605163141518161494337  (prime)
+K = 97553848499418123410591666447050222001188385549510401465815187079080512838891
+G = (31917591553801470078828036568057743875467637605644620066197178005619323650152,
+     83364444556352143115103874010002344754157095926378075484791050960431190202517)
+T = (x3 + K/3 mod p, y3), x3=X22162=36200939269128454586076546451607958467047992891178506183612554289882454126226
+                          y3=X30213=44859544763832475231923253825569092119321525945631045653619508440821028887
+```
+Solving the instance on this branch = finding k with k*G = T. Honest cost:
+Pollard rho ~ sqrt(pi*N/4) ~ **2^127 group operations**. No MOV, no Smart, no smoothness.
+
+## THE ONE GAP (stated plainly — do not overclaim)
+"All atoms zero" is SUFFICIENT for all 39,033 equations but NOT NECESSARY: each
+equation is an integer combination of 3–24 atoms, 1,853 atoms occur in exactly one
+equation, and the 39,026 witness itself has 9 nonzero atoms. Closing the gap needs
+the compensation-closure result (no nonzero atom vector in the image kills every
+equation) — that is open. So: **the instance contains a 256-bit ECDLP on the
+all-atoms-zero branch, and every construction anyone has run lives on that branch.**
+That is why the 39,026 floor has never moved.
+
+## Score status
+- Baseline re-verified by me with `checker.py`: 39,026/39,033, failing
+  [12231,12270,12350,14584,18673,22044,29125]. CONFIRMED.
+- My own mod-p re-solve puts the residual in 3 atoms spanning 22 equations => 39,011.
+  Strictly worse placement than the witness's (7 atoms / 12 equations / 7 fail).
+  Not written out; nothing of mine beats 39,026.
+
+## Tools (all mine, in agentI_work/)
+```
+parse.py poly.py dag.py     # independent parse -> atoms.pkl / polys.pkl
+model.py <assign.json>      # exact scorer, 0.1 s, reproduces checker.py exactly
+prop.py                     # exact Z propagation from empty
+fp.py boolscore.py          # mod-p propagation with EFFECTIVE-SUPPORT reduction (1 s)
+fprun2.py fprun3.py loop2.py# recorded runs + no-good loop over free-input choice
+cutscan.py                  # disable an atom set, re-solve, see if the rest closes
+certify.py                  # THE CERTIFICATE
 ```
 
-## Next experiment
-Test the curve for the only remaining weaknesses (embedding degree / MOV, small k by
-BSGS). If none, the ceiling is a placement question: minimise #equations whose core is
-nonzero, over reachable residual vectors. My mod-p machine can enumerate distinct
-placements cheaply (one per boolean setting) — look for any placement < 7.
+## Single highest-value next experiment
+`cutscan.py`: for every atom in <=6 equations, disable it (allow it nonzero) and
+re-run the mod-p solve. Any atom whose removal makes the rest consistent absorbs the
+whole defect at a cost equal to its equation count — a hit below 7 beats 39,026 and
+would also be the first real evidence about the compensation gap above.

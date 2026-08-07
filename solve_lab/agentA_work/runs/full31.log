@@ -9,3 +9,4 @@ information set 22, OUT 9
   j=6 supports=38760 [403s]
 EXHAUSTIVE supports <=6 : 38760  sizes=[(6, 38760)]
 admissible violation sets of size <= 6 : 38760
+DONE: 38760 candidates, 0 passed mod-p, 0 integral -> 7 violated is OPTIMAL in this region

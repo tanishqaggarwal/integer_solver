@@ -4,7 +4,7 @@ import json, itertools, sys
 import dlib as L
 from intsolve import solve_int
 
-d = json.load(open('gens26.json'))
+d = json.load(open('gens26b.json'))
 COLS = d['cols']
 base = [int(x) for x in d['base']]
 gens = [(u, [int(x) for x in g]) for u, g in d['gens']]

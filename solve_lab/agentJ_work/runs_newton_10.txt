@@ -1,0 +1,15 @@
+branch (1,0) start violated: [731, 31571]
+
+iter 0: violated 2 [731, 31571]
+  cone 3743 vars, knobs 524
+    col 0/524  0s
+    col 100/524  29s
+    col 200/524  52s
+    col 300/524  82s
+    col 400/524  108s
+    col 500/524  136s
+  Jacobian 967 x 524, nnz 2222  (142s)
+  rank 426 / 524 cols, INCONSISTENT ROWS 2  (0s)
+  -> tangent system inconsistent at this point
+
+FINAL violated mod p: [731, 31571]

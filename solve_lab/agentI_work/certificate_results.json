@@ -1,0 +1,72 @@
+[
+ {
+  "step": "0. instance shape: 39,033 equations / 40,885 atoms, all atoms deg<=2",
+  "pass": true,
+  "detail": "equations=39033 atoms=40885"
+ },
+ {
+  "step": "1. 3,707 atoms are `X - p*H`, every handle H occurs in NO other atom",
+  "pass": true,
+  "detail": "assertion atoms=3707  distinct handles=3707  all handles occur in exactly one atom=True\n=> each is exactly `X == 0 (mod p)` with a free quotient; the mod-p\n   abstraction of the instance is EXACT (no information is lost)."
+ },
+ {
+  "step": "2a. Z-propagation from EMPTY forces 5,624 vars, zero conflicts; the only\n    large pinned constants in the whole instance are p and K",
+  "pass": true,
+  "detail": "forced=5624 conflicts=0  values: 0->4109  1->1286  p->220  K->9\nK = 97553848499418123410591666447050222001188385549510401465815187079080512838891"
+ },
+ {
+  "step": "2b. mod-p propagation (effective support) determines 28,701 vars from\n    1,156 boolean decisions, leaving EXACTLY 3 violated atoms",
+  "pass": true,
+  "detail": "determined=28701 decisions=1156 violated=3: ['a17810: X2287 - 8272701 * X35389', 'a17813: X21889 - 8646263 * X35389', 'a17816: X25156 - 10159099 * X35389']"
+ },
+ {
+  "step": "2c. the 3 violated atoms are `X_k - m_k * X35389` with three DIFFERENT m_k,\n    and each X_k is an independently-derived multiple of X6671\n    => rank 2 in (X35389, X6671) => BOTH are forced to 0 mod p",
+  "pass": true,
+  "detail": "[(2287, 8272701, 35389), (21889, 8646263, 35389), (25156, 10159099, 35389)]"
+ },
+ {
+  "step": "3. EXACT polynomial identities (symbolic back-substitution of the\n   instance's own atoms, not numeric agreement):\n     X35389 = (x2-x1)^2*(x3+x1+x2+K) - (y2-y1)^2\n     X6671  = (y3+y1)(x2-x1) - (y2-y1)(x1-x3)",
+  "pass": true,
+  "detail": "X35389 identity: True\nX6671 identity: True\nleaves x1=X12186 y1=X16742 x2=X14853 y2=X24908 x3=X22162 y3=X30213 K=X24453\n(variables outside the leaf set are replaced by the values FORCED in\n step 2 -- booleans and pins -- so the identity is exact for that branch)"
+ },
+ {
+  "step": "4. substituting u = x + K/3 turns the gadget into the STANDARD Weierstrass\n   addition law, and the 256 conditional-pin constant pairs become points\n   on y^2 = x^3 + b (a = 0), b explicit below",
+  "pass": true,
+  "detail": "selectors with 296-bit pin pairs = 256\npin pairs on the curve in the given order = 219/256\npin pairs on the curve after swap/negate  = 256/256\ntarget point T is on the curve            = True\nb = 64019533680030876408443198762210829058751700634554282185987325820393598524794\np = 115792089237316195423570985008687907853269984665640564039457584007908834671663  (secp256k1's prime; b is NOT 7 -- this is a sextic twist)"
+ },
+ {
+  "step": "5. group order N is a 256-bit PRIME and the 256 table points form a single\n   doubling ladder {G, 2G, 4G, ..., 2^255 G}",
+  "pass": true,
+  "detail": "N = 115792089237316195423570985008687907852837564279074904382605163141518161494337\nN prime = True   N kills a curve point = True\ntrace t = p+1-N = 432420386565659656852420866390673177327   N == p (anomalous)? False\npoints whose double is also in the table = 255/256\nunique chain start = [2779]   chain length from it = 256\nG = (31917591553801470078828036568057743875467637605644620066197178005619323650152, 83364444556352143115103874010002344754157095926378075484791050960431190202517)\nT = (30121525689829097248416773597728729849687459852468451992398421980273013515302, 44859544763832475231923253825569092119321525945631045653619508440821028887)"
+ },
+ {
+  "step": "5b. no MOV/FR reduction and not anomalous: embedding degree > 50",
+  "pass": true,
+  "detail": "embedding degree k with N | p^k-1 for k<=50: None"
+ },
+ {
+  "step": "6a. every branch point of the mod-p propagation has root set exactly {0,1}\n    (a non-boolean branch would be a continuous knob and would refute the claim)",
+  "pass": true,
+  "detail": "non-boolean branch points found: 0 []"
+ },
+ {
+  "step": "6b. propagation is confluent (same result on repeat); every non-decision\n    assignment came from a unit clause, so A and B are a FUNCTION OF THE\n    BOOLEAN DECISIONS ALONE",
+  "pass": true,
+  "detail": "identical=True"
+ },
+ {
+  "step": "6c. MECHANISM TEST: with random selector subsets switched on, the value the\n    circuit derives for (x1,y1) is exactly the elliptic-curve SUM of the\n    corresponding ladder points 2^i*G, computed independently.\n    (If the circuit were doing anything other than the ladder, this fails.)",
+  "pass": false,
+  "detail": "matched 0/0 predictions\n  |S|=3: (x1,y1) released (free) -- no prediction\n  |S|=4: (x1,y1) released (free) -- no prediction\n  |S|=5: (x1,y1) released (free) -- no prediction\n  |S|=3: (x1,y1) released (free) -- no prediction\n  |S|=4: (x1,y1) released (free) -- no prediction\n  |S|=5: (x1,y1) released (free) -- no prediction"
+ },
+ {
+  "step": "6d. every one of the 512 conditional-pin handles is forced to 0 mod p, so an\n    active pin fixes its advice value EXACTLY mod p (no continuous knob).\n    A single handle that were free mod p would refute the reduction.",
+  "pass": true,
+  "detail": "conditional pins=512  handles not forced 0 mod p=0"
+ },
+ {
+  "step": "6e. ADVERSARIAL: releasing a coordinate (switch on one more selector) makes\n    A=B=0 SOLVABLE -- and re-introduces the identical gadget one rung up the\n    ladder.  The constraint is invariant; only its position moves.",
+  "pass": true,
+  "detail": "selector X47 released (x1,y1) with 0 conflicts;\nsolving the cubic for (x1,y1) gives A=0 B=0 (both zero),\nand exactly 3 NEW violated atoms appear: [19520, 19523, 19526]\n-- the same `X_k - m_k*X_j` triple, now for the previous ladder rung."
+ }
+]

@@ -15,3 +15,8 @@ bit x1413   (A,B)=POLY  nres=8
   (47,438): non-numeric
   (47,490): non-numeric
   (91,112): non-numeric
+  (91,438): non-numeric
+  (91,490): non-numeric
+  (112,438): non-numeric
+  (112,490): non-numeric
+  (438,490): non-numeric
