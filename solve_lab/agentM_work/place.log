@@ -9,3 +9,31 @@ extra=(11877,) (new knobs [23642], 30 affine): best 39026 via None   [54s]
   extra=(11878,): 37 cands -> 30 affine (1s)
 extra=(11878,) (new knobs [37413], 30 affine): best 39026 via None   [71s]
   extra=(11879,): 37 cands -> 30 affine (1s)
+extra=(11879,) (new knobs [15324], 30 affine): best 39026 via None   [89s]
+  extra=(20448,): 37 cands -> 30 affine (1s)
+extra=(20448,) (new knobs [9629], 30 affine): best 39026 via None   [106s]
+  extra=(20451,): 37 cands -> 30 affine (2s)
+extra=(20451,) (new knobs [18253], 30 affine): best 39026 via None   [124s]
+  extra=(20453,): 37 cands -> 30 affine (1s)
+extra=(20453,) (new knobs [37720], 30 affine): best 39026 via None   [143s]
+  extra=(23619,): 37 cands -> 30 affine (1s)
+extra=(23619,) (new knobs [23754], 30 affine): best 39026 via None   [161s]
+  extra=(23623,): 37 cands -> 30 affine (1s)
+extra=(23623,) (new knobs [35619], 30 affine): best 39026 via None   [178s]
+  extra=(36657,): 37 cands -> 30 affine (2s)
+extra=(36657,) (new knobs [1844], 30 affine): best 39026 via None   [196s]
+
+=== SUMMARY ===
+  extra=(): 39026  via None
+  extra=(11876,): 39026  via None
+  extra=(11877,): 39026  via None
+  extra=(11878,): 39026  via None
+  extra=(11879,): 39026  via None
+  extra=(20448,): 39026  via None
+  extra=(20451,): 39026  via None
+  extra=(20453,): 39026  via None
+  extra=(23619,): 39026  via None
+  extra=(23623,): 39026  via None
+  extra=(36657,): 39026  via None
+
+BEST OVERALL 39026   baseline 39026

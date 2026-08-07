@@ -519,3 +519,56 @@ same four variables, and the fifth is explained.
 
 (Stated as structure I can verify in my own frame; I cannot read P's handle list and am not
 asserting how P's population was built.)
+
+## 32. Alternative placements priced (`engine3.py`, `place.py`) — none beat 39,026
+`eqsub` priced *repairs of the current placement*. This prices *different placements* using the
+cancellation mechanism the deliverable itself exploits (8 nonzero atoms seen by only 7 equations,
+versus E's 2-nonzero-atom state failing 28: more atoms, fewer failures, because they cancel).
+
+**Method.** `engine3.Eng(demote)` generalises engine2 to an arbitrary demotion set. The property
+that makes the search sound: **demoting an atom and seeding its variable with its current value
+leaves the state bit-identical**, so a demotion is score-neutral and purely adds a degree of
+freedom. Verified for every candidate (`0 vars differing, score 39026, 8 bad atoms`); any
+candidate failing that check is skipped rather than trusted.
+
+**Candidates.** Atoms that are (i) currently zero, (ii) present in a failing equation, (iii) a
+definer (hence demotable): **10 of them** — `11876, 11877, 11878, 11879, 20448, 20451, 20453,
+23619, 23623, 36657`. Demoting one frees a new variable that can be moved to *cancel* the existing
+nonzero contribution inside that shared equation, instead of driving atoms to zero.
+
+**Result** — for each, equation-target subsets of size 1 and 2 solved, applied, re-propagated and
+scored exactly:
+
+    extra=()         39026     extra=(20448,)  39026     extra=(23619,)  39026
+    extra=(11876,)   39026     extra=(20451,)  39026     extra=(23623,)  39026
+    extra=(11877,)   39026     extra=(20453,)  39026     extra=(36657,)  39026
+    extra=(11878,)   39026     extra=(11879,)  39026
+    BEST OVERALL 39026  (baseline 39026)   -- "via None": no subset improved on the baseline
+
+**A structural constraint found on the way.** Equations **12270** and **18673** have **zero
+demotable zero atoms** — every other atom in them is either already nonzero or not a definer. So
+those two failures cannot be addressed by this move at all, whatever values are chosen. Any
+placement search that works by adding cancelling atoms inside the failing equations is blocked on
+2 of the 7 from the start.
+
+## 33. SCOPE of the placement result — what it does and does not price
+State this plainly, because the difference is the whole remaining question.
+- `eqsub` (§24) prices **repairs of the current placement**: 127 subsets, all feasible, best 39,023.
+- `place.py` prices **alternative placements in a local neighbourhood of the current one** — those
+  reachable by demoting ONE additional atom drawn from the current failing equations, with
+  equation targets of size <= 2.
+- **It does NOT price a genuinely different placement**: corrupting a *different set of handles*
+  altogether. That space is not reachable by adding atoms to the current failing equations; it
+  requires choosing a different 4-handle corruption, and the handle population is P's object, not
+  something I can enumerate from the residual side. **That is the space still untested, and it is
+  where anything above 39,026 would have to live.**
+- Neither run explored subsets of size >2 for the enlarged knob sets, on the eqsub evidence that
+  larger targets are monotonically worse (7 failures -> 44 when all 7 are targeted).
+
+## 34. Round-4 score attempts — all equal to or below baseline
+    every single extra demotion x size-1/2 equation targets (11 placements) ... 39026, none above
+No candidate file above 39,026 produced (`ls M_place_*.json` -> none).
+
+## 35. Round-4 files
+`engine3.py` (configurable demotion set + validate) · `place.py` -> `place.pkl`, `place.log` ·
+`placecands.pkl` (the 10 candidates). No other agent's directory touched; no git commands run.

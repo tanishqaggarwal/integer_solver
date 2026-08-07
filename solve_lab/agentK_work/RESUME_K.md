@@ -175,7 +175,31 @@ For a stage whose children own disjoint exponent sets `J1, J2`:
 x = sum_{S1} 2^e  (bits in J1),   y = sum_{S2} 2^f  (bits in J2),   need x ≡ y (mod N)
 ```
 
-### 4a. Which modulus bounds the walk — the question agent P raised, answered
+### 4.0 THE EXACT FORM OF THE CLAIM — read this before the rest of §4
+
+The negative is **a statement about the partition, not about `N`**. The arithmetic-only version
+is **false**, and I verified that rather than assuming it:
+
+> `N` has 192 one-bits and 64 zero-bits. Take `j` with `bit_j(N)=1, bit_{j+1}(N)=0` (`j = 0`
+> works); rewriting `2^j = 2^{j+1} - 2^j` gives non-empty disjoint `A, B ⊆ {0..255}` with
+> `Σ_A 2^e - Σ_B 2^e = N`. Checked numerically: holds exactly.
+
+So *some* pair of disjoint exponent sets satisfies the equal-inputs condition. What is being
+claimed, and all that is being claimed, is:
+
+> **THEOREM (partition form).** For every stage of this instance, neither of its two slot
+> supports contains all of `{129..255}`. Since `2^256 - N < 2^129`, a set omitting any exponent
+> `>= 129` has subset sums strictly below `N`. Hence `|x - y| < N` at every stage, so `x = y`,
+> so (disjoint supports) both sides are empty — which the liveness gate forbids.
+
+The load-bearing facts are therefore **measured partition facts**, not properties of `N`: the
+root's two halves each omit many exponents `>= 129` (43 and 84 witnesses), and every interior
+stage's support is a subset of one root half. Attack those, not the arithmetic.
+
+My earlier phrasing did not make this explicit and could be read as the stronger, false claim
+that no disjoint pair represents `N`. That reading is wrong and I am correcting it here.
+
+### 4a. Which modulus bounds the walk, and how many wraps must be excluded
 
 **The governing modulus is `N`**, the order of the chain base: measured, not assumed —
 `k21_order.py` composes the chain with itself `N` times and lands on the law's identity, and
@@ -185,15 +209,25 @@ x = sum_{S1} 2^e  (bits in J1),   y = sum_{S2} 2^f  (bits in J2),   need x ≡ y
 `2^256 - N = 432420386565659656852420866390673177327`. So if the argument needed
 "modulus > largest signed subset difference", it would be **broken**, and P is right to press.
 
-It needs something weaker, which does hold, by a factor of about two:
+It needs something weaker, which does hold, by a factor of about two. **Stated without any
+premise about how the instance was built** — it uses only the measured facts that each input's
+scalar is a subset sum of `{2^e : e = 0..255}` with each exponent available at most once
+(that is the doubling identities of §4c, checked 255/255) :
 
 ```
-every stage:  |x - y|  <=  sum_{e in J1 u J2} 2^e  <  2^256  <  2N        [2N - 2^256 > 0, asserted in k32]
+max possible |x - y|  =  2^256 - 1
+2N                    =  231584178474632390847141970017375815705675128558149808765210326283036322988674
+2N - (2^256 - 1)      =  115792089237316195423570985008687907852405143892509244725752742275123193348739   > 0
 ```
-so the multiples of `N` in range are exactly `k = 0, +1, -1`. `k = 0` needs `x = y` on disjoint
-bit supports, i.e. `x = y = 0`, excluded because both halves must be live. **`k = ±1` therefore
-exhausts the cases and a two-direction carry walk is complete.** The right condition to quote is
-`2N > 2^256`, i.e. `N > 2^255`, not `N > 2^256`.
+
+so the only multiples of `N` reachable are `k = 0, +1, -1`, **unconditionally**. `k = 0` needs
+`x = y` on disjoint bit supports, i.e. `x = y = 0`, excluded because both halves must be live.
+**`k = ±1` therefore exhausts the cases** and a two-direction walk is complete. The right
+condition to quote is `2N > 2^256 - 1`, i.e. `N > 2^255`, **not** `N > 2^256`.
+
+*(Recomputed independently after the coordinator supplied the same bound. Same conclusion; the
+slack is `≈ 1.158 × 10^77`, one decimal order larger than the `10^76` quoted to me. The
+conclusion is unaffected — the slack is about half of `2N` either way.)*
 
 ### 4b. My interior-stage argument was WRONG. Corrected here.
 
@@ -250,11 +284,16 @@ my 178/78 split being exactly right, on which side exponent 163 sits, or on any 
 bookkeeping. The earlier deterministic walk (`k22`, `k32`) and the 0-of-2000-random-partitions
 measurement agree with it and are kept as independent confirmations.
 
-**Audit trail, kept deliberately.** This negative was wrong twice before it was right:
-first the interior case (`|x-y| < 2^n`, false — §4b), then the tree-free test in `k33` which
-*failed to close* because my supports were over-approximations. Both were found by taking P's
-challenge seriously rather than defending the claim. If it is challenged again, the thing to
-attack is step 3 — the measured claim that each root half omits an exponent `>= 129`.
+**Audit trail, kept deliberately.** This negative was wrong three times before it was right:
+the interior case (`|x-y| < 2^n`, false — §4b); the tree-free test in `k33`, which *failed to
+close* because my supports were over-approximations (§4d); and the **phrasing**, which read as
+the stronger claim that no disjoint pair of exponent sets represents `N` — that claim is false
+and §4.0 exhibits the witness. All three were found by taking outside challenges seriously
+rather than defending the claim.
+
+**If it is challenged again, attack step 3** — the measured claim that each root half omits an
+exponent `>= 129`. That single fact, plus "every interior stage sits inside one root half", is
+the entire content. Everything else is arithmetic that holds unconditionally.
 
 ### 4c. Restated without any premise about how the instance was built
 

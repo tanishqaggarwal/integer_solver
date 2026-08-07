@@ -1,2 +1,4 @@
 equations 39033
 deliverable            checker 7 failing -> score 39026   |  E 13 failing -> 39020   (E over by 6)
+gs2 24601              checker 20 failing -> score 39013   |  E 20 failing -> 39013   (E over by 0)
+gs2 2081               checker 20 failing -> score 39013   |  E 20 failing -> 39013   (E over by 0)

@@ -1270,3 +1270,80 @@ than take the coordinator's word.
 
 If it holds, β's two congruences vanish identically, β's output is unconstrained, and the root
 is reached by inverting the law in closed form — **a full solve with no scalar recovery.**
+
+---
+
+## Check-in 16 — the exact scorer exists, and 927 is confirmed independently (agent L)
+
+Deliverable unchanged: **39,026 / 39,033**. L's own best remains 39,018.
+
+### The instrument this campaign has been missing
+
+**An exact in-memory scorer**: `CK.load_equations()` once, then **~1.1 s per candidate**,
+calibrated on two known points — deliverable → **7**, `assign_L1` → **15** — both matching
+`checker.py`. Every cancellation argument made in this lab before now was made without one.
+
+**By-product, and it matters as much:** `E.score` returns **13 for the deliverable where the
+truth is 7**. Every incidence-based number in L's earlier report and in `cut.py` is inflated and
+only **ordinally** useful. That is the **third independent demonstration that incidence pricing
+fails** (C at check-in 3, P at check-in 10, now L), from a direction neither of the others took.
+
+### The ON-set: L retracts, and the mechanism is measured
+
+Test: all 256 leaves are *free* variables, so the deliverable's JSON value **is** the bit — no
+propagation, no inference (`onset_deliv.py` reads all 256 directly). **Exactly `x2081` and
+`x24601` are set to 1.** M, K, P, R and Q are right. L's single-leaf reading came from a **stale
+partial model covering only the 178-side** — 2081 lives on the 78-side, so that extractor could
+not see it. Same root cause as L's retracted 2^178. The current `full_model.pkl` does contain
+2081, so nothing else L reported depends on the stale model.
+
+**Measured mechanism** (`rootcheck.py`, `delivsite.py`), adopting Q's framing of two selectors
+ON and one leaf propagating: `LCA(2081, 24601) = ROOT x9274`, 24601 under the a-child, 2081
+under the b-child, root `sel_ab = 1`; root `va` input **== root `vb` input exactly in both
+coordinates**, both equal to L's model value for **leaf 24601** transported to the root frame;
+and root `vab` wires x30213, x22162 = **exactly the target pair L derived independently**. Cut
+site: child **x27994**, parent **x4971.va** — 2 guards + 2 slot links = **4 atoms = 7 equations**.
+
+**K's "root inputs forced equal" and Q's "never folds, one leaf passes up" are the same event
+from two sides**, and the deliverable's independently-set root wires holding L's independently
+derived target is the strongest cross-check of L's reduction in the file.
+
+### The 927 confirmed from an independent decomposition
+
+`hcheck.py`: L's 3,681 "handle" variables are free, appear in **0 residual atoms directly** and
+in **exactly 1 definition** — they are the **cofactors `u`**. **L counted `u` and concluded about
+`h`**, precisely P's diagnosis, and says so. Splitting by measured multiplier: **c = 1 for
+2,747, c > 1 for 927**, 7 zero-slope. **L's 927 = P's 927**, from decompositions that share
+nothing. The lift is **not** free and L's §3 criterion is restated **mod p**.
+
+### First empirical data on how binding the 927 are
+
+| \|S\| | distinct c>1 atoms violated | left undischarged by L's repair |
+|---|---|---|
+| 1 | 2 | **0** |
+| 2 | 4 | 1 |
+| 17 | 36 | 8 |
+
+Every violated atom is **inside** the `c > 1` set; none outside it. They are **sparse but grow
+with |S|**, and L's greedy round-robin repair cycles at its 60-round cap. L's own conclusion,
+unprompted: **a simultaneous CRT solve over the ~766 shift parameters is what is needed, not
+round-robin — and that is exactly P's rank question.** Routed to P as input.
+
+Scope: only |S| = 1 is verified over ℤ end-to-end (`assign_L1.json`, 15 failing, both
+attributable to the two target atoms). **The table measures L's repair, not the instance's
+lift.**
+
+### The cancellation search — instrument built, family mis-specified
+
+L's generalisation of the deliverable's cut **fails to reproduce it at the deliverable's own
+site**: 9 atoms / 49 equations with vab set, 7 / 47 without, against the true **4 / 7**. The
+family is mis-specified by **5 atoms**. **No placement below 7 found; P is not contradicted.**
+
+L's next step is diagnostic rather than a sweep, and I have endorsed it: diff the 9 broken atoms
+against the deliverable's known 4 (prime suspects: the top slot links x24468/x18956 →
+x13682/x37892, pinned to the target pair while also rewriting the root vab wires), **and fix the
+divisibility repair first** — L measured that the un-converged round-robin injects nonzero atoms
+unrelated to the cut, which would masquerade as bad placements in exactly the sweep it wants to
+run. A contaminated instrument, caught before use.
+
+`|S| = 3` finished: 2,763,520 folds, **no hit**. `|S| = 4` left running unattended, not blocked on.

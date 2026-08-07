@@ -74,6 +74,12 @@ base = triple8_seed. This is the whole cone of the 5 rows, so no free variable o
 affect them — but bfs2 did not converge, so this is *measured*, not proved.
 
 ### 3b. `lat5.py` corroboration (independent of the BFS mod-p reading)
+**Status: 19 of 48 configurations completed, 0 feasible.** The remainder was sharded across three
+`lat5p.py` workers but the box is heavily contended (7+ other agents' python jobs); the workers
+were getting roughly 6% CPU each, so the sweep was left running rather than completed. Anyone
+resuming should check `runs_lat5b.log` (configs 0-18, serial) and `runs_lat5p_{0,1,2}.log`
+(configs 18-47, sharded) before re-running anything.
+
 `lat5.py` re-measures knobs, handles AND targets at each configuration and runs the full exact
 integer solve. Across every configuration it processed, **a20215 was in the bad set in 100% of
 them** — and it was never the *reported* blocking row, because it does have a handle (step p) and
@@ -195,9 +201,10 @@ exceeds the largest signed subset difference. My corroboration is independent of
 - **I did not beat it.** E's 39,005 reproduced exactly. Best of my own constructions: 39,019.
 
 ## 8. Next experiments, priority order
-1. **`lat5.py` was still running at 26/48 configurations, 0 feasible.** Finish it
-   (`python3 lat5.py`, ~40 s/config). It re-measures knobs, handles AND targets per
-   configuration and does the full exact solve — the cleanest remaining falsification test.
+1. **`lat5.py` — see §3b for the result.** Serial `lat5.py` is slow (~45 s/config); use
+   `lat5p.py` instead, which takes `WK`/`NW` env vars and shards the configuration list across
+   workers (`for w in 0 1 2; do WK=$w NW=3 python3 lat5p.py & done`). Note `lat5p.py` as written
+   skips `i<18` — remove that guard to sweep from the start.
 2. **Let `bfs2.py` converge** (it had not; raise the time limit and the `frontier=nf[:40]` cap).
    If it closes with a20215 mod p still taking 2 values, §3 becomes a closed statement over the
    entire cone rather than a measurement.
