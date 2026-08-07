@@ -4821,3 +4821,35 @@ coordinator had.
 
 Artifacts `close_T2ctl/T3/T5/T6/T7/T8.json`, all checker-verified. L's invalid
 `close_S3/S5/S8.json` were **not read**. `LEDGER.md` 118 lines; `RESUME_T.md` 995 lines (A–AQ).
+
+---
+
+## Container restart at 13:38 UTC — fleet relaunched, nothing lost
+
+The execution container was reclaimed and restarted (`uptime` showed 1 minute). **All three live
+agents — M, N, T — were killed mid-task.** Everything committed survived: working tree clean at
+check-in 86, all artifacts present (`close_T2ctl/T3/T5/T6/T7/T8.json`, `runs/polysize.json`,
+`LEDGER.md` 118 lines, `RESUME_T.md` 995, `RESUME_N.md` 132, `RESUME_M.md` 363), and the
+**deliverable re-verified from cold: 39,026/39,033, failing `[12231, 12270, 12350, 14584, 18673,
+22044, 29125]`.**
+
+**The one task lost was T's 15-pair two-wire shift**, which had been launched moments before the
+restart and had not run.
+
+**Relaunched per this file's restart procedure** — fresh agents pointed at their own RESUME files so
+each continues rather than restarts:
+
+| agent | task on relaunch |
+|---|---|
+| **T** | The **two-wire shift**: 6 wires, 15 pairs, exhaustive, on the `\|S\| = 8` residue `((x21408*x10138)-(15333171*x658))`. A pair clearing it moves the closure boundary; none clearing it makes the obstruction survive **both** univariate and bivariate shifts on its own wires. |
+| **N** | The **polynomial system**: the witness region's 12 rows in the 7 zero-collateral knobs via Gröbner/`msolve`, carrying the atoms' products. **Dimension and degree reported before any solve attempt** — if out of reach, the size is the result. |
+| **M** | Finish the **2¹⁶ enumeration** from its checkpoint, in increasing support size, reporting the distribution per size rather than the maximum. G1 to be re-verified first, since T established the engine reconstructs the deliverable byte-for-byte. |
+
+All three carry the standing rules, the accepted corrections (7 → 12 not 7 → 13; cofactor freedom
+4-dimensional not 12; `x642`/`x28730` are defined P-multiples not free cofactors; `S`'s 18 ≠ M's
+enumeration exponent 18), **and the withdrawal of "O's Lemma is the 39,025 → 39,026 step"** with the
+note that M's space reduction does not depend on it.
+
+**A coordinator heartbeat is scheduled every ~50 minutes** for the authorised 8-hour window: check
+for another restart, commit in-flight work, verify the three transcripts are still being written,
+and relaunch from RESUME files if any agent has died.

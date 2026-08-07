@@ -1,0 +1,7 @@
+atoms with syntactic target: 31842
+distinct target vars: 30001
+never a target (pure free inputs): 8747
+known after propagation: 38748  unresolved (cycles): 0
+definitions used: 30001 check atoms: 12266
+checks in >1 eq: 9032
+mean eqs per check: 9.31672917006359
