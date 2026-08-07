@@ -12,7 +12,58 @@ constants read out of `EQUATIONS.txt` and verified against the equations themsel
 - **I did not beat it.** Nothing in `agentK_work/` is a better partial.
 - **No infeasibility is claimed.** The instance is *satisfiable*; see §5.
 
-### READ THIS FIRST — I withdrew my own main negative result
+### READ THIS FIRST (2) — I OVER-WITHDREW. Both grounds were measurement errors.
+
+The section below withdrew §4 as a barrier on two tests. **Both tests were wrong, and I found
+it by being pushed to re-check them.** Corrected:
+
+**Q's question — did any TEST 1 configuration actually fold? — answered: NO, none of them.**
+Checked against my own root split: `{e0,e1}` is **A,A**; `{e3,e10}` is **B,B**; `{e3,e5}` is
+**B,B**. All three put both live leaves under the *same* root slot, so none folds at the root.
+Q's candidate explanation (1) was right about the configurations. And the two findings are the
+**same phenomenon from two sides**: when a configuration does not fold, the root gate is off and
+the *pass-through* gate `x34606` is on — which is exactly the wire that opened the backward
+derivation below. Q's non-folding observation and my backward-path bug are one mechanism.
+
+**Decisive re-run (`k42.log`): with the backward paths into the root slots forbidden,
+`ON={e0,e1}` now matches — `A == 3G`, derived forward through its own pin.** So the composition
+*is* present, literally, no aliasing needed. **TEST 1's null meant nothing about the circuit.**
+
+Residual gaps remain and I am not hiding them: `ON={0,1,2,4}` (four A-half leaves) and the
+B-half pairs still do not match. I only blocked backward paths into the **root** slots; the same
+artifact almost certainly persists at interior slots. Each block so far has converted failures
+into matches, which is why I read the remainder as more of the same rather than as evidence
+against the premise — but that is an expectation, not a measurement.
+
+* **TEST 1's null was a backward-derivation artifact — my own bug, second instance.** I had
+  fixed the closure running the *target pin* backwards, but not the **pass-through gate** path:
+  `x608 = x34606·x12186` lets a downstream output drive the slot when the gate is a
+  pass-through. Provenance (`k40.log`) shows it directly: for `ON={e0,e1}` the A slot was
+  derived by `(x608-(x34606*x12186))` — backwards — and did **not** match; for `ON={e0,e1,e3}`
+  the *same wire* was derived by its own pin `((x12186-x23927)-x25758)` — forwards — and **did**
+  match. Same wire, same prediction, different derivation order, opposite verdict.
+  (`k39_alias.py` separately ruled out the aliasing explanation: all **191** alias-shaped atoms
+  have a **zero** additive term at handles=0, and an alias search over **158,026** real
+  (wire, wire, coefficient) triples found nothing, with a control returning 139,415 hits. So
+  aliasing was not the cause — a second backward path was.)
+* **TEST 2 was measured in the wrong currency.** I reported "a random slot value costs 1–2 extra
+  nonzero atoms" and read that as "barely constrained". In **equations** (`k41.log`), forcing a
+  random wrong value onto a root slot costs **+16 / +12 / +14 / +14 failing equations** against
+  a baseline of 34. Those atoms sit in 11–16 equations each — a number I had already measured in
+  §4e and failed to apply to my own test. **The slots are firmly constrained, not free.**
+
+**Net: my evidence against the partition premise has evaporated. The withdrawal below was too
+strong and I am retracting it.** That does not restore §4 to "closed" — step 2 is still not
+*established*, and the B-half multi-leaf gap is still real. The honest status is: **§4's premise
+is unrefuted and supported, but not proved; §4 is a plausible barrier, not a demonstrated one.**
+Anyone acting on this should treat the degeneracy route as *probably* unreachable and worth one
+more attack, not as either closed or open.
+
+Lesson worth carrying: I produced a confident negative, then a confident withdrawal of it, and
+**both were wrong for the same underlying reason** — a closure that will happily solve
+constraints backwards, and a habit of counting atoms when the score counts equations.
+
+### READ THIS FIRST — I withdrew my own main negative result (SUPERSEDED BY THE ABOVE)
 
 An earlier version of this file presented §4 as a **closed barrier**: no gadget in the circuit
 can ever be fed two coinciding inputs, so the free-output mechanism is unreachable. Agent Q's

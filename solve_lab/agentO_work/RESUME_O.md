@@ -202,3 +202,33 @@ the small-modulus extraction there is unreliable and is superseded by `invert.py
 `hitrate.py` (**the rate**), `bscan.py` (**zero variance across 35 configurations**),
 `target.py` + `target.json` (the exact inverted target, verified end-to-end).
 Logs for all of these are in `runs/`.
+
+## 8. Check-in 38 round — δ₀ PRICED IN FRAME B.  Negative, with an exact mechanism.
+Full write-up in **`DELTA0_STATUS.md`** (read it before using `DELTA0_FOR_M.json`).
+
+- Frame B (`frameB.Frame([642,28730,29854,31864])`, agentH_work imported read-only) reproduces
+  the witness bit-for-bit: 39,026, same 7 failures, **0 variables differing**.
+- Both open carriers are themselves **free inputs** in frame B, so I redid the region solve
+  natively over 12 knobs `{642,1329,9413,10903,17325,28730,29854,31864} + {7068,4432,8731,9118}`.
+  They reach exactly **12 checks / 29 equations**, and **all 7 failures are inside** — nothing
+  unreachable.
+- **Every one of the 7 failing equations is individually buyable, and every purchase costs
+  exactly `eq8680`.**  Score pinned at 39,026 seven ways; no pair is buyable.
+- **Mechanism**: `eq8680`'s only atom `a37887` is a **perfect square**, source literally
+  `(S)*(S)`, with `S = 0` at the witness.  So `eq8680` is the *linear* constraint `S = 0`, and
+  `dS/dx_4432 = +1`, `dS/dx_28730 = −1`, zero for every other knob.  `S = 0` is exactly
+  `δx_4432 = δx_28730`, which **collapses the L direction onto the private x_28730 direction —
+  annihilating precisely the degree of freedom δ₀ needs**.  With `S = 0` added as an explicit
+  row, nothing is buyable at all.
+- My atom-level model could not see this: it drops `a37887` as nonlinear, and `a37887` is the
+  one atom *outside* the region tying the two carriers together.
+- **Exhaustive follow-up**: `a37887` has 26 supporting free inputs, 17 of which move `S`.  All
+  15 outside the 12 were added one at a time and the maxsat re-run — **none makes anything
+  buyable**, including the selector x_2081 at 131 rows.
+- **Scoped claim**: 39,026 is exactly optimal over those 12 knobs and over every 13-knob
+  extension by an S-mover, with all other free inputs at the witness's values.  Nothing claimed
+  outside that knob set.
+- Independently confirms and sharpens H's "a22231 buys 1 row and costs eq8680, exactly": it
+  holds for **all seven** failures, and the mechanism is `S = 0`.
+- Files: `fb_probe.py`, `fb_solve.py`, `fb_max.py`, `fb_nl.py`, `fb_sq.py`, `fb_free_s.py`,
+  `emit_delta0.py`; handoff `DELTA0_FOR_M.json` / `.md` + **`DELTA0_STATUS.md`**; logs in `runs/`.

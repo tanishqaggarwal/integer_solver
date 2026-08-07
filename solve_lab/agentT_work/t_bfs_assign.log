@@ -3,3 +3,8 @@ move set: 256 booleans + switch 30163 = 257 moves
 == TEST 2: BFS deduped on the ASSIGNMENT (bfs.py used nf[:40] and key dedup) ==
 gen1: 1 -> 257 new states; distinct 5-tuples 7; distinct a20215 2; evals 257; 2s
 gen2: 257 -> 32896 new states; distinct 5-tuples 22; distinct a20215 2; evals 33153; 275s
+gen3: 32896 -> 282548 new states; distinct 5-tuples 35; distinct a20215 2; evals 315701; 2400s
+
+RESULT distinct 5-tuples reached: 35   (bfs.py reported 48 as the CLOSURE)
+RESULT distinct a20215 values : 2   (RESUME_S §3 reports 2)
+a20215 == 0 reached? False

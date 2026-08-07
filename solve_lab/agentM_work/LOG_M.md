@@ -930,3 +930,81 @@ as O describes -- which makes (a) the more likely gap.
 ## 57. Round-8 files
 `delta0.py` -> `delta0.log`. Nothing above 39,026 was produced, so no assignment was written to
 disk and there was nothing to verify with `checker.py`.
+
+---
+
+# LOG_M ROUND 9 — coordinates and dimension fixed; the magnitude bet is REFUTED
+
+## 58. T's calibration reproduced exactly, and the far side corrected to 12
+    deliverable with the 12 cofactors zeroed -> score 39021, 12 failing
+    [2554, 6816, 8124, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+    MATCH score True   MATCH list True   support identical to the deliverable's 8 atoms
+My scorer agrees with the `checker.py` CLI on a third independent point. **Pricing against
+7 -> 12, gap 5.** (My earlier "13" came from zeroing 16 variables -- the 12 cofactors AND the
+4 wires -- not the 12 cofactors alone. T is right.)
+
+## 59. TRUE DIMENSION: 12 coordinates, measured not assumed
+    live cofactors (4)   1329 (+3), 9413 (+4), 10903 (+3), 17325 (+4)
+    dead cofactors (8)   105, 3387, 5081, 5676, 11436, 14393, 14768, 22820 -- all ALREADY 0
+    broken-atom wires(4) 642, 28730, 29854, 31864
+    carriers (4)         7068, 4432, 9118, 8731
+    UNION = 12 coordinates
+My per-cofactor deltas reproduce T's exactly (+3/+4/+3/+4). **The coordinator's correction is
+confirmed from my side too:** all four wires are `free=False` in the base harness and
+`free=True` in my frame -- assignable only because the deliverable breaks their defining atoms,
+which is precisely what engine3's demotion encodes. I was not solving over free cofactors.
+
+## 60. The affine geometry is exact and completely explains the obstruction
+All **12/12 coordinates are affine**. Their atom columns:
+
+    x_8731  -> [36662]            x_9118  -> [36660]          <- ZERO-COLLATERAL (O confirmed)
+    x_1329  -> [36659]            x_9413  -> [23617]
+    x_10903 -> [36661]            x_17325 -> [36664]
+    x_642   -> [23616, 36664]     x_28730 -> [23617, 23618]
+    x_29854 -> [36659, 36660]     x_31864 -> [36661, 36663]
+    x_7068  -> [23616, 34120]     <- LEAKS to 34120
+    x_4432  -> [8721,  23618]     <- LEAKS to 8721
+
+Only two coordinates leave the 9-atom region, and they leak to exactly one atom each.
+
+## 61. THE MAGNITUDE BET IS REFUTED, and the reason is structural
+Solving the 7 failing equations over the 12 coordinates:
+
+    raw solution      (shifts up to 3593 bits)  -> score 38999, 34 failing
+    minimal reps      (max 255 bits; x642 21 bits, x7068 18 bits) -> score 38992, 41 failing
+    reduce one coordinate at a time             -> 38993 .. 38996, EVERY ONE worse than raw
+
+Together with round 8, where the reduction WAS compensated (delta0's d1 taken 2440 -> 22 bits
+with `x_642 += (d1r-d1)/7376877`): **38,993 reduced vs 38,998 unreduced.** Compensated or not,
+shrinking the shift does not help.
+
+**The reason, measured directly:**
+
+    move x_7068 by +1  -> failures 7 -> 23   (+16)
+    move x_4432 by +1  -> failures 7 -> 28   (+21)
+    move x_9118 by +1  -> failures 7 -> 10   (+3)
+    move x_8731 by +1  -> failures 7 -> 11   (+4)
+
+> **A +1 move of x_7068 already costs 16 equations.** The cost is not in the size of the shift,
+> it is in perturbing atom 34120 *at all* -- and 34120 drives 12 of the baseline equations
+> (LOG 47). Reducing 2440 bits to 22 bits changes nothing because the penalty is incurred at
+> the first bit.
+
+**And x_7068 is the only route to the external part of atom 23616, exactly as x_4432 is the
+only route to that of 23618.** So the two shifts delta0 needs are carried by the two
+coordinates that cannot be moved at all. That is a magnitude-independent obstruction, and it
+is the same variable that buys 12 of the deliverable's 18 fixes (LOG 47) -- `x_7068` cannot
+simultaneously hold 34120 at zero and carry the a23616 shift.
+
+## 62. Standing prices (nothing has beaten 39,026)
+    deliverable                                   39026
+    far side, 12 cofactors zeroed                 39021  (12 failing)
+    lattice solve over the 12 coords, raw         38999
+    lattice solve, minimal representatives        38992
+    O delta0, best of 12 interpretations          38998
+    my own solve making all 13 region eqs hold    38984
+
+## 63. Round-9 files
+`dimcheck.py` -> `dimcheck.json`, `dimcheck.log` · `pricemin.py` -> `pricemin.log`.
+Nothing exceeded 39,026, so no assignment was written and there was nothing to verify with
+`checker.py`.

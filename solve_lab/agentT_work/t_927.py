@@ -24,7 +24,7 @@ for i,a in enumerate(names):
 H=pickle.load(open(os.path.join(LAB,'agentL_work','handles.pkl'),'rb'))
 U=sorted(set(H['handle']))
 print("cofactors u borrowed from L: %d"%len(U))
-defpat=re.compile(r'^\(x_(\d+)-\(x_(\d+)\*x_(\d+)\)\)$')
+defpat=re.compile(r'^\(x(\d+)-\(x(\d+)\*x(\d+)\)\)$')
 stats=collections.Counter(); cvals=collections.Counter(); rows=[]
 noguard=[]; oddshape=[]
 for u in U:
@@ -38,9 +38,9 @@ for u in U:
     others=[j for j in v2a[h] if j!=ai[0]]
     if len(others)!=1: noguard.append((u,h,len(others))); stats['h not in exactly 2 atoms']+=1; continue
     g=names[others[0]].replace(' ','')
-    mm=re.search(r'\((\d+)\*x_%d\)'%h, g)
+    mm=re.search(r'\((\d+)\*x%d(?![0-9])\)'%h, g)
     if mm: c=int(mm.group(1))
-    elif re.search(r'(?<![0-9_])x_%d(?![0-9])'%h, g): c=1
+    elif re.search(r'(?<![0-9])x%d(?![0-9])'%h, g): c=1
     else: stats['h not found in guard']+=1; continue
     cvals[c]+=1; stats['ok']+=1
     rows.append((u,h,Pv,c,g))

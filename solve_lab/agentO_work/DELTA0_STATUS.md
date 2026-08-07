@@ -55,7 +55,29 @@ This independently confirms and sharpens agent H's "a22231 buys 1 row and costs 
 exactly": it holds for **all seven** failing equations, and the mechanism is `S = 0` forcing
 `δx_4432 = δx_28730`.
 
-## What would still be worth pricing
-A knob set that can move `S` **independently** of `x_4432` and `x_28730`.  `S` is a 690-character
-expression in many variables; any free input that shifts `S` without touching the region would
-restore the L direction.  I did not search for one — that is the open question I would hand on.
+## I then searched for an independent S-mover — exhaustively, and it is negative
+`a37887` is supported by **26 free inputs**; **17** of them actually move `S`.  Two are
+`x_4432` (dS = +1) and `x_28730` (dS = −1), both already in the 12 and both zero-collateral.
+The other **15** were each added to the knob set and the exact maxsat re-run:
+
+| knob | dS | outside-equation collateral | result |
+|---|---|---|---|
+| x_6947 | 260b | 10 | nothing buyable |
+| x_33168 | 260b | 11 | nothing buyable |
+| x_950, x_8976, x_35531, x_22526 | — | 13 | nothing buyable |
+| x_12553, x_10422, x_34600, x_11099, x_15324 | — | 14 | nothing buyable |
+| x_3629, x_15120 | — | 15 | nothing buyable |
+| x_4287 | 3042b | 29 | nothing buyable |
+| x_2081 (the selector) | 295b | 117 | nothing buyable (131 rows) |
+
+**Not one of the seven failing equations becomes buyable with any of them.**  So the block is
+not "we lack a carrier for S" — S has 17 carriers and none of them helps.
+
+## Final scoped claim
+**39,026 is exactly optimal** over the 12 frame-B knobs
+`{642, 1329, 9413, 10903, 17325, 28730, 29854, 31864, 7068, 4432, 8731, 9118}`,
+and over every 13-knob extension of it by a free input that moves `S`, with all other free
+inputs at the witness's values.  Outside those knob sets I claim nothing.
+
+δ₀ remains a correct lattice target for the region system in isolation; it is the coupling to
+`a37887` — invisible to any model that drops quadratic atoms — that makes it unreachable.

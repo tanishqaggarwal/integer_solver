@@ -1,0 +1,36 @@
+deliverable: 39026 / failing [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+coordinates (12): [642, 1329, 4432, 7068, 8731, 9118, 9413, 10903, 17325, 28730, 29854, 31864]
+affine coordinates: 12/12 (0s)
+   x_642    -> atoms [23616, 36664]
+   x_1329   -> atoms [36659]
+   x_4432   -> atoms [8721, 23618]
+   x_7068   -> atoms [23616, 34120]
+   x_8731   -> atoms [36662]
+   x_9118   -> atoms [36660]
+   x_9413   -> atoms [23617]
+   x_10903  -> atoms [36661]
+   x_17325  -> atoms [36664]
+   x_28730  -> atoms [23617, 23618]
+   x_29854  -> atoms [36659, 36660]
+   x_31864  -> atoms [36661, 36663]
+
+=== solve the 7 failing equations over the 12 coordinates ===
+  solved; 9 coordinates move, deltas (bits): {642: 3571, 1329: 3318, 4432: 3571, 7068: 3593, 9118: 3548, 10903: 3313, 29854: 2948, 28730: 3572, 8731: 3572}
+  [raw] score 38999  failing 34  nbad 11  max shift 3593 bits
+
+=== the same solution with MINIMAL REPRESENTATIVES ===
+  reduced deltas (bits): {642: 21, 1329: 255, 4432: 255, 7068: 18, 9118: 253, 10903: 254, 29854: 252, 28730: 255, 8731: 250}
+  [reduced] score 38992  failing 41  nbad 11  max shift 255 bits
+
+=== reduce ONE coordinate at a time (isolate which magnitude matters) ===
+  [only_x642] score 38994  failing 39  nbad 11  max shift 3593 bits
+  [only_x1329] score 38996  failing 37  nbad 11  max shift 3593 bits
+  [only_x4432] score 38993  failing 40  nbad 11  max shift 3593 bits
+  [only_x7068] score 38994  failing 39  nbad 11  max shift 3572 bits
+  [only_x8731] score 38994  failing 39  nbad 11  max shift 3593 bits
+  [only_x9118] score 38995  failing 38  nbad 11  max shift 3593 bits
+  [only_x10903] score 38994  failing 39  nbad 11  max shift 3593 bits
+  [only_x28730] score 38993  failing 40  nbad 11  max shift 3593 bits
+  [only_x29854] score 38995  failing 38  nbad 11  max shift 3593 bits
+
+baseline 39026 ; far side 39021 (12 failing)

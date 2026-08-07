@@ -1,0 +1,5 @@
+pool: 48 BFS image points; worker 0/3 from index 13
+[img15(|on|=2)] knobs=56 other-rows=52 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=7 (14s)
+RESULT 15 other-rows-infeasible - - -
+[img18(|on|=2)] knobs=70 other-rows=61 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=9 (0s)
+RESULT 18 other-rows-infeasible - - -

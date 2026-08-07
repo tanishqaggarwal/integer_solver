@@ -1,0 +1,9 @@
+KEY CALIBRATION: does forcing a wrong slot value cost equations, or is it free?
+baseline ON={e0,e1,e3}: failing eqs = 34, nonzero atoms = 4
+  x12186  root A.x  random value kept=True   failing eqs = 50   (delta +16)  atoms=6
+  x16742  root A.y  random value kept=True   failing eqs = 46   (delta +12)  atoms=5
+  x14853  root B.x  random value kept=True   failing eqs = 48   (delta +14)  atoms=5
+  x24908  root B.y  random value kept=True   failing eqs = 48   (delta +14)  atoms=5
+
+If delta ~ 0 the slot is FREE and a degeneracy is arrangeable at no cost.
+If delta is large the slot is CONSTRAINED and my withdrawal was too strong.

@@ -2878,3 +2878,102 @@ post-solve-class criterion and the blocked/solved split. Every one blocked ⇒ c
 independence of the joint `p·ℤ²` obstruction, the residual side's terminal result. Any one solved ⇒
 the endgame condition dissolves. If the directed search also starves, **say so with the rate** and
 the line closes with a measured reason rather than a suspicion.
+
+---
+
+## Check-in 49–50 — δ₀ retired with a mechanism; the alias layer measured but unpinned
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### O — δ₀ is a valid lattice target and is NOT realisable, and O found why
+
+**O retired its own line rather than leaving it open**, and emitted a correction to a handoff it had
+already made **before anyone wasted cycles on it** — `DELTA0_STATUS.md`, relayed by the coordinator
+into `agentM_work/` with instructions to M to stop pricing δ₀ and read it first.
+
+**Frame B reproduces the witness bit-for-bit** (39,026, same 7 failures, **0 variables differing**),
+and both open carriers `x_7068` and `x_4432` are **free inputs there** — so O redid the region solve
+natively in frame B over 12 knobs (8 region-private + `7068, 4432, 8731, 9118`). Those reach exactly
+**12 check atoms / 29 equations**, and **all 7 witness failures are inside — nothing unreachable.**
+
+**The result: a 1-for-1 trade, seven ways.** Every one of the 7 failing equations is **individually
+buyable**, and **every purchase costs exactly `eq8680`.** Score pinned at 39,026 all seven times;
+the failing set merely rotates. **No subset of size ≥ 2 is buyable.**
+
+**The mechanism — one atom.** `eq8680`'s only atom `a37887` is a **perfect square**, source literally
+`(S)·(S)`, with `S = 0` at the witness. So eq8680 is not a quadratic obstruction but the **linear**
+constraint `S = 0`, with
+
+    dS/dx_4432 = +1 ,   dS/dx_28730 = −1 ,   dS/d(every other knob) = 0
+
+**`S = 0` is exactly `δx_4432 = δx_28730`.** Since `x_4432` is the sole carrier of the `a23618`
+shift and `x_28730` is the private handle already in the region, **`S = 0` collapses that direction
+onto the handle direction and annihilates precisely the degree of freedom δ₀ needs.** With `S = 0`
+as an explicit row, **nothing is buyable at all.**
+
+**O diagnosed its own blindness** — its atom model drops `a37887` as nonlinear, and `a37887` is the
+one atom *outside* the region tying the two carriers together — then **closed the escape
+exhaustively**: `a37887` has 26 supporting free inputs, **17 move S**; two are the carriers already
+in hand, and **all 15 others were added and the maxsat re-run — none makes anything buyable**,
+including the selector `x_2081` at 131 rows. That is "there is no way over this knob set", not "I
+did not find one".
+
+**Scoped claim, as O stated it:** 39,026 is exactly optimal over those 12 frame-B knobs and over
+every 13-knob extension by an S-mover, with all other free inputs at the witness's values. Nothing
+claimed outside that knob set.
+
+> **This is the first complete account of the deliverable's optimality**, and it converges with two
+> earlier results: it extends H's "a22231 buys 1 row and costs eq8680, exactly" to **all seven**
+> failures, and supplies the derivative behind G's characterisation of eq8680 as a binary quadratic
+> form of discriminant exactly 0. **Three agents, one object, now with a mechanism.**
+
+**O re-tasked: attack `S = 0` itself.** The escape was closed *within* the knob set; untested is
+whether `S ≠ 0` is reachable from outside it at acceptable cost. If it is, eq8680 stops being a
+1-for-1 tax. **If `S = 0` is genuinely forced, the seven-way trade becomes a proof that 39,026 is
+optimal over the region — the first optimality result in this lab not scoped to a filtered knob
+set.**
+
+### Q — the hand-off layer IS an affine alias, and the slack is NOT pinned
+
+Read verbatim off the instance:
+
+```
+x_17675 - x_20820 - x_36780            parent_in = mux_out + Q ,  Q = x_36780 = x_4116 * x_22163
+6910381*(x_15439 - x_18440) - x_11630  k*(parent - mux) = Q ,     Q = x_11630 = x_1962 * x_10858
+x_24468 - x_13682 - 12354891*x_34243   ROOT PIN = mux + k*Q ,     Q = x_34243 = x_16153 * x_14393
+```
+
+Across all 766 mux outputs: **573 alias to a parent slot input, 2 alias to the root pin**, 191 in a
+shape Q did not chase (forms split 192 / 192 / 191). **All 575 slack wires are products of two
+wires.** So the coordinate hand-off **does** follow the tree Q measured on the liveness side, and
+`x_24468` is exactly the top slot's mux output under that alias.
+
+**But the slack is not pinned.** Of the 575 slack products, **523 have both factors used elsewhere**
+and **52 have a factor occurring in exactly one term** — wholly unconstrained. The shared factors
+**`x_4116` (66 terms), `x_16153`, `x_1962`, `x_12682`, `x_19049`, `x_15616` carry no unary pin at
+all** — no boolean constraint, no zero pin. **Q could not exhibit anything forcing `Q = 0`**, and
+**declined to call the existence result closed on the shape of the alias alone** — the same move it
+declined at check-in 45, for the same reason.
+
+**The single remaining question, sharply stated: is anything in the instance forcing `x_4116` and
+its five sibling shared factors to zero?** Routed to L, which holds the only full 383-node
+calibration with all 256 leaf pin pairs at 0 conflicts, and told it takes priority over the
+divisibility repair.
+
+**Q on K's null result — two candidates, one measured.** *Measured:* in the 39,026 deliverable the
+group sum appears on **0** wires **because that assignment never folds at all** — one leaf
+propagates through 92 wires, the other is cut after 5 — so at any non-folding configuration the
+search must come up empty regardless of aliasing. *Structural, not measured:* if the slack is
+nonzero the composition sits on the mux output but not on the parent's input, so a literal search
+finds it on at most one wire even when the assignment does fold. **Q's position: K's null does not by
+itself show the circuit fails to force compositions, but neither does Q's work show that it does** —
+and Q would not let a barrier withdrawal rest on the null alone. **K has been asked whether any of
+its three TEST 1 configurations actually folds** (all three put both live leaves on the same root
+half) and to re-run on a folding configuration, searching both literal and aliased forms.
+
+**Standing summary — measured:** 256 leaves are `2^i·G`; **383/383** chord gadgets compute plain
+`P_a + P_b`; **383/383** slots implement identity/pass-through/sum via `cA = s1(1−s2)`,
+`cB = s2(1−s1)`, `cC = s1·s2`; the slots form one tree with a single root over all 256 leaf
+selectors; the coordinate hand-off is an affine alias terminating at the root pin.
+**Not measured:** that the alias slack vanishes, and the collision criterion on the particular
+scalar. **§15 stays in force** — the §9 sweeps do not regain instance-level standing.

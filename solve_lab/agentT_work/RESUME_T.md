@@ -412,3 +412,63 @@ My in-memory scorer (`checker.load_equations` + `evaluate_all` in-process) agree
 ## M. NEW FILES (third pass)
 `t_cancel.py` (L's 12, support + score, one-at-a-time) · `t_cofactor.py` (3,681-cofactor premise;
 h-vs-u).  Reproduce: `cd solve_lab/agentT_work && python3 t_cancel.py && python3 t_cofactor.py`.
+
+=============================================================================================
+# FOURTH PASS — item 3 (the 927) and item 2 (K's withdrawal)   [coordinator check-in 47]
+
+## N. THE 927 IS INTRINSIC — CONFIRMED, and robust to a 3.5x change of decomposition
+`t_927.py`, `t_927b.py`.  Rebuilt in F's 39,033-atom parse (certified faithful in T2).  Structure:
+a cofactor `u` sits in exactly one atom, of shape `(h - (P*u))` with `P` a p-valued wire; `h` then
+appears in exactly one further atom, the **guard**; `c` is the literal multiplying `h` *inside the
+guard* (bare `h` => c = 1).  `c > 1` is what makes `c*p | R` strictly stronger than `R == 0 mod p`.
+
+**Run 1 — borrowing only L's cofactor list, re-deriving every multiplier from F's atom text:**
+```
+   c == 1 : 2,754        c > 1 : 927        total 3,681
+```
+**Run 2 — borrowing NOTHING**, deriving the family from F's parse alone by shape:
+```
+   family 13,092 atoms (9,626 cofactors -- 2.6x looser than L's 3,681)
+   c > 1 : 927      and all 927 multipliers are DISTINCT (one per handle)
+```
+> **927 is reproduced in a third, independent, certified-faithful decomposition, and is
+> unchanged when the handle family is delimited 2.6x more loosely.**  It is a property of the
+> instance, not of the atomisation.  Contrast B1, where the knob count moved by 2.7x under
+> exactly this kind of re-decomposition — the test discriminates, and here it comes out the
+> other way.
+
+**The 2,747 vs 2,754 gap reconciles exactly.**  L reports `c==1` for 2,747 "plus 7 with zero
+slope"; F's parse puts all of them in `c==1`, giving 2,747 + 7 = **2,754**.  Independently, the
+set difference between L's cofactor list and my F-only shape family is `L \ F-only = 7` — the
+same seven.  Both directions agree.  **No discrepancy remains; L's and P's 927 stand.**
+
+## O. K's WITHDRAWAL — the null does look like it measured the aliasing  (`t_alias.py`)
+Third independent check, from L's calibrated model rather than from K's or Q's code.  For every
+parent node, compare each slot wire against the corresponding child's output wire:
+```
+   parent-slot / child-output links examined : 764   (768 unresolvable in L's model)
+   child output IS the parent slot wire      :   0
+   child output is a DIFFERENT wire (aliased): 764      -> direct rate 0.0%
+```
+**Q's 0/383 is confirmed independently: no slot output ever feeds a slot directly.**  Of 400
+sampled aliased links, **272 have a single atom containing both wires**, and the shapes are the
+additive alias Q describes:
+```
+   ((x-x)+x)   71        ((x-x)-x)   65        ((x-x)-(1730409*x))  1   ...
+```
+i.e. `parent_slot - child_out -+ third_wire = 0`, matching `x_24468 = x_13682 + 12354891*x_34243`.
+> **A search for a DIRECT composition would return 0 of 38,748 by construction.**  K's null is
+> consistent with the aliasing layer and is not evidence that the composition is absent.  The
+> withdrawal looks premature; K should re-run against the alias form, as it is already doing.
+**Stated limit:** 128 of the 400 sampled aliased links have **no single atom** containing both
+wires, so the alias is not always one hop — some are chains.  I did not chase those, so "every
+link is a one-atom alias" is NOT established; "no link is direct" is.
+
+## P. FINAL STATUS OF MY QUEUE
+Everything the coordinator assigned me has now been run.  Nothing of consequence is left open on
+my side except the two limits stated above (the 128 multi-hop aliases; Q's Schwartz-Zippel census,
+which I still have not read now that the artifacts exist).
+
+## Q. NEW FILES (fourth pass)
+`t_927.py` + `t_927.json` (927, L's list borrowed) · `t_927b.py` (927, nothing borrowed) ·
+`t_alias.py` (0/764 direct, alias shapes).

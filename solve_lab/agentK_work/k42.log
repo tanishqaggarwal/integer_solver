@@ -1,0 +1,6 @@
+forbidding 12 atoms (target pins + 10 backward paths into root slots)
+ON [0, 1]  A match True  B match n/a  derivedA= ((x12186-x23927)-x25758)
+ON [3, 10]  A match n/a  B match False  derivedA= ((x12186-x23927)-x25758)
+ON [3, 5]  A match n/a  B match False  derivedA= ((x12186-x23927)-x25758)
+ON [0, 1, 2, 4]  A match False  B match n/a  derivedA= ((x12186-x23927)-x25758)
+ON [0, 1, 3]  A match True  B match True  derivedA= ((x12186-x23927)-x25758)
