@@ -47,7 +47,15 @@ def tv_roots(cf, tw, ma, q, ee, D):
                if sum(u[l]*binom_mod(b, l, ma) for l in range(D+1)) % ma == 0)
 
 def joint_rootsets(CF, GROUP, q, e):
-    """(t_w,t_v) pairs mod q^e satisfying every applicable condition; exhaustive when it can be."""
+    """(t_w,t_v) pairs mod q^e satisfying every applicable condition; exhaustive when it can be.
+
+    T36 (rule 9 applied to my own solver): above EXCAP this SAMPLES t_w and root-finds t_v.  That
+    is asymmetric, and it fails completely on the degenerate shape where the residue does not
+    depend on t_v mod q -- then only ~1 in q values of t_w works and 400 random draws find it with
+    probability 400/q.  That is what produced `NO JOINT ROOT mod 116507 (sampled)` at |S|=128.
+    Fix: when the first orientation comes back empty, TRANSPOSE and scan the other way, which turns
+    exactly that degenerate case into a direct univariate root-find.  A sampled empty result is now
+    a statement about BOTH orientations."""
     m = q**e
     need = [a for a in GROUP if (abs(SL[a])//p) % q == 0]
     if not need:
@@ -55,22 +63,29 @@ def joint_rootsets(CF, GROUP, q, e):
     ex = {a: factor(abs(SL[a])//p)[q] for a in need}
     D = len(CF[GROUP[0]])-1
     exhaustive = m <= EXCAP
-    tws = range(m) if exhaustive else [rnd.randrange(m) for _ in range(SAMPW)]
-    out = []
-    for tw in tws:
-        cand = None
-        for a in need:
-            ma = q**min(e, ex[a])
-            rs = tv_roots(CF[a], tw, ma, q, min(e, ex[a]), D)
-            if ma < m:
-                rs = set(b for b in range(m) if b % ma in rs)
-            cand = rs if cand is None else (cand & rs)
-            if not cand:
-                break
-        if cand:
-            out.extend((tw, b) for b in cand)
-            if not exhaustive and len(out) > 40:
-                break
+
+    def scan(CFo, flip):
+        tws = range(m) if exhaustive else [rnd.randrange(m) for _ in range(SAMPW)]
+        out = []
+        for tw in tws:
+            cand = None
+            for a in need:
+                ma = q**min(e, ex[a])
+                rs = tv_roots(CFo[a], tw, ma, q, min(e, ex[a]), D)
+                if ma < m:
+                    rs = set(b for b in range(m) if b % ma in rs)
+                cand = rs if cand is None else (cand & rs)
+                if not cand:
+                    break
+            if cand:
+                out.extend(((b, tw) if flip else (tw, b)) for b in cand)
+                if not exhaustive and len(out) > 40:
+                    break
+        return out
+
+    out = scan(CF, False)
+    if not out and not exhaustive:
+        out = scan({a: transpose_cf(CF[a]) for a in need}, True)
     return out, exhaustive, m
 
 # ------------------------------------------------------------------ T34: MIXED constraints
@@ -534,14 +549,18 @@ def close(S, tag, outer_max=16, logf=None):
 
 if __name__ == '__main__':
     tag = sys.argv[1]; spec = sys.argv[2]
+    # 4th arg = ON-set SEED.  The historical convention is random.Random(7), whose samples at
+    # n = 32 / 64 / 128 are NESTED PREFIXES of one chain -- ONE correlated sample, not three.
+    # Any other seed draws an INDEPENDENT ON-set.
+    seed = int(sys.argv[4]) if len(sys.argv) > 4 else 7
     if ',' in spec:
         S = [int(x) for x in spec.split(',')]
     else:
-        n = int(spec); r7 = random.Random(7)
-        S = [24601, 2081] if n == 2 else r7.sample(M['live'], n)
+        n = int(spec); r7 = random.Random(seed)
+        S = [24601, 2081] if (n == 2 and seed == 7) else r7.sample(M['live'], n)
     omax = int(sys.argv[3]) if len(sys.argv) > 3 else 16
     lf = open(os.path.join(T, 't_close2wj_%s.log' % tag), 'w')
-    lf.write('S = %s\n' % S); print('S = %s' % S, flush=True)
+    lf.write('S(seed=%d) = %s\n' % (seed, S)); print('S(seed=%d) = %s' % (seed, S), flush=True)
     t0 = time.time(); nz = close(S, tag, outer_max=omax, logf=lf); el = time.time()-t0
     msg = ('|S|=%-3d %-6s  NONZERO ATOMS = %d of %d   WALL = %.1f s  -> close_%s.json'
            % (len(S), tag, len(nz), len(E.res), el, tag))

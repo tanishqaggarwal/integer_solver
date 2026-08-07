@@ -6005,3 +6005,149 @@ discarding.
 
 **Compute discipline: one process per agent.** The box is 4 cores; load reached 26 earlier today
 before caps and is now 6–7.
+
+---
+
+## Check-in 101 — the search route to an upper bound on `w` is CLOSED (agent AB)
+
+Deliverable unchanged: **39,026 / 39,033**, verified first. Deliverable artifact:
+**`agentAB_work/UPPER_BOUND_MAP.md`**, with `ab_facts.py`, `ab_cost.py`, `ab_rank.py` reproducible.
+No processes launched.
+
+### Theorem B — the decisive result
+
+> **Every search-based upper bound on `w` is a Hamming-ball covering of `{wt > B}`, with cost floor
+> `min_W (|{wt>B}|/Vol(W))·C(256,W/2)`. BREAK-EVEN AT `B = 198`.**
+> **Proving `w ≤ 128` costs 2^185.0. Solving the instance outright costs 2^126.5 and returns `w`
+> exactly.**
+> **No search-based upper bound below `w ≤ 198` is ever cheaper than solving the instance.**
+
+That closes the entire search route in one argument — the question ten agents were tasked on.
+
+### Theorem A — the complement has no sibling
+
+`c − k = c ⊕ k` **iff** `supp(k) ⊆ supp(c)`, so **`c = 2^256 − 1` is the UNIQUE offset yielding an
+unconditional bound.** Measured over 4,000 samples: correlation `wt(k)` vs `wt(c−k)` = **−1.0000**
+for the all-ones centre, **≈ −0.50 or 0 for every other offset.** AA was told before spending its
+budget hunting offsets that could not have worked; its coverage-expansion value for *finding* `k`
+stands.
+
+### The verdicts
+
+| # | mechanism | verdict |
+|---|---|---|
+| 1 | complement identity (Y) | **LIVE** — algebra checked incl. a planted weight-250 end-to-end test; sound under mod-N wrap (wrap gives false positives only, never false negatives); miss at `W` proves `w ≤ 255−W` |
+| 2 | bit security / HNP | **DEAD** — for this problem `bit_i(k₀)` **is** `[i ∈ S]`, so a bit oracle is a 256-query full solve. The `Z_p^*` intuition fails because `p−1` even makes Legendre the LSB of the dlog; `N` prime leaves every nontrivial character of order `N`. HNP converts a bit oracle into a DLP solver, not the reverse |
+| 3 | lattice / LLL | **DEAD** — density exactly 1.000 is a red herring: **given `k₀` the subset-sum is solved by reading binary digits.** 100% of the hardness is that `k₀` is unknown, and no integer target derivable from `T` exists to put in a basis |
+| 4 | 2-adic / `v₂(k)` | **DEAD by proof** — odd prime order ⇒ `[2]` bijective; verified 40 deep |
+| 5 | endomorphism `λ` | **DEAD** — `popcount(λk)` for weight-4 `k`: mean **127.41**, sd **8.31**. A √3 accelerator, nothing more |
+| 6 | character sums | **DEAD** as a bound — it *is* the null, restated |
+| 7 | counting / uniqueness | **DEAD**, but yields the free unconditional **`w ≤ 255`** (exact digit-DP over `k < N`, validated against brute force) |
+| 8 | instance-side high-`\|S\|` lift | **LIVE, UNSETTLED** — see below |
+| 9 | 16 others (PH, Smart, MOV, GHS, index calculus, CM/`j=0`, Cheon, `N`'s expansion, weight-preserving doubling, division polys, Gröbner, kangaroo, multi-target, quantum, masked complement) | all **DEAD** except quantum (no hardware) |
+
+### The catch — the fleet has been reading its own evidence backwards
+
+**Every confirmed integer-lift closure is at `|S| ≤ 64`** (1, 2, 3, 5, 6, 7, 8, 17, 32, 64 → 39,018,
+identical 15-equation footprint). **Those rule out *lower*-bound constraints. They are fully
+consistent with an *upper*-bound constraint `w ≤ B` for any `B ≥ 64`** — the very hypothesis in
+question. And two things nobody had noticed: **the `|S| = 128` probe STALLED**
+(`t_close2wj_T128.log`: `outer 8: global nonzero 3 ... no addable collateral`), and **32 / 64 / 128
+are nested prefixes of a single `random.Random(7)` chain — one correlated sample, not three.**
+
+**T is now running `|S| = 250`, then 192, then the stalled 128, on INDEPENDENT seeds**, ahead of
+everything else on its thread. `|S| = 250` is the complement regime where the campaign holds zero
+data points. **If it closes, §8 dies and no affordable upper bound exists by any known route — a
+clean final answer. If it fails to close on independent seeds, it is the campaign's first real upper
+bound**, and only `B ≲ 56` beats rho, `B ≲ 24` is actionable. T was warned that **a stall is not a
+failure** — its own rule 9 killed its "closure boundary at 8" headline and the 128 stall has the same
+shape, so granularity must be varied before anything is called a constraint.
+
+### AB re-tasked — its own softest verdict
+
+**§2 kills exact *bit* oracles; it does not cover a direct low-cost decider for the *weight*
+predicate `w ≤ B`.** AB noted hardcore-bit machinery cannot be transported because `k ↦ k + r`
+scrambles weight, that this is "no mechanism known" rather than "provably hard", **and that nobody
+has looked.** Now looking: is `Σ_i [i ∈ S]` expressible as anything evaluable from `T`; **is there a
+weight-preserving group action at all**; and can its absence be argued rather than observed. **A
+proof that no weight-preserving self-reduction exists would upgrade §2 to a real barrier and
+complete the map.** Ranked beneath it: §6's heuristic threshold, and §9.12 Gröbner — worth one
+honest look precisely because the fleet attacked the system as equation repair and coset decoding,
+never as elimination with a term order.
+
+**Free improvement AB found, routed to AA and X:** X's signed table loads exactly 256 points
+(`xsigned.c:107`), and since `2^256 mod N` has popcount 65, **complement-sparse keys have no short
+signed representation there** — extending the exponent range to include 256 is free and makes X's
+and Y's classes **disjoint rather than redundant.**
+
+---
+
+## Check-in 102 — the configuration space really IS 2²⁵⁶, and now it is measured (agent Z)
+
+Deliverable unchanged: **39,026 / 39,033**, verified first.
+
+### The parse dispute is settled by a granularity-free invariant
+
+Z's own parse gives **0** atoms touching ≥2 selectors — matching P, not S. But the three counts were
+never in conflict: they measure different granularities (`Z-atoms ⊂ P-atoms ⊂ S-atoms ⊂ equations`;
+at the coarsest unit, whole equations, Z gets **2,490**). So Z computed the invariant instead, since
+an equation's expanded polynomial is unique:
+
+> **Of the 819,975 monomials in the instance, 798,787 contain no selector, 21,188 contain exactly
+> one, and 0 contain two or more.**
+
+**Every equation is affine in the selector vector. Two selectors never multiply anywhere.** That
+vindicates **both** P and S — S's coarser atoms bundle selectors, but each genuinely sits in its own
+additive term.
+
+### A trap flagged for the whole fleet
+
+Every selector has exactly one `s` atom and one `1−s` atom, **which reads as "all 256 selectors are
+pinned." They are not.** They are halves of an alias atom split across an SLP-window boundary —
+eq 4689 carries `[−1 + x4805 + s30207]` whole; eq 4022 carries the same content split as `[x4805]`
+and `−[1 − s30207]`. **256 false positives for any future grep.**
+
+### Does anything constrain `|S|`? NO — and this is the method
+
+**Booleanity-reduced affine elimination.** 3,484 vars carry a booleanity atom; reduce `x² → x`
+(exact on the boolean locus); degrees become `{0: 373, 1: 10809, 2: 27851}`; **the 10,809 linear
+rows are exactly where a cardinality / parity / one-hot constraint must live**; sparse
+Markowitz-eliminate all 11,707 non-selector columns.
+
+- 6,829 pivots, **3,980 surviving rows, every one identically `0 = 0`.**
+- **Genuine linear constraints on the selector vector: 0.** Inconsistent rows: 0.
+- **Run twice — mod `2^61−1` AND exactly over ℚ in `Fraction`. Identical.** Not a modular artefact.
+- Solved symbolically: **2,550 determined wires depend on 0 selectors, 149 on exactly 1, zero on ≥2.**
+- Census of the 9,527 all-boolean atoms: **0 adder-shaped atoms. Nothing in the instance adds
+  boolean values.**
+
+**Liveness:** the all-boolean subsystem (4,763 eqs) is entirely linear after reduction; liveness
+composes by **OR — monotone, saturating, no counting network. No liveness combination bounds how
+many leaves can be live.** The only bound in the instance is the trivial `w ≥ 1`.
+
+**Checker-anchored, through `checker.py`'s own compiled evaluator rather than Z's parser:** the 13
+pure-selector equations satisfied at **all 257 weights** `w = 0…256`; the 373 identically-vanishing
+equations 373/373 across the same range.
+
+> **THE STATEMENT: the 256 leaf selectors are unconstrained as a set; the configuration space really
+> is the full `2²⁵⁶` (`2²⁵⁶ − 1` excluding the empty set).** Method: booleanity-reduced affine
+> elimination over the complete instance, run mod `2^61−1` and exactly over ℚ, corroborated by the
+> parse-independent monomial invariant.
+
+**Scope, plainly:** the elimination is exact and complete for constraints **linear on the boolean
+locus** — the entire class cardinality / parity / at-most-k belongs to. It does not by itself cover
+the 27,851 quadratic equations; what closes most of that gap is that every equation is affine in `s`
+and no wire depends on ≥2 selectors, **so `Σ s_i` is never formed.**
+
+**This turns `MINIMUM_COST_SEARCH.md` §7's asserted "no upper bound is obtainable from the instance"
+into a measured result.** Together with AB's Theorem B, **the Hamming-weight angle is closed from
+both ends: MITM bounds must be assumed, never derived.**
+
+### The new lead — an exclusion, not a bound
+
+Z's (e), and it is unexploited: **P's infeasible intermediate.** A merge whose two live inputs share
+`x` but differ in `y` gives `N1 = −B² ≠ 0`, **unsatisfiable**. That **excludes subsets outright
+rather than bounding weight**, and no search has used it. On a curve, two points share `x` iff they
+are `±` each other, so for leaves the condition is `2^{i−j} ≡ ±1 (mod N)` — **cheaply checkable, and
+the 512 leaf coordinate constants are already in `agentZ_work/zsel.json`.** If the density is
+non-negligible it **prunes the MITM tree instead of merely bounding it.**

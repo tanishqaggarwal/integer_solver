@@ -1,0 +1,15 @@
+pass 1: expanding all equations
+  ... 0
+  ... 5000
+  ... 10000
+  ... 15000
+  ... 20000
+  ... 25000
+  ... 30000
+  ... 35000
+variables carrying a booleanity atom: 3484
+  of which selectors: 256 / 256
+  non-selector boolean vars: 3228
+degree histogram after booleanity reduction: [(0, 373), (1, 10809), (2, 27851)]
+linear (deg<=1) equations after reduction: 11182
+saved zlin.pkl

@@ -1,0 +1,16 @@
+linear rows: 11182
+rows: 10809  columns: 11963
+non-selector columns to eliminate: 11707
+   eliminated 1000 cols, rows left 9809, maxrowlen 54
+   eliminated 2000 cols, rows left 8809, maxrowlen 54
+   eliminated 3000 cols, rows left 7809, maxrowlen 57
+   eliminated 4000 cols, rows left 6809, maxrowlen 59
+   eliminated 5000 cols, rows left 5809, maxrowlen 59
+   eliminated 6000 cols, rows left 4809, maxrowlen 59
+
+==============================================================================
+non-selector columns eliminated: 6829
+ROWS SURVIVING (support only in selectors + constant): 3980
+  survivors that are pure-constant rows (0=0 or c=0): 3980
+  SURVIVORS THAT ARE GENUINE LINEAR CONSTRAINTS ON SELECTORS: 0
+saved zelim_survivors.pkl

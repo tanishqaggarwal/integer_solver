@@ -1,0 +1,9 @@
+shard 0: 176169386 keys  75.9s
+shard 1: 176195648 keys  115.9s
+shard 2: 176185240 keys  166.4s
+shard 3: 176194213 keys  211.1s
+shard 4: 176169872 keys  257.9s
+shard 5: 176163420 keys  305.7s
+shard 6: 176189931 keys  351.0s
+shard 7: 176193026 keys  400.2s
+TOTAL 1409460736 keys  400.4s

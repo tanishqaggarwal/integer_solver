@@ -20,3 +20,7 @@ solve_lab/achieved5.json
 
 # agent X meet-in-the-middle tables: regenerable, multi-GB
 solve_lab/agentX_work/*.bin
+
+# agent MITM table directories: regenerable, volatile
+solve_lab/agent*_work/tbl/
+solve_lab/agent*_work/*.bin

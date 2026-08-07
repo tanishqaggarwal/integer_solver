@@ -1,0 +1,17 @@
+  a=1 tid=0 cum=123 0.0s
+  a=1 tid=2 cum=133 0.0s
+  a=1 tid=1 cum=0 0.0s
+  a=1 tid=3 cum=0 0.0s
+  a=2 tid=0 cum=18253 0.0s
+  a=2 tid=2 cum=23935 0.0s
+  a=2 tid=1 cum=4446 0.0s
+  a=2 tid=3 cum=18902 0.1s
+  a=3 tid=3 cum=2618142 1.7s
+  a=3 tid=1 cum=2665306 1.7s
+  a=3 tid=2 cum=3113739 1.7s
+  a=3 tid=0 cum=2722429 1.7s
+  a=4 tid=0 cum=347213973 196.2s
+  a=4 tid=3 cum=351548022 196.2s
+  a=4 tid=1 cum=354720618 196.2s
+  a=4 tid=2 cum=355978123 196.2s
+TABLE total 1409460736 keys zero=0 196.3s
