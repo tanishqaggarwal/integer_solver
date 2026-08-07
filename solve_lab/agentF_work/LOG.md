@@ -372,3 +372,19 @@ the WIRING: each stage input is a gated multiplexer (a sum of selector*value ter
 `x11317 := x11532 + x14681`), so the map "which stage output feeds which stage input slot" still has to be
 read off the definition DAG.  Until that is done and the evaluator reproduces a known state, **no search
 result from it should be believed.**
+
+## 29. The wiring is a 3-WAY MULTIPLEXER per input slot
+Each stage input slot is a free variable w constrained by a residual atom `((w - z) - handle)`, and z
+unfolds to a sum of exactly **three** `selector * value` terms.  Decoded 39 of the 144 slots with the
+current pattern (the other 105 use atom shapes the regex does not yet match).  Examples:
+    stage x15298 slot inA (wires 12186,16742) -> (x24673*x10261) + (x2754*x30454) + (x38170*x5096)
+    stage x30973 slot inA (wires  5460,38101) -> (x24454*x4622)  + (x31584*x7256) + (x30699*x27616)
+    stage x30973 slot inB (wires 23971,28486) -> (x57*x29578)    + (x22550*x26655)+ (x11778*x20720)
+This is the same shape as the root selection `x13682 = x34606*x1 + x5647*x2 + x15298*x3` found at the very
+start of this lab: 3 gated candidates per slot, at most one live.
+So the complete picture is: 96 stages, each with 2 input slots, each slot a 3-way gated mux over child
+outputs or leaf constants, one uniform invertible degree-3 law with one universal constant K, root gate
+x15298 required to produce (K1 mod p, K2 mod p).
+Artifacts for the next session: `tree96.json` (stages, six-tuples, gate supports, containment depth),
+`stage_roles.json` (per-stage input/output role assignment and coordinate ordering for all 72 full stages),
+`sweep_ii.json`, `sweep_i.json`, `M.npz`, `peel_order.npy`.

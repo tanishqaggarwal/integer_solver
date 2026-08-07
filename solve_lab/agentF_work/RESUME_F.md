@@ -20,6 +20,18 @@ where one input is a literal).  Tree depth 6, root gate x15298 (support 256); st
 derived and every derived value is still a pin constant of its boolean (3 of those carry only one pin).
 So the remaining task is: choose a subset of the 256 leaves whose fold through the fixed tree hits the
 target (K1 mod p, K2 mod p).
+**THE LAW IS INVERTIBLE — YES** (200/200 random triples, both directions, exact, O(1) each):
+    B from (A,O): l=(o_y+a_y)/(a_x-o_x); b_x=l^2-a_x-o_x-K; b_y=a_y+l*(b_x-a_x)
+    A from (B,O): l=(o_y+b_y)/(b_x-o_x); a_x=l^2-b_x-o_x-K; a_y=b_y+l*(a_x-b_x)
+So the target can be pushed DOWN the tree exactly as cheaply as leaves are pushed up: meet-in-the-middle
+over the root's two input slots, and because inversion is exact at every stage the meeting point can be
+moved deeper than the root.  This is what makes the tree attackable.
+**Wiring**: each stage input slot is a free variable w with a residual atom `((w - z) - handle)` where z
+is a sum of exactly THREE `selector*value` terms -- a 3-way gated mux over child outputs or leaf
+constants (same shape as the root's `x13682 = x34606*x1 + x5647*x2 + x15298*x3`).  39 of 144 slots decoded.
+**NOT DONE, and nothing should be believed from it until it is**: the fold evaluator is not built and not
+validated, and no subset search has been run.  Finish the mux decode for all 144 slots, build the
+evaluator, and validate it by reproducing the deliverable's own ON-set {24601, 2081} before searching.
 
 One thing is proved: **rank(M) = 39,033, dim ker(M) = 0** (three independent computations).  That closes
 the "cancelling nonzero residual" route and makes all-atoms-zero *equivalent* to a full solve.
