@@ -1,0 +1,33 @@
+CONFIGURATION
+  frame        : Frame(POOL), 65 pool variables detached
+  detach set D : [642, 28730, 29854, 31864] (the witness set)
+  selectors    : best/new_instance_partial_39026.json
+  knob set     : ALL 68 free inputs of the frame that syntactically support any atom of any
+                 region equation — i.e. every free input that can move the region at all
+  region       : |R| = 12  [2554, 6816, 8124, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+
+row-by-row reduction of the EXACT polynomial mod p:
+eq       deg   terms   const mod p    nonconst mod p verdict
+2554     2     39      0              31/39 nonzero  
+6816     2     56      0              43/56 nonzero  
+8124     2     37      0              30/37 nonzero  
+9123     2     34      0              25/34 nonzero  
+9421     2     39      0              30/39 nonzero  
+12231    2     53      nonzero        42/52 nonzero  
+12270    2     26      nonzero        21/25 nonzero  
+12350    2     61      nonzero        48/60 nonzero  
+14584    2     54      nonzero        42/53 nonzero  
+18673    2     11      nonzero        9/10 nonzero   
+22044    2     16      nonzero        12/15 nonzero  
+29125    2     38      nonzero        29/37 nonzero  
+
+rows unzeroable mod p over the COMPLETE knob set: 0 -> []
+
+direct recomputation at random integer points (all 68 knobs moved at once):
+   144 evaluations, 0 mismatches/counterexamples
+
+blast radius: the deliverable fails on 7 equations; this barrier accounts for 0 of them
+   failing set: [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+   stuck set  : []
+
+wrote runs/pambient.json

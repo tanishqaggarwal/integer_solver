@@ -1,0 +1,18 @@
+region system 12 x 14 on the exact zero-collateral variety
+subsets of size 5  :   792 total,   791 INCONSISTENT mod p,     1 consistent mod p
+     e.g. consistent mod p: [[2554, 6816, 8124, 9123, 9421]]
+subsets of size 6  :   924 total,   924 INCONSISTENT mod p,     0 consistent mod p
+subsets of size 7  :   792 total,   792 INCONSISTENT mod p,     0 consistent mod p
+subsets of size 12 :     1 total,     1 INCONSISTENT mod p,     0 consistent mod p
+
+all-12 system: consistent mod p = False
+
+cross-check against the exact integer oracle (zsolve) on all 924 six-subsets:
+   mod-p certificate settles 924 of 924 ; 0 need more than p
+
+contrast: the same certificate at other primes
+   p = 2                         :   0 of 924 six-subsets inconsistent
+   p = 3                         :   0 of 924 six-subsets inconsistent
+   p = 5                         :   0 of 924 six-subsets inconsistent
+   p = 1000003                   :   0 of 924 six-subsets inconsistent
+   p = 2305843009213693951       :   0 of 924 six-subsets inconsistent

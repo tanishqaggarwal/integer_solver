@@ -1,0 +1,26 @@
+S = [19745, 12134, 35062, 23262, 17710, 28754, 30823, 7780, 33824, 12422, 33434, 33951, 91, 5910, 35835, 33095, 22579, 20603, 853, 35635, 36961, 2441, 8319, 9294, 21305, 2143, 18022, 11368, 8370, 10591, 3320, 23794]
+outer 0: global nonzero 18, violated c-conditions 16
+   single-wire pass: 10 accepted
+outer 1: global nonzero 6, violated c-conditions 4
+   handle-less pass: 2 nonzero handle-less atom(s)
+      *** x34218 += p*322948684674 zeroes (x23514-(x6677*x23504)) (exact, recomputed)
+outer 2: global nonzero 5, violated c-conditions 4
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x22366*x5209)-(8054097*x37199))  c=8054097  wires=6 pairs=15
+     (x664   ,x4860  ) |group|=1  200 roots verified, guard rejected all; collateral ['((x664-x21063)-(16497881*x8098))']
+     *** (x664 += p*78480353925476 , x4860 += p*62994901939559) |group|=2  global 5 -> 4
+outer 3: global nonzero 4, violated c-conditions 3
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x14370-x17131)-(10573909*x2482))  c=10573909  wires=2 pairs=1
+     (x2404  ,x14370 ) |group|=1  200 roots verified, guard rejected all; collateral ['((x22366*x5209)-(8054097*x37199))', '((x2404-x34427)-(9516871*x32385))']
+     *** (x2404 += p*497208962159947933714 , x14370 += p*209076219844072011648) |group|=3  global 4 -> 3
+outer 4: global nonzero 3, violated c-conditions 2
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+   only the two TARGET congruences remain -- CLOSED
+|S|=32  T32h    NONZERO ATOMS = 3 of 9032   WALL = 443.2 s  -> close_T32h.json
+     (x3178-(x13720*x21170))
+     ((x18956-x37892)-x32237)
+     ((x24468-x13682)-(12354891*x34243))

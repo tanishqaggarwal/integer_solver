@@ -1,0 +1,28 @@
+=== PART 1: the p-obstruction on the exact polynomial variety ===
+p is prime-ish check: p mod small primes ...
+system 12 x 14 ; constants nonzero in 7 rows
+rank of the 12x14 region matrix : over Q = 7 ; mod p = 3  (drop 4)
+rank of [M|b]                   : over Q = 7 ; mod p = 4
+b mod p is zero in rows: [2554, 6816, 8124, 9123, 9421]
+b mod p nonzero in rows: [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+rows whose ENTIRE knob response vanishes mod p: 1 -> [29125]
+   (such a row demands b_i = 0 mod p, which no knob setting can change)
+   of those, rows with b_i != 0 mod p — UNZEROABLE for a mod-p reason: 1 -> [29125]
+
+=== PART 2: what marks the nine carrier atoms ===
+atom     inR    nzWit    deg     #eqs   #unitTgt  note
+22229    True   True     1       9      2         
+22230    True   True     2       10     1         
+22231    True   False    1       10     3         
+35758    True   True     2       6      1         
+35759    True   True     2       7      1         
+35760    True   True     2       8      1         
+35761    True   True     2       9      1         
+35762    True   True     2       9      1         
+37887    False  False    4       1      0         SQUARE (no bare var)
+
+comparison over ALL 33 atoms occurring in the region:
+   degree distribution: {2: 24, 'const': 5, 1: 4}
+   atoms with NO legal unit target: 3 of 33
+
+wrote runs/pstruct.json

@@ -1,0 +1,10 @@
+atoms with a unique cofactor: 3681
+checker eqs loaded 75s
+
+CALIBRATION with the EXACT map: deliverable 4 atoms touch 12 equations
+   vs M25: 12 of 25 ; M25 not covered: [5324, 8680, 9041, 11226, 15558, 21000, 22534, 22997, 28929, 29330, 32026, 35512, 38051]
+   deliverable checker failures subset? True
+
+MY baseline (deliverable with the 16 tuned handle/cofactor vars zeroed): 13 failing
+   |B & M25| = 13   B\M25 = []   M25\B = [5324, 9041, 11226, 15558, 21000, 22534, 22997, 28929, 29330, 32026, 35512, 38051]
+   FILTERING SET (intersection, per the caveat): 13 equations

@@ -1,0 +1,84 @@
+{
+ "rank_Q": 7,
+ "rank_modp": 3,
+ "stuck": [
+  29125
+ ],
+ "mzero": [
+  29125
+ ],
+ "carriers": [
+  {
+   "atom": 22229,
+   "in_region": true,
+   "nonzero_at_witness": true,
+   "poly_degree": 1,
+   "equations": 9,
+   "unit_targets": 2
+  },
+  {
+   "atom": 22230,
+   "in_region": true,
+   "nonzero_at_witness": true,
+   "poly_degree": 2,
+   "equations": 10,
+   "unit_targets": 1
+  },
+  {
+   "atom": 22231,
+   "in_region": true,
+   "nonzero_at_witness": false,
+   "poly_degree": 1,
+   "equations": 10,
+   "unit_targets": 3
+  },
+  {
+   "atom": 35758,
+   "in_region": true,
+   "nonzero_at_witness": true,
+   "poly_degree": 2,
+   "equations": 6,
+   "unit_targets": 1
+  },
+  {
+   "atom": 35759,
+   "in_region": true,
+   "nonzero_at_witness": true,
+   "poly_degree": 2,
+   "equations": 7,
+   "unit_targets": 1
+  },
+  {
+   "atom": 35760,
+   "in_region": true,
+   "nonzero_at_witness": true,
+   "poly_degree": 2,
+   "equations": 8,
+   "unit_targets": 1
+  },
+  {
+   "atom": 35761,
+   "in_region": true,
+   "nonzero_at_witness": true,
+   "poly_degree": 2,
+   "equations": 9,
+   "unit_targets": 1
+  },
+  {
+   "atom": 35762,
+   "in_region": true,
+   "nonzero_at_witness": true,
+   "poly_degree": 2,
+   "equations": 9,
+   "unit_targets": 1
+  },
+  {
+   "atom": 37887,
+   "in_region": false,
+   "nonzero_at_witness": false,
+   "poly_degree": 4,
+   "equations": 1,
+   "unit_targets": 0
+  }
+ ]
+}

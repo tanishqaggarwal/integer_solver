@@ -1,0 +1,1847 @@
+{
+ "budget": 20000000,
+ "components": [
+  {
+   "n_cond": 6,
+   "n_wires": 13,
+   "largest_pp": 191039,
+   "k_max": 2
+  },
+  {
+   "n_cond": 11,
+   "n_wires": 33,
+   "largest_pp": 5488313,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 113,
+   "k_max": 4
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 13,
+   "largest_pp": 416957,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 30983,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 17,
+   "largest_pp": 4357201,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 18,
+   "largest_pp": 2448049,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 3372157,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 5,
+   "largest_pp": 71563,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 16288913,
+   "k_max": 2
+  },
+  {
+   "n_cond": 8,
+   "n_wires": 24,
+   "largest_pp": 411259,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 7,
+   "largest_pp": 16351541,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 55889,
+   "k_max": 2
+  },
+  {
+   "n_cond": 9,
+   "n_wires": 25,
+   "largest_pp": 1974919,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 6863137,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 17,
+   "largest_pp": 3143411,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 15,
+   "largest_pp": 735067,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 2309,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 4987,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 5007589,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 3993569,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 18,
+   "largest_pp": 1893347,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 21,
+   "largest_pp": 13540661,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 16595977,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 8422691,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 15,
+   "largest_pp": 13618043,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 8022373,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 17,
+   "largest_pp": 16304933,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 273029,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 2053021,
+   "k_max": 2
+  },
+  {
+   "n_cond": 8,
+   "n_wires": 24,
+   "largest_pp": 436993,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 495413,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 1367057,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 13,
+   "largest_pp": 13564339,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 1355591,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 548323,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 7557941,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 155387,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 7,
+   "largest_pp": 3430423,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 20,
+   "largest_pp": 275153,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 6737,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 7,
+   "largest_pp": 914597,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 4823521,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 3,
+   "largest_pp": 14894027,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 13,
+   "largest_pp": 15433447,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 1833023,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 343309,
+   "k_max": 2
+  },
+  {
+   "n_cond": 8,
+   "n_wires": 24,
+   "largest_pp": 14717057,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 15858503,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 18,
+   "largest_pp": 38113,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 14,
+   "largest_pp": 1555963,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 18661,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 617,
+   "k_max": 3
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 872749,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 8761,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 507593,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 17,
+   "largest_pp": 1689533,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 13,
+   "largest_pp": 7427921,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 18,
+   "largest_pp": 574183,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 12,
+   "largest_pp": 5847137,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 5,
+   "largest_pp": 5384623,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 25703,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 1415833,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 15,
+   "largest_pp": 602411,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 17,
+   "largest_pp": 571147,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 7105759,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 16843,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 5,
+   "largest_pp": 1374019,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 2061331,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 3283471,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 4842689,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 1087687,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 15,
+   "largest_pp": 14678077,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 2293,
+   "k_max": 3
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 12661591,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 172279,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 14,
+   "largest_pp": 4373107,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 18,
+   "largest_pp": 1087963,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 450487,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 499,
+   "k_max": 3
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 1720603,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 48593,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 3631219,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 68171,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 13,
+   "largest_pp": 1434451,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 22157,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 7707113,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 13,
+   "largest_pp": 14309663,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 10781,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 5,
+   "largest_pp": 492563,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 2647,
+   "k_max": 3
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 21,
+   "largest_pp": 882263,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 3222137,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 7897751,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 13,
+   "largest_pp": 7120781,
+   "k_max": 2
+  },
+  {
+   "n_cond": 9,
+   "n_wires": 27,
+   "largest_pp": 7942211,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 8241781,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 4834201,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 77983,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 2827327,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 900997,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 2378953,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 280487,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 14,
+   "largest_pp": 7963663,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 6672769,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 4716001,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 1597,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 6073,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 13601171,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 5581,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 4665851,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 95791,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 82031,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 11,
+   "largest_pp": 67073,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 5209,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 14419837,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 20,
+   "largest_pp": 3375109,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 26683,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 284917,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 12906001,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 16313519,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 5,
+   "largest_pp": 4053989,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 504983,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 1676837,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 22853,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 6399319,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 411937,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 13483871,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 7,
+   "largest_pp": 14563889,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 12849673,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 106627,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 14,
+   "largest_pp": 200257,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 2554543,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 15013,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 10674467,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 1231,
+   "k_max": 3
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 14,
+   "largest_pp": 15403601,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 5,
+   "largest_pp": 3925637,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 17,
+   "largest_pp": 2096693,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 310379,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 12547,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 31277,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 4966243,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 1189607,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 11895361,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 811,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 1307,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 732181,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 1110821,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 6301,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 99733,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 3841531,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 167413,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 1063,
+   "k_max": 3
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 18,
+   "largest_pp": 8059283,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 3,
+   "largest_pp": 991883,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 2204471,
+   "k_max": 2
+  },
+  {
+   "n_cond": 6,
+   "n_wires": 11,
+   "largest_pp": 1906673,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 1297,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 13229,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 21,
+   "largest_pp": 149953,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 14,
+   "largest_pp": 12492391,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 389,
+   "k_max": 3
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 3805721,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 13962073,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 2069,
+   "k_max": 3
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 4093483,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 11386003,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 11081407,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 141277,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 21,
+   "largest_pp": 4476041,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 3695869,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 16561,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 715991,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 13841,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 7,
+   "largest_pp": 7825991,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 5,
+   "largest_pp": 66571,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 1244249,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 3,
+   "largest_pp": 1748167,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 14136271,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 1764479,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 193013,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 165961,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 227,
+   "k_max": 4
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 151531,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 3130957,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 7,
+   "largest_pp": 1125479,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 399983,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 343,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 6561,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 15536893,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 331,
+   "k_max": 3
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 13663183,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 136991,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 7702571,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 822721,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 1823,
+   "k_max": 3
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 899917,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 4104041,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 460091,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 4254277,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 7,
+   "largest_pp": 3476303,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 121313,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 7,
+   "largest_pp": 2527639,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 5,
+   "largest_pp": 6089,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 630067,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 1499,
+   "k_max": 3
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 1493663,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 11971,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 1330423,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 1583,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 915949,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 350789,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 15141563,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 222193,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 439,
+   "k_max": 3
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 5,
+   "largest_pp": 166669,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 14767163,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 576421,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 11102953,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 319919,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 348323,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 5,
+   "largest_pp": 4453231,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 1394941,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 251969,
+   "k_max": 2
+  },
+  {
+   "n_cond": 7,
+   "n_wires": 14,
+   "largest_pp": 4507999,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 2093081,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 8102903,
+   "k_max": 2
+  },
+  {
+   "n_cond": 5,
+   "n_wires": 11,
+   "largest_pp": 1075897,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 31721,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 163,
+   "k_max": 4
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 42853,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 4097321,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 12904373,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 1149131,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 14831,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 3592327,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 7,
+   "largest_pp": 10609493,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 7,
+   "largest_pp": 3671461,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 5479,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 139,
+   "k_max": 4
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 236947,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 18371,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 857,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 12853,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 24781,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 773569,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 7247,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 613,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 16369,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 1868423,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 33353,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 383633,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 3,
+   "largest_pp": 7932893,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 4498883,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 6217,
+   "k_max": 2
+  },
+  {
+   "n_cond": 5,
+   "n_wires": 10,
+   "largest_pp": 11363179,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 6577,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 6173,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 228139,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 618311,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 669989,
+   "k_max": 2
+  },
+  {
+   "n_cond": 3,
+   "n_wires": 4,
+   "largest_pp": 24181,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 405607,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 1657,
+   "k_max": 3
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 6323,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 3911,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 6221,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 6029,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 188801,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 6217,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 368689,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 1283,
+   "k_max": 3
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 39623,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 4297,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 14407,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 2185199,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 116191,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 13883047,
+   "k_max": 2
+  },
+  {
+   "n_cond": 4,
+   "n_wires": 6,
+   "largest_pp": 606811,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 2777,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 17569,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 57493,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 2309,
+   "k_max": 3
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 1181329,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 6846577,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 7,
+   "largest_pp": 326189,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 5531,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 264889,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 52147,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 11332213,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 350087,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 37957,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 6,
+   "largest_pp": 14422313,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 1621,
+   "k_max": 3
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 1367,
+   "k_max": 3
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 607,
+   "k_max": 3
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 9191153,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 14551,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 6648143,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 373,
+   "k_max": 3
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 5443,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 1931,
+   "k_max": 3
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 2243429,
+   "k_max": 2
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 12557177,
+   "k_max": 2
+  },
+  {
+   "n_cond": 2,
+   "n_wires": 2,
+   "largest_pp": 2423,
+   "k_max": 3
+  },
+  {
+   "n_cond": 1,
+   "n_wires": 1,
+   "largest_pp": 116239,
+   "k_max": 2
+  }
+ ]
+}

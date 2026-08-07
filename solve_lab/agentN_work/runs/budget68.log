@@ -1,0 +1,15 @@
+68 knobs, 231 live collateral rows, region 12
+already done: 0
+   0/231  (0s elapsed)  best g so far 5
+   20/231  (10s elapsed)  best g so far 5
+   40/231  (20s elapsed)  best g so far 5
+   60/231  (31s elapsed)  best g so far 5
+   80/231  (42s elapsed)  best g so far 5
+   100/231  (50s elapsed)  best g so far 5
+   120/231  (59s elapsed)  best g so far 5
+   140/231  (67s elapsed)  best g so far 5
+   160/231  (74s elapsed)  best g so far 5
+   180/231  (82s elapsed)  best g so far 5
+   200/231  (90s elapsed)  best g so far 5
+   220/231  (98s elapsed)  best g so far 5
+DONE |W|=1 on 68 knobs: best g = 5 (need >= 7 to beat 39,026)

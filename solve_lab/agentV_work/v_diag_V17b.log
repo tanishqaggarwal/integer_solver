@@ -1,0 +1,29 @@
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+S (|S|=17) = [19745, 33287, 30242, 12422, 16586, 35110, 3545, 34974, 4940, 32872, 4362, 30420, 3707, 4287, 5090, 37147, 1695]
+greedy init done 6.0 s -> global nonzero 10
+  outer 0: global nonzero 10, violated c-conditions 10
+     single-wire pass: 6 accepted shift(s)
+  outer 1: global nonzero 3, violated c-conditions 3
+     single-wire pass: 0 accepted shift(s)
+
+=== V17b single-wire end state : NONZERO ATOMS = 3 of 9032 ===
+    ((x18956-x37892)-x32237)                                   c=1 (TARGET CONGRUENCE)
+    ((x24468-x13682)-(12354891*x34243))                        c=12354891 (TARGET CONGRUENCE)
+    ((x10261-x8912)-(13040669*x27539))                         c=13040669 
+  undischarged c>1 conditions: 3
+
+--- coupling census over the 1 surviving non-target conditions ---
+CONDITION-GRAPH COMPONENT SIZES: [1]
+WIRE-SET SIZE PER COMPONENT   : [2]
+  component 0: 1 condition(s), 2 wire(s)
+     c=13040669     19^1*199^1*3449^1
+        ((x10261-x8912)-(13040669*x27539))
+     wires: ['x10261', 'x27156']
+
+--- coupling census over ALL c>1 conditions that any surviving wire touches ---
+neighbourhood conditions: 3
+CONDITION-GRAPH COMPONENT SIZES: [3]
+WIRE-SET SIZE PER COMPONENT   : [12]
+
+wall 183.4 s -> v_diag_V17b.json

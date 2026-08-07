@@ -1,0 +1,324 @@
+# RESUME_U — agent U.  The partition theorem.
+
+Everything here was measured on this box from `EQUATIONS.txt` with **my own parser**.
+No other agent's code was imported.  Other agents' directories were read read-only, and only
+as *cross-checks* (their gadget SITES, my arithmetic).
+
+## 0. SCORE
+
+Baseline re-verified at the start of this session:
+`python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json`
+→ `satisfied 39026/39033 (7 failing)`, failing `[12231,12270,12350,14584,18673,22044,29125]`.
+
+**I did not beat it.** Nothing in `agentU_work/` is a better partial. No infeasibility is claimed.
+
+---
+
+## 1. HEADLINE — the arithmetic half of K's partition theorem is CLOSED, exhaustively, under the
+## TIGHT criterion, from a parse that is not K's.
+
+> **For every slot of every merge gadget in this instance, the maximum attainable subset sum of
+> its leaf-exponent support is strictly below `N` — the largest is `0.798718631·N`.  Hence
+> `|Σ_A 2^i − Σ_B 2^j| < N` for every choice of `A ⊆ I`, `B ⊆ J`, at every gadget, so `±N` is
+> unreachable everywhere.  This is exhaustive, not bounded: no search is involved.**
+
+### Knob set and configuration (stated per the lab rule)
+
+* **Knob set:** all 256 leaf selector bits over all `2^256` configurations, and in fact all
+  `A ⊆ I`, `B ⊆ J` at every gadget — i.e. every live-leaf subset, not a sampled family.
+* **Configuration:** any.  The statement is about the exponent arithmetic and the measured
+  slot partition; it does not reference a particular assignment.
+* **What it does NOT cover:** it is conditional on the *fold semantics* — that a slot carries
+  the composition of the live leaves in its own support.  That is K's step 2 / the routing
+  layer, and it is **not** what I closed.  See §5.
+
+---
+
+## 2. THE ARITHMETIC, RECOMPUTED (`u0_arith.py`)
+
+```
+N  = 115792089237316195423570985008687907852837564279074904382605163141518161494337  (256 bits)
+popcount(N) = 192, zeros = 64
+2N > 2^256 - 1                       (slack 1.1579e76)   -> k = ±1 is the only possible wrap
+2^256 - N = 432420386565659656852420866394968145599  <  2^129
+```
+
+Two corrections/sharpenings to what is in FLEET.md and RESUME_K.md:
+
+1. **The unconstrained condition is TRUE — reconfirmed independently.**  There are **34**
+   indices `j` with `bit_j(N)=1, bit_{j+1}(N)=0`; `j = 0` gives non-empty disjoint
+   `A` (|A|=192), `B` (|B|=1) over `{0..255}` with `Σ_A 2^e − Σ_B 2^e = N` exactly.  Verified
+   numerically.  So the whole question is the partition and nothing else.  Confirmed.
+
+2. **K's stated condition is strictly weaker than the tight one, and I used the tight one.**
+   K's §4.0 says "neither slot support contains all of `{129..255}`", justified by
+   `2^256 − N < 2^129`.  That is *sound* but not sharp: containing `{129..255}` is **necessary
+   but not sufficient** for `maskval ≥ N` —
+   `maskval({129..255}) = 0.9978·N < N`.  The exact criterion is simply
+
+   ```
+   Σ_A 2^i = +N + Σ_B 2^j  requires  Σ_A ≥ N,  and  Σ_A ≤ maskval(I).
+   So  ±N reachable at a gadget  =>  maskval(I) ≥ N  or  maskval(J) ≥ N.
+   ```
+
+   equivalently `Σ_{e ∉ I} 2^e ≤ 2^256 − N − 1`.  I tested `maskval ≥ N` directly at every slot.
+   **The −N case is covered by the same test on the other slot** and was checked separately, not
+   assumed by symmetry.
+
+---
+
+## 3. THE PARTITION FACTS, MEASURED INDEPENDENTLY
+
+### 3.1 My parse (`v1_parse.py` → `v3_defs.py` → `v5_chain.py` → `v8b_supp.py`)
+
+* Recursive-descent parse of all 39,033 equations into **37,936 distinct maximal atoms** in
+  **20 shapes**.  (This is *my* atomisation — 37,936, not F's 39,033.  Rule 3: a count derived
+  from one parse is a fact about that parse.  Nothing here depends on the count.)
+* **512 leaf pins** of shape `sel·(w − C) − m·z`, over **exactly 256 distinct selectors, two
+  pins each, 512 distinct wires, 512 distinct 287–296-bit constants.**
+* `p = CONST[x26064]` = 115792089…908834671663, 256 bits, prime.
+* **Curve solved algebraically, not taken:** fitting `y² = (x+s)³ + b` to three leaf constants
+  (orientation of each selector's two pins searched, since it is not given) yields
+  `shift = 109712675…394060739`, and `3·shift mod p = 97553848499418123410591666447050222001188385549510401465815187079080512838891` — which
+  is exactly the `K` in K's decode, recovered here without reading it.
+  `b = 64019533680030876408443198762210829058751700634554282185987325820393598524794`.
+  **256/256 leaf points satisfy `Y² = X³ + b`.**
+* **Doubling chain:** 255/256 doublings land inside the leaf set, one source, one sink, chain
+  length 256, exponents 0..255.  `N·G = O`.  `leaf(e) == 2^e·G` for **all 256**.
+  Base selector = **x2779** (independently equals Q's `G_leafvar`).
+* **Selector-support closure** over all 38,748 wires (forward on the canonical definition DAG,
+  copies union-found, product-constraint atoms read forward) gives **exactly 511 distinct
+  non-empty supports**:
+
+| | |
+|---|---|
+| distinct supports | **511 = 2·256 − 1** |
+| laminarity violations | **0** |
+| internal nodes | **255, every one binary, children disjoint, union = parent** |
+| root | `{0..255}` |
+| **root halves** | **178 / 78, disjoint** |
+| A (178) ∩ `{129..255}` | **84** — omits 43 |
+| B (78) ∩ `{129..255}` | **43** — omits 84 |
+
+**Those are K's two measured partition facts, reproduced exactly (43 and 84) by a parser that
+shares no code and no intermediate file with K.**  K's "every interior stage sits inside one
+root half" is subsumed: the family is *laminar with zero violations*, so every support is
+inside a root half by construction, and I verified the tree property rather than assuming it.
+
+### 3.2 Second source — L's 383-node model (`agentT_work/mirror/L/full_model.pkl`, read-only)
+
+L's per-node leaf sets `sub[]`, mapped through **my** exponent map, give a family that is
+**set-equal to my 511**.  383 internal nodes → 255 with two non-empty slots (the genuine
+merges) + 128 with one empty slot (pass-throughs).  **That reconciles 383 vs 255: the
+difference is exactly 128 pass-through nodes, not a disagreement.**  Root split 178/78.
+
+### 3.3 Third source — K's numbers, from FLEET/RESUME_K: 178/78 and 43/84.  Identical.
+
+---
+
+## 4. THE TEST (`v9b_theorem.py`, `v11_direct.py`)
+
+| source | gadget sites | verdict | max `maskval(slot)/N` |
+|---|---|---|---|
+| my own tree | 255 | **0 sites can reach ±N** | 0.798718631 |
+| L's 383-node model, my supports | 383 | **0 sites** | 0.798718631 |
+| Q's 383 chord gadgets (`ua`/`ub`), my supports | 383 | **0 sites** | 0.767097519 |
+| **tree-free**: all 510 proper supports | — | **0 supports have `maskval ≥ N`** | 0.798718631 |
+
+* **Exhaustive brute force as an independent check of the bound argument itself:** for the 240
+  of 255 sibling pairs with `|I|+|J| ≤ 22`, every subset sum of both sides was enumerated —
+  **14,052,776 subset-sum pairs, zero representations of ±N.**  The remaining 15 pairs are
+  settled by the exact interval `[−maskval(J), +maskval(I)] ⊂ (−N, N)`, which is a
+  recomputation, not an argument.
+* **The tree-free form is the strongest and the one to cite:** *no proper slot support in this
+  instance has `maskval ≥ N`.*  This does not depend on my tree recovery, on the 178/78 split,
+  on which side any exponent sits, or on the pairing being right — any two disjoint sets drawn
+  from the family fail.  (This is the closure K's `k33` failed to reach with inflated supports.)
+* **The adjacent hole (a half folding to the group identity) is closed too**, and by a sharper
+  argument than K's size count: `Σ_S 2^e ≡ 0 (mod N)` with `Σ_S < 2N` forces `Σ_S = N` exactly,
+  and because the summands are **distinct powers of two the binary representation is unique**,
+  so it forces `S = supp(N)` exactly.  **No proper support contains `supp(N)`** — measured.
+* **The `dx = 0, dy ≠ 0` case** (inputs are negatives of each other, `Σ_A + Σ_B ≡ 0 mod N`) is
+  *not* a free-output case: `R1 = S·dx² − dy² = −dy² ≠ 0`.  It is an unsatisfiable gadget, not
+  an exploitable one.  Noted because the same uniqueness argument shows `Σ_A + Σ_B = N` forces
+  `A ∪ B = supp(N)` — which IS available at the root (`supp(N) ⊆ {0..255}`), so this branch had
+  to be checked on the residual, not on the arithmetic.
+
+---
+
+## 5. WHAT IS **NOT** CLOSED — stated plainly
+
+The theorem I closed is: **an *honest* coincidence is impossible.**  "Honest" = each slot
+carries the composition of the live leaves in its own support.  Two things remain:
+
+1. **The fold semantics (K's step 2, the routing layer).**  Over ℤ the leaf pin is
+   `sel·(w − C) − m·z = 0`, so with `sel = 1` the wire carries `w = C + m·z` — **not** `C` —
+   until `z` is separately forced to 0.  **256 of the 512 leaf pins have `m = 1`.**  So a leaf
+   wire is only pinned to its constant modulo whatever pins `z`.  This is exactly check-in 40's
+   correction and it is where the remaining conditionality lives.  My theorem does not touch it.
+2. **A *dishonest* coincidence is not only possible, it is what the deliverable does.**  See §6.
+
+**So: do not cite §1 as "the degeneracy route is closed."**  Cite it as *"no gadget can be fed
+two coinciding inputs by any assignment of the 256 selectors under the fold semantics; a
+coincidence therefore requires forcing a wire off its honest value, and that has a price."*
+
+---
+
+## 6. END-TO-END VALIDATION AGAINST THE DELIVERABLE (`v12_deliv.py`) — the strongest check here
+
+Driving my decode on `best/new_instance_partial_39026.json` (3,540 assigned variables):
+
+* **Exactly 1 of the 383 chord stages has non-zero inputs.**
+* At that stage (Q's index 152) **the two inputs coincide exactly**, and both are on the cubic.
+* The coinciding value is **`2^72·G`** — a genuine leaf point, identified by my own exponent map.
+
+That is K's §3 mechanism, confirmed numerically from an independent decode: the deliverable
+makes one gadget see two equal live inputs, the chord residual vanishes identically, the output
+goes free and is driven to the target.  It pays 7 equations for the lie that puts `2^72·G` on a
+wire whose honest constant is a different leaf.  **The degeneracy is reachable — dishonestly,
+at a price — and §1 says the price can never be zero.**
+
+---
+
+## 7. A BUG I MADE AND CAUGHT — worth the two lines
+
+My first parser collected **every** `-` node in the AST, including nested ones.  That turned the
+inner difference of `dx = ua − ub` into a "copy" atom `(x_ua − x_ub)` and union-found the two
+slot inputs of every gadget together.  Caught by cross-checking against Q's `qstages.json`:
+**0/383 slot pairs came back disjoint**, and `find(ua) == find(ub) == find(u3)`.
+
+**Blast radius, measured before reporting (rule 8):** the corrected parse (`v1_parse.py`,
+maximal `-` nodes only: 6,622 → 3,749 copies) gives the **same 511-set family with the same size
+profile and the same 178/78 root split**.  So the headline number never moved; only my
+confidence in it should have.  The lesson is the ledger's rule 4 in reverse: I validated by
+what the model predicted was PRESENT (disjointness at 383 known gadget sites) and it failed
+loudly.  A support family that is laminar and looks like a binary tree is **not** self-validating.
+
+---
+
+## 8. FILES
+
+| file | what |
+|---|---|
+| `u0_arith.py` | the three-line arithmetic + the `Σ_A − Σ_B = N` witness |
+| `v1_parse.py` → `v_atoms.pkl` | corrected recursive-descent parse, 37,936 maximal atoms |
+| `v3_defs.py` → `v_defs.pkl` | defs / copies / constants / 512 leaf pins |
+| `v5_chain.py` → `v_leaves.pkl` | curve fit, 256 points, doubling chain, exponent map |
+| `v8b_supp.py` → `v_supp2.pkl` | selector-support closure over all 38,748 wires |
+| `v9b_theorem.py` → `v_tree_final.pkl` | laminarity, tree, root split, the `maskval` test |
+| `v11_direct.py` | direct per-gadget test from 3 sources + 14M-pair brute force |
+| `v12_deliv.py` | end-to-end validation against the 39,026 deliverable |
+| `u1_parse.py`, `u3..u10` | the buggy-parser generation, kept for the §7 comparison |
+
+Superseded within this directory: `u_atoms.pkl`, `u_defs.pkl`, `u_supp.pkl`, `u_tree.pkl`,
+`u_tree_final.pkl` — products of the pre-§7 parser.  **`u_leaves.pkl` is unaffected** (leaf pins
+are maximal atoms in both parsers) but use `v_leaves.pkl`.
+
+---
+
+## 9. CROSS-PARSE IDENTITY OF THE EXPONENT MAP
+
+My `sel2exp` (256 selectors → exponents), built from my own curve fit, my own doubling chain and
+my own base discovery, is **byte-identical to Q's `qladder.json` `sel2exp`** — 256/256, zero
+differences.  Two parses that share no code agree on the labelling, not just on the structure.
+So exponent numbers in this file are comparable with Q's (they are **not** comparable with K's
+`chain.json`, which uses a different labelling).
+
+## 10. THE DELIVERABLE'S LIE IS IN THE ROUTING, NOT THE PINS (`v14_onset.py`)
+
+* **Exactly 2 leaf selectors are 1**: exponents **72** (`x24601`) and **235** (`x2081`); the
+  other 254 are 0.
+* **All four of their coordinate wires carry their own honest pin constant**, and all four `z`
+  wires are 0.  **No leaf pin is violated.**
+* The two ON exponents are separated by the **root** sibling pair: 235 ∈ the 78-half,
+  72 ∈ the 178-half.
+* Yet the coincidence happens with **both** inputs equal to `2^72·G`.
+
+So the lie is a **cross-half route** — the 78-half chain is made to carry the 178-half's value —
+and it costs 7 equations.  This is K's §3 read off the deliverable by an independent decode, and
+it is what §1 forbids doing honestly: an honest root coincidence needs
+`Σ_A 2^i − Σ_B 2^j = ±N` with `A` in the 178-set and `B` in the 78-set, and both maskvals are
+below `N`.
+
+## 11. WHAT PINS A LEAF WIRE — measured (`v13_pins.py`)
+
+`sel·(w − C) − m·z = 0`, so with `sel = 1` the wire carries `w = C + m·z`.  **256 of the 512
+pins have `m = 1`**, which would make `w` free if `z` were free.  It is not:
+
+* **Every one of the 512 `z` wires occurs in exactly 2 atoms** — its own pin, and one
+  `(V − (V*V))` atom.  **512/512 `z` wires are defined as a product of two wires.**
+* So `sel·(w − C) = m·a·b`: the leaf wire is pinned to its constant **iff the product `a·b` is
+  zero**, and lying at a leaf means switching on a gate, not just choosing a free value.
+* Incidence price of the cheapest single-pin lie: `{pin atom} ∪ {atoms containing z}` touches
+  **min 8 / median 14 / max 21 equations**.  **This is an incidence count and therefore an
+  inflated upper bound, not a floor** — three separate demonstrations in this lab (C, P, L) show
+  incidence pricing fails, and the deliverable's actual price is 7, below this minimum.  **Do
+  not read "8" as a bound on anything.**
+
+## 12. K's PROMISED SWEEP — completed here (K never published it)
+
+Three engines exist in `agentK_work/`: `cascade.Cascade.close` and `cascade2.Inc.run` have **no
+guard parameter at all**; only `cascadep.CascadeP.close(seed, order, forbid=(), pin=None)` can be
+guarded.  Sweeping every script for closure *runs* (not merely imports):
+
+| script | engine / guard |
+|---|---|
+| `k13_root.py` | `cascadep.close` **UNGUARDED** |
+| `k17_validate.py` | `cascadep.close` **UNGUARDED** |
+| `k24_allon.py` | `cascadep.close` **UNGUARDED** |
+| `k7_order.py` | `cascade2.Inc.run` — **no guard parameter** |
+| `k9_handles.py` | `cascade2.Inc.run` — **no guard parameter** |
+| `k26_drive.py` | guarded **conditionally** (`forbid=FORBID if forward_only else ()`) |
+| `k43_forward.py`, `k44_audit.py` | guarded conditionally (`pin=pin if guard else None`) |
+| `k35_otherbools.py`, `k37_premise.py`, `k38_deadgate.py`, `k39_alias.py` | guarded on every call |
+
+**K's own audit table omits four of these: `k13_root.py`, `k17_validate.py`, `k24_allon.py`,
+`k7_order.py`.**  Only `k9_handles.py` and `k26_drive.py` are flagged there.
+
+**The one that matters, and it lands squarely on the fact I was sent to attack.**
+`k24_allon.py`'s docstring says it "**also settles the side of leaf exponent 163**" — the leaf
+K had to place by hand to turn its root split from 177/78 into **178/78** — and it runs an
+**unguarded** closure.  K's audit table records the root split as SAFE, on the grounds that
+`k36_tight.py` (support recovery) uses no closure; it does not record that the 163 placement came
+from a closure run that could solve constraints backwards.
+
+**Blast radius: zero, and it is closed rather than merely unrefuted.**  My 178/78 split is
+derived from the definition DAG alone — no closure, no seeding, no assignment, forward by
+construction — and L's independent 383-node model gives the same split and a set-equal leaf-set
+family.  So the fact survives; what did not survive is K's justification for calling it safe.
+(Note my own parse hit the *same kind* of gap at the *same kind* of leaf: exponent **107** was
+the one leaf my first support closure failed to attach, until product-constraint atoms were read
+forward.  Two independent parses each needed one leaf placed by an extra mechanism.  That leaf is
+the fragile point of this decode and anyone re-deriving the split should check it first.)
+
+## 13. WHAT I DID NOT DO, DELIBERATELY
+
+K's other unfinished item — re-running the whole B-half fold validation table with backward
+derivation blocked at **every** slot — I did not attempt.  K's file carries an explicit
+"**DO NOT REBUILD THE GUARD**" header with the reason: the guard is built from atom *shape*, and
+`k43`'s diagnosis is that the role of `W` and `Z` in `((xW − xZ) − xH)` is reversed at non-root
+slots, so a shape-built pin map blocks real sources (guarded 0/18 halves match vs unguarded 6/18
+— it broke even the single-leaf pass-through case).  The correct pin map has to come from the
+decoded slot→source direction.  More to the point, **the thing that table was for is settled
+from an independent parse without any closure** (Q: 383/383 chord law by Schwartz–Zippel against
+the real sub-DAG, 383/383 mux quadrant law, one tree, one root), and rebuilding it would
+re-derive a settled result with the least trustworthy instrument in the lab.  Recorded as a
+decision, not an oversight.
+
+## 14. THE SINGLE HIGHEST-VALUE NEXT EXPERIMENT
+
+§1 says the price of a coincidence can never be zero.  §10 says the deliverable pays **7** for a
+**cross-half route** — not for a leaf-pin violation, which is the assumption most of this lab's
+placement searches were built on.  So the open question is sharply:
+
+> **What is the minimum equation-cost of a route that puts one root half's value onto the other
+> half's slot, over all 383 slots and all 2^256 ON-sets?**
+
+The deliverable's is 7 with `|ON| = 2` at the root.  M's placement enumeration priced 4,096
+subsets of `H12` and T verified the engine at 9/9, but that search is indexed by *handle
+subsets*, not by *route sites* — and the deliverable's lie is a route.  The concrete test:
+enumerate the 383 slots, and for each, price in **equations** (with L's exact in-memory scorer,
+never incidence) the cheapest assignment that makes that slot's two inputs coincide.  Interior
+slots have far smaller supports than the root and were never priced this way.  If any slot comes
+in below 7, that is the campaign's terminal result; if none does, 7 acquires a mechanism instead
+of an exhaustion.

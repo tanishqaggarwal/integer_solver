@@ -1,0 +1,5 @@
+stages verified to obey chordK exactly : 9 of 96
+stages linear but NOT chordK           : 63  [(30973, 'LINEAR_BUT_NOT_chordK'), (24533, 'LINEAR_BUT_NOT_chordK'), (27596, 'LINEAR_BUT_NOT_chordK'), (21408, 'LINEAR_BUT_NOT_chordK'), (18237, 'LINEAR_BUT_NOT_chordK'), (26824, 'LINEAR_BUT_NOT_chordK')]
+stages with no consistent role split   : 0  []
+stages skipped (support != 6 free inputs) : 24  [(22603, 4, 3), (19327, 4, 3), (204, 4, 3), (19860, 4, 3), (18631, 4, 3), (36895, 4, 3), (3483, 4, 3), (19002, 4, 3)]
+elapsed 189s

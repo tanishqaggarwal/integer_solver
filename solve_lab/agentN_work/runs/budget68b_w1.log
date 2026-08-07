@@ -1,0 +1,18 @@
+re-running 14 unhandled |W|=1 drops by relaxation
+   drop 996     relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 2043    relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 4096    relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 5916    relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 6494    relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 8687    relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 19631   relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 22563   relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 23083   relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 23919   relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 25305   relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 28754   relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 31423   relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+   drop 35561   relaxed OPT = 5   rank 16   RELAXED(upper bound), dropped [8680]
+
+max relaxed OPT over the 14: 5  (true OPT <= this)
+|W|=1 on 68 knobs: g <= 5 everywhere; need g >= 7 to beat 39,026 -> REFUTED
