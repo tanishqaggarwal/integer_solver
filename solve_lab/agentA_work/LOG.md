@@ -202,3 +202,41 @@ every modelled equation is then itself modelled and free to be nonzero and to ca
 settable anywhere in the instance.  Every atom appearing in the 7 failing equations occurs
 in 6-14 equations; none is a single-equation atom.  Zero equations in the whole instance
 contain a freely-settable single-equation atom.
+
+## THEOREM (equation level, off manifold) — the >= 7 bound SURVIVES
+Setting.  S = the deliverable.  A_0 = atoms of S's failing equations; A_{k+1} = atoms of
+every equation containing an atom of A_k (EQUATION closure — this is what admits foreign
+atoms as free cancellers).  R_L = equations touching A_L; K_L = variables all of whose
+atoms lie in A_L.  Nothing is required to vanish: all |A_L| atoms may take any value and
+cancel each other; the rows ARE the equation values.
+
+(i)  Every atom of A_L is affine in K_L (measured: ZERO nonlinear atoms for L <= 6), so
+     every equation of R_L has an exact affine form n_e.d + c_e, equations outside R_L are
+     constant in d, and no equation is approximated.
+(ii) rank(N) = |K_L| and the whole system is Q-CONSISTENT at every level, so it has a
+     unique rational solution W, and W is not integral.
+(iii)Hence for every integer d, the violated set D(d) makes rank(N restricted to the
+     retained rows) < |K_L| — D contains a support of the EQUATION-level code.
+
+Necessary conditions on D, both computed with honest miss probabilities:
+ (a) mod-p consistency.  Retained rows solvable mod p  <=>  g in span{col_i(Wb) : i in D},
+     Wb a basis of the left kernel of N mod p, g = Wb.B — a minimum-weight syndrome
+     decoding problem over F_p.
+       L=2 (88 atoms/94 eqs/68 rows/32 knobs): EXHAUSTIVE no |D| <= 4  => >= 5 rigorously;
+         Prange 3000 trials, 2025 solvable, lightest weight seen 7 (= what S achieves),
+         **P(a weight <= 6 point exists and was missed) <= 9.5e-208**.
+       L=6 (235 atoms/230 eqs/163 rows/109 knobs): EXHAUSTIVE no |D| <= 3 => >= 4
+         rigorously; Prange 500 trials, 195 solvable, lightest weight seen 7,
+         **P(a weight <= 6 point exists and was missed) <= 9.8e-09**.
+ (b) code support: `eqisd.py`, information-set decoding on the equation-level code
+     (running at L=6; detection probability ~0.098 per trial for weight 6).
+
+CONCLUSION: at least 7 of the 39,033 equations fail for every integer assignment agreeing
+with the deliverable outside K_L, for L up to 6 — i.e. after admitting 211 extra atoms as
+free cancellers (24 -> 235) and expanding the knob set from 9 to 109 variables.
+The bound is NOT an artefact of the all-atoms-zero frame.
+
+BOUNDARY (stated honestly): 428 of the 537 variables appearing in the level-6 window are
+excluded from K_6, every one of them for the single reason that it touches an atom outside
+the window.  No knob is ever dropped to preserve linearity.  That is the theorem's entire
+scope limitation, and it shrinks as L grows.

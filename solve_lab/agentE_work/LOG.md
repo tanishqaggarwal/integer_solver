@@ -120,3 +120,36 @@ All curve/point/group vocabulary has been removed.  `p` below is simply the 256-
 literal 115792089237316195423570985008687907853269984665640564039457584007908834671663 that
 occurs verbatim in EQUATIONS.txt; every statement here is about integer congruences and
 integer-linear relations among the polynomials in the file, nothing more.
+
+## 10. Independence vs. sum — the direct measurement
+Take two individually-feasible b-tree bits (x_1530, x_1603) and their exact single-bit pin
+solutions s1, s2 (each verified: applying it alone leaves ZERO atoms outside the selector core).
+
+* **Shared variables:** s1 and s2 move 3 variables in common — `x_14853, x_31339, x_6083` —
+  and they require **conflicting values on all three** (0 of 3 agree).
+  Across all 50 feasible b-bits the 50 required values of `x_14853` are pairwise distinct,
+  and distinct even mod p.
+* **Not additive:** with both bits on and both solutions applied, the product flag
+  `x_24195 = x_33953 * x_1250` flips from 0 to 1, and the two quantities
+  `U = x_29210`, `V = x_8736` that the new rows constrain are **not** the sum of their
+  singleton values, neither over Z nor mod p.
+
+So the pin conditions are (a) NOT independent across bits — they collide on three shared
+accumulators — and (b) NOT a function of the sum either; the coupling enters through the
+*product* gates of the OR-tree.  Single-bit solutions therefore cannot be recombined
+linearly, and each subset poses a fresh rank-2 congruence system in (U,V).
+
+## 11. Single bits cannot close the selector either
+For the branch that switches only the b-side on (`x_14853 = x_13682`), the closure was solved
+at supports up to 3,811 variables / 2,727 rows (`runs/big01.log`) — **core infeasible at every
+support**.  The blockers are, in raw form:
+  a20215: `x_24530 = x_5647 * x_24908` with `x_5647 = 1`, `x_24530 = C1` -> demands `x_24908 = C1`;
+  a28647: `x_36433 = x_26386*x_6083 + x_27475*x_33708` with `x_36433 = C2`,
+with C1 = 125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626
+and C2 = 91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002.
+Both are "produce this specific 296-bit constant on an accumulator" conditions.
+
+## 12. Deliverables from the scan
+`bitsol_<bit>_<score>.json` — one file per bit whose pin system solves *and* verifies with no
+residual atoms outside the selector core.  Spot-checked with `../checker.py`:
+`bitsol_10428_39017.json` -> **39017/39033** exactly, as the filename says.

@@ -65,3 +65,19 @@ triples among the 6 cheapest additions:
   +(23434, 36224, 23436) |E|= 17 knobs= 8 minfail=7
   +(23434, 36224, 36223) |E|= 16 knobs=10 minfail=7
   +(23434, 36224, 6256) |E|= 19 knobs= 8 minfail=7
+  +(23434, 23436, 36223) |E|= 18 knobs= 9 minfail=7
+  +(23434, 23436, 6256) |E|= 19 knobs= 8 minfail=7
+  +(23434, 36223, 6256) |E|= 19 knobs= 9 minfail=7
+  +(23435, 36224, 23436) |E|= 17 knobs= 9 minfail=7
+  +(23435, 36224, 36223) |E|= 17 knobs=10 minfail=7
+  +(23435, 36224, 6256) |E|= 20 knobs= 8 minfail=7
+  +(23435, 23436, 36223) |E|= 18 knobs=10 minfail=7
+  +(23435, 23436, 6256) |E|= 19 knobs= 9 minfail=7
+  +(23435, 36223, 6256) |E|= 20 knobs= 9 minfail=7
+  +(36224, 23436, 36223) |E|= 18 knobs= 9 minfail=7
+  +(36224, 23436, 6256) |E|= 21 knobs= 7 minfail=7
+  +(36224, 36223, 6256) |E|= 18 knobs= 9 minfail=7
+  +(23436, 36223, 6256) |E|= 21 knobs= 8 minfail=7
+
+BEST minfail = 7  => SCORE 39026   support=[23432, 23433, 36225, 36226, 36227, 36228, 36229, 37537, 37538]
+total 177s

@@ -64,6 +64,32 @@ with base 0, pinning the new knob `d28730 = 0`. Without that pin `eq29125` is
 satisfiable — its row is `[0,0,-p,0,0,-30,0,0]` and `gcd(p,30)=1`. **eq8680 is the single
 row that costs the deliverable its seventh equation.**
 
+## 7b. Support search — the full negative result
+`search.py`. Only **26 atoms** in the instance are adjacent to the deliverable's 12
+equations; cheapest new-equation costs 1, 2, 2, 3, 3, 4, ... Evaluated all 26 singles,
+all 28 pairs among the 8 cheapest, all 20 triples among the 6 cheapest — 74 supports
+with |E| from 12 to 21 and 7 to 10 knobs. **min failing = 7 for every one.** |E| grows
+by exactly what the new knobs buy, every time.
+
+`exact.py` upgrades greedy (an upper bound on minfail) to proof by enumerating every
+sacrificed set of size <= 6. **Deliverable's own support (|E|=12, 7 knobs): PROVED
+minfail >= 7** — all C(12,<=6) subsystems are integrally unsolvable.
+
+Bug found and fixed on the way: `intsolve.col_hnf` had its column operation roles
+swapped (`col_piv` updated instead of `col_dst`), so it never terminated. With it fixed,
+my solver independently reproduces the optimum 7 AND the optimal sacrificed set
+`[12231,12270,12350,14584,18673,22044,29125]` — the deliverable's own failing lines,
+recovered from scratch by integer linear algebra.
+
+## 7c. Probe of the off-branch structure — negative
+`1,853` atoms occur in exactly one equation: **926 pairs plus one**. Each of 926
+equations carries exactly two of them, always a product/difference atom `P` and a
+bare-variable atom `X`. Hypothesis: `X` is free slack that cancels `P` at zero cost.
+**Refuted by direct computation**: every one of those 926 variables occurs in exactly 3
+atoms (the bare atom, a definition `X - Y*Z`, and the pairing atom `P + X`), so the
+trade is local and self-cancelling. Equations with a genuinely free absorber (bare
+variable, unit coefficient, variable in no other atom): **0**.
+
 ## 8. Open
 `beam.py` (support search) is correct but `intsolve.solve_int` suffers HNF coefficient
 blow-up on 300-bit entries. Needs: Bareiss rank filter over Q, then SNF integrality on

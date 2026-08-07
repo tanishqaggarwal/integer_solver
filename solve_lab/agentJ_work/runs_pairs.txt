@@ -1,0 +1,16 @@
+T = [23326, 23327, 35889, 35890, 35891, 35892, 35893]
+candidate move variables (1 hop): 184
+outside-T atoms touched: 578
+after quadratic-independence filter: 177
+outside-T atoms in play: 572
+gradient matrix: 210 x 177
+integer kernel dimension: 7
+
+VERIFIED compensated generators: 7
+    ker0[1 vars] [-7376877, 0, 0, 0, 0, 0, 1]
+    ker1[1 vars] [0, 0, '~78d', 0, 0, 0, 0]
+    ker2[1 vars] [0, '~78d', 0, 0, 0, 0, 0]
+    ker3[1 vars] [0, 0, 0, 0, '~78d', 0, 0]
+    ker4[1 vars] [0, 0, 0, 0, 0, 0, '~78d']
+    ker5[1 vars] [0, 0, 1, -1, 0, 0, 0]
+    ker6[1 vars] [0, 0, 0, 0, 1, 1, 0]

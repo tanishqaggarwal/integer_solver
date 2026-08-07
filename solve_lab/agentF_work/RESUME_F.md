@@ -32,11 +32,16 @@
     python3 frame.py     # frame/lattice analysis helpers ; intsolve.py = exact integer HNF solver
 
 ## Next experiments (in order)
-1. Prime POWERS: solve mod q^k for q != p and mod p^k; confirm Hensel lifting is free away from p.
-2. CRT-reconstruct a solution mod a large composite Q = prod q_i and measure how far it is from an integer
-   solution (balanced representatives) -- quantify the size gap.
-3. Compute rank(M) (or at least test ker(M) != 0) -- that is the only remaining gate on the all-atoms-zero
-   argument, and the only route to a residual that cancels instead of failing.
+1. **Compute rank(M) / test ker(M) != 0** for the 39,033 x 39,033 equation-atom incidence matrix
+   (525,982 nnz).  This is the ONLY remaining gate on the all-atoms-zero argument and the only route to a
+   residual that cancels instead of failing.  Wiedemann over a word-size prime with scipy.sparse is the
+   practical method (~2n sparse matvecs).
+2. Coset search for a better cancellation frame: the number of the 12 frame rows that cancel is decided by
+   the coset of the residual value in the 7-generator lattice (invariants: r1 mod 7376877, r2 mod p,
+   r3+r4 mod p, r5-r6 mod p).  Sweep the ON-boolean pair and the break placement to move the coset; a
+   6-row coset would give 39,027.  (Note: r2 mod p can never be 0, since the two boolean groups' pin
+   constants are disjoint mod p, so equation 29125 appears to be unavoidable in this frame family.)
+3. mod p^k with a proper Hensel step rather than greedy repair, to characterise the mod-p residue variety.
 
 ## Multi-modular results (new)
 - FULL system solved (0 broken atoms, 0 failing equations) modulo: all primes < 110, 1009, 10007, 100003,
@@ -49,3 +54,6 @@
 - Handle structure validated at scale: 3,173 genuine divisibility atoms all have handle ≡ 0 mod p under
   4 random draws of all free inputs.
 - **Obstruction is at exactly one modulus, p, at level p^1 only.**
+- **mod p and mod p^2 do NOT solve**: same code, same booleans -> 21 nonzero atoms / 124 failing eqs (p) and
+  15 / 102 (p^2), versus 0/0 in 3.5 s for all 60 other moduli.  Checkpoints `modm_results/P_p.json`,
+  `modm_results/P_pp2.json`.

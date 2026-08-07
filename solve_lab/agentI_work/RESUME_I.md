@@ -98,6 +98,34 @@ satisfiable: its row is `[0,0,-p,0,0,-30,0,0]` and `gcd(p,30) = 1`, so
 costs the deliverable its seventh equation.** Its other 17 atoms all occur in 11-16
 equations each, which is why a naive compensator for it does not pay.
 
+## Support search — the full result (`search.py` -> `search.log`, `search_result.json`)
+Only **26 atoms** in the whole instance are adjacent to `E(S)` (share an equation with
+the deliverable's residual). New-equation cost of the cheapest ones: 1, 2, 2, 3, 3, 4, ...
+Evaluated **all 26 singles, all 28 pairs among the 8 cheapest, all 20 triples among the
+6 cheapest**:
+
+> **min failing = 7 for every single one of them.**
+
+|E| grows by exactly what the new knobs buy, every time — over 74 distinct supports with
+|E| from 12 to 21 and knob counts from 7 to 10. `exact.py` upgrades this from greedy
+(an upper bound on minfail) to an exhaustive proof for the tightest supports by
+enumerating every sacrificed set of size <= 6.
+
+Independently re-derived with my own fixed HNF solver (a genuine bug found and fixed in
+`intsolve.col_hnf`: the column operation had its roles swapped, so it looped forever):
+for the deliverable's own support the exact minimum is **7**, and the optimal sacrificed
+set is exactly `[12231, 12270, 12350, 14584, 18673, 22044, 29125]` — the deliverable's
+own failing lines, recovered from scratch by integer linear algebra.
+
+## Probe of the "off-branch" structure — negative, and worth recording
+`1,853` atoms occur in exactly one equation. They are **926 pairs plus one**: every one
+of 926 equations carries exactly two of them, always a product/difference atom `P` and a
+bare-variable atom `X`. That looked like free slack (`X` set to cancel `P` at zero
+cost). It is not: **every one of those 926 variables occurs in exactly 3 atoms** — the
+bare atom, a definition `X - Y*Z`, and the pairing atom `P + X` — so the trade is local
+and self-cancelling. Number of equations with a genuinely free absorber (bare variable,
+unit coefficient, variable in no other atom): **0**.
+
 ## Reproduce
 ```
 cd /home/user/integer_solver/solve_lab/agentI_work

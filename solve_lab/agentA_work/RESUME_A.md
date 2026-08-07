@@ -79,3 +79,31 @@ must contain a code support.
 | 39,026 witness region | 31 / 22 | **7, proven exhaustively** | 39,026 |
 | enlarged 39,026 region | 92 / 20 | >= 7 (no support of weight <= 6 in 48k trials) | 39,026 |
 | canonical mod9118_0 | 89 / 65 | **10** (min support weight; P(miss) <= e^-534) | 39,009 |
+
+
+## ============ EQUATION-LEVEL ADDENDUM (the campaign's central question) ============
+The shared hidden assumption was NOT "all atoms zero" in the rows — my rows were always
+equation values — but in the REGION: the foreign atoms of every modelled equation were
+required to stay zero.  The fix is the EQUATION closure A := atoms(eqs(A)), which admits
+them as free cancellers.  `eqwin.py`, `eqwin2.py`, `eqbound.py`, `eqisd.py`, `boundary.py`,
+`cancel.py`.
+
+  lev  atoms  eqs  rows  knobs  rank  Qincons  violated   vars  excluded
+   0     24    27    15     9      9     0        7        56     47
+   2     88    94    68    32     32     0        7       202    170
+   4    163   162   113    80     80     0        7       374    294
+   6    235   230   163   109    109     0        7       537    428
+
+* Every window is exactly affine — ZERO atoms nonlinear in the knobs at any level, so no
+  equation is approximated and no knob is dropped for linearity.  All exclusions are
+  variables touching an atom outside the window; that is the whole boundary.
+* rank = #knobs and Q-consistency hold at every level => the uniqueness lemma applies and
+  every integer point's violated set must contain an equation-level code support.
+* L=2: EXHAUSTIVE mod-p floor >= 5; Prange 2025 solvable trials, none of weight <= 6,
+  P(missed) <= 9.5e-208.  L=6: exhaustive floor >= 4; Prange 195 solvable trials, none of weight <= 6, P(missed) <= 9.8e-09.
+* **>= 7 SURVIVES at equation level.**  Admitting 211 extra cancelling atoms and 100 extra
+  knobs produces no cheaper point.
+* `cancel.py`: 3,235 atoms occur in exactly one equation and **none carries a private
+  handle** — no single-equation atom is independently settable anywhere in the instance,
+  and none appears in any of the 7 failing equations (their atoms occur in 6-14 equations).
+  The cheap-cancellation lever does not exist where it would matter.

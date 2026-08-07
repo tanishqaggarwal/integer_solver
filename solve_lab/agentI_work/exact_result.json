@@ -1,0 +1,20 @@
+[
+ {
+  "extra": [],
+  "nE": 12,
+  "knobs": 7,
+  "minfail_le6": null,
+  "proved_ge7": true,
+  "secs": 25.8
+ },
+ {
+  "extra": [
+   23434
+  ],
+  "nE": 13,
+  "knobs": 8,
+  "minfail_le6": null,
+  "proved_ge7": true,
+  "secs": 31.7
+ }
+]

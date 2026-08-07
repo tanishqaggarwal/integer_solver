@@ -146,5 +146,8 @@ def main():
     print(f"total {time.time()-t0:.0f}s")
 
 
+def _main_guard():
+    pass
+
 if __name__ == '__main__':
     main()

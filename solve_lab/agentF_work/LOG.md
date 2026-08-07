@@ -153,3 +153,11 @@ is the mod-p condition, which is exactly the obstructed one.
 | `agentF_work/best_F_39022.json` | 39,022 | minimal residual: only 2 nonzero atoms in the whole system |
 | `agentF_work/crt_balanced.json` | 38,991 | balanced representative of the 399-bit mod-Q solution |
 | `agentF_work/relaxed_pin.json` | 39,014 | everything closes over Z once the two constant pins are relaxed |
+
+## 14. mod p and mod p^2 (the obstructed modulus)
+Same greedy repair, same code path, ON booleans (24601, 2081):
+    m = p    -> NOT solved: 21 nonzero atoms, 124 of 39,033 equations failing (33 s, 6 sweeps)
+    m = p^2  -> NOT solved: 15 nonzero atoms, 102 failing (29 s, 4 sweeps)
+versus 0 / 0 in ~3.5 s for EVERY other modulus tried (60 of them, up to 255 bits).  Checkpointed as
+`modm_results/P_p.json`, `modm_results/P_pp2.json`.  This is the sharpest single measurement in the lab:
+the difficulty of EQUATIONS.txt is localised at one prime literal.
