@@ -299,3 +299,52 @@ is neither containment nor reverse containment — gives the numbers above (the 
     equation-space solve, 19 knobs .......... 39026 (equals baseline, does not exceed)
     equation-space solve, 162 knobs ......... core infeasible
     turning base leaves off ................. 38776-38909
+
+## 18. Step 2 measured from a NEUTRAL base — the curve is unimodal, and the peak is root-firing
+`rfenum2.py`, all 2^8 block-subsets, one representative per block, exact re-propagation
+(256 configurations in 13 s with `fscore`). Neutral base = the deliverable's handles with both of
+its ON leaves turned off (38,776).
+
+    n live blocks : 0      1      2      3      4      5      6      7      8
+    best raw      : 38776  38791  38804  38787  38773  38761  38746  38718  38655
+
+The score **rises** from 0 to 2 live blocks and falls after. E's "monotone decreasing in live
+channels" is an artifact of measuring only *additions* from a base already sitting at the peak.
+
+    root-firing (A-side + B-side) : best 38804        78-side-only : best 38791
+    at exactly 2 live blocks      : root-firing 38804 vs 78-side-only 38774
+
+Best configuration in the entire lattice: `(47, 490)` — 47 in block 178 (A-side), 490 in block 21
+(B-side). That is **the deliverable's own slot pattern** (`24601` A-side, `2081` in block 21),
+recovered independently from a neutral base. Root-firing wins by 30 points at equal channel count.
+
+Correcting my §15 above: E did enumerate root-firing configurations, but **every one of them also
+carried cfg0's two B-side leaves**, so all had >=3 live leaves. **E never priced a clean 2-leaf
+root-firing configuration.** Its root-firing rows lost to the 3-live-leaf penalty, not to
+root-firing. So the answer is **ARTIFACT** — with a different mechanism than my original §9 gave.
+
+(All raw numbers here are ~38,800 because the handles are untuned at these points; the separate
+instrument limitation of `simsolve` in §14 is unchanged.)
+
+## 19. SCOPE — which conclusions are stated against `tree96.json`'s numbering
+Agent P's independent parse reports the real tree is **383 law-blocks at depth 9**, not 96 stages
+at depth 6; `tree96.json` is a **coarsening**. P independently confirms the 256 leaves, the uniform
+law, and the **root split 178 | 78**.
+
+Unaffected, because they never used tree96's node set:
+- the 8-block refinement `178|41|21|6|3|3|3|1`; the root split 178|78;
+- every score, the gate, `engine2`, the equation-space obstruction, sections 11-14 and 18;
+- the set-for-set agreement with `mux_wiring.json` at the root / 19538 / 10649 / 21408 — these
+  compare leaf **sets**, which survive any renumbering or further subdivision of stages.
+
+Scope-limited, because they are phrased in tree96's numbering:
+- **"Of tree96's 88 non-root stages, exactly 2 are ever split; 86 are never cut"** — true of the
+  **coarse** object only. The fine tree contains stages my 339 configurations never separated.
+  A limit on scope, not a contradiction, alongside the 8-block resolution limit.
+- All stage IDs used above (19538, 10649, 21408, 27596, 27257, 30973, 24533, 10136, 15431, 21279)
+  are **tree96 labels**, not fine-tree nodes.
+- Therefore §16's negative verdict on the 32-block partition is **downgraded from "spurious" to
+  "unvalidated"**: both yardsticks I judged it against (`tree96.json`, `mux_wiring.json`) are
+  coarsenings, so its 10 crossings and 2 cut-across verdicts may be the yardstick's error rather
+  than the oracle's. `blocks8.json` remains the artifact I would stand behind; the 32-block one
+  should be re-judged against the 383-block tree before anyone uses or discards it.

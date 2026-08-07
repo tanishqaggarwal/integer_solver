@@ -1249,5 +1249,7 @@
   "15431",
   "21279"
  ],
- "caveats": "The oracle CANNOT see inside a block: the largest block (142 leaves) is still unresolved internally, so stages wholly inside it get no split. A 2-part split is a slot-pair candidate but the oracle does not label which part is inA vs inB. Parts with >2 pieces mean the stage contains several resolved subtrees, not that the gate has >2 slots."
+ "caveats": "The oracle CANNOT see inside a block: the largest block (142 leaves) is still unresolved internally, so stages wholly inside it get no split. A 2-part split is a slot-pair candidate but the oracle does not label which part is inA vs inB. Parts with >2 pieces mean the stage contains several resolved subtrees, not that the gate has >2 slots.",
+ "SCOPE_WARNING": "Agent P reports the real tree is 383 law-blocks at depth 9, so tree96.json (and mux_wiring.json, built on it) are COARSENINGS. The validity verdicts in this file were computed against those coarse yardsticks. Therefore the 32-block partition is UNVALIDATED, not refuted: its 10 tree96 crossings and 2 mux_wiring cut-across verdicts (stages 27596, 27257) may be the yardstick's error rather than the oracle's. Re-judge against the 383-block tree before using or discarding it. The 8-block partition (blocks8.json) is the artifact M stands behind; the root split 178|78 is independently confirmed by P. All stage IDs here are tree96 labels.",
+ "recommendation": "Use blocks8.json. The 3 stages the 32-block oracle splits that are absent from mux_wiring.json (10136, 15431, 21279) are trivial 1|1 splits of 2-leaf stages and carry no information for the 56 undecoded slot pairs, so on current evidence the residual oracle does not advance the inversion attack either way."
 }
