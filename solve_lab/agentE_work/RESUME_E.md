@@ -178,3 +178,21 @@ coprime — check whether any becomes coprime under a different configuration.  
 turns the two congruences into a solvable 2x2 system.
 Structural thread not yet run: test whether a28647's variables form a gate six-tuple, i.e.
 whether the 41 same-residue leaves are one subtree entering through one channel.
+
+## §20 RETRACTED (LOG 21): the rank IS 2
+Measured over all 224 knobs moving either row, not just those coprime on both: 7 distinct
+(d28,d20) classes, span **rank 2**, including unit directions (1,0) = x_14853 and (0,1) =
+x_31339.  A second independent class exists; the rank argument is void.
+
+## The obstruction, restated correctly (LOG 22)
+The two unit directions are exactly the knobs a20212 and a10187 pin mod p.  Reducing the whole
+5-row cluster mod p leaves **two 0/1 subset-sum congruences over the selector bits**:
+    SUM_b z_b [D_b(20212)+D_b(28647)] = R2 (mod p)
+    SUM_b z_b [D_b(20215)+D_b(10187)] = R1 (mod p)
+Not a rank deficiency, not a divisibility — a combinatorial choice of which leaves are on.
+
+## NEXT
+Compute the two combined coefficients D_b(20212)+D_b(28647) and D_b(20215)+D_b(10187) for all
+~256 selector bits, at several configurations, and attack the resulting two-congruence 0/1
+subset-sum directly (meet-in-the-middle over the distinct coefficient classes).  If the class
+count stays small the system is decidable by enumeration over class multiplicities.

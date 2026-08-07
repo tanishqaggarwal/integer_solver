@@ -353,3 +353,36 @@ The single-class structure is itself informative: 41 distinct boolean leaves all
 two rows with the *same* residue pair is the signature of a whole subtree contributing through
 one channel — consistent with a28647 sitting at a stage boundary rather than being an
 arbitrary row.  (Not verified against a six-tuple gate decomposition; that is the open thread.)
+
+## 21. §20 IS REFUTED — the rank is 2, and I restricted the knob set a fourth time
+`§20` computed the rank of the `(d28, d20)` directions over the knobs coprime to p on **both**
+rows.  That is the wrong set: a knob that moves only ONE row is exactly an independent
+direction.  Re-measured over ALL 224 knobs that move either row (baseline configuration):
+
+  DISTINCT (d28 mod p, d20 mod p) classes: **7**, and the reachable span has **RANK 2**.
+
+    x178  (0, 92855324091488703755014098...)      <- moves a20215 only
+    x41   (10783334886742550345166044..., 9285532409148870375501...)   <- the dual class
+    x1    (1, 0)          <- unit direction on a28647   (x_14853)
+    x1    (0, 1)          <- unit direction on a20215   (x_31339)
+    x1    (11579208923731619542357098..., 0)
+    x1    (0, 11579208923731619542357098...)
+    x1    (79591149968187740837494438..., 0)
+
+There is a full unit basis.  "One residue class cannot satisfy two independent congruences"
+was true of the class I looked at and false of the reachable set.  **Retracted.**
+
+## 22. What actually blocks, restated correctly
+The pair (a28647, a20215) is NOT the system; the cluster has five rows, and the two unit
+directions x_14853, x_31339 are the very knobs that a20212 and a10187 pin mod p (LOG 14).
+Reducing the five rows mod p (c1 = c2 = 0 mod p, p | d_6083 from a7389) gives exactly two
+congruences in the boolean flips z_b:
+
+    SUM_b z_b [ Delta_b(20212) + Delta_b(28647) ]  =  R2   (mod p)
+    SUM_b z_b [ Delta_b(20215) + Delta_b(10187) ]  =  R1   (mod p)
+
+So the obstruction is a **two-congruence 0/1 subset-sum mod p over the selector bits** — not a
+rank deficiency and not a divisibility.  That is a combinatorial statement about which leaves
+are switched on, which is the same object the rest of the fleet is now describing, reached
+from the residual side.  Whether it is satisfiable is open; the coefficient multiset is highly
+degenerate (7 classes at this configuration) and is itself configuration-dependent (LOG 18-19).
