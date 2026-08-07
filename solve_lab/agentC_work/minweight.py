@@ -104,12 +104,15 @@ for e,ats in eq2atoms.items():
     for x,y in itertools.combinations(sorted(h),2): pairs.add((x,y))
 print('  candidate HD pairs sharing an equation: %d'%len(pairs))
 np_=0
+import time as _t
+_T=_t.time()
 for (x,y) in pairs:
+    if _t.time()-_T>420: print('  [pair phase time-capped]',flush=True); break
     Eu=AE[x]|AE[y]
-    if len(Eu)>14 or Eu in seen: continue
+    if len(Eu)>12 or Eu in seen: continue
     seen.add(Eu)
     Su=inside(Eu)
-    if len(Su)>9: skipped+=1; continue
+    if len(Su)>7: skipped+=1; continue
     w,_=minweight(Eu,Su)
     if w is None: skipped+=1; continue
     rows.append((w,len(Eu),len(Su),('pair',x,y))); np_+=1

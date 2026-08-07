@@ -81,6 +81,14 @@ my solver independently reproduces the optimum 7 AND the optimal sacrificed set
 `[12231,12270,12350,14584,18673,22044,29125]` — the deliverable's own failing lines,
 recovered from scratch by integer linear algebra.
 
+## 7d. Cascade (two-level) closure
+`cascade.py`. A variable with one atom outside the support is usable if that atom is
+held at zero by re-solving it for another variable whose atoms are all inside; such
+atoms cost NO equations. Fixed-point closure from the deliverable's support absorbs
+**1,817 atoms** as repairable, and the knob count stays at **exactly 7** — the closure
+consumes one dependent variable for every knob it frees. minfail >= 7 re-proved
+exhaustively with those knobs. The ripple / two-level move class buys nothing.
+
 ## 7c. Probe of the off-branch structure — negative
 `1,853` atoms occur in exactly one equation: **926 pairs plus one**. Each of 926
 equations carries exactly two of them, always a product/difference atom `P` and a
@@ -91,10 +99,13 @@ trade is local and self-cancelling. Equations with a genuinely free absorber (ba
 variable, unit coefficient, variable in no other atom): **0**.
 
 ## 8. Open
-`beam.py` (support search) is correct but `intsolve.solve_int` suffers HNF coefficient
-blow-up on 300-bit entries. Needs: Bareiss rank filter over Q, then SNF integrality on
-survivors, testing "can we fail <= 6" by enumerating the sacrificed set of size <= 6.
-Then search for a compensator for **eq8680** whose own equations already lie in `E(S)`.
+Every realisable move class I can parameterise exactly (one-level knobs, cascade knobs,
+supports extended by up to 3 adjacent atoms) gives min failing = 7, proved exhaustively
+on six supports. What is NOT covered: supports that share no equation with the
+deliverable's residual, and atom vectors realisable only through simultaneous moves of
+many circuit variables (my global re-solves reach those but cost >= 13 equations).
+The concrete open target is still a compensator for **eq8680** whose own equations lie
+inside E(S); none of the 26 adjacent atoms qualifies.
 
 ## 9. Framing note
 An earlier version of this log carried a geometric reading of items 4-6. It has been

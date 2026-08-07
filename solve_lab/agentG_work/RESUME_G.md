@@ -2,61 +2,98 @@
 
 ## Best verified score
 **39,026 / 39,033** — the inherited `solve_lab/best/new_instance_partial_39026.json`,
-re-verified: `python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json`
+re-verified by me:
+`python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json`
 -> `satisfied 39026/39033 (7 failing)`, failing `[12231,12270,12350,14584,18673,22044,29125]`.
-I did not beat it; nothing was written to `best/`.
+I did not beat it, so nothing was written to `best/`. All my files are in
+`solve_lab/agentG_work/`; no shared file was modified.
 
-## WHAT THE INSTANCE IS (settled, exactly, this session)
-The circuit is a **secp256k1 double-and-add**. `secp_identification.json` holds every
-constant; `g41_curve.py`, `g50_points.py`, `g51_chain.py`, `g53_export.py` reproduce it.
-* Curve in the instance: `y^2 = x^3 + a2 x^2 + a4 x + a6` with
-  `a2 = K = 97553848499418123410591666447050222001188385549510401465815187079080512838891`
-  (K is exactly the constant in my A identity), `a4 = a2^2/3` so **j = 0**,
-  `a6 = 77755683306591771556999954628254672912734268662742093169295805431582354953490`.
-  After `x -> x - a2/3`: A_short = 0, `B_short = 640195336800308764084431987622108290587517006345542821859873258203935985247 94`,
-  and `B_short/7` is a 6th power -> **isomorphic to secp256k1 over F_p**.
-  Map: `x_sec=(x+a2/3)/u^2`, `y_sec=y/u^3`,
-  `u = 4210889811980686189396764679825672592540066047176031544704936155054310740018`.
-* **Exactly 256 boolean free inputs carry huge load pins, and their points form a perfect
-  doubling chain: P(bit at chain index i) = [2^i]P0 for all 256 positions, 0 exceptions.**
-  P0 has order n. `P1 = [2^72]P0` (bit x24601), `P2 = [2^235]P0` (bit x2081) — the two bits
-  set in the base state. P3 is the pinned target, on the curve, order n.
-* My exact reduction shows the whole instance mod p is `A = 0 and B = 0`, i.e.
-  **P3 = P1 + P2**; with m message bits on this becomes the m-term double-and-add.
-* **A full solve is exactly `k = log_{P0}(P3)` on secp256k1.** The bits act by group
-  doubling, NOT affinely on (A,B) — so no LLL / low-density subset-sum attack applies
-  (`sum b_i [2^i]P0 = P3` *is* the discrete log; density 1, group exponential map).
-* Hamming weight of k <= 4 is ruled out by meet-in-the-middle (`g52_lowweight.py`).
+## The machine: exact symbolic forward evaluation over F_p
+`gsym.py` (dense monomials) / `gsym2.py` (sparse monomials, scales to thousands of
+symbols). Every gate output coefficient is ±1, so forward evaluation divides by nothing
+and free-inputs -> every atom is an honest polynomial over Z, hence over F_p. Pick a set
+of free inputs as indeterminates, evaluate every gate in topological order symbolically,
+then every check atom.
+* From `s10/AG_39013.json` with its booleans fixed: closed non-boolean symbol set = **112
+  symbols**; of the **10,792 check atoms only 57 are non-constant** — 50 linear, 2
+  quadratic, 5 cubic, **196 monomials total**. Validated at random points of F_p^112:
+  **0 mismatches on all 10,792 checks**.
+* Maximal model: ALL **6,117** non-boolean free inputs symbolic — 0.5 s pass, 0 gates
+  skipped; 2,029 non-constant checks; sparse F_p elimination gives rank **1470**, 4,647
+  free parameters, consistent; substitution makes every nonlinear check a CONSTANT, five
+  nonzero — the same five values. The residual is exactly, algebraically pinned over the
+  whole continuous freedom of the instance.
+* EQUATION level (strictly more permissive than requiring each atom to vanish):
+  **6,774 non-trivial equations = 6,613 linear (rank 1470, consistent) + 161 nonlinear**;
+  forcing every linear equation leaves exactly **20** nonzero equations = AG_39013's 20
+  failing lines, exactly.
+* Validated at the deliverable: detaching the five gate outputs 7068/28730/29854/31864/642
+  the model reproduces **0 atom mismatches over all 42,267 atoms and exactly 7 nonzero
+  equations** at the deliverable's own point.
 
-## The reusable machinery (exact, validated)
-`gsym.py` / `gsym2.py`: exact symbolic forward evaluation over F_p (legal because every
-gate output coefficient is +-1). With ALL 6,117 non-boolean free inputs symbolic the pass
-takes 0.5 s, 0 gates skipped, and of the 10,792 check atoms only **2,029 are non-constant**
-(1,883 linear / 141 quadratic / 5 cubic). Sparse F_p elimination (`gsolve.py`): rank 1470,
-4,647 free params, consistent; substitution turns every nonlinear check into a CONSTANT,
-five nonzero. Validated at random points: 0 mismatches on all 10,792 checks; and at the
-39,026 deliverable's own point, 0 atom mismatches over all 42,267 atoms with exactly 7
-nonzero equations. With the 112-symbol closure the system is 57 polynomials / 196 monomials.
-Equation-level version: 6,774 non-trivial equations, forcing all 6,613 linear ones leaves
-exactly 20 nonzero = AG_39013's 20 failing.
-**Every rank/kernel/ceiling in this repository before this was a tangent-space quantity;
-these are the exact polynomial system.**
+## The residual, in the instance's own variables
+With K = 97553848499418123410591666447050222001188385549510401465815187079080512838891,
+
+    A = (x22649 - x14853)^2 * (x22162 + x22649 + x14853 + K) - (x31339 - x16742)^2
+    B = x14853*x30213 - x22649*x30213 + x14853*x16742 - x22649*x31339
+        + x22162*x31339 - x16742*x22162
+    a19297 = 8646263*A + 1073965*B ,  a19299 = 10159099*A + 6926539*B ,
+    a30984, a36185, a40812 = three further members of the same rank-2 pencil.
+
+The 50 linear checks pin all six of those variables to constants built from four literal
+constants of the file, and there A != 0 and B != 0.
+
+## Priority-1 answer: the boolean map is NOT affine on (A,B)
+The 256 boolean free inputs that carry large load pins do not act affinely on (A,B) over
+F_p. Setting one pins a wire to a specific ~256-bit literal AND re-routes which wire feeds
+one of the six residual variables; two booleans acting on the same residual variable give
+a value that is neither one's, nor the base, nor their sum. Since A is cubic and B
+quadratic in those variables, bits -> (A,B) is a degree-3 polynomial map, not an affine
+form. **There are no deltas (dA_i, dB_i) to sum, so the two-dimensional modular
+subset-sum / LLL route does not apply.** Measured, not assumed.
+
+## Minimum-weight coset decoding at equation level (the current task)
+Model: 6,614 linear + 161 nonlinear equations in 6,122 unknowns.
+* At the deliverable **all 7 violated equations are linear, zero nonlinear are violated**.
+* Only **1,475 of the 6,122 unknowns occur in any linear equation and the linear rank is
+  exactly 1,475** — full column rank, so the linear system pins every occurring unknown
+  uniquely (point x0) and any departure costs equations.
+* Cheapest unknowns: x22162 occurs in 2 linear equations {133,8073}; x30213 in 3; x9118
+  and x29854 in 7; x8731 and x31864 in 9; x642 in 10. The deliverable's departure moves 15
+  unknowns whose footprints union to 65 equations, 58 of which cancel.
+* Departure on {x22162,x30213} alone: best point leaves **16 failing** (39,017).
+* On the deliverable's 15-unknown support: 65 affine + 21 higher-degree equations; the
+  affine rows have rank 11, giving a **4-dimensional cost-free departure space**
+  (x1329, x9413, x10903, x17325) — on which all 20 cubics remain nonzero constants.
+* Region closure: exactly **13** unknowns have their whole linear footprint inside the
+  region; with x22162 and x30213 that is a closed **17-unknown** support, on which the 68
+  affine rows collapse to **19 distinct directions** (multiplicities 1x15, 11, 13, 13, 16)
+  of rank 13. Every violated-set of size <= 6 is therefore a subset of the 15
+  multiplicity-1 directions.
+* **EXHAUSTIVE result (`g66_exhaust17.py`, budgets 1..6, 4,880 admissible relaxations
+  tested): NO relaxation of <= 6 equations lets the cubics be zeroed — every one leaves at
+  least one cubic pinned to a nonzero constant.** So inside the closed region 7 is exactly
+  optimal, established by exhaustion over the exact polynomial system rather than by
+  search or by a tangent-space rank count.
 
 ## Re-enter
 ```
 cd /home/user/integer_solver/solve_lab/agentG_work
-python3 g41_curve.py           # curve identification from my own A,B identities
-python3 g51_chain.py           # the 256-point doubling chain and its root P0
-python3 g53_export.py          # -> secp_identification.json (re-verifies 256/256)
-python3 g23_allsym.py ; python3 g24_bigsolve.py base ; python3 g35_eqsolve.py -
-python3 g29_frame.py - 2081 24601 4287 13195      # exact reduce per boolean frame
+python3 g11_bigsys.py                    # 112-symbol system + random-point validation
+python3 g14_print.py                     # print the 57 polynomials explicitly
+python3 g23_allsym.py ; python3 g24_bigsolve.py base
+python3 g35_eqsolve.py -                 # equation-level exact solve
+python3 g54_cosetsetup.py                # -> coset_model.pkl (the decoding instance)
+python3 g56_colweight.py                 # per-unknown equation costs, x0, deliverable departure
+python3 g66_exhaust17.py $(cat extsup.txt) 6    # exhaustive coset decoding, budget 6
 ```
-NOTE `s9/eff/lib.py` does `os.chdir(solve_lab/s9)`; use absolute output paths.
+NOTE `s9/eff/lib.py` does `os.chdir(solve_lab/s9)`; write outputs to absolute paths.
 
 ## Highest-value next experiment
-There is no cheap algebraic route left: the residual is the discrete log. The only honest
-options are (a) extend `g52_lowweight.py` to Hamming weight 8-10 by meet-in-the-middle
-over the two 128-bit halves (~1e7 hash entries, hours, cheap insurance in case the setter
-picked a sparse k), or (b) accept 39,026 and spend the remaining effort on the
-minimum-weight coset-decoding problem in my exact equation-level model (6,613 linear +
-161 nonlinear equations, 4,652 unknowns) to see whether 7 failing equations can be beaten.
+The exhaustive optimality above is for the closed 17-unknown region. The one gap left is
+whether a departure that also moves unknowns OUTSIDE that region (paying part of their
+larger footprints but buying cancellation) can reach 6. Concretely: extend the support one
+tier at a time — the 85 unknowns with 10 linear equations, then the 153 with 11 — and rerun
+`g66_exhaust17.py` at budget 6. The direction-collapse (68 rows -> 19 directions) is what
+makes the enumeration cheap, so the practical limit is how fast the number of
+multiplicity-<=6 directions grows as the support widens.

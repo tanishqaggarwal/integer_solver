@@ -141,3 +141,26 @@ x_31932	pins=[33973, 33974]	FEAS=False	msg=core infeasible	exact=None	4s
 x_32092	pins=[36904, 36905]	FEAS=False	msg=core infeasible	exact=None	3s
 x_32368	pins=[10004, 10005]	FEAS=True	msg=ok	exact=(16, [])	8s
 x_32558	pins=[9080, 37423, 40626]	FEAS=True	msg=ok	exact=(16, [])	7s
+x_32872	pins=[29735, 29736]	FEAS=True	msg=ok	exact=(16, [])	10s
+x_33015	pins=[973, 974, 40353]	FEAS=True	msg=ok	exact=(16, [])	8s
+x_33095	pins=[23859, 23860]	FEAS=True	msg=ok	exact=(16, [])	10s
+x_33099	pins=[21380, 21381]	FEAS=True	msg=ok	exact=(16, [])	10s
+x_33190	pins=[24186, 24187]	FEAS=False	msg=core infeasible	exact=None	7s
+x_33242	pins=[10030, 10031]	FEAS=False	msg=core infeasible	exact=None	3s
+x_33283	pins=[21610, 21611]	FEAS=True	msg=ok	exact=(16, [])	7s
+x_33434	pins=[39415, 39416, 40314]	FEAS=False	msg=row 7081: rhs % -11579208923731619542357098500868790785326998466564056	exact=None	5s
+x_33822	pins=[4343, 4344]	FEAS=False	msg=core infeasible	exact=None	4s
+x_33824	pins=[28660, 28661]	FEAS=False	msg=core infeasible	exact=None	4s
+x_33929	pins=[1140, 36922]	FEAS=False	msg=core too large (275x550)	exact=None	8s
+x_33951	pins=[25620, 25621]	FEAS=False	msg=core infeasible	exact=None	3s
+x_34309	pins=[27396, 38678, 40645]	FEAS=True	msg=ok	exact=(16, [])	9s
+x_34510	pins=[10361, 10362]	FEAS=False	msg=core infeasible	exact=None	5s
+x_34715	pins=[33990, 33991]	FEAS=False	msg=core infeasible	exact=None	5s
+x_34969	pins=[21435, 21436]	FEAS=False	msg=core infeasible	exact=None	3s
+x_35062	pins=[10850, 10851]	FEAS=False	msg=core infeasible	exact=None	6s
+x_35079	pins=[23762, 23763]	FEAS=False	msg=core infeasible	exact=None	15s
+x_35110	pins=[30464, 30465]	FEAS=True	msg=ok	exact=(16, [])	8s
+x_35450	pins=[17070, 17071, 37315]	FEAS=False	msg=core infeasible	exact=None	31s
+x_35537	pins=[1689, 1690]	FEAS=False	msg=core infeasible	exact=None	5s
+x_35635	pins=[8202, 8203]	FEAS=False	msg=core infeasible	exact=None	8s
+x_35660	pins=[19421, 19422]	FEAS=True	msg=ok	exact=(16, [])	9s

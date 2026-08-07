@@ -170,3 +170,46 @@ score = 39033 - ||M a||_0.  Two bounds on failures for a support T:
 CONCLUSION: 39026 is optimal for its cluster under an exhaustive integral search over
 the largest lattice I can generate, and no other reachable support has a better
 profile.  No state above 39026 was produced, so nothing new was written to best/.
+
+## COMPENSATED MOVES — run, and the route is CLOSED
+The last untested move class: change u and v (and more) jointly so their effects on
+every atom outside T cancel while the cluster values still move.
+
+Exactness discipline: atoms have degree <= 2, so an atom is EXACTLY affine along a move
+supported on a set S provided no two members of S co-occur in a quadratic monomial of
+that atom.  Gradients are then exact integers and an integer kernel vector is valid at
+any multiple with no second-order leak.  Every candidate was ALSO verified by
+evaluating all 39033 atoms over Z.
+
+jpairs.py  (1-hop cone, 210 x 177 gradient matrix): integer kernel dimension 7, and
+  every basis vector is supported on a SINGLE variable.  No compensation there.
+
+jpairs2.py (the general form, and the sharpest way to ask it): drop T's atoms from the
+  definer map -- which RELEASES x_7068, x_28730, x_29854, x_31864, x_642 as free, the
+  maximum freedom the cluster can have -- then propagate derivatives through the
+  remaining DAG (exact forward AD), so every definer atom outside T stays zero
+  identically and only the 8456 outside-T CONSTRAINT atoms impose conditions.
+    knobs reaching T: 15;  rank of the outside-T constraint Jacobian: 6;
+    kernel dimension 9;  and ALL 7 cluster coordinates ESCAPE the constraint row space.
+  So at first order compensated moves do reach every coordinate.
+
+jpairs3.py (the honest follow-through): extract an explicit INTEGER basis of that
+  9-dimensional kernel and verify each over Z.  All 9 verify -- and all 9 are again
+  supported on a single variable.  The first-order "escape" is realised entirely by the
+  variables that BECAME free when T's definers were dropped, plus the handles; there is
+  no genuine multi-variable compensation.  One new generator appears that the earlier
+  searches missed: x_9118 -> (0,0,0,5113045,0,0,0).
+  Union lattice: 11 generators.  Exhaustive HNF: k=12..7 and all 924 six-subsets have
+  NO integer solution.  k = 5 remains maximal => 39026.
+
+VERDICT: 39026 is optimal for this cluster over the maximal lattice I can construct --
+maximal in the precise sense that T's definers are released, the knob set is every
+variable that can reach T, and the kernel of the outside-T constraint Jacobian is taken
+in full.  No state above 39026 was produced; nothing new written to best/.
+
+FALLBACK (handed off, not run by me): drop realizability entirely and ask whether M has
+a codeword of weight < 7 at all.  That is a pure minimum-distance question about the
+39033 x 39033 matrix and needs no variable to be reachable.  Agent A is attacking it by
+information-set decoding with a mod-q filter; I did not duplicate it and did not read
+its work.  If A finds no weight-<7 codeword, 39026 is optimal outright, since
+score = 39033 - ||M a||_0 for EVERY assignment, reachable or not.

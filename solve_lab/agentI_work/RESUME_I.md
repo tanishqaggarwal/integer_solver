@@ -74,7 +74,7 @@ equations => 39,020. `cutlocal.py` (421 atoms on the defect path) gives the same
 its 7 nonzero atoms span 12 equations of which 5 cancel.**
 
 ## THE LIVE EXPERIMENT — min |{e : sum_a c_{e,a} v_a != 0}|
-`cancel.py` (done) and `beam.py` (running). Parameterisation is realisable **by
+`cancel.py`, `search.py`, `exact.py`, `cascade.py` (all done). Parameterisation is realisable **by
 construction**: a *knob* is a variable occurring only in atoms of the chosen support, so
 perturbing it leaves every atom outside the support exactly zero and every equation
 outside `E(S)` exactly satisfied. For a support `S`:
@@ -116,6 +116,15 @@ Independently re-derived with my own fixed HNF solver (a genuine bug found and f
 for the deliverable's own support the exact minimum is **7**, and the optimal sacrificed
 set is exactly `[12231, 12270, 12350, 14584, 18673, 22044, 29125]` — the deliverable's
 own failing lines, recovered from scratch by integer linear algebra.
+
+## Cascade (two-level) closure — the move class a one-level analysis cannot see
+`cascade.py`. A variable with ONE atom outside the support is still usable if that atom
+can be held at zero by re-solving it for another variable whose own atoms are inside.
+Such atoms cost **no equations**. Closing that rule to a fixed point from the
+deliverable's support absorbs **1,817 atoms** as repairable — and the knob count stays
+at **exactly 7**. The closure consumes one variable as a dependent for every one it
+frees. `minfail >= 7` re-proved exhaustively with the cascade knobs. So the ripple /
+two-level move class buys nothing here.
 
 ## Probe of the "off-branch" structure — negative, and worth recording
 `1,853` atoms occur in exactly one equation. They are **926 pairs plus one**: every one
