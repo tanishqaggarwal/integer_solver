@@ -38,3 +38,59 @@ outer 4: global nonzero 7, violated c-conditions 5, nonzero handle-less 2
      (x2820  ,x19965 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
      (x2820  ,x22362 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
      (x2820  ,x23437 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x2820  ,x36590 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x13880 ,x14047 ) |group|=3 NO JOINT ROOT mod 571147 (sampled)
+     (x13880 ,x15237 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x13880 ,x19965 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x13880 ,x22362 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x13880 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x13880 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x14047 ,x15237 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x14047 ,x19965 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x14047 ,x22362 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x14047 ,x23437 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x14047 ,x36590 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x15237 ,x19965 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x15237 ,x22362 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x15237 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x15237 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x19965 ,x22362 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x19965 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x19965 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x22362 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x22362 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x23437 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     no addable collateral -- giving up on ((x2820-x17195)-(8271997*x17079))
+  atom ((x14370-x17131)-(10573909*x2482))  c=10573909
+     round 0: |group|=1 (0 exact) wires=2 new pairs=1
+     (x2404  ,x14370 ) |group|=1 200 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x2404-x34427)-(9516871*x32385))', '((x22366*x5209)-(8054097*x37199))']
+     round 1: |group|=3 (0 exact) wires=8 new pairs=27
+     (x664   ,x2404  ) |group|=3 200 candidate(s) verified, guard rejected all
+     (x664   ,x4860  ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     (x664   ,x7814  ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     (x664   ,x14370 ) |group|=3 200 candidate(s) verified, guard rejected all
+     (x664   ,x15967 ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     (x664   ,x24959 ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     (x664   ,x25606 ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     *** (x2404 += p*345293894746491279225 , x4860 += p*639756294071655694143) |group|=3  global 7 -> 6
+outer 5: global nonzero 6, violated c-conditions 4, nonzero handle-less 2
+   handle-less pass: 2 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x2820-x17195)-(8271997*x17079))  c=8271997
+     round 0: |group|=1 (0 exact) wires=2 new pairs=1
+     (x2820  ,x14047 ) |group|=1 195 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x5794*x19670)-(8567205*x2062))', '((x14047-x19324)-(3914361*x6389))']
+     round 1: |group|=3 (0 exact) wires=8 new pairs=27
+     (x2820  ,x13880 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x2820  ,x15237 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x2820  ,x19965 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x2820  ,x22362 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x2820  ,x23437 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x2820  ,x36590 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x13880 ,x14047 ) |group|=3 NO JOINT ROOT mod 571147 (sampled)
+     (x13880 ,x15237 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x13880 ,x19965 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x13880 ,x22362 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x13880 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x13880 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)

@@ -99,6 +99,23 @@ def rank_q(rows, ncol):
     return int(fmpz_mat([[int(x) for x in r] for r in rows]).rank())
 
 
+def int_kernel_flint(A, n):
+    """Saturated integer kernel of A (rows x n columns), via flint's HNF transform.
+
+    U * A^T = H with U unimodular over Z; a row u of U with a ZERO row of H satisfies
+    u . A^T = 0, i.e. A u^T = 0, and because U is unimodular those rows are a basis of the
+    SATURATED lattice ker_Z(A) -- the same object `ikc.int_kernel_columns` computes by hand,
+    but in C.  Checked against it, not assumed equal: see `--kercheck`."""
+    if not A:
+        return [[1 if i == j else 0 for i in range(n)] for j in range(n)]
+    B = fmpz_mat([[int(A[i][j]) for i in range(len(A))] for j in range(n)])   # A^T, n x m
+    H, U = B.hnf(transform=True)
+    Hl = H.tolist()
+    Ul = U.tolist()
+    return [[int(x) for x in Ul[i]] for i in range(n)
+            if not any(int(x) for x in Hl[i])]
+
+
 def lin_coeff(vals):
     """vals = [g(0), g(1), ..., g(m)] of an integer polynomial g of degree <= m.
     Returns (c1, deg_ok) with c1 the EXACT monomial coefficient of t^1."""
@@ -295,7 +312,7 @@ def measure(tag, on, lattice=True, cap_knobs=2400, cap_rows=3000, verbose=True):
         C = [r for r in C if any(r)]
         t1 = time.time()
         if C:
-            Kn = int_kernel_columns(C, n)
+            Kn = int_kernel_flint(C, n)
         else:
             Kn = [[1 if i == j else 0 for i in range(n)] for j in range(n)]
         rec['lat_secs'] = round(time.time() - t1, 1)
@@ -330,6 +347,19 @@ def measure(tag, on, lattice=True, cap_knobs=2400, cap_rows=3000, verbose=True):
             rec['unzeroable_p'] = up
             rec['score_ub_Q'] = 39033 - uq
             rec['score_ub_p'] = 39033 - up
+            # p-QUANTISATION CENSUS: a knob / lattice direction whose WHOLE region column is
+            # 0 mod p moves the region only in multiples of p.  These are invisible mod p, and
+            # they are the mechanism behind rk_p < rk_Q -- the deficiency EXPLAINED rather than
+            # reported.
+            # Counted in the KNOB basis, which is canonical, so the numbers are basis-independent
+            # facts about the frame.  (The same count on a lattice BASIS would not be: on the
+            # lattice the invariant statement is exactly the deficiency rk_Q - rk_p.)
+            live = [j for j in range(n) if any(M[i][j] for i in range(nR))]
+            rec['knobs_live'] = len(live)
+            rec['pq_knobs_p'] = sum(1 for j in live
+                                    if not any(M[i][j] % Pp for i in range(nR)))
+            rec['pq_knobs_ctl'] = sum(1 for j in live
+                                      if not any(M[i][j] % Qc for i in range(nR)))
     rec['secs'] = round(time.time() - t0, 1)
     if verbose:
         print(fmt(rec), flush=True)

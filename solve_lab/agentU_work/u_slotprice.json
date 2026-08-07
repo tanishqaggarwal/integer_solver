@@ -1,0 +1,2297 @@
+{
+"33": {
+"min": 29,
+"argmin_lying_leaf": 30823,
+"max": 43,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"170": {
+"min": 25,
+"argmin_lying_leaf": 24267,
+"max": 42,
+"nleaf": 5,
+"depth": 3,
+"nI": 2,
+"nJ": 3
+},
+"390": {
+"min": 26,
+"argmin_lying_leaf": 24774,
+"max": 42,
+"nleaf": 21,
+"depth": 5,
+"nI": 11,
+"nJ": 10
+},
+"666": {
+"min": 27,
+"argmin_lying_leaf": 12422,
+"max": 43,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"1222": {
+"min": 25,
+"argmin_lying_leaf": 1685,
+"max": 47,
+"nleaf": 88,
+"depth": 7,
+"nI": 43,
+"nJ": 45
+},
+"1399": {
+"min": 27,
+"argmin_lying_leaf": 16688,
+"max": 42,
+"nleaf": 5,
+"depth": 3,
+"nI": 3,
+"nJ": 2
+},
+"1711": {
+"min": 25,
+"argmin_lying_leaf": 1685,
+"max": 44,
+"nleaf": 178,
+"depth": 8,
+"nI": 88,
+"nJ": 90
+},
+"2028": {
+"min": 31,
+"argmin_lying_leaf": 1438,
+"max": 31,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"2067": {
+"min": 27,
+"argmin_lying_leaf": 27738,
+"max": 44,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"2129": {
+"min": 25,
+"argmin_lying_leaf": 4940,
+"max": 43,
+"nleaf": 6,
+"depth": 3,
+"nI": 4,
+"nJ": 2
+},
+"2295": {
+"min": 25,
+"argmin_lying_leaf": 1685,
+"max": 43,
+"nleaf": 4,
+"depth": 3,
+"nI": 3,
+"nJ": 1
+},
+"2358": {
+"min": 30,
+"argmin_lying_leaf": 490,
+"max": 47,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"2563": {
+"min": 27,
+"argmin_lying_leaf": 4381,
+"max": 43,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"2594": {
+"min": 25,
+"argmin_lying_leaf": 31932,
+"max": 45,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"2932": {
+"min": 29,
+"argmin_lying_leaf": 2143,
+"max": 40,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"2986": {
+"min": 32,
+"argmin_lying_leaf": 8370,
+"max": 37,
+"nleaf": 3,
+"depth": 3,
+"nI": 1,
+"nJ": 2
+},
+"3126": {
+"min": 25,
+"argmin_lying_leaf": 31932,
+"max": 43,
+"nleaf": 6,
+"depth": 3,
+"nI": 3,
+"nJ": 3
+},
+"3162": {
+"min": 25,
+"argmin_lying_leaf": 31932,
+"max": 44,
+"nleaf": 50,
+"depth": 6,
+"nI": 28,
+"nJ": 22
+},
+"3423": {
+"min": 27,
+"argmin_lying_leaf": 3707,
+"max": 27,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"3475": {
+"min": 25,
+"argmin_lying_leaf": 1685,
+"max": 46,
+"nleaf": 43,
+"depth": 6,
+"nI": 19,
+"nJ": 24
+},
+"3766": {
+"min": 29,
+"argmin_lying_leaf": 4381,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"3893": {
+"min": 28,
+"argmin_lying_leaf": 3591,
+"max": 48,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"3939": {
+"min": 29,
+"argmin_lying_leaf": 19690,
+"max": 45,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"3959": {
+"min": 30,
+"argmin_lying_leaf": 1413,
+"max": 43,
+"nleaf": 3,
+"depth": 3,
+"nI": 2,
+"nJ": 1
+},
+"4545": {
+"min": 26,
+"argmin_lying_leaf": 36035,
+"max": 41,
+"nleaf": 6,
+"depth": 3,
+"nI": 3,
+"nJ": 3
+},
+"4573": {
+"min": 26,
+"argmin_lying_leaf": 1502,
+"max": 42,
+"nleaf": 40,
+"depth": 6,
+"nI": 21,
+"nJ": 19
+},
+"4632": {
+"min": 26,
+"argmin_lying_leaf": 17760,
+"max": 42,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"4641": {
+"min": 29,
+"argmin_lying_leaf": 2779,
+"max": 47,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"4896": {
+"min": 25,
+"argmin_lying_leaf": 4940,
+"max": 43,
+"nleaf": 14,
+"depth": 4,
+"nI": 6,
+"nJ": 8
+},
+"4971": {
+"min": 12,
+"argmin_lying_leaf": 2081,
+"max": 30,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"5077": {
+"min": 29,
+"argmin_lying_leaf": 14823,
+"max": 44,
+"nleaf": 11,
+"depth": 4,
+"nI": 5,
+"nJ": 6
+},
+"5379": {
+"min": 26,
+"argmin_lying_leaf": 20603,
+"max": 26,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"5471": {
+"min": 26,
+"argmin_lying_leaf": 1502,
+"max": 42,
+"nleaf": 19,
+"depth": 5,
+"nI": 8,
+"nJ": 11
+},
+"6031": {
+"min": 29,
+"argmin_lying_leaf": 22562,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"6041": {
+"min": 35,
+"argmin_lying_leaf": 20356,
+"max": 43,
+"nleaf": 8,
+"depth": 3,
+"nI": 4,
+"nJ": 4
+},
+"6077": {
+"min": 29,
+"argmin_lying_leaf": 1357,
+"max": 41,
+"nleaf": 12,
+"depth": 4,
+"nI": 8,
+"nJ": 4
+},
+"6509": {
+"min": 27,
+"argmin_lying_leaf": 2779,
+"max": 27,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"6593": {
+"min": 26,
+"argmin_lying_leaf": 8487,
+"max": 43,
+"nleaf": 4,
+"depth": 3,
+"nI": 1,
+"nJ": 3
+},
+"6701": {
+"min": 32,
+"argmin_lying_leaf": 18022,
+"max": 32,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"6839": {
+"min": 27,
+"argmin_lying_leaf": 17710,
+"max": 42,
+"nleaf": 6,
+"depth": 3,
+"nI": 4,
+"nJ": 2
+},
+"7018": {
+"min": 31,
+"argmin_lying_leaf": 17149,
+"max": 43,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"7325": {
+"min": 30,
+"argmin_lying_leaf": 13526,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"7474": {
+"min": 32,
+"argmin_lying_leaf": 1746,
+"max": 44,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"7610": {
+"min": 27,
+"argmin_lying_leaf": 17149,
+"max": 27,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"7844": {
+"min": 32,
+"argmin_lying_leaf": 20622,
+"max": 32,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"8068": {
+"min": 29,
+"argmin_lying_leaf": 5148,
+"max": 44,
+"nleaf": 10,
+"depth": 4,
+"nI": 4,
+"nJ": 6
+},
+"8218": {
+"min": 30,
+"argmin_lying_leaf": 490,
+"max": 44,
+"nleaf": 6,
+"depth": 3,
+"nI": 3,
+"nJ": 3
+},
+"8628": {
+"min": 28,
+"argmin_lying_leaf": 7745,
+"max": 38,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"9066": {
+"min": 28,
+"argmin_lying_leaf": 3591,
+"max": 44,
+"nleaf": 10,
+"depth": 4,
+"nI": 4,
+"nJ": 6
+},
+"9109": {
+"min": 26,
+"argmin_lying_leaf": 18732,
+"max": 42,
+"nleaf": 10,
+"depth": 4,
+"nI": 3,
+"nJ": 7
+},
+"9117": {
+"min": 30,
+"argmin_lying_leaf": 24335,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"9274": {
+"min": 12,
+"argmin_lying_leaf": 2081,
+"max": 49,
+"nleaf": 256,
+"depth": 9,
+"nI": 178,
+"nJ": 78
+},
+"9369": {
+"min": 30,
+"argmin_lying_leaf": 3545,
+"max": 44,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"9429": {
+"min": 28,
+"argmin_lying_leaf": 3591,
+"max": 44,
+"nleaf": 23,
+"depth": 5,
+"nI": 10,
+"nJ": 13
+},
+"9627": {
+"min": 28,
+"argmin_lying_leaf": 7142,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"10465": {
+"min": 30,
+"argmin_lying_leaf": 12054,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"10566": {
+"min": 27,
+"argmin_lying_leaf": 16688,
+"max": 45,
+"nleaf": 23,
+"depth": 5,
+"nI": 11,
+"nJ": 12
+},
+"10661": {
+"min": 31,
+"argmin_lying_leaf": 20325,
+"max": 44,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"10706": {
+"min": 29,
+"argmin_lying_leaf": 853,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"11016": {
+"min": 27,
+"argmin_lying_leaf": 3414,
+"max": 41,
+"nleaf": 11,
+"depth": 4,
+"nI": 4,
+"nJ": 7
+},
+"11070": {
+"min": 29,
+"argmin_lying_leaf": 2143,
+"max": 40,
+"nleaf": 8,
+"depth": 3,
+"nI": 4,
+"nJ": 4
+},
+"11281": {
+"min": 34,
+"argmin_lying_leaf": 21305,
+"max": 34,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"11293": {
+"min": 33,
+"argmin_lying_leaf": 12054,
+"max": 43,
+"nleaf": 4,
+"depth": 3,
+"nI": 1,
+"nJ": 3
+},
+"11464": {
+"min": 33,
+"argmin_lying_leaf": 1413,
+"max": 48,
+"nleaf": 11,
+"depth": 4,
+"nI": 8,
+"nJ": 3
+},
+"11583": {
+"min": 26,
+"argmin_lying_leaf": 36035,
+"max": 45,
+"nleaf": 28,
+"depth": 5,
+"nI": 14,
+"nJ": 14
+},
+"12031": {
+"min": 29,
+"argmin_lying_leaf": 2779,
+"max": 43,
+"nleaf": 8,
+"depth": 3,
+"nI": 4,
+"nJ": 4
+},
+"12340": {
+"min": 29,
+"argmin_lying_leaf": 5148,
+"max": 43,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"12497": {
+"min": 31,
+"argmin_lying_leaf": 2229,
+"max": 31,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"12698": {
+"min": 27,
+"argmin_lying_leaf": 112,
+"max": 44,
+"nleaf": 6,
+"depth": 3,
+"nI": 2,
+"nJ": 4
+},
+"12709": {
+"min": 27,
+"argmin_lying_leaf": 2455,
+"max": 46,
+"nleaf": 6,
+"depth": 3,
+"nI": 3,
+"nJ": 3
+},
+"12768": {
+"min": 26,
+"argmin_lying_leaf": 18184,
+"max": 43,
+"nleaf": 4,
+"depth": 3,
+"nI": 1,
+"nJ": 3
+},
+"12869": {
+"min": 28,
+"argmin_lying_leaf": 38288,
+"max": 43,
+"nleaf": 4,
+"depth": 3,
+"nI": 2,
+"nJ": 2
+},
+"13071": {
+"min": 27,
+"argmin_lying_leaf": 6177,
+"max": 49,
+"nleaf": 6,
+"depth": 3,
+"nI": 2,
+"nJ": 4
+},
+"13787": {
+"min": 24,
+"argmin_lying_leaf": 1203,
+"max": 44,
+"nleaf": 4,
+"depth": 3,
+"nI": 1,
+"nJ": 3
+},
+"13810": {
+"min": 28,
+"argmin_lying_leaf": 20356,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"13822": {
+"min": 26,
+"argmin_lying_leaf": 1502,
+"max": 45,
+"nleaf": 5,
+"depth": 3,
+"nI": 2,
+"nJ": 3
+},
+"13886": {
+"min": 26,
+"argmin_lying_leaf": 18732,
+"max": 45,
+"nleaf": 22,
+"depth": 5,
+"nI": 12,
+"nJ": 10
+},
+"13976": {
+"min": 12,
+"argmin_lying_leaf": 2081,
+"max": 40,
+"nleaf": 10,
+"depth": 4,
+"nI": 6,
+"nJ": 4
+},
+"14188": {
+"min": 25,
+"argmin_lying_leaf": 1685,
+"max": 47,
+"nleaf": 19,
+"depth": 5,
+"nI": 11,
+"nJ": 8
+},
+"14692": {
+"min": 31,
+"argmin_lying_leaf": 8441,
+"max": 43,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"14839": {
+"min": 28,
+"argmin_lying_leaf": 7780,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"15126": {
+"min": 29,
+"argmin_lying_leaf": 17899,
+"max": 41,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"15193": {
+"min": 35,
+"argmin_lying_leaf": 20356,
+"max": 42,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"15507": {
+"min": 33,
+"argmin_lying_leaf": 12747,
+"max": 33,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"15556": {
+"min": 28,
+"argmin_lying_leaf": 5148,
+"max": 44,
+"nleaf": 6,
+"depth": 3,
+"nI": 2,
+"nJ": 4
+},
+"15653": {
+"min": 31,
+"argmin_lying_leaf": 6503,
+"max": 31,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"15723": {
+"min": 25,
+"argmin_lying_leaf": 8441,
+"max": 37,
+"nleaf": 6,
+"depth": 3,
+"nI": 3,
+"nJ": 3
+},
+"15789": {
+"min": 29,
+"argmin_lying_leaf": 14823,
+"max": 43,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"16012": {
+"min": 26,
+"argmin_lying_leaf": 3216,
+"max": 40,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"16102": {
+"min": 12,
+"argmin_lying_leaf": 2081,
+"max": 40,
+"nleaf": 6,
+"depth": 3,
+"nI": 3,
+"nJ": 3
+},
+"16734": {
+"min": 25,
+"argmin_lying_leaf": 4940,
+"max": 44,
+"nleaf": 24,
+"depth": 5,
+"nI": 14,
+"nJ": 10
+},
+"16739": {
+"min": 27,
+"argmin_lying_leaf": 2455,
+"max": 45,
+"nleaf": 9,
+"depth": 4,
+"nI": 6,
+"nJ": 3
+},
+"16755": {
+"min": 30,
+"argmin_lying_leaf": 26277,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"17215": {
+"min": 12,
+"argmin_lying_leaf": 2081,
+"max": 49,
+"nleaf": 78,
+"depth": 7,
+"nI": 41,
+"nJ": 37
+},
+"18265": {
+"min": 29,
+"argmin_lying_leaf": 1438,
+"max": 42,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"18464": {
+"min": 32,
+"argmin_lying_leaf": 8487,
+"max": 46,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"18485": {
+"min": 28,
+"argmin_lying_leaf": 20837,
+"max": 41,
+"nleaf": 4,
+"depth": 3,
+"nI": 2,
+"nJ": 2
+},
+"18777": {
+"min": 26,
+"argmin_lying_leaf": 36035,
+"max": 47,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"20164": {
+"min": 37,
+"argmin_lying_leaf": 24136,
+"max": 40,
+"nleaf": 3,
+"depth": 3,
+"nI": 1,
+"nJ": 2
+},
+"20262": {
+"min": 26,
+"argmin_lying_leaf": 18732,
+"max": 44,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"20735": {
+"min": 28,
+"argmin_lying_leaf": 1685,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"20832": {
+"min": 27,
+"argmin_lying_leaf": 4381,
+"max": 41,
+"nleaf": 7,
+"depth": 3,
+"nI": 4,
+"nJ": 3
+},
+"20951": {
+"min": 29,
+"argmin_lying_leaf": 10746,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"20987": {
+"min": 31,
+"argmin_lying_leaf": 5643,
+"max": 55,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"21042": {
+"min": 38,
+"argmin_lying_leaf": 6312,
+"max": 47,
+"nleaf": 7,
+"depth": 3,
+"nI": 3,
+"nJ": 4
+},
+"21228": {
+"min": 28,
+"argmin_lying_leaf": 19690,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"21314": {
+"min": 31,
+"argmin_lying_leaf": 5090,
+"max": 43,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"21869": {
+"min": 34,
+"argmin_lying_leaf": 14039,
+"max": 46,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"22014": {
+"min": 29,
+"argmin_lying_leaf": 20564,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"22175": {
+"min": 28,
+"argmin_lying_leaf": 14601,
+"max": 41,
+"nleaf": 8,
+"depth": 3,
+"nI": 4,
+"nJ": 4
+},
+"22380": {
+"min": 26,
+"argmin_lying_leaf": 24774,
+"max": 46,
+"nleaf": 10,
+"depth": 4,
+"nI": 4,
+"nJ": 6
+},
+"23131": {
+"min": 12,
+"argmin_lying_leaf": 2081,
+"max": 44,
+"nleaf": 21,
+"depth": 5,
+"nI": 11,
+"nJ": 10
+},
+"23230": {
+"min": 28,
+"argmin_lying_leaf": 6312,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"23299": {
+"min": 26,
+"argmin_lying_leaf": 24774,
+"max": 46,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"23547": {
+"min": 30,
+"argmin_lying_leaf": 21103,
+"max": 48,
+"nleaf": 6,
+"depth": 3,
+"nI": 3,
+"nJ": 3
+},
+"23692": {
+"min": 26,
+"argmin_lying_leaf": 14928,
+"max": 26,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"23762": {
+"min": 26,
+"argmin_lying_leaf": 35660,
+"max": 42,
+"nleaf": 11,
+"depth": 4,
+"nI": 5,
+"nJ": 6
+},
+"23808": {
+"min": 31,
+"argmin_lying_leaf": 22351,
+"max": 31,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"24177": {
+"min": 29,
+"argmin_lying_leaf": 2455,
+"max": 41,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"24206": {
+"min": 29,
+"argmin_lying_leaf": 1203,
+"max": 39,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"24240": {
+"min": 29,
+"argmin_lying_leaf": 21702,
+"max": 49,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"24241": {
+"min": 29,
+"argmin_lying_leaf": 1438,
+"max": 43,
+"nleaf": 7,
+"depth": 3,
+"nI": 4,
+"nJ": 3
+},
+"24416": {
+"min": 30,
+"argmin_lying_leaf": 35079,
+"max": 43,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"24635": {
+"min": 27,
+"argmin_lying_leaf": 112,
+"max": 42,
+"nleaf": 10,
+"depth": 4,
+"nI": 4,
+"nJ": 6
+},
+"24788": {
+"min": 27,
+"argmin_lying_leaf": 6143,
+"max": 27,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"24899": {
+"min": 30,
+"argmin_lying_leaf": 3414,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"25006": {
+"min": 28,
+"argmin_lying_leaf": 30613,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"25391": {
+"min": 28,
+"argmin_lying_leaf": 15730,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"25527": {
+"min": 27,
+"argmin_lying_leaf": 2455,
+"max": 48,
+"nleaf": 16,
+"depth": 5,
+"nI": 9,
+"nJ": 7
+},
+"25642": {
+"min": 26,
+"argmin_lying_leaf": 8487,
+"max": 49,
+"nleaf": 11,
+"depth": 4,
+"nI": 4,
+"nJ": 7
+},
+"26008": {
+"min": 35,
+"argmin_lying_leaf": 12737,
+"max": 35,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"26070": {
+"min": 26,
+"argmin_lying_leaf": 1502,
+"max": 42,
+"nleaf": 8,
+"depth": 4,
+"nI": 3,
+"nJ": 5
+},
+"26132": {
+"min": 25,
+"argmin_lying_leaf": 31932,
+"max": 44,
+"nleaf": 12,
+"depth": 4,
+"nI": 6,
+"nJ": 6
+},
+"26162": {
+"min": 25,
+"argmin_lying_leaf": 1685,
+"max": 43,
+"nleaf": 8,
+"depth": 4,
+"nI": 4,
+"nJ": 4
+},
+"26187": {
+"min": 29,
+"argmin_lying_leaf": 1357,
+"max": 43,
+"nleaf": 4,
+"depth": 3,
+"nI": 2,
+"nJ": 2
+},
+"26205": {
+"min": 25,
+"argmin_lying_leaf": 24267,
+"max": 45,
+"nleaf": 11,
+"depth": 4,
+"nI": 5,
+"nJ": 6
+},
+"26561": {
+"min": 29,
+"argmin_lying_leaf": 17899,
+"max": 45,
+"nleaf": 4,
+"depth": 3,
+"nI": 3,
+"nJ": 1
+},
+"26570": {
+"min": 27,
+"argmin_lying_leaf": 10428,
+"max": 38,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"26640": {
+"min": 33,
+"argmin_lying_leaf": 542,
+"max": 33,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"27194": {
+"min": 28,
+"argmin_lying_leaf": 18022,
+"max": 41,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"27634": {
+"min": 26,
+"argmin_lying_leaf": 35660,
+"max": 39,
+"nleaf": 5,
+"depth": 3,
+"nI": 3,
+"nJ": 2
+},
+"27994": {
+"min": 19,
+"argmin_lying_leaf": 2081,
+"max": 19,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"28405": {
+"min": 31,
+"argmin_lying_leaf": 5090,
+"max": 31,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"28438": {
+"min": 33,
+"argmin_lying_leaf": 20622,
+"max": 48,
+"nleaf": 6,
+"depth": 3,
+"nI": 2,
+"nJ": 4
+},
+"28501": {
+"min": 30,
+"argmin_lying_leaf": 24734,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"28505": {
+"min": 12,
+"argmin_lying_leaf": 2081,
+"max": 46,
+"nleaf": 37,
+"depth": 6,
+"nI": 21,
+"nJ": 16
+},
+"28569": {
+"min": 29,
+"argmin_lying_leaf": 28713,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"28916": {
+"min": 25,
+"argmin_lying_leaf": 31932,
+"max": 42,
+"nleaf": 22,
+"depth": 5,
+"nI": 10,
+"nJ": 12
+},
+"29089": {
+"min": 32,
+"argmin_lying_leaf": 16214,
+"max": 32,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"29091": {
+"min": 31,
+"argmin_lying_leaf": 20622,
+"max": 46,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"29153": {
+"min": 29,
+"argmin_lying_leaf": 21103,
+"max": 47,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"29240": {
+"min": 25,
+"argmin_lying_leaf": 1685,
+"max": 47,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"30066": {
+"min": 30,
+"argmin_lying_leaf": 36314,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"30347": {
+"min": 24,
+"argmin_lying_leaf": 1203,
+"max": 45,
+"nleaf": 7,
+"depth": 4,
+"nI": 4,
+"nJ": 3
+},
+"30427": {
+"min": 27,
+"argmin_lying_leaf": 3414,
+"max": 40,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"30687": {
+"min": 27,
+"argmin_lying_leaf": 19074,
+"max": 44,
+"nleaf": 7,
+"depth": 3,
+"nI": 4,
+"nJ": 3
+},
+"31177": {
+"min": 26,
+"argmin_lying_leaf": 18732,
+"max": 44,
+"nleaf": 45,
+"depth": 6,
+"nI": 22,
+"nJ": 23
+},
+"31255": {
+"min": 25,
+"argmin_lying_leaf": 24267,
+"max": 43,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"31631": {
+"min": 29,
+"argmin_lying_leaf": 5090,
+"max": 68,
+"nleaf": 7,
+"depth": 3,
+"nI": 3,
+"nJ": 4
+},
+"31693": {
+"min": 29,
+"argmin_lying_leaf": 16688,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"32083": {
+"min": 24,
+"argmin_lying_leaf": 1203,
+"max": 49,
+"nleaf": 41,
+"depth": 6,
+"nI": 23,
+"nJ": 18
+},
+"32246": {
+"min": 27,
+"argmin_lying_leaf": 16688,
+"max": 44,
+"nleaf": 12,
+"depth": 4,
+"nI": 7,
+"nJ": 5
+},
+"32567": {
+"min": 27,
+"argmin_lying_leaf": 3414,
+"max": 44,
+"nleaf": 7,
+"depth": 3,
+"nI": 4,
+"nJ": 3
+},
+"32750": {
+"min": 28,
+"argmin_lying_leaf": 14601,
+"max": 40,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"32781": {
+"min": 32,
+"argmin_lying_leaf": 1544,
+"max": 32,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"32991": {
+"min": 28,
+"argmin_lying_leaf": 33190,
+"max": 39,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"33113": {
+"min": 26,
+"argmin_lying_leaf": 35660,
+"max": 39,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"33410": {
+"min": 25,
+"argmin_lying_leaf": 4940,
+"max": 41,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"33496": {
+"min": 31,
+"argmin_lying_leaf": 17711,
+"max": 31,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"33750": {
+"min": 30,
+"argmin_lying_leaf": 3545,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"33930": {
+"min": 27,
+"argmin_lying_leaf": 853,
+"max": 41,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"34084": {
+"min": 27,
+"argmin_lying_leaf": 19074,
+"max": 44,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"34501": {
+"min": 26,
+"argmin_lying_leaf": 24774,
+"max": 42,
+"nleaf": 4,
+"depth": 3,
+"nI": 3,
+"nJ": 1
+},
+"34711": {
+"min": 26,
+"argmin_lying_leaf": 8370,
+"max": 26,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"35004": {
+"min": 29,
+"argmin_lying_leaf": 21103,
+"max": 47,
+"nleaf": 13,
+"depth": 4,
+"nI": 7,
+"nJ": 6
+},
+"35136": {
+"min": 37,
+"argmin_lying_leaf": 22790,
+"max": 42,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"35410": {
+"min": 29,
+"argmin_lying_leaf": 17760,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"35723": {
+"min": 25,
+"argmin_lying_leaf": 31932,
+"max": 42,
+"nleaf": 90,
+"depth": 7,
+"nI": 50,
+"nJ": 40
+},
+"35734": {
+"min": 29,
+"argmin_lying_leaf": 7151,
+"max": 42,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"35815": {
+"min": 27,
+"argmin_lying_leaf": 4381,
+"max": 42,
+"nleaf": 14,
+"depth": 4,
+"nI": 7,
+"nJ": 7
+},
+"35993": {
+"min": 26,
+"argmin_lying_leaf": 36035,
+"max": 43,
+"nleaf": 14,
+"depth": 4,
+"nI": 8,
+"nJ": 6
+},
+"36093": {
+"min": 29,
+"argmin_lying_leaf": 14823,
+"max": 42,
+"nleaf": 5,
+"depth": 3,
+"nI": 4,
+"nJ": 1
+},
+"36181": {
+"min": 26,
+"argmin_lying_leaf": 18732,
+"max": 41,
+"nleaf": 7,
+"depth": 3,
+"nI": 4,
+"nJ": 3
+},
+"36269": {
+"min": 26,
+"argmin_lying_leaf": 4701,
+"max": 44,
+"nleaf": 6,
+"depth": 3,
+"nI": 3,
+"nJ": 3
+},
+"36563": {
+"min": 31,
+"argmin_lying_leaf": 19737,
+"max": 31,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"36835": {
+"min": 29,
+"argmin_lying_leaf": 5643,
+"max": 46,
+"nleaf": 7,
+"depth": 4,
+"nI": 4,
+"nJ": 3
+},
+"36871": {
+"min": 27,
+"argmin_lying_leaf": 11368,
+"max": 44,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"37313": {
+"min": 29,
+"argmin_lying_leaf": 2055,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"37396": {
+"min": 26,
+"argmin_lying_leaf": 14601,
+"max": 26,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"37423": {
+"min": 27,
+"argmin_lying_leaf": 25150,
+"max": 38,
+"nleaf": 4,
+"depth": 3,
+"nI": 1,
+"nJ": 3
+},
+"37646": {
+"min": 29,
+"argmin_lying_leaf": 36314,
+"max": 42,
+"nleaf": 4,
+"depth": 2,
+"nI": 2,
+"nJ": 2
+},
+"37991": {
+"min": 24,
+"argmin_lying_leaf": 1203,
+"max": 49,
+"nleaf": 18,
+"depth": 5,
+"nI": 7,
+"nJ": 11
+},
+"38274": {
+"min": 29,
+"argmin_lying_leaf": 24136,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"38278": {
+"min": 29,
+"argmin_lying_leaf": 5643,
+"max": 47,
+"nleaf": 4,
+"depth": 3,
+"nI": 1,
+"nJ": 3
+},
+"564": {
+"min": 28,
+"argmin_lying_leaf": 3420,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"1767": {
+"min": 29,
+"argmin_lying_leaf": 5148,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"2066": {
+"min": 27,
+"argmin_lying_leaf": 6177,
+"max": 47,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"2324": {
+"min": 33,
+"argmin_lying_leaf": 4701,
+"max": 48,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"3905": {
+"min": 27,
+"argmin_lying_leaf": 11026,
+"max": 27,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"4874": {
+"min": 27,
+"argmin_lying_leaf": 16688,
+"max": 44,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"5509": {
+"min": 30,
+"argmin_lying_leaf": 10836,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"6354": {
+"min": 31,
+"argmin_lying_leaf": 12714,
+"max": 31,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"6577": {
+"min": 30,
+"argmin_lying_leaf": 33015,
+"max": 40,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"7579": {
+"min": 26,
+"argmin_lying_leaf": 12054,
+"max": 36,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"9864": {
+"min": 32,
+"argmin_lying_leaf": 31767,
+"max": 32,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"11182": {
+"min": 28,
+"argmin_lying_leaf": 17790,
+"max": 41,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"11299": {
+"min": 27,
+"argmin_lying_leaf": 112,
+"max": 38,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"14869": {
+"min": 26,
+"argmin_lying_leaf": 4362,
+"max": 36,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"17137": {
+"min": 32,
+"argmin_lying_leaf": 91,
+"max": 32,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"17255": {
+"min": 34,
+"argmin_lying_leaf": 13710,
+"max": 41,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"22018": {
+"min": 30,
+"argmin_lying_leaf": 14808,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"22387": {
+"min": 28,
+"argmin_lying_leaf": 7401,
+"max": 40,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"23153": {
+"min": 27,
+"argmin_lying_leaf": 19326,
+"max": 27,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"23242": {
+"min": 31,
+"argmin_lying_leaf": 17711,
+"max": 41,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"23620": {
+"min": 28,
+"argmin_lying_leaf": 38288,
+"max": 44,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"26009": {
+"min": 28,
+"argmin_lying_leaf": 2455,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"26955": {
+"min": 29,
+"argmin_lying_leaf": 10428,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"28170": {
+"min": 27,
+"argmin_lying_leaf": 16214,
+"max": 38,
+"nleaf": 3,
+"depth": 2,
+"nI": 1,
+"nJ": 2
+},
+"28884": {
+"min": 31,
+"argmin_lying_leaf": 438,
+"max": 37,
+"nleaf": 3,
+"depth": 3,
+"nI": 2,
+"nJ": 1
+},
+"31303": {
+"min": 29,
+"argmin_lying_leaf": 10591,
+"max": 42,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"32834": {
+"min": 28,
+"argmin_lying_leaf": 2527,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"33375": {
+"min": 29,
+"argmin_lying_leaf": 17710,
+"max": 44,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"33509": {
+"min": 29,
+"argmin_lying_leaf": 14823,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"34277": {
+"min": 38,
+"argmin_lying_leaf": 17083,
+"max": 47,
+"nleaf": 3,
+"depth": 2,
+"nI": 2,
+"nJ": 1
+},
+"35134": {
+"min": 28,
+"argmin_lying_leaf": 5584,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"35314": {
+"min": 32,
+"argmin_lying_leaf": 490,
+"max": 32,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"2819": {
+"min": 32,
+"argmin_lying_leaf": 21103,
+"max": 32,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"4291": {
+"min": 33,
+"argmin_lying_leaf": 27738,
+"max": 33,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"7776": {
+"min": 29,
+"argmin_lying_leaf": 19074,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"8064": {
+"min": 33,
+"argmin_lying_leaf": 8441,
+"max": 33,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"9215": {
+"min": 29,
+"argmin_lying_leaf": 16411,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"12224": {
+"min": 28,
+"argmin_lying_leaf": 19743,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"14255": {
+"min": 29,
+"argmin_lying_leaf": 33190,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"16028": {
+"min": 30,
+"argmin_lying_leaf": 1357,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"19328": {
+"min": 30,
+"argmin_lying_leaf": 7745,
+"max": 30,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"21849": {
+"min": 29,
+"argmin_lying_leaf": 5643,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"24095": {
+"min": 32,
+"argmin_lying_leaf": 18348,
+"max": 32,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"24836": {
+"min": 32,
+"argmin_lying_leaf": 14039,
+"max": 32,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"24945": {
+"min": 29,
+"argmin_lying_leaf": 2143,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"25232": {
+"min": 28,
+"argmin_lying_leaf": 18732,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"25582": {
+"min": 27,
+"argmin_lying_leaf": 47,
+"max": 27,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"26254": {
+"min": 35,
+"argmin_lying_leaf": 17378,
+"max": 35,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"28989": {
+"min": 31,
+"argmin_lying_leaf": 438,
+"max": 42,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"29111": {
+"min": 28,
+"argmin_lying_leaf": 4940,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"29365": {
+"min": 26,
+"argmin_lying_leaf": 1502,
+"max": 44,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"30127": {
+"min": 35,
+"argmin_lying_leaf": 1746,
+"max": 35,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"32211": {
+"min": 29,
+"argmin_lying_leaf": 3591,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"34854": {
+"min": 40,
+"argmin_lying_leaf": 11170,
+"max": 46,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"35810": {
+"min": 29,
+"argmin_lying_leaf": 25908,
+"max": 29,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"36412": {
+"min": 28,
+"argmin_lying_leaf": 20325,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"36660": {
+"min": 28,
+"argmin_lying_leaf": 20837,
+"max": 40,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"37220": {
+"min": 28,
+"argmin_lying_leaf": 9601,
+"max": 28,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"37328": {
+"min": 33,
+"argmin_lying_leaf": 13710,
+"max": 33,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+},
+"37919": {
+"min": 30,
+"argmin_lying_leaf": 22579,
+"max": 40,
+"nleaf": 2,
+"depth": 2,
+"nI": 1,
+"nJ": 1
+},
+"38035": {
+"min": 31,
+"argmin_lying_leaf": 1931,
+"max": 31,
+"nleaf": 2,
+"depth": 1,
+"nI": 1,
+"nJ": 1
+}
+}

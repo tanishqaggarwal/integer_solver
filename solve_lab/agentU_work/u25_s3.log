@@ -2,3 +2,4 @@ jobs 2114 ; shard 3/4 -> 528
      0/528 3s eta 1833s best=27
    200/528 416s eta 683s best=12
    400/528 886s eta 284s best=12
+DONE shard 3: 528 evals, min 12, 1268s

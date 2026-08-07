@@ -1,0 +1,3 @@
+w_cocirc3_raw_s1_3.json: 3184 supports (positive-dimensional nodes 2376)
+candidate supports 3184 ; subset-minimal 60 ; by size {1: 6, 2: 2, 3: 2, 4: 3, 5: 7, 6: 40}
+rank_Q(A_SAT) = 32 ; exact-filtering 60 minimal supports ...

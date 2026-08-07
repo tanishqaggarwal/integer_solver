@@ -1,0 +1,5 @@
+E_wit_plus_block6        live=7   score=38936  |R|=102  k=221  na=617  | AMB rkQ=84   rkp=54   gapQ=0 gap_p=0 | LAT dim=81   rkQ=35   rkp=22   gapQ=0 gap_p=1 ubp=39033 | CTL rkq=35   gapq=0 (36s)
+E_swap24601_block6       live=2   score=38954  |R|=84   k=229  na=241  | AMB rkQ=84   rkp=62   gapQ=0 gap_p=0 | LAT dim=69   rkQ=20   rkp=12   gapQ=0 gap_p=1 ubp=39033 | CTL rkq=20   gapq=0 (46s)
+C_subtree6_of_24601      live=6   score=38909  |R|=129  k=254  na=782  | AMB rkQ=103  rkp=70   gapQ=0 gap_p=0 | LAT dim=90   rkQ=37   rkp=22   gapQ=1 gap_p=1 ubp=39006 | CTL rkq=37   gapq=1 (35s)
+D_block6_6503            live=6   score=38909  |R|=129  k=254  na=782  | AMB rkQ=103  rkp=70   gapQ=0 gap_p=0 | LAT dim=90   rkQ=37   rkp=22   gapQ=1 gap_p=1 ubp=39006 | CTL rkq=37   gapq=1 (39s)
+C_subtree10_of_24601     live=10  score=38854  |R|=184  k=348  na=1374 | AMB rkQ=138  rkp=88   gapQ=0 gap_p=0 | LAT dim=128  rkQ=57   rkp=32   gapQ=1 gap_p=1 ubp=39003 | CTL rkq=57   gapq=1 (88s)

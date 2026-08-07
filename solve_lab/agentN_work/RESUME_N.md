@@ -344,3 +344,12 @@ reachable from that knob's check atoms can change. Restricting to
 other row's response is exactly 0. **Checked, not assumed: re-measured three completed
 configurations and compared every recorded field — 0 differing fields, 16.4s->5.2s, 269s->21s,
 192s->20s.**
+
+## Parallelism: capped to ONE compute process (coordinator, and it was right)
+Six shards on a 4-core box shared by six agents is negative-sum. Killed; the sweep now runs as a
+SINGLE process, `python3 pselrank.py pselrank_seq.jsonl`, resumable by tag.
+**While auditing my own processes I found a 36-minute-old ORPHAN of mine** — an interactive
+`pselrank.py calib_base.jsonl ...` run the harness had backgrounded on a tool timeout, still at
+37% CPU long after I had moved on. Killed. Identified by `/proc/<pid>/cwd` pointing at my own
+directory, **not** by command-line matching. *Check for your own orphans before blaming the load
+on the fleet.*
