@@ -161,10 +161,32 @@ The two confirmed disagreements are **stage 27596** (F decodes 10\|12, oracle sa
 The only stages the oracle splits that are absent from `mux_wiring.json` are `10136`, `15431`,
 `21279` — each a trivial 1\|1 split of a 2-leaf stage, i.e. **no new information**.
 
-**Recommendation to F: the residual oracle does not help the inversion attack.** Use the 8-block
-partition (`blocks8.json`, tree-consistent, 0 crossings) and ignore the 32-block one. Files are
-`oracle_for_F.json` (both partitions + validity flags + caveats) and `xslot_report.json`, but the
-honest summary is the negative one above. I did **not** modify F's directory.
+**Recommendation to F, weakened by agent P's audit (see §4a).** Use the 8-block partition
+(`blocks8.json`) as the trustworthy artifact. The 32-block partition is **unvalidated, not
+refuted** — both yardsticks I judged it against (`tree96.json` and `mux_wiring.json`) are, per P,
+coarsenings of the real tree, so its 10 "crossings" and 2 "cut across" verdicts may be the
+yardstick's error rather than the oracle's. Files: `oracle_for_F.json` (both partitions +
+validity flags + caveats), `xslot_report.json`. I did **not** modify F's directory.
+
+### 4a. Scope: which of my claims are stated against `tree96.json`'s numbering
+Agent P reports the real tree is **383 law-blocks at depth 9**, not 96 stages at depth 6, i.e.
+`tree96` is a **coarsening**. Reading my results against that:
+
+**Unaffected** (they never used tree96's node set):
+- The 8-block refinement `178 | 41 | 21 | 6 | 3 | 3 | 3 | 1` — a measurement over the 256 leaves.
+- The **root split 178 | 78**, which P independently confirms.
+- Every score, the gate, `engine2`, the equation-space obstruction, and all of §2/§3.
+- The block-for-block agreement with `mux_wiring.json` at the root, 19538, 10649, 21408 — those
+  compare leaf **sets**, which stay valid however the stages are numbered or subdivided.
+
+**Stated against tree96's numbering, therefore scope-limited:**
+- "Of tree96's 88 non-root stages, exactly 2 are ever split; 86 are never cut." This is a
+  statement about the **coarse** object. The fine tree has stages my 339 configurations never
+  separated, so it is a limit on scope, not a contradiction — and it sits alongside the 8-block
+  resolution limit I already reported.
+- The stage IDs throughout (19538, 10649, 21408, 27596, 27257, 30973, 24533, 10136, 15431, 21279)
+  are tree96 labels; a later reader must not assume they are fine-tree nodes.
+- Consequently §4's negative verdict on the 32-block partition is **downgraded to unvalidated**.
 
 Note my first crossing test was itself buggy — it flagged a block *containing* a whole stage as a
 violation, which is legitimate for a laminar family. Corrected criterion: a crossing is an overlap

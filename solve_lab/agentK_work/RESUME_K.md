@@ -81,11 +81,15 @@ readings before I caught it (A.x came back equal to the target's X, which is wha
 | `{0,1,2,3,5}` | A = 7G | **A exact**; B not reproduced |
 | `{4,6,7,10,12}` | A = 208G | **A exact**; B not reproduced |
 
-So the composition law is confirmed as the group sum on the **A half for 1-, 2- and 3-leaf
-folds**, and on the **B half for single leaves**. Multi-leaf B-half folds are *not yet
-reproduced by the closure* — see `bside.log`. That is a closure/wiring gap on the 78-side, not
-evidence against the law (the A half uses the identical stage law and matches exactly); but it
-is **open**, and §1's uniqueness statement inherits that caveat until it is closed.
+So the composition law is confirmed as the group sum on the **A half (178 leaves, depth 6) for
+1-, 2- and 3-leaf folds**, and on the **B half for single leaves**. Multi-leaf B-half folds are
+*not yet reproduced by the closure* (`bside.log`: for `{0,3,10}` the B value is a valid point on
+the cubic but not `8G+1024G`; for `{0,3,5}` and `{0,5,10}` it is off the cubic). Also, when one
+half has **no** live leaf the other half's value stops matching too. Both look like closure
+gaps on the 78-side wiring, not evidence against the law — the A half runs the identical stage
+law and matches exactly, and F verified the law on 72/72 stages independently. But it is
+**open**, and §1's uniqueness statement inherits that caveat until it is closed. **Fixing this
+is the first task for the next session** — see §7.
 
 The validation the handoff asked for **passes in the required direction**: the evaluator
 predicts `fold({24601,2081})`, and that value is **NOT** the target
@@ -152,6 +156,13 @@ slightly wrong.
 Consequence: 39,026's trick cannot be completed honestly, and there is no cheaper stage at
 which to play it.
 
+**The adjacent hole is closed too.** If a half folded to the group identity the chord law would
+have nothing to represent and its output might likewise go free. That needs
+`sum_{S} 2^e ≡ 0 (mod N)` for `S` inside one half, i.e. `sum = N` exactly, i.e.
+`supp(N) ⊆ IA` or `⊆ IB`. Measured: `popcount(N) = 192`, and 55 of those bits fall outside
+`IA`; `IB` has only 78 bits. **Impossible**, and impossible at every interior stage for the same
+size reason.
+
 --------------------------------------------------------------------------------------------------
 ## 5. WHY 7 IS HARD TO BEAT (measurement, not a proof)
 
@@ -204,6 +215,11 @@ Key facts to re-derive cheaply if anything looks wrong:
 --------------------------------------------------------------------------------------------------
 ## 7. NEXT, IN ORDER (for whoever picks this up)
 
+0. **Close the B-half validation gap first** (§2). Diagnosis to start from: `drive()` already
+   forbids the two target-pin atoms; the remaining backward/undecoded paths are on the 78-side.
+   Instrument `CascadeP.close` to record, per derived variable, which atom derived it, then run
+   `drive({e3,e5})` and walk back from `x14853` to the first variable derived by an atom that is
+   not a forward mux/stage atom. Fix the `k25_class.py` idempotency regex at the same time.
 1. **The only thing between here and a full solve is one integer**: `k` with `k·G = T` in the
    chord group on `Y^2 = X^3 + b (mod p)`. Given `k`, the solve is mechanical: set leaf
    selector `e` on iff bit `e` of `k` is 1, run `k26_drive.drive()`, then the integer cascade
