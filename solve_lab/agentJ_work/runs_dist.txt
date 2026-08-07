@@ -1,0 +1,17 @@
+deliverable cluster: |T|=7 |R|=12 alone=1 |R|-|T|=5 (actual weight 7)
+
+beam search from the deliverable cluster:
+  best |R|-|T| = 5  (|T|=7 |R|=12 alone=1)
+  support size 7
+
+beam search from each atom of the cluster:
+  seed a23326: |R|-|T|=5 |T|=6 |R|=11 alone=1
+  seed a23327: |R|-|T|=5 |T|=7 |R|=12 alone=1
+  seed a35889: |R|-|T|=5 |T|=1 |R|=6 alone=6
+  seed a35890: |R|-|T|=5 |T|=2 |R|=7 alone=1
+  seed a35891: |R|-|T|=5 |T|=3 |R|=8 alone=1
+  seed a35892: |R|-|T|=5 |T|=4 |R|=9 alone=1
+  seed a35893: |R|-|T|=5 |T|=5 |R|=10 alone=1
+
+beam search from 60 random atom seeds:
+  best over random seeds: (7, 1, 11, 4, 29152)

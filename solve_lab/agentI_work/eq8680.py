@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
-"""Hunt a compensator for eq8680.
+"""Hunt a compensator for eq8680 -- the single row that pins the knob d28730 to
+zero and so costs the deliverable its seventh equation.
 
-eq8680 is the single row that pins the knob d28730 to zero and so costs the
-deliverable its seventh equation.  Its 18 atoms fall into 8 clean PAIRS that each
-share a private variable: adding a whole pair to the support turns that shared
-variable into a knob, and that knob moves eq8680's core.  So a pair is a candidate
-compensator even though neither of its atoms is one on its own.
+General knob rule: for a variable x, adding ALL of x's atoms to the support makes
+x a knob.  So the candidate compensator GROUPS are exactly the sets v2a[x] for
+variables x that occur in eq8680's atoms.  A group is admissible if its atoms'
+own equations can still be paid for.
 
-For each candidate support we compute minfail EXACTLY (enumerate every sacrificed
-set within budget), with three sound prunings:
-  row == 0 and base == 0  -> equation can never fail, drop it
-  row == 0 and base != 0  -> equation can never be satisfied, charge the budget
-  otherwise               -> active, enumerate
+minfail is computed EXACTLY by depth-first branch and bound over "include this
+equation / sacrifice it", pruning as soon as the included system becomes
+integrally unsolvable or the sacrifice budget is exceeded.
 """
 import collections, itertools, json, os, sys, time
 from model import Model, load_assign
@@ -57,8 +55,8 @@ def build(SUP):
     return SUP, knobs, E, base, Mat
 
 
-def minfail_exact(E, base, Mat, budget=6, tlimit=600):
-    """Smallest number of failing equations, or None if > budget."""
+def minfail_bnb(E, base, Mat, budget=6, tlimit=900):
+    """Exact minimum number of failing equations, capped at `budget`."""
     act = []
     forced = 0
     for i in range(len(E)):
@@ -68,78 +66,111 @@ def minfail_exact(E, base, Mat, budget=6, tlimit=600):
         else:
             act.append(i)
     if forced > budget:
-        return None, forced, len(act)
+        return None, forced, len(act), 0
     rem = budget - forced
+    # order: rows already satisfied at d=0 first (cheap to keep), then the rest
+    act.sort(key=lambda i: (base[i] != 0))
+    n = len(act)
+    best = [rem + 1]
+    nodes = [0]
     t0 = time.time()
-    for k in range(0, rem + 1):
-        for drop in itertools.combinations(act, k):
-            keep = [i for i in act if i not in drop]
-            if solve_int([Mat[i] for i in keep], [-base[i] for i in keep]) is not None:
-                return forced + k, forced, len(act)
-            if time.time() - t0 > tlimit:
-                return 'timeout', forced, len(act)
-    return None, forced, len(act)
+
+    def rec(i, rows, rhs, exc):
+        if time.time() - t0 > tlimit:
+            raise TimeoutError
+        nodes[0] += 1
+        if exc >= best[0]:
+            return
+        if i == n:
+            best[0] = exc
+            return
+        j = act[i]
+        r2 = rows + [Mat[j]]; b2 = rhs + [-base[j]]
+        if solve_int(r2, b2) is not None:
+            rec(i + 1, r2, b2, exc)
+        if exc + 1 < best[0]:
+            rec(i + 1, rows, rhs, exc + 1)
+
+    try:
+        rec(0, [], [], 0)
+    except TimeoutError:
+        return 'timeout', forced, n, nodes[0]
+    if best[0] > rem:
+        return None, forced, n, nodes[0]
+    return forced + best[0], forced, n, nodes[0]
 
 
-def pairs_in(eq):
-    ats = [a for _, a in M.eq_terms[eq]]
-    share = collections.defaultdict(list)
+def groups_for(eq):
+    """Candidate compensator groups: v2a[x] for variables x inside eq's atoms,
+    restricted to groups not already fully in the base support."""
+    ats = set(a for _, a in M.eq_terms[eq])
+    out = {}
     for a in ats:
         for x in M.avars[a]:
-            share[x].append(a)
-    out = []
-    for x, lst in share.items():
-        if len(lst) == 2 and len(v2a[x]) == 2 and set(v2a[x]) == set(lst):
-            out.append((x, tuple(sorted(lst))))
-    return sorted(set(out), key=lambda t: t[1])
+            g = tuple(sorted(v2a[x]))
+            if set(g) <= set(BASE):
+                continue
+            out.setdefault(g, set()).add(x)
+    return out
+
+
+def report(tag, SUP, budget=6, tlimit=900):
+    r = build(SUP)
+    if r is None:
+        print(f"  {tag}: non-linear knob -> skipped", flush=True)
+        return None
+    SUPs, knobs, E, base, Mat = r
+    mf, forced, nact, nodes = minfail_bnb(E, base, Mat, budget, tlimit)
+    if mf is None:
+        txt = "minfail > 6"
+    elif mf == 'timeout':
+        txt = f"TIMEOUT after {nodes} nodes"
+    else:
+        txt = f"minfail = {mf}"
+    star = '   *** BEATS 39,026' if isinstance(mf, int) and mf < 7 else ''
+    print(f"  {tag}: |E|={len(E)} knobs={len(knobs)} forced={forced} "
+          f"active={nact} nodes={nodes}  {txt}{star}", flush=True)
+    return {'tag': tag, 'SUP': SUPs, 'nE': len(E), 'knobs': len(knobs),
+            'minfail': mf, 'forced': forced, 'active': nact}
 
 
 def main():
-    P = pairs_in(EQ)
-    print(f"eq{EQ} has {len(M.eq_terms[EQ])} atoms; private-variable PAIRS inside it:")
+    G = groups_for(EQ)
     coefs = {a: c for c, a in M.eq_terms[EQ]}
-    for x, (a1, a2) in P:
-        w = list(wit); w[x] = wit[x] + 1
-        d1 = M.atom_val(a1, w) - av[a1]
-        d2 = M.atom_val(a2, w) - av[a2]
-        net = coefs[a1] * d1 + coefs[a2] * d2
-        print(f"   knob X{x}: a{a1}(coef {coefs[a1]:+d}, d={d1}) a{a2}(coef {coefs[a2]:+d}, d={d2})"
-              f"   net effect on eq{EQ} core = {net}")
-    print(flush=True)
-    results = []
-    t0 = time.time()
-    # singles: base + one pair
-    for x, pr in P:
-        SUP = BASE + list(pr)
-        r = build(SUP)
-        if r is None:
-            print(f"  pair {pr}: non-linear knob, skipped"); continue
-        SUPs, knobs, E, base, Mat = r
-        mf, forced, nact = minfail_exact(E, base, Mat)
-        results.append({'add': list(pr), 'nE': len(E), 'knobs': len(knobs),
-                        'minfail': mf, 'forced': forced, 'active': nact})
-        tag = f"minfail={mf}" if mf is not None else "minfail > 6"
-        star = '   *** BEATS 39,026' if isinstance(mf, int) and mf < 7 else ''
-        print(f"  +pair a{pr[0]},a{pr[1]}: |E|={len(E)} knobs={len(knobs)} "
-              f"forced_fail={forced} active={nact}  {tag}{star}", flush=True)
-    # pairs of pairs
-    print("\ntwo pairs at once:", flush=True)
-    for (x1, p1), (x2, p2) in itertools.combinations(P, 2):
-        SUP = BASE + list(p1) + list(p2)
-        r = build(SUP)
-        if r is None:
+    print(f"eq{EQ}: {len(M.eq_terms[EQ])} atoms.  Candidate knob GROUPS "
+          f"(all atoms of one variable):")
+    cand = []
+    for g, xs in sorted(G.items(), key=lambda kv: len(kv[0])):
+        inside = [a for a in g if a in coefs]
+        if not inside:
             continue
-        SUPs, knobs, E, base, Mat = r
-        mf, forced, nact = minfail_exact(E, base, Mat, tlimit=240)
-        results.append({'add': list(p1) + list(p2), 'nE': len(E),
-                        'knobs': len(knobs), 'minfail': mf, 'forced': forced,
-                        'active': nact})
-        tag = f"minfail={mf}" if mf is not None else "minfail > 6"
-        star = '   *** BEATS 39,026' if isinstance(mf, int) and mf < 7 else ''
-        print(f"  +a{p1[0]},a{p1[1]} +a{p2[0]},a{p2[1]}: |E|={len(E)} knobs={len(knobs)} "
-              f"forced={forced} active={nact}  {tag}{star}", flush=True)
-    json.dump(results, open(os.path.join(HERE, 'eq8680_result.json'), 'w'), indent=1)
-    print(f"\ntotal {time.time()-t0:.0f}s")
+        x = min(xs)
+        w = list(wit); w[x] = wit[x] + 1
+        net = sum(coefs[a] * (M.atom_val(a, w) - av[a]) for a in inside)
+        newatoms = [a for a in g if a not in BASE]
+        cand.append((len(newatoms), net, g, x))
+        print(f"   knob X{x}: group {g} ({len(newatoms)} new atoms) "
+              f"net effect on eq{EQ} core = {net}")
+    cand.sort()
+    print(flush=True)
+    res = []
+    print("single groups added to the deliverable's support + a23434:", flush=True)
+    for nnew, net, g, x in cand:
+        if net == 0:
+            print(f"  group {g}: net effect 0 on eq{EQ} -- cannot compensate", flush=True)
+            continue
+        r = report(f"+X{x} group {g}", BASE + list(g))
+        if r:
+            res.append(r)
+        json.dump(res, open(os.path.join(HERE, 'eq8680_result.json'), 'w'), indent=1)
+    print("\npairs of groups:", flush=True)
+    usable = [(nnew, net, g, x) for nnew, net, g, x in cand if net != 0]
+    for (n1, t1, g1, x1), (n2, t2, g2, x2) in itertools.combinations(usable, 2):
+        r = report(f"+X{x1},X{x2}", BASE + list(g1) + list(g2), tlimit=400)
+        if r:
+            res.append(r)
+        json.dump(res, open(os.path.join(HERE, 'eq8680_result.json'), 'w'), indent=1)
+    print("\ndone", flush=True)
 
 
 if __name__ == '__main__':

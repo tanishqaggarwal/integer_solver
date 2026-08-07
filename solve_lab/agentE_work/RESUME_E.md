@@ -1,49 +1,80 @@
-# RESUME_E — agent E checkpoint (session stopped by coordinator, CPU pressure)
+# RESUME_E — agent E checkpoint
 
-**WITHDRAWN ANGLE — DO NOT RESUME:** generator/authorship reverse-engineering (PRNG hunting,
-emission-order forensics, "recover the generator and run it forward").  Nothing below depends
-on it; everything is computed from the equations as mathematical objects.
+**FRAMING (per coordinator):** no curve / point / group / ladder / discrete-log vocabulary is
+used anywhere below or in LOG.md.  `p` denotes only the 256-bit integer literal
+115792089237316195423570985008687907853269984665640564039457584007908834671663 that occurs
+verbatim in EQUATIONS.txt.  Every claim is about integer congruences and integer-linear
+relations among the given polynomials.  (Also previously withdrawn and NOT resumed:
+generator/authorship reverse-engineering.)
 
 ## Verified scores
-- `../best/new_instance_partial_39026.json` = **39026/39033**, fails
-  [12231,12270,12350,14584,18673,22044,29125].  CONFIRMED with `../checker.py`.
-- My own best state: **39,015** (18 failing eqs).  Never beat the baseline.  No file of mine
-  is >= 39,026, so none was promoted.
+- `../best/new_instance_partial_39026.json` = **39026/39033** (fails
+  [12231,12270,12350,14584,18673,22044,29125]).  CONFIRMED with `../checker.py`.
+- Mine: 106 checker-verifiable states at **39017/39033** (`bitsol_<bit>_39017.json`, spot-checked
+  with `../checker.py`).  Best of mine overall: 39,015-39,017.  Baseline not beaten.
 
-## Rebuild the pipeline from source (in this directory, ~1 min total)
-    python3 parse3.py          # -> model3.pkl   (40,727 atoms; 9,710 eqs are squares S*S)
-    python3 dag.py             # -> dag.pkl      (35,004 definition atoms, acyclic, 8,365 free vars)
-    python3 -c "import harness" # -> orient.pkl  (bootstraps the orientation / topo order)
-    python3 prop2.py           # -> prop2.json   (free=0 propagation, 38,998/39,033)
-    python3 aeval.py ../best/new_instance_partial_39026.json   # atom view of the deliverable
-Then: `engine.py` (cone eval + exact single-var solve), `fast.py` (incremental downstream
-re-eval, 0.08 s/probe), `jclose2.py A B` (linear closure), `sparse.py`/`intsolve.py`/`js4.py`
-(unit-pivot + HNF integer solve), `bitfeas.py B` (per-bit pin feasibility).
+## Rebuild (about a minute)
+    python3 parse3.py; python3 dag.py; python3 -c "import harness"; python3 prop2.py
+Modules: `engine.py` (forward map + cone eval + exact single-var solve), `fast.py`
+(incremental downstream-only re-evaluation, 0.08 s/probe), `sparse.py`+`intsolve.py`
+(unit-pivot elimination + HNF integer solve), `bitfeas2.py` (per-bit closure+solve),
+`scanfork.py` (tree sweep, hard per-bit kill), `iterfix.py` (iterated closure+solve),
+`subsetfeas.py`, `big01.py`.
 
-## Established results (all exact, reproducible)
-1. Atom model is faithful: at the 39,026 deliverable exactly **8 atoms** are nonzero and they
-   reproduce its failing set exactly.
-2. **Seed all 8,365 free vars to 0 and propagate: only THREE atoms are violated** (38,998).
-   With `x_18956 = C1` only three (39,009).
-   C1=125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626
-3. The residual decodes exactly to: `OR(a,b)=1` **forced** (a=x_7715, b=x_34554, each an OR-tree
-   over 178 / 78 free bits; x_9274=x_2300=1 is literal-pinned), plus a 2-way MUX (a20212) and
-   a20215.
-4. **The (1,1) branch closes all four core atoms analytically**: activate one free bit in each
-   OR-tree, then set free vars `x_22162 = x_13682`, `x_30213 = x_18956 - x_32237` (4-iteration
-   fixpoint).  With (x_4279, x_26005) the bad set becomes exactly the two bits' pin atoms
-   [6668,12606,34497,34498].  (1,0) works too: `x_12186=x_13682`, `x_16742=x_18956-x_32237`.
-5. Each activated bit carries pins `b*(free-K) = m*handle` and `pin = p*handle`
-   (p = the 256-bit literal 115792089237316195423570985008687907853269984665640564039457584007908834671663 that appears throughout the file).  Single-variable greedy stalls at exactly 4 bad atoms.
-6. **The repair is an exact linear Diophantine system.**  Closure around the pin set:
-   4,008 vars x 2,996 atoms, linear except 1,810 (var,atom) pairs, built in 4 s.
-   Small support: rationally feasible (rank(A)=rank([A|b])), **integer-infeasible**.
-   The binding row for bit x_4279 is atom 19725: `-p*d_7815 = R` with `p | R` false, because
-   atom 7128 forces `d_15951 = 0`.  So the obstruction is a p-divisibility (mod-p) condition,
-   not a rank deficiency.
+## Structure (exact, reproducible)
+1. 39,033 eqs = outer scalar x Z-combination of 40,727 **atoms**; 9,710 eqs are squares S*S.
+   35,004 atoms are definitions `x_out - RHS`; the definition graph is ACYCLIC; 8,365 free vars.
+2. **Seed all free vars to 0 and propagate: only THREE atoms violated** (38,998/39,033).
+3. The residual decodes to: `OR(a,b)=1` forced (`a=x_7715`, `b=x_34554`, each an OR-tree over
+   178 / 78 free bits), a 2-way MUX (a20212), and a20215.
+4. Activating one free bit costs exactly 2-3 "pin" atoms of the form
+   `bit*(free - K) = m*handle` and `pin = p*handle`.
+5. **Pin repair is an exact linear Diophantine system**; the obstruction is p-divisibility
+   (integrality), not rank.
 
-## Single highest-value next experiment
-Run `bitfeas.py` over all 178 a-tree bits and 78 b-tree bits (it was mid-flight when stopped).
-It answers, per bit, whether that bit's pin system is integrally solvable and names the binding
-row.  Any bit whose system is feasible, paired with a feasible bit from the other tree plus the
-(1,1) MUX assignment of item 4, gives a full witness.
+## THE SCAN (complete)
+Per bit: closure of free-vars -> atom residuals, then exact integer solve; every solution
+re-verified by exact evaluation.
+* **a-tree, 178/178 bits: 56 FEASIBLE**, 102 core-infeasible, 6 infeasible on an explicit
+  p-divisibility row (e.g. `x_1746 -> row 33794: rhs % -p != 0`), 8 undecided (HNF core >
+  guard), 6 timed out.  (`runs/scanA6.log`, `scanfork_A.pkl`)
+* **b-tree, 78/78 bits: 50 FEASIBLE**, 28 infeasible (26 re-confirmed with the improved
+  solver).  (`runs/scanB.log`, `runs/recheckB.log`, `scan_B.pkl`)
+* **All 106 feasible bits verify exactly with ZERO residual atoms outside the selector core**
+  (`exact=(16, [])` -> 39017/39033).
+
+## SUBSETS — the answer
+| bits on | residual atoms after iterated exact repair |
+|---|---|
+| 1 | **0, 0, 0** |
+| 2 | 3, 3, 4 | 3 | 7, 7, 7 | 4 | 6, 7, 9 | 5 | 9, 10, 10 |
+
+Every subset of size >= 2 turns on a product ("AND") node at the meet of the chosen bits in the
+OR-tree and leaves an irreducible triple, e.g. for (x_1530, x_1603) with `x_24195 = 1`:
+
+    x_24195*(5002401*U + 15322661*V)           = 0            (exact over Z)
+    x_24195*(15944455*U + 4826103*V)           = p*x_34496    (congruence mod p)
+    7952523*x_24195*(14913407*U + 11707765*V)  = p*x_3193     (congruence mod p)
+
+with `U = x_29210 = x_25848 - x_17317`, `V = x_8736 = x_18682 - x_28841`.  The 2x2 determinant
+of the two mod-p forms is 15944455*11707765 - 4826103*14913407 = 114700293930154, coprime to p,
+so the pair has rank 2 and forces `U = V = 0 (mod p)`.  Iterated closure+solve is a fixed point
+on these triples.
+
+**Independent or only through the sum?  NEITHER.**
+* Two individually-feasible bits move 3 variables in common — `x_14853, x_31339, x_6083` — and
+  require **conflicting** values on all three (0 of 3 agree).  Across the 50 feasible b-bits the
+  50 required values of `x_14853` are pairwise distinct, and distinct mod p.
+* The coupling is not additive: with both bits on, `U` and `V` are not the sum of their
+  singleton values, over Z or mod p; the product flag `x_24195` flips 0 -> 1.
+So single-bit solutions cannot be recombined linearly, and each subset poses a fresh rank-2
+congruence system.  This is a measurement over the supports searched, not a proof.
+
+## Highest-value next experiments
+1. The 8 "core too large" + 6 timed-out a-bits are the only undecided singletons — raise the HNF
+   budget (`sparse.solve_sparse(..., maxcore=)`) or use a sparser integer solver on them.
+2. Attack the triple directly: solve `U = V = 0 (mod p)` together with
+   `5002401*U + 15322661*V = 0` over Z, using the free variables in the cones of
+   `x_25848, x_17317, x_18682, x_28841` rather than the selector bits.  `runs/iterpair.log`
+   shows the iterated *linear* model stalls there; a targeted 2-unknown congruence solve has
+   not been tried.

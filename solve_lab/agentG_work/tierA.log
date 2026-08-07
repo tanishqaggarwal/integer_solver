@@ -1,0 +1,13 @@
+affine rows 105 -> distinct directions 36 ; multiplicities [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 5, 11, 13, 13, 13, 16]
+rank of all directions: 18 (unknowns 22, cost-free kernel 4)
+multiplicity histogram: {1: 27, 2: 2, 3: 1, 5: 1, 11: 1, 13: 3, 16: 1}
+directions with multiplicity <= budget 6 : 31
+candidate violated-sets with total multiplicity <= 6 : 443068  (enumeration is EXHAUSTIVE)
+  budget 1: 0 admissible relaxations tested
+  budget 1: no admissible violated-set (0s)
+  budget 2: 3 admissible relaxations tested
+  budget 2: no admissible violated-set (1s)
+  budget 3: 76 admissible relaxations tested
+  budget 3: no admissible violated-set (22s)
+  budget 4: 934 admissible relaxations tested
+  budget 4: no admissible violated-set (104s)

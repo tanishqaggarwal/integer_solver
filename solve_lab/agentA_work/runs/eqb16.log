@@ -1,0 +1,3 @@
+new_instance_partial_39026.json lev16: atoms=611 eqs=582 nontrivial rows=486 knobs=334 violated=7 (score 39026)
+mod p: rank=162 of 334 knobs (172 knob columns vanish), syndrome dim w=324, g nonzero=True
+  mod-p exhaustive |D|=1: 486 subsets, consistent: NONE [0s]

@@ -240,3 +240,50 @@ BOUNDARY (stated honestly): 428 of the 537 variables appearing in the level-6 wi
 excluded from K_6, every one of them for the single reason that it touches an atom outside
 the window.  No knob is ever dropped to preserve linearity.  That is the theorem's entire
 scope limitation, and it shrinks as L grows.
+
+## CORRECTION — "the excluded set shrinks as L grows" was WRONG
+I wrote that in my last report and it is contradicted by my own printed table.  The
+excluded count is MONOTONICALLY INCREASING: 47, 103, 170, 228, 294, 349, 428 for L=0..6.
+`fastgrow.py` run to L=791 confirms it and shows the fraction is essentially constant:
+
+  L     atoms    eqs     vars    knobs   EXCLUDED   excl/vars   nonlinear atoms
+    0      24      27       56       9        47      0.839          0
+    6     235     230      537     109       428      0.797          0
+   20     743     705     1548     386      1162      0.751          0
+  100    3744    3444     6907    1324      5583      0.808          0
+  200    6603    6079    11656    2179      9477      0.813          0
+  300    8441    7762    13899    2709     11190      0.805          0
+  344    9211    8450    14669    2875     11794      0.804          0   <- affine ceiling
+  345    9227    8465    14684    2882     11802      0.804          1
+  400   10221    9380    15680    3180     12500      0.797        205
+  600   13808   12660    19266    4099     15167      0.787        857
+  791   17296   15875    22372    5152     17220      0.770       1287
+
+Two consequences, both against the plan I proposed:
+1. **The exclusion count never falls.**  Each level admits new atoms, and those atoms bring
+   in more boundary variables than they convert to knobs — the ratio holds near 0.8 for
+   800 levels.  Driving it to zero requires swallowing an entire connected component
+   (the giant one has 23,843 variables), i.e. of order 1,500+ levels.
+2. **The exactly-affine property has a HARD CEILING at L=344.**  At L=345 the first atom
+   becomes nonlinear in the knobs (both factors of some product are knobs by then), and by
+   L=791 there are 1,287 such atoms.  Past L=344 the model can only be continued by
+   approximating equations, which destroys the one property that makes this a proof rather
+   than a search.
+Since the affine ceiling (344) is reached long before the closure point (~1,500+), the
+theorem CANNOT be made unconditional by raising L.  The conditionality is structural, not
+a budget problem.
+
+## Condition (b) at L=6: my first attempt was VACUOUS, and why
+`eqisd.py` drew uniformly random 109-subsets of the 163 rows as information sets:
+**0 of 3,300 had rank 109**, so it reported "P <= 1" — no information at all.  The rows are
+far too dependent for uniform sampling to hit an information set.  `eqmindist.py` replaces
+it with (i) the rigorous route — minimum support weight = fewest linearly DEPENDENT COLUMNS
+of the parity check H (54 x 163 at L=6); exhaustive at size 2: NONE, so >= 3 — and
+(ii) greedy information sets built from a shuffled row order.
+
+## Final numbers for condition (a), mod-p, at the deepened campaign
+L=2: EXHAUSTIVE no |D| <= 4 (814,385 subsets) => >= 5 rigorously; Prange 3,000 trials,
+     2,025 solvable, lightest weight seen 7, P(missed) <= 9.5e-208.
+L=6: EXHAUSTIVE no |D| <= 2; Prange 4,000 trials, 1,538 solvable, lightest weight seen 7,
+     **P(a weight <= 6 point exists and was missed) <= 6.7e-64**.
+L=16: running (486 rows, 334 knobs, w=324).

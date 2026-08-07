@@ -191,3 +191,23 @@ zero solutions) this says the instance is infeasible -- **conditional only on th
 symbolically proved) links**: (i) that two ON booleans in the same OR-tree are always contradictory,
 verified by exact integer Jacobian on one such pair, and (ii) that an ON boolean forces the selected wire
 to its pin constant mod p, verified on 9 different boolean choices.  I state those as measurements.
+
+## 16. Attempt to make the two measured links unconditional (partial)
+`modp_uf2.py`: computed the closure Z of wires that are **provably == 0 (mod p) for every assignment**
+(seeded by the literal p and closed through the definition DAG): **7,202 of 38,748 wires**.  Using Z, built
+a weighted union-find over wires from every definition and residual atom that reduces mod p to
+`alpha*u = beta*v` with alpha,beta units: 4,223 links from definitions + 352 from residual atoms,
+**0 conflicts**.  Result: the 509 conditional-pin wires do NOT join the coordinate classes statically.
+Reason (measured, not a bug): the path from a pin wire to the selected wire runs through the selector
+products `x34606*x1 + x5647*x2 + x15298*x3`, which are bilinear and only become linear once the booleans
+are fixed.  So links (i) and (ii) of section 15 are intrinsically configuration-dependent and cannot be
+discharged by a static rigidity argument; they stay measurements (9 boolean choices for (ii), one exact
+integer-Jacobian pair for (i)).
+
+## 17. Wiedemann cross-check (independent algorithm)
+`wiedemann.py`: Krylov sequence a_i = u^T M^i v over GF(q) for i < 2n, then Berlekamp-Massey; M is
+singular over GF(q) iff x divides the sequence minimal polynomial, i.e. iff its trailing coefficient is 0.
+**Implementation validated first on controls**: 4/4 randomly generated nonsingular 70x70 matrices reported
+NONSINGULAR (BM degree 70, nonzero trailing coefficient) and 3/3 rank-69 matrices reported SINGULAR
+(trailing coefficient exactly 0), with the true rank computed independently by dense elimination mod q.
+Then run on the real M for q = 2^31-1 and q = 2147483629 (see `wiedemann.log`).

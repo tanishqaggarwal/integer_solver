@@ -113,3 +113,18 @@ them as free cancellers.  `eqwin.py`, `eqwin2.py`, `eqbound.py`, `eqisd.py`, `bo
 * `runs/eqb2_exh5.log` — exhaustive mod-p floor |D| <= 5 at L=2 (raises >= 5 to >= 6).
 * `runs/eqb6b.log`  — 4000 Prange trials at L=6 (drives P(missed) from 1e-8 towards 1e-180).
 Re-run any of them with:  python3 eqbound.py <state> <level> 6 <trials> <exhaustive_k>
+
+
+## ============ CORRECTION AND CEILING ============
+* My claim "the excluded set shrinks as L grows" was **WRONG**.  It grows monotonically
+  (47 -> 428 at L=6 -> 11,794 at L=344 -> 17,220 at L=791) and the excluded FRACTION stays
+  near 0.80 throughout.  `fastgrow.py`, `runs/grow.log`, `growth.json`.
+* **The exactly-affine regime ends at L=344.**  L=345 is the first level with an atom
+  nonlinear in the knobs; by L=791 there are 1,287.  Closure (excluded = 0) needs the whole
+  giant component (23,843 vars), of order 1,500+ levels.  The affine ceiling arrives first,
+  so **the theorem cannot be made unconditional by raising L** — the conditionality is
+  structural, not a compute budget.
+* `eqisd.py` at L=6 was VACUOUS (0 of 3,300 uniform 109-subsets of 163 rows had rank 109).
+  Use `eqmindist.py` instead: rigorous dependent-column floors + greedy information sets.
+* Condition (a) final: L=2 exhaustive floor >= 5 and P(missed) <= 9.5e-208;
+  L=6 P(missed) <= 6.7e-64; L=16 in `runs/eqb16.log`.
