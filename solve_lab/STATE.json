@@ -7,7 +7,7 @@
  "n_eqs_satisfied_by_partial": 39026,
  "best_score": 39026,
  "best_partial": "solve_lab/best/new_instance_partial_39026.json",
- "active_method": "s11 parts XIV-XVI: mod-p reduction. The instance is a GF(p) circuit evaluating in 0.08s; the whole barrier is four GF(p) numbers (a7930,a29539,a40826,a41512). No continuous move reaches them (1726 free inputs + 725 gate knobs). Bits frozen continuously, non-additive discretely; 256 real of 1156. 7 proved optimal at this base.",
+ "active_method": "s11 parts XVII-XVIII: obstruction certificates are CONSERVED QUANTITIES of the message, computable in 3.9ms. inv5 depends on only 18 bits; all 2^18 enumerated -> 232 distinct values, never zero. Exactly conserved at the checkpoint message (proof it cannot be completed); only approximately at siblings (screen, not proof).",
  "structure": {
   "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
   "n_distinct_atoms": 46275,
@@ -381,5 +381,41 @@
    "(1-U)V": "39018 state, 3 failing",
    "U(1-V)": "turn x2081 off, unexplored"
   }
+ },
+ "notes_session11_bits": {
+  "real_bits": 256,
+  "inert_free_booleans": 900,
+  "trees": {
+   "A": 88,
+   "B": 90,
+   "C": 37,
+   "D": 41
+  },
+  "pins_per_bit": 2,
+  "loaded_vars_private": 512,
+  "min_weight": 1,
+  "weight2_minimum_failing_checks": 4,
+  "weight2_optimal_messages": [
+   [
+    24601,
+    2081
+   ],
+   [
+    24601,
+    4287
+   ],
+   [
+    24601,
+    13195
+   ]
+  ],
+  "inv5_active_bits": 18,
+  "inv5_enumeration": {
+   "subsets": 262144,
+   "distinct": 232,
+   "zeros": 0
+  },
+  "cert_conserved_at_derivation_message": true,
+  "cert_conserved_at_sibling": "12 of 14 knobs"
  }
 }

@@ -34,7 +34,27 @@ Second branch, independently verified: `s11/data/finish3_named.json` -> **39,018
    score 39,018) `x15298 = 0` and all three wall checks are vacuous.  That branch's own defect
    is three atoms / fifteen equations needing `8640431*p | x12000`, `p | x12926`, `p | x21364`.
 
-### NEWEST: the barrier is FOUR numbers in GF(p) — read `S11_PART5_MODP.md`
+### NEWEST OF ALL: the obstruction is CONSERVED QUANTITIES of the message — `S11_PART6_BITS.md`
+Each obstruction certificate y gives `INV_y = sum_a y_a * r_a`, constant under every continuous
+move, computable from any message in 0.08 s (3.9 ms with the cone evaluator).  A full solve needs
+all six to vanish, so the objective stops being "count failures" (plateaued at 4, no gradient) and
+becomes "drive six explicit GF(p) numbers to zero".
+
+* **inv5 depends on only 18 of the 256 bits.**  Enumerated EXHAUSTIVELY over all 2^18 = 262,144
+  subsets (`s11/bits24.py`, 19 min): **232 distinct values, zero never attained.**
+* At the checkpoint's own message the certificates are exactly conserved (all 14 knobs that touch
+  their rows are annihilated, `s11/bits25.py`), so **that message provably cannot be completed** —
+  the first actual reason for the plateau rather than another failed search.
+* At a sibling message only 12 of 14 are annihilated, so across messages this is a strong screen,
+  NOT a proof.  Channel A is very likely dead; channels B and C are where to go.
+* Bit landscape mapped exactly: 256 real bits (900 of the 1,156 free booleans are provably inert),
+  trees 88/90/37/41, each bit owning two private load pins.  Exhaustive weight-2 scan: minimum 4
+  failing checks, reached by exactly three messages — {x24601,x2081} (the checkpoint),
+  {x24601,x4287}, {x24601,x13195}.
+
+---
+
+### The barrier is FOUR numbers in GF(p) — read `S11_PART5_MODP.md`
 Mod p every handle dies (they are all `free * wire`, wire = p), so the instance is a plain GF(p)
 circuit that forward-evaluates **in 0.08 s** (`s11/gmp1.py`).  From the best inputs, every gate is
 satisfied and exactly SIX checks fail; two of them (a35759, a35760) are cleared for free by x9118

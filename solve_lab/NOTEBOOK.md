@@ -1734,3 +1734,20 @@ the p-quantised handles absorb exactly — a clean two-stage route to a full sol
 - 7 failing equations is optimal at this base over continuous knobs + gate purchases + drops.
 - Channel algebra completed: U = OR(x8599,x21839), V = OR(x7304,x25956); x2081 feeds V and
   x24601 feeds U; the third channel U*(1-V) is reachable and was never explored.
+
+## Session 11, Parts XVII-XVIII — the message bits, and invariants
+
+- Census of the 256 real message bits: 900 of the 1,156 free booleans are provably inert; the
+  256 partition into OR-trees of 88/90/37/41; each owns exactly two load pins with private
+  loaded variables; minimum message weight is 1 (the OR gate needs one bit).
+- Exhaustive weight-2 scan (32,640 messages): minimum 4 failing checks, achieved by exactly
+  three messages -- {x24601,x2081} (the checkpoint) and two siblings {x24601,x4287},
+  {x24601,x13195}, all failing the same four atoms with different residues.
+- Obstruction certificates are CONSERVED QUANTITIES: INV_y = sum y_a r_a is constant under every
+  continuous move and must vanish for a full solve.  Computable in 0.08 s per message, 3.9 ms
+  with a cone-restricted evaluator (2,888 of 38,748 variables).
+- inv5 is a function of the C-subset alone and only 18 bits move it.  All 2^18 = 262,144 subsets
+  enumerated exhaustively: 232 distinct values, zero never attained.
+- Scope: exactly conserved at the message where it was derived (14/14 knobs annihilated) -- so
+  the checkpoint's message provably cannot be completed.  Only 12/14 at a sibling, so across
+  messages it is a screen and not a proof.
