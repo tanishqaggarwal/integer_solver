@@ -1,1 +1,2 @@
 candidate atoms that free a private var: 40
+  a23618: P=8 |E|=13  maxsat_Q=13  cost >= 0  (43s)   <<< could beat 7

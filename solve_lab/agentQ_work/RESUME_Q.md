@@ -152,3 +152,63 @@ The 39,026 deliverable is therefore best understood not as a near-miss on a comb
 as *the cheapest known way to fake the root value while breaking as few equation rows as possible*.
 Improving it is a pure coding problem over the atom incidence matrix (agent A's formulation) and is
 independent of the discrete log.
+
+## 11. THE CAVEAT IS CLOSED — AND THE LEAF DECODE IS NOW EXACT (`qpins.py`, `qladder2.py`, `qstages.py`)
+Everything in this section is re-derived **directly from `EQUATIONS.txt`**, with no input from any
+other agent's directory.  `qextract.py` (a re-run of the shared `extract_atoms.py`) rebuilt the atom
+database locally: 32,006 distinct gate atoms, all of the form `+ - *` over integers (no division).
+
+**(a) All 256 leaves, no inference.**  Pin atoms have the shape `(x_g)*((x_w)-(BIGCONST))`.  Scanning
+for them gives **256 selectors, each with exactly 2 pins** — the three that earlier had one constant
+were an extraction shortfall, not missing data.  With the correct shift (`X = c + K/3 mod p`, K =
+`x_24453`, a literal wire) **256/256 leaf points lie on the cubic**.  Doubling closes into a *single*
+chain of length 256, and **256/256 satisfy `L_i = 2^i G`**, G = selector `x2779`.  This supersedes
+section 2b: nothing is inferred any more.  (`qleaf.json`, `qladder.json`)
+
+**(b) The stage law, at every stage.**  The stage gadget is the division-free chord law:
+```
+dx = ua-ub    dy = ya-yb
+R1 = S*dx^2 - dy^2      S = u3+ua+ub+K        <=>  lambda^2 = u3+ua+ub+K
+R2 = A*dx  - B*dy       A = y3+yb, B = ub-u3  <=>  y3+yb = lambda*(ub-u3)
+```
+(the `+K` is exactly `3*(K/3)`, i.e. the raw-coordinate form of `X3 = lambda^2 - X1 - X2`.)
+Searching the atom DAG for this shape finds **383 stage gadgets**: 89 leaf-adjacent, 78 mixed,
+216 internal.  Each was tested by **Schwartz-Zippel on random curve points** — random P_a, P_b on the
+cubic, (u3,y3) set from the group law, then the *actual* sub-DAG from `EQUATIONS.txt` evaluated:
+
+> **383 / 383 verified, including 89 / 89 leaf-adjacent — and all 383 with orientation (+1,+1),
+> i.e. every stage computes the plain sum `P_a + P_b`, with no sign flips.**
+
+None of the 1,532 stage core wires is multi-defined, so the test used the real gate relations.
+**The caveat in section 3 is closed**, and closed more broadly than it was stated.
+
+**(c) The gadget census has exactly the shape of a combination tree over 256 leaves.**  Counting how
+many of each gadget's four input coordinate wires are hard-wired to 0:
+
+| kind | count | hard-zero inputs |
+|---|---|---|
+| leaf-adjacent | 89 | 0 — combines two leaves |
+| mixed | 78 | 2 — one leaf plus a dummy: a pass-through |
+| internal | 191 | 0 — live |
+| internal | 25 | 4 — dead |
+
+89 leaf pairs consume 178 leaves; the remaining **78** leaves are exactly the 78 pass-throughs.
+That is a binary combination tree over all 256 leaves, and it corroborates `fold = group sum`.
+
+## 12. WHAT IS *STILL* UNVERIFIED (the gap moved, it did not vanish)
+Gadget outputs do not feed the next gadget directly — they pass through a **selector/mux layer**
+(`u3` wires are consumed by `V*V`, `V+V`, `V-V` gates gated on selector bits).  I verified the
+*law* each gadget enforces as a function of its four input coordinate wires; I did **not** verify
+that the selector logic can realise an arbitrary subset of leaves.  So the existence result
+"a satisfying assignment exists" now rests on the **routing layer**, not on the stage law.
+This is a strictly smaller and different gap than the one I flagged, but it is real and it is
+load-bearing.  Do not report the existence result as unconditional.
+
+## 13. ON THE CROSS-MODEL TENSION (recorded, not adjudicated)
+My model predicts the root value is essentially unconstrained: for 300 random **weight-128**
+configurations, the fold equalled `k*G`, was on the curve, and gave **300 distinct values**
+(300/300).  Under the fold model the reachable set of root values is all of Z/N, so no genuine
+*global* closure at a few dozen tuples can exist.  But the honest reading of section 12 is that if
+another agent's exhaustion turns out to be global, the place to look is now the **routing layer**,
+not the stage law — that link is measured and solid.  I make no claim about whether that
+exhaustion is local.

@@ -1597,3 +1597,75 @@ summary was correct and is fixed here; the underlying number survived.**
 existence result and its untested 24-stage caveat; the Q-versus-S tension (Q says a solution
 exists, S's closure of 48 tuples excludes it) — where T's own B1 finding makes "is *the image*
 decomposition-dependent too?" the right question; and whether the 927 is decomposition-dependent.
+
+---
+
+## Check-in 23 — cancellation is a VALUE property, proven with support held fixed (agent L)
+
+Deliverable unchanged: **39,026 / 39,033**. L found nothing above it.
+
+### The campaign's cleanest result
+
+L found its own misspecification: it was injecting the forged value at one site and never
+re-propagating it up the branch. `diffcut.py` showed it directly — the deliverable carries **leaf
+24601's value along the whole 2081 branch** (x28505.va, x16102.vb, x23131.vb, x13976.va,
+x17215.vb, x9274.vb) while L's carried 2081's. That accounted for all 5 extra atoms: 2 slot links
+above the cut plus the **3 root stage checks**, which broke because the root's inputs were still
+unequal. `build2()` in `cansearch2.py` now breaks **exactly the deliverable's four atoms —
+identical support.** And then:
+
+| construction | atoms broken | exact failing |
+|---|---|---|
+| deliverable | 4 | **7** |
+| L's, same 4 atoms | 4 | **13** |
+| L's, vab left at 0 | 2 | **11** |
+
+**Support byte-identical, cost differs by 6.** And **fewer broken atoms can cost more equations**
+(2 → 11 against 4 → 7), so **minimising atom count is the wrong objective.**
+
+**This retires incidence pricing on its own terms** — the fifth demonstration in this lab, and the
+only one that holds support fixed and varies nothing but values.
+
+### Where the six equations live — the cancellation degree of freedom, located
+
+With support identical, exactly **12 variables differ mod p, all cofactors/handles**:
+`x105, x1329, x3387, x5081, x5676, x9413, x10903, x11436, x14393, x14768, x17325, x22820`.
+The deliverable sets them to specific nonzero integers; **L's constructor leaves them at 0**,
+because `relift` skips precisely the atoms that are nonzero mod p, so their handles never get set.
+
+> **The site fixes WHICH atoms break; the handle values fix HOW MANY equations they cost.
+> The search is site × handle-values, not site alone.**
+
+That is exactly M's primitive, and it means **a candidate priced with handles unset is not a
+negative result** — at the deliverable's own site, unset handles read 13 against a true 7.
+
+### The divisibility repair — ordering ruled out
+
+`repairfix.py`: reordering shifts bottom-up (deepest wire first) gives **identical results to
+round-robin at every size**, so the residue is **not an ordering artefact**. Undischarged scales
+with |S|: **0 / 1 / 9 / 21** at |S| = 1 / 2 / 17 / 40. A **simultaneous CRT solve over the ~766
+shift parameters is required** — P's rank question, now with a second independent line of evidence
+that round-robin cannot substitute for it. **L has not swept: the instrument is still contaminated
+for |S| ≥ 2**, and it said so rather than sweeping anyway.
+
+### The hand-off to M — 378 candidate sites, calibrated
+
+`candidates.json`: 378 rows, each with site, parent/side, slot wires, vab wires, both handle
+forms, incidence, depth, live-leaf count. **L caught a hand-off error before it cost anything:**
+its first list emitted the free cofactors `u`, while M corrupts the defined P-multiples `h` — the
+same `h`/`u` distinction that produced check-in 12's correction. Fixed, and the calibration row
+now reproduces M's four handles exactly:
+
+`{site_child: 27994, parent: 4971, side: va, handles_h: [642, 28730, 29854, 31864],
+handles_u: [1329, 9413, 10903, 17325]}`
+
+Top candidates by incidence, **ordinal at best** by L's own caution (the deliverable's row reads
+13 against a true cost of 7): the deliverable at 13, then x27634/x23762.va at 14, five at 15
+(x31049, x30609, x34711, x35056, x6593, x25642), four at 16.
+
+Relayed to M with instructions to validate on the calibration row first, then price each candidate
+**with handle values tuned rather than left at 0**, and to report throughput so L can size the
+list — L can emit 6- and 8-handle variants spanning two adjacent sites if those are in range.
+
+S's two-atom-equation lead remains queued behind the repair fix; L did not chase it, per the
+stated order. `|S| = 4` still running unattended (~20M/174M), not blocking.

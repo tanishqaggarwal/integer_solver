@@ -9,7 +9,7 @@ Exact expansion (sN1=+1, sN2=-1 as extracted):
   A = i1-i2 , B = i4-i3 , E = i1+i2+i5+Q , H = i3+i6 , J = i2-i5
   a = mu1+mu2+mu5 , b = mu1-mu2 , d = mu4-mu3 , g = mu3+mu6 , h2 = mu2-mu5
   n1' = n1 + (2*E*A*b + a*A^2 - 2*B*d) + P*(E*b^2 + 2*a*A*b - d^2) + P^2*a*b^2
-  n2' = n2 + (A*g + H*b - A*h2 - J*d) + P*(b*g - d*h2)
+  n2p = n2 + (A*g + H*b - B*h2 - J*d) + P*(b*g - d*h2)
 Condition per k:  c_k | c_k1*n1' + c_k2*n2'
 """
 import pickle,sys
@@ -72,7 +72,7 @@ def resid(mu,ca,cb):
     m1,m2,m3,m4,m5,m6=mu
     a=m1+m2+m5; bb=m1-m2; d=m4-m3; g=m3+m6; h2=m2-m5
     dn1=(2*E*A*bb + a*A*A - 2*Bv*d) + P*(E*bb*bb + 2*a*A*bb - d*d) + P*P*a*bb*bb
-    dn2=(A*g + H*bb - A*h2 - J*d) + P*(bb*g - d*h2)
+    dn2=(A*g + H*bb - Bv*h2 - J*d) + P*(bb*g - d*h2)
     return ca*(n1+dn1)+cb*(n2+dn2)
 
 print()

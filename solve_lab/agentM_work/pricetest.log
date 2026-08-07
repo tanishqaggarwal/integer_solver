@@ -1,0 +1,19 @@
+=== VALIDATION: reproduce the deliverable from its four handles ===
+input handles      : [642, 28730, 29854, 31864]
+closure -> freed   : [642, 7068, 28730, 29854, 31864]
+closure -> demote  : [23616, 23617, 36659, 36663, 36664]
+engine2 PIN was    : [642, 7068, 28730, 29854, 31864]
+engine2 DEMOTE was : [23616, 23617, 36659, 36663, 36664]
+MATCH freed==PIN   : True
+MATCH demote       : True
+  (the 5th demotion is DERIVED from the 4 handles, not supplied)
+
+price_given -> score 39026, nbad 8, 0.60s
+  fails: [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+  bad  : [23616, 23617, 36659, 36660, 36661, 36662, 36663, 36664]
+  vars differing from deliverable: 0
+
+VALIDATION PASSED
+
+=== THROUGHPUT ===
+  price_given  : 0.53s per candidate  -> 6,736/hour
