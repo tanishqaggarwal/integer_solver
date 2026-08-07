@@ -7552,3 +7552,100 @@ to 256** — supported by the theorem, since a block sees only its own two child
 in it, but still an extrapolation, and **the verdict rests on it.** The one raw-fit outlier
 (`ρ = 0.266`, a five-point `n = 8` fit) is **reported rather than hidden**; even at face value it
 only reaches `w ≤ 132`.
+
+---
+
+## Check-in 125 — AE: a clean sweep of misses, a bug plants could not catch, and a misroute that was mine
+
+**Result: no hit in any family, at any radius.** AE did not dress any of it up, which is what was
+asked. Artefact `agentAE_work/STRUCTURED_KEYS.md`; footprint 592 KB; no shared table touched.
+
+Instrument: a distinguished-point kangaroo in C, **12.6 MB regardless of range**, calibrated on **46
+planted keys, 46/46 recovered exactly** — 34 engine plants (mean `jumps/√L` = **1.976** against the
+closed form 2.0), 4 through the family-builder's own reconstruction path, 8 quotient plants. The
+empirical tail matches `exp(−c/2)`, so **an `8√L` cap is a 98.2 % exclusion, not 100 %, and every row
+says so.**
+
+| family | coverage | prior | ops | outcome |
+|---|---|---|---|---|
+| `k₀ < 2^58` | `2^58` | `2^-198` | `2^32` | miss, 98.2 % |
+| 37 named constants, ±`2^43` | `2^49.2` | `2^-207` | `2^30.2` | miss |
+| 4 λ-orbit magnitude + top-end | `2^50.3` | `2^-206` | `2^29.3` | miss |
+| `k₀ ≡ ±λ^{-e}·a·b^{-1}`, `a,b ≤ 2^26` | `2^53.9` | `2^-202` | `2^27` | **exhausted, exact** |
+
+Total prior mass removed **`2^-197.9`** — against AC's posterior, nothing, and AE says so in the file.
+
+### Two findings worth carrying past this thread
+
+> **The quotient sweep covers `2^53.87` scalars exhaustively for `2^27` point operations — a larger
+> class than agent X's entire weight-≤9 sweep at `2^33.1`, and disjoint from it.**
+
+That is the best keys-per-operation ratio anyone has achieved on this campaign, by a wide margin, and
+it was bought with a *magnitude/quotient* structure rather than a weight structure.
+
+> **On this box more threads make the search slower in total throughput: 1.92 M/s at 1 thread,
+> 1.10 M/s at 4. Anyone budgeting per-core × 4 will be wrong by 1.7× the wrong way.**
+
+### The bug, and why it matters more than the sweep
+
+The first quotient engine reported `deg1 = 1023 = chunk − 1`. **Four random plants passed anyway.**
+That count is impossible for a `2^-128` event: **lane 0 starts at `1·G` and its first step is a
+doubling**, so it stuck, and the whole `a ∈ [1,2^15]` block — **including the entire `k₀ = 1/b`
+sub-family** — was recorded against `x(G)`. Fixed, four deliberate lane-0 plants added, counter now
+reads exactly 1.
+
+> **AE's own summary, which is the fleet's rule stated from the other side: "The plants could not
+> have caught it; the counter did."**
+
+We have spent this campaign learning that a marker is not evidence. This is the constructive form:
+**an instrument that reports a quantity with a known expectation catches what a pass/fail test
+cannot.**
+
+### Direction checks, all run before spending anything
+
+NAF/signed weight bounds `w` only **from below** (`NAF-wt ≤ w`), so it was priced at zero and not
+run. The `a·b` family with both factors bounded is a **subset of a magnitude interval and strictly
+dominated** — the non-redundant version is the quotient family, which AE ran. The magnitude analogue
+of Y's complement sweep is **degenerate**: the complement of any `k₀ ∈ [0,N)` is `≥ 2^128.35`, so it
+exists only as a window just below `2^256 − N`, already covered. **And AE's top-end row is weaker
+than X's deterministic `N − k₀ > 2^52` — "cite X, not me."**
+
+### The misroute was mine, and AE was right to flag it
+
+> **"No crux was ever handed to me, and the 927 lift conditions are not my object. I think that part
+> was routed to the wrong agent."**
+
+**Correct.** The crux message about U's partition theorem and the lift conditions was written for
+**AF** and I sent it to **AE**. AF held the same question in its original brief and answered it
+(check-in 119), so nothing was lost — but AE spent time on an object that was never its own, and the
+error is mine.
+
+**And AE's answer refutes my phrasing of the crux, independently of AF:**
+
+> The conjectured chain runs backwards at the second step. *"No wraparound ⇒ exact integer addition ⇒
+> conditions are `|S|`-blind"* — **exactness makes the fold value at a node an injective encoding of
+> `S ∩ σ_v`** (distinct powers of two, unique binary representation), so conditions there see `S`
+> **perfectly**. **U's theorem enables §8's mechanism; it does not refute it.**
+
+**AE is right and my chain was wrong.** Note this does **not** touch AF's conclusion: AF's Theorem 1
+says explicitly that `Σ_v L_v(s) = |S| − 1`, i.e. **`|S` *is* visible** — AF's refutation rests on the
+flat knob ledger and the absence of any bounded data variable, **not** on blindness. So both agents
+agree the system can see `|S|`, both reject my framing, and AF's argument never depended on it.
+
+AE's own locality census: **925 of 927 conditions have proper support, 793 see ≤ 4 selectors, 48 see
+none, only 2 see all 256** — and the one thing that could have invalidated it, 910 wire lookups
+missing from U's table, resolves cleanly (55 distinct `P` wires, **all 55 the literal constant `p`**).
+AE declines to claim the clean result — *"locality alone does not kill §8; a conjunction of
+subtree-local conditions over a laminar family can still bound `|S|`"* — and collapses the question
+to **two named conditions**, routing the probe to me rather than running it on someone else's ground.
+**Moot now**: AD and AF closed §8 by other means in check-ins 119 and 124.
+
+**Number to reconcile, flagged not asserted:** AE reports `2754/927` where AF's parse and my own read
+of `af_cond.pkl` both give **`2780/927` of 3707**. AE attributes its figure to a different agent's
+parse, so these may be different objects. Not an error until someone checks.
+
+**In flight:** an `R = 60` kangaroo (pid 13691, ~25 % of its `2^33` budget) with `finish_R60.sh`
+waiting **by PID**, which **refuses to write a verdict unless `jumps == 2^33`, `dps/dpexp ≈ 1` and
+`cands == 0`.** Two abandoned runs are recorded in a ledger as **NOT evidence**. `ae_verify.py` —
+independent Jacobian, fixed-window, extended-Euclid, parameters re-read from X's file — **exists and
+self-tests PASS, built before any hit could occur.**

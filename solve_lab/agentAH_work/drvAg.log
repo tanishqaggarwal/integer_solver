@@ -1,0 +1,44 @@
+[A] START n32_s101g 22:59:30
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+DONE tag=n32_s101g n=32 seed=101 reason=CLOSED_TARGETS_ONLY wall=153.3 nz_atoms=2 sampled_miss=0 exh_miss=0
+[A] EXIT n32_s101g rc=0 23:02:17
+[A] START n8_s101g 23:02:17
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+DONE tag=n8_s101g n=8 seed=101 reason=CLOSED_TARGETS_ONLY wall=36.9 nz_atoms=2 sampled_miss=0 exh_miss=0
+[A] EXIT n8_s101g rc=0 23:03:08
+[A] START n96_s101g 23:03:08
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+Traceback (most recent call last):
+  File "/home/user/integer_solver/solve_lab/agentAH_work/ah_run.py", line 261, in close
+    if not any(J.joint_pair(vv, a, base, log) for a in viol+hl):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/integer_solver/solve_lab/agentAH_work/ah_run.py", line 261, in <genexpr>
+    if not any(J.joint_pair(vv, a, base, log) for a in viol+hl):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/integer_solver/solve_lab/agentT_work/t_close2wj.py", line 371, in joint_pair
+    rs, exh, m = joint_rootsets(CF, MOD, q, PP[q])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/integer_solver/solve_lab/agentAH_work/ah_joint.py", line 105, in joint_rootsets
+    out = scan(CF, False)
+          ^^^^^^^^^^^^^^^
+  File "/home/user/integer_solver/solve_lab/agentAH_work/ah_joint.py", line 100, in scan
+    out.extend(((b, tw) if flip else (tw, b)) for b in cand)
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/user/integer_solver/solve_lab/agentAH_work/ah_run.py", line 298, in <module>
+    vv, nz, reason, outer_done, trace, stats = close(S, outer_max)
+                                               ^^^^^^^^^^^^^^^^^^^
+  File "/home/user/integer_solver/solve_lab/agentAH_work/ah_run.py", line 268, in close
+    vv[:] = safe
+    ~~^^^
+MemoryError
+[A] EXIT n96_s101g rc=1 23:25:11
+[A] START n128_s101g 23:25:11
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032

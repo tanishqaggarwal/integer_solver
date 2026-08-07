@@ -2,7 +2,7 @@
 # Phase 2: bounded-representation variant (ah_joint), 3 GB cap, exact fast root enumeration.
 # Validation points first (must reproduce the verbatim runs byte-for-byte), then the grid.
 cd /home/user/integer_solver/solve_lab/agentAH_work
-export PYTHONDONTWRITEBYTECODE=1 AH_FASTROOTS=1 AH_BIGROOT=1 AH_MEMCAP_GB=3 AH_TAGSUF=g
+export PYTHONDONTWRITEBYTECODE=1 AH_FASTROOTS=1 AH_BIGROOT=1 AH_MEMCAP_GB=3 AH_TAGSUF=g AH_OUTER=60
 nohup ./ah_driver.sh A 3600 32:101 8:101 96:101 128:101 160:101 192:101 24:101 48:101 64:101 \
       96:202 128:202 160:202 192:202 24:202 48:202 64:202 32:202 16:202 8:202 4:202 2:202 1:202 \
       > drvAg.log 2>&1 &

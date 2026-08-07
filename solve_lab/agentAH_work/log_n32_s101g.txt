@@ -1,0 +1,82 @@
+S(seed=101,n=32) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357, 7151, 33095, 21702, 24912, 12072, 14823, 29670, 17790, 5651, 30613, 14928, 29545, 30823, 12714, 8487, 22790, 20603, 7029, 3591, 33824, 33434, 22513, 27592]
+   [pre] relift round 0: 59 bad atoms, 57 fixed, t=3s
+   [pre] relift round 1: 36 bad atoms, 34 fixed, t=4s
+   [pre] relift round 2: 24 bad atoms, 22 fixed, t=4s
+   [pre] relift round 3: 23 bad atoms, 21 fixed, t=5s
+   [pre] relift round 4: 24 bad atoms, 22 fixed, t=5s
+   [pre] relift round 5: 24 bad atoms, 22 fixed, t=6s
+   [pre] relift round 6: 24 bad atoms, 22 fixed, t=6s
+   [pre] relift round 7: 23 bad atoms, 20 fixed, t=7s
+   [pre] relift round 8: 24 bad atoms, 22 fixed, t=8s
+   [pre] relift round 9: 24 bad atoms, 22 fixed, t=9s
+   [pre] relift round 10: 24 bad atoms, 22 fixed, t=11s
+   [pre] relift round 11: 24 bad atoms, 22 fixed, t=12s
+   [pre] relift round 12: 23 bad atoms, 21 fixed, t=13s
+   [pre] relift round 13: 25 bad atoms, 23 fixed, t=14s
+   [pre] relift round 14: 24 bad atoms, 22 fixed, t=16s
+   [pre] relift round 15: 23 bad atoms, 21 fixed, t=17s
+   [pre] relift round 16: 24 bad atoms, 21 fixed, t=19s
+   [pre] relift round 17: 24 bad atoms, 22 fixed, t=20s
+   [pre] relift round 18: 24 bad atoms, 22 fixed, t=21s
+   [pre] relift round 19: 24 bad atoms, 22 fixed, t=22s
+   [pre] relift round 20: 25 bad atoms, 23 fixed, t=24s
+   [pre] relift round 21: 24 bad atoms, 22 fixed, t=25s
+   [pre] relift round 22: 23 bad atoms, 21 fixed, t=26s
+   [pre] relift round 23: 23 bad atoms, 21 fixed, t=27s
+   [pre] relift round 24: 24 bad atoms, 22 fixed, t=29s
+   [pre] relift round 25: 24 bad atoms, 22 fixed, t=30s
+   [pre] relift round 26: 23 bad atoms, 20 fixed, t=31s
+   [pre] relift round 27: 24 bad atoms, 22 fixed, t=33s
+   [pre] relift round 28: 24 bad atoms, 22 fixed, t=34s
+   [pre] relift round 29: 24 bad atoms, 22 fixed, t=35s
+   [pre] relift round 30: 24 bad atoms, 22 fixed, t=36s
+   [pre] relift round 31: 24 bad atoms, 22 fixed, t=38s
+   [pre] relift round 32: 24 bad atoms, 22 fixed, t=39s
+   [pre] relift round 33: 24 bad atoms, 22 fixed, t=40s
+   [pre] relift round 34: 24 bad atoms, 22 fixed, t=41s
+   [pre] relift round 35: 23 bad atoms, 21 fixed, t=41s
+   [pre] relift round 36: 24 bad atoms, 22 fixed, t=42s
+   [pre] relift round 37: 24 bad atoms, 22 fixed, t=43s
+   [pre] relift round 38: 24 bad atoms, 21 fixed, t=45s
+   [pre] relift round 39: 24 bad atoms, 22 fixed, t=47s
+   [pre] relift round 40: 24 bad atoms, 22 fixed, t=49s
+   [pre] relift round 41: 24 bad atoms, 22 fixed, t=50s
+   [pre] relift round 42: 23 bad atoms, 21 fixed, t=51s
+   [pre] relift round 43: 24 bad atoms, 22 fixed, t=53s
+   [pre] relift round 44: 24 bad atoms, 22 fixed, t=53s
+   [pre] relift round 45: 24 bad atoms, 22 fixed, t=53s
+   [pre] relift round 46: 24 bad atoms, 22 fixed, t=54s
+   [pre] relift round 47: 24 bad atoms, 22 fixed, t=55s
+   [pre] relift round 48: 24 bad atoms, 22 fixed, t=55s
+   [pre] relift round 49: 24 bad atoms, 21 fixed, t=56s
+   [pre] relift round 50: 24 bad atoms, 22 fixed, t=57s
+   [pre] relift round 51: 24 bad atoms, 22 fixed, t=58s
+   [pre] relift round 52: 23 bad atoms, 21 fixed, t=58s
+   [pre] relift round 53: 24 bad atoms, 22 fixed, t=59s
+   [pre] relift round 54: 23 bad atoms, 21 fixed, t=59s
+   [pre] relift round 55: 24 bad atoms, 22 fixed, t=60s
+   [pre] relift round 56: 24 bad atoms, 22 fixed, t=61s
+   [pre] relift round 57: 24 bad atoms, 22 fixed, t=61s
+   [pre] relift round 58: 24 bad atoms, 22 fixed, t=62s
+   [pre] relift round 59: 24 bad atoms, 21 fixed, t=63s
+   [pre] fixpoint done in 63s (60 rounds)
+outer 0: global nonzero 25, violated c-conditions 24, nonzero handle-less 1
+   single-wire pass over 106 wires (max atoms/wire 2)
+   single-wire pass: 20 accepted
+outer 1: global nonzero 4, violated c-conditions 3, nonzero handle-less 1
+   single-wire pass over 9 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+      *** x34218 += p*322948684674 zeroes (x23514-(x6677*x23504)) (exact, recomputed)
+outer 2: global nonzero 3, violated c-conditions 3, nonzero handle-less 0
+   single-wire pass over 9 wires (max atoms/wire 1)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x30613*(x7849-2893142071079425220598526201020797013844  c=14656137
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x25026*x1924)-(15070823*x14159))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     *** (x5389 += p*82612867463765 , x7849 += p*103701360968681) |group|=2  global 3 -> 2
+outer 3: global nonzero 2, violated c-conditions 2, nonzero handle-less 0
+   single-wire pass over 8 wires (max atoms/wire 1)
+   single-wire STALLED -> joint two-wire pass
+   only the two TARGET congruences remain -- CLOSED
+DONE tag=n32_s101g n=32 seed=101 reason=CLOSED_TARGETS_ONLY wall=153.3 nz_atoms=2 sampled_miss=0 exh_miss=0

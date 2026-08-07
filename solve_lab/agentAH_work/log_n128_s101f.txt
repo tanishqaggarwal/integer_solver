@@ -111,3 +111,39 @@ outer 4: global nonzero 9, violated c-conditions 8, nonzero handle-less 1
      round 0: |group|=1 (0 exact) wires=1 new pairs=0
      folding in collateral: ['((x37880*x1991)-(4254277*x27861))']
      round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     *** (x4230 += p*14523997480163 , x12522 += p*12101655415886) |group|=2  global 9 -> 8
+outer 5: global nonzero 8, violated c-conditions 7, nonzero handle-less 1
+   single-wire pass over 24 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x14928*(x9312-4284318239841522995576896241804596420123  c=7904013
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x30551*x29453)-(10898743*x6881))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     *** (x9312 += p*79614386680029 , x11247 += p*47812866119716) |group|=2  global 8 -> 7
+outer 6: global nonzero 7, violated c-conditions 6, nonzero handle-less 1
+   single-wire pass over 23 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x23238-x24292)-(10937191*x33421))  c=10937191
+     round 0: |group|=1 (0 exact) wires=2 new pairs=1
+     (x18197 ,x23238 ) |group|=1 200 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x10284*x37719)-(15049145*x6202))', '((x32116*x25444)-(10696593*x23555))']
+     round 1: |group|=3 (0 exact) wires=12 new pairs=65
+     (x2096  ,x2964  ) |group|=3 NO JOINT ROOT mod 449 (exhaustive)
+     (x2096  ,x8239  ) |group|=3 NO JOINT ROOT mod 449 (exhaustive)
+     (x2096  ,x8557  ) |group|=3 NO JOINT ROOT mod 449 (exhaustive)
+     *** (x2096 += p*1181951123549438169246 , x18197 += p*1571563477995958847540) |group|=3  global 7 -> 6
+outer 7: global nonzero 6, violated c-conditions 5, nonzero handle-less 1
+   single-wire pass over 19 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x10261-x8912)-(13040669*x27539))  c=13040669
+     round 0: |group|=1 (0 exact) wires=2 new pairs=1
+     (x10261 ,x27156 ) |group|=1 200 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x38170*x15286)-(2264251*x9216))', '((x30973*x25513)-(1707229*x4242))']
+     round 1: |group|=3 (0 exact) wires=12 new pairs=65
+     (x5096  ,x5460  ) |group|=3 NO JOINT ROOT mod 19 (exhaustive)
+     (x5096  ,x5616  ) |group|=3 NO JOINT ROOT mod 19 (exhaustive)
+   *** MemoryError at the 3.0 GB cap in outer 7 -- rolled back to the last guard-consistent state; this is a BLOWUP OF THE ROUTINE, not a failure to close
+DONE tag=n128_s101f n=128 seed=101 reason=MEMORY_BLOWUP wall=1934.1 nz_atoms=6 sampled_miss=0 exh_miss=18

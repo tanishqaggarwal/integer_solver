@@ -1,0 +1,113 @@
+S(seed=101,n=128) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357, 7151, 33095, 21702, 24912, 12072, 14823, 29670, 17790, 5651, 30613, 14928, 29545, 30823, 12714, 8487, 22790, 20603, 7029, 3591, 33824, 33434, 22513, 27592, 5663, 25150, 2441, 19737, 30242, 37631, 21305, 14644, 22623, 35660, 24517, 33287, 24372, 24734, 17710, 19690, 28005, 22492, 3414, 12737, 23262, 12095, 25292, 20837, 1695, 32872, 26277, 1502, 32092, 35635, 10255, 11170, 33099, 33822, 12422, 21103, 22562, 6821, 1413, 29327, 24601, 16827, 11368, 33015, 47, 3707, 37147, 33242, 22140, 35062, 38645, 1438, 17711, 33929, 29661, 35079, 19435, 17406, 25104, 22351, 5148, 5630, 28785, 15730, 9601, 3216, 36314, 34309, 18184, 6312, 35740, 4287, 10513, 18732, 15406, 19326, 31932, 112, 24134, 19745, 10836, 17083, 36961, 2143, 21112, 1530, 91, 38630, 28024, 30420, 8319, 34510, 36293, 33190, 32368, 16688]
+   [pre] relift round 0: 229 bad atoms, 227 fixed, t=5s
+   [pre] relift round 1: 122 bad atoms, 120 fixed, t=8s
+   [pre] relift round 2: 87 bad atoms, 85 fixed, t=11s
+   [pre] relift round 3: 79 bad atoms, 77 fixed, t=13s
+   [pre] relift round 4: 79 bad atoms, 77 fixed, t=15s
+   [pre] relift round 5: 80 bad atoms, 78 fixed, t=19s
+   [pre] relift round 6: 79 bad atoms, 77 fixed, t=24s
+   [pre] relift round 7: 80 bad atoms, 77 fixed, t=28s
+   [pre] relift round 8: 80 bad atoms, 78 fixed, t=33s
+   [pre] relift round 9: 78 bad atoms, 76 fixed, t=37s
+   [pre] relift round 10: 79 bad atoms, 76 fixed, t=41s
+   [pre] relift round 11: 80 bad atoms, 78 fixed, t=45s
+   [pre] relift round 12: 80 bad atoms, 78 fixed, t=49s
+   [pre] relift round 13: 80 bad atoms, 78 fixed, t=54s
+   [pre] relift round 14: 79 bad atoms, 77 fixed, t=58s
+   [pre] relift round 15: 79 bad atoms, 77 fixed, t=59s
+   [pre] relift round 16: 79 bad atoms, 76 fixed, t=62s
+   [pre] relift round 17: 79 bad atoms, 77 fixed, t=63s
+   [pre] relift round 18: 79 bad atoms, 77 fixed, t=68s
+   [pre] relift round 19: 78 bad atoms, 76 fixed, t=72s
+   [pre] relift round 20: 79 bad atoms, 77 fixed, t=76s
+   [pre] relift round 21: 79 bad atoms, 76 fixed, t=80s
+   [pre] relift round 22: 79 bad atoms, 77 fixed, t=85s
+   [pre] relift round 23: 77 bad atoms, 75 fixed, t=89s
+   [pre] relift round 24: 79 bad atoms, 77 fixed, t=92s
+   [pre] relift round 25: 79 bad atoms, 77 fixed, t=94s
+   [pre] relift round 26: 78 bad atoms, 75 fixed, t=98s
+   [pre] relift round 27: 77 bad atoms, 75 fixed, t=102s
+   [pre] relift round 28: 79 bad atoms, 77 fixed, t=105s
+   [pre] relift round 29: 77 bad atoms, 75 fixed, t=107s
+   [pre] relift round 30: 79 bad atoms, 77 fixed, t=109s
+   [pre] relift round 31: 79 bad atoms, 77 fixed, t=111s
+   [pre] relift round 32: 78 bad atoms, 76 fixed, t=112s
+   [pre] relift round 33: 78 bad atoms, 76 fixed, t=115s
+   [pre] relift round 34: 78 bad atoms, 75 fixed, t=117s
+   [pre] relift round 35: 78 bad atoms, 76 fixed, t=119s
+   [pre] relift round 36: 79 bad atoms, 77 fixed, t=121s
+   [pre] relift round 37: 79 bad atoms, 77 fixed, t=123s
+   [pre] relift round 38: 79 bad atoms, 75 fixed, t=124s
+   [pre] relift round 39: 77 bad atoms, 75 fixed, t=126s
+   [pre] relift round 40: 79 bad atoms, 77 fixed, t=129s
+   [pre] relift round 41: 79 bad atoms, 77 fixed, t=134s
+   [pre] relift round 42: 79 bad atoms, 77 fixed, t=138s
+   [pre] relift round 43: 79 bad atoms, 77 fixed, t=143s
+   [pre] relift round 44: 79 bad atoms, 77 fixed, t=148s
+   [pre] relift round 45: 78 bad atoms, 76 fixed, t=153s
+   [pre] relift round 46: 79 bad atoms, 77 fixed, t=157s
+   [pre] relift round 47: 79 bad atoms, 77 fixed, t=162s
+   [pre] relift round 48: 79 bad atoms, 77 fixed, t=166s
+   [pre] relift round 49: 79 bad atoms, 76 fixed, t=170s
+   [pre] relift round 50: 79 bad atoms, 77 fixed, t=173s
+   [pre] relift round 51: 78 bad atoms, 75 fixed, t=175s
+   [pre] relift round 52: 77 bad atoms, 74 fixed, t=178s
+   [pre] relift round 53: 79 bad atoms, 77 fixed, t=182s
+   [pre] relift round 54: 79 bad atoms, 77 fixed, t=186s
+   [pre] relift round 55: 78 bad atoms, 76 fixed, t=191s
+   [pre] relift round 56: 77 bad atoms, 74 fixed, t=195s
+   [pre] relift round 57: 79 bad atoms, 77 fixed, t=198s
+   [pre] relift round 58: 78 bad atoms, 76 fixed, t=201s
+   [pre] relift round 59: 78 bad atoms, 75 fixed, t=204s
+   [pre] fixpoint done in 204s (60 rounds)
+outer 0: global nonzero 81, violated c-conditions 78, nonzero handle-less 3
+   single-wire pass over 382 wires (max atoms/wire 2)
+     [hb] wire 198/382  nz-guard evals=1107  sg3 calls=198  sg3 time=123s  accepted=36  t=345s
+   single-wire pass: 63 accepted
+outer 1: global nonzero 13, violated c-conditions 10, nonzero handle-less 3
+   single-wire pass over 32 wires (max atoms/wire 1)
+   handle-less pass: 3 nonzero handle-less atom(s)
+      *** x34218 += p*322948684674 zeroes (x23514-(x6677*x23504)) (exact, recomputed)
+      *** x36038 += p*605517349896 zeroes (x11231-(x8233*x21728)) (exact, recomputed)
+outer 2: global nonzero 11, violated c-conditions 10, nonzero handle-less 1
+   single-wire pass over 32 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x29327*(x36128-359702590479861189598273782415394539357  c=1514949
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x31778*x19594)-(9401079*x17407))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x6930  ,x14052 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x24221 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x36128 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x24221 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x36128 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x24221 ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x24221 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x24221 ,x36128 ) |group|=2 200 candidate(s) verified, guard rejected all
+     (x25477 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     *** (x25477 += p*4679798154593 , x36128 += p*736949988298) |group|=2  global 11 -> 10
+outer 3: global nonzero 10, violated c-conditions 9, nonzero handle-less 1
+   single-wire pass over 31 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x22366*x5209)-(8054097*x37199))  c=8054097
+     round 0: |group|=1 (0 exact) wires=6 new pairs=15
+     (x664   ,x4860  ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x7814  ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x14370 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x24959 ) |group|=1 NO JOINT ROOT mod 3 (exhaustive)
+     (x664   ,x25606 ) |group|=1 200 candidate(s) verified, guard rejected all
+     *** (x4860 += p*1016846 , x7814 += p*7589839) |group|=1  global 10 -> 9
+outer 4: global nonzero 9, violated c-conditions 8, nonzero handle-less 1
+   single-wire pass over 25 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x36314*(x4230-6064644793453307956804001185462850983862  c=7194955
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x37880*x1991)-(4254277*x27861))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15

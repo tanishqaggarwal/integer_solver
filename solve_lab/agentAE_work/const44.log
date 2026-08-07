@@ -36,3 +36,10 @@ tier const: 37 families
   c_lam2                 R=44 jumps=33554432     dps=260941   dp/cf=0.9954  23.3s OK miss
   c_beta_modN            R=44 jumps=33554432     dps=261985   dp/cf=0.9994  35.3s OK miss
   c_ones_over_3          R=44 jumps=33554432     dps=262254   dp/cf=1.0004  35.4s OK miss
+  c_ones_2over3          R=44 jumps=33554432     dps=261504   dp/cf=0.9976  33.4s OK miss
+  c_ones_over_5          R=44 jumps=33554432     dps=262053   dp/cf=0.9997  30.5s OK miss
+  c_ones_4over5          R=44 jumps=33554432     dps=262482   dp/cf=1.0013  20.2s OK miss
+  c_ones_over_15         R=44 jumps=33554432     dps=261503   dp/cf=0.9976  23.3s OK miss
+  c_ones_over_17         R=44 jumps=33554432     dps=262014   dp/cf=0.9995  32.4s OK miss
+  c_ones_over_257        R=44 jumps=33554432     dps=262182   dp/cf=1.0001  32.5s OK miss
+TIER const COMPLETE: 37 families, 0 nonzero-rc, 0 hits

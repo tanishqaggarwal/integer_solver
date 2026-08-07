@@ -1,0 +1,70 @@
+S(seed=101,n=8) = [15064, 26005, 22351, 12422, 4940, 7029, 3216, 18348]
+   [pre] relift round 0: 15 bad atoms, 13 fixed, t=1s
+   [pre] relift round 1: 8 bad atoms, 6 fixed, t=1s
+   [pre] relift round 2: 7 bad atoms, 5 fixed, t=2s
+   [pre] relift round 3: 6 bad atoms, 4 fixed, t=2s
+   [pre] relift round 4: 7 bad atoms, 5 fixed, t=2s
+   [pre] relift round 5: 6 bad atoms, 4 fixed, t=3s
+   [pre] relift round 6: 7 bad atoms, 5 fixed, t=3s
+   [pre] relift round 7: 7 bad atoms, 5 fixed, t=3s
+   [pre] relift round 8: 7 bad atoms, 5 fixed, t=4s
+   [pre] relift round 9: 7 bad atoms, 5 fixed, t=4s
+   [pre] relift round 10: 8 bad atoms, 6 fixed, t=4s
+   [pre] relift round 11: 7 bad atoms, 5 fixed, t=5s
+   [pre] relift round 12: 7 bad atoms, 5 fixed, t=5s
+   [pre] relift round 13: 6 bad atoms, 4 fixed, t=5s
+   [pre] relift round 14: 7 bad atoms, 5 fixed, t=5s
+   [pre] relift round 15: 7 bad atoms, 5 fixed, t=6s
+   [pre] relift round 16: 7 bad atoms, 5 fixed, t=6s
+   [pre] relift round 17: 6 bad atoms, 4 fixed, t=6s
+   [pre] relift round 18: 7 bad atoms, 5 fixed, t=6s
+   [pre] relift round 19: 7 bad atoms, 5 fixed, t=7s
+   [pre] relift round 20: 7 bad atoms, 5 fixed, t=7s
+   [pre] relift round 21: 7 bad atoms, 5 fixed, t=7s
+   [pre] relift round 22: 7 bad atoms, 5 fixed, t=8s
+   [pre] relift round 23: 7 bad atoms, 5 fixed, t=8s
+   [pre] relift round 24: 7 bad atoms, 5 fixed, t=8s
+   [pre] relift round 25: 7 bad atoms, 5 fixed, t=8s
+   [pre] relift round 26: 8 bad atoms, 6 fixed, t=8s
+   [pre] relift round 27: 7 bad atoms, 5 fixed, t=9s
+   [pre] relift round 28: 7 bad atoms, 5 fixed, t=9s
+   [pre] relift round 29: 6 bad atoms, 4 fixed, t=9s
+   [pre] relift round 30: 7 bad atoms, 5 fixed, t=9s
+   [pre] relift round 31: 7 bad atoms, 5 fixed, t=10s
+   [pre] relift round 32: 7 bad atoms, 5 fixed, t=10s
+   [pre] relift round 33: 7 bad atoms, 5 fixed, t=10s
+   [pre] relift round 34: 6 bad atoms, 4 fixed, t=11s
+   [pre] relift round 35: 7 bad atoms, 5 fixed, t=11s
+   [pre] relift round 36: 7 bad atoms, 5 fixed, t=11s
+   [pre] relift round 37: 7 bad atoms, 5 fixed, t=11s
+   [pre] relift round 38: 7 bad atoms, 5 fixed, t=12s
+   [pre] relift round 39: 7 bad atoms, 5 fixed, t=12s
+   [pre] relift round 40: 6 bad atoms, 4 fixed, t=12s
+   [pre] relift round 41: 7 bad atoms, 5 fixed, t=13s
+   [pre] relift round 42: 7 bad atoms, 5 fixed, t=13s
+   [pre] relift round 43: 7 bad atoms, 5 fixed, t=13s
+   [pre] relift round 44: 7 bad atoms, 5 fixed, t=14s
+   [pre] relift round 45: 7 bad atoms, 5 fixed, t=14s
+   [pre] relift round 46: 7 bad atoms, 5 fixed, t=14s
+   [pre] relift round 47: 7 bad atoms, 5 fixed, t=15s
+   [pre] relift round 48: 7 bad atoms, 5 fixed, t=15s
+   [pre] relift round 49: 6 bad atoms, 4 fixed, t=15s
+   [pre] relift round 50: 7 bad atoms, 5 fixed, t=16s
+   [pre] relift round 51: 7 bad atoms, 5 fixed, t=16s
+   [pre] relift round 52: 6 bad atoms, 4 fixed, t=16s
+   [pre] relift round 53: 7 bad atoms, 5 fixed, t=17s
+   [pre] relift round 54: 7 bad atoms, 5 fixed, t=17s
+   [pre] relift round 55: 7 bad atoms, 5 fixed, t=17s
+   [pre] relift round 56: 7 bad atoms, 5 fixed, t=18s
+   [pre] relift round 57: 8 bad atoms, 6 fixed, t=18s
+   [pre] relift round 58: 7 bad atoms, 5 fixed, t=19s
+   [pre] relift round 59: 7 bad atoms, 5 fixed, t=19s
+   [pre] fixpoint done in 19s (60 rounds)
+outer 0: global nonzero 7, violated c-conditions 7, nonzero handle-less 0
+   single-wire pass over 26 wires (max atoms/wire 2)
+   single-wire pass: 3 accepted
+outer 1: global nonzero 2, violated c-conditions 2, nonzero handle-less 0
+   single-wire pass over 8 wires (max atoms/wire 1)
+   single-wire STALLED -> joint two-wire pass
+   only the two TARGET congruences remain -- CLOSED
+DONE tag=n8_s101g n=8 seed=101 reason=CLOSED_TARGETS_ONLY wall=36.9 nz_atoms=2 sampled_miss=0 exh_miss=0

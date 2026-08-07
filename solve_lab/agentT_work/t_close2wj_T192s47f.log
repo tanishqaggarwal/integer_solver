@@ -1,2 +1,107 @@
 S(seed=47) = [1413, 22623, 35660, 9294, 21392, 35979, 4701, 12714, 35839, 35537, 2779, 13526, 28737, 1571, 35635, 25908, 2081, 28825, 2055, 16827, 30242, 5090, 36293, 9260, 24601, 24136, 542, 33929, 4940, 20837, 35179, 29711, 32669, 19074, 7029, 2441, 47, 27738, 6825, 26005, 28024, 35450, 36035, 24517, 29785, 3216, 11777, 20776, 34510, 5663, 5584, 22579, 2229, 21074, 20622, 29327, 31899, 34715, 17406, 3106, 33190, 12422, 17710, 30448, 34175, 24365, 33099, 27592, 24734, 21266, 21702, 3707, 3420, 14823, 24134, 18022, 438, 30420, 33822, 11368, 20356, 12072, 25104, 22140, 23262, 9601, 17410, 24912, 23751, 34974, 23794, 14644, 25292, 29670, 22106, 12054, 6143, 35062, 1746, 16411, 14601, 15406, 28785, 32872, 12737, 3591, 5910, 29661, 853, 33434, 24267, 32558, 1357, 36314, 18184, 22562, 2455, 33095, 21103, 28645, 4381, 10513, 19690, 22282, 12134, 1603, 10428, 33824, 30613, 20564, 35835, 16214, 24372, 25150, 2143, 19743, 38645, 5148, 24335, 4279, 19745, 36961, 8319, 6821, 18348, 7745, 33951, 38055, 19435, 1544, 37631, 2460, 1685, 1530, 2527, 32092, 10255, 7151, 38459, 20603, 31932, 12747, 17711, 18989, 13195, 17760, 6312, 28713, 35110, 5643, 35740, 22595, 7401, 22351, 14808, 33015, 21112, 12814, 1203, 1695, 5651, 490, 7142, 15730, 38643, 30673, 8757, 91, 16688, 38625, 31767, 17378]
 outer 0: global nonzero 122, violated c-conditions 116, nonzero handle-less 6
+   single-wire pass: 94 accepted
+outer 1: global nonzero 18, violated c-conditions 12, nonzero handle-less 6
+   handle-less pass: 6 nonzero handle-less atom(s)
+      *** x13454 += p*13189448 zeroes (x12827-(x31566*x24511)) (exact, recomputed)
+      *** x36038 += p*605517349896 zeroes (x11231-(x8233*x21728)) (exact, recomputed)
+outer 2: global nonzero 16, violated c-conditions 12, nonzero handle-less 4
+   handle-less pass: 4 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x29327*(x36128-359702590479861189598273782415394539357  c=1514949
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x31778*x19594)-(9401079*x17407))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x6930  ,x14052 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x24221 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x36128 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x24221 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x36128 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x24221 ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x24221 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x24221 ,x36128 ) |group|=2 200 candidate(s) verified, guard rejected all
+     (x25477 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     *** (x25477 += p*4679798154593 , x36128 += p*736949988298) |group|=2  global 16 -> 15
+outer 3: global nonzero 15, violated c-conditions 11, nonzero handle-less 4
+   handle-less pass: 4 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x34974*(x6209-3733332191859409262065881941083713796096  c=12280449
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x32411*x25754)-(12935699*x37103))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     *** (x5850 += p*137610041288015 , x6209 += p*50990527920679) |group|=2  global 15 -> 14
+outer 4: global nonzero 14, violated c-conditions 10, nonzero handle-less 4
+   handle-less pass: 4 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x22140*(x20740-114985945083526839172308511600541446009  c=5989237
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x22555*x14599)-(2136047*x20986))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x6079  ,x6859  ) |group|=2 NO JOINT ROOT mod 19 (exhaustive)
+     (x6079  ,x20740 ) |group|=2 200 candidate(s) verified, guard rejected all
+     (x6079  ,x29735 ) |group|=2 NO JOINT ROOT mod 19 (exhaustive)
+     (x6079  ,x33141 ) |group|=2 NO JOINT ROOT mod 19 (exhaustive)
+     (x6079  ,x36922 ) |group|=2 NO JOINT ROOT mod 19 (exhaustive)
+     *** (x6859 += p*8481644726456 , x20740 += p*61903081570) |group|=2  global 14 -> 13
+outer 5: global nonzero 13, violated c-conditions 9, nonzero handle-less 4
+   handle-less pass: 4 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x7142*(x30083-4725795621547676761289812792260460638150  c=8569197
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x32585*x95)-(16708939*x25070))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x18570 ,x19833 ) |group|=2 NO JOINT ROOT mod 9 (exhaustive)
+     (x18570 ,x27886 ) |group|=2 NO JOINT ROOT mod 9 (exhaustive)
+     *** (x18570 += p*4700791312304 , x30083 += p*2251072240612) |group|=2  global 13 -> 12
+outer 6: global nonzero 12, violated c-conditions 8, nonzero handle-less 4
+   handle-less pass: 4 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x15406*(x16384-438322026738768970900837834147486384204  c=7210925
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x20341*x17978)-(2489415*x30102))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x7070  ,x8157  ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     (x7070  ,x10652 ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     (x7070  ,x16384 ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     (x7070  ,x19141 ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     (x7070  ,x28644 ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     (x8157  ,x10652 ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     *** (x8157 += p*2929438862417 , x16384 += p*2543379316356) |group|=2  global 12 -> 11
+outer 7: global nonzero 11, violated c-conditions 7, nonzero handle-less 4
+   handle-less pass: 4 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x36314*(x4230-6064644793453307956804001185462850983862  c=7194955
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x37880*x1991)-(4254277*x27861))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     *** (x4230 += p*24835569552648 , x12522 += p*13988573967392) |group|=2  global 11 -> 10
+outer 8: global nonzero 10, violated c-conditions 6, nonzero handle-less 4
+   handle-less pass: 4 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x14370-x17131)-(10573909*x2482))  c=10573909
+     round 0: |group|=1 (0 exact) wires=2 new pairs=1
+     (x2404  ,x14370 ) |group|=1 200 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x2404-x34427)-(9516871*x32385))', '((x22366*x5209)-(8054097*x37199))']
+     round 1: |group|=3 (0 exact) wires=8 new pairs=27
+     (x664   ,x2404  ) |group|=3 200 candidate(s) verified, guard rejected all
+     (x664   ,x4860  ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     (x664   ,x7814  ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     (x664   ,x14370 ) |group|=3 200 candidate(s) verified, guard rejected all
+     (x664   ,x15967 ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     (x664   ,x24959 ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     (x664   ,x25606 ) |group|=3 NO JOINT ROOT mod 3163 (exhaustive)
+     *** (x2404 += p*739915799026660513257 , x4860 += p*719999707960237550103) |group|=3  global 10 -> 9
+outer 9: global nonzero 9, violated c-conditions 5, nonzero handle-less 4
+   handle-less pass: 4 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x10261-x8912)-(13040669*x27539))  c=13040669
+     round 0: |group|=1 (0 exact) wires=2 new pairs=1
+     (x10261 ,x27156 ) |group|=1 200 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x38170*x15286)-(2264251*x9216))', '((x30973*x25513)-(1707229*x4242))']
+     round 1: |group|=3 (0 exact) wires=12 new pairs=65
+     (x5096  ,x5460  ) |group|=3 NO JOINT ROOT mod 19 (exhaustive)
+     (x5096  ,x5616  ) |group|=3 NO JOINT ROOT mod 19 (exhaustive)

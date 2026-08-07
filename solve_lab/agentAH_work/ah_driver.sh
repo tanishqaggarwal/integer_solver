@@ -9,7 +9,7 @@ for job in "$@"; do
   tag="n${n}_s${sd}${AH_TAGSUF}"
   if [ -f "meta_${tag}.json" ]; then echo "[$WK] skip $tag (done)"; continue; fi
   echo "[$WK] START $tag $(date +%H:%M:%S)"
-  python3 ah_run.py "$tag" "$n" "$sd" 16 "$BUD"
+  python3 ah_run.py "$tag" "$n" "$sd" "${AH_OUTER:-16}" "$BUD"
   rc=$?
   echo "[$WK] EXIT $tag rc=$rc $(date +%H:%M:%S)"
 done

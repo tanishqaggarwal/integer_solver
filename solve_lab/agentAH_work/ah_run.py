@@ -265,8 +265,10 @@ def close(S, outer_max):
                 reason = 'STALL_TWOWIRE'; break
             gen += 1
     except MemoryError:
-        vv[:] = safe
-        reason = 'MEMORY_BLOWUP'
+        import gc
+        gc.collect()
+        vv = safe                      # REBIND, not vv[:] = safe: a slice-assign allocates,
+        reason = 'MEMORY_BLOWUP'       # and at the AS limit that raises a second MemoryError
         try:
             log('   *** MemoryError at the %.1f GB cap in outer %d -- rolled back to the '
                 'last guard-consistent state; this is a BLOWUP OF THE ROUTINE, not a '
@@ -274,7 +276,7 @@ def close(S, outer_max):
         except Exception:
             pass
     except Deadline:
-        vv[:] = safe
+        vv = safe
         reason = 'TIMEOUT'
         log('   *** DEADLINE %ds reached in outer %d -- rolled back to the last '
             'guard-consistent state; this is a STALL OF THE ROUTINE, not a failure to close'

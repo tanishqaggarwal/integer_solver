@@ -1,0 +1,12 @@
+| family | keys covered | prior P(k0 in F) | ops (jumps) | DP/closed-form | exclusion confidence | outcome |
+|---|---|---|---|---|---|---|
+| magnitude k0 < 2^58 (headline) | 2^58.00 | 2^-198.0 | 2^32.0 | 0.9986 | 98.2% | miss |
+| magnitude k0 < 2^60 (abandoned) | 2^60.00 | 2^-196.0 | 2^28.1 | None | 12.9% | NOT RUN (partial, 13% conf) -- reported as not-run |
+| magnitude k0 < 2^64 (abandoned) | 2^64.00 | 2^-192.0 | 2^27.0 | None | 1.5% | NOT RUN (partial, 2% conf) -- reported as not-run |
+| const tier (37 families, R=44) | 2^49.21 | 2^-206.8 | 2^30.2 | 0.9954-1.0031 | 98.2% | miss |
+| orbit tier (5 families, R=48) | 2^50.32 | 2^-205.7 | 2^29.3 | 0.9973-1.0028 | 98.2% | miss |
+| quotient a*b^-1, m=25 (EXHAUSTIVE) | 2^51.87 | 2^-204.1 | 2^26.0 | n/a | 100% (exhaustive) | exhausted-no-hit |
+| quotient a*b^-1, m=26 (EXHAUSTIVE) | 2^53.87 | 2^-202.1 | 2^27.0 | n/a | 100% (exhaustive) | exhausted-no-hit |
+
+TOTAL keys excluded by rows that completed: 2^58.11  (prior mass 2^-197.9)
+For comparison: agent X weight<=9 covered 2^53.38; agent Y complement 2^53.38.

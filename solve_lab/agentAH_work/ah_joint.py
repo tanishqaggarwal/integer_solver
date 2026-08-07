@@ -38,7 +38,7 @@ sys.path.insert(0, '/home/user/integer_solver/solve_lab/agentT_work')
 import t_poly as TP
 
 BIGCAP = 4096
-STATS = {'all_capped': 0, 'lift_capped': 0, 'exact': 0}
+STATS = {'all_capped': 0, 'lift_capped': 0, 'out_capped': 0, 'exact': 0}
 
 
 def install(J):
@@ -99,6 +99,15 @@ def install(J):
                 if cand:
                     out.extend(((b, tw) if flip else (tw, b)) for b in cand)
                     if not exhaustive and len(out) > 40:
+                        break
+                    if len(out) > BIGCAP:
+                        # The verbatim routine breaks at 40 accepted pairs in the SAMPLED branch
+                        # but has no bound at all in the EXHAUSTIVE branch, where `out` grows to
+                        # m * |cand| -- up to 60000 * 60000 tuples.  That is the second half of
+                        # the blowup (it is what killed |S| = 96 even with the root sets capped).
+                        # Downstream `out` is only ever sampled with rnd.randrange(len(out)),
+                        # TRIES=200 times, so BIGCAP representatives carry the same information.
+                        STATS['out_capped'] += 1
                         break
             return out
 

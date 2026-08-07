@@ -17,6 +17,8 @@ def conf(jumps, R):
 def parse_done(path):
     if not os.path.exists(path): return None
     txt = open(path).read()
+    if not txt.strip() and path.endswith('.out') and os.path.exists(path[:-4] + '.err'):
+        txt = open(path[:-4] + '.err').read()      # DONE goes to stdout, STATUS to stderr
     m = None
     for line in txt.splitlines():
         if line.startswith('DONE'): m = line
@@ -35,13 +37,14 @@ rows = []
 
 # --- headline
 for tag, R, f in (('magnitude k0 < 2^58 (headline)', 58, 'head58.out'),
+                  ('magnitude k0 < 2^60 (second attempt)', 60, 'head60b.out'),
                   ('magnitude k0 < 2^60 (abandoned)', 60, 'head60_PARTIAL_ABANDONED.txt'),
                   ('magnitude k0 < 2^64 (abandoned)', 64, 'head64_PARTIAL_ABANDONED.txt')):
     d = parse_done(f)
     if not d: continue
     j = d.get('jumps', 0)
     rows.append(dict(family=tag, R=R, n=1, jumps=j, size=2.0 ** R,
-                     dpcf=(d['dps'] / d['dpexp']) if (not d['partial'] and d.get('dpexp')) else None,
+                                      dpcf=(d['dps'] / d['dpexp']) if (not d['partial'] and d.get('dpexp')) else None,
                      complete=not d['partial'], conf=conf(j, R), hit=(d.get('cands', 0) > 0)))
 
 # --- tiers
@@ -73,7 +76,7 @@ print('| family | keys covered | prior P(k0 in F) | ops (jumps) | DP/closed-form
 print('|---|---|---|---|---|---|---|')
 tot = 0.0
 for r in rows:
-    if 'abandoned' in r['family']:
+    if 'abandoned' in r['family'] or ('second attempt' in r['family'] and not r['complete']):
         st = 'NOT RUN (partial, %.0f%% conf) -- reported as not-run' % (100 * r['conf'])
     elif not r['complete']:
         st = 'INCOMPLETE'

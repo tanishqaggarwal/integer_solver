@@ -31,8 +31,8 @@ by a parser that shares nothing, that is a different and much longer job than th
 > at all.**
 >
 > **What actually limits §8 is a different fact, which I measured: `925` of the `927` conditions
-> have a selector support that is a proper subset of `{0..255}`, and `745` of them see `4`
-> selectors or fewer. Only `2` of the `927` see all `256`. But support locality alone does not
+> have a selector support that is a proper subset of `{0..255}`, and `793` of them see `4`
+> selectors or fewer (`48` see none at all). Only `2` of the `927` see all `256`. But support locality alone does not
 > close §8 either, because the supports are laminar and a *conjunction* of subtree-local
 > conditions can still bound `|S|` globally.**
 >
@@ -80,12 +80,12 @@ carried the root support, every number in §3.3 would have collapsed to 256.
 
 | `\|σ\|` | conditions | | `\|σ\|` | conditions |
 |---|---|---|---|---|
-| **0** | **48** | | 21–50 | 20 |
+| **0** | **48** | | 21–50 | 26 |
 | **1** | **420** | | **78** | **2** |
 | **2** | **189** | | **88** | **2** |
 | **3** | **76** | | **90** | **1** |
 | **4** | **60** | | **178** | **2** |
-| 5–20 | 105 | | **256** | **2** |
+| 5–19 | 99 | | **256** | **2** |
 
 Cumulative: `|σ| ≤ 1`: **468 (50.5 %)** · `≤ 2`: 657 (70.9 %) · `≤ 4`: **793 (85.5 %)** ·
 `≤ 16`: 887 (95.7 %) · `≤ 178`: **925 (99.8 %)** · `= 256`: **2**.

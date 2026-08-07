@@ -1,0 +1,7 @@
+tier orbit: 5 families
+  mag_top                R=48 jumps=134217728    dps=262692   dp/cf=1.0021 110.9s OK miss
+  orb_lam                R=48 jumps=134217728    dps=262890   dp/cf=1.0028 108.8s OK miss
+  orb_lam_neg            R=48 jumps=134217728    dps=261753   dp/cf=0.9985 117.5s OK miss
+  orb_lam2               R=48 jumps=134217728    dps=261442   dp/cf=0.9973 102.7s OK miss
+  orb_lam2_neg           R=48 jumps=134217728    dps=262729   dp/cf=1.0022 118.2s OK miss
+TIER orbit COMPLETE: 5 families, 0 nonzero-rc, 0 hits
