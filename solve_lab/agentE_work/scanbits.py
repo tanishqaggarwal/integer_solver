@@ -1,6 +1,11 @@
 import sys, time, pickle, json
 sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentE_work')
 import engine as E, bitfeas2 as B
+import signal
+class TO(Exception): pass
+def _h(a,b): raise TO()
+signal.signal(signal.SIGALRM,_h)
+LIMIT=int(__import__('os').environ.get('LIMIT','75'))
 L=pickle.load(open('bitlists.pkl','rb'))
 which=sys.argv[1]
 bits=L['A'] if which=='A' else L['B']
@@ -10,10 +15,13 @@ res={}
 for b in bits[lo:hi]:
     t0=time.time()
     base={18956:B.C, b:1}
+    signal.alarm(LIMIT)
     try:
         bad0,out,S,cols,nonlin,rounds,v0=B.analyse(base,{18956,b})
+        signal.alarm(0)
     except Exception as e:
-        print(f"bit x_{b}: ERROR {e}",flush=True); continue
+        signal.alarm(0)
+        print(f"x_{b}\tTIMEOUT/ERROR {type(e).__name__}",flush=True); res[b]=dict(feas=None); pickle.dump(res,open(f'scan_{which}.pkl','wb')); continue
     maxr,nv,nr,nd,msg,sol=out[-1]
     pins=sorted(set(bad0)-B.CORE)
     feas=sol is not None

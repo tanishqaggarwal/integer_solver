@@ -110,3 +110,30 @@ price of the 39,026 frame, not an arithmetic obstruction of the instance.
   price of detaching two gates in the 39,026 frame.
 * The lever is not selector-bit freedom: measured costs x6418 = 13 (moves alpha0 by exactly
   -1), x7068 = 13, x28730 = 16, vs selector bits x4287 = 38 and x2081 = 109.
+
+## RETRACTION — my curve dissent was WRONG.  The instance IS a secp256k1 ECDLP.
+My error, exactly: I tested the DEPRESSED short form y^2 = x^3 + b against raw literal
+values and never fitted the GENERAL Weierstrass form (the a2*x^2 + a4*x terms), and I
+paired arbitrary literals instead of the structurally-gated pin pairs.  Corrected:
+* `pins.py`: 512 load-pin atoms of shape  H*bit + c2*bit*partner + s*x_target, covering
+  exactly **256 distinct gating bits, every one with exactly 2 pins**.
+* `leaf2.py`: the leaf coordinate is  -H mod p  (the raw huge literal negated, NOT divided
+  by s).  RANSAC over 8 extraction conventions x 2 orders: 222/256 inliers on ONE general
+  Weierstrass curve (chance = 3).  `weier.py` refit over all 222: rank 3, **0 inconsistent
+  rows** -- they lie on one curve, exactly.
+      a2 = 97553848499418123410591666447050222001188385549510401465815187079080512838891
+      a4 = 114170008767671698752186727197936107864370654164657728518655355473804451402762
+      a6 = 77755683306591771556999954628254672912734268662742093169295805431582354953490
+* Depression X = x + a2/3 gives Y^2 = X^3 + A X + B with **A = 0 EXACTLY** and
+      B = 64019533680030876408443198762210829058751700634554282185987325820393598524794.
+  **B/7 is a sixth power mod p** => F_p-isomorphic to secp256k1.
+  **n_secp * Pt = O for all 222 points**, n_secp prime.  My earlier "composite order N'"
+  was a different curve entirely -- the one you get by wrongly forcing a2 = a4 = 0.
+* The pinned point (x12186, x16742) is ON this curve and has order dividing n_secp.
+* `ladder2.py`/`chain.py`/`chain2.py`: 189 of 222 points have their DOUBLE in the set;
+  secp256k1's generator G, mapped by the isomorphism (u^2 x, u^3 y) with
+  u = 12830242018875522506555146473674089970775060590290859819641972374662130570109,
+  IS a leaf point; and **all 256 leaf pins are exactly 2^i * G for i = 0..255, complete,
+  no gaps** (the 34 that missed were simply the reversed pin order).
+=> The instance is a 256-bit double-and-add scalar multiplication on secp256k1 with the
+   256 selector bits as the scalar.  Agents C/D/G were right; I withdraw the dissent.

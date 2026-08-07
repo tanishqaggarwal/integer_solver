@@ -67,3 +67,37 @@ a731, a3895, a31571; a3895 is only an integrality slip - lift x6418 to the exact
 literal C1 instead of its residue mod p and it goes away).
 jnewton.py written but NOT run: full mod-p Newton over all 8458 constraints.
 jlead_build.py added so the pipeline rebuilds from source (caches are gitignored).
+
+## THE JACOBIAN TEST — my 224 "hidden movers" do NOT evade the residual
+Correction to my own tooling first: `+1` finite differences are wrong for the
+degree-2/3 residual constraints, so jnewton2.py/jdiag.py compute the EXACT Jacobian
+by forward-mode automatic differentiation over GF(p) (dual numbers through the
+definer DAG).  Knob set = every free variable in the backward cone of the violated
+constraints (complete: anything outside the cone has literally zero effect).
+Row set = every constraint atom with a nonzero Jacobian entry (complete for those
+knobs).  Nothing hand-picked.
+
+    branch (1,0): violated [731, 31571]        J = 967 x 524, nnz 2222
+    branch (0,1): violated [731, 31571]        J = 966 x 524, nnz 2221
+    branch (1,1): violated [20407,20409,31575] J = 988 x 523, nnz 2683
+    all three: rank(J_satisfied) = 426, INCONSISTENT, and every violated
+    constraint's gradient lies ENTIRELY inside the span of the satisfied rows
+    with nonzero reduced rhs  =>  zero gradient on the whole kernel.
+
+Not merely tangential (jkernel.py): I built an explicit basis of ker(J_sat)
+(98 dims in (1,0), 97 in (1,1)) and applied LARGE random GF(p) combinations of it,
+re-propagating exactly.  In every trial the violated residues were **numerically
+identical** and nothing new broke; 0/98 and 0/97 single kernel directions moved a
+residue at all.  The continuous freedom is exact gauge, not a first-order artefact.
+
+Boolean knobs (jbits.py), branch (1,1): 256 of them; 0 are score-neutral;
+**220 do move the residues** (so prior §144-145's "inert" reading is wrong) but every
+one breaks exactly 6 other constraints and heals none.  Only x2081 and x24601 heal
+[20407,20409,31575], at a cost of 10 and 9 — and those are precisely the branch
+switches that relocate the residual onto the output pins a731/a31571.
+
+VERDICT: my 224 hidden movers move the residual only in lockstep with satisfied
+constraints.  They are not a mod-p degree of freedom.  This CORROBORATES agent I's
+step 6 from an independent parse, measured over the full constraint set rather than
+a subsystem.  What is NOT established: infeasibility.  The 254 data bits remain a
+combinatorial search, and that search is the ECDLP.

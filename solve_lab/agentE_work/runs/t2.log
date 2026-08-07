@@ -1,0 +1,1 @@
+bit x_47: pins=[25147, 25148] rounds<= 5 vars=1333 rows=1120 dropped_nonlin=251 FEASIBLE=True moved=14 msg=ok (6s)

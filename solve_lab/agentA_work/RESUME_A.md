@@ -52,3 +52,35 @@ in the other's cone.  Run `full31`-style exhaustive coset decoding on THAT regio
 (76 atoms / 65 knobs / 98 eqs, only two non-integral knobs x5040, x30163) instead of the
 39,026 region — it is the only region found whose obstruction is 2 congruences rather than
 2 congruences plus a rank-7 wall.
+
+## ============ ADDENDUM (post-retasking) ============
+
+### RETRACTION: my curve dissent was WRONG.  The instance IS a secp256k1 ECDLP.
+My error: I tested the DEPRESSED short form y^2 = x^3 + b and never fitted the GENERAL
+Weierstrass form (the a2*x^2 + a4*x terms); and I used arbitrary literal PAIRS instead of
+the structurally-gated pin pairs.  Corrected derivation, entirely from my own model:
+* `pins.py` — 512 load-pin atoms  H*bit + c2*bit*partner + s*x_target  covering exactly
+  **256 gating bits, each with exactly 2 pins**.
+* `leaf2.py` — the leaf coordinate is **-H mod p** (raw literal negated, NOT divided by s).
+  222/256 inliers on one general Weierstrass curve (chance 3).  `weier.py` refit over all
+  222: rank 3, **0 inconsistent rows**.
+      a2 = 97553848499418123410591666447050222001188385549510401465815187079080512838891
+      a4 = 114170008767671698752186727197936107864370654164657728518655355473804451402762
+      a6 = 77755683306591771556999954628254672912734268662742093169295805431582354953490
+* Depression X = x + a2/3:  **A = 0 exactly**,
+      B = 64019533680030876408443198762210829058751700634554282185987325820393598524794,
+  **B/7 is a sixth power mod p** => F_p-isomorphic to secp256k1; **n_secp*Pt = O for all
+  222 points**, n_secp prime.  My earlier composite order N' was the curve you get by
+  wrongly forcing a2 = a4 = 0 — a different curve.
+* `chain2.py` — **all 256 leaf pins are exactly 2^i * G, i = 0..255, complete, no gaps**
+  (isomorphism u = 12830242018875522506555146473674089970775060590290859819641972374662130570109;
+  secp256k1's generator G is itself a leaf point).  189/222 points have their double in the set.
+=> 256-bit double-and-add scalar multiplication on secp256k1; the selector bits ARE the
+   scalar.  Agents C/D/G were right.  Artifacts: pins.json, weier.json, curve_final.json.
+
+### Priority 1 (canonical basin at mod9118_0) — running
+`canon2.py`: region 89 nontrivial rows / 65 knobs, rank 65 = #knobs, Q-consistent with a
+unique non-integral W (only x5040, x30163, both denominator p).  So every integer point's
+violated set must contain a code support; ISD searches for one of weight <= 6 and HNF-tests
+each.  Log: runs/canon2.log.  (My earlier canon.py brute-forced 190,050 targeted drop-sets
+without a filter and was too slow; canon2 replaces it.)

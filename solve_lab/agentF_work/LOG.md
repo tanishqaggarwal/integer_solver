@@ -136,3 +136,32 @@ verified constant across 8 bit pairs and random coordinate perturbations; y-law 
    visible, the real semantics is a ladder: many bits on simultaneously, with the ladder advice set to the
    true intermediate values.  That family is exactly ECDLP (k*P0 = T on a 256-bit prime-order group) and is
    NOT excluded by my enumeration.  No infeasibility is claimed.
+9. **Size control for the mod-q result**: q = 2^255-19 (255-bit prime) and q = 2^127-1 also give a COMPLETE
+   solution (0 nonzero residual atoms, 0 of 39,033 equations failing) in 4.4 s / 4.2 s.  So the obstruction
+   is specific to the value p, not to modulus size.  The mod-p run does not converge (timed out at 900 s).
+
+## Decisive enumeration (exact, exhaustive)
+10. **Two bits in the same OR-tree are impossible in any full solution.**  With bits x2779 and x38288 (both
+    tree A, adjacent in the doubling chain) on, the exact integer Jacobian gives SIX broken atoms in six
+    bipartite components: two of size 3 (integrally solvable) and FOUR of size 8 that are integrally
+    UNSOLVABLE.  Each unsolvable component is a chain running from one bit's pin toward a coordinate row;
+    the only knob that could close it is the coordinate itself (x12186 / x16742), which is excluded from the
+    affine Jacobian because it is quadratic.  Four chains compete for two coordinate knobs => at least two
+    atoms stay nonzero.  So each OR-tree contributes at most one ON bit.
+11. **Exhaustive final enumeration.**  All 256 bits mapped to points of E_b (the 3 one-pin bits
+    reconstructed by matching doubling links).  Trees are disjoint: 178 tree-A points, 78 tree-B points.
+      - branch (1,0)/(0,1): need T itself in the point set -> NO.
+      - branch (1,1): need P_j + P_i = T over all 178 x 78 = 13,884 pairs -> **ZERO hits**.
+      - degenerate 2*P_j = T -> NO.
+    => **No assignment makes all 39,033 residual atoms vanish.**
+    Caveat stated explicitly: a full solution could in principle carry NONZERO atoms that cancel inside the
+    equations.  That needs a nonzero realisable atom vector in ker(M), M = the 39,033 x 39,033 equation-atom
+    incidence matrix (525,982 nnz).  I did not compute rank(M).  No infeasibility of the *instance* is
+    claimed; only of the all-atoms-zero model.
+12. **The whole instance minus ONE mod-p equality is exactly solvable over Z.**  Relaxing the two
+    unconditional pins (setting x22162,x30213 to the values the EC checks demand instead of K1,K2) leaves
+    only those two pins broken (`relaxed_pin.json`).  Combined with the mod-q results: the p-adic lift is
+    unobstructed at every level above p^1 -- handles are free integers multiplying p, so a mod-p solution
+    lifts exactly.  The entire difficulty of the instance is ONE equality mod p, namely
+        (chain point of tree-A bit) + (chain point of tree-B bit) = T  on E_b,
+    with 13,884 available pairs, none of which works.

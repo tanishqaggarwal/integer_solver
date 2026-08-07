@@ -1,0 +1,3 @@
+x_47	pins=[25147, 25148]	vars=1333	rows=1120	nl=251	FEAS=True	msg=ok	exact=(16, [])	6s
+x_112	pins=[30126, 30127]	vars=1389	rows=1176	nl=263	FEAS=False	msg=core infeasible	exact=None	5s
+x_542	pins=[14579, 14580, 40589]	vars=1562	rows=1266	nl=264	FEAS=False	msg=core infeasible	exact=None	6s

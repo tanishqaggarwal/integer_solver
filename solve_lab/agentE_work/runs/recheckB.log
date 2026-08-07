@@ -1,0 +1,28 @@
+x_1203	pins=[12143, 38540]	FEAS=False	msg=core infeasible	exact=None	2s
+x_3420	pins=[34248, 34249]	FEAS=False	msg=core infeasible	exact=None	2s
+x_3591	pins=[17759, 17760, 40550]	FEAS=False	msg=core infeasible	exact=None	1s
+x_5090	pins=[26852, 37134, 38223]	FEAS=False	msg=core infeasible	exact=None	3s
+x_7142	pins=[8576, 8577]	FEAS=False	msg=core infeasible	exact=None	3s
+x_8370	pins=[12160, 12161]	FEAS=False	msg=core infeasible	exact=None	3s
+x_8487	pins=[2867, 2868]	FEAS=False	msg=core infeasible	exact=None	3s
+x_9260	pins=[4270, 4271, 40287]	FEAS=False	msg=core infeasible	exact=None	3s
+x_10513	pins=[9282, 9283, 40483, 40550]	FEAS=False	msg=core infeasible	exact=None	1s
+x_10836	pins=[37224, 37225]	FEAS=False	msg=core infeasible	exact=None	1s
+x_11189	pins=[12151, 12152]	FEAS=False	msg=core infeasible	exact=None	2s
+x_17083	pins=[32807, 32808]	FEAS=False	msg=core infeasible	exact=None	1s
+x_17378	pins=[34636, 36942, 40483]	FEAS=False	msg=row 23194: rhs % -115792089237316195423570985008687907853269	exact=None	2s
+x_20564	pins=[8900, 8901]	FEAS=False	msg=core infeasible	exact=None	3s
+x_20837	pins=[33937, 33938]	FEAS=False	msg=core infeasible	exact=None	1s
+x_21702	pins=[30160, 30161]	FEAS=False	msg=core infeasible	exact=None	3s
+x_22513	pins=[22054, 22055]	FEAS=False	msg=core infeasible	exact=None	2s
+x_23262	pins=[9837, 9838]	FEAS=False	msg=core infeasible	exact=None	3s
+x_26005	pins=[34497, 34498]	FEAS=False	msg=core infeasible	exact=None	1s
+x_28713	pins=[2849, 2850]	FEAS=False	msg=core infeasible	exact=None	3s
+x_29785	pins=[36152, 36153]	FEAS=False	msg=core infeasible	exact=None	3s
+x_30448	pins=[34627, 34628]	FEAS=False	msg=row 23194: rhs % -115792089237316195423570985008687907853269	exact=None	2s
+x_31899	pins=[2858, 2859]	FEAS=False	msg=core infeasible	exact=None	3s
+x_32669	pins=[8799, 8800]	FEAS=False	msg=core infeasible	exact=None	1s
+x_34175	pins=[6797, 12169]	FEAS=False	msg=core infeasible	exact=None	2s
+x_35740	pins=[37142, 37143]	FEAS=False	msg=core infeasible	exact=None	4s
+x_35839	pins=[6805, 6806]	FEAS=False	msg=core infeasible	exact=None	97s
+x_38055	pins=[9273, 9274, 40483]	FEAS=False	msg=core infeasible	exact=None	2s

@@ -1,0 +1,20 @@
+one-run table: 32896 distinct sums  19.9s
+TWO-RUN family (exhaustive over all 33k x 33k): hits = []   39.7s
+  d=1 done  0.2s
+  d=2 done  0.3s
+  d=3 done  0.5s
+  d=4 done  0.6s
+  d=5 done  0.8s
+  d=6 done  1.0s
+  d=7 done  1.2s
+  d=8 done  1.5s
+  d=9 done  1.9s
+  d=10 done  2.7s
+  d=11 done  4.1s
+  d=12 done  6.9s
+  d=13 done  12.4s
+  d=14 done  21.8s
+  d=15 done  41.0s
+  d=16 done  79.2s
+PERIODIC family (d<=16, all 2^d residue sets): hits = []   79.2s
+--- BSGS on -T : covers k = N - c, c < 2^44 ---
