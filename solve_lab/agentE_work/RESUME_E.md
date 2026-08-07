@@ -196,3 +196,18 @@ Compute the two combined coefficients D_b(20212)+D_b(28647) and D_b(20215)+D_b(1
 ~256 selector bits, at several configurations, and attack the resulting two-congruence 0/1
 subset-sum directly (meet-in-the-middle over the distinct coefficient classes).  If the class
 count stays small the system is decidable by enumeration over class multiplicities.
+
+## Subset-sum: ENUMERATED AND INVALIDATED (LOG 23).  No barrier claimed.
+Full multiplicity enumeration gives 0 solutions at cfg0/cfg1/cfg7 — but the per-bit deltas
+**do not add, they SATURATE**: 2 or 3 bits of one class produce exactly the delta of one bit
+(measured).  So those zeros describe an additive model the instance does not obey.
+**The cluster is 3 CHANNELS at cfg0 (178 / 41 / 21 bits), each contributing 0 or 1 time** —
+not 240 independent bits.  This retroactively explains every additivity failure in this log
+(LOG 10, 15.1, 20): all were saturation.
+
+## NEXT
+Enumerate channel on/off EXACTLY (2^k, k = number of channels = 3 at cfg0), but sweep the
+*representative* within each channel, since the representative determines that bit's own pin
+rows.  For each (channel-set, representative) pair run the simultaneous solve of LOG 16.
+That is a few hundred exact evaluations, not a search.  Then repeat at cfg5/cfg7 where the
+channel count differs.

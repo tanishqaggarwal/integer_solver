@@ -386,3 +386,42 @@ rank deficiency and not a divisibility.  That is a combinatorial statement about
 are switched on, which is the same object the rest of the fleet is now describing, reached
 from the residual side.  Whether it is satisfiable is open; the coefficient multiset is highly
 degenerate (7 classes at this configuration) and is itself configuration-dependent (LOG 18-19).
+
+## 23. The subset-sum: enumerated, then INVALIDATED by my own additivity check
+`subsum.py` measured the combined coefficients per selector bit and enumerated the full
+multiplicity space at four configurations (targets and classes re-read at each, never carried
+over):
+
+| configuration | moving bits | **classes** | multiplicity space | solutions |
+|---|---|---|---|---|
+| cfg0 baseline (x_1530,x_1603) | 240 | **3** (178 / 41 / 21) | 165,396 | 0 (exhaustive) |
+| cfg1 +x_490 | 219 | **2** (178 / 41) | 7,518 | 0 (exhaustive) |
+| cfg5 only x_1603 | 247 | **4** | 1,323,168 | not enumerated |
+| cfg7 no selectors | 78 | **4** (41/24/9/4) | 52,500 | 0 (exhaustive) |
+
+Class count and targets both change with configuration, as expected.
+
+### 23.1 The enumeration does not mean what it looks like — DO NOT read it as a barrier
+It assumes the per-bit deltas ADD.  Direct test (turn on 2 and 3 bits of one class, measure):
+
+    bits [47,112]      predicted 2*c1 = 7240187853825690917215..   measured 3620093926912845458607..
+    bits [47,112,542]  predicted 3*c1 = 1086028178073853637582..   measured 3620093926912845458607..
+    bits [91,1203]     predicted 2*c1 = 9987460849753481147974..   measured 1078333488674255034516..
+
+**The measured delta for 2 or 3 bits of a class equals the delta for ONE.  The contribution
+SATURATES.**  So the "0 solutions" rows above are statements about an additive model that the
+instance does not obey, not about the instance.  No fifth barrier is claimed.
+
+### 23.2 What saturation means, and the convergence
+A class contributes its coefficient **at most once**, however many of its bits are on — the
+behaviour of a channel that is either live or not.  Reached from the residual side, this is the
+same law the fleet describes from the structural side (a gate passes its input through
+unchanged when only one input is live).  It also explains, retroactively, every additivity
+failure I have recorded: LOG 10 (`U`,`V` not the sum of singleton values), LOG 15.1 (counting
+flips), LOG 20 (multiplying one residue class).  All three were the same saturation.
+
+**The correct model of my cluster is therefore: 3 CHANNELS at cfg0 (sizes 178 / 41 / 21), each
+0 or 1**, not 240 independent bits.  Exact enumeration over channel on/off with random
+representatives (40 distinct combinations, evaluated by full re-propagation, no linear model):
+best remains 39,005 — but this is a small sample of representatives, not exhaustive, because
+which representative is chosen changes that bit's own pin rows.
