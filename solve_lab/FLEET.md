@@ -1487,3 +1487,113 @@ that decides it, and P is running exactly that at `|S| = 2`, where blocks are ge
 **Reduction status unchanged: 2,780 free at `c = 1`; 927 carrying `c·P | R`, satisfiability
 unproved.** L's matching count raises confidence in the **count**, not the **satisfiability**.
 P has now declined three times to state it unconditionally.
+
+---
+
+## Check-in 20–22 — the free-cancellation lever, and the audit lands (agents R, T)
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### CORRECTION TO THIS FILE — the evaluator `E` is wrong on the deliverable
+
+**Three agents found this independently.** F's fast evaluator `E` reports **13 failing on the
+deliverable where `checker.py` reports 7** — the 7 real ones plus 2554, 6816, 8124, 8680, 9123,
+9421 — scoring it **39,020 instead of 39,026**. R measured it and confirmed the over-report is
+**assignment-dependent, not a constant offset**; L found the same 13 from the circuit side; T
+found that `fwd.Engine.run` **silently overwrites 4 variables of the deliverable**, which is the
+mechanism. R's `rescore.py` shows `E` and `checker.py` agree exactly on every configuration R
+generated, so configuration scores computed with `E` stand — **but the deliverable's own
+footprint cannot be read off `E` at all.** Anyone scoring with `E` under-reports it by 6.
+
+**Corrected figure:** the deliverable's defect occupies **13 equations of which 6 cancel** — not
+the "7 atoms / 12 equations / 5 cancelling" quoted in earlier sections, which cross-quoted
+`NOTEBOOK.md` §Session 10's atom numbering against `E`'s. R owned and corrected this.
+
+### R — the single-bit experiment ran, and failed with a number
+
+R resolved its own contradiction against its prior claim: `price.py` fixes the nonzero-atom
+**support** to whatever `gs2.solve` lands in and optimises only over values, **but support is
+itself a free choice of the repair** — which is precisely what the deliverable exploits. So
+≤39,020 / ≤39,022 bound R's repair's support, **not the configuration and not the instance**.
+§(d) was alive, so R ran it and killed its SAT/SMT/CP jobs to free the cores.
+
+Result: single-bit footprint has 3 live atoms, **20 equations, 0 cancelling**, against the
+deliverable's 13 with 6 cancelling. Of the 20: **0** can never cancel, **20** have a dead partner
+available, **0** have a partner touching ≤3 other equations. The cheapest partner in the whole
+footprint (atom 7954) occurs in **10** other equations; the next are at 11, 11, 12, 12, 13, 14,
+14. Needing ~7 purchases at ≥10 each, **it cannot pay, by ~10×.**
+
+**Why the deliverable wins, stated cleanly:** not a better configuration and not a bigger
+support — it sits in a **rare footprint where 6 of 13 equations cancel for free**, while every
+footprint R reached charges ≥10 for the first. Fifth independent confirmation of
+cancellation-not-support.
+
+**Scope caution attached (coordinator):** R's partner-occurrence counts are facts about the file,
+but "buying one cancellation lights up ≥10 more equations" treats occurrence count as **cost**,
+and three independent results in this lab show incidence does not price cost. R has been asked
+to re-quote it as "≥10 equations **touched**", which is what was measured. The ~10× gap probably
+survives; the claim should be stated at the strength of the measurement.
+
+**R re-tasked on its own lever:** enumerate footprints by how much **free cancellation** they
+carry, rank them, and only then ask which configurations route into them. Every search in this
+campaign has gone configuration-first and priced the footprint it landed in. This inverts it, and
+it is the deliverable's actual trick, never searched systematically.
+
+### T — the adversarial audit
+
+**Confirmed by re-running, not by reading:**
+
+- **`ker(M) = 0` reproduces from cold**, and T ran the test nobody had: **faithfulness of M**,
+  the premise the whole result rests on. Exact list equality between `{e : (Ma)_e ≠ 0}` and
+  `checker.evaluate_all` at **10 points** — all-zeros, 4 partials, 3 random small, 2 random
+  30-digit. **M is faithful.**
+- **Pivot magnitudes measured: 37,889 ones, 1,144 twos, nothing else** — a claim FLEET.md and
+  RESUME_F both attribute to `peel_cert.py`, which **only ever tests `pivot != 0`**. True, but
+  previously unverified by its own cited script.
+- **H's 722 dormant-handle exclusion is configuration-invariant** — re-measured at 8
+  configurations including the deliverable's own; census identical every time. T expected this to
+  break and reports that it did not.
+- **I's eq8680 conclusion** survives the 5 groups it never tested (all `minfail > 6`).
+- **A's linearity filter is honest**: `knobs_raw == knobs_linear` at every level.
+
+**New unconditional result (T's A7):** over the **enlarged** knob set (24, not 9), condition (a)
+is exhausted at L=0 — **no mod-p-admissible violated set of weight ≤6** (736,281 nodes at weight
+6) — weight 7 is admissible, and **its unique lightest set is exactly
+`[12231, 12270, 12350, 14584, 18673, 22044, 29125]`**, an end-to-end self-test. **≥7 is
+unconditional and exhaustive at L=0 over the unfiltered knob set**, where A had only ≥6/≥4/≥3.
+
+**Broken or weakened:**
+
+- **B1 — "knobs" is a property of the atomisation, not the instance.** Rebuilding A's windows
+  from F's certified-faithful parse: atoms and vars match A exactly, but knobs are
+  **24 / 88 / 235 / 610 against A's 9 / 32 / 109 / 334**, all 24 verified genuine at L=0. **Every
+  exhaustive count and Prange bound in THEOREM.md was computed over 37–55% of available
+  directions.** T redid L=0; the answer is still 7.
+- **B3 — "all-atoms-zero is an equivalence" holds only in F's decomposition.** Kernel dim ≥3,234
+  in A/G/H's 42,267-atom model and ≥1,852 in I's 40,885. THEOREM.md §7 transfers F's consequence
+  to A's atoms; **that transfer was never established.** And there are **five** atom counts in
+  this lab, not the three this file named: 39,033 / 39,277 / 40,727 / 40,885 / 42,267.
+- **B2 — I's "complete enumeration" is a strict subset of its own census** (42 groups / 27
+  nonzero-effect, not 43 / 30; 5 nonzero-effect groups untested, 15 of 27 in no pair). The
+  conclusion survives; the description did not.
+- **B4 — H's carrier census** is phrased in the "rank > deficit" vocabulary H itself withdrew and
+  never rewrote, and its base is one arbitrary selector. The measurement survives; **"7 is the
+  floor across every carrier class" does not.**
+- **B5 — this file dropped F's own caveats.** `mux_wiring.json` has **47 entries of 96 stages**,
+  and RESUME_F §3 explicitly caveats the 2²⁵⁶−1 count as "a model from 47/72 wired stages, not an
+  exhaustive check". FLEET carried the number without the caveat, under *Established*.
+
+**T's item (d) — settled since T started, and against T's prediction.** T named "reachable space
+= 2²⁵⁶ − 1" as the most suspicious surviving claim, because the specific open case (two leaves ON
+in the same OR-group giving the slot a *sum*) fails in the direction that would break the count.
+**L measured it: both pins fire, but the mux coefficients are mutually exclusive quadrants, so
+both are multiplied by zero and the slot holds the chord, not a sum** — verified at ON-set sizes
+1, 2, 5, 73, 200, 256. P confirmed the mux 381/381 and the count from an independent parse; Q, R
+and L each established the fold is associative, so **tree shape is irrelevant**; K found the
+undecoded slot pairs are dead blocks with empty leaf support. **T's criticism of the coordinator's
+summary was correct and is fixed here; the underlying number survived.**
+
+**T re-tasked** onto the newest load-bearing claims, which have had no adversarial pass: Q's
+existence result and its untested 24-stage caveat; the Q-versus-S tension (Q says a solution
+exists, S's closure of 48 tuples excludes it) — where T's own B1 finding makes "is *the image*
+decomposition-dependent too?" the right question; and whether the 927 is decomposition-dependent.

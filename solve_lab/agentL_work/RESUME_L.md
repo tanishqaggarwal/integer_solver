@@ -114,9 +114,13 @@ Supporting facts I measured with **my own knob set (all 8,747 free vars)**:
       |S| = 2  : 4 distinct atoms violated, greedy repair leaves 1 undischarged
       |S| = 17 : 36 distinct atoms violated, greedy repair leaves 8 undischarged
   Every violated atom is inside the c > 1 set (verified).  My repair is a greedy round-robin
-  that shifts one value wire by a multiple of p per atom; it cycles for larger |S| (hits the
-  60-round cap).  **What is needed is a simultaneous CRT solve over the ~766 shift parameters,
-  not a round-robin** — that is exactly P's rank question, and these numbers are the data for it.
+  that shifts one value wire by a multiple of p per atom; it cycles for larger |S|.
+  **`repairfix.py`: reordering the shifts bottom-up (deepest wire first) does NOT help** —
+  identical results to round-robin at every size, so the residue is genuinely a simultaneous
+  system, not an ordering artefact.  Undischarged count scales with |S|:
+      |S| =  1 -> 0      |S| =  2 -> 1      |S| = 17 -> 9      |S| = 40 -> 21
+  **A simultaneous CRT solve over the ~766 shift parameters is required** — that is exactly P's
+  rank question, and these numbers are the data for it.
 * `slopes.py`: every handle's slope is divisible by p (2,747 are exactly +-p, the rest +-M*p).
 * **The deliverable's ON-set: TWO selector bits, ONE propagating leaf** (`onset_deliv.py`,
   `rootcheck.py`, `delivsite.py`).  My earlier "one leaf ON" was read off a STALE partial model
@@ -196,7 +200,7 @@ reach.  12 of 383 nodes have live-leaf support > 24; 371 are <= 24.
    cancellation, not support.
 
 --------------------------------------------------------------------------------------------
-## 6b. CANCELLATION SEARCH — instrument BUILT and CALIBRATED, family MIS-SPECIFIED (open)
+## 6b. CANCELLATION SEARCH — instrument BUILT, family FIXED, cost is a VALUE choice (DIAGNOSED)
 `cancel.py` / `cansearch.py`.
 
 **What works.**  An **exact in-memory scorer** now exists: `CK.load_equations()` once (~91-153 s)
@@ -206,6 +210,33 @@ both matching `checker.py` exactly.  This is the instrument the lab was missing,
 thing to reuse.  **Do not price with `E.score`** — it reports 13 for the deliverable where the
 truth is 7, so every incidence/F-model number in S4 and `cut.py` is inflated and only ordinally
 useful.
+
+**FAMILY MISSPECIFICATION — FOUND AND FIXED (`diffcut.py`, `cansearch2.py`).**
+The bug: I injected the forged value at ONE site and never re-propagated it up the branch, so
+every slot wire above the cut still carried leaf 2081's value.  `diffcut.py` showed it directly
+— the deliverable carries leaf 24601's value on the WHOLE 2081 branch (x28505.va, x16102.vb,
+x23131.vb, x13976.va, x17215.vb, x9274.vb) while mine carried 2081's.  Hence my 5 extra atoms:
+2 slot links above the cut, and the 3 ROOT stage checks (x15298), which broke because the root's
+two inputs were still unequal.  `build2()` in `cansearch2.py` propagates from the cut site up to
+m and **now breaks EXACTLY the deliverable's four atoms** — identical support.
+
+**THE RESULT THAT MATTERS.  Same support, different cost:**
+    my build2, same 4 atoms as the deliverable  -> EXACT failing 13
+    the deliverable, same 4 atoms               -> EXACT failing  7
+    my build2 with vab left at 0, only 2 atoms  -> EXACT failing 11
+So (a) **cancellation is a VALUE property, not a support property** — proven, because the
+support is now byte-identical and the cost still differs by 6; and (b) **more broken atoms can
+cost FEWER equations** (4 atoms -> 11 vs 2 atoms -> 13... in fact 4->13 and 2->11 for mine, and
+4->7 for the deliverable), so minimising atom count is the wrong objective.
+
+**WHERE THE 6 EQUATIONS LIVE (`valdiff.py`).**  With support identical, only **12 variables**
+differ mod p between my assignment and the deliverable, and they are all cofactors/handles:
+    x105, x1329, x3387, x5081, x5676, x9413, x10903, x11436, x14393, x14768, x17325, x22820
+The deliverable sets them to specific nonzero integers; **my constructor leaves them at 0**,
+because `relift` skips exactly the atoms that are nonzero mod p, so their handles never get set.
+**That is the whole cancellation degree of freedom.**  The site fixes WHICH atoms break; the
+handle values fix HOW MANY equations they cost.  The search is therefore
+**site x handle-values**, not site alone — which is precisely what M's primitive prices.
 
 **What does not work yet.**  My generalisation of the deliverable's cut — ON = {G, L}; overwrite
 the L branch at a chosen site with G's value so LCA(G,L) sees two equal inputs; then drive that

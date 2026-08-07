@@ -54,11 +54,20 @@ for c in NODE:
     if len(atoms)!=4: continue
     hs=sorted({atomh[a] for a in atoms if a in atomh})
     if len(hs)!=4: continue
+    # M corrupts the DEFINED P-multiple h (the var appearing in the atom), not the free cofactor u
+    hm=[]
+    for a in atoms:
+        u=atomh.get(a)
+        cand=[v for v in set(vars_of(E.atoms[a])) if v in defrhs and fa(v)=={u}]
+        hm.append(min(cand) if cand else None)
+    if any(x is None for x in hm) or len(set(hm))!=4: continue
+    hm=sorted(set(hm))
     u=set()
     for a in atoms: u|=eqs_of.get(a,set())
     nlive=len([x for x in sub[c] if x in liveset])
     rows.append(dict(site_child=c,parent=n,side=s,slot_wires=slots,vab_wires=vabs,
-                     handles=hs,incidence=len(u),depth=depth[c],live_leaves_under=nlive))
+                     handles_h_Pmultiple=hm,handles_u_cofactor=hs,incidence=len(u),depth=depth[c],live_leaves_under=nlive))
+import itertools
 rows.sort(key=lambda r:(r['incidence'],-r['depth']))
 D=[r for r in rows if r['site_child']==27994]
 print('CALIBRATION row (the deliverable):',json.dumps(D[0]) if D else 'NOT FOUND')
@@ -67,5 +76,5 @@ json.dump(rows,open('candidates.json','w'),indent=0)
 print('\nTop 25 by incidence (inflated - ordinal only):')
 for r in rows[:25]:
     print('  handles %-28s site c=x%-6d parent x%-6d.%s  incid %-3d depth %d  liveleaves %d'%(
-        ','.join('x%d'%h for h in r['handles']),r['site_child'],r['parent'],r['side'],
+        ','.join('x%d'%h for h in r['handles_h_Pmultiple']),r['site_child'],r['parent'],r['side'],
         r['incidence'],r['depth'],r['live_leaves_under']))

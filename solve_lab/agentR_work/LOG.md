@@ -286,17 +286,23 @@ The instrument is cancellation, not support. Measured for the single-bit footpri
 | ...that do have a dead partner atom available | **20** |
 | ...whose cheapest available partner touches ≤ 3 other equations | **0** |
 
-So cancellation is structurally *available* everywhere — and structurally *unaffordable*
-everywhere. **The cheapest partner atom anywhere in the footprint is atom 7954, which occurs in
-10 other equations**; the next cheapest are 4490 and 4497 at 11, then 4496 and 4561 at 12, 8259 at
-13, 4500 and 4331 at 14. Turning on any partner to cancel one equation lights up **at least 10
-more**. The single-bit configuration is 13 equations short of beating the deliverable
-(39,013 vs a 39,027 target), so it would need ~7 purchased cancellations at ≥10 equations each.
-**It cannot pay, by a factor of about 10.**
+So cancellation is structurally *available* everywhere, and expensive everywhere.
+**The cheapest partner atom anywhere in the footprint is atom 7954, which occurs in 10 other
+equations**; next are 4490 and 4497 at 11, then 4496 and 4561 at 12, 8259 at 13, 4500 and 4331
+at 14. The single-bit configuration is 13 equations short of beating the deliverable
+(39,013 against a 39,027 target), so it needs ~7 purchased cancellations.
 
-This is a property of the incidence structure of `EQUATIONS.txt` — which atoms occur in which
-equations — and so, unlike §9, it is *not* scoped to my knob set. What remains scoped is which
-footprint `gs2` lands in: a repair reaching a different footprint would have to be priced again.
+**Stated at the strength the measurement supports:** turning on a partner to cancel one equation
+**touches at least 10 further equations**. *Touched is not failed* — those 10 may themselves
+cancel downstream, and this lab has three independent demonstrations that incidence does not price
+cost (agent C check-in 3; agent P's withdrawn carrier check-in 10; agent L measuring the incidence
+scorer inflating the deliverable's own cost). So this is **not** a proof that the purchase cannot
+pay; it is a measured price floor in *touches*, with a ~10x margin against the 13-equation deficit.
+The margin is what makes the conclusion likely, not the arithmetic.
+
+Scope: the partner-occurrence counts are facts about `EQUATIONS.txt`'s incidence structure and are
+not knob-set dependent. The *inference from touches to failures* is not established, and which
+footprint `gs2` lands in remains scoped to my repair.
 
 **Why the deliverable wins, stated cleanly:** it is not using a better configuration and not a
 larger support. It sits in a rare footprint where 6 of 13 equations cancel *for free* — no partner

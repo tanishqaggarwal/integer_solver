@@ -78,9 +78,12 @@ footprint = 3 live atoms, 20 equations, **0 cancelling**; deliverable = 13 equat
 cancelling**. Of the 20, **0 can never cancel** (all have a dead partner atom) but **0 have a
 partner costing ≤3**: the cheapest partner anywhere is atom 7954, present in **10** other
 equations, then 4490/4497 at 11, 4496/4561 at 12, 8259 at 13, 4500/4331 at 14. Each cancellation
-bought costs ≥10 equations; the configuration is 13 short. **It cannot pay, by ~10×.**
-This one is a property of `EQUATIONS.txt`'s incidence structure, not of my knob set; what stays
-scoped is which footprint `gs2` reaches.
+bought **touches ≥10 further equations**; the configuration is 13 short.
+**Touched is not failed** — those equations may cancel downstream, and incidence has been shown
+three times in this lab not to price cost. So this is a measured price floor in *touches* with a
+~10x margin, **not** a proof the purchase cannot pay. The occurrence counts are facts about
+`EQUATIONS.txt`; the touches-to-failures inference is not established; which footprint `gs2`
+reaches stays scoped to my repair.
 
 **Why the deliverable wins:** not a better configuration, not a bigger support — a rare footprint
 where 6 of 13 equations cancel *for free*. Every footprint I reached charges ≥10 for the first.
