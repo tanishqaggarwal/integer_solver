@@ -66,7 +66,10 @@ for n in NODE:
             pm.append(couts.index(z) if z in couts else None)
         if None in pm or sorted(pm)!=[0,1]: bad.append((n,side,pm))
         perm[(n,side)]=pm
-print('coordinate alignment: %d node-sides, %d bad'%(len(perm),len(bad)))
+
+# ---- numeric repair of unresolved coordinate alignments ----
+H=pickle.load(open('handles.pkl','rb')); appearP=H['appearP']
+print('coordinate alignment: %d node-sides, %d bad (pre-repair)'%(len(perm),len(bad)))
 for x in bad[:5]: print('   ',x)
 # ---- subtree leaf sets ----
 sub={}
@@ -98,10 +101,13 @@ def buildvals(S, ORI):
     for n in order:
         a,b=tree[n]; la,lb=isl[a],isl[b]; isl[n]=la or lb
         def proj(ch,side):
-            pm=perm[(n,side)]; return (valn[ch][pm[0]],valn[ch][pm[1]])
+            pm=perm[(n,side)]
+            if valn[ch] is None or pm[0] is None or pm[1] is None: return None
+            return (valn[ch][pm[0]],valn[ch][pm[1]])
         if la and lb:
             o=ORI.get(n)
-            valn[n]=None if o is None else chord(proj(a,'va'),proj(b,'vb'),o)
+            PA=proj(a,'va'); PB=proj(b,'vb')
+            valn[n]=None if (o is None or PA is None or PB is None) else chord(PA,PB,o)
         elif la: valn[n]=proj(a,'va')
         elif lb: valn[n]=proj(b,'vb')
         else: valn[n]=None
@@ -117,13 +123,45 @@ def assignment(S,ORI):
         for i,d in enumerate(OUT[n]):
             for side,ch in (('va',a),('vb',b)):
                 if tree[ch] is not None:
-                    v[d[side]] = (valn[ch][perm[(n,side)][i]] if isl[ch] else 0)
-            v[d['vab']] = (valn[n][i] if (isl[a] and isl[b] and valn[n]) else 0)
+                    pmi=perm[(n,side)][i]
+                    v[d[side]] = (valn[ch][pmi] if (isl[ch] and pmi is not None and valn[ch] is not None) else 0)
+            v[d['vab']] = (valn[n][i] if (isl[a] and isl[b] and valn[n] is not None) else 0)
     return v,isl,valn,order
 def run(v):
     vv=[0]*NV
     for k,x in v.items(): vv[k]=x
     return vv,E.run(vv)
+
+def repair_perm():
+    fixed=0
+    for (n,side),pm in list(perm.items()):
+        if None not in pm: continue
+        ch=tree[n][0 if side=='va' else 1]
+        cand=[x for x in sub[ch] if x in set(live)]
+        if not cand: continue
+        S={cand[0]}
+        v,isl,valn,_=assignment(S,{})
+        target=valn[ch]
+        newpm=list(pm)
+        for i,d in enumerate(OUT[n]):
+            if newpm[i] is not None: continue
+            w=d[side]
+            vv=dict(v); vv[w]=0; _,r0=run(vv)
+            vv[w]=1; _,r1=run(vv)
+            got=None
+            for a in appearP.get(w,[]):
+                idx=E.residx[a]; f0=r0[idx]%p; sl=(r1[idx]-r0[idx])%p
+                if f0 and sl:
+                    c=(-f0)*pow(sl,p-2,p)%p
+                    if got is None: got=c
+                    elif got!=c: got='CONFLICT'
+            if got in target: newpm[i]=list(target).index(got)
+        if None not in newpm and sorted(newpm)==[0,1]:
+            perm[(n,side)]=newpm; fixed+=1
+        else: print('   UNREPAIRED',n,side,newpm)
+    print('perm repaired numerically:',fixed)
+repair_perm()
+
 if __name__=='__main__':
     t0=time.time()
     order=[]

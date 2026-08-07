@@ -1,0 +1,10 @@
+knobs 3488 bad0 [20212, 20215, 20649, 20652, 23923, 23924, 28647, 32148]
+fully-linear knobs 2212
+  row 20212: reach=3 lin=3 cleanknob=3 rhs_bits=296
+  row 20215: reach=3 lin=3 cleanknob=3 rhs_bits=296
+  row 20649: reach=6 lin=2 cleanknob=2 rhs_bits=10962
+  row 20652: reach=7 lin=3 cleanknob=3 rhs_bits=10963
+  row 23923: reach=1 lin=1 cleanknob=0 rhs_bits=295
+  row 23924: reach=2 lin=2 cleanknob=1 rhs_bits=296
+  row 28647: reach=3 lin=2 cleanknob=1 rhs_bits=4898
+  row 32148: reach=7 lin=3 cleanknob=3 rhs_bits=10981

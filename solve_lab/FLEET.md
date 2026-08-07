@@ -329,3 +329,85 @@ a node of leaf support ≤ 24, enumerate forward, match under 2²⁴. The window
    unmodified). A bare "checker.py says" is false for those states.
 2. **Any claim of the form "nothing can move X" must state its knob set AND its selector
    configuration.** Both have been wrong, repeatedly, and both change the answer.
+
+---
+
+## Check-in 6 — the channel/tree match is ESTABLISHED (agent M)
+
+Coordinator context was reset; this entry is written from agent M's flushed report and its
+committed directory, not from conversation. Deliverable re-verified at the top of this
+check-in: `python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json` →
+**satisfied 39026/39033 (7 failing) `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`**.
+No agent has beaten it. Nine agents (K, L, N, O, P, Q, R, S, T) are still running.
+
+### What was open
+
+The FINAL POSITION section above records the 178|78 split reached twice — F from the circuit
+(root slot leaf-supports) and E from the residual congruences (channels 178 | 41 + 21 + 16) —
+with E's own caveat that the match was **suggestive, not established**, because it rested on an
+untested prediction: that E's 16 *inert* booleans become live at some configuration.
+
+### What M measured
+
+- **E's premise had a bug.** The "16 booleans that move nothing" are **14 inert + 2 already ON**
+  (`x_1530`, `x_1603`); `channels.py` skips ON bits, so those two fell out of every class. They
+  sit exactly where saturation predicts — `x_1603` in stage 19538, `x_1530` in stage 10649.
+  Set both to 0 and the 16 split into **node 19538 exactly** and **node 10649 exactly**.
+  The untested prediction is now tested and it holds.
+- **339 configurations** (42-config sweep + 297 refinement: all-off, each of the 256 leaves
+  alone, 40 random pairs). Maximal common refinement of the channel partition =
+  **8 blocks: 178 | 41 | 21 | 6 | 3 | 3 | 3 | 1** (the last seven summing to 78).
+  Of tree96's 88 non-root stages, **exactly 2 are ever split** (19538 → 6|3, 10649 → 3|1),
+  always identically, and both splits fall on that stage's own two input slots.
+  **86 stages are never cut; zero arbitrary crossings.**
+- **Independent cross-check from F's `mux_wiring.json` alone** — selector vars → defining-atom
+  cone → intersect with leaves, using none of M's own measurements: root 15298 inA == the
+  178-block set-for-set and inB == the union of the other seven; 19538 == blocks 6 and 3
+  set-for-set; 10649 == blocks 3 and 1; 21408's live class of 11 == its inB exactly.
+- **The law:** *the channel partition at configuration C is the leaf-support partition induced
+  by the tree's slot structure, cut at the deepest gate C saturates.* E's residual congruences
+  resolve per subtree; the all-off signatures nest strictly by row, one row per level.
+
+**Status change:** the two derivations are the same object. The channel model **is** the tree,
+established rather than suggested. A corollary worth using: the channel measurement (0.6 s for
+all 256 leaves at once) is a **direct oracle for the tree's binary slot structure**, including
+slot pairs F has not decoded — subject to the resolution limit below.
+
+### Negative results M established (these bound the tooling, not the instance)
+
+- **E's engine cannot represent the deliverable.** `forward` from the deliverable's own free
+  inputs returns **39,008, not 39,026** (23 derived vars differ); E's orientation zeroes the 8
+  atoms the deliverable deliberately leaves nonzero and relocates the defect. `simsolve` from
+  the deliverable's configuration also gives 39,008. Any enumeration run inside E's engine is
+  therefore searching a space that does not contain the current best point.
+- **Resolution limit of the residual oracle is 8 blocks.** It cannot see inside the 178, inside
+  the 41, or inside 21408 past one slot split. Widening the signature to full bad-atom delta
+  support splits all 256 (private pin atoms). The stage-wire oracle fails outright in E's engine
+  (at all-off, 219/256 leaves change no stage wire) — E's forward is propagation-with-defect and
+  does not realize intermediate stage values. **The residual side cannot replace F's decode.**
+- Score attempts, both below baseline: single-leaf-through-`simsolve` 38,842; deliverable-
+  neighborhood pair scan 38,944 (handles are tuned to the leaf pair, so swapping leaves without
+  re-solving handles is a dead instrument).
+
+### The lever this exposes
+
+E's channel enumeration — "the empty set wins at 39,005", monotone in live channels — was
+anchored at cfg0, **whose ON-set `{1530, 1603}` lies entirely under the root's inB slot**. Both
+19538 and 10649 are 78-side, so **the root gate never fires anywhere E enumerated from**. The
+deliverable's ON-set `{24601, 2081}` has one leaf per root slot and scores 21 higher. E's
+monotonicity result does not price the configurations that matter, and the one configuration
+class known to score better is exactly the class it never visited.
+
+Knob set for every claim above (per the standing rule): the 256 boolean leaves of
+`mcore.bools()` — booleans of the cone of ROWS `[7389, 10187, 20212, 20215, 28647]` — probed
+singly 0→1, configurations named per row. M's `orient.pkl` is byte-identical to E's.
+
+Artifacts: `agentM_work/LOG_M.md` (full narrative), `RESUME_M.md`, `blocks8.json`, `mcore.py`,
+`xcompare.py`, `refine2.py`, `sweep1.py`, `fullsig.py`, `ancestors.py`.
+
+### M re-tasked
+
+M is continuing on its own highest-value experiment: re-run the channel/representative
+enumeration from a base with the **root gate firing** (the deliverable's class), after fixing
+the orientation so the engine can represent an 8-nonzero-atom residual of the deliverable's
+shape — otherwise the enumeration prices a space the best known point is not in.

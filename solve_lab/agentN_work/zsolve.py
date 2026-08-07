@@ -104,7 +104,10 @@ class ZSolver:
             self.cache[key] = True
             return True
         M, b = self.M, self.b
-        if not self._modq_consistent(key):
+        # measured: for |I| <= 9 the mod-q pass costs more than the HNF and never rejects
+        # (every row subset of these regions is rationally consistent), so only use it as a
+        # cheap reject on large subsets.
+        if len(key) > 9 and not self._modq_consistent(key):
             self.cache[key] = False
             return False
         # quick: any row with all-zero coefficients but nonzero b is unsolvable
@@ -165,6 +168,8 @@ def max_zero_rows(M, b, n, nrows, node_cap=200000, need=None, lb=0):
             if base + len(nxt) > best[0]:
                 best[0] = base + len(nxt)
                 best[1] = free0 + nxt
+            if base + len(nxt) + (len(cands) - idx - 1) <= best[0]:
+                continue          # cannot improve: skip building the candidate set
             newc = [j for j in cands[idx + 1:] if solvable(nxt + [j])]
             if newc:
                 dfs(nxt, newc)

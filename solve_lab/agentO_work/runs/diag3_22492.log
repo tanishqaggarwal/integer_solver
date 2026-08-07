@@ -1,0 +1,36 @@
+knobs 3552
+row 20212: atom="x_13913 - (x_608 + x_22978)"
+   reach=3 lin=3 gcd(lin)=1 rhs%gcd=0 solo_solvable=True
+      knob x_11436: coef 1157920892373161954235709850086879078532..(78d)  p|c=True
+      knob x_14393: coef -143059864118931472699291835054497315454..(85d)  p|c=True
+      knob x_22162: coef -1..(1d)  p|c=False
+row 20215: atom="x_24530 - x_5647 * x_24908"
+   reach=3 lin=3 gcd(lin)=1 rhs%gcd=0 solo_solvable=True
+      knob x_18956: coef 1..(1d)  p|c=False
+      knob x_22820: coef -115792089237316195423570985008687907853..(78d)  p|c=True
+      knob x_30213: coef -1..(1d)  p|c=False
+row 20649: atom="x_15298 * x_11150"
+   reach=6 lin=2 gcd(lin)=1 rhs%gcd=0 solo_solvable=True
+      knob x_22162: coef 3111859566871689273520995662076818652052..(1653d)  p|c=False
+      knob x_30213: coef 9817786169561579038339949979771297858527..(95d)  p|c=False
+row 20652: atom="x_15298 * x_25739 - 6672769 * x_29804"
+   reach=7 lin=3 gcd(lin)=1 rhs%gcd=0 solo_solvable=True
+      knob x_5146: coef -772653863507997152020346338065437402198..(84d)  p|c=True
+      knob x_22162: coef 2006994329653188302125753052679175335263..(1654d)  p|c=False
+      knob x_30213: coef 6331982773845413035866546749003468986206..(96d)  p|c=False
+row 23923: atom="x_22492 * (x_37049 - 592025889007862729747976250998050413933960779986658841134856428268796"
+   reach=1 lin=1 gcd(lin)=1 rhs%gcd=0 solo_solvable=True
+      knob x_37049: coef 1..(1d)  p|c=False
+row 23924: atom="x_16442 - x_14847 * x_23315"
+   reach=2 lin=2 gcd(lin)=1 rhs%gcd=0 solo_solvable=True
+      knob x_12821: coef 1..(1d)  p|c=False
+      knob x_23315: coef -115792089237316195423570985008687907853..(78d)  p|c=True
+row 28647: atom="x_36433 - (x_36990 + x_19239)"
+   reach=3 lin=2 gcd(lin)=1 rhs%gcd=0 solo_solvable=True
+      knob x_6083: coef -1..(1d)  p|c=False
+      knob x_14853: coef 1..(1d)  p|c=False
+row 32148: atom="537773 * (x_15298 * x_37758) - x_35605"
+   reach=7 lin=3 gcd(lin)=1 rhs%gcd=0 solo_solvable=True
+      knob x_2936: coef -115792089237316195423570985008687907853..(78d)  p|c=True
+      knob x_22162: coef 9226706949695032800418086658939814307324..(1659d)  p|c=False
+      knob x_30213: coef 2910987270944823646242033130798239716270..(102d)  p|c=False

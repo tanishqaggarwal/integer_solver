@@ -1,0 +1,5 @@
+=== lazy bits=[22492] maxr=5 maxv=4000
+  closure: 3488 knobs, 2525 reachable rows, bad0=[20212, 20215, 20649, 20652, 23923, 23924, 28647, 32148]
+  it0: |A|=8 moved=11 -> fails=84 score=38949 nbad=12 bad=[747, 4872, 4877, 7389, 10187, 20649, 20652, 32148, 33664, 36817] (1s)
+  it1: |A|=17 UNSAT core infeasible (0s)
+  BEST fails=60 score=38973 bad=[20212, 20215, 20649, 20652, 23923, 23924, 28647, 32148] (22s)
