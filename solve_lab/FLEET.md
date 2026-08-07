@@ -249,6 +249,14 @@ p" argument in this lab is conditional on a selector configuration that was not 
 argument was made**, and must be re-quoted with its configuration or it is not a claim about
 the instance. This applies to results throughout `NOTEBOOK.md` and to several in this file.
 
+**Broadened after E's fourth retraction — state your KNOB SET.** Four barriers were reported
+and all four were retracted, every one caused by computing a property over a *filtered* knob
+set and reporting it as a property of the instance: the triple (booleans excluded), §14
+(affine-only), §15 (fixed residue multiset), §20 (dual-reaching knobs only — a knob moving just
+one row is precisely an independent direction). The knob set, not the configuration, is the
+variable that has actually been wrong every time. Any claim of the form "nothing can move X"
+must state exactly which knobs were searched.
+
 ### What still stands unconditionally
 
 - **ker(M) = 0** — rank 39,033 on the 39,033 × 39,033 incidence matrix, by three independent
