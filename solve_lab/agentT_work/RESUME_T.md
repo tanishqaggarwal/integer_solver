@@ -593,3 +593,85 @@ but a family delimited by guard *shape* when the defining property is `h = p*u`.
 `t_final.py` (the 3 omitted incident atoms; concrete path decode) · `t_cross.py` (**the close**:
 764/764 one-atom aliases, 764/764 slack = p*u).
 Reproduce the close: `cd solve_lab/agentT_work && python3 t_cross.py`.
+
+=============================================================================================
+# SEVENTH PASS — agent L's |S| = 2 closure over Z   [coordinator check-in 65]
+
+## X. THE PREMISE NOBODY TESTED — and it HOLDS.  First instance-level verification.
+`t_S2.py`, `t_S2b.py`, `t_deg.py`.
+Every number in L's |S|=2 result is computed inside **L's own engine** (`E.run`, a 9,032-residual
+-atom model).  `solve927.py` **prints and dumps no assignment**, so the closure had never been put
+in front of `checker.py`; `assign_L2.json` predates the run by two hours and is not its output.
+L's |S|=1 result *was* checker-verified; the |S|=2 closure was not.
+
+**Reproduced from cold** (driver in agentT_work, agentL_work read-only):
+```
+   greedy fixpoint, round 0: 1 stuck
+   SOLVED c=6672769  deg=2  wire x24908  t=2990790     <- identical to L's log
+   ALL c>1 CONDITIONS DISCHARGED after 1 outer round
+   IN L's MODEL: 0 undischarged, 2 nonzero atoms of 9,032 = the two target congruences
+```
+**Dumped the assignment and checked it against the real instance:**
+```
+   checker.py  ->  satisfied 39018/39033  (15 failing)
+   failing [4573,7123,7469,9648,11854,16622,17726,21382,25539,28653,29437,31061,32894,32916,34517]
+```
+**And in F's certified-faithful 39,033-atom parse** (independent of L's 9,032-atom engine):
+```
+   nonzero atoms: 2   -- exactly ((x24468-x13682)-(12354891*x34243)) and ((x18956-x37892)-x32237)
+   equation footprint of those 2 atoms: 15
+   footprint == checker's failing set:  EXACTLY
+```
+> **L's |S|=2 closure is confirmed, at instance level, for the first time.**  Every one of the
+> 927 integer conditions really is discharged: the only atoms left nonzero anywhere in the
+> instance are the two target congruences, and the 15 failing equations are precisely their
+> footprint — nothing unexplained.
+`assign_L1.json` (|S|=1) gives the **identical** 2 atoms and the **identical** 15 equations, so
+the two ON-sets are indistinguishable at equation level; |S|=2 closing is a statement about the
+integer lift, not an improvement in score.
+
+## Y. THE THREE PREMISES THE COORDINATOR NAMED
+1. **"0 undischarged" is NOT "all 927 were checked."**  The count is
+   `stuck = [a for a in relift(vv) if r[E.residx[a]] % p == 0]` — bad-list entries whose residual
+   is **not** 0 mod p are silently **excluded**.  Measured at |S|=2: **2 such exclusions**, and
+   they are exactly the two target congruences, so benign here.  But the metric carrying the
+   weight is the companion **"2 nonzero atoms of 9,032"**, which *is* a complete check, and which
+   my F-parse pass now extends to the whole instance.  **Report the nonzero-atom count, not the
+   stuck count** — at |S|=17 the two differ ("1 undischarged, 3 nonzero").
+2. **Direct recomputation: genuine.**  `solve_one`'s guard is
+   `val = probe(vv,i,[w],[t]); if val % (c*p) == 0`, and `probe` calls `E.run(vv)` with the shift
+   actually applied — the fitted polynomial is used only to *propose* the root.  P's second guard
+   is properly inherited; no sign-bug of P's kind can survive it.
+   **Limitation, and it is the one that blocks |S|=17:** the guard verifies **only the target
+   atom**.  Applying `vv[w] += p*t` can disturb others, which is exactly the oscillation on the
+   shared wires x23238 / x10261.  Per-condition verification does not establish global
+   correctness; only the final whole-model nonzero count does.  At |S|=2 that final check passes,
+   so the result is safe — at |S|=17 it is the thing still to prove.
+3. **The degree bound is real, and it is NOT load-bearing for soundness.**  `fit()` samples
+   t = 0..4, exactly 5 points, so it can only *see* degree <= 4 — a true degree-5 polynomial would
+   be silently aliased.  Re-fitted the |S|=2 condition at deg <= 6, 8 and 10 (up to 11 points) on
+   all six influencing wires:
+```
+   x24908 -> 2 2 2 2     x16742 -> 2 2 2 2     x14853 -> 3 3 3 3
+   x30213 -> 1 1 1 1     x22162 -> 1 1 1 1     x12186 -> 3 3 3 3
+```
+   Same top degree at every sample size: **the degrees really are <= 3, not an aliasing artifact,
+   and P's bound is independently confirmed a third time.**  Moreover, even if the bound were
+   wrong, the direct-recomputation guard would reject the resulting root — **a bad degree bound
+   can only cause a missed solution, never a false verified one.**  It is load-bearing for
+   completeness and cost, not for correctness.
+
+## Z. SCOPE — what this does and does not establish
+It establishes the integer lift closes for **one** ON-set of size 2, verified against the
+instance.  It does **not** establish that it generalises: the |S|=17 joint solve still ends
+**1 undischarged, 3 nonzero atoms**, and the obstruction is the shared-wire simultaneity in
+premise 2 above, not the degree bound and not the fit.  **The decisive experiment remains
+|S| = 17.**  I would also want |S| = 3, 5 and 8 checked *and dumped*: three more points would
+distinguish "closes for small |S|" from "closes generally", and each is minutes of compute.
+**Whatever is run next should dump the assignment and pass it through `checker.py`** — that step
+cost nothing here and is what turned a model-internal claim into an instance-level fact.
+
+## AA. NEW FILES (seventh pass)
+`t_S2.py` (reproduce the closure + dump the assignment) · `t_S2_assign.json` (the artifact L's
+run never produced; checker-verified 39,018/39,033) · `t_S2b.py` (F-parse atom check; footprint
+== failing set) · `t_deg.py` (degree bound at 5/7/9/11 sample points).
