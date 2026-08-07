@@ -69,3 +69,77 @@ scan data/p_halfN.txt sz=3 [0,512): 22108160 cand zero=0 20.1s
 OFFSET_DONE halfN hits=5595
 scan data/p_a0F.txt sz=1 [0,512): 512 cand zero=0 0.0s
 scan data/p_a0F.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_a0F.txt sz=3 [0,512): 22108160 cand zero=0 21.1s
+OFFSET_DONE a0F hits=5608
+scan data/p_aFFFF.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_aFFFF.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/p_aFFFF.txt sz=3 [0,512): 22108160 cand zero=0 24.4s
+OFFSET_DONE aFFFF hits=5595
+scan data/p_drep.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_drep.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/p_drep.txt sz=3 [0,512): 22108160 cand zero=0 21.4s
+OFFSET_DONE drep hits=5595
+scan data/p_a64_1.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_a64_1.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_a64_1.txt sz=3 [0,512): 22108160 cand zero=0 17.7s
+OFFSET_DONE a64_1 hits=5467
+scan data/p_p2_128.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_p2_128.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_p2_128.txt sz=3 [0,512): 22108160 cand zero=0 18.5s
+OFFSET_DONE p2_128 hits=5595
+scan data/p_p2_255_1.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_p2_255_1.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_p2_255_1.txt sz=3 [0,512): 22108160 cand zero=0 19.3s
+OFFSET_DONE p2_255_1 hits=5629
+SWEEP_COMPLETE
+=== REAL OFFSET SWEEP m<=7 ===
+scan data/d_a33.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_a33.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/d_a33.txt sz=3 [0,512): 22108160 cand zero=0 18.3s
+OFFSET_DONE a33 hits=0
+scan data/d_a55.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_a55.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/d_a55.txt sz=3 [0,512): 22108160 cand zero=0 19.0s
+OFFSET_DONE a55 hits=0
+scan data/d_inv10.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_inv10.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/d_inv10.txt sz=3 [0,512): 22108160 cand zero=0 20.3s
+OFFSET_DONE inv10 hits=0
+scan data/d_inv5.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_inv5.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/d_inv5.txt sz=3 [0,512): 22108160 cand zero=0 26.5s
+OFFSET_DONE inv5 hits=0
+scan data/d_inv3.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_inv3.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/d_inv3.txt sz=3 [0,512): 22108160 cand zero=0 28.4s
+OFFSET_DONE inv3 hits=0
+scan data/d_aAA.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_aAA.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/d_aAA.txt sz=3 [0,512): 22108160 cand zero=0 25.7s
+OFFSET_DONE aAA hits=0
+scan data/d_aCC.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_aCC.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/d_aCC.txt sz=3 [0,512): 22108160 cand zero=0 23.3s
+OFFSET_DONE aCC hits=0
+scan data/d_cshift.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_cshift.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/d_cshift.txt sz=3 [0,512): 22108160 cand zero=0 25.0s
+OFFSET_DONE cshift hits=0
+scan data/d_bcurve.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_bcurve.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/d_bcurve.txt sz=3 [0,512): 22108160 cand zero=0 26.4s
+OFFSET_DONE bcurve hits=0
+scan data/d_inv7.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_inv7.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/d_inv7.txt sz=3 [0,512): 22108160 cand zero=0 26.3s
+OFFSET_DONE inv7 hits=0
+scan data/d_lam2.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_lam2.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/d_lam2.txt sz=3 [0,512): 22108160 cand zero=0 25.0s
+OFFSET_DONE lam2 hits=0
+scan data/d_lam.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_lam.txt sz=2 [0,512): 130560 cand zero=0 0.5s
+scan data/d_lam.txt sz=3 [0,512): 22108160 cand zero=0 27.3s
+OFFSET_DONE lam hits=0
+scan data/d_drep.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_drep.txt sz=2 [0,512): 130560 cand zero=0 0.4s

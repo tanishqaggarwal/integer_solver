@@ -62,7 +62,7 @@ for pl in D['plants']:
     tag = pl['tag']; c = int(pl['c']); k = int(pl['k']); delta = int(pl['delta'])
     terms = sorted(zip(pl['exps'], pl['sgn']))
     base = (int(pl['base'][0]), int(pl['base'][1]))
-    H = hits_of(os.path.join(HERE, 'plants', 'rp_%s.txt' % tag))
+    H = hits_of(os.path.join(HERE, 'runs', 'r_p_%s.txt' % tag))
     Tp = mul(k, G)
     assert base == mul(delta % N, G), 'base != (k-c)G for %s' % tag
 

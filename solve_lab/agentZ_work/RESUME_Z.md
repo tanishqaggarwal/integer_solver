@@ -273,10 +273,177 @@ Worst case over **all** binary trees on 256 leaves (not just this one): nodes wi
 
 The predicted configuration fires, and only it fires.
 
-## 12.6 Routing
+## 12.6 Routing (superseded by §13 only in priority, not in content)
 **Nothing to route to X, Y or AA.** The infeasible-intermediate exclusion does not prune the
 MITM tree — it removes one leaf of it, which was already dead. Combined with §5–§8 and AB's
 Theorem B, the instance now has **no measured structure in selector space at all**: no bound
 on `w`, no cardinality constraint, and no subset exclusion of any usable density. The
 `2^126.5` rho estimate stands unimproved, and every remaining lever is a *prior* on `k`, not
 a fact about the equations.
+
+---
+
+# 13. AUDIT of agent AB's corrected cost model and Theorem D (check-in 104)
+
+**Both survive. Neither survives unamended.** Scripts: `zaudit_cost.py` (first pass, which hit
+AB's floor bug and is retained as the evidence for it), `zaudit_cost2.py`, `zaudit_thmD.py`.
+AB's files were read for the *claims* only; nothing was imported. All combinatorics in exact
+integers (`math.comb`), `log2` only at print time.
+
+## 13.1 The corrected covering cost — **re-derived independently, and it is right**
+`cost(W) = poly(W) · Vol₁₂₈(⌈W/2⌉)`. Splitting the 256 positions into halves of 128, a fixed
+partition does **not** guarantee both parts are ≤ W/2, so a splitting system is needed
+(Coppersmith / Stinson) at a `poly(W)` factor; per partition each half enumerates every subset
+of size ≤ W/2, i.e. the **cumulative** `Vol₁₂₈`, not a single binomial.
+
+Round-1's `C(256, W/2)` is wrong in two independent ways — wrong ground set (256 not 128) and
+single binomial not cumulative — and I can add a third disqualifier AB did not state:
+**`C(256,W/2)` is not monotone in `W`** (`C(256,128) = 2^251.7`, `C(256,127) = 2^251.7`, and it
+falls thereafter). A ball cost must be monotone. AB's retraction is correct.
+
+## 13.2 Boundary checks in both directions
+| check | required | AB's model | verdict |
+|---|---|---|---|
+| `W = 0` (ball = one point) | cost/ball 1, #balls = whole region ⇒ full enumeration | 1, `Vol(0)=1` | **passes** — but AB never tested it; its scans start at `W = 2` |
+| `W = 256` (ball = whole space) | **2^128** | **2^132.0** | **fails by 2^4** |
+| monotone in `W` | yes | yes (with ⌈·⌉) | passes |
+| never below the generic bound | yes | yes | passes, and I can *prove* it |
+
+**The `W = 256` check is the one AB used to certify its own correction, and the corrected model
+does not pass it.** `√W` is spurious exactly there: at `W = 256`, `W/2 = 128` equals the half
+size, so every split is automatically balanced and no splitting system is needed. Without the
+poly factor the model returns **2^128.0 exactly**. AB printed `2^132.0` and moved on without
+saying the test was met only to within the poly factor.
+
+**Never dips below the generic bound — now proved, not spot-checked.**
+`(Vol₁₂₈(w/2))² = #{S : |S∩A| ≤ w/2 and |S∩B| ≤ w/2} ≤ Vol₂₅₆(w)` (restricted Vandermonde), so
+`Vol₁₂₈(w/2) ≤ √(Vol₂₅₆(w))` **always**; verified exactly for every even `w ∈ [0,256]`. The
+corrected MITM therefore sits above the `√(class size)` floor by at most the poly factor and
+below it without one — **optimal to within `√W ≤ 2^4`.**
+
+## 13.3 BUG FOUND: floor vs ceiling at odd radius
+`ab_costfix.py` computes the half-list as `V128[W//2]`. A weight-`W` set with `W` **odd** cannot
+split more evenly than `(⌈W/2⌉, ⌊W/2⌋)`, so the half-list must be `Vol₁₂₈(⌈W/2⌉)`. Using floor
+**underprices every odd radius**:
+
+| W | AB (floor) | correct (ceil) | understated by |
+|---|---|---|---|
+| 9 | 2^25.0 | 2^29.6 | **4.6 bits** |
+| 19 | 2^46.4 | 2^49.9 | 3.6 bits |
+| 55 | 2^94.9 | 2^96.8 | 1.9 bits |
+| 107 | 2^126.4 | 2^126.9 | 0.6 bits |
+
+**AB's published numbers are unaffected**, because every scan in `ab_costfix.py` steps
+`range(2,257,2)` — even `W` only, where floor = ceil. **The bug fires the moment anyone reuses
+the function on an odd radius.** My first pass did exactly that and produced spurious covering
+optima at `W = 9, 15, 35, 55, 75, 103, 127` and a spurious `+1` on every budget row. Recorded
+so the next agent does not rediscover it as a "finding".
+
+## 13.4 The corrected budget table — **CONFIRMED exactly**
+| budget | AB claims | I get | verdict |
+|---|---|---|---|
+| 2^47 | `w ≤ 18` | `w ≤ 18` | **CONFIRMED** |
+| 2^58 | `w ≤ 24` | `w ≤ 24` | **CONFIRMED** |
+| 2^80 | `w ≤ 40` | `w ≤ 40` | **CONFIRMED** |
+
+Filled in: 2^30 → 10, 2^40 → 14, 2^70 → 32, 2^90 → 48, 2^126 → 104. Half-list memory at 2^47 is
+2^44.2 entries — **AB's memory caveat is the binding one and it is understated**: on this box
+(~2^30 entries) the reachable bound is `w ≤ 10`, not 18.
+
+## 13.5 The crossover — AB quotes two different numbers for one quantity
+The "largest affordable complement radius `W`" and the "rho crossover `w`" are **the same
+function at the same budget**. AB's RESUME says `w ≈ 104`; AB's script prints `W = 107`.
+With the floor bug fixed the reproducible value is:
+
+> **crossover `w = 106`, break-even ceiling `B = 255 − 106 = 149`** (AB says 148).
+
+Immaterial to every conclusion, but it is an internal inconsistency in a headline number.
+
+## 13.6 Theorem B's qualitative claim — **CONFIRMED independently**
+Minimising `(|{wt>B}|/Vol(W)) · cost(W)` over all `W ∈ [0,256]` (not AB's even grid), the
+optimum is the degenerate **one-ball cover for every `B` below ≈247**: `B = 200 → W = 55`
+(2^96.8), `B = 152 → W = 102` (2^125.7), `B = 128 → W = 126` (2^130.5), with `#balls = 2^0`
+throughout. **The cheapest way to prove any nontrivial ceiling is to solve the instance.**
+
+---
+
+## 13.7 THEOREM D — the load-bearing barrier
+
+### (1) Is `min(|D₀|,|D₁|)` the right normaliser? **Yes — the constant is not.**
+Shoup simulation: `Bad = {k : the real view differs from the k-free simulation}` is fixed by the
+simulation and has `|Bad| ≤ C(m,2)`. Then for `D_b` uniform on its class,
+`|Pr_{D_b}[A=1] − Pr[A_sim=1]| ≤ |Bad|/|D_b|`, hence
+
+> `Adv ≤ |Bad|·(1/|D₀| + 1/|D₁|) ≤ (m²/2)(1/|D₀| + 1/|D₁|) ≤ **m² / min(|D₀|,|D₁|)**`
+
+**`min` is correct** — it is the dominant term of the harmonic sum. **AB's `m²/(2·min)` drops
+the second side and is a factor 2 tighter than the argument supports.** The error direction
+**overstates the barrier**, by exactly **0.5 bits** in `m`.
+
+### (2) Does the single-root argument survive the automorphism group? **Yes — the encoding is the caveat.**
+- **The affine form is untouched.** `λ` and negation are multiplication by fixed scalars of
+  `Z_N`; applying either to `σ(α + βk)` gives `σ(λα + λβk)`, still `σ(α' + β'k)`. Every pairwise
+  collision remains **one** affine equation over the field `Z_N`, hence **exactly one root**
+  (`N` prime). **AB is right here, and this is the load-bearing step.**
+- **The encoding is not.** Under `x`-coordinate encoding `σ(x)` and `σ(−x)` are one string; with
+  GLV the whole order-6 orbit `{±1, ±λ, ±λ²}` collapses. A pair then collides if
+  `α_i + β_i k = u(α_j + β_j k)` for any `u` in that group — **`AUT` equations per pair, each
+  still with one root**, so `|Bad| ≤ AUT·C(m,2)` and the bound degrades by `√AUT`:
+  `2^0.5` for negation, **`2^1.29` for the full order-6 group**. AB's knob line
+  ("coordinate encoding excluded") is doing real work and should be promoted to the statement.
+
+### (3) Does `B = 128 ⇒ m ≥ 2^127.5` follow? **Yes, from AB's inequality.**
+Recomputed with an **exact digit-DP over `k ∈ [0,N)`** (self-checked: `#{k<N} = N`), not over
+`[0,2^256)` as `ab_barrier.py` does: `|{w ≤ 128}| = 2^255.07`, `|{w > 128}| = 2^254.93`,
+`min = 2^254.93`, `√min = 2^127.46`. AB's arithmetic reproduces. The universe choice is
+immaterial (`N` vs `2^256` differ by `2^-128`). The DP also reproduces AB's free unconditional
+result: **max popcount over `k < N` is 255.**
+
+### (4) THE ONE SUBSTANTIVE PROBLEM — AB's headline compares across models
+AB writes: *"B=128 needs `m ≥ 2^127.5` (solving costs 2^126.5) — deciding the weight predicate
+is as hard as solving."* **Taken literally the numbers say deciding is *harder* than solving,
+which cannot be true: any algorithm that solves also decides.** The contradiction is not in the
+mathematics — it is a **model mismatch**. `2^127.5` is a generic-group bound with the
+automorphisms **excluded**; `2^126.5` is a concrete rho cost with them **included**. In one
+model:
+
+| quantity | value |
+|---|---|
+| GGM LB, AB's constant, no automorphisms | 2^127.46 |
+| GGM LB, corrected constant, `AUT = 6` | **2^125.67** |
+| concrete rho + negation + GLV | 2^126.5 |
+
+**`2^125.7 ≤ 2^126.5` — the inequality points the right way once the models agree.**
+AB's qualitative conclusion is **unharmed**: the weight predicate admits **no generic shortcut**
+and costs the same as solving to within the same `√6`. **What does not survive is the strict
+claim that deciding is harder than solving**, and that phrasing should be struck before the
+fleet plans against it.
+
+### (5) Cross-check: does the corrected MITM meet the generic bound?
+| B | GGM LB (corrected) | corrected MITM | gap |
+|---|---|---|---|
+| 10 | 2^28.5 | 2^29.7 | +1.19 |
+| 20 | 2^48.5 | 2^50.0 | +1.50 |
+| 24 | 2^55.3 | 2^56.8 | +1.59 |
+| 40 | 2^77.8 | 2^79.6 | +1.87 |
+| 56 | 2^94.7 | 2^96.8 | +2.10 |
+
+**AB's "within 2^1 of optimal at B=20" is CONFIRMED** (1.50 bits). Across the whole actionable
+range the corrected MITM is within ~2 bits of the generic floor, so **there is no room left in
+the algorithm** — the class size is the whole story, exactly as AB argues.
+
+## 13.8 Verdict, plainly
+> **The corrected cost model survives. Its published budget table (2^47 → `w ≤ 18`,
+> 2^58 → `w ≤ 24`, 2^80 → `w ≤ 40`) is confirmed exactly, and Theorem B's qualitative claim —
+> that the cheapest proof of any nontrivial ceiling is to solve the instance — is confirmed
+> independently. Theorem D's normaliser is right and its single-root argument survives the
+> automorphism group.**
+>
+> **Three amendments, none fatal:** the `W = 256` sanity test is met only to within the `√W`
+> poly factor (2^132 vs 2^128); `ball_cost` uses floor where it needs ceiling, a latent 4.6-bit
+> underprice on odd radii that AB's even-only scans hide; and Theorem D's constant is a factor
+> 2 too tight, which with the automorphism group moves `B = 128` from `m ≥ 2^127.5` to
+> `m ≥ 2^125.7` and removes the claim that deciding is *harder* than solving.
+>
+> **Two numbers to fix in the record:** crossover `w = 106` and break-even `B = 149`
+> (AB quotes 104 and 107 for the first, 148 for the second).

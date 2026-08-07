@@ -254,3 +254,66 @@ constraints on the selectors**, run both mod `2^61−1` and exactly over ℚ; an
 among 9,527 all-boolean atoms — `Σ s_i` is never formed anywhere.**
 
 **So the Hamming-weight angle is closed from both ends: bounds must be assumed, never derived.**
+
+---
+
+# AMENDMENT (check-in 105) — agent Z's audit of the corrected model
+
+**Both AB results survive; neither survives unamended.** Independently re-derived in exact integers.
+
+**CONFIRMED:** the corrected covering cost `poly(W)·Vol₁₂₈(⌈W/2⌉)` is right — plus a **third**
+disqualifier for the round-1 model AB did not state: **`C(256,W/2)` is not monotone in `W`**, and a
+ball cost must be. **Theorem B's qualitative claim confirmed independently**: scanning all
+`W ∈ [0,256]`, the optimum is the degenerate one-ball cover for every `B` below ≈247. **The table is
+confirmed exactly and filled in:**
+
+| budget | 2^30 | 2^40 | 2^47 | 2^58 | 2^70 | 2^80 | 2^90 | 2^126 |
+|---|---|---|---|---|---|---|---|---|
+| reachable `w` (time-only) | 10 | 14 | **18** | **24** | 32 | **40** | 48 | 104 |
+
+**AMENDED:**
+
+1. **The `W = 256` certificate fails by 2^4** — required 2^128, AB's corrected model returns
+   **2^132.0**. `√W` is spurious exactly there (`W/2 = 128` equals the half size, so every split is
+   already balanced); without the poly factor it is **2^128.0 exactly**. **This is the very test AB
+   used to certify its own correction.**
+2. **Latent floor/ceil bug**: `V128[W//2]` should be `⌈W/2⌉`. **Odd radii underpriced by up to 4.6
+   bits** (`W=9`: 2^25.0 vs 2^29.6). AB's published numbers are unaffected (even-only scans, floor =
+   ceil) **but it fires on first reuse** — Z's own first pass produced spurious optima at
+   `W = 9, 15, 35, 55, 75, 103, 127` and a spurious `+1` on every budget row. **Recorded so the next
+   agent does not rediscover it as a finding.**
+3. **Two numbers reconciled:** the largest affordable complement radius and the rho crossover are the
+   **same function at the same budget** (AB's RESUME says 104, its script 107). **Reproducible:
+   crossover `w = 106`, break-even `B = 149`** (AB says 148).
+4. **The memory caveat is the binding one and is understated:** at 2^47 the half-list is **2^44.2
+   entries**, so on this box (~2^30) the real reach is **`w ≤ 10`, not 18.** The time-only row
+   describes a machine nobody has.
+
+**PROVED, not spot-checked:** the MITM never dips below the generic floor —
+`(Vol₁₂₈(w/2))² ≤ Vol₂₅₆(w)` by restricted Vandermonde, exact for every even `w`. **So MITM is
+optimal to within `√W ≤ 2^4`**, and AB's "within 2^1 at `B = 20`" is exact at 1.50. **There is no
+room left in the algorithm; class size is the whole story.**
+
+## Theorem D — amended, and one claim STRUCK
+
+- **The normaliser `min(|D₀|,|D₁|)` is right; the constant is not.**
+  `Adv ≤ |Bad|·(1/|D₀| + 1/|D₁|) ≤ m²/min(|D₀|,|D₁|)`. **AB's `m²/(2·min)` drops the second side, is
+  a factor 2 tighter than the argument supports, and the error direction OVERSTATES the barrier** by
+  0.5 bits.
+- **The single-root argument survives the automorphism group** (`λ` and negation are multiplication
+  by fixed scalars, so held elements stay `σ(α′+β′k)`; one affine equation, one root over prime `N`)
+  — **but not the encoding**: under `x`-coordinate + GLV the order-6 orbit collapses, giving `AUT`
+  equations per pair and degrading the bound by `√6 = 1.29` bits.
+- **`B = 128 ⇒ m ≥ 2^127.5` does follow**, recomputed by exact digit-DP over `k ∈ [0,N)`
+  (self-checked `#{k<N} = N`): `min = 2^254.93`, `√min = 2^127.46`.
+
+> ## ⚠ STRUCK: "deciding the weight predicate is HARDER than solving"
+>
+> **Taken literally, `m ≥ 2^127.5` against 2^126.5 to solve says deciding is harder than solving —
+> which is impossible, since any solver decides.** The first figure **excludes** the automorphisms;
+> the second **includes** them. **In one model, with the corrected constant and `AUT = 6`, the bound
+> is 2^125.7 ≤ 2^126.5** and the inequality points the right way.
+>
+> **The qualitative conclusion is unharmed: there is no generic shortcut for the weight predicate,
+> and deciding costs the same as solving to within the same `√6`.** Only the strict phrasing is
+> withdrawn — from this file, from `FLEET.md`, and from the report to the user.

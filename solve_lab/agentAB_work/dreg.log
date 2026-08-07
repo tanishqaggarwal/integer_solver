@@ -1,0 +1,19 @@
+MEASURED SOLVING DEGREE of the boolean-selector ECDLP ladder (tight/saturated model)
+
+  n=2 : 8 vars (2 boolean), 11 generators, max gen degree 3
+     d=2 :     14 rows x     43 cols  rank     13  rref   0.0s  selectors pinned 1/2 
+     d=3 :     89 rows x    147 cols  rank     75  rref   0.0s  selectors pinned 1/2 
+     d=4 :    375 rows x    406 cols  rank    269  rref   0.0s  selectors pinned 2/2   <== SOLVING DEGREE
+     -> n=2 solving degree = 4   (0.1s)
+
+  n=3 : 13 vars (3 boolean), 17 generators, max gen degree 3
+     d=2 :     22 rows x    102 cols  rank     21  rref   0.0s  selectors pinned 1/3 
+     d=3 :    216 rows x    518 cols  rank    192  rref   0.0s  selectors pinned 1/3 
+     d=4 :   1368 rows x   2068 cols  rank   1095  rref   1.4s  selectors pinned 1/3 
+     d=5 :   6494 rows x   6930 cols  rank   4509  rref  67.6s  selectors pinned 3/3   <== SOLVING DEGREE
+     -> n=3 solving degree = 5   (133.4s)
+
+  n=4 : 18 vars (4 boolean), 23 generators, max gen degree 3
+     d=2 :     30 rows x    186 cols  rank     29  rref   0.0s  selectors pinned 1/4 
+     d=3 :    398 rows x   1254 cols  rank    364  rref   0.2s  selectors pinned 1/4 
+     d=4 :   3365 rows x   6561 cols  rank   2838  rref  37.6s  selectors pinned 1/4 
