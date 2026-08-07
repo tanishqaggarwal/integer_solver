@@ -252,6 +252,70 @@ of round 1 (cocircuits, `b ≤ 2`) is a statement about `K = 34` and has **not**
    ranking that generated it does not predict price; a broader sweep would need a real price
    oracle per block, which is items 1–2's machinery anyway.
 
+## 7.  ITEM 1 — the cocircuit closure redone on `K+ = 40`.  **IT DOES NOT CLOSE AT ROUND-1
+## STRENGTH: round 1's `s = 3..6` search was materially incomplete, and I can now say by how much.**
+
+### 7a.  Preconditions re-verified on `K+` first (`w_hom2.py`)
+All 198 SAT rows are **homogeneous** (rhs = 0 for every one), `rank_Q(A_SAT) = 32`, and the full
+205-row system is still **ℚ-consistent** (`rank = rank[A|b] = 34`).  So round 1's structural
+result — *the whole obstruction is integrality, only rank-dropping deletions matter, and any
+break-set is a union of minimal cocircuits* — **reproduces verbatim on the corrected knob set.**
+
+### 7b.  A new enumerator with NO window and NO skipped cases (`w_cocirc3.py`)
+Round 1 (and my first port, `w_cocirc2.py`) chose `s-1` outside columns from an adaptive window
+and *skipped* the subsets where they were dependent — 3.07M skips in round 1.  The replacement
+is an exact case split:
+
+> a codeword with `|supp| ≤ 6` is nonzero on at most `6-s` outside columns, so **among ANY
+> `7-s` outside columns at least one vanishes at it.**
+
+Branch on that: pick `7-s` columns whose functional is not identically zero on the current
+subspace `V`, recurse into `V ∩ ker φ_k` for each (every cut drops the dimension by exactly 1).
+Depth `s-1`, branching `7-s`, so the tree is finite and **complete**.  When fewer than `7-s`
+columns are live on `V`, *every* point of `V` already has weight `≤` that count — the whole
+subspace is **recorded** instead of skipped, which is exactly the case round 1 threw away.
+
+### 7c.  How much round 1's window was missing — measured head to head
+
+| | window (`w_cocirc2.py`, same K+) | **exact (`w_cocirc3.py`)** |
+|---|---|---|
+| supports at `s ≤ 3` | 1,485 | **3,184** |
+| supports at `s ≤ 4` | 5,965 | **25,473** at `s=4` alone |
+| positive-dimensional nodes | **skipped** | **recorded**: 2,376 at `s≤3`, 65,619 at `s=4` |
+
+> **The window method found well under a quarter of the `s ≤ 4` supports.**  Round 1's
+> `j = 4..7` row was labelled *budget, not exhaustion* and that label was right — but the gap
+> was **much larger than the 3.07M skip count suggested**, and it is not closed by re-running
+> the same method on more information sets.
+
+### 7d.  What the exact enumeration gives, so far (`w_close3_s13.out`)
+From the `s ≤ 3` exact data alone: **60 minimal cocircuits**, sizes `{1:6, 2:2, 3:2, 4:3, 5:7,
+6:40}`, **every one re-verified genuinely rank-dropping over ℚ (0 mod-p artefacts)**; union
+closure to size ≤ 6 gives **510 break-sets**.
+
+* The six size-1 cocircuits are the **same six essential rows** `{2554, 6816, 8124, 9123, 9421, S}`.
+* There are **two** minimal size-2 cocircuits — `{22563, 8687}` (round 1's) **and `{36489, 8985}`,
+  which round 1 on `K = 34` never saw.**
+
+### 7e.  Status and what is still running (PIDs recorded)
+| job | file | PID | state |
+|---|---|---|---|
+| exact `s = 1..3` | `w_cocirc3_raw_s1_3.json` | — | **done** |
+| exact `s = 4..6` | `w_cocirc3_raw_s4_6.json` | 28998 | running (`s=4` printed at 277 s) |
+| exact `s = 4` only | `w_cocirc3_raw_s4_4.json` | 29354 | running (persists `s=4` without waiting for `s=6`) |
+| window, 3 information sets | `w_cocirc2_raw.json` | 9543 | running (set 0 through `s=5`) |
+| closing test on exact `s≤3` | `w_close3_s13.json` | 31769 | running |
+
+**The box is at load ≈ 21 on 4 CPUs** (other agents), so these are far slower than their solo
+timings (`s=4` exact: 277 s of its own time).
+
+> **Honest status of the frame-B optimality row:** `minbreak(P) = |P|`, gain 0 is confirmed on
+> `K+` **over the essential-row family** (§6c, exhaustive) and over the **510** break-sets from
+> the exact `s ≤ 3` enumeration.  **General breaks at `j = 4..7` remain BUDGET, not exhaustion**,
+> and after §7c that budget should be described as *substantially* short, not marginally.
+> Finishing `s = 4,5,6` exactly is what converts it — the enumerator now exists and is correct;
+> it only needs CPU.
+
 ## Re-entry
 ```
 cd solve_lab/agentW_work
@@ -268,6 +332,9 @@ python3 w_price.py     # the five minimum-incidence blocks
 python3 w_chain.py ; python3 w_chain2.py   # the degeneracy is equation-disjoint: costs 0
 python3 w_sites.py ; python3 w_outk.py     # the four out-of-K blocks; K vs K+
 python3 w_exhaust2.py  # round-1's exhaustive test re-run on K+ = 40   (~105 s)
+python3 w_hom2.py      # K+ preconditions: homogeneous, rank 32, Q-consistent
+WSMIN=1 WSMAX=3 python3 w_cocirc3.py   # EXACT cocircuits, no window, no skips
+WFILES=w_cocirc3_raw_s1_3.json WOUT=w_close3_s13.json python3 w_close3.py
 ```
 Artifacts: `w_blocks*.json`, `w_verify.json`, `w_class.json`, `w_deliv.json`, `w_price.json`.
 

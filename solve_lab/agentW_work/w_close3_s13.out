@@ -1,3 +1,102 @@
 w_cocirc3_raw_s1_3.json: 3184 supports (positive-dimensional nodes 2376)
 candidate supports 3184 ; subset-minimal 60 ; by size {1: 6, 2: 2, 3: 2, 4: 3, 5: 7, 6: 40}
 rank_Q(A_SAT) = 32 ; exact-filtering 60 minimal supports ...
+  genuinely rank-dropping 60 ; mod-p artefacts dropped 0  (27s)
+  MINIMAL COCIRCUITS: 60 ; by size {1: 6, 2: 2, 3: 2, 4: 3, 5: 7, 6: 40}
+    size 1 : ['2554']
+    size 1 : ['6816']
+    size 1 : ['8124']
+    size 1 : ['9123']
+    size 1 : ['9421']
+    size 1 : ['S']
+    size 2 : ['22563', '8687']
+    size 2 : ['36489', '8985']
+
+union closure (size <= 6): 510 break-sets ; by size {0: 1, 1: 6, 2: 17, 3: 34, 4: 62, 5: 118, 6: 272}
+  buy [12231]                                    (|maximal break-sets tested| = 1) -> NO
+  buy [12270]                                    (|maximal break-sets tested| = 1) -> NO
+  buy [12350]                                    (|maximal break-sets tested| = 1) -> NO
+  buy [14584]                                    (|maximal break-sets tested| = 1) -> NO
+  buy [18673]                                    (|maximal break-sets tested| = 1) -> NO
+  buy [22044]                                    (|maximal break-sets tested| = 1) -> NO
+  buy [29125]                                    (|maximal break-sets tested| = 1) -> NO
+  buy [12231, 12270]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12231, 12350]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12231, 14584]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12231, 18673]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12231, 22044]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12231, 29125]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12270, 12350]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12270, 14584]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12270, 18673]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12270, 22044]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12270, 29125]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12350, 14584]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12350, 18673]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12350, 22044]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12350, 29125]                             (|maximal break-sets tested| = 6) -> NO
+  buy [14584, 18673]                             (|maximal break-sets tested| = 6) -> NO
+  buy [14584, 22044]                             (|maximal break-sets tested| = 6) -> NO
+  buy [14584, 29125]                             (|maximal break-sets tested| = 6) -> NO
+  buy [18673, 22044]                             (|maximal break-sets tested| = 6) -> NO
+  buy [18673, 29125]                             (|maximal break-sets tested| = 6) -> NO
+  buy [22044, 29125]                             (|maximal break-sets tested| = 6) -> NO
+  buy [12231, 12270, 12350]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 12270, 14584]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 12270, 18673]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 12270, 22044]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 12270, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 12350, 14584]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 12350, 18673]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 12350, 22044]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 12350, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 14584, 18673]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 14584, 22044]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 14584, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 18673, 22044]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 18673, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 22044, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12270, 12350, 14584]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12270, 12350, 18673]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12270, 12350, 22044]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12270, 12350, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12270, 14584, 18673]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12270, 14584, 22044]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12270, 14584, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12270, 18673, 22044]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12270, 18673, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12270, 22044, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12350, 14584, 18673]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12350, 14584, 22044]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12350, 14584, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12350, 18673, 22044]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12350, 18673, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12350, 22044, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [14584, 18673, 22044]                      (|maximal break-sets tested| = 17) -> NO
+  buy [14584, 18673, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [14584, 22044, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [18673, 22044, 29125]                      (|maximal break-sets tested| = 17) -> NO
+  buy [12231, 12270, 12350, 14584]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12270, 12350, 18673]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12270, 12350, 22044]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12270, 12350, 29125]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12270, 14584, 18673]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12270, 14584, 22044]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12270, 14584, 29125]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12270, 18673, 22044]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12270, 18673, 29125]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12270, 22044, 29125]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12350, 14584, 18673]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12350, 14584, 22044]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12350, 14584, 29125]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12350, 18673, 22044]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12350, 18673, 29125]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 12350, 22044, 29125]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 14584, 18673, 22044]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 14584, 18673, 29125]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 14584, 22044, 29125]               (|maximal break-sets tested| = 34) -> NO
+  buy [12231, 18673, 22044, 29125]               (|maximal break-sets tested| = 34) -> NO
+  buy [12270, 12350, 14584, 18673]               (|maximal break-sets tested| = 34) -> NO
+  buy [12270, 12350, 14584, 22044]               (|maximal break-sets tested| = 34) -> NO
+  buy [12270, 12350, 14584, 29125]               (|maximal break-sets tested| = 34) -> NO
+  buy [12270, 12350, 18673, 22044]               (|maximal break-sets tested| = 34) -> NO
