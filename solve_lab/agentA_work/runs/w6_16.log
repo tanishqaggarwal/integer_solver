@@ -1,0 +1,6 @@
+lev16 n=486 nk=334 (state score 39026)
+smallest single-knob column supports: [(1329, 6), (21574, 7), (29854, 7), (1613, 8), (1844, 8), (10903, 8), (584, 9), (734, 9)]
+  greedy-ISD trial 1: weight 14
+  greedy-ISD trial 1: weight 13
+  greedy-ISD trial 1: weight 11
+  greedy-ISD trial 1: weight 6

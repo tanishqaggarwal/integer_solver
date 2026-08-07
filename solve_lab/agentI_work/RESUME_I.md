@@ -117,6 +117,52 @@ for the deliverable's own support the exact minimum is **7**, and the optimal sa
 set is exactly `[12231, 12270, 12350, 14584, 18673, 22044, 29125]` — the deliverable's
 own failing lines, recovered from scratch by integer linear algebra.
 
+## THE eq8680 HUNT — the campaign's remaining question, run to ground
+`eq8680.py` (census + exact branch-and-bound), `hunt.py` (prioritised), `cascade_rand.py`.
+
+**Why the candidate list is complete.** To change eq8680's core, some atom *in eq8680*
+must change value. eq8680 has exactly 18 atoms. To change an atom's value, a knob must
+move it; a knob is a variable all of whose atoms are in the support. So the complete
+candidate set is `{v2a[x] : x a variable of an eq8680 atom}` — **43 groups**, of which
+**30 have nonzero net effect on eq8680's core** (the other 13 move it by exactly 0 and
+provably cannot compensate). That census is in `eq8680.log`; it is an enumeration, not
+a sample.
+
+Supporting census: **only 28 atoms in the entire instance share an equation with E(S)**,
+and their imported-equation counts run 1, 2, 2, 3, 3, 4, 4, 5, ... The cheapest
+compensator of all — `X19964`, whose group is just `{a1631, a23434}`, ONE new atom, net
+effect exactly −1 on eq8680, the perfect counterweight to `d28730` — was missed by my
+earlier adjacency search because `a1631`'s own equations do not touch E(S) at all.
+
+**Result so far: every candidate gives minfail > 6.**
+```
+X19964 add=(1631,)              |E|=27 (+14)  knobs=9   minfail > 6
+X4432  add=(2427,22331,33706)   |E|=40 (+27)  knobs=9   minfail > 6
+X6947  add=(23435,)             |E|=14 (+ 1)  knobs=9   minfail > 6
+X33168 add=(23437,)             |E|=16 (+ 3)  knobs=9   minfail > 6
+X10422 add=(11772,)             |E|=22 (+ 9)  knobs=9   minfail > 6
+X11099 add=(11774,)             |E|=24 (+11)  knobs=9   minfail > 6
+X22526 add=(11776,)             |E|=25 (+12)  knobs=9   minfail > 6
+X34868 add=(11778,)             |E|=27 (+14)  knobs=9   minfail > 6
+X950   add=(20290,)             |E|=18 (+ 5)  knobs=9   minfail > 6
+X15120 add=(20292,)             |E|=20 (+ 7)  knobs=9   minfail > 6
+X35531 add=(20294,)             |E|=21 (+ 8)  knobs=9   minfail > 6
+```
+The reason is uniform and visible in the numbers: every knob that moves eq8680 moves an
+atom that lives in 11-16 equations, and the imported equations all sit at base 0 and are
+moved off zero by that same knob. **Each candidate buys one row and pays for 5-27.**
+
+**Coordinator item 1 — the cascade CHOICE is not a free parameter.** `cascade_rand.py`
+randomises which dependent variable each absorbed atom consumes: **8/8 seeds give the
+identical outcome** — 1,817 atoms absorbed, 1,817 dependents, and exactly the same 7
+knobs `[642, 1329, 9413, 10903, 17325, 29854, 31864]`. The closure is a confluent fixed
+point; the choice was never the limit.
+
+**Second performance bug found and fixed**: `minfail_bnb` sorted already-satisfied rows
+FIRST, so the DFS burned its whole sacrifice budget on trivially keepable rows before
+reaching the hard ones. Reversing the order made it ~20x faster (300 s timeouts became
+2-36 s exact answers). This is why the first run appeared to hang, not a hard instance.
+
 ## Cascade (two-level) closure — the move class a one-level analysis cannot see
 `cascade.py`. A variable with ONE atom outside the support is still usable if that atom
 can be held at zero by re-solving it for another variable whose own atoms are inside.

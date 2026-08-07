@@ -99,5 +99,51 @@
   "knobs": 9,
   "minfail": null,
   "forced": 0
+ },
+ {
+  "tag": "X15120",
+  "add": [
+   20292
+  ],
+  "nE": 20,
+  "new": 7,
+  "knobs": 9,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X35531",
+  "add": [
+   20294
+  ],
+  "nE": 21,
+  "new": 8,
+  "knobs": 9,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X18253",
+  "add": [
+   20292,
+   20293
+  ],
+  "nE": 21,
+  "new": 8,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X37720",
+  "add": [
+   20294,
+   20295
+  ],
+  "nE": 22,
+  "new": 9,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
  }
 ]

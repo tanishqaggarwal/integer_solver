@@ -287,3 +287,30 @@ L=2: EXHAUSTIVE no |D| <= 4 (814,385 subsets) => >= 5 rigorously; Prange 3,000 t
 L=6: EXHAUSTIVE no |D| <= 2; Prange 4,000 trials, 1,538 solvable, lightest weight seen 7,
      **P(a weight <= 6 point exists and was missed) <= 6.7e-64**.
 L=16: running (486 rows, 334 knobs, w=324).
+
+## CONDITION (b) DONE PROPERLY, AND THE TWO CONDITIONS ARE COMPLEMENTARY
+`eqmindist.py` at L=6 (n=163 rows, nk=109 knobs, parity check H = 54 x 163):
+* **RIGOROUS: no 2- or 3-subset of H's columns is linearly dependent** (13,203 + 708,561
+  subsets exhausted) => minimum support weight >= 4.
+* Greedy information sets (shuffled row order) give **258 usable trials out of 258**,
+  against 0 out of 3,300 for uniform 109-subsets — that was the bug in `eqisd.py`.
+  Lightest support weight SEEN = **6**; **582 distinct weight-<=6 supports** enumerated.
+* `w6test.py` then tested those supports directly: **every weight-6 support fails the mod-p
+  consistency test, and none is integral.**  No assignment was produced; the best from the
+  window stays 39,026.
+
+This is the sharp structure, and it changes how the bound should be stated:
+> The equation-level code at L=6 has minimum support **6**, so condition (b) ALONE permits
+> six violated equations.  Condition (a), mod-p consistency, kills every one of the 582.
+> Neither condition alone yields 7 — it is their intersection that does.
+The deliverable's 7 is exactly the lightest weight the mod-p filter admits, and it is
+attained.  That is why the bound is tight rather than merely unbeaten.
+
+## DEEPEST WINDOW COMPLETED: L=16
+611 atoms / 582 equations / 486 nontrivial rows / 334 knobs; exactly affine; violated = 7.
+mod p: rank 162 of 334 knobs (172 knob columns vanish), syndrome dim w = 324.
+* EXHAUSTIVE: no |D| <= 2 is mod-p consistent (117,855 subsets) => >= 3 rigorously.
+* Prange: 250 trials, 97 solvable, lightest weight seen 7, P(missed) <= 1.6e-4;
+  a deeper campaign (3,000 trials) is in `runs/eqb16b.log`, and `runs/w6_16.log` runs the
+  constructive weight-<=6 enumeration + mod-p + HNF at this depth.
+611 atoms admitted as free cancellers and 334 knobs produce no point cheaper than 7.

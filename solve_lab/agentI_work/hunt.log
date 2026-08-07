@@ -8,3 +8,7 @@ base support [23432, 23433, 36225, 36226, 36227, 36228, 36229, 37537, 37538, 234
   X22526   add=(11776,)                     |E|= 25 (+12 new) knobs= 9 forced=0 active=25 nodes=  5331   36s  minfail > 6  (cannot beat 39,026)
   X34868   add=(11778,)                     |E|= 27 (+14 new) knobs= 9 forced=0 active=27 nodes=  5331   30s  minfail > 6  (cannot beat 39,026)
   X950     add=(20290,)                     |E|= 18 (+ 5 new) knobs= 9 forced=0 active=18 nodes=  1770    8s  minfail > 6  (cannot beat 39,026)
+  X15120   add=(20292,)                     |E|= 20 (+ 7 new) knobs= 9 forced=0 active=20 nodes=  1770    8s  minfail > 6  (cannot beat 39,026)
+  X35531   add=(20294,)                     |E|= 21 (+ 8 new) knobs= 9 forced=0 active=21 nodes=  2593   13s  minfail > 6  (cannot beat 39,026)
+  X18253   add=(20292, 20293)               |E|= 21 (+ 8 new) knobs=10 forced=0 active=21 nodes=  2821   20s  minfail > 6  (cannot beat 39,026)
+  X37720   add=(20294, 20295)               |E|= 22 (+ 9 new) knobs=10 forced=0 active=22 nodes=  2821   19s  minfail > 6  (cannot beat 39,026)
