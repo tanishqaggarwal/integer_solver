@@ -153,3 +153,52 @@ Both are "produce this specific 296-bit constant on an accumulator" conditions.
 `bitsol_<bit>_<score>.json` — one file per bit whose pin system solves *and* verifies with no
 residual atoms outside the selector core.  Spot-checked with `../checker.py`:
 `bitsol_10428_39017.json` -> **39017/39033** exactly, as the filename says.
+
+## 13. THE TRIPLE IS SOLVABLE — the recombination barrier falls (my §10 conclusion is REFUTED)
+
+Target: the size>=2 obstruction from §9.4, at the repaired pair state (x_1530, x_1603),
+`triple_state_seed.json`, whose only non-selector bad atoms are {722, 724, 726}.
+
+### 13.1 Reduction of the three conditions to two
+`p | U` and `p | V` and `5002401*U + 15322661*V = 0` collapse: if `p | U` then from the exact
+row `5002401*U = -15322661*V` and `gcd(15322661, p) = 1` give `p | V` for free.  So the triple
+is exactly **{ p | U ,  5002401*U + 15322661*V = 0 over Z }**, then two quotient handles.
+
+### 13.2 The handles the linear model never proposed
+Of the 23 free variables that move (U,V), **14 are boolean-constrained** (an atom
+`b*(b-1)`, `b*b-b` or `2*b*(1-b)` pins them to {0,1}) and **9 are unconstrained integers**
+(x_3401, x_4012, x_25710, x_28954, x_30468, x_33169, x_33177, x_34801, x_37856).
+Of those 9, `(U,V)` is **exactly affine** in **x_30468 and x_33169** (checked at +1, +2, +7);
+`dU/dx_33169 = 0`, so the pair is triangular.  Earlier searches never proposed them because
+they sat in rows the closure had dropped as nonlinear.
+
+### 13.3 Exact two-unknown congruence solve (`triple4.py`)
+    d1 = 107833348867425503451660448077443469436092985532849038009363238620095543518536 + k*p
+    d2 = -(N0 + M*d1)/(15322661*D)     with M = 5002401*A + 15322661*B
+and the second congruence has modulus 1, so **every** k works — a one-parameter family.
+Result, exactly re-evaluated: `p|U = True`, `p|V = True`, `5002401*U + 15322661*V = 0 = True`;
+atom 726 vanishes, and setting the two free handles `x_34496 = x_6635/p`,
+`x_3193 = 7952523*x_36280/p` kills 722 and 724 as well.  **The triple closes.**
+
+### 13.4 Simultaneous affine solve (`triple7.py`, `triple8.py`)
+Rebuilt as one system: 56 knobs on which the *whole residual vector* is affine (verified at
++1,+2,+7) x 46 atoms.  Full system: infeasible.  Greedy maximal solvable subset:
+**44 of 46 rows solve simultaneously**, and the only two blocking rows are
+
+    a20215 : x_24530 - x_5647*x_24908
+    a28647 : x_36433 - (x_36990 + x_19239)
+
+Applying the 44-row solution and re-evaluating exactly gives **39,005/39,033 with just TWO
+nonzero atoms in the entire instance** (`triple8_39005.json`, verified below).
+
+**So the triple is NOT the barrier.**  What binds is a20215 and a28647 — the same two rows
+that blocked the single-b-bit branch in §11.  Both are "an accumulator must equal a specific
+296-bit constant" conditions:
+  a20215 -> `x_24908 = C1`,  a28647 -> `x_26386*x_6083 + x_27475*x_33708 = C2`.
+
+### 13.5 Verification note
+The solution's values reach 4,430 decimal digits, above Python's default 4,300-digit
+string-conversion cap, so `checker.py` cannot *parse* the file with default settings.
+`verifyE.py` raises only that cap and then calls `checker.load_equations`,
+`checker.load_assignment` and `checker.evaluate_all` unmodified:
+    python3 verifyE.py triple8_39005.json  ->  satisfied 39005/39033 (28 failing)

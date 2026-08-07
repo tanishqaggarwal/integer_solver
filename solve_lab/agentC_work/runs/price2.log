@@ -1,0 +1,4 @@
+CALIBRATION (corrected form): |E|=12 |S|=8 price=7   observed failing=7  -> MATCH
+
+bit    |E|  |S| resblk maxsat PRICE  observed  closed?
+x_10513  45   20   25     20     25     45        NO (leaks)

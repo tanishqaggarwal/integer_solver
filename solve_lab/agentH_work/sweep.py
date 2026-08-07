@@ -81,10 +81,14 @@ def price(st,tag):
     n=len(knobs)
     rk=rank_q([[A[j][i] for j in range(n)] for i in range(len(Rl))],n) if n else 0
     z0=sum(1 for x in b if x==0); best=z0
+    cap=min(n,rk,6)
     if n:
-        for size in range(min(n,8),0,-1):
+        for size in range(cap,0,-1):
             if size<=best: break
+            cnt=0
             for rows in itertools.combinations(range(len(Rl)),size):
+                cnt+=1
+                if cnt>300000: break
                 t=solve_int(A,b,list(rows),n)
                 if t is None: continue
                 z=sum(1 for i in range(len(Rl)) if b[i]+sum(t[j]*A[j][i] for j in range(n))==0)

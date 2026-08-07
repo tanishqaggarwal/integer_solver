@@ -43,7 +43,7 @@ re-verified by exact evaluation.
 * **All 106 feasible bits verify exactly with ZERO residual atoms outside the selector core**
   (`exact=(16, [])` -> 39017/39033).
 
-## SUBSETS — the answer
+## SUBSETS — the answer (SUPERSEDED IN PART, see "THE TRIPLE IS SOLVABLE" below)
 | bits on | residual atoms after iterated exact repair |
 |---|---|
 | 1 | **0, 0, 0** |
@@ -78,3 +78,25 @@ congruence system.  This is a measurement over the supports searched, not a proo
    `x_25848, x_17317, x_18682, x_28841` rather than the selector bits.  `runs/iterpair.log`
    shows the iterated *linear* model stalls there; a targeted 2-unknown congruence solve has
    not been tried.
+
+## THE TRIPLE IS SOLVABLE — subset barrier REFUTED (supersedes the subset verdict above)
+The size>=2 obstruction triple closes exactly.  `p|U` + the exact row are the only two
+independent conditions (p|V follows), and `(U,V)` is exactly affine in the two non-boolean
+knobs **x_30468, x_33169** — which every earlier search missed because they lived in rows the
+closure dropped as nonlinear.  `triple4.py` solves them in closed form (one free parameter k,
+second congruence has modulus 1 so every k works); the two quotient handles `x_34496`,
+`x_3193` then kill atoms 722/724.  `triple8.py` then solves **44 of 46** rows of the affine
+system simultaneously -> `triple8_39005.json`, **39,005/39,033 with only TWO nonzero atoms
+in the whole instance** (verify: `python3 verifyE.py triple8_39005.json`; the values exceed
+Python's 4,300-digit string cap, which is all verifyE raises — it calls checker.py unmodified).
+
+**The instance now binds in exactly two rows:**
+    a20215 : x_24530 - x_5647*x_24908           ->  x_24908 = C1
+    a28647 : x_36433 - (x_36990 + x_19239)      ->  x_26386*x_6083 + x_27475*x_33708 = C2
+C1 = 125787314747601108116039725163361763116550465675981151838811516827327919228823597744635626
+C2 = 91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002
+Both say "an accumulator must take one specific 296-bit value".  They also blocked the
+single-bit branch (LOG.md §11), so they are frame-independent within my model.
+NEXT: close a20215 / a28647 by an affine solve over the free variables in the cones of
+x_24908 and of (x_6083, x_33708) — never attempted; the knob search there must include the
+non-boolean integer handles, which is exactly what unlocked the triple.

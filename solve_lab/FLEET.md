@@ -168,8 +168,52 @@ and most of it needed no reframing because it was never framing-dependent:
 I and J attack the same formulation from different models and are barred from importing each
 other's work; A, C and G attack adjacent versions of the placement question the same way.
 
-The open question that matters most, stated without any framing: **"all atoms zero" is
-sufficient but not necessary.** 1,853 atoms occur in exactly one equation and the deliverable
-itself carries 9 nonzero atoms, so every optimality argument this campaign has produced —
-including two exhaustive ones — lives inside a single branch of the system. I's and J's
-cancellation experiments are the probe of what lies outside it.
+### Check-in 3 — the central question is answered
+
+The open question above — that "all atoms zero" is sufficient but not necessary, so every
+optimality argument lived inside one branch — is **closed**, from two directions.
+
+**F computed it directly.** For the 39,033 × 39,033 equation–atom incidence matrix M
+(525,982 nonzeros): **rank(M) = 39,033, dim ker(M) = 0.** Two independent methods — a
+characteristic-free peeling certificate re-verifiable from M on disk (all pivots ±1 or ±2,
+none divisible by any odd prime, so it holds over ℤ and every field of char ≠ 2), and
+Wiedemann over a word prime, validated on controls of known rank before use. Therefore *any*
+assignment satisfying all 39,033 equations must make all 39,033 atoms exactly zero:
+all-atoms-zero is an **equivalence, not a restriction**, and no frame-optimality result in
+this lab still depends on it.
+
+**A's equation-level bound survives, and is tight.** Asked whether it was exposed to the
+vacuity J found in the raw relaxation, A checked its own formulation rather than defending
+it: its code is {N·u} over knob directions, so realizability is in the construction. No
+single-equation atom appears in any window, and none of the 3,235 in the instance carries a
+private variable. The sharpened statement: **neither condition alone gives 7** — condition (b)
+admits 582 weight-6 supports at L=6 and 62 at L=16, the mod-p filter kills every one, and 7
+is exactly the lightest weight the filter admits. The bound is tight, not merely unbeaten.
+
+**Convergent closure.** eq8680 — the single row costing the deliverable its seventh equation —
+was reached independently four times: I from the equation side, J from row structure, H from
+the free-input side, G from its equation-level model (where it is a binary quadratic form of
+discriminant exactly 0, i.e. a perfect square pinning one linear relation for one equation).
+I then closed it by complete enumeration over its 18 atoms; H proved no direction anywhere
+moves a22231 without moving a37887, making it a 1-for-1 trade.
+
+**J's synthesis of why everything failed:** the instance keeps its free content
+**equation-disjoint** from its residual cluster. Zero of the 83 confined knobs, and zero of the
+900 free-knob atoms, share even one equation with the deliverable's cluster. Six dead ends,
+one property.
+
+### Live tasking after check-in 3
+
+| Agent | Task |
+|-------|------|
+| A | Write THEOREM.md — the full statement, both conditions, tightness, and what is *not* proved (the L=344 affine ceiling) |
+| C | Residue-aware pricer (structural pricing proved a dead instrument — no function of incidence structure alone can return 7) |
+| E | The irreducible triple that every ≥2-bit subset reduces to |
+| F | The two remaining conditional links — the **only** things between this lab and an unconditional result |
+| G | Carry the span argument outward (enumeration stops being exhaustive past ~3e6 candidates) |
+| H | Price all ~30 cascade pin atoms as alternative defect carriers |
+| I | Finish the 66 pairs, then stop |
+| J | The a23328 bridge — the one object not equation-disjoint from the residual |
+
+**Limits at check-in 3:** 4 cores, load 17.3, 10 GB memory free, 29 GB disk, solve_lab 511 MB.
+No limit near. Framing purge audited clean across all ten agent directories.

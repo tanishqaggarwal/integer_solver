@@ -12,3 +12,5 @@
   12/256  bit 1695   tree A match=True   good=12  t=829s
   13/256  bit 1746   tree A match=True   good=13  t=890s
   14/256  bit 1931   tree A match=True   good=14  t=943s
+  15/256  bit 2055   tree A match=True   good=15  t=994s
+  16/256  bit 2143   tree A match=True   good=16  t=1063s

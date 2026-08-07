@@ -343,5 +343,54 @@
   "knobs": 10,
   "minfail": null,
   "forced": 0
+ },
+ {
+  "tag": "X19964+X950",
+  "add": [
+   1631,
+   20290
+  ],
+  "nE": 32,
+  "new": 19,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X19964+X15120",
+  "add": [
+   1631,
+   20292
+  ],
+  "nE": 34,
+  "new": 21,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X19964+X35531",
+  "add": [
+   1631,
+   20294
+  ],
+  "nE": 35,
+  "new": 22,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X19964+X18253",
+  "add": [
+   1631,
+   20292,
+   20293
+  ],
+  "nE": 35,
+  "new": 22,
+  "knobs": 11,
+  "minfail": null,
+  "forced": 0
  }
 ]
