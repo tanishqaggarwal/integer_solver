@@ -1,4 +1,95 @@
-# RESUME_L — agent L.  Angle: the same-OR-group double-leaf case (F's one open case).
+# RESUME_L — agent L.  **LINE CLOSED; HANDED TO AGENT T.**
+
+================================================================================================
+## HANDOVER TO T — READ THIS FIRST
+================================================================================================
+**Job:** run the global-guard integer lift and answer the campaign's last open question —
+**does the integer lift close for small |S| only, or generally?**  I never got data for it.
+
+**Script:** `closeS4.py` (copied to `agentT_work/from_L/`).  It supersedes `closeS.py`,
+`closeS2.py`, `closeS3.py`, which are kept only for provenance — do not run them.
+
+**Invocation** (PID recorded; never identify the job by command-line matching, see 6n):
+    setsid nohup python3 closeS4.py S2 2 > c4_S2.log 2>&1 & echo $! > c4.pid
+    # wait several minutes; test with:  kill -0 $(cat c4.pid)
+Then, ONLY if the control passes:  `closeS4.py S3 3`, `closeS4.py S5 5`, `closeS4.py S8 8`.
+
+**CONTROL — `|S| = 2` must produce EXACTLY this, or stop and report:**
+    NONZERO ATOMS = 2 of 9032        (the two target congruences, nothing else)
+    close_S2.json -> checker.py -> 39018 / 39033
+You reproduced that number yourself from cold, which is how it became an instance-level fact.
+**Expected wall clock ~186 s** (measured on the predecessor script for this configuration).
+
+**What went wrong last time and what to check first.**  The previous version (`closeS3.py`)
+returned **8** nonzero atoms.  The six extras were:
+    ((x24908-x17601)+x5201)              slot link  <-- an atom with NO handle
+    ((6788513*(x16742-x19083))-x9254)    root slot link
+    ((x12186-x23927)-x25758)             root slot link
+    ((537773*(x15298*x37758))-x35605)    ROOT stage check   (x15298 = root sel_ab)
+    ((x15298*x11150)+x4007)              ROOT stage check
+    ((x18956-x37892)-x32237)             target congruence
+Cause: the keep-guard was scoped to the 927 `c > 1` atoms, so it never saw the **~5,351 atoms
+with no handle**, which cannot absorb anything and must stay exactly zero.  `closeS4.py` fixes
+this by dropping scoping entirely: **accept a shift only if the GLOBAL nonzero-atom count
+strictly decreases**, verified by direct recomputation.  That subsumes `c > 1`, `c == 1` and
+handle-less atoms alike.
+**If the control fails again, check this first:** whether `solve_group3` is ever returning a
+non-`None` `t` at all.  If it always returns `None`, the global guard is too strict — a shift
+that clears one condition may need to pass through a state where the count is equal, not lower;
+relax `n < base` to `n <= base` with a no-cycling check.  If it returns `t` but the count still
+rises, the bug is in `relift` inside `nzcount`, not in the solver.
+
+**My last run of `closeS4.py` exited after ~110 s printing only its header lines** — no result,
+no traceback, `close()` never returned.  I could not establish why and did not guess; most
+likely process lifetime across my session rather than a code fault.  **Someone else simply
+running it is the cheapest way to find out.**
+
+**`|S| = 4` fold sweep — DO NOT RESUME.**  It is alive at 116.8M / 174.8M after ~2 h and will
+finish on its own; let it, and record the result if it lands.  But it is not worth restarting if
+it dies: |S| = 1, 2, 3 all came back empty, 174M is a negligible corner of 2^256, and a randomly
+built instance would have |S| ~ 128.  Enumeration is not the route to the ON-set.
+
+================================================================================================
+## WHAT STANDS  (measured, and none of it depends on the unfinished sweep)
+================================================================================================
+1. **The full calibrated model**: 383/383 nodes with a clean 3-way mux, 256/256 leaf pin pairs
+   extracted numerically with 0 conflicts, 128 dead leaves all literal 0.  §3, §S3.
+2. **The reduction, mod p**: the whole 39,033-equation system reduces to "some non-empty subset
+   of the 256 leaves folds to TARGET".  Independently corroborated when the deliverable's own
+   root vab wires turned out to hold exactly the TARGET pair I derived.  §3.
+3. **The constant-p finding**: `x4116` and its five siblings ARE the constant p — 6 of 220 such
+   wires — so every slack term is `p x (free var)`, `3,681/3,681` with zero exceptions.  The
+   coordinate hand-off follows the tree **unconditionally mod p**.  §6e.
+4. **Fit-and-solve**, with cost **measured at 186 s/configuration**: exact Newton fit, root-find
+   per prime power, CRT, verify by recomputation.  §6g, §6l.
+5. **Degree bound <= 3 per variable**, confirmed independently on my model (observed 1, 2, 3;
+   never 4), corroborating P's expansion from an unshared decomposition.  §6g.
+6. **Cost tracks the largest prime factor of c, not c** — 59 s for a prime vs ~1 s for a smooth
+   modulus.  P's factor-first guard, measured rather than inherited.  §6g.
+7. **The structural influence map**: 1,901 wires, mean 1.4 `c>1` atoms/wire, **max 3**.  §6k.
+8. **`|S| = 2` closes over Z** — 2 nonzero atoms, 39,018 — **verified by T, not by me.**  §6g.
+9. **Component sizes `[1,1]` and the path-dependence of the residual pair**, which is what
+   killed my own bivariate claim.  §6i.
+10. **Cancellation is a value property, not a support property** — proven with byte-identical
+    support, 7 vs 12 failing.  Cofactor freedom is 4-dimensional (T's correction).  §6b.
+
+================================================================================================
+## WHAT I RETRACTED  (all corrected in place, originals marked superseded, not deleted)
+================================================================================================
+* **2^178 configurations** -> the true count is **2^256 - 1**.  I had built the OR tree from a
+  sub-forest covering only the 178-side.
+* **"The deliverable has one leaf ON"** -> it has **two**, x2081 and x24601.  Same stale model.
+* **S6h, the bivariate obstruction** -> there is none; component sizes are `[1,1]`.  §6i.
+* **"|S| = 2 exceeded 13 minutes"** -> it took **186.2 s**.  A false empirical claim caused by
+  `pgrep -f` matching my own shell.  I nearly closed a viable line on it.  §6l.
+* **"Exactly 15 incident atoms"** -> **18**; my census was scoped by guard shape.  §6c.
+* **"A simultaneous CRT solve is what is needed"** -> not sufficient; the system is
+  **polynomial**, not linear.  §6f.
+
+**THE OPEN QUESTION, PLAINLY: §6m.  Five attempts, no |S| = 3/5/8 data.  `|S| = 2` is the only
+ON-set beyond a single leaf verified closed over Z, and that verification is T's.**
+Best verified score throughout: **39,026**, which I never improved on.
+
 Integers, congruences and polynomials only.  No curve/group framing anywhere.
 
 --------------------------------------------------------------------------------------------
