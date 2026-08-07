@@ -116,10 +116,25 @@ x_642, x_28730, x_29854, x_31864.**  Its own selector set, closed by my engine, 
 deficit 9 / rank 5 / 39,012; the witness reaches deficit 4 / rank 7 / 39,026 by sitting off my
 closer's manifold.  The floor is not a selector-count artifact.
 
+## 11. DETACH-SET SWEEP - the last axis, priced; and my criterion REFUTED (LOG.md Step 14)
+Pool = 65 detachable gate outputs feeding the region.  ONE maximal frame; subsets emulated by
+re-attaching.  **CALIBRATION: the witness set reproduces 39,026 exactly (deficit 4, rank 7,
+optimum 5).**  3,889 sets priced: ALL singletons, ALL pairs, 1,744 of 43,680 triples (4.0%,
+NOT complete - extensions of the 40 best pairs plus all 3-subsets of the witness set).
+
+**WITHDRAW THE CRITERION "rank > deficit".**  3,781 of 3,889 sets satisfy it (rank 8 vs deficit 4)
+and stage B shows every one zeroes exactly ONE row of 13, versus the witness's FIVE of 12 at rank 7.
+The rational rank of the knob image is not the binding quantity; **INTEGER REACHABILITY of the row
+targets is.**  No earlier conclusion changes (every table reported rank and exact optimum side by
+side), but the criterion I handed the fleet is over-generous and should not be used alone.
+
+Best over the whole detach axis: 39,023 ({642,28730,31864}), then 39,022, then 39,021.
+**39,026 survives.**
+
 ## Single next experiment
-Chase the off-manifold placement directly, since that - not selector count - is what buys the last
-14 equations.  The four detached variables are exactly the gate outputs the witness violates on
-purpose.  Enumerate small DETACH SETS (frameB.Frame takes any set), close from each, and price:
-`Frame(D)` for every 1-, 2- and 3-subset of the ~30 gate outputs feeding the residual region, then
-run the stage-A pricing.  If any detach set yields deficit < 4 or rank > 7, it beats the witness.
-This is the one axis of the construction I have never varied.
+Replace the withdrawn criterion with the right one and re-rank everything already priced: for each
+placement compute the SMITH NORMAL FORM of its knob matrix against the row-target vector, i.e. the
+number of rows integrally reachable, not the rational rank.  `stageB.optimum()` already computes
+that number exactly; it just needs running across the 3,889 detach sets, the 20 cascade pins and
+the 1,147 handles instead of only the top scorers.  That is ~5,000 stage-B runs at ~1 s.  Any
+placement reaching 6 integrally-zeroable rows beats the witness's 5.

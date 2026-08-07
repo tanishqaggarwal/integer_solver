@@ -299,3 +299,41 @@ deficit 9 / rank 5 / 39,012; the witness reaches deficit 4 / rank 7 / 39,026 bec
 variables sit off my closer's manifold.  **The floor is not a selector-count artifact.  What buys
 the last 14 equations is the off-manifold placement, and that is what the four detached variables
 encode.**
+
+## Step 14 — DETACH-SET SWEEP, and my own criterion is REFUTED
+Pool: 65 detachable gate outputs feeding the residual region (`pool.py`), containing the witness's
+{642, 28730, 29854, 31864}.  One maximal frame `Frame(POOL)` (8,812 free inputs); a subset D is
+emulated by re-attaching every pool variable NOT in D to its gate value (`detach.py`).
+
+**CALIBRATION PASSES**: D = {642, 28730, 29854, 31864} -> |R|=12 |S|=8 deficit=4 knobs=7 rank=7
+z0=5 optimum=5 failing=7 **score 39,026**, reproducing the witness exactly.  The rest of the table
+is therefore trustworthy.
+
+`dsweep.py`: **3,889 detach sets priced** — ALL 65 singletons, ALL 2,080 pairs, and **1,744 of the
+43,680 triples (4.0% coverage)**: extensions of the 40 best pairs by (deficit-rank) plus every
+3-subset of the witness set.  The triple layer is NOT complete and must not be read as complete.
+
+### The refutation
+3,781 of the 3,889 sets satisfy my criterion **rank > deficit** (typically rank 8 vs deficit 4).
+Stage B — the exact integer optimum, joint linearity verified, subsets fully enumerated (C(13,8)
+= 1,287, no cap hit) — shows every one of them zeroes **exactly 1 row of 13**:
+
+  detach set                 |R|  |S|  deficit  knobs  rank  z0  OPTIMUM  failing  score
+  {642,28730,29854,31864}     12    8      4      7     7    5     5         7    39026  <- witness
+  {642,28730,31864}           12    8      4      7     7    2     2        10    39023
+  {642,28730}                 12    8      4      7     7    1     1        11    39022
+  {17499}                     13    9      4      8     8    0     1        12    39021
+  {642,986}, {986}, {2099}... 13    9      4      8     8    0     1        12    39021  (3,700+ sets)
+
+**rank 8 > deficit 4 and it zeroes ONE row; rank 7 = deficit+3 and it zeroes FIVE.  The rational
+rank of the knob image is NOT the binding quantity.  What binds is INTEGER REACHABILITY of the row
+targets: the witness's lattice happens to contain integer solutions for 5 of its 12 rows, while the
+rank-8 lattices contain them for only 1 of 13.**  I gave "rank > deficit" to the fleet as the
+decisive criterion two steps ago; it is necessary-ish but far from sufficient, and my own sweep is
+what refuted it.  Every earlier table in this log reported rank AND the exact optimum side by side,
+so no earlier conclusion changes — but the criterion itself must be withdrawn.
+
+### Consequence for the carrier census
+The cascade-pin and handle tables ranked placements by rank vs deficit and found no candidate came
+within 10 of the criterion; that conclusion stands a fortiori, since the criterion is now known to
+be over-generous.  The detach axis is priced and 39,026 survives it.
