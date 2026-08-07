@@ -5,3 +5,41 @@ enumerating subsets of H12: [642, 1844, 9629, 18253, 23642, 23754, 28730, 29854,
 calibration on the witness subset: 39008 -> 39026  PASSED
   [2,000/4,096] 24s 83/s  best 39026  |S|=6
   [4,000/4,096] 64s 62/s  best 39026  |S|=9
+
+=== DISTRIBUTION over 4,096 subsets of H12 (68s, 60/s, complete=True) ===
+  39026: 30
+  39023: 1
+  39022: 40
+  39021: 16
+  39020: 79
+  39019: 514
+  39018: 49
+  39017: 87
+  39016: 279
+  39015: 99
+  39014: 275
+  39013: 135
+  39012: 120
+  39011: 201
+  39010: 68
+  39009: 104
+  39008: 1,999
+
+above 39026: 0
+equal 39026: 30
+BEST 39026 at S=(642, 28730, 29854, 31864)
+
+best score by support size |S|:
+  |S|= 0:       1 subsets, best 39008, count at best 1
+  |S|= 1:      12 subsets, best 39010, count at best 1
+  |S|= 2:      66 subsets, best 39022, count at best 1
+  |S|= 3:     220 subsets, best 39023, count at best 1
+  |S|= 4:     495 subsets, best 39026, count at best 1
+  |S|= 5:     792 subsets, best 39026, count at best 8
+  |S|= 6:     924 subsets, best 39026, count at best 21
+  |S|= 7:     792 subsets, best 39022, count at best 6
+  |S|= 8:     495 subsets, best 39022, count at best 1
+  |S|= 9:     220 subsets, best 39020, count at best 1
+  |S|=10:      66 subsets, best 39019, count at best 36
+  |S|=11:      12 subsets, best 39019, count at best 9
+  |S|=12:       1 subsets, best 39015, count at best 1

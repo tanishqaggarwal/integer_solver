@@ -1,0 +1,5 @@
+incident handle sets: |H12|=12 |H16|=16 |H18|=18
+enumerating subsets of H16: [642, 1844, 2892, 9629, 18253, 23642, 23754, 28355, 28730, 29305, 29854, 31864, 34113, 35619, 37413, 37720]
+  deliverable [642, 28730, 29854, 31864] inside this set: True
+  total subsets 2^16 = 65,536
+calibration on the witness subset: 39008 -> 39026  PASSED
