@@ -1,0 +1,8 @@
+stages with 6 free inputs analysed      : 72
+  admit a chord-with-offset law         : 72
+  and the offset is the UNIVERSAL K     : 72
+  offset different from K               : 0  []
+  no consistent law found               : 0  []
+stages skipped (fewer than 6 free ins)  : 24
+wrote stage_roles.json for 72 stages
+elapsed 322s

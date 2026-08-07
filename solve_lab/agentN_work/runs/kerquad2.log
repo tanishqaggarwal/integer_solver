@@ -1,0 +1,47 @@
+collateral rows: 117 purely linear, 22 genuinely quadratic
+ker_Z of the purely-linear collateral rows: dim 16  (0.2s)
+   after LLL: dim 16, max basis entry 280 bits
+   verified: all 117 purely-linear collateral rows vanish on K0
+
+=== the exact polynomial system on K0 (16 unknowns) ===
+collateral rows that stay nonzero on K0:
+   eq 3996   deg 1  const 0       lin 1   quad 0     maxbits 5
+   eq 7052   deg 1  const 0       lin 1   quad 0     maxbits 5
+   eq 8680   deg 2  const 0       lin 0   quad 1     maxbits 1
+   eq 10670  deg 1  const 0       lin 1   quad 0     maxbits 4
+   eq 12618  deg 1  const 0       lin 1   quad 0     maxbits 5
+   eq 18284  deg 1  const 0       lin 1   quad 0     maxbits 6
+   eq 19291  deg 1  const 0       lin 1   quad 0     maxbits 6
+   eq 24386  deg 1  const 0       lin 1   quad 0     maxbits 5
+   eq 28650  deg 1  const 0       lin 1   quad 0     maxbits 4
+   eq 30579  deg 1  const 0       lin 1   quad 0     maxbits 5
+   eq 30981  deg 1  const 0       lin 1   quad 0     maxbits 3
+   eq 34058  deg 1  const 0       lin 1   quad 0     maxbits 5
+   eq 34195  deg 1  const 0       lin 1   quad 0     maxbits 5
+   eq 35307  deg 1  const 0       lin 1   quad 0     maxbits 4
+   eq 37816  deg 1  const 0       lin 1   quad 0     maxbits 1
+   eq 38230  deg 1  const 0       lin 1   quad 0     maxbits 5
+   -> 16 of 22 quadratic collateral rows survive on K0
+region rows on K0:
+   eq 2554   deg 1  const 0       lin 4   quad 0     maxbits 260
+   eq 6816   deg 1  const 0       lin 9   quad 0     maxbits 262
+   eq 8124   deg 1  const 0       lin 6   quad 0     maxbits 261
+   eq 9123   deg 1  const 0       lin 6   quad 0     maxbits 262
+   eq 9421   deg 1  const 0       lin 9   quad 0     maxbits 262
+   eq 12231  deg 1  const 2433b   lin 7   quad 0     maxbits 261
+   eq 12270  deg 1  const 2433b   lin 9   quad 0     maxbits 260
+   eq 12350  deg 1  const 2435b   lin 9   quad 0     maxbits 262
+   eq 14584  deg 1  const 2433b   lin 9   quad 0     maxbits 262
+   eq 18673  deg 1  const 2430b   lin 3   quad 0     maxbits 259
+   eq 22044  deg 1  const 2427b   lin 5   quad 0     maxbits 260
+   eq 29125  deg 1  const 2419b   lin 2   quad 0     maxbits 256
+   -> 0 of 12 region rows are genuinely quadratic on K0
+
+=== SYSTEM SIZE (before any solve attempt) ===
+unknowns              : 16
+generators            : 28 (16 collateral + 12 region)
+max total degree      : 2
+Bezout bound          : 2^28 = 2.684e+08
+max coefficient bits  : 2435
+
+wrote runs/kerquad2.{json,pkl}

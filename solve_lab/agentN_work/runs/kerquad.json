@@ -1,0 +1,82 @@
+{
+ "kernel_dim": 15,
+ "secant_kernel_dim": 14,
+ "collateral_quadric_count": 1,
+ "collateral_quadric_terms": [
+  1
+ ],
+ "region": [
+  {
+   "eq": 2554,
+   "const_bits": 0,
+   "lin": 3,
+   "quad": 0
+  },
+  {
+   "eq": 6816,
+   "const_bits": 0,
+   "lin": 8,
+   "quad": 0
+  },
+  {
+   "eq": 8124,
+   "const_bits": 0,
+   "lin": 5,
+   "quad": 0
+  },
+  {
+   "eq": 9123,
+   "const_bits": 0,
+   "lin": 6,
+   "quad": 0
+  },
+  {
+   "eq": 9421,
+   "const_bits": 0,
+   "lin": 8,
+   "quad": 0
+  },
+  {
+   "eq": 12231,
+   "const_bits": 2433,
+   "lin": 6,
+   "quad": 0
+  },
+  {
+   "eq": 12270,
+   "const_bits": 2433,
+   "lin": 8,
+   "quad": 0
+  },
+  {
+   "eq": 12350,
+   "const_bits": 2435,
+   "lin": 8,
+   "quad": 0
+  },
+  {
+   "eq": 14584,
+   "const_bits": 2433,
+   "lin": 8,
+   "quad": 0
+  },
+  {
+   "eq": 18673,
+   "const_bits": 2430,
+   "lin": 3,
+   "quad": 0
+  },
+  {
+   "eq": 22044,
+   "const_bits": 2427,
+   "lin": 4,
+   "quad": 0
+  },
+  {
+   "eq": 29125,
+   "const_bits": 2419,
+   "lin": 2,
+   "quad": 0
+  }
+ ]
+}

@@ -1,0 +1,455 @@
+unknowns 16 ; collateral generators 16 ; region generators 12
+
+### 1. collateral ideal I_C
+dim=
+14
+degree=
+  
+// dimension (proj.)  = 13
+// degree (proj.)   = 2
+vdim=
+-1
+ngens_gb=
+2
+radical_gens=
+2
+radical_dim=
+14
+components=
+1
+  comp
+1
+  dim
+14
+(0.1s)
+
+### 2. I_C + all 12 region rows
+dim=
+7
+degree=
+  
+// dimension (proj.)  = 6
+// degree (proj.)   = 1
+vdim=
+-1
+ngens_gb=
+9
+(0.0s)
+
+### 3. I_C + each 6-subset of the 12 region rows (924 subsets)
+VABLE_OVER_Q subset
+787
+8
+SOLVABLE_OVER_Q subset
+788
+8
+SOLVABLE_OVER_Q subset
+789
+8
+SOLVABLE_OVER_Q subset
+790
+8
+SOLVABLE_OVER_Q subset
+791
+8
+SOLVABLE_OVER_Q subset
+792
+8
+SOLVABLE_OVER_Q subset
+793
+8
+SOLVABLE_OVER_Q subset
+794
+8
+SOLVABLE_OVER_Q subset
+795
+8
+SOLVABLE_OVER_Q subset
+796
+8
+SOLVABLE_OVER_Q subset
+797
+8
+SOLVABLE_OVER_Q subset
+798
+8
+SOLVABLE_OVER_Q subset
+799
+8
+SOLVABLE_OVER_Q subset
+800
+8
+SOLVABLE_OVER_Q subset
+801
+8
+SOLVABLE_OVER_Q subset
+802
+8
+SOLVABLE_OVER_Q subset
+803
+8
+SOLVABLE_OVER_Q subset
+804
+8
+SOLVABLE_OVER_Q subset
+805
+8
+SOLVABLE_OVER_Q subset
+806
+8
+SOLVABLE_OVER_Q subset
+807
+8
+SOLVABLE_OVER_Q subset
+808
+8
+SOLVABLE_OVER_Q subset
+809
+8
+SOLVABLE_OVER_Q subset
+810
+8
+SOLVABLE_OVER_Q subset
+811
+8
+SOLVABLE_OVER_Q subset
+812
+8
+SOLVABLE_OVER_Q subset
+813
+8
+SOLVABLE_OVER_Q subset
+814
+8
+SOLVABLE_OVER_Q subset
+815
+8
+SOLVABLE_OVER_Q subset
+816
+8
+SOLVABLE_OVER_Q subset
+817
+8
+SOLVABLE_OVER_Q subset
+818
+8
+SOLVABLE_OVER_Q subset
+819
+8
+SOLVABLE_OVER_Q subset
+820
+8
+SOLVABLE_OVER_Q subset
+821
+8
+SOLVABLE_OVER_Q subset
+822
+8
+SOLVABLE_OVER_Q subset
+823
+8
+SOLVABLE_OVER_Q subset
+824
+8
+SOLVABLE_OVER_Q subset
+825
+8
+SOLVABLE_OVER_Q subset
+826
+8
+SOLVABLE_OVER_Q subset
+827
+8
+SOLVABLE_OVER_Q subset
+828
+8
+SOLVABLE_OVER_Q subset
+829
+8
+SOLVABLE_OVER_Q subset
+830
+8
+SOLVABLE_OVER_Q subset
+831
+8
+SOLVABLE_OVER_Q subset
+832
+8
+SOLVABLE_OVER_Q subset
+833
+8
+SOLVABLE_OVER_Q subset
+834
+8
+SOLVABLE_OVER_Q subset
+835
+8
+SOLVABLE_OVER_Q subset
+836
+8
+SOLVABLE_OVER_Q subset
+837
+8
+SOLVABLE_OVER_Q subset
+838
+8
+SOLVABLE_OVER_Q subset
+839
+8
+SOLVABLE_OVER_Q subset
+840
+8
+SOLVABLE_OVER_Q subset
+841
+8
+SOLVABLE_OVER_Q subset
+842
+8
+SOLVABLE_OVER_Q subset
+843
+8
+SOLVABLE_OVER_Q subset
+844
+8
+SOLVABLE_OVER_Q subset
+845
+8
+SOLVABLE_OVER_Q subset
+846
+8
+SOLVABLE_OVER_Q subset
+847
+8
+SOLVABLE_OVER_Q subset
+848
+8
+SOLVABLE_OVER_Q subset
+849
+8
+SOLVABLE_OVER_Q subset
+850
+8
+SOLVABLE_OVER_Q subset
+851
+8
+SOLVABLE_OVER_Q subset
+852
+8
+SOLVABLE_OVER_Q subset
+853
+8
+SOLVABLE_OVER_Q subset
+854
+8
+SOLVABLE_OVER_Q subset
+855
+8
+SOLVABLE_OVER_Q subset
+856
+8
+SOLVABLE_OVER_Q subset
+857
+8
+SOLVABLE_OVER_Q subset
+858
+8
+SOLVABLE_OVER_Q subset
+859
+8
+SOLVABLE_OVER_Q subset
+860
+8
+SOLVABLE_OVER_Q subset
+861
+8
+SOLVABLE_OVER_Q subset
+862
+8
+SOLVABLE_OVER_Q subset
+863
+8
+SOLVABLE_OVER_Q subset
+864
+8
+SOLVABLE_OVER_Q subset
+865
+8
+SOLVABLE_OVER_Q subset
+866
+8
+SOLVABLE_OVER_Q subset
+867
+8
+SOLVABLE_OVER_Q subset
+868
+8
+SOLVABLE_OVER_Q subset
+869
+8
+SOLVABLE_OVER_Q subset
+870
+8
+SOLVABLE_OVER_Q subset
+871
+8
+SOLVABLE_OVER_Q subset
+872
+8
+SOLVABLE_OVER_Q subset
+873
+8
+SOLVABLE_OVER_Q subset
+874
+8
+SOLVABLE_OVER_Q subset
+875
+8
+SOLVABLE_OVER_Q subset
+876
+8
+SOLVABLE_OVER_Q subset
+877
+8
+SOLVABLE_OVER_Q subset
+878
+8
+SOLVABLE_OVER_Q subset
+879
+8
+SOLVABLE_OVER_Q subset
+880
+8
+SOLVABLE_OVER_Q subset
+881
+8
+SOLVABLE_OVER_Q subset
+882
+8
+SOLVABLE_OVER_Q subset
+883
+8
+SOLVABLE_OVER_Q subset
+884
+8
+SOLVABLE_OVER_Q subset
+885
+8
+SOLVABLE_OVER_Q subset
+886
+8
+SOLVABLE_OVER_Q subset
+887
+8
+SOLVABLE_OVER_Q subset
+888
+8
+SOLVABLE_OVER_Q subset
+889
+8
+SOLVABLE_OVER_Q subset
+890
+8
+SOLVABLE_OVER_Q subset
+891
+8
+SOLVABLE_OVER_Q subset
+892
+8
+SOLVABLE_OVER_Q subset
+893
+8
+SOLVABLE_OVER_Q subset
+894
+8
+SOLVABLE_OVER_Q subset
+895
+8
+SOLVABLE_OVER_Q subset
+896
+8
+SOLVABLE_OVER_Q subset
+897
+8
+SOLVABLE_OVER_Q subset
+898
+8
+SOLVABLE_OVER_Q subset
+899
+8
+SOLVABLE_OVER_Q subset
+900
+8
+SOLVABLE_OVER_Q subset
+901
+8
+SOLVABLE_OVER_Q subset
+902
+8
+SOLVABLE_OVER_Q subset
+903
+8
+SOLVABLE_OVER_Q subset
+904
+8
+SOLVABLE_OVER_Q subset
+905
+8
+SOLVABLE_OVER_Q subset
+906
+8
+SOLVABLE_OVER_Q subset
+907
+8
+SOLVABLE_OVER_Q subset
+908
+8
+SOLVABLE_OVER_Q subset
+909
+8
+SOLVABLE_OVER_Q subset
+910
+8
+SOLVABLE_OVER_Q subset
+911
+8
+SOLVABLE_OVER_Q subset
+912
+8
+SOLVABLE_OVER_Q subset
+913
+8
+SOLVABLE_OVER_Q subset
+914
+8
+SOLVABLE_OVER_Q subset
+915
+8
+SOLVABLE_OVER_Q subset
+916
+8
+SOLVABLE_OVER_Q subset
+917
+8
+SOLVABLE_OVER_Q subset
+918
+8
+SOLVABLE_OVER_Q subset
+919
+8
+SOLVABLE_OVER_Q subset
+920
+8
+SOLVABLE_OVER_Q subset
+921
+8
+SOLVABLE_OVER_Q subset
+922
+8
+SOLVABLE_OVER_Q subset
+923
+8
+empty_variety=
+0
+nonempty=
+924
+(0.1s)

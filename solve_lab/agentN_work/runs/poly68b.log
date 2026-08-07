@@ -1,0 +1,52 @@
+=== AMBIENT EXACT SYSTEM ===
+unknowns (all free inputs syntactically supporting the region): 68
+nonzero rows: 12 region + 231 collateral
+degree distribution: {1: 126, 2: 116, 4: 1}   (max 4)
+max terms in a row: 665 ; max coefficient bits: 6083
+
+=== saturation loop ===
+iter 1: lattice rank 68 ; collateral rows now linear 126, nonlinear 105, zero 0
+iter 2: lattice rank 37 ; collateral rows now linear 63, nonlinear 1, zero 41
+iter 3: lattice rank 15 ; collateral rows now linear 0, nonlinear 1, zero 0
+
+lattice rank after all honestly-linear collateral constraints: 15
+collateral rows still nonlinear there: 1 -> [8680]
+   eq 8680   degree 2, 1 terms, max coef bits 1
+
+region rows on the lattice:
+   eq 2554   degree 1   terms 3    const 0
+   eq 6816   degree 1   terms 8    const 0
+   eq 8124   degree 1   terms 5    const 0
+   eq 9123   degree 1   terms 6    const 0
+   eq 9421   degree 1   terms 8    const 0
+   eq 12231  degree 1   terms 7    const nonzero
+   eq 12270  degree 1   terms 9    const nonzero
+   eq 12350  degree 1   terms 9    const nonzero
+   eq 14584  degree 1   terms 9    const nonzero
+   eq 18673  degree 1   terms 4    const nonzero
+   eq 22044  degree 1   terms 5    const nonzero
+   eq 29125  degree 1   terms 3    const nonzero
+   region rows genuinely nonlinear on the lattice: 0 of 12
+
+=== Singular: dimension and degree of the collateral residue ===
+dim=
+14
+vdim=
+-1
+gbsize=
+1
+radical_dim=
+14
+radical_gbsize=
+1
+radical_gens_are_linear=
+1
+components=
+1
+  dim
+14
+  maxdeg
+1
+(0.1s)
+
+wrote runs/poly68b.{json,pkl}

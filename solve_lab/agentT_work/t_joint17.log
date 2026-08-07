@@ -1,0 +1,29 @@
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+|S|=17 two-wire end state: global nonzero 3
+wire pair (x10261, x27156)   [the ONLY pair the residue admits -- 2 wires]
+   ((x10261-x8912)-(13040669*x27539))                   c=13040669   = 19^1*199^1*3449^1  current residual NONZERO
+   ((x30973*x25513)-(1707229*x4242))                    c=1707229    = 43^1*39703^1  current residual zero
+   ((x38170*x15286)-(2264251*x9216))                    c=2264251    = 11^1*43^1*4787^1  current residual zero
+   fit ((x10261-x8912)-(13040669*x27539))       validated-vs-recomputation OK  cross-term False
+   fit ((x30973*x25513)-(1707229*x4242))        validated-vs-recomputation OK  cross-term False
+   fit ((x38170*x15286)-(2264251*x9216))        validated-vs-recomputation OK  cross-term False
+
+prime powers to satisfy: [(11, 1), (19, 1), (43, 1), (199, 1), (3449, 1), (4787, 1), (39703, 1)]
+  mod 11       : 33 joint (t_w,t_v) pairs  [exhaustive over t_w]
+  mod 19       : 19 joint (t_w,t_v) pairs  [exhaustive over t_w]
+  mod 43       : 3 joint (t_w,t_v) pairs  [exhaustive over t_w]
+  mod 199      : 199 joint (t_w,t_v) pairs  [exhaustive over t_w]
+  mod 3449     : 3449 joint (t_w,t_v) pairs  [exhaustive over t_w]
+  mod 4787     : 14361 joint (t_w,t_v) pairs  [exhaustive over t_w]
+  mod 39703    : 39703 joint (t_w,t_v) pairs  [exhaustive over t_w]
+
+joint solution count mod lcm = 736110601107732873
+
+*** x10261 += p*416448257030047642 , x27156 += p*1115629975020456230  -> global 3 -> 2
+
+tried 1 CRT combinations, 1 verified by direct recomputation on all three atoms
+|S|=17 now has 2 nonzero atoms:
+    ((x18956-x37892)-x32237)
+    ((x24468-x13682)-(12354891*x34243))
+dumped close_T17j.json -- run checker.py on it

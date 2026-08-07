@@ -1,0 +1,2 @@
+q=2^255-19 (255-bit prime != p) solved=True nonzero atoms=0 eq failing mod q=0 t=4.4
+q=2^127-1 solved=True nonzero atoms=0 eq failing mod q=0 t=4.2

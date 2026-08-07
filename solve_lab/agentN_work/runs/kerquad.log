@@ -1,0 +1,28 @@
+knobs 49, region rows 12, collateral rows 139
+saturated integer kernel of the TRUE linear collateral part: dim 15  (0.2s)
+   L_out . K == 0 check: 0 violations
+kernel of widen.py's STEP-1 SECANT matrix: dim 14  (widen.py reported 14)
+narrow knobs present among the 49: 7 of 7
+   all narrow knobs verified to lie in ker(L_out) exactly
+
+=== the 139 collateral rows restricted to ker(L_out) ===
+rows that vanish identically on the kernel: 138
+rows that survive as NONZERO QUADRATIC FORMS in 15 variables: 1
+   their monomial counts: [1]
+   max coefficient bits: 1
+
+=== the 12 region rows restricted to ker(L_out) ===
+   eq 2554   const 0      linterms 3   quadterms 0   
+   eq 6816   const 0      linterms 8   quadterms 0   
+   eq 8124   const 0      linterms 5   quadterms 0   
+   eq 9123   const 0      linterms 6   quadterms 0   
+   eq 9421   const 0      linterms 8   quadterms 0   
+   eq 12231  const 2433b  linterms 6   quadterms 0   
+   eq 12270  const 2433b  linterms 8   quadterms 0   
+   eq 12350  const 2435b  linterms 8   quadterms 0   
+   eq 14584  const 2433b  linterms 8   quadterms 0   
+   eq 18673  const 2430b  linterms 3   quadterms 0   
+   eq 22044  const 2427b  linterms 4   quadterms 0   
+   eq 29125  const 2419b  linterms 2   quadterms 0   
+
+wrote runs/kerquad.{json,pkl}

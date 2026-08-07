@@ -1,0 +1,19 @@
+=== buildall
+nodes 383 ; with clean mux 383 ; without []
+leaves 384 live 256 dead 128 ; all dead literal-0: True
+pins: 256 leaves, bad 0 [] (3s)
+=== calib2
+alignment bad (pre-repair): 4
+alignment bad (post-repair): 0
+calibrated 383 nodes; orient hist [(1, 188), ('DEAD', 128), (0, 67)]; failures 0 [] (3s)
+=== slopes
+slopes for 3681 atoms, 14s
+slope/p hist [(1, 2747), (0, 7), (9027329, 1), (13921279, 1), (8422691, 1), (2818759, 1)]
+slopes not divisible by p: 0
+=== DONE
+-rw-r--r-- 1 root root  13441 Aug  7 13:50 /home/user/integer_solver/solve_lab/agentT_work/mirror/L/calib2.pkl
+-rw-r--r-- 1 root root 127495 Aug  7 13:50 /home/user/integer_solver/solve_lab/agentT_work/mirror/L/full_model.pkl
+-rw-r--r-- 1 root root 629453 Aug  7 13:50 /home/user/integer_solver/solve_lab/agentT_work/mirror/L/handles.pkl
+-rw-r--r-- 1 root root   4215 Aug  7 13:48 /home/user/integer_solver/solve_lab/agentT_work/mirror/L/ors.pkl
+-rw-r--r-- 1 root root  19083 Aug  7 13:50 /home/user/integer_solver/solve_lab/agentT_work/mirror/L/ortree2.pkl
+-rw-r--r-- 1 root root 293257 Aug  7 13:50 /home/user/integer_solver/solve_lab/agentT_work/mirror/L/slopes.pkl

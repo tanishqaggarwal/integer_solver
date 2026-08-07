@@ -1,0 +1,2805 @@
+ring r = 0,(s(0),s(1),s(2),s(3),s(4),s(5),s(6),s(7),s(8),s(9),s(10),s(11),s(12),s(13),s(14),s(15)),dp;
+int nz=0; int ns=0;
+ideal C = (27)*s(2),
+  (22)*s(2),
+  (1)*s(1)*s(1),
+  (12)*s(2),
+  (-23)*s(2),
+  (39)*s(2),
+  (-34)*s(2),
+  (-30)*s(2),
+  (12)*s(2),
+  (19)*s(2),
+  (4)*s(2),
+  (22)*s(2),
+  (-16)*s(2),
+  (9)*s(2),
+  (1)*s(2),
+  (22)*s(2);
+poly p0 = (29)*s(1)+(-1)*s(2)+(-1505297160085110540506422805112942802092509800653327332512948592102814850731619)*s(6)+(-7376877)*s(8);
+poly p1 = (-4400099391018015426095697430330140498424259417294341433499388192300535717523194)*s(0)+(1)*s(1)+(15)*s(2)+(29)*s(3)+(-4168515212543383035248555460312764682717719447963060305420473024284718048179868)*s(4)+(49)*s(5)+(1273712981610478149659280835095566986385969831322046204434033424086997181388293)*s(6)+(-3357970587882169667283558565251949327744829555303576357144269936229356205478227)*s(7)+(110653184)*s(8);
+poly p2 = (64)*s(1)+(-36)*s(2)+(1)*s(5)+(-3010594320170221081012845610225885604185019601306654665025897184205629701463238)*s(6)+(694752535423897172541425910052127447119619907993843384236745504047453008029978)*s(7)+(-265567578)*s(8);
+poly p3 = (-2315841784746323908471419700173758157065399693312811280789151680158176693433260)*s(0)+(-7)*s(3)+(-3821138944831434448977842505286700959157909493966138613302100272260991544164879)*s(4)+(36)*s(5)+(115792089237316195423570985008687907853269984665640564039457584007908834671663)*s(7)+(-1)*s(8);
+poly p4 = (2431633873983640103894990685182446064918669677978451844828609264166085528104923)*s(0)+(-22)*s(1)+(-13)*s(2)+(-50)*s(3)+(-4400099391018015426095697430330140498424259417294341433499388192300535717523194)*s(4)+(67)*s(5)+(2431633873983640103894990685182446064918669677978451844828609264166085528104923)*s(6)+(-463168356949264781694283940034751631413079938662562256157830336031635338686652)*s(7)+(-95899397)*s(8);
+poly p5 = (-1304522592673929145265338950053122786541162803552107169322564325040817496683651484048540660232621332532042182110446796944510649290447630790647382744793685228647217632548280311346274977449369490915075869115854428628112761396821944978880128538455563056509400956988116773059663794984601204433016286982256792041382778110296792453543898330296039393623413588116882201482314003002336755424593933065184570850650446366372578390918597351713951125180739906604182618210330233030673877213586391096403199351299007384754753624030296441357438945874609437930976973704628426402357539522952437533700890742373470057349809307908756954174674781442767216270535254840925160098856890149722815931858312383681554553446966229706664377350652140055996170092084087)+(16)*s(1)+(-18)*s(2)+(-115792089237316195423570985008687907853269984665640564039457584007908834671663)*s(4)+(-22)*s(5)+(-2779010141695588690165703640208509788478479631975373536946982016189812032119912)*s(6)+(-1505297160085110540506422805112942802092509800653327332512948592102814850731619)*s(7)+(-132783773)*s(8);
+poly p6 = (-2069824631789198250774308616708693534268243098151989801712406704729466168094531252454118967412540153918788260203516707666125184957480097924218933177943791446935647272479586723122538149286539237614812400589702727116413413355666258087105798176160439320647604893294492250308291692857415963515039006092221116445732638431280686493315111255439817210368694989873309876273234582445080025534192030160216740445654746252842612834865605794809514488639160061365138706099548527488606480254466796669308690441910922756252441283969906443432518900728871169546070046990713990796072009841424037469769817278651818626139330213028089654192399462715747434733688685724783720790642082466252419627437595441559048267959135295547101775308775428207479931553927678)+(-115792089237316195423570985008687907853269984665640564039457584007908834671663)*s(0)+(-1)*s(1)+(31)*s(2)+(28)*s(3)+(115792089237316195423570985008687907853269984665640564039457584007908834671663)*s(4)+(-18)*s(5)+(-578960446186580977117854925043439539266349923328202820197287920039544173358315)*s(6)+(-1157920892373161954235709850086879078532699846656405640394575840079088346716630)*s(7)+(228683197)*s(8);
+poly p7 = (5179593205083178596506118370827430232518410969323194055470664421297099040597552066822947468555161344503439871609428811282455238100242012988460402103115922773994259573563548594062909428456606031729084973818335476791787090001027087309942189203732671022506893246454417554597610568268406733025724835135448517034945779110403485481234031192346494290613233514952519869605722121359617091767157511242671300567774035371231115881193115462389335191987085605622203364284307263325147437917865132599073241512880470424308981813488117434822603716319257470095819264712412060956706886712934096394839828919055681885261514392392627696998891250253879621389881757541454077457328185219819484197808976428776858990538924767969754860652561586139880141454144969)+(1852673427797059126777135760139006525652319754650249024631321344126541354746608)*s(0)+(-3)*s(1)+(23)*s(2)+(-50)*s(3)+(3936931034068750644401413490295388867011179478631779177341557856268900378836542)*s(4)+(1)*s(5)+(-3010594320170221081012845610225885604185019601306654665025897184205629701463238)*s(6)+(-1273712981610478149659280835095566986385969831322046204434033424086997181388293)*s(7)+(169668182)*s(8);
+poly p8 = (1955410921677267314214534916045915170336061991401949923481860820880373997805841331539696124045271892135824879561809216471016607834324731691191168562371318283310569200756929936834303060065578294233375776294997757293887259029730252135389470079191459247537109657094577763321856764169103871385704592678429264057593151186606301825034108098528359951849301849244500558714167417730888573941334421971608725680918209821556266318171233188990536151748063362555479170121250535426283954508014619292466937022674981933131634000721577126052380081150820575069314294385167858674596788139323704611168161370794876518774642866616789074506982454258629725288480819769610223376370566608206905502860828266766100305499421778200833144784302857551502329897145983)+(231584178474632390847141970017375815706539969331281128078915168015817669343326)*s(0)+(49)*s(1)+(-17)*s(2)+(16)*s(3)+(3589554766356802058130700535269325143451369524634857485223185104245173874821553)*s(4)+(-12)*s(5)+(-1852673427797059126777135760139006525652319754650249024631321344126541354746608)*s(6)+(4515891480255331621519268415338828406277529401959981997538845776308444552194857)*s(7)+(-125406948)*s(8);
+poly p9 = (-266772539023699252550624670849084025980699319746732085788974612145639931233948584613683961343656077101436614052513406691828619354265355837035474540645298845077292051540559902204584311826502517788541423024565925899140187596989096665044859646654535975941938442024973758251058036057054091309997529702356777495573399477912357004643079169106941840549625422571268661883058763910492121358708037789175859886441303446457636979221358419724017074200088734227380778757614050831033093268357272579994802769314216870818068937095744334247544261741473456275242682269089773309940341876942738949454538393176440275056707612082991223719212154379456061877280974413705890107509573272099140967844651927238880777570312482744691994509949685255805852797383383)+(-1)*s(3)+(-694752535423897172541425910052127447119619907993843384236745504047453008029978)*s(4)+(7)*s(5);
+poly p10 = (36076525024839669191904102722151887688969017613473908461240131403876247092577119967844694827603006699882856662193300186493246288618640594616306130121716934264163012192486489084932985823162582604285846962845140165487921026443016070731217971935423759315806292600815210766316266121742250808796086427227431185936842005985295800753250272481348415310609978873658545744239337928484710162335925713210866174764648822498713611807243297884029657891651679876176166095342670366338146009140298080852445771958500748710653135223440238408497724056031132927950833470952747961471843859221135946011430944911225190615046539463711562826325512165925957594163981440212234003996849046826732977729348609992672091713843656960716611542611405249904896576968597)+(19)*s(1)+(24)*s(2)+(1157920892373161954235709850086879078532699846656405640394575840079088346716630)*s(6)+(-115792089237316195423570985008687907853269984665640564039457584007908834671663)*s(7)+(177045049)*s(8);
+poly p11 = (119325148954113784451537008069415706646177268202691461256376162961336731660522252365870668390283767870818604050688636800656316549319973124123879057431884600110073170467656987812173999616228844070261162831062489396795779081628986324582797136757176751599233558013477380360347541319526904907131033186302799671461722910258608488886999529725590327922097530072348693035670884848468057028866818321168319237128916124856191211905491121491397235417020302981968977649352200370402120370192702562684786352629245395728265656791245292564075047462519639689536672703284448992493447690192990502575117189631538827263090678712535135350311121863107357118612699161613943807465997683710017916433913635060098398079752805700763389017235247494345308243926)+(-30)*s(1)+(-115792089237316195423570985008687907853269984665640564039457584007908834671663)*s(6);
+list SS;
+ideal J0 = C,p0,p1,p2,p3,p4,p5;
+ideal G0 = std(J0); if (dim(G0)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 0; dim(G0); }
+kill J0; kill G0;
+ideal J1 = C,p0,p1,p2,p3,p4,p6;
+ideal G1 = std(J1); if (dim(G1)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 1; dim(G1); }
+kill J1; kill G1;
+ideal J2 = C,p0,p1,p2,p3,p4,p7;
+ideal G2 = std(J2); if (dim(G2)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 2; dim(G2); }
+kill J2; kill G2;
+ideal J3 = C,p0,p1,p2,p3,p4,p8;
+ideal G3 = std(J3); if (dim(G3)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 3; dim(G3); }
+kill J3; kill G3;
+ideal J4 = C,p0,p1,p2,p3,p4,p9;
+ideal G4 = std(J4); if (dim(G4)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 4; dim(G4); }
+kill J4; kill G4;
+ideal J5 = C,p0,p1,p2,p3,p4,p10;
+ideal G5 = std(J5); if (dim(G5)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 5; dim(G5); }
+kill J5; kill G5;
+ideal J6 = C,p0,p1,p2,p3,p4,p11;
+ideal G6 = std(J6); if (dim(G6)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 6; dim(G6); }
+kill J6; kill G6;
+ideal J7 = C,p0,p1,p2,p3,p5,p6;
+ideal G7 = std(J7); if (dim(G7)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 7; dim(G7); }
+kill J7; kill G7;
+ideal J8 = C,p0,p1,p2,p3,p5,p7;
+ideal G8 = std(J8); if (dim(G8)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 8; dim(G8); }
+kill J8; kill G8;
+ideal J9 = C,p0,p1,p2,p3,p5,p8;
+ideal G9 = std(J9); if (dim(G9)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 9; dim(G9); }
+kill J9; kill G9;
+ideal J10 = C,p0,p1,p2,p3,p5,p9;
+ideal G10 = std(J10); if (dim(G10)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 10; dim(G10); }
+kill J10; kill G10;
+ideal J11 = C,p0,p1,p2,p3,p5,p10;
+ideal G11 = std(J11); if (dim(G11)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 11; dim(G11); }
+kill J11; kill G11;
+ideal J12 = C,p0,p1,p2,p3,p5,p11;
+ideal G12 = std(J12); if (dim(G12)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 12; dim(G12); }
+kill J12; kill G12;
+ideal J13 = C,p0,p1,p2,p3,p6,p7;
+ideal G13 = std(J13); if (dim(G13)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 13; dim(G13); }
+kill J13; kill G13;
+ideal J14 = C,p0,p1,p2,p3,p6,p8;
+ideal G14 = std(J14); if (dim(G14)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 14; dim(G14); }
+kill J14; kill G14;
+ideal J15 = C,p0,p1,p2,p3,p6,p9;
+ideal G15 = std(J15); if (dim(G15)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 15; dim(G15); }
+kill J15; kill G15;
+ideal J16 = C,p0,p1,p2,p3,p6,p10;
+ideal G16 = std(J16); if (dim(G16)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 16; dim(G16); }
+kill J16; kill G16;
+ideal J17 = C,p0,p1,p2,p3,p6,p11;
+ideal G17 = std(J17); if (dim(G17)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 17; dim(G17); }
+kill J17; kill G17;
+ideal J18 = C,p0,p1,p2,p3,p7,p8;
+ideal G18 = std(J18); if (dim(G18)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 18; dim(G18); }
+kill J18; kill G18;
+ideal J19 = C,p0,p1,p2,p3,p7,p9;
+ideal G19 = std(J19); if (dim(G19)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 19; dim(G19); }
+kill J19; kill G19;
+ideal J20 = C,p0,p1,p2,p3,p7,p10;
+ideal G20 = std(J20); if (dim(G20)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 20; dim(G20); }
+kill J20; kill G20;
+ideal J21 = C,p0,p1,p2,p3,p7,p11;
+ideal G21 = std(J21); if (dim(G21)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 21; dim(G21); }
+kill J21; kill G21;
+ideal J22 = C,p0,p1,p2,p3,p8,p9;
+ideal G22 = std(J22); if (dim(G22)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 22; dim(G22); }
+kill J22; kill G22;
+ideal J23 = C,p0,p1,p2,p3,p8,p10;
+ideal G23 = std(J23); if (dim(G23)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 23; dim(G23); }
+kill J23; kill G23;
+ideal J24 = C,p0,p1,p2,p3,p8,p11;
+ideal G24 = std(J24); if (dim(G24)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 24; dim(G24); }
+kill J24; kill G24;
+ideal J25 = C,p0,p1,p2,p3,p9,p10;
+ideal G25 = std(J25); if (dim(G25)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 25; dim(G25); }
+kill J25; kill G25;
+ideal J26 = C,p0,p1,p2,p3,p9,p11;
+ideal G26 = std(J26); if (dim(G26)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 26; dim(G26); }
+kill J26; kill G26;
+ideal J27 = C,p0,p1,p2,p3,p10,p11;
+ideal G27 = std(J27); if (dim(G27)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 27; dim(G27); }
+kill J27; kill G27;
+ideal J28 = C,p0,p1,p2,p4,p5,p6;
+ideal G28 = std(J28); if (dim(G28)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 28; dim(G28); }
+kill J28; kill G28;
+ideal J29 = C,p0,p1,p2,p4,p5,p7;
+ideal G29 = std(J29); if (dim(G29)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 29; dim(G29); }
+kill J29; kill G29;
+ideal J30 = C,p0,p1,p2,p4,p5,p8;
+ideal G30 = std(J30); if (dim(G30)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 30; dim(G30); }
+kill J30; kill G30;
+ideal J31 = C,p0,p1,p2,p4,p5,p9;
+ideal G31 = std(J31); if (dim(G31)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 31; dim(G31); }
+kill J31; kill G31;
+ideal J32 = C,p0,p1,p2,p4,p5,p10;
+ideal G32 = std(J32); if (dim(G32)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 32; dim(G32); }
+kill J32; kill G32;
+ideal J33 = C,p0,p1,p2,p4,p5,p11;
+ideal G33 = std(J33); if (dim(G33)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 33; dim(G33); }
+kill J33; kill G33;
+ideal J34 = C,p0,p1,p2,p4,p6,p7;
+ideal G34 = std(J34); if (dim(G34)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 34; dim(G34); }
+kill J34; kill G34;
+ideal J35 = C,p0,p1,p2,p4,p6,p8;
+ideal G35 = std(J35); if (dim(G35)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 35; dim(G35); }
+kill J35; kill G35;
+ideal J36 = C,p0,p1,p2,p4,p6,p9;
+ideal G36 = std(J36); if (dim(G36)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 36; dim(G36); }
+kill J36; kill G36;
+ideal J37 = C,p0,p1,p2,p4,p6,p10;
+ideal G37 = std(J37); if (dim(G37)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 37; dim(G37); }
+kill J37; kill G37;
+ideal J38 = C,p0,p1,p2,p4,p6,p11;
+ideal G38 = std(J38); if (dim(G38)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 38; dim(G38); }
+kill J38; kill G38;
+ideal J39 = C,p0,p1,p2,p4,p7,p8;
+ideal G39 = std(J39); if (dim(G39)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 39; dim(G39); }
+kill J39; kill G39;
+ideal J40 = C,p0,p1,p2,p4,p7,p9;
+ideal G40 = std(J40); if (dim(G40)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 40; dim(G40); }
+kill J40; kill G40;
+ideal J41 = C,p0,p1,p2,p4,p7,p10;
+ideal G41 = std(J41); if (dim(G41)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 41; dim(G41); }
+kill J41; kill G41;
+ideal J42 = C,p0,p1,p2,p4,p7,p11;
+ideal G42 = std(J42); if (dim(G42)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 42; dim(G42); }
+kill J42; kill G42;
+ideal J43 = C,p0,p1,p2,p4,p8,p9;
+ideal G43 = std(J43); if (dim(G43)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 43; dim(G43); }
+kill J43; kill G43;
+ideal J44 = C,p0,p1,p2,p4,p8,p10;
+ideal G44 = std(J44); if (dim(G44)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 44; dim(G44); }
+kill J44; kill G44;
+ideal J45 = C,p0,p1,p2,p4,p8,p11;
+ideal G45 = std(J45); if (dim(G45)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 45; dim(G45); }
+kill J45; kill G45;
+ideal J46 = C,p0,p1,p2,p4,p9,p10;
+ideal G46 = std(J46); if (dim(G46)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 46; dim(G46); }
+kill J46; kill G46;
+ideal J47 = C,p0,p1,p2,p4,p9,p11;
+ideal G47 = std(J47); if (dim(G47)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 47; dim(G47); }
+kill J47; kill G47;
+ideal J48 = C,p0,p1,p2,p4,p10,p11;
+ideal G48 = std(J48); if (dim(G48)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 48; dim(G48); }
+kill J48; kill G48;
+ideal J49 = C,p0,p1,p2,p5,p6,p7;
+ideal G49 = std(J49); if (dim(G49)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 49; dim(G49); }
+kill J49; kill G49;
+ideal J50 = C,p0,p1,p2,p5,p6,p8;
+ideal G50 = std(J50); if (dim(G50)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 50; dim(G50); }
+kill J50; kill G50;
+ideal J51 = C,p0,p1,p2,p5,p6,p9;
+ideal G51 = std(J51); if (dim(G51)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 51; dim(G51); }
+kill J51; kill G51;
+ideal J52 = C,p0,p1,p2,p5,p6,p10;
+ideal G52 = std(J52); if (dim(G52)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 52; dim(G52); }
+kill J52; kill G52;
+ideal J53 = C,p0,p1,p2,p5,p6,p11;
+ideal G53 = std(J53); if (dim(G53)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 53; dim(G53); }
+kill J53; kill G53;
+ideal J54 = C,p0,p1,p2,p5,p7,p8;
+ideal G54 = std(J54); if (dim(G54)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 54; dim(G54); }
+kill J54; kill G54;
+ideal J55 = C,p0,p1,p2,p5,p7,p9;
+ideal G55 = std(J55); if (dim(G55)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 55; dim(G55); }
+kill J55; kill G55;
+ideal J56 = C,p0,p1,p2,p5,p7,p10;
+ideal G56 = std(J56); if (dim(G56)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 56; dim(G56); }
+kill J56; kill G56;
+ideal J57 = C,p0,p1,p2,p5,p7,p11;
+ideal G57 = std(J57); if (dim(G57)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 57; dim(G57); }
+kill J57; kill G57;
+ideal J58 = C,p0,p1,p2,p5,p8,p9;
+ideal G58 = std(J58); if (dim(G58)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 58; dim(G58); }
+kill J58; kill G58;
+ideal J59 = C,p0,p1,p2,p5,p8,p10;
+ideal G59 = std(J59); if (dim(G59)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 59; dim(G59); }
+kill J59; kill G59;
+ideal J60 = C,p0,p1,p2,p5,p8,p11;
+ideal G60 = std(J60); if (dim(G60)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 60; dim(G60); }
+kill J60; kill G60;
+ideal J61 = C,p0,p1,p2,p5,p9,p10;
+ideal G61 = std(J61); if (dim(G61)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 61; dim(G61); }
+kill J61; kill G61;
+ideal J62 = C,p0,p1,p2,p5,p9,p11;
+ideal G62 = std(J62); if (dim(G62)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 62; dim(G62); }
+kill J62; kill G62;
+ideal J63 = C,p0,p1,p2,p5,p10,p11;
+ideal G63 = std(J63); if (dim(G63)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 63; dim(G63); }
+kill J63; kill G63;
+ideal J64 = C,p0,p1,p2,p6,p7,p8;
+ideal G64 = std(J64); if (dim(G64)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 64; dim(G64); }
+kill J64; kill G64;
+ideal J65 = C,p0,p1,p2,p6,p7,p9;
+ideal G65 = std(J65); if (dim(G65)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 65; dim(G65); }
+kill J65; kill G65;
+ideal J66 = C,p0,p1,p2,p6,p7,p10;
+ideal G66 = std(J66); if (dim(G66)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 66; dim(G66); }
+kill J66; kill G66;
+ideal J67 = C,p0,p1,p2,p6,p7,p11;
+ideal G67 = std(J67); if (dim(G67)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 67; dim(G67); }
+kill J67; kill G67;
+ideal J68 = C,p0,p1,p2,p6,p8,p9;
+ideal G68 = std(J68); if (dim(G68)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 68; dim(G68); }
+kill J68; kill G68;
+ideal J69 = C,p0,p1,p2,p6,p8,p10;
+ideal G69 = std(J69); if (dim(G69)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 69; dim(G69); }
+kill J69; kill G69;
+ideal J70 = C,p0,p1,p2,p6,p8,p11;
+ideal G70 = std(J70); if (dim(G70)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 70; dim(G70); }
+kill J70; kill G70;
+ideal J71 = C,p0,p1,p2,p6,p9,p10;
+ideal G71 = std(J71); if (dim(G71)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 71; dim(G71); }
+kill J71; kill G71;
+ideal J72 = C,p0,p1,p2,p6,p9,p11;
+ideal G72 = std(J72); if (dim(G72)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 72; dim(G72); }
+kill J72; kill G72;
+ideal J73 = C,p0,p1,p2,p6,p10,p11;
+ideal G73 = std(J73); if (dim(G73)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 73; dim(G73); }
+kill J73; kill G73;
+ideal J74 = C,p0,p1,p2,p7,p8,p9;
+ideal G74 = std(J74); if (dim(G74)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 74; dim(G74); }
+kill J74; kill G74;
+ideal J75 = C,p0,p1,p2,p7,p8,p10;
+ideal G75 = std(J75); if (dim(G75)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 75; dim(G75); }
+kill J75; kill G75;
+ideal J76 = C,p0,p1,p2,p7,p8,p11;
+ideal G76 = std(J76); if (dim(G76)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 76; dim(G76); }
+kill J76; kill G76;
+ideal J77 = C,p0,p1,p2,p7,p9,p10;
+ideal G77 = std(J77); if (dim(G77)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 77; dim(G77); }
+kill J77; kill G77;
+ideal J78 = C,p0,p1,p2,p7,p9,p11;
+ideal G78 = std(J78); if (dim(G78)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 78; dim(G78); }
+kill J78; kill G78;
+ideal J79 = C,p0,p1,p2,p7,p10,p11;
+ideal G79 = std(J79); if (dim(G79)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 79; dim(G79); }
+kill J79; kill G79;
+ideal J80 = C,p0,p1,p2,p8,p9,p10;
+ideal G80 = std(J80); if (dim(G80)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 80; dim(G80); }
+kill J80; kill G80;
+ideal J81 = C,p0,p1,p2,p8,p9,p11;
+ideal G81 = std(J81); if (dim(G81)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 81; dim(G81); }
+kill J81; kill G81;
+ideal J82 = C,p0,p1,p2,p8,p10,p11;
+ideal G82 = std(J82); if (dim(G82)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 82; dim(G82); }
+kill J82; kill G82;
+ideal J83 = C,p0,p1,p2,p9,p10,p11;
+ideal G83 = std(J83); if (dim(G83)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 83; dim(G83); }
+kill J83; kill G83;
+ideal J84 = C,p0,p1,p3,p4,p5,p6;
+ideal G84 = std(J84); if (dim(G84)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 84; dim(G84); }
+kill J84; kill G84;
+ideal J85 = C,p0,p1,p3,p4,p5,p7;
+ideal G85 = std(J85); if (dim(G85)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 85; dim(G85); }
+kill J85; kill G85;
+ideal J86 = C,p0,p1,p3,p4,p5,p8;
+ideal G86 = std(J86); if (dim(G86)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 86; dim(G86); }
+kill J86; kill G86;
+ideal J87 = C,p0,p1,p3,p4,p5,p9;
+ideal G87 = std(J87); if (dim(G87)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 87; dim(G87); }
+kill J87; kill G87;
+ideal J88 = C,p0,p1,p3,p4,p5,p10;
+ideal G88 = std(J88); if (dim(G88)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 88; dim(G88); }
+kill J88; kill G88;
+ideal J89 = C,p0,p1,p3,p4,p5,p11;
+ideal G89 = std(J89); if (dim(G89)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 89; dim(G89); }
+kill J89; kill G89;
+ideal J90 = C,p0,p1,p3,p4,p6,p7;
+ideal G90 = std(J90); if (dim(G90)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 90; dim(G90); }
+kill J90; kill G90;
+ideal J91 = C,p0,p1,p3,p4,p6,p8;
+ideal G91 = std(J91); if (dim(G91)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 91; dim(G91); }
+kill J91; kill G91;
+ideal J92 = C,p0,p1,p3,p4,p6,p9;
+ideal G92 = std(J92); if (dim(G92)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 92; dim(G92); }
+kill J92; kill G92;
+ideal J93 = C,p0,p1,p3,p4,p6,p10;
+ideal G93 = std(J93); if (dim(G93)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 93; dim(G93); }
+kill J93; kill G93;
+ideal J94 = C,p0,p1,p3,p4,p6,p11;
+ideal G94 = std(J94); if (dim(G94)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 94; dim(G94); }
+kill J94; kill G94;
+ideal J95 = C,p0,p1,p3,p4,p7,p8;
+ideal G95 = std(J95); if (dim(G95)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 95; dim(G95); }
+kill J95; kill G95;
+ideal J96 = C,p0,p1,p3,p4,p7,p9;
+ideal G96 = std(J96); if (dim(G96)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 96; dim(G96); }
+kill J96; kill G96;
+ideal J97 = C,p0,p1,p3,p4,p7,p10;
+ideal G97 = std(J97); if (dim(G97)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 97; dim(G97); }
+kill J97; kill G97;
+ideal J98 = C,p0,p1,p3,p4,p7,p11;
+ideal G98 = std(J98); if (dim(G98)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 98; dim(G98); }
+kill J98; kill G98;
+ideal J99 = C,p0,p1,p3,p4,p8,p9;
+ideal G99 = std(J99); if (dim(G99)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 99; dim(G99); }
+kill J99; kill G99;
+ideal J100 = C,p0,p1,p3,p4,p8,p10;
+ideal G100 = std(J100); if (dim(G100)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 100; dim(G100); }
+kill J100; kill G100;
+ideal J101 = C,p0,p1,p3,p4,p8,p11;
+ideal G101 = std(J101); if (dim(G101)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 101; dim(G101); }
+kill J101; kill G101;
+ideal J102 = C,p0,p1,p3,p4,p9,p10;
+ideal G102 = std(J102); if (dim(G102)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 102; dim(G102); }
+kill J102; kill G102;
+ideal J103 = C,p0,p1,p3,p4,p9,p11;
+ideal G103 = std(J103); if (dim(G103)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 103; dim(G103); }
+kill J103; kill G103;
+ideal J104 = C,p0,p1,p3,p4,p10,p11;
+ideal G104 = std(J104); if (dim(G104)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 104; dim(G104); }
+kill J104; kill G104;
+ideal J105 = C,p0,p1,p3,p5,p6,p7;
+ideal G105 = std(J105); if (dim(G105)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 105; dim(G105); }
+kill J105; kill G105;
+ideal J106 = C,p0,p1,p3,p5,p6,p8;
+ideal G106 = std(J106); if (dim(G106)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 106; dim(G106); }
+kill J106; kill G106;
+ideal J107 = C,p0,p1,p3,p5,p6,p9;
+ideal G107 = std(J107); if (dim(G107)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 107; dim(G107); }
+kill J107; kill G107;
+ideal J108 = C,p0,p1,p3,p5,p6,p10;
+ideal G108 = std(J108); if (dim(G108)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 108; dim(G108); }
+kill J108; kill G108;
+ideal J109 = C,p0,p1,p3,p5,p6,p11;
+ideal G109 = std(J109); if (dim(G109)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 109; dim(G109); }
+kill J109; kill G109;
+ideal J110 = C,p0,p1,p3,p5,p7,p8;
+ideal G110 = std(J110); if (dim(G110)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 110; dim(G110); }
+kill J110; kill G110;
+ideal J111 = C,p0,p1,p3,p5,p7,p9;
+ideal G111 = std(J111); if (dim(G111)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 111; dim(G111); }
+kill J111; kill G111;
+ideal J112 = C,p0,p1,p3,p5,p7,p10;
+ideal G112 = std(J112); if (dim(G112)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 112; dim(G112); }
+kill J112; kill G112;
+ideal J113 = C,p0,p1,p3,p5,p7,p11;
+ideal G113 = std(J113); if (dim(G113)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 113; dim(G113); }
+kill J113; kill G113;
+ideal J114 = C,p0,p1,p3,p5,p8,p9;
+ideal G114 = std(J114); if (dim(G114)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 114; dim(G114); }
+kill J114; kill G114;
+ideal J115 = C,p0,p1,p3,p5,p8,p10;
+ideal G115 = std(J115); if (dim(G115)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 115; dim(G115); }
+kill J115; kill G115;
+ideal J116 = C,p0,p1,p3,p5,p8,p11;
+ideal G116 = std(J116); if (dim(G116)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 116; dim(G116); }
+kill J116; kill G116;
+ideal J117 = C,p0,p1,p3,p5,p9,p10;
+ideal G117 = std(J117); if (dim(G117)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 117; dim(G117); }
+kill J117; kill G117;
+ideal J118 = C,p0,p1,p3,p5,p9,p11;
+ideal G118 = std(J118); if (dim(G118)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 118; dim(G118); }
+kill J118; kill G118;
+ideal J119 = C,p0,p1,p3,p5,p10,p11;
+ideal G119 = std(J119); if (dim(G119)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 119; dim(G119); }
+kill J119; kill G119;
+ideal J120 = C,p0,p1,p3,p6,p7,p8;
+ideal G120 = std(J120); if (dim(G120)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 120; dim(G120); }
+kill J120; kill G120;
+ideal J121 = C,p0,p1,p3,p6,p7,p9;
+ideal G121 = std(J121); if (dim(G121)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 121; dim(G121); }
+kill J121; kill G121;
+ideal J122 = C,p0,p1,p3,p6,p7,p10;
+ideal G122 = std(J122); if (dim(G122)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 122; dim(G122); }
+kill J122; kill G122;
+ideal J123 = C,p0,p1,p3,p6,p7,p11;
+ideal G123 = std(J123); if (dim(G123)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 123; dim(G123); }
+kill J123; kill G123;
+ideal J124 = C,p0,p1,p3,p6,p8,p9;
+ideal G124 = std(J124); if (dim(G124)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 124; dim(G124); }
+kill J124; kill G124;
+ideal J125 = C,p0,p1,p3,p6,p8,p10;
+ideal G125 = std(J125); if (dim(G125)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 125; dim(G125); }
+kill J125; kill G125;
+ideal J126 = C,p0,p1,p3,p6,p8,p11;
+ideal G126 = std(J126); if (dim(G126)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 126; dim(G126); }
+kill J126; kill G126;
+ideal J127 = C,p0,p1,p3,p6,p9,p10;
+ideal G127 = std(J127); if (dim(G127)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 127; dim(G127); }
+kill J127; kill G127;
+ideal J128 = C,p0,p1,p3,p6,p9,p11;
+ideal G128 = std(J128); if (dim(G128)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 128; dim(G128); }
+kill J128; kill G128;
+ideal J129 = C,p0,p1,p3,p6,p10,p11;
+ideal G129 = std(J129); if (dim(G129)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 129; dim(G129); }
+kill J129; kill G129;
+ideal J130 = C,p0,p1,p3,p7,p8,p9;
+ideal G130 = std(J130); if (dim(G130)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 130; dim(G130); }
+kill J130; kill G130;
+ideal J131 = C,p0,p1,p3,p7,p8,p10;
+ideal G131 = std(J131); if (dim(G131)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 131; dim(G131); }
+kill J131; kill G131;
+ideal J132 = C,p0,p1,p3,p7,p8,p11;
+ideal G132 = std(J132); if (dim(G132)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 132; dim(G132); }
+kill J132; kill G132;
+ideal J133 = C,p0,p1,p3,p7,p9,p10;
+ideal G133 = std(J133); if (dim(G133)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 133; dim(G133); }
+kill J133; kill G133;
+ideal J134 = C,p0,p1,p3,p7,p9,p11;
+ideal G134 = std(J134); if (dim(G134)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 134; dim(G134); }
+kill J134; kill G134;
+ideal J135 = C,p0,p1,p3,p7,p10,p11;
+ideal G135 = std(J135); if (dim(G135)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 135; dim(G135); }
+kill J135; kill G135;
+ideal J136 = C,p0,p1,p3,p8,p9,p10;
+ideal G136 = std(J136); if (dim(G136)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 136; dim(G136); }
+kill J136; kill G136;
+ideal J137 = C,p0,p1,p3,p8,p9,p11;
+ideal G137 = std(J137); if (dim(G137)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 137; dim(G137); }
+kill J137; kill G137;
+ideal J138 = C,p0,p1,p3,p8,p10,p11;
+ideal G138 = std(J138); if (dim(G138)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 138; dim(G138); }
+kill J138; kill G138;
+ideal J139 = C,p0,p1,p3,p9,p10,p11;
+ideal G139 = std(J139); if (dim(G139)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 139; dim(G139); }
+kill J139; kill G139;
+ideal J140 = C,p0,p1,p4,p5,p6,p7;
+ideal G140 = std(J140); if (dim(G140)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 140; dim(G140); }
+kill J140; kill G140;
+ideal J141 = C,p0,p1,p4,p5,p6,p8;
+ideal G141 = std(J141); if (dim(G141)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 141; dim(G141); }
+kill J141; kill G141;
+ideal J142 = C,p0,p1,p4,p5,p6,p9;
+ideal G142 = std(J142); if (dim(G142)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 142; dim(G142); }
+kill J142; kill G142;
+ideal J143 = C,p0,p1,p4,p5,p6,p10;
+ideal G143 = std(J143); if (dim(G143)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 143; dim(G143); }
+kill J143; kill G143;
+ideal J144 = C,p0,p1,p4,p5,p6,p11;
+ideal G144 = std(J144); if (dim(G144)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 144; dim(G144); }
+kill J144; kill G144;
+ideal J145 = C,p0,p1,p4,p5,p7,p8;
+ideal G145 = std(J145); if (dim(G145)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 145; dim(G145); }
+kill J145; kill G145;
+ideal J146 = C,p0,p1,p4,p5,p7,p9;
+ideal G146 = std(J146); if (dim(G146)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 146; dim(G146); }
+kill J146; kill G146;
+ideal J147 = C,p0,p1,p4,p5,p7,p10;
+ideal G147 = std(J147); if (dim(G147)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 147; dim(G147); }
+kill J147; kill G147;
+ideal J148 = C,p0,p1,p4,p5,p7,p11;
+ideal G148 = std(J148); if (dim(G148)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 148; dim(G148); }
+kill J148; kill G148;
+ideal J149 = C,p0,p1,p4,p5,p8,p9;
+ideal G149 = std(J149); if (dim(G149)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 149; dim(G149); }
+kill J149; kill G149;
+ideal J150 = C,p0,p1,p4,p5,p8,p10;
+ideal G150 = std(J150); if (dim(G150)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 150; dim(G150); }
+kill J150; kill G150;
+ideal J151 = C,p0,p1,p4,p5,p8,p11;
+ideal G151 = std(J151); if (dim(G151)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 151; dim(G151); }
+kill J151; kill G151;
+ideal J152 = C,p0,p1,p4,p5,p9,p10;
+ideal G152 = std(J152); if (dim(G152)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 152; dim(G152); }
+kill J152; kill G152;
+ideal J153 = C,p0,p1,p4,p5,p9,p11;
+ideal G153 = std(J153); if (dim(G153)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 153; dim(G153); }
+kill J153; kill G153;
+ideal J154 = C,p0,p1,p4,p5,p10,p11;
+ideal G154 = std(J154); if (dim(G154)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 154; dim(G154); }
+kill J154; kill G154;
+ideal J155 = C,p0,p1,p4,p6,p7,p8;
+ideal G155 = std(J155); if (dim(G155)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 155; dim(G155); }
+kill J155; kill G155;
+ideal J156 = C,p0,p1,p4,p6,p7,p9;
+ideal G156 = std(J156); if (dim(G156)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 156; dim(G156); }
+kill J156; kill G156;
+ideal J157 = C,p0,p1,p4,p6,p7,p10;
+ideal G157 = std(J157); if (dim(G157)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 157; dim(G157); }
+kill J157; kill G157;
+ideal J158 = C,p0,p1,p4,p6,p7,p11;
+ideal G158 = std(J158); if (dim(G158)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 158; dim(G158); }
+kill J158; kill G158;
+ideal J159 = C,p0,p1,p4,p6,p8,p9;
+ideal G159 = std(J159); if (dim(G159)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 159; dim(G159); }
+kill J159; kill G159;
+ideal J160 = C,p0,p1,p4,p6,p8,p10;
+ideal G160 = std(J160); if (dim(G160)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 160; dim(G160); }
+kill J160; kill G160;
+ideal J161 = C,p0,p1,p4,p6,p8,p11;
+ideal G161 = std(J161); if (dim(G161)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 161; dim(G161); }
+kill J161; kill G161;
+ideal J162 = C,p0,p1,p4,p6,p9,p10;
+ideal G162 = std(J162); if (dim(G162)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 162; dim(G162); }
+kill J162; kill G162;
+ideal J163 = C,p0,p1,p4,p6,p9,p11;
+ideal G163 = std(J163); if (dim(G163)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 163; dim(G163); }
+kill J163; kill G163;
+ideal J164 = C,p0,p1,p4,p6,p10,p11;
+ideal G164 = std(J164); if (dim(G164)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 164; dim(G164); }
+kill J164; kill G164;
+ideal J165 = C,p0,p1,p4,p7,p8,p9;
+ideal G165 = std(J165); if (dim(G165)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 165; dim(G165); }
+kill J165; kill G165;
+ideal J166 = C,p0,p1,p4,p7,p8,p10;
+ideal G166 = std(J166); if (dim(G166)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 166; dim(G166); }
+kill J166; kill G166;
+ideal J167 = C,p0,p1,p4,p7,p8,p11;
+ideal G167 = std(J167); if (dim(G167)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 167; dim(G167); }
+kill J167; kill G167;
+ideal J168 = C,p0,p1,p4,p7,p9,p10;
+ideal G168 = std(J168); if (dim(G168)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 168; dim(G168); }
+kill J168; kill G168;
+ideal J169 = C,p0,p1,p4,p7,p9,p11;
+ideal G169 = std(J169); if (dim(G169)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 169; dim(G169); }
+kill J169; kill G169;
+ideal J170 = C,p0,p1,p4,p7,p10,p11;
+ideal G170 = std(J170); if (dim(G170)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 170; dim(G170); }
+kill J170; kill G170;
+ideal J171 = C,p0,p1,p4,p8,p9,p10;
+ideal G171 = std(J171); if (dim(G171)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 171; dim(G171); }
+kill J171; kill G171;
+ideal J172 = C,p0,p1,p4,p8,p9,p11;
+ideal G172 = std(J172); if (dim(G172)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 172; dim(G172); }
+kill J172; kill G172;
+ideal J173 = C,p0,p1,p4,p8,p10,p11;
+ideal G173 = std(J173); if (dim(G173)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 173; dim(G173); }
+kill J173; kill G173;
+ideal J174 = C,p0,p1,p4,p9,p10,p11;
+ideal G174 = std(J174); if (dim(G174)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 174; dim(G174); }
+kill J174; kill G174;
+ideal J175 = C,p0,p1,p5,p6,p7,p8;
+ideal G175 = std(J175); if (dim(G175)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 175; dim(G175); }
+kill J175; kill G175;
+ideal J176 = C,p0,p1,p5,p6,p7,p9;
+ideal G176 = std(J176); if (dim(G176)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 176; dim(G176); }
+kill J176; kill G176;
+ideal J177 = C,p0,p1,p5,p6,p7,p10;
+ideal G177 = std(J177); if (dim(G177)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 177; dim(G177); }
+kill J177; kill G177;
+ideal J178 = C,p0,p1,p5,p6,p7,p11;
+ideal G178 = std(J178); if (dim(G178)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 178; dim(G178); }
+kill J178; kill G178;
+ideal J179 = C,p0,p1,p5,p6,p8,p9;
+ideal G179 = std(J179); if (dim(G179)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 179; dim(G179); }
+kill J179; kill G179;
+ideal J180 = C,p0,p1,p5,p6,p8,p10;
+ideal G180 = std(J180); if (dim(G180)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 180; dim(G180); }
+kill J180; kill G180;
+ideal J181 = C,p0,p1,p5,p6,p8,p11;
+ideal G181 = std(J181); if (dim(G181)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 181; dim(G181); }
+kill J181; kill G181;
+ideal J182 = C,p0,p1,p5,p6,p9,p10;
+ideal G182 = std(J182); if (dim(G182)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 182; dim(G182); }
+kill J182; kill G182;
+ideal J183 = C,p0,p1,p5,p6,p9,p11;
+ideal G183 = std(J183); if (dim(G183)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 183; dim(G183); }
+kill J183; kill G183;
+ideal J184 = C,p0,p1,p5,p6,p10,p11;
+ideal G184 = std(J184); if (dim(G184)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 184; dim(G184); }
+kill J184; kill G184;
+ideal J185 = C,p0,p1,p5,p7,p8,p9;
+ideal G185 = std(J185); if (dim(G185)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 185; dim(G185); }
+kill J185; kill G185;
+ideal J186 = C,p0,p1,p5,p7,p8,p10;
+ideal G186 = std(J186); if (dim(G186)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 186; dim(G186); }
+kill J186; kill G186;
+ideal J187 = C,p0,p1,p5,p7,p8,p11;
+ideal G187 = std(J187); if (dim(G187)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 187; dim(G187); }
+kill J187; kill G187;
+ideal J188 = C,p0,p1,p5,p7,p9,p10;
+ideal G188 = std(J188); if (dim(G188)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 188; dim(G188); }
+kill J188; kill G188;
+ideal J189 = C,p0,p1,p5,p7,p9,p11;
+ideal G189 = std(J189); if (dim(G189)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 189; dim(G189); }
+kill J189; kill G189;
+ideal J190 = C,p0,p1,p5,p7,p10,p11;
+ideal G190 = std(J190); if (dim(G190)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 190; dim(G190); }
+kill J190; kill G190;
+ideal J191 = C,p0,p1,p5,p8,p9,p10;
+ideal G191 = std(J191); if (dim(G191)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 191; dim(G191); }
+kill J191; kill G191;
+ideal J192 = C,p0,p1,p5,p8,p9,p11;
+ideal G192 = std(J192); if (dim(G192)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 192; dim(G192); }
+kill J192; kill G192;
+ideal J193 = C,p0,p1,p5,p8,p10,p11;
+ideal G193 = std(J193); if (dim(G193)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 193; dim(G193); }
+kill J193; kill G193;
+ideal J194 = C,p0,p1,p5,p9,p10,p11;
+ideal G194 = std(J194); if (dim(G194)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 194; dim(G194); }
+kill J194; kill G194;
+ideal J195 = C,p0,p1,p6,p7,p8,p9;
+ideal G195 = std(J195); if (dim(G195)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 195; dim(G195); }
+kill J195; kill G195;
+ideal J196 = C,p0,p1,p6,p7,p8,p10;
+ideal G196 = std(J196); if (dim(G196)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 196; dim(G196); }
+kill J196; kill G196;
+ideal J197 = C,p0,p1,p6,p7,p8,p11;
+ideal G197 = std(J197); if (dim(G197)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 197; dim(G197); }
+kill J197; kill G197;
+ideal J198 = C,p0,p1,p6,p7,p9,p10;
+ideal G198 = std(J198); if (dim(G198)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 198; dim(G198); }
+kill J198; kill G198;
+ideal J199 = C,p0,p1,p6,p7,p9,p11;
+ideal G199 = std(J199); if (dim(G199)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 199; dim(G199); }
+kill J199; kill G199;
+ideal J200 = C,p0,p1,p6,p7,p10,p11;
+ideal G200 = std(J200); if (dim(G200)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 200; dim(G200); }
+kill J200; kill G200;
+ideal J201 = C,p0,p1,p6,p8,p9,p10;
+ideal G201 = std(J201); if (dim(G201)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 201; dim(G201); }
+kill J201; kill G201;
+ideal J202 = C,p0,p1,p6,p8,p9,p11;
+ideal G202 = std(J202); if (dim(G202)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 202; dim(G202); }
+kill J202; kill G202;
+ideal J203 = C,p0,p1,p6,p8,p10,p11;
+ideal G203 = std(J203); if (dim(G203)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 203; dim(G203); }
+kill J203; kill G203;
+ideal J204 = C,p0,p1,p6,p9,p10,p11;
+ideal G204 = std(J204); if (dim(G204)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 204; dim(G204); }
+kill J204; kill G204;
+ideal J205 = C,p0,p1,p7,p8,p9,p10;
+ideal G205 = std(J205); if (dim(G205)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 205; dim(G205); }
+kill J205; kill G205;
+ideal J206 = C,p0,p1,p7,p8,p9,p11;
+ideal G206 = std(J206); if (dim(G206)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 206; dim(G206); }
+kill J206; kill G206;
+ideal J207 = C,p0,p1,p7,p8,p10,p11;
+ideal G207 = std(J207); if (dim(G207)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 207; dim(G207); }
+kill J207; kill G207;
+ideal J208 = C,p0,p1,p7,p9,p10,p11;
+ideal G208 = std(J208); if (dim(G208)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 208; dim(G208); }
+kill J208; kill G208;
+ideal J209 = C,p0,p1,p8,p9,p10,p11;
+ideal G209 = std(J209); if (dim(G209)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 209; dim(G209); }
+kill J209; kill G209;
+ideal J210 = C,p0,p2,p3,p4,p5,p6;
+ideal G210 = std(J210); if (dim(G210)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 210; dim(G210); }
+kill J210; kill G210;
+ideal J211 = C,p0,p2,p3,p4,p5,p7;
+ideal G211 = std(J211); if (dim(G211)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 211; dim(G211); }
+kill J211; kill G211;
+ideal J212 = C,p0,p2,p3,p4,p5,p8;
+ideal G212 = std(J212); if (dim(G212)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 212; dim(G212); }
+kill J212; kill G212;
+ideal J213 = C,p0,p2,p3,p4,p5,p9;
+ideal G213 = std(J213); if (dim(G213)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 213; dim(G213); }
+kill J213; kill G213;
+ideal J214 = C,p0,p2,p3,p4,p5,p10;
+ideal G214 = std(J214); if (dim(G214)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 214; dim(G214); }
+kill J214; kill G214;
+ideal J215 = C,p0,p2,p3,p4,p5,p11;
+ideal G215 = std(J215); if (dim(G215)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 215; dim(G215); }
+kill J215; kill G215;
+ideal J216 = C,p0,p2,p3,p4,p6,p7;
+ideal G216 = std(J216); if (dim(G216)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 216; dim(G216); }
+kill J216; kill G216;
+ideal J217 = C,p0,p2,p3,p4,p6,p8;
+ideal G217 = std(J217); if (dim(G217)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 217; dim(G217); }
+kill J217; kill G217;
+ideal J218 = C,p0,p2,p3,p4,p6,p9;
+ideal G218 = std(J218); if (dim(G218)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 218; dim(G218); }
+kill J218; kill G218;
+ideal J219 = C,p0,p2,p3,p4,p6,p10;
+ideal G219 = std(J219); if (dim(G219)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 219; dim(G219); }
+kill J219; kill G219;
+ideal J220 = C,p0,p2,p3,p4,p6,p11;
+ideal G220 = std(J220); if (dim(G220)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 220; dim(G220); }
+kill J220; kill G220;
+ideal J221 = C,p0,p2,p3,p4,p7,p8;
+ideal G221 = std(J221); if (dim(G221)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 221; dim(G221); }
+kill J221; kill G221;
+ideal J222 = C,p0,p2,p3,p4,p7,p9;
+ideal G222 = std(J222); if (dim(G222)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 222; dim(G222); }
+kill J222; kill G222;
+ideal J223 = C,p0,p2,p3,p4,p7,p10;
+ideal G223 = std(J223); if (dim(G223)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 223; dim(G223); }
+kill J223; kill G223;
+ideal J224 = C,p0,p2,p3,p4,p7,p11;
+ideal G224 = std(J224); if (dim(G224)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 224; dim(G224); }
+kill J224; kill G224;
+ideal J225 = C,p0,p2,p3,p4,p8,p9;
+ideal G225 = std(J225); if (dim(G225)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 225; dim(G225); }
+kill J225; kill G225;
+ideal J226 = C,p0,p2,p3,p4,p8,p10;
+ideal G226 = std(J226); if (dim(G226)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 226; dim(G226); }
+kill J226; kill G226;
+ideal J227 = C,p0,p2,p3,p4,p8,p11;
+ideal G227 = std(J227); if (dim(G227)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 227; dim(G227); }
+kill J227; kill G227;
+ideal J228 = C,p0,p2,p3,p4,p9,p10;
+ideal G228 = std(J228); if (dim(G228)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 228; dim(G228); }
+kill J228; kill G228;
+ideal J229 = C,p0,p2,p3,p4,p9,p11;
+ideal G229 = std(J229); if (dim(G229)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 229; dim(G229); }
+kill J229; kill G229;
+ideal J230 = C,p0,p2,p3,p4,p10,p11;
+ideal G230 = std(J230); if (dim(G230)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 230; dim(G230); }
+kill J230; kill G230;
+ideal J231 = C,p0,p2,p3,p5,p6,p7;
+ideal G231 = std(J231); if (dim(G231)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 231; dim(G231); }
+kill J231; kill G231;
+ideal J232 = C,p0,p2,p3,p5,p6,p8;
+ideal G232 = std(J232); if (dim(G232)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 232; dim(G232); }
+kill J232; kill G232;
+ideal J233 = C,p0,p2,p3,p5,p6,p9;
+ideal G233 = std(J233); if (dim(G233)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 233; dim(G233); }
+kill J233; kill G233;
+ideal J234 = C,p0,p2,p3,p5,p6,p10;
+ideal G234 = std(J234); if (dim(G234)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 234; dim(G234); }
+kill J234; kill G234;
+ideal J235 = C,p0,p2,p3,p5,p6,p11;
+ideal G235 = std(J235); if (dim(G235)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 235; dim(G235); }
+kill J235; kill G235;
+ideal J236 = C,p0,p2,p3,p5,p7,p8;
+ideal G236 = std(J236); if (dim(G236)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 236; dim(G236); }
+kill J236; kill G236;
+ideal J237 = C,p0,p2,p3,p5,p7,p9;
+ideal G237 = std(J237); if (dim(G237)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 237; dim(G237); }
+kill J237; kill G237;
+ideal J238 = C,p0,p2,p3,p5,p7,p10;
+ideal G238 = std(J238); if (dim(G238)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 238; dim(G238); }
+kill J238; kill G238;
+ideal J239 = C,p0,p2,p3,p5,p7,p11;
+ideal G239 = std(J239); if (dim(G239)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 239; dim(G239); }
+kill J239; kill G239;
+ideal J240 = C,p0,p2,p3,p5,p8,p9;
+ideal G240 = std(J240); if (dim(G240)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 240; dim(G240); }
+kill J240; kill G240;
+ideal J241 = C,p0,p2,p3,p5,p8,p10;
+ideal G241 = std(J241); if (dim(G241)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 241; dim(G241); }
+kill J241; kill G241;
+ideal J242 = C,p0,p2,p3,p5,p8,p11;
+ideal G242 = std(J242); if (dim(G242)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 242; dim(G242); }
+kill J242; kill G242;
+ideal J243 = C,p0,p2,p3,p5,p9,p10;
+ideal G243 = std(J243); if (dim(G243)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 243; dim(G243); }
+kill J243; kill G243;
+ideal J244 = C,p0,p2,p3,p5,p9,p11;
+ideal G244 = std(J244); if (dim(G244)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 244; dim(G244); }
+kill J244; kill G244;
+ideal J245 = C,p0,p2,p3,p5,p10,p11;
+ideal G245 = std(J245); if (dim(G245)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 245; dim(G245); }
+kill J245; kill G245;
+ideal J246 = C,p0,p2,p3,p6,p7,p8;
+ideal G246 = std(J246); if (dim(G246)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 246; dim(G246); }
+kill J246; kill G246;
+ideal J247 = C,p0,p2,p3,p6,p7,p9;
+ideal G247 = std(J247); if (dim(G247)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 247; dim(G247); }
+kill J247; kill G247;
+ideal J248 = C,p0,p2,p3,p6,p7,p10;
+ideal G248 = std(J248); if (dim(G248)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 248; dim(G248); }
+kill J248; kill G248;
+ideal J249 = C,p0,p2,p3,p6,p7,p11;
+ideal G249 = std(J249); if (dim(G249)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 249; dim(G249); }
+kill J249; kill G249;
+ideal J250 = C,p0,p2,p3,p6,p8,p9;
+ideal G250 = std(J250); if (dim(G250)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 250; dim(G250); }
+kill J250; kill G250;
+ideal J251 = C,p0,p2,p3,p6,p8,p10;
+ideal G251 = std(J251); if (dim(G251)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 251; dim(G251); }
+kill J251; kill G251;
+ideal J252 = C,p0,p2,p3,p6,p8,p11;
+ideal G252 = std(J252); if (dim(G252)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 252; dim(G252); }
+kill J252; kill G252;
+ideal J253 = C,p0,p2,p3,p6,p9,p10;
+ideal G253 = std(J253); if (dim(G253)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 253; dim(G253); }
+kill J253; kill G253;
+ideal J254 = C,p0,p2,p3,p6,p9,p11;
+ideal G254 = std(J254); if (dim(G254)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 254; dim(G254); }
+kill J254; kill G254;
+ideal J255 = C,p0,p2,p3,p6,p10,p11;
+ideal G255 = std(J255); if (dim(G255)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 255; dim(G255); }
+kill J255; kill G255;
+ideal J256 = C,p0,p2,p3,p7,p8,p9;
+ideal G256 = std(J256); if (dim(G256)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 256; dim(G256); }
+kill J256; kill G256;
+ideal J257 = C,p0,p2,p3,p7,p8,p10;
+ideal G257 = std(J257); if (dim(G257)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 257; dim(G257); }
+kill J257; kill G257;
+ideal J258 = C,p0,p2,p3,p7,p8,p11;
+ideal G258 = std(J258); if (dim(G258)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 258; dim(G258); }
+kill J258; kill G258;
+ideal J259 = C,p0,p2,p3,p7,p9,p10;
+ideal G259 = std(J259); if (dim(G259)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 259; dim(G259); }
+kill J259; kill G259;
+ideal J260 = C,p0,p2,p3,p7,p9,p11;
+ideal G260 = std(J260); if (dim(G260)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 260; dim(G260); }
+kill J260; kill G260;
+ideal J261 = C,p0,p2,p3,p7,p10,p11;
+ideal G261 = std(J261); if (dim(G261)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 261; dim(G261); }
+kill J261; kill G261;
+ideal J262 = C,p0,p2,p3,p8,p9,p10;
+ideal G262 = std(J262); if (dim(G262)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 262; dim(G262); }
+kill J262; kill G262;
+ideal J263 = C,p0,p2,p3,p8,p9,p11;
+ideal G263 = std(J263); if (dim(G263)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 263; dim(G263); }
+kill J263; kill G263;
+ideal J264 = C,p0,p2,p3,p8,p10,p11;
+ideal G264 = std(J264); if (dim(G264)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 264; dim(G264); }
+kill J264; kill G264;
+ideal J265 = C,p0,p2,p3,p9,p10,p11;
+ideal G265 = std(J265); if (dim(G265)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 265; dim(G265); }
+kill J265; kill G265;
+ideal J266 = C,p0,p2,p4,p5,p6,p7;
+ideal G266 = std(J266); if (dim(G266)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 266; dim(G266); }
+kill J266; kill G266;
+ideal J267 = C,p0,p2,p4,p5,p6,p8;
+ideal G267 = std(J267); if (dim(G267)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 267; dim(G267); }
+kill J267; kill G267;
+ideal J268 = C,p0,p2,p4,p5,p6,p9;
+ideal G268 = std(J268); if (dim(G268)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 268; dim(G268); }
+kill J268; kill G268;
+ideal J269 = C,p0,p2,p4,p5,p6,p10;
+ideal G269 = std(J269); if (dim(G269)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 269; dim(G269); }
+kill J269; kill G269;
+ideal J270 = C,p0,p2,p4,p5,p6,p11;
+ideal G270 = std(J270); if (dim(G270)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 270; dim(G270); }
+kill J270; kill G270;
+ideal J271 = C,p0,p2,p4,p5,p7,p8;
+ideal G271 = std(J271); if (dim(G271)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 271; dim(G271); }
+kill J271; kill G271;
+ideal J272 = C,p0,p2,p4,p5,p7,p9;
+ideal G272 = std(J272); if (dim(G272)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 272; dim(G272); }
+kill J272; kill G272;
+ideal J273 = C,p0,p2,p4,p5,p7,p10;
+ideal G273 = std(J273); if (dim(G273)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 273; dim(G273); }
+kill J273; kill G273;
+ideal J274 = C,p0,p2,p4,p5,p7,p11;
+ideal G274 = std(J274); if (dim(G274)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 274; dim(G274); }
+kill J274; kill G274;
+ideal J275 = C,p0,p2,p4,p5,p8,p9;
+ideal G275 = std(J275); if (dim(G275)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 275; dim(G275); }
+kill J275; kill G275;
+ideal J276 = C,p0,p2,p4,p5,p8,p10;
+ideal G276 = std(J276); if (dim(G276)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 276; dim(G276); }
+kill J276; kill G276;
+ideal J277 = C,p0,p2,p4,p5,p8,p11;
+ideal G277 = std(J277); if (dim(G277)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 277; dim(G277); }
+kill J277; kill G277;
+ideal J278 = C,p0,p2,p4,p5,p9,p10;
+ideal G278 = std(J278); if (dim(G278)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 278; dim(G278); }
+kill J278; kill G278;
+ideal J279 = C,p0,p2,p4,p5,p9,p11;
+ideal G279 = std(J279); if (dim(G279)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 279; dim(G279); }
+kill J279; kill G279;
+ideal J280 = C,p0,p2,p4,p5,p10,p11;
+ideal G280 = std(J280); if (dim(G280)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 280; dim(G280); }
+kill J280; kill G280;
+ideal J281 = C,p0,p2,p4,p6,p7,p8;
+ideal G281 = std(J281); if (dim(G281)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 281; dim(G281); }
+kill J281; kill G281;
+ideal J282 = C,p0,p2,p4,p6,p7,p9;
+ideal G282 = std(J282); if (dim(G282)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 282; dim(G282); }
+kill J282; kill G282;
+ideal J283 = C,p0,p2,p4,p6,p7,p10;
+ideal G283 = std(J283); if (dim(G283)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 283; dim(G283); }
+kill J283; kill G283;
+ideal J284 = C,p0,p2,p4,p6,p7,p11;
+ideal G284 = std(J284); if (dim(G284)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 284; dim(G284); }
+kill J284; kill G284;
+ideal J285 = C,p0,p2,p4,p6,p8,p9;
+ideal G285 = std(J285); if (dim(G285)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 285; dim(G285); }
+kill J285; kill G285;
+ideal J286 = C,p0,p2,p4,p6,p8,p10;
+ideal G286 = std(J286); if (dim(G286)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 286; dim(G286); }
+kill J286; kill G286;
+ideal J287 = C,p0,p2,p4,p6,p8,p11;
+ideal G287 = std(J287); if (dim(G287)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 287; dim(G287); }
+kill J287; kill G287;
+ideal J288 = C,p0,p2,p4,p6,p9,p10;
+ideal G288 = std(J288); if (dim(G288)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 288; dim(G288); }
+kill J288; kill G288;
+ideal J289 = C,p0,p2,p4,p6,p9,p11;
+ideal G289 = std(J289); if (dim(G289)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 289; dim(G289); }
+kill J289; kill G289;
+ideal J290 = C,p0,p2,p4,p6,p10,p11;
+ideal G290 = std(J290); if (dim(G290)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 290; dim(G290); }
+kill J290; kill G290;
+ideal J291 = C,p0,p2,p4,p7,p8,p9;
+ideal G291 = std(J291); if (dim(G291)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 291; dim(G291); }
+kill J291; kill G291;
+ideal J292 = C,p0,p2,p4,p7,p8,p10;
+ideal G292 = std(J292); if (dim(G292)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 292; dim(G292); }
+kill J292; kill G292;
+ideal J293 = C,p0,p2,p4,p7,p8,p11;
+ideal G293 = std(J293); if (dim(G293)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 293; dim(G293); }
+kill J293; kill G293;
+ideal J294 = C,p0,p2,p4,p7,p9,p10;
+ideal G294 = std(J294); if (dim(G294)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 294; dim(G294); }
+kill J294; kill G294;
+ideal J295 = C,p0,p2,p4,p7,p9,p11;
+ideal G295 = std(J295); if (dim(G295)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 295; dim(G295); }
+kill J295; kill G295;
+ideal J296 = C,p0,p2,p4,p7,p10,p11;
+ideal G296 = std(J296); if (dim(G296)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 296; dim(G296); }
+kill J296; kill G296;
+ideal J297 = C,p0,p2,p4,p8,p9,p10;
+ideal G297 = std(J297); if (dim(G297)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 297; dim(G297); }
+kill J297; kill G297;
+ideal J298 = C,p0,p2,p4,p8,p9,p11;
+ideal G298 = std(J298); if (dim(G298)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 298; dim(G298); }
+kill J298; kill G298;
+ideal J299 = C,p0,p2,p4,p8,p10,p11;
+ideal G299 = std(J299); if (dim(G299)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 299; dim(G299); }
+kill J299; kill G299;
+ideal J300 = C,p0,p2,p4,p9,p10,p11;
+ideal G300 = std(J300); if (dim(G300)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 300; dim(G300); }
+kill J300; kill G300;
+ideal J301 = C,p0,p2,p5,p6,p7,p8;
+ideal G301 = std(J301); if (dim(G301)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 301; dim(G301); }
+kill J301; kill G301;
+ideal J302 = C,p0,p2,p5,p6,p7,p9;
+ideal G302 = std(J302); if (dim(G302)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 302; dim(G302); }
+kill J302; kill G302;
+ideal J303 = C,p0,p2,p5,p6,p7,p10;
+ideal G303 = std(J303); if (dim(G303)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 303; dim(G303); }
+kill J303; kill G303;
+ideal J304 = C,p0,p2,p5,p6,p7,p11;
+ideal G304 = std(J304); if (dim(G304)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 304; dim(G304); }
+kill J304; kill G304;
+ideal J305 = C,p0,p2,p5,p6,p8,p9;
+ideal G305 = std(J305); if (dim(G305)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 305; dim(G305); }
+kill J305; kill G305;
+ideal J306 = C,p0,p2,p5,p6,p8,p10;
+ideal G306 = std(J306); if (dim(G306)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 306; dim(G306); }
+kill J306; kill G306;
+ideal J307 = C,p0,p2,p5,p6,p8,p11;
+ideal G307 = std(J307); if (dim(G307)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 307; dim(G307); }
+kill J307; kill G307;
+ideal J308 = C,p0,p2,p5,p6,p9,p10;
+ideal G308 = std(J308); if (dim(G308)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 308; dim(G308); }
+kill J308; kill G308;
+ideal J309 = C,p0,p2,p5,p6,p9,p11;
+ideal G309 = std(J309); if (dim(G309)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 309; dim(G309); }
+kill J309; kill G309;
+ideal J310 = C,p0,p2,p5,p6,p10,p11;
+ideal G310 = std(J310); if (dim(G310)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 310; dim(G310); }
+kill J310; kill G310;
+ideal J311 = C,p0,p2,p5,p7,p8,p9;
+ideal G311 = std(J311); if (dim(G311)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 311; dim(G311); }
+kill J311; kill G311;
+ideal J312 = C,p0,p2,p5,p7,p8,p10;
+ideal G312 = std(J312); if (dim(G312)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 312; dim(G312); }
+kill J312; kill G312;
+ideal J313 = C,p0,p2,p5,p7,p8,p11;
+ideal G313 = std(J313); if (dim(G313)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 313; dim(G313); }
+kill J313; kill G313;
+ideal J314 = C,p0,p2,p5,p7,p9,p10;
+ideal G314 = std(J314); if (dim(G314)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 314; dim(G314); }
+kill J314; kill G314;
+ideal J315 = C,p0,p2,p5,p7,p9,p11;
+ideal G315 = std(J315); if (dim(G315)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 315; dim(G315); }
+kill J315; kill G315;
+ideal J316 = C,p0,p2,p5,p7,p10,p11;
+ideal G316 = std(J316); if (dim(G316)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 316; dim(G316); }
+kill J316; kill G316;
+ideal J317 = C,p0,p2,p5,p8,p9,p10;
+ideal G317 = std(J317); if (dim(G317)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 317; dim(G317); }
+kill J317; kill G317;
+ideal J318 = C,p0,p2,p5,p8,p9,p11;
+ideal G318 = std(J318); if (dim(G318)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 318; dim(G318); }
+kill J318; kill G318;
+ideal J319 = C,p0,p2,p5,p8,p10,p11;
+ideal G319 = std(J319); if (dim(G319)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 319; dim(G319); }
+kill J319; kill G319;
+ideal J320 = C,p0,p2,p5,p9,p10,p11;
+ideal G320 = std(J320); if (dim(G320)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 320; dim(G320); }
+kill J320; kill G320;
+ideal J321 = C,p0,p2,p6,p7,p8,p9;
+ideal G321 = std(J321); if (dim(G321)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 321; dim(G321); }
+kill J321; kill G321;
+ideal J322 = C,p0,p2,p6,p7,p8,p10;
+ideal G322 = std(J322); if (dim(G322)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 322; dim(G322); }
+kill J322; kill G322;
+ideal J323 = C,p0,p2,p6,p7,p8,p11;
+ideal G323 = std(J323); if (dim(G323)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 323; dim(G323); }
+kill J323; kill G323;
+ideal J324 = C,p0,p2,p6,p7,p9,p10;
+ideal G324 = std(J324); if (dim(G324)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 324; dim(G324); }
+kill J324; kill G324;
+ideal J325 = C,p0,p2,p6,p7,p9,p11;
+ideal G325 = std(J325); if (dim(G325)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 325; dim(G325); }
+kill J325; kill G325;
+ideal J326 = C,p0,p2,p6,p7,p10,p11;
+ideal G326 = std(J326); if (dim(G326)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 326; dim(G326); }
+kill J326; kill G326;
+ideal J327 = C,p0,p2,p6,p8,p9,p10;
+ideal G327 = std(J327); if (dim(G327)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 327; dim(G327); }
+kill J327; kill G327;
+ideal J328 = C,p0,p2,p6,p8,p9,p11;
+ideal G328 = std(J328); if (dim(G328)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 328; dim(G328); }
+kill J328; kill G328;
+ideal J329 = C,p0,p2,p6,p8,p10,p11;
+ideal G329 = std(J329); if (dim(G329)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 329; dim(G329); }
+kill J329; kill G329;
+ideal J330 = C,p0,p2,p6,p9,p10,p11;
+ideal G330 = std(J330); if (dim(G330)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 330; dim(G330); }
+kill J330; kill G330;
+ideal J331 = C,p0,p2,p7,p8,p9,p10;
+ideal G331 = std(J331); if (dim(G331)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 331; dim(G331); }
+kill J331; kill G331;
+ideal J332 = C,p0,p2,p7,p8,p9,p11;
+ideal G332 = std(J332); if (dim(G332)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 332; dim(G332); }
+kill J332; kill G332;
+ideal J333 = C,p0,p2,p7,p8,p10,p11;
+ideal G333 = std(J333); if (dim(G333)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 333; dim(G333); }
+kill J333; kill G333;
+ideal J334 = C,p0,p2,p7,p9,p10,p11;
+ideal G334 = std(J334); if (dim(G334)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 334; dim(G334); }
+kill J334; kill G334;
+ideal J335 = C,p0,p2,p8,p9,p10,p11;
+ideal G335 = std(J335); if (dim(G335)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 335; dim(G335); }
+kill J335; kill G335;
+ideal J336 = C,p0,p3,p4,p5,p6,p7;
+ideal G336 = std(J336); if (dim(G336)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 336; dim(G336); }
+kill J336; kill G336;
+ideal J337 = C,p0,p3,p4,p5,p6,p8;
+ideal G337 = std(J337); if (dim(G337)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 337; dim(G337); }
+kill J337; kill G337;
+ideal J338 = C,p0,p3,p4,p5,p6,p9;
+ideal G338 = std(J338); if (dim(G338)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 338; dim(G338); }
+kill J338; kill G338;
+ideal J339 = C,p0,p3,p4,p5,p6,p10;
+ideal G339 = std(J339); if (dim(G339)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 339; dim(G339); }
+kill J339; kill G339;
+ideal J340 = C,p0,p3,p4,p5,p6,p11;
+ideal G340 = std(J340); if (dim(G340)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 340; dim(G340); }
+kill J340; kill G340;
+ideal J341 = C,p0,p3,p4,p5,p7,p8;
+ideal G341 = std(J341); if (dim(G341)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 341; dim(G341); }
+kill J341; kill G341;
+ideal J342 = C,p0,p3,p4,p5,p7,p9;
+ideal G342 = std(J342); if (dim(G342)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 342; dim(G342); }
+kill J342; kill G342;
+ideal J343 = C,p0,p3,p4,p5,p7,p10;
+ideal G343 = std(J343); if (dim(G343)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 343; dim(G343); }
+kill J343; kill G343;
+ideal J344 = C,p0,p3,p4,p5,p7,p11;
+ideal G344 = std(J344); if (dim(G344)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 344; dim(G344); }
+kill J344; kill G344;
+ideal J345 = C,p0,p3,p4,p5,p8,p9;
+ideal G345 = std(J345); if (dim(G345)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 345; dim(G345); }
+kill J345; kill G345;
+ideal J346 = C,p0,p3,p4,p5,p8,p10;
+ideal G346 = std(J346); if (dim(G346)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 346; dim(G346); }
+kill J346; kill G346;
+ideal J347 = C,p0,p3,p4,p5,p8,p11;
+ideal G347 = std(J347); if (dim(G347)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 347; dim(G347); }
+kill J347; kill G347;
+ideal J348 = C,p0,p3,p4,p5,p9,p10;
+ideal G348 = std(J348); if (dim(G348)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 348; dim(G348); }
+kill J348; kill G348;
+ideal J349 = C,p0,p3,p4,p5,p9,p11;
+ideal G349 = std(J349); if (dim(G349)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 349; dim(G349); }
+kill J349; kill G349;
+ideal J350 = C,p0,p3,p4,p5,p10,p11;
+ideal G350 = std(J350); if (dim(G350)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 350; dim(G350); }
+kill J350; kill G350;
+ideal J351 = C,p0,p3,p4,p6,p7,p8;
+ideal G351 = std(J351); if (dim(G351)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 351; dim(G351); }
+kill J351; kill G351;
+ideal J352 = C,p0,p3,p4,p6,p7,p9;
+ideal G352 = std(J352); if (dim(G352)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 352; dim(G352); }
+kill J352; kill G352;
+ideal J353 = C,p0,p3,p4,p6,p7,p10;
+ideal G353 = std(J353); if (dim(G353)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 353; dim(G353); }
+kill J353; kill G353;
+ideal J354 = C,p0,p3,p4,p6,p7,p11;
+ideal G354 = std(J354); if (dim(G354)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 354; dim(G354); }
+kill J354; kill G354;
+ideal J355 = C,p0,p3,p4,p6,p8,p9;
+ideal G355 = std(J355); if (dim(G355)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 355; dim(G355); }
+kill J355; kill G355;
+ideal J356 = C,p0,p3,p4,p6,p8,p10;
+ideal G356 = std(J356); if (dim(G356)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 356; dim(G356); }
+kill J356; kill G356;
+ideal J357 = C,p0,p3,p4,p6,p8,p11;
+ideal G357 = std(J357); if (dim(G357)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 357; dim(G357); }
+kill J357; kill G357;
+ideal J358 = C,p0,p3,p4,p6,p9,p10;
+ideal G358 = std(J358); if (dim(G358)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 358; dim(G358); }
+kill J358; kill G358;
+ideal J359 = C,p0,p3,p4,p6,p9,p11;
+ideal G359 = std(J359); if (dim(G359)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 359; dim(G359); }
+kill J359; kill G359;
+ideal J360 = C,p0,p3,p4,p6,p10,p11;
+ideal G360 = std(J360); if (dim(G360)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 360; dim(G360); }
+kill J360; kill G360;
+ideal J361 = C,p0,p3,p4,p7,p8,p9;
+ideal G361 = std(J361); if (dim(G361)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 361; dim(G361); }
+kill J361; kill G361;
+ideal J362 = C,p0,p3,p4,p7,p8,p10;
+ideal G362 = std(J362); if (dim(G362)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 362; dim(G362); }
+kill J362; kill G362;
+ideal J363 = C,p0,p3,p4,p7,p8,p11;
+ideal G363 = std(J363); if (dim(G363)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 363; dim(G363); }
+kill J363; kill G363;
+ideal J364 = C,p0,p3,p4,p7,p9,p10;
+ideal G364 = std(J364); if (dim(G364)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 364; dim(G364); }
+kill J364; kill G364;
+ideal J365 = C,p0,p3,p4,p7,p9,p11;
+ideal G365 = std(J365); if (dim(G365)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 365; dim(G365); }
+kill J365; kill G365;
+ideal J366 = C,p0,p3,p4,p7,p10,p11;
+ideal G366 = std(J366); if (dim(G366)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 366; dim(G366); }
+kill J366; kill G366;
+ideal J367 = C,p0,p3,p4,p8,p9,p10;
+ideal G367 = std(J367); if (dim(G367)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 367; dim(G367); }
+kill J367; kill G367;
+ideal J368 = C,p0,p3,p4,p8,p9,p11;
+ideal G368 = std(J368); if (dim(G368)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 368; dim(G368); }
+kill J368; kill G368;
+ideal J369 = C,p0,p3,p4,p8,p10,p11;
+ideal G369 = std(J369); if (dim(G369)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 369; dim(G369); }
+kill J369; kill G369;
+ideal J370 = C,p0,p3,p4,p9,p10,p11;
+ideal G370 = std(J370); if (dim(G370)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 370; dim(G370); }
+kill J370; kill G370;
+ideal J371 = C,p0,p3,p5,p6,p7,p8;
+ideal G371 = std(J371); if (dim(G371)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 371; dim(G371); }
+kill J371; kill G371;
+ideal J372 = C,p0,p3,p5,p6,p7,p9;
+ideal G372 = std(J372); if (dim(G372)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 372; dim(G372); }
+kill J372; kill G372;
+ideal J373 = C,p0,p3,p5,p6,p7,p10;
+ideal G373 = std(J373); if (dim(G373)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 373; dim(G373); }
+kill J373; kill G373;
+ideal J374 = C,p0,p3,p5,p6,p7,p11;
+ideal G374 = std(J374); if (dim(G374)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 374; dim(G374); }
+kill J374; kill G374;
+ideal J375 = C,p0,p3,p5,p6,p8,p9;
+ideal G375 = std(J375); if (dim(G375)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 375; dim(G375); }
+kill J375; kill G375;
+ideal J376 = C,p0,p3,p5,p6,p8,p10;
+ideal G376 = std(J376); if (dim(G376)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 376; dim(G376); }
+kill J376; kill G376;
+ideal J377 = C,p0,p3,p5,p6,p8,p11;
+ideal G377 = std(J377); if (dim(G377)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 377; dim(G377); }
+kill J377; kill G377;
+ideal J378 = C,p0,p3,p5,p6,p9,p10;
+ideal G378 = std(J378); if (dim(G378)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 378; dim(G378); }
+kill J378; kill G378;
+ideal J379 = C,p0,p3,p5,p6,p9,p11;
+ideal G379 = std(J379); if (dim(G379)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 379; dim(G379); }
+kill J379; kill G379;
+ideal J380 = C,p0,p3,p5,p6,p10,p11;
+ideal G380 = std(J380); if (dim(G380)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 380; dim(G380); }
+kill J380; kill G380;
+ideal J381 = C,p0,p3,p5,p7,p8,p9;
+ideal G381 = std(J381); if (dim(G381)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 381; dim(G381); }
+kill J381; kill G381;
+ideal J382 = C,p0,p3,p5,p7,p8,p10;
+ideal G382 = std(J382); if (dim(G382)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 382; dim(G382); }
+kill J382; kill G382;
+ideal J383 = C,p0,p3,p5,p7,p8,p11;
+ideal G383 = std(J383); if (dim(G383)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 383; dim(G383); }
+kill J383; kill G383;
+ideal J384 = C,p0,p3,p5,p7,p9,p10;
+ideal G384 = std(J384); if (dim(G384)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 384; dim(G384); }
+kill J384; kill G384;
+ideal J385 = C,p0,p3,p5,p7,p9,p11;
+ideal G385 = std(J385); if (dim(G385)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 385; dim(G385); }
+kill J385; kill G385;
+ideal J386 = C,p0,p3,p5,p7,p10,p11;
+ideal G386 = std(J386); if (dim(G386)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 386; dim(G386); }
+kill J386; kill G386;
+ideal J387 = C,p0,p3,p5,p8,p9,p10;
+ideal G387 = std(J387); if (dim(G387)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 387; dim(G387); }
+kill J387; kill G387;
+ideal J388 = C,p0,p3,p5,p8,p9,p11;
+ideal G388 = std(J388); if (dim(G388)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 388; dim(G388); }
+kill J388; kill G388;
+ideal J389 = C,p0,p3,p5,p8,p10,p11;
+ideal G389 = std(J389); if (dim(G389)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 389; dim(G389); }
+kill J389; kill G389;
+ideal J390 = C,p0,p3,p5,p9,p10,p11;
+ideal G390 = std(J390); if (dim(G390)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 390; dim(G390); }
+kill J390; kill G390;
+ideal J391 = C,p0,p3,p6,p7,p8,p9;
+ideal G391 = std(J391); if (dim(G391)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 391; dim(G391); }
+kill J391; kill G391;
+ideal J392 = C,p0,p3,p6,p7,p8,p10;
+ideal G392 = std(J392); if (dim(G392)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 392; dim(G392); }
+kill J392; kill G392;
+ideal J393 = C,p0,p3,p6,p7,p8,p11;
+ideal G393 = std(J393); if (dim(G393)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 393; dim(G393); }
+kill J393; kill G393;
+ideal J394 = C,p0,p3,p6,p7,p9,p10;
+ideal G394 = std(J394); if (dim(G394)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 394; dim(G394); }
+kill J394; kill G394;
+ideal J395 = C,p0,p3,p6,p7,p9,p11;
+ideal G395 = std(J395); if (dim(G395)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 395; dim(G395); }
+kill J395; kill G395;
+ideal J396 = C,p0,p3,p6,p7,p10,p11;
+ideal G396 = std(J396); if (dim(G396)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 396; dim(G396); }
+kill J396; kill G396;
+ideal J397 = C,p0,p3,p6,p8,p9,p10;
+ideal G397 = std(J397); if (dim(G397)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 397; dim(G397); }
+kill J397; kill G397;
+ideal J398 = C,p0,p3,p6,p8,p9,p11;
+ideal G398 = std(J398); if (dim(G398)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 398; dim(G398); }
+kill J398; kill G398;
+ideal J399 = C,p0,p3,p6,p8,p10,p11;
+ideal G399 = std(J399); if (dim(G399)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 399; dim(G399); }
+kill J399; kill G399;
+ideal J400 = C,p0,p3,p6,p9,p10,p11;
+ideal G400 = std(J400); if (dim(G400)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 400; dim(G400); }
+kill J400; kill G400;
+ideal J401 = C,p0,p3,p7,p8,p9,p10;
+ideal G401 = std(J401); if (dim(G401)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 401; dim(G401); }
+kill J401; kill G401;
+ideal J402 = C,p0,p3,p7,p8,p9,p11;
+ideal G402 = std(J402); if (dim(G402)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 402; dim(G402); }
+kill J402; kill G402;
+ideal J403 = C,p0,p3,p7,p8,p10,p11;
+ideal G403 = std(J403); if (dim(G403)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 403; dim(G403); }
+kill J403; kill G403;
+ideal J404 = C,p0,p3,p7,p9,p10,p11;
+ideal G404 = std(J404); if (dim(G404)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 404; dim(G404); }
+kill J404; kill G404;
+ideal J405 = C,p0,p3,p8,p9,p10,p11;
+ideal G405 = std(J405); if (dim(G405)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 405; dim(G405); }
+kill J405; kill G405;
+ideal J406 = C,p0,p4,p5,p6,p7,p8;
+ideal G406 = std(J406); if (dim(G406)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 406; dim(G406); }
+kill J406; kill G406;
+ideal J407 = C,p0,p4,p5,p6,p7,p9;
+ideal G407 = std(J407); if (dim(G407)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 407; dim(G407); }
+kill J407; kill G407;
+ideal J408 = C,p0,p4,p5,p6,p7,p10;
+ideal G408 = std(J408); if (dim(G408)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 408; dim(G408); }
+kill J408; kill G408;
+ideal J409 = C,p0,p4,p5,p6,p7,p11;
+ideal G409 = std(J409); if (dim(G409)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 409; dim(G409); }
+kill J409; kill G409;
+ideal J410 = C,p0,p4,p5,p6,p8,p9;
+ideal G410 = std(J410); if (dim(G410)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 410; dim(G410); }
+kill J410; kill G410;
+ideal J411 = C,p0,p4,p5,p6,p8,p10;
+ideal G411 = std(J411); if (dim(G411)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 411; dim(G411); }
+kill J411; kill G411;
+ideal J412 = C,p0,p4,p5,p6,p8,p11;
+ideal G412 = std(J412); if (dim(G412)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 412; dim(G412); }
+kill J412; kill G412;
+ideal J413 = C,p0,p4,p5,p6,p9,p10;
+ideal G413 = std(J413); if (dim(G413)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 413; dim(G413); }
+kill J413; kill G413;
+ideal J414 = C,p0,p4,p5,p6,p9,p11;
+ideal G414 = std(J414); if (dim(G414)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 414; dim(G414); }
+kill J414; kill G414;
+ideal J415 = C,p0,p4,p5,p6,p10,p11;
+ideal G415 = std(J415); if (dim(G415)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 415; dim(G415); }
+kill J415; kill G415;
+ideal J416 = C,p0,p4,p5,p7,p8,p9;
+ideal G416 = std(J416); if (dim(G416)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 416; dim(G416); }
+kill J416; kill G416;
+ideal J417 = C,p0,p4,p5,p7,p8,p10;
+ideal G417 = std(J417); if (dim(G417)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 417; dim(G417); }
+kill J417; kill G417;
+ideal J418 = C,p0,p4,p5,p7,p8,p11;
+ideal G418 = std(J418); if (dim(G418)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 418; dim(G418); }
+kill J418; kill G418;
+ideal J419 = C,p0,p4,p5,p7,p9,p10;
+ideal G419 = std(J419); if (dim(G419)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 419; dim(G419); }
+kill J419; kill G419;
+ideal J420 = C,p0,p4,p5,p7,p9,p11;
+ideal G420 = std(J420); if (dim(G420)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 420; dim(G420); }
+kill J420; kill G420;
+ideal J421 = C,p0,p4,p5,p7,p10,p11;
+ideal G421 = std(J421); if (dim(G421)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 421; dim(G421); }
+kill J421; kill G421;
+ideal J422 = C,p0,p4,p5,p8,p9,p10;
+ideal G422 = std(J422); if (dim(G422)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 422; dim(G422); }
+kill J422; kill G422;
+ideal J423 = C,p0,p4,p5,p8,p9,p11;
+ideal G423 = std(J423); if (dim(G423)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 423; dim(G423); }
+kill J423; kill G423;
+ideal J424 = C,p0,p4,p5,p8,p10,p11;
+ideal G424 = std(J424); if (dim(G424)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 424; dim(G424); }
+kill J424; kill G424;
+ideal J425 = C,p0,p4,p5,p9,p10,p11;
+ideal G425 = std(J425); if (dim(G425)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 425; dim(G425); }
+kill J425; kill G425;
+ideal J426 = C,p0,p4,p6,p7,p8,p9;
+ideal G426 = std(J426); if (dim(G426)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 426; dim(G426); }
+kill J426; kill G426;
+ideal J427 = C,p0,p4,p6,p7,p8,p10;
+ideal G427 = std(J427); if (dim(G427)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 427; dim(G427); }
+kill J427; kill G427;
+ideal J428 = C,p0,p4,p6,p7,p8,p11;
+ideal G428 = std(J428); if (dim(G428)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 428; dim(G428); }
+kill J428; kill G428;
+ideal J429 = C,p0,p4,p6,p7,p9,p10;
+ideal G429 = std(J429); if (dim(G429)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 429; dim(G429); }
+kill J429; kill G429;
+ideal J430 = C,p0,p4,p6,p7,p9,p11;
+ideal G430 = std(J430); if (dim(G430)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 430; dim(G430); }
+kill J430; kill G430;
+ideal J431 = C,p0,p4,p6,p7,p10,p11;
+ideal G431 = std(J431); if (dim(G431)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 431; dim(G431); }
+kill J431; kill G431;
+ideal J432 = C,p0,p4,p6,p8,p9,p10;
+ideal G432 = std(J432); if (dim(G432)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 432; dim(G432); }
+kill J432; kill G432;
+ideal J433 = C,p0,p4,p6,p8,p9,p11;
+ideal G433 = std(J433); if (dim(G433)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 433; dim(G433); }
+kill J433; kill G433;
+ideal J434 = C,p0,p4,p6,p8,p10,p11;
+ideal G434 = std(J434); if (dim(G434)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 434; dim(G434); }
+kill J434; kill G434;
+ideal J435 = C,p0,p4,p6,p9,p10,p11;
+ideal G435 = std(J435); if (dim(G435)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 435; dim(G435); }
+kill J435; kill G435;
+ideal J436 = C,p0,p4,p7,p8,p9,p10;
+ideal G436 = std(J436); if (dim(G436)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 436; dim(G436); }
+kill J436; kill G436;
+ideal J437 = C,p0,p4,p7,p8,p9,p11;
+ideal G437 = std(J437); if (dim(G437)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 437; dim(G437); }
+kill J437; kill G437;
+ideal J438 = C,p0,p4,p7,p8,p10,p11;
+ideal G438 = std(J438); if (dim(G438)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 438; dim(G438); }
+kill J438; kill G438;
+ideal J439 = C,p0,p4,p7,p9,p10,p11;
+ideal G439 = std(J439); if (dim(G439)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 439; dim(G439); }
+kill J439; kill G439;
+ideal J440 = C,p0,p4,p8,p9,p10,p11;
+ideal G440 = std(J440); if (dim(G440)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 440; dim(G440); }
+kill J440; kill G440;
+ideal J441 = C,p0,p5,p6,p7,p8,p9;
+ideal G441 = std(J441); if (dim(G441)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 441; dim(G441); }
+kill J441; kill G441;
+ideal J442 = C,p0,p5,p6,p7,p8,p10;
+ideal G442 = std(J442); if (dim(G442)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 442; dim(G442); }
+kill J442; kill G442;
+ideal J443 = C,p0,p5,p6,p7,p8,p11;
+ideal G443 = std(J443); if (dim(G443)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 443; dim(G443); }
+kill J443; kill G443;
+ideal J444 = C,p0,p5,p6,p7,p9,p10;
+ideal G444 = std(J444); if (dim(G444)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 444; dim(G444); }
+kill J444; kill G444;
+ideal J445 = C,p0,p5,p6,p7,p9,p11;
+ideal G445 = std(J445); if (dim(G445)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 445; dim(G445); }
+kill J445; kill G445;
+ideal J446 = C,p0,p5,p6,p7,p10,p11;
+ideal G446 = std(J446); if (dim(G446)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 446; dim(G446); }
+kill J446; kill G446;
+ideal J447 = C,p0,p5,p6,p8,p9,p10;
+ideal G447 = std(J447); if (dim(G447)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 447; dim(G447); }
+kill J447; kill G447;
+ideal J448 = C,p0,p5,p6,p8,p9,p11;
+ideal G448 = std(J448); if (dim(G448)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 448; dim(G448); }
+kill J448; kill G448;
+ideal J449 = C,p0,p5,p6,p8,p10,p11;
+ideal G449 = std(J449); if (dim(G449)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 449; dim(G449); }
+kill J449; kill G449;
+ideal J450 = C,p0,p5,p6,p9,p10,p11;
+ideal G450 = std(J450); if (dim(G450)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 450; dim(G450); }
+kill J450; kill G450;
+ideal J451 = C,p0,p5,p7,p8,p9,p10;
+ideal G451 = std(J451); if (dim(G451)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 451; dim(G451); }
+kill J451; kill G451;
+ideal J452 = C,p0,p5,p7,p8,p9,p11;
+ideal G452 = std(J452); if (dim(G452)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 452; dim(G452); }
+kill J452; kill G452;
+ideal J453 = C,p0,p5,p7,p8,p10,p11;
+ideal G453 = std(J453); if (dim(G453)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 453; dim(G453); }
+kill J453; kill G453;
+ideal J454 = C,p0,p5,p7,p9,p10,p11;
+ideal G454 = std(J454); if (dim(G454)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 454; dim(G454); }
+kill J454; kill G454;
+ideal J455 = C,p0,p5,p8,p9,p10,p11;
+ideal G455 = std(J455); if (dim(G455)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 455; dim(G455); }
+kill J455; kill G455;
+ideal J456 = C,p0,p6,p7,p8,p9,p10;
+ideal G456 = std(J456); if (dim(G456)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 456; dim(G456); }
+kill J456; kill G456;
+ideal J457 = C,p0,p6,p7,p8,p9,p11;
+ideal G457 = std(J457); if (dim(G457)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 457; dim(G457); }
+kill J457; kill G457;
+ideal J458 = C,p0,p6,p7,p8,p10,p11;
+ideal G458 = std(J458); if (dim(G458)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 458; dim(G458); }
+kill J458; kill G458;
+ideal J459 = C,p0,p6,p7,p9,p10,p11;
+ideal G459 = std(J459); if (dim(G459)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 459; dim(G459); }
+kill J459; kill G459;
+ideal J460 = C,p0,p6,p8,p9,p10,p11;
+ideal G460 = std(J460); if (dim(G460)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 460; dim(G460); }
+kill J460; kill G460;
+ideal J461 = C,p0,p7,p8,p9,p10,p11;
+ideal G461 = std(J461); if (dim(G461)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 461; dim(G461); }
+kill J461; kill G461;
+ideal J462 = C,p1,p2,p3,p4,p5,p6;
+ideal G462 = std(J462); if (dim(G462)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 462; dim(G462); }
+kill J462; kill G462;
+ideal J463 = C,p1,p2,p3,p4,p5,p7;
+ideal G463 = std(J463); if (dim(G463)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 463; dim(G463); }
+kill J463; kill G463;
+ideal J464 = C,p1,p2,p3,p4,p5,p8;
+ideal G464 = std(J464); if (dim(G464)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 464; dim(G464); }
+kill J464; kill G464;
+ideal J465 = C,p1,p2,p3,p4,p5,p9;
+ideal G465 = std(J465); if (dim(G465)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 465; dim(G465); }
+kill J465; kill G465;
+ideal J466 = C,p1,p2,p3,p4,p5,p10;
+ideal G466 = std(J466); if (dim(G466)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 466; dim(G466); }
+kill J466; kill G466;
+ideal J467 = C,p1,p2,p3,p4,p5,p11;
+ideal G467 = std(J467); if (dim(G467)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 467; dim(G467); }
+kill J467; kill G467;
+ideal J468 = C,p1,p2,p3,p4,p6,p7;
+ideal G468 = std(J468); if (dim(G468)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 468; dim(G468); }
+kill J468; kill G468;
+ideal J469 = C,p1,p2,p3,p4,p6,p8;
+ideal G469 = std(J469); if (dim(G469)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 469; dim(G469); }
+kill J469; kill G469;
+ideal J470 = C,p1,p2,p3,p4,p6,p9;
+ideal G470 = std(J470); if (dim(G470)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 470; dim(G470); }
+kill J470; kill G470;
+ideal J471 = C,p1,p2,p3,p4,p6,p10;
+ideal G471 = std(J471); if (dim(G471)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 471; dim(G471); }
+kill J471; kill G471;
+ideal J472 = C,p1,p2,p3,p4,p6,p11;
+ideal G472 = std(J472); if (dim(G472)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 472; dim(G472); }
+kill J472; kill G472;
+ideal J473 = C,p1,p2,p3,p4,p7,p8;
+ideal G473 = std(J473); if (dim(G473)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 473; dim(G473); }
+kill J473; kill G473;
+ideal J474 = C,p1,p2,p3,p4,p7,p9;
+ideal G474 = std(J474); if (dim(G474)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 474; dim(G474); }
+kill J474; kill G474;
+ideal J475 = C,p1,p2,p3,p4,p7,p10;
+ideal G475 = std(J475); if (dim(G475)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 475; dim(G475); }
+kill J475; kill G475;
+ideal J476 = C,p1,p2,p3,p4,p7,p11;
+ideal G476 = std(J476); if (dim(G476)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 476; dim(G476); }
+kill J476; kill G476;
+ideal J477 = C,p1,p2,p3,p4,p8,p9;
+ideal G477 = std(J477); if (dim(G477)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 477; dim(G477); }
+kill J477; kill G477;
+ideal J478 = C,p1,p2,p3,p4,p8,p10;
+ideal G478 = std(J478); if (dim(G478)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 478; dim(G478); }
+kill J478; kill G478;
+ideal J479 = C,p1,p2,p3,p4,p8,p11;
+ideal G479 = std(J479); if (dim(G479)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 479; dim(G479); }
+kill J479; kill G479;
+ideal J480 = C,p1,p2,p3,p4,p9,p10;
+ideal G480 = std(J480); if (dim(G480)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 480; dim(G480); }
+kill J480; kill G480;
+ideal J481 = C,p1,p2,p3,p4,p9,p11;
+ideal G481 = std(J481); if (dim(G481)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 481; dim(G481); }
+kill J481; kill G481;
+ideal J482 = C,p1,p2,p3,p4,p10,p11;
+ideal G482 = std(J482); if (dim(G482)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 482; dim(G482); }
+kill J482; kill G482;
+ideal J483 = C,p1,p2,p3,p5,p6,p7;
+ideal G483 = std(J483); if (dim(G483)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 483; dim(G483); }
+kill J483; kill G483;
+ideal J484 = C,p1,p2,p3,p5,p6,p8;
+ideal G484 = std(J484); if (dim(G484)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 484; dim(G484); }
+kill J484; kill G484;
+ideal J485 = C,p1,p2,p3,p5,p6,p9;
+ideal G485 = std(J485); if (dim(G485)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 485; dim(G485); }
+kill J485; kill G485;
+ideal J486 = C,p1,p2,p3,p5,p6,p10;
+ideal G486 = std(J486); if (dim(G486)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 486; dim(G486); }
+kill J486; kill G486;
+ideal J487 = C,p1,p2,p3,p5,p6,p11;
+ideal G487 = std(J487); if (dim(G487)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 487; dim(G487); }
+kill J487; kill G487;
+ideal J488 = C,p1,p2,p3,p5,p7,p8;
+ideal G488 = std(J488); if (dim(G488)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 488; dim(G488); }
+kill J488; kill G488;
+ideal J489 = C,p1,p2,p3,p5,p7,p9;
+ideal G489 = std(J489); if (dim(G489)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 489; dim(G489); }
+kill J489; kill G489;
+ideal J490 = C,p1,p2,p3,p5,p7,p10;
+ideal G490 = std(J490); if (dim(G490)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 490; dim(G490); }
+kill J490; kill G490;
+ideal J491 = C,p1,p2,p3,p5,p7,p11;
+ideal G491 = std(J491); if (dim(G491)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 491; dim(G491); }
+kill J491; kill G491;
+ideal J492 = C,p1,p2,p3,p5,p8,p9;
+ideal G492 = std(J492); if (dim(G492)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 492; dim(G492); }
+kill J492; kill G492;
+ideal J493 = C,p1,p2,p3,p5,p8,p10;
+ideal G493 = std(J493); if (dim(G493)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 493; dim(G493); }
+kill J493; kill G493;
+ideal J494 = C,p1,p2,p3,p5,p8,p11;
+ideal G494 = std(J494); if (dim(G494)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 494; dim(G494); }
+kill J494; kill G494;
+ideal J495 = C,p1,p2,p3,p5,p9,p10;
+ideal G495 = std(J495); if (dim(G495)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 495; dim(G495); }
+kill J495; kill G495;
+ideal J496 = C,p1,p2,p3,p5,p9,p11;
+ideal G496 = std(J496); if (dim(G496)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 496; dim(G496); }
+kill J496; kill G496;
+ideal J497 = C,p1,p2,p3,p5,p10,p11;
+ideal G497 = std(J497); if (dim(G497)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 497; dim(G497); }
+kill J497; kill G497;
+ideal J498 = C,p1,p2,p3,p6,p7,p8;
+ideal G498 = std(J498); if (dim(G498)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 498; dim(G498); }
+kill J498; kill G498;
+ideal J499 = C,p1,p2,p3,p6,p7,p9;
+ideal G499 = std(J499); if (dim(G499)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 499; dim(G499); }
+kill J499; kill G499;
+ideal J500 = C,p1,p2,p3,p6,p7,p10;
+ideal G500 = std(J500); if (dim(G500)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 500; dim(G500); }
+kill J500; kill G500;
+ideal J501 = C,p1,p2,p3,p6,p7,p11;
+ideal G501 = std(J501); if (dim(G501)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 501; dim(G501); }
+kill J501; kill G501;
+ideal J502 = C,p1,p2,p3,p6,p8,p9;
+ideal G502 = std(J502); if (dim(G502)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 502; dim(G502); }
+kill J502; kill G502;
+ideal J503 = C,p1,p2,p3,p6,p8,p10;
+ideal G503 = std(J503); if (dim(G503)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 503; dim(G503); }
+kill J503; kill G503;
+ideal J504 = C,p1,p2,p3,p6,p8,p11;
+ideal G504 = std(J504); if (dim(G504)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 504; dim(G504); }
+kill J504; kill G504;
+ideal J505 = C,p1,p2,p3,p6,p9,p10;
+ideal G505 = std(J505); if (dim(G505)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 505; dim(G505); }
+kill J505; kill G505;
+ideal J506 = C,p1,p2,p3,p6,p9,p11;
+ideal G506 = std(J506); if (dim(G506)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 506; dim(G506); }
+kill J506; kill G506;
+ideal J507 = C,p1,p2,p3,p6,p10,p11;
+ideal G507 = std(J507); if (dim(G507)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 507; dim(G507); }
+kill J507; kill G507;
+ideal J508 = C,p1,p2,p3,p7,p8,p9;
+ideal G508 = std(J508); if (dim(G508)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 508; dim(G508); }
+kill J508; kill G508;
+ideal J509 = C,p1,p2,p3,p7,p8,p10;
+ideal G509 = std(J509); if (dim(G509)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 509; dim(G509); }
+kill J509; kill G509;
+ideal J510 = C,p1,p2,p3,p7,p8,p11;
+ideal G510 = std(J510); if (dim(G510)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 510; dim(G510); }
+kill J510; kill G510;
+ideal J511 = C,p1,p2,p3,p7,p9,p10;
+ideal G511 = std(J511); if (dim(G511)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 511; dim(G511); }
+kill J511; kill G511;
+ideal J512 = C,p1,p2,p3,p7,p9,p11;
+ideal G512 = std(J512); if (dim(G512)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 512; dim(G512); }
+kill J512; kill G512;
+ideal J513 = C,p1,p2,p3,p7,p10,p11;
+ideal G513 = std(J513); if (dim(G513)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 513; dim(G513); }
+kill J513; kill G513;
+ideal J514 = C,p1,p2,p3,p8,p9,p10;
+ideal G514 = std(J514); if (dim(G514)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 514; dim(G514); }
+kill J514; kill G514;
+ideal J515 = C,p1,p2,p3,p8,p9,p11;
+ideal G515 = std(J515); if (dim(G515)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 515; dim(G515); }
+kill J515; kill G515;
+ideal J516 = C,p1,p2,p3,p8,p10,p11;
+ideal G516 = std(J516); if (dim(G516)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 516; dim(G516); }
+kill J516; kill G516;
+ideal J517 = C,p1,p2,p3,p9,p10,p11;
+ideal G517 = std(J517); if (dim(G517)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 517; dim(G517); }
+kill J517; kill G517;
+ideal J518 = C,p1,p2,p4,p5,p6,p7;
+ideal G518 = std(J518); if (dim(G518)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 518; dim(G518); }
+kill J518; kill G518;
+ideal J519 = C,p1,p2,p4,p5,p6,p8;
+ideal G519 = std(J519); if (dim(G519)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 519; dim(G519); }
+kill J519; kill G519;
+ideal J520 = C,p1,p2,p4,p5,p6,p9;
+ideal G520 = std(J520); if (dim(G520)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 520; dim(G520); }
+kill J520; kill G520;
+ideal J521 = C,p1,p2,p4,p5,p6,p10;
+ideal G521 = std(J521); if (dim(G521)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 521; dim(G521); }
+kill J521; kill G521;
+ideal J522 = C,p1,p2,p4,p5,p6,p11;
+ideal G522 = std(J522); if (dim(G522)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 522; dim(G522); }
+kill J522; kill G522;
+ideal J523 = C,p1,p2,p4,p5,p7,p8;
+ideal G523 = std(J523); if (dim(G523)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 523; dim(G523); }
+kill J523; kill G523;
+ideal J524 = C,p1,p2,p4,p5,p7,p9;
+ideal G524 = std(J524); if (dim(G524)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 524; dim(G524); }
+kill J524; kill G524;
+ideal J525 = C,p1,p2,p4,p5,p7,p10;
+ideal G525 = std(J525); if (dim(G525)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 525; dim(G525); }
+kill J525; kill G525;
+ideal J526 = C,p1,p2,p4,p5,p7,p11;
+ideal G526 = std(J526); if (dim(G526)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 526; dim(G526); }
+kill J526; kill G526;
+ideal J527 = C,p1,p2,p4,p5,p8,p9;
+ideal G527 = std(J527); if (dim(G527)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 527; dim(G527); }
+kill J527; kill G527;
+ideal J528 = C,p1,p2,p4,p5,p8,p10;
+ideal G528 = std(J528); if (dim(G528)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 528; dim(G528); }
+kill J528; kill G528;
+ideal J529 = C,p1,p2,p4,p5,p8,p11;
+ideal G529 = std(J529); if (dim(G529)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 529; dim(G529); }
+kill J529; kill G529;
+ideal J530 = C,p1,p2,p4,p5,p9,p10;
+ideal G530 = std(J530); if (dim(G530)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 530; dim(G530); }
+kill J530; kill G530;
+ideal J531 = C,p1,p2,p4,p5,p9,p11;
+ideal G531 = std(J531); if (dim(G531)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 531; dim(G531); }
+kill J531; kill G531;
+ideal J532 = C,p1,p2,p4,p5,p10,p11;
+ideal G532 = std(J532); if (dim(G532)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 532; dim(G532); }
+kill J532; kill G532;
+ideal J533 = C,p1,p2,p4,p6,p7,p8;
+ideal G533 = std(J533); if (dim(G533)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 533; dim(G533); }
+kill J533; kill G533;
+ideal J534 = C,p1,p2,p4,p6,p7,p9;
+ideal G534 = std(J534); if (dim(G534)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 534; dim(G534); }
+kill J534; kill G534;
+ideal J535 = C,p1,p2,p4,p6,p7,p10;
+ideal G535 = std(J535); if (dim(G535)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 535; dim(G535); }
+kill J535; kill G535;
+ideal J536 = C,p1,p2,p4,p6,p7,p11;
+ideal G536 = std(J536); if (dim(G536)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 536; dim(G536); }
+kill J536; kill G536;
+ideal J537 = C,p1,p2,p4,p6,p8,p9;
+ideal G537 = std(J537); if (dim(G537)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 537; dim(G537); }
+kill J537; kill G537;
+ideal J538 = C,p1,p2,p4,p6,p8,p10;
+ideal G538 = std(J538); if (dim(G538)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 538; dim(G538); }
+kill J538; kill G538;
+ideal J539 = C,p1,p2,p4,p6,p8,p11;
+ideal G539 = std(J539); if (dim(G539)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 539; dim(G539); }
+kill J539; kill G539;
+ideal J540 = C,p1,p2,p4,p6,p9,p10;
+ideal G540 = std(J540); if (dim(G540)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 540; dim(G540); }
+kill J540; kill G540;
+ideal J541 = C,p1,p2,p4,p6,p9,p11;
+ideal G541 = std(J541); if (dim(G541)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 541; dim(G541); }
+kill J541; kill G541;
+ideal J542 = C,p1,p2,p4,p6,p10,p11;
+ideal G542 = std(J542); if (dim(G542)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 542; dim(G542); }
+kill J542; kill G542;
+ideal J543 = C,p1,p2,p4,p7,p8,p9;
+ideal G543 = std(J543); if (dim(G543)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 543; dim(G543); }
+kill J543; kill G543;
+ideal J544 = C,p1,p2,p4,p7,p8,p10;
+ideal G544 = std(J544); if (dim(G544)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 544; dim(G544); }
+kill J544; kill G544;
+ideal J545 = C,p1,p2,p4,p7,p8,p11;
+ideal G545 = std(J545); if (dim(G545)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 545; dim(G545); }
+kill J545; kill G545;
+ideal J546 = C,p1,p2,p4,p7,p9,p10;
+ideal G546 = std(J546); if (dim(G546)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 546; dim(G546); }
+kill J546; kill G546;
+ideal J547 = C,p1,p2,p4,p7,p9,p11;
+ideal G547 = std(J547); if (dim(G547)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 547; dim(G547); }
+kill J547; kill G547;
+ideal J548 = C,p1,p2,p4,p7,p10,p11;
+ideal G548 = std(J548); if (dim(G548)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 548; dim(G548); }
+kill J548; kill G548;
+ideal J549 = C,p1,p2,p4,p8,p9,p10;
+ideal G549 = std(J549); if (dim(G549)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 549; dim(G549); }
+kill J549; kill G549;
+ideal J550 = C,p1,p2,p4,p8,p9,p11;
+ideal G550 = std(J550); if (dim(G550)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 550; dim(G550); }
+kill J550; kill G550;
+ideal J551 = C,p1,p2,p4,p8,p10,p11;
+ideal G551 = std(J551); if (dim(G551)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 551; dim(G551); }
+kill J551; kill G551;
+ideal J552 = C,p1,p2,p4,p9,p10,p11;
+ideal G552 = std(J552); if (dim(G552)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 552; dim(G552); }
+kill J552; kill G552;
+ideal J553 = C,p1,p2,p5,p6,p7,p8;
+ideal G553 = std(J553); if (dim(G553)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 553; dim(G553); }
+kill J553; kill G553;
+ideal J554 = C,p1,p2,p5,p6,p7,p9;
+ideal G554 = std(J554); if (dim(G554)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 554; dim(G554); }
+kill J554; kill G554;
+ideal J555 = C,p1,p2,p5,p6,p7,p10;
+ideal G555 = std(J555); if (dim(G555)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 555; dim(G555); }
+kill J555; kill G555;
+ideal J556 = C,p1,p2,p5,p6,p7,p11;
+ideal G556 = std(J556); if (dim(G556)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 556; dim(G556); }
+kill J556; kill G556;
+ideal J557 = C,p1,p2,p5,p6,p8,p9;
+ideal G557 = std(J557); if (dim(G557)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 557; dim(G557); }
+kill J557; kill G557;
+ideal J558 = C,p1,p2,p5,p6,p8,p10;
+ideal G558 = std(J558); if (dim(G558)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 558; dim(G558); }
+kill J558; kill G558;
+ideal J559 = C,p1,p2,p5,p6,p8,p11;
+ideal G559 = std(J559); if (dim(G559)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 559; dim(G559); }
+kill J559; kill G559;
+ideal J560 = C,p1,p2,p5,p6,p9,p10;
+ideal G560 = std(J560); if (dim(G560)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 560; dim(G560); }
+kill J560; kill G560;
+ideal J561 = C,p1,p2,p5,p6,p9,p11;
+ideal G561 = std(J561); if (dim(G561)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 561; dim(G561); }
+kill J561; kill G561;
+ideal J562 = C,p1,p2,p5,p6,p10,p11;
+ideal G562 = std(J562); if (dim(G562)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 562; dim(G562); }
+kill J562; kill G562;
+ideal J563 = C,p1,p2,p5,p7,p8,p9;
+ideal G563 = std(J563); if (dim(G563)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 563; dim(G563); }
+kill J563; kill G563;
+ideal J564 = C,p1,p2,p5,p7,p8,p10;
+ideal G564 = std(J564); if (dim(G564)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 564; dim(G564); }
+kill J564; kill G564;
+ideal J565 = C,p1,p2,p5,p7,p8,p11;
+ideal G565 = std(J565); if (dim(G565)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 565; dim(G565); }
+kill J565; kill G565;
+ideal J566 = C,p1,p2,p5,p7,p9,p10;
+ideal G566 = std(J566); if (dim(G566)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 566; dim(G566); }
+kill J566; kill G566;
+ideal J567 = C,p1,p2,p5,p7,p9,p11;
+ideal G567 = std(J567); if (dim(G567)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 567; dim(G567); }
+kill J567; kill G567;
+ideal J568 = C,p1,p2,p5,p7,p10,p11;
+ideal G568 = std(J568); if (dim(G568)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 568; dim(G568); }
+kill J568; kill G568;
+ideal J569 = C,p1,p2,p5,p8,p9,p10;
+ideal G569 = std(J569); if (dim(G569)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 569; dim(G569); }
+kill J569; kill G569;
+ideal J570 = C,p1,p2,p5,p8,p9,p11;
+ideal G570 = std(J570); if (dim(G570)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 570; dim(G570); }
+kill J570; kill G570;
+ideal J571 = C,p1,p2,p5,p8,p10,p11;
+ideal G571 = std(J571); if (dim(G571)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 571; dim(G571); }
+kill J571; kill G571;
+ideal J572 = C,p1,p2,p5,p9,p10,p11;
+ideal G572 = std(J572); if (dim(G572)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 572; dim(G572); }
+kill J572; kill G572;
+ideal J573 = C,p1,p2,p6,p7,p8,p9;
+ideal G573 = std(J573); if (dim(G573)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 573; dim(G573); }
+kill J573; kill G573;
+ideal J574 = C,p1,p2,p6,p7,p8,p10;
+ideal G574 = std(J574); if (dim(G574)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 574; dim(G574); }
+kill J574; kill G574;
+ideal J575 = C,p1,p2,p6,p7,p8,p11;
+ideal G575 = std(J575); if (dim(G575)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 575; dim(G575); }
+kill J575; kill G575;
+ideal J576 = C,p1,p2,p6,p7,p9,p10;
+ideal G576 = std(J576); if (dim(G576)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 576; dim(G576); }
+kill J576; kill G576;
+ideal J577 = C,p1,p2,p6,p7,p9,p11;
+ideal G577 = std(J577); if (dim(G577)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 577; dim(G577); }
+kill J577; kill G577;
+ideal J578 = C,p1,p2,p6,p7,p10,p11;
+ideal G578 = std(J578); if (dim(G578)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 578; dim(G578); }
+kill J578; kill G578;
+ideal J579 = C,p1,p2,p6,p8,p9,p10;
+ideal G579 = std(J579); if (dim(G579)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 579; dim(G579); }
+kill J579; kill G579;
+ideal J580 = C,p1,p2,p6,p8,p9,p11;
+ideal G580 = std(J580); if (dim(G580)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 580; dim(G580); }
+kill J580; kill G580;
+ideal J581 = C,p1,p2,p6,p8,p10,p11;
+ideal G581 = std(J581); if (dim(G581)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 581; dim(G581); }
+kill J581; kill G581;
+ideal J582 = C,p1,p2,p6,p9,p10,p11;
+ideal G582 = std(J582); if (dim(G582)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 582; dim(G582); }
+kill J582; kill G582;
+ideal J583 = C,p1,p2,p7,p8,p9,p10;
+ideal G583 = std(J583); if (dim(G583)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 583; dim(G583); }
+kill J583; kill G583;
+ideal J584 = C,p1,p2,p7,p8,p9,p11;
+ideal G584 = std(J584); if (dim(G584)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 584; dim(G584); }
+kill J584; kill G584;
+ideal J585 = C,p1,p2,p7,p8,p10,p11;
+ideal G585 = std(J585); if (dim(G585)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 585; dim(G585); }
+kill J585; kill G585;
+ideal J586 = C,p1,p2,p7,p9,p10,p11;
+ideal G586 = std(J586); if (dim(G586)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 586; dim(G586); }
+kill J586; kill G586;
+ideal J587 = C,p1,p2,p8,p9,p10,p11;
+ideal G587 = std(J587); if (dim(G587)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 587; dim(G587); }
+kill J587; kill G587;
+ideal J588 = C,p1,p3,p4,p5,p6,p7;
+ideal G588 = std(J588); if (dim(G588)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 588; dim(G588); }
+kill J588; kill G588;
+ideal J589 = C,p1,p3,p4,p5,p6,p8;
+ideal G589 = std(J589); if (dim(G589)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 589; dim(G589); }
+kill J589; kill G589;
+ideal J590 = C,p1,p3,p4,p5,p6,p9;
+ideal G590 = std(J590); if (dim(G590)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 590; dim(G590); }
+kill J590; kill G590;
+ideal J591 = C,p1,p3,p4,p5,p6,p10;
+ideal G591 = std(J591); if (dim(G591)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 591; dim(G591); }
+kill J591; kill G591;
+ideal J592 = C,p1,p3,p4,p5,p6,p11;
+ideal G592 = std(J592); if (dim(G592)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 592; dim(G592); }
+kill J592; kill G592;
+ideal J593 = C,p1,p3,p4,p5,p7,p8;
+ideal G593 = std(J593); if (dim(G593)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 593; dim(G593); }
+kill J593; kill G593;
+ideal J594 = C,p1,p3,p4,p5,p7,p9;
+ideal G594 = std(J594); if (dim(G594)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 594; dim(G594); }
+kill J594; kill G594;
+ideal J595 = C,p1,p3,p4,p5,p7,p10;
+ideal G595 = std(J595); if (dim(G595)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 595; dim(G595); }
+kill J595; kill G595;
+ideal J596 = C,p1,p3,p4,p5,p7,p11;
+ideal G596 = std(J596); if (dim(G596)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 596; dim(G596); }
+kill J596; kill G596;
+ideal J597 = C,p1,p3,p4,p5,p8,p9;
+ideal G597 = std(J597); if (dim(G597)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 597; dim(G597); }
+kill J597; kill G597;
+ideal J598 = C,p1,p3,p4,p5,p8,p10;
+ideal G598 = std(J598); if (dim(G598)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 598; dim(G598); }
+kill J598; kill G598;
+ideal J599 = C,p1,p3,p4,p5,p8,p11;
+ideal G599 = std(J599); if (dim(G599)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 599; dim(G599); }
+kill J599; kill G599;
+ideal J600 = C,p1,p3,p4,p5,p9,p10;
+ideal G600 = std(J600); if (dim(G600)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 600; dim(G600); }
+kill J600; kill G600;
+ideal J601 = C,p1,p3,p4,p5,p9,p11;
+ideal G601 = std(J601); if (dim(G601)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 601; dim(G601); }
+kill J601; kill G601;
+ideal J602 = C,p1,p3,p4,p5,p10,p11;
+ideal G602 = std(J602); if (dim(G602)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 602; dim(G602); }
+kill J602; kill G602;
+ideal J603 = C,p1,p3,p4,p6,p7,p8;
+ideal G603 = std(J603); if (dim(G603)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 603; dim(G603); }
+kill J603; kill G603;
+ideal J604 = C,p1,p3,p4,p6,p7,p9;
+ideal G604 = std(J604); if (dim(G604)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 604; dim(G604); }
+kill J604; kill G604;
+ideal J605 = C,p1,p3,p4,p6,p7,p10;
+ideal G605 = std(J605); if (dim(G605)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 605; dim(G605); }
+kill J605; kill G605;
+ideal J606 = C,p1,p3,p4,p6,p7,p11;
+ideal G606 = std(J606); if (dim(G606)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 606; dim(G606); }
+kill J606; kill G606;
+ideal J607 = C,p1,p3,p4,p6,p8,p9;
+ideal G607 = std(J607); if (dim(G607)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 607; dim(G607); }
+kill J607; kill G607;
+ideal J608 = C,p1,p3,p4,p6,p8,p10;
+ideal G608 = std(J608); if (dim(G608)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 608; dim(G608); }
+kill J608; kill G608;
+ideal J609 = C,p1,p3,p4,p6,p8,p11;
+ideal G609 = std(J609); if (dim(G609)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 609; dim(G609); }
+kill J609; kill G609;
+ideal J610 = C,p1,p3,p4,p6,p9,p10;
+ideal G610 = std(J610); if (dim(G610)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 610; dim(G610); }
+kill J610; kill G610;
+ideal J611 = C,p1,p3,p4,p6,p9,p11;
+ideal G611 = std(J611); if (dim(G611)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 611; dim(G611); }
+kill J611; kill G611;
+ideal J612 = C,p1,p3,p4,p6,p10,p11;
+ideal G612 = std(J612); if (dim(G612)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 612; dim(G612); }
+kill J612; kill G612;
+ideal J613 = C,p1,p3,p4,p7,p8,p9;
+ideal G613 = std(J613); if (dim(G613)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 613; dim(G613); }
+kill J613; kill G613;
+ideal J614 = C,p1,p3,p4,p7,p8,p10;
+ideal G614 = std(J614); if (dim(G614)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 614; dim(G614); }
+kill J614; kill G614;
+ideal J615 = C,p1,p3,p4,p7,p8,p11;
+ideal G615 = std(J615); if (dim(G615)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 615; dim(G615); }
+kill J615; kill G615;
+ideal J616 = C,p1,p3,p4,p7,p9,p10;
+ideal G616 = std(J616); if (dim(G616)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 616; dim(G616); }
+kill J616; kill G616;
+ideal J617 = C,p1,p3,p4,p7,p9,p11;
+ideal G617 = std(J617); if (dim(G617)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 617; dim(G617); }
+kill J617; kill G617;
+ideal J618 = C,p1,p3,p4,p7,p10,p11;
+ideal G618 = std(J618); if (dim(G618)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 618; dim(G618); }
+kill J618; kill G618;
+ideal J619 = C,p1,p3,p4,p8,p9,p10;
+ideal G619 = std(J619); if (dim(G619)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 619; dim(G619); }
+kill J619; kill G619;
+ideal J620 = C,p1,p3,p4,p8,p9,p11;
+ideal G620 = std(J620); if (dim(G620)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 620; dim(G620); }
+kill J620; kill G620;
+ideal J621 = C,p1,p3,p4,p8,p10,p11;
+ideal G621 = std(J621); if (dim(G621)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 621; dim(G621); }
+kill J621; kill G621;
+ideal J622 = C,p1,p3,p4,p9,p10,p11;
+ideal G622 = std(J622); if (dim(G622)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 622; dim(G622); }
+kill J622; kill G622;
+ideal J623 = C,p1,p3,p5,p6,p7,p8;
+ideal G623 = std(J623); if (dim(G623)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 623; dim(G623); }
+kill J623; kill G623;
+ideal J624 = C,p1,p3,p5,p6,p7,p9;
+ideal G624 = std(J624); if (dim(G624)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 624; dim(G624); }
+kill J624; kill G624;
+ideal J625 = C,p1,p3,p5,p6,p7,p10;
+ideal G625 = std(J625); if (dim(G625)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 625; dim(G625); }
+kill J625; kill G625;
+ideal J626 = C,p1,p3,p5,p6,p7,p11;
+ideal G626 = std(J626); if (dim(G626)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 626; dim(G626); }
+kill J626; kill G626;
+ideal J627 = C,p1,p3,p5,p6,p8,p9;
+ideal G627 = std(J627); if (dim(G627)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 627; dim(G627); }
+kill J627; kill G627;
+ideal J628 = C,p1,p3,p5,p6,p8,p10;
+ideal G628 = std(J628); if (dim(G628)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 628; dim(G628); }
+kill J628; kill G628;
+ideal J629 = C,p1,p3,p5,p6,p8,p11;
+ideal G629 = std(J629); if (dim(G629)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 629; dim(G629); }
+kill J629; kill G629;
+ideal J630 = C,p1,p3,p5,p6,p9,p10;
+ideal G630 = std(J630); if (dim(G630)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 630; dim(G630); }
+kill J630; kill G630;
+ideal J631 = C,p1,p3,p5,p6,p9,p11;
+ideal G631 = std(J631); if (dim(G631)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 631; dim(G631); }
+kill J631; kill G631;
+ideal J632 = C,p1,p3,p5,p6,p10,p11;
+ideal G632 = std(J632); if (dim(G632)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 632; dim(G632); }
+kill J632; kill G632;
+ideal J633 = C,p1,p3,p5,p7,p8,p9;
+ideal G633 = std(J633); if (dim(G633)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 633; dim(G633); }
+kill J633; kill G633;
+ideal J634 = C,p1,p3,p5,p7,p8,p10;
+ideal G634 = std(J634); if (dim(G634)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 634; dim(G634); }
+kill J634; kill G634;
+ideal J635 = C,p1,p3,p5,p7,p8,p11;
+ideal G635 = std(J635); if (dim(G635)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 635; dim(G635); }
+kill J635; kill G635;
+ideal J636 = C,p1,p3,p5,p7,p9,p10;
+ideal G636 = std(J636); if (dim(G636)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 636; dim(G636); }
+kill J636; kill G636;
+ideal J637 = C,p1,p3,p5,p7,p9,p11;
+ideal G637 = std(J637); if (dim(G637)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 637; dim(G637); }
+kill J637; kill G637;
+ideal J638 = C,p1,p3,p5,p7,p10,p11;
+ideal G638 = std(J638); if (dim(G638)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 638; dim(G638); }
+kill J638; kill G638;
+ideal J639 = C,p1,p3,p5,p8,p9,p10;
+ideal G639 = std(J639); if (dim(G639)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 639; dim(G639); }
+kill J639; kill G639;
+ideal J640 = C,p1,p3,p5,p8,p9,p11;
+ideal G640 = std(J640); if (dim(G640)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 640; dim(G640); }
+kill J640; kill G640;
+ideal J641 = C,p1,p3,p5,p8,p10,p11;
+ideal G641 = std(J641); if (dim(G641)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 641; dim(G641); }
+kill J641; kill G641;
+ideal J642 = C,p1,p3,p5,p9,p10,p11;
+ideal G642 = std(J642); if (dim(G642)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 642; dim(G642); }
+kill J642; kill G642;
+ideal J643 = C,p1,p3,p6,p7,p8,p9;
+ideal G643 = std(J643); if (dim(G643)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 643; dim(G643); }
+kill J643; kill G643;
+ideal J644 = C,p1,p3,p6,p7,p8,p10;
+ideal G644 = std(J644); if (dim(G644)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 644; dim(G644); }
+kill J644; kill G644;
+ideal J645 = C,p1,p3,p6,p7,p8,p11;
+ideal G645 = std(J645); if (dim(G645)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 645; dim(G645); }
+kill J645; kill G645;
+ideal J646 = C,p1,p3,p6,p7,p9,p10;
+ideal G646 = std(J646); if (dim(G646)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 646; dim(G646); }
+kill J646; kill G646;
+ideal J647 = C,p1,p3,p6,p7,p9,p11;
+ideal G647 = std(J647); if (dim(G647)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 647; dim(G647); }
+kill J647; kill G647;
+ideal J648 = C,p1,p3,p6,p7,p10,p11;
+ideal G648 = std(J648); if (dim(G648)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 648; dim(G648); }
+kill J648; kill G648;
+ideal J649 = C,p1,p3,p6,p8,p9,p10;
+ideal G649 = std(J649); if (dim(G649)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 649; dim(G649); }
+kill J649; kill G649;
+ideal J650 = C,p1,p3,p6,p8,p9,p11;
+ideal G650 = std(J650); if (dim(G650)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 650; dim(G650); }
+kill J650; kill G650;
+ideal J651 = C,p1,p3,p6,p8,p10,p11;
+ideal G651 = std(J651); if (dim(G651)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 651; dim(G651); }
+kill J651; kill G651;
+ideal J652 = C,p1,p3,p6,p9,p10,p11;
+ideal G652 = std(J652); if (dim(G652)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 652; dim(G652); }
+kill J652; kill G652;
+ideal J653 = C,p1,p3,p7,p8,p9,p10;
+ideal G653 = std(J653); if (dim(G653)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 653; dim(G653); }
+kill J653; kill G653;
+ideal J654 = C,p1,p3,p7,p8,p9,p11;
+ideal G654 = std(J654); if (dim(G654)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 654; dim(G654); }
+kill J654; kill G654;
+ideal J655 = C,p1,p3,p7,p8,p10,p11;
+ideal G655 = std(J655); if (dim(G655)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 655; dim(G655); }
+kill J655; kill G655;
+ideal J656 = C,p1,p3,p7,p9,p10,p11;
+ideal G656 = std(J656); if (dim(G656)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 656; dim(G656); }
+kill J656; kill G656;
+ideal J657 = C,p1,p3,p8,p9,p10,p11;
+ideal G657 = std(J657); if (dim(G657)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 657; dim(G657); }
+kill J657; kill G657;
+ideal J658 = C,p1,p4,p5,p6,p7,p8;
+ideal G658 = std(J658); if (dim(G658)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 658; dim(G658); }
+kill J658; kill G658;
+ideal J659 = C,p1,p4,p5,p6,p7,p9;
+ideal G659 = std(J659); if (dim(G659)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 659; dim(G659); }
+kill J659; kill G659;
+ideal J660 = C,p1,p4,p5,p6,p7,p10;
+ideal G660 = std(J660); if (dim(G660)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 660; dim(G660); }
+kill J660; kill G660;
+ideal J661 = C,p1,p4,p5,p6,p7,p11;
+ideal G661 = std(J661); if (dim(G661)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 661; dim(G661); }
+kill J661; kill G661;
+ideal J662 = C,p1,p4,p5,p6,p8,p9;
+ideal G662 = std(J662); if (dim(G662)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 662; dim(G662); }
+kill J662; kill G662;
+ideal J663 = C,p1,p4,p5,p6,p8,p10;
+ideal G663 = std(J663); if (dim(G663)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 663; dim(G663); }
+kill J663; kill G663;
+ideal J664 = C,p1,p4,p5,p6,p8,p11;
+ideal G664 = std(J664); if (dim(G664)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 664; dim(G664); }
+kill J664; kill G664;
+ideal J665 = C,p1,p4,p5,p6,p9,p10;
+ideal G665 = std(J665); if (dim(G665)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 665; dim(G665); }
+kill J665; kill G665;
+ideal J666 = C,p1,p4,p5,p6,p9,p11;
+ideal G666 = std(J666); if (dim(G666)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 666; dim(G666); }
+kill J666; kill G666;
+ideal J667 = C,p1,p4,p5,p6,p10,p11;
+ideal G667 = std(J667); if (dim(G667)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 667; dim(G667); }
+kill J667; kill G667;
+ideal J668 = C,p1,p4,p5,p7,p8,p9;
+ideal G668 = std(J668); if (dim(G668)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 668; dim(G668); }
+kill J668; kill G668;
+ideal J669 = C,p1,p4,p5,p7,p8,p10;
+ideal G669 = std(J669); if (dim(G669)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 669; dim(G669); }
+kill J669; kill G669;
+ideal J670 = C,p1,p4,p5,p7,p8,p11;
+ideal G670 = std(J670); if (dim(G670)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 670; dim(G670); }
+kill J670; kill G670;
+ideal J671 = C,p1,p4,p5,p7,p9,p10;
+ideal G671 = std(J671); if (dim(G671)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 671; dim(G671); }
+kill J671; kill G671;
+ideal J672 = C,p1,p4,p5,p7,p9,p11;
+ideal G672 = std(J672); if (dim(G672)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 672; dim(G672); }
+kill J672; kill G672;
+ideal J673 = C,p1,p4,p5,p7,p10,p11;
+ideal G673 = std(J673); if (dim(G673)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 673; dim(G673); }
+kill J673; kill G673;
+ideal J674 = C,p1,p4,p5,p8,p9,p10;
+ideal G674 = std(J674); if (dim(G674)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 674; dim(G674); }
+kill J674; kill G674;
+ideal J675 = C,p1,p4,p5,p8,p9,p11;
+ideal G675 = std(J675); if (dim(G675)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 675; dim(G675); }
+kill J675; kill G675;
+ideal J676 = C,p1,p4,p5,p8,p10,p11;
+ideal G676 = std(J676); if (dim(G676)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 676; dim(G676); }
+kill J676; kill G676;
+ideal J677 = C,p1,p4,p5,p9,p10,p11;
+ideal G677 = std(J677); if (dim(G677)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 677; dim(G677); }
+kill J677; kill G677;
+ideal J678 = C,p1,p4,p6,p7,p8,p9;
+ideal G678 = std(J678); if (dim(G678)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 678; dim(G678); }
+kill J678; kill G678;
+ideal J679 = C,p1,p4,p6,p7,p8,p10;
+ideal G679 = std(J679); if (dim(G679)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 679; dim(G679); }
+kill J679; kill G679;
+ideal J680 = C,p1,p4,p6,p7,p8,p11;
+ideal G680 = std(J680); if (dim(G680)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 680; dim(G680); }
+kill J680; kill G680;
+ideal J681 = C,p1,p4,p6,p7,p9,p10;
+ideal G681 = std(J681); if (dim(G681)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 681; dim(G681); }
+kill J681; kill G681;
+ideal J682 = C,p1,p4,p6,p7,p9,p11;
+ideal G682 = std(J682); if (dim(G682)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 682; dim(G682); }
+kill J682; kill G682;
+ideal J683 = C,p1,p4,p6,p7,p10,p11;
+ideal G683 = std(J683); if (dim(G683)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 683; dim(G683); }
+kill J683; kill G683;
+ideal J684 = C,p1,p4,p6,p8,p9,p10;
+ideal G684 = std(J684); if (dim(G684)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 684; dim(G684); }
+kill J684; kill G684;
+ideal J685 = C,p1,p4,p6,p8,p9,p11;
+ideal G685 = std(J685); if (dim(G685)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 685; dim(G685); }
+kill J685; kill G685;
+ideal J686 = C,p1,p4,p6,p8,p10,p11;
+ideal G686 = std(J686); if (dim(G686)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 686; dim(G686); }
+kill J686; kill G686;
+ideal J687 = C,p1,p4,p6,p9,p10,p11;
+ideal G687 = std(J687); if (dim(G687)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 687; dim(G687); }
+kill J687; kill G687;
+ideal J688 = C,p1,p4,p7,p8,p9,p10;
+ideal G688 = std(J688); if (dim(G688)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 688; dim(G688); }
+kill J688; kill G688;
+ideal J689 = C,p1,p4,p7,p8,p9,p11;
+ideal G689 = std(J689); if (dim(G689)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 689; dim(G689); }
+kill J689; kill G689;
+ideal J690 = C,p1,p4,p7,p8,p10,p11;
+ideal G690 = std(J690); if (dim(G690)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 690; dim(G690); }
+kill J690; kill G690;
+ideal J691 = C,p1,p4,p7,p9,p10,p11;
+ideal G691 = std(J691); if (dim(G691)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 691; dim(G691); }
+kill J691; kill G691;
+ideal J692 = C,p1,p4,p8,p9,p10,p11;
+ideal G692 = std(J692); if (dim(G692)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 692; dim(G692); }
+kill J692; kill G692;
+ideal J693 = C,p1,p5,p6,p7,p8,p9;
+ideal G693 = std(J693); if (dim(G693)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 693; dim(G693); }
+kill J693; kill G693;
+ideal J694 = C,p1,p5,p6,p7,p8,p10;
+ideal G694 = std(J694); if (dim(G694)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 694; dim(G694); }
+kill J694; kill G694;
+ideal J695 = C,p1,p5,p6,p7,p8,p11;
+ideal G695 = std(J695); if (dim(G695)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 695; dim(G695); }
+kill J695; kill G695;
+ideal J696 = C,p1,p5,p6,p7,p9,p10;
+ideal G696 = std(J696); if (dim(G696)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 696; dim(G696); }
+kill J696; kill G696;
+ideal J697 = C,p1,p5,p6,p7,p9,p11;
+ideal G697 = std(J697); if (dim(G697)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 697; dim(G697); }
+kill J697; kill G697;
+ideal J698 = C,p1,p5,p6,p7,p10,p11;
+ideal G698 = std(J698); if (dim(G698)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 698; dim(G698); }
+kill J698; kill G698;
+ideal J699 = C,p1,p5,p6,p8,p9,p10;
+ideal G699 = std(J699); if (dim(G699)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 699; dim(G699); }
+kill J699; kill G699;
+ideal J700 = C,p1,p5,p6,p8,p9,p11;
+ideal G700 = std(J700); if (dim(G700)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 700; dim(G700); }
+kill J700; kill G700;
+ideal J701 = C,p1,p5,p6,p8,p10,p11;
+ideal G701 = std(J701); if (dim(G701)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 701; dim(G701); }
+kill J701; kill G701;
+ideal J702 = C,p1,p5,p6,p9,p10,p11;
+ideal G702 = std(J702); if (dim(G702)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 702; dim(G702); }
+kill J702; kill G702;
+ideal J703 = C,p1,p5,p7,p8,p9,p10;
+ideal G703 = std(J703); if (dim(G703)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 703; dim(G703); }
+kill J703; kill G703;
+ideal J704 = C,p1,p5,p7,p8,p9,p11;
+ideal G704 = std(J704); if (dim(G704)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 704; dim(G704); }
+kill J704; kill G704;
+ideal J705 = C,p1,p5,p7,p8,p10,p11;
+ideal G705 = std(J705); if (dim(G705)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 705; dim(G705); }
+kill J705; kill G705;
+ideal J706 = C,p1,p5,p7,p9,p10,p11;
+ideal G706 = std(J706); if (dim(G706)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 706; dim(G706); }
+kill J706; kill G706;
+ideal J707 = C,p1,p5,p8,p9,p10,p11;
+ideal G707 = std(J707); if (dim(G707)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 707; dim(G707); }
+kill J707; kill G707;
+ideal J708 = C,p1,p6,p7,p8,p9,p10;
+ideal G708 = std(J708); if (dim(G708)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 708; dim(G708); }
+kill J708; kill G708;
+ideal J709 = C,p1,p6,p7,p8,p9,p11;
+ideal G709 = std(J709); if (dim(G709)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 709; dim(G709); }
+kill J709; kill G709;
+ideal J710 = C,p1,p6,p7,p8,p10,p11;
+ideal G710 = std(J710); if (dim(G710)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 710; dim(G710); }
+kill J710; kill G710;
+ideal J711 = C,p1,p6,p7,p9,p10,p11;
+ideal G711 = std(J711); if (dim(G711)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 711; dim(G711); }
+kill J711; kill G711;
+ideal J712 = C,p1,p6,p8,p9,p10,p11;
+ideal G712 = std(J712); if (dim(G712)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 712; dim(G712); }
+kill J712; kill G712;
+ideal J713 = C,p1,p7,p8,p9,p10,p11;
+ideal G713 = std(J713); if (dim(G713)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 713; dim(G713); }
+kill J713; kill G713;
+ideal J714 = C,p2,p3,p4,p5,p6,p7;
+ideal G714 = std(J714); if (dim(G714)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 714; dim(G714); }
+kill J714; kill G714;
+ideal J715 = C,p2,p3,p4,p5,p6,p8;
+ideal G715 = std(J715); if (dim(G715)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 715; dim(G715); }
+kill J715; kill G715;
+ideal J716 = C,p2,p3,p4,p5,p6,p9;
+ideal G716 = std(J716); if (dim(G716)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 716; dim(G716); }
+kill J716; kill G716;
+ideal J717 = C,p2,p3,p4,p5,p6,p10;
+ideal G717 = std(J717); if (dim(G717)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 717; dim(G717); }
+kill J717; kill G717;
+ideal J718 = C,p2,p3,p4,p5,p6,p11;
+ideal G718 = std(J718); if (dim(G718)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 718; dim(G718); }
+kill J718; kill G718;
+ideal J719 = C,p2,p3,p4,p5,p7,p8;
+ideal G719 = std(J719); if (dim(G719)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 719; dim(G719); }
+kill J719; kill G719;
+ideal J720 = C,p2,p3,p4,p5,p7,p9;
+ideal G720 = std(J720); if (dim(G720)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 720; dim(G720); }
+kill J720; kill G720;
+ideal J721 = C,p2,p3,p4,p5,p7,p10;
+ideal G721 = std(J721); if (dim(G721)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 721; dim(G721); }
+kill J721; kill G721;
+ideal J722 = C,p2,p3,p4,p5,p7,p11;
+ideal G722 = std(J722); if (dim(G722)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 722; dim(G722); }
+kill J722; kill G722;
+ideal J723 = C,p2,p3,p4,p5,p8,p9;
+ideal G723 = std(J723); if (dim(G723)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 723; dim(G723); }
+kill J723; kill G723;
+ideal J724 = C,p2,p3,p4,p5,p8,p10;
+ideal G724 = std(J724); if (dim(G724)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 724; dim(G724); }
+kill J724; kill G724;
+ideal J725 = C,p2,p3,p4,p5,p8,p11;
+ideal G725 = std(J725); if (dim(G725)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 725; dim(G725); }
+kill J725; kill G725;
+ideal J726 = C,p2,p3,p4,p5,p9,p10;
+ideal G726 = std(J726); if (dim(G726)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 726; dim(G726); }
+kill J726; kill G726;
+ideal J727 = C,p2,p3,p4,p5,p9,p11;
+ideal G727 = std(J727); if (dim(G727)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 727; dim(G727); }
+kill J727; kill G727;
+ideal J728 = C,p2,p3,p4,p5,p10,p11;
+ideal G728 = std(J728); if (dim(G728)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 728; dim(G728); }
+kill J728; kill G728;
+ideal J729 = C,p2,p3,p4,p6,p7,p8;
+ideal G729 = std(J729); if (dim(G729)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 729; dim(G729); }
+kill J729; kill G729;
+ideal J730 = C,p2,p3,p4,p6,p7,p9;
+ideal G730 = std(J730); if (dim(G730)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 730; dim(G730); }
+kill J730; kill G730;
+ideal J731 = C,p2,p3,p4,p6,p7,p10;
+ideal G731 = std(J731); if (dim(G731)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 731; dim(G731); }
+kill J731; kill G731;
+ideal J732 = C,p2,p3,p4,p6,p7,p11;
+ideal G732 = std(J732); if (dim(G732)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 732; dim(G732); }
+kill J732; kill G732;
+ideal J733 = C,p2,p3,p4,p6,p8,p9;
+ideal G733 = std(J733); if (dim(G733)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 733; dim(G733); }
+kill J733; kill G733;
+ideal J734 = C,p2,p3,p4,p6,p8,p10;
+ideal G734 = std(J734); if (dim(G734)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 734; dim(G734); }
+kill J734; kill G734;
+ideal J735 = C,p2,p3,p4,p6,p8,p11;
+ideal G735 = std(J735); if (dim(G735)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 735; dim(G735); }
+kill J735; kill G735;
+ideal J736 = C,p2,p3,p4,p6,p9,p10;
+ideal G736 = std(J736); if (dim(G736)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 736; dim(G736); }
+kill J736; kill G736;
+ideal J737 = C,p2,p3,p4,p6,p9,p11;
+ideal G737 = std(J737); if (dim(G737)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 737; dim(G737); }
+kill J737; kill G737;
+ideal J738 = C,p2,p3,p4,p6,p10,p11;
+ideal G738 = std(J738); if (dim(G738)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 738; dim(G738); }
+kill J738; kill G738;
+ideal J739 = C,p2,p3,p4,p7,p8,p9;
+ideal G739 = std(J739); if (dim(G739)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 739; dim(G739); }
+kill J739; kill G739;
+ideal J740 = C,p2,p3,p4,p7,p8,p10;
+ideal G740 = std(J740); if (dim(G740)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 740; dim(G740); }
+kill J740; kill G740;
+ideal J741 = C,p2,p3,p4,p7,p8,p11;
+ideal G741 = std(J741); if (dim(G741)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 741; dim(G741); }
+kill J741; kill G741;
+ideal J742 = C,p2,p3,p4,p7,p9,p10;
+ideal G742 = std(J742); if (dim(G742)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 742; dim(G742); }
+kill J742; kill G742;
+ideal J743 = C,p2,p3,p4,p7,p9,p11;
+ideal G743 = std(J743); if (dim(G743)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 743; dim(G743); }
+kill J743; kill G743;
+ideal J744 = C,p2,p3,p4,p7,p10,p11;
+ideal G744 = std(J744); if (dim(G744)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 744; dim(G744); }
+kill J744; kill G744;
+ideal J745 = C,p2,p3,p4,p8,p9,p10;
+ideal G745 = std(J745); if (dim(G745)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 745; dim(G745); }
+kill J745; kill G745;
+ideal J746 = C,p2,p3,p4,p8,p9,p11;
+ideal G746 = std(J746); if (dim(G746)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 746; dim(G746); }
+kill J746; kill G746;
+ideal J747 = C,p2,p3,p4,p8,p10,p11;
+ideal G747 = std(J747); if (dim(G747)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 747; dim(G747); }
+kill J747; kill G747;
+ideal J748 = C,p2,p3,p4,p9,p10,p11;
+ideal G748 = std(J748); if (dim(G748)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 748; dim(G748); }
+kill J748; kill G748;
+ideal J749 = C,p2,p3,p5,p6,p7,p8;
+ideal G749 = std(J749); if (dim(G749)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 749; dim(G749); }
+kill J749; kill G749;
+ideal J750 = C,p2,p3,p5,p6,p7,p9;
+ideal G750 = std(J750); if (dim(G750)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 750; dim(G750); }
+kill J750; kill G750;
+ideal J751 = C,p2,p3,p5,p6,p7,p10;
+ideal G751 = std(J751); if (dim(G751)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 751; dim(G751); }
+kill J751; kill G751;
+ideal J752 = C,p2,p3,p5,p6,p7,p11;
+ideal G752 = std(J752); if (dim(G752)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 752; dim(G752); }
+kill J752; kill G752;
+ideal J753 = C,p2,p3,p5,p6,p8,p9;
+ideal G753 = std(J753); if (dim(G753)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 753; dim(G753); }
+kill J753; kill G753;
+ideal J754 = C,p2,p3,p5,p6,p8,p10;
+ideal G754 = std(J754); if (dim(G754)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 754; dim(G754); }
+kill J754; kill G754;
+ideal J755 = C,p2,p3,p5,p6,p8,p11;
+ideal G755 = std(J755); if (dim(G755)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 755; dim(G755); }
+kill J755; kill G755;
+ideal J756 = C,p2,p3,p5,p6,p9,p10;
+ideal G756 = std(J756); if (dim(G756)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 756; dim(G756); }
+kill J756; kill G756;
+ideal J757 = C,p2,p3,p5,p6,p9,p11;
+ideal G757 = std(J757); if (dim(G757)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 757; dim(G757); }
+kill J757; kill G757;
+ideal J758 = C,p2,p3,p5,p6,p10,p11;
+ideal G758 = std(J758); if (dim(G758)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 758; dim(G758); }
+kill J758; kill G758;
+ideal J759 = C,p2,p3,p5,p7,p8,p9;
+ideal G759 = std(J759); if (dim(G759)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 759; dim(G759); }
+kill J759; kill G759;
+ideal J760 = C,p2,p3,p5,p7,p8,p10;
+ideal G760 = std(J760); if (dim(G760)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 760; dim(G760); }
+kill J760; kill G760;
+ideal J761 = C,p2,p3,p5,p7,p8,p11;
+ideal G761 = std(J761); if (dim(G761)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 761; dim(G761); }
+kill J761; kill G761;
+ideal J762 = C,p2,p3,p5,p7,p9,p10;
+ideal G762 = std(J762); if (dim(G762)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 762; dim(G762); }
+kill J762; kill G762;
+ideal J763 = C,p2,p3,p5,p7,p9,p11;
+ideal G763 = std(J763); if (dim(G763)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 763; dim(G763); }
+kill J763; kill G763;
+ideal J764 = C,p2,p3,p5,p7,p10,p11;
+ideal G764 = std(J764); if (dim(G764)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 764; dim(G764); }
+kill J764; kill G764;
+ideal J765 = C,p2,p3,p5,p8,p9,p10;
+ideal G765 = std(J765); if (dim(G765)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 765; dim(G765); }
+kill J765; kill G765;
+ideal J766 = C,p2,p3,p5,p8,p9,p11;
+ideal G766 = std(J766); if (dim(G766)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 766; dim(G766); }
+kill J766; kill G766;
+ideal J767 = C,p2,p3,p5,p8,p10,p11;
+ideal G767 = std(J767); if (dim(G767)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 767; dim(G767); }
+kill J767; kill G767;
+ideal J768 = C,p2,p3,p5,p9,p10,p11;
+ideal G768 = std(J768); if (dim(G768)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 768; dim(G768); }
+kill J768; kill G768;
+ideal J769 = C,p2,p3,p6,p7,p8,p9;
+ideal G769 = std(J769); if (dim(G769)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 769; dim(G769); }
+kill J769; kill G769;
+ideal J770 = C,p2,p3,p6,p7,p8,p10;
+ideal G770 = std(J770); if (dim(G770)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 770; dim(G770); }
+kill J770; kill G770;
+ideal J771 = C,p2,p3,p6,p7,p8,p11;
+ideal G771 = std(J771); if (dim(G771)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 771; dim(G771); }
+kill J771; kill G771;
+ideal J772 = C,p2,p3,p6,p7,p9,p10;
+ideal G772 = std(J772); if (dim(G772)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 772; dim(G772); }
+kill J772; kill G772;
+ideal J773 = C,p2,p3,p6,p7,p9,p11;
+ideal G773 = std(J773); if (dim(G773)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 773; dim(G773); }
+kill J773; kill G773;
+ideal J774 = C,p2,p3,p6,p7,p10,p11;
+ideal G774 = std(J774); if (dim(G774)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 774; dim(G774); }
+kill J774; kill G774;
+ideal J775 = C,p2,p3,p6,p8,p9,p10;
+ideal G775 = std(J775); if (dim(G775)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 775; dim(G775); }
+kill J775; kill G775;
+ideal J776 = C,p2,p3,p6,p8,p9,p11;
+ideal G776 = std(J776); if (dim(G776)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 776; dim(G776); }
+kill J776; kill G776;
+ideal J777 = C,p2,p3,p6,p8,p10,p11;
+ideal G777 = std(J777); if (dim(G777)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 777; dim(G777); }
+kill J777; kill G777;
+ideal J778 = C,p2,p3,p6,p9,p10,p11;
+ideal G778 = std(J778); if (dim(G778)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 778; dim(G778); }
+kill J778; kill G778;
+ideal J779 = C,p2,p3,p7,p8,p9,p10;
+ideal G779 = std(J779); if (dim(G779)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 779; dim(G779); }
+kill J779; kill G779;
+ideal J780 = C,p2,p3,p7,p8,p9,p11;
+ideal G780 = std(J780); if (dim(G780)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 780; dim(G780); }
+kill J780; kill G780;
+ideal J781 = C,p2,p3,p7,p8,p10,p11;
+ideal G781 = std(J781); if (dim(G781)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 781; dim(G781); }
+kill J781; kill G781;
+ideal J782 = C,p2,p3,p7,p9,p10,p11;
+ideal G782 = std(J782); if (dim(G782)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 782; dim(G782); }
+kill J782; kill G782;
+ideal J783 = C,p2,p3,p8,p9,p10,p11;
+ideal G783 = std(J783); if (dim(G783)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 783; dim(G783); }
+kill J783; kill G783;
+ideal J784 = C,p2,p4,p5,p6,p7,p8;
+ideal G784 = std(J784); if (dim(G784)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 784; dim(G784); }
+kill J784; kill G784;
+ideal J785 = C,p2,p4,p5,p6,p7,p9;
+ideal G785 = std(J785); if (dim(G785)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 785; dim(G785); }
+kill J785; kill G785;
+ideal J786 = C,p2,p4,p5,p6,p7,p10;
+ideal G786 = std(J786); if (dim(G786)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 786; dim(G786); }
+kill J786; kill G786;
+ideal J787 = C,p2,p4,p5,p6,p7,p11;
+ideal G787 = std(J787); if (dim(G787)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 787; dim(G787); }
+kill J787; kill G787;
+ideal J788 = C,p2,p4,p5,p6,p8,p9;
+ideal G788 = std(J788); if (dim(G788)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 788; dim(G788); }
+kill J788; kill G788;
+ideal J789 = C,p2,p4,p5,p6,p8,p10;
+ideal G789 = std(J789); if (dim(G789)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 789; dim(G789); }
+kill J789; kill G789;
+ideal J790 = C,p2,p4,p5,p6,p8,p11;
+ideal G790 = std(J790); if (dim(G790)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 790; dim(G790); }
+kill J790; kill G790;
+ideal J791 = C,p2,p4,p5,p6,p9,p10;
+ideal G791 = std(J791); if (dim(G791)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 791; dim(G791); }
+kill J791; kill G791;
+ideal J792 = C,p2,p4,p5,p6,p9,p11;
+ideal G792 = std(J792); if (dim(G792)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 792; dim(G792); }
+kill J792; kill G792;
+ideal J793 = C,p2,p4,p5,p6,p10,p11;
+ideal G793 = std(J793); if (dim(G793)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 793; dim(G793); }
+kill J793; kill G793;
+ideal J794 = C,p2,p4,p5,p7,p8,p9;
+ideal G794 = std(J794); if (dim(G794)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 794; dim(G794); }
+kill J794; kill G794;
+ideal J795 = C,p2,p4,p5,p7,p8,p10;
+ideal G795 = std(J795); if (dim(G795)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 795; dim(G795); }
+kill J795; kill G795;
+ideal J796 = C,p2,p4,p5,p7,p8,p11;
+ideal G796 = std(J796); if (dim(G796)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 796; dim(G796); }
+kill J796; kill G796;
+ideal J797 = C,p2,p4,p5,p7,p9,p10;
+ideal G797 = std(J797); if (dim(G797)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 797; dim(G797); }
+kill J797; kill G797;
+ideal J798 = C,p2,p4,p5,p7,p9,p11;
+ideal G798 = std(J798); if (dim(G798)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 798; dim(G798); }
+kill J798; kill G798;
+ideal J799 = C,p2,p4,p5,p7,p10,p11;
+ideal G799 = std(J799); if (dim(G799)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 799; dim(G799); }
+kill J799; kill G799;
+ideal J800 = C,p2,p4,p5,p8,p9,p10;
+ideal G800 = std(J800); if (dim(G800)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 800; dim(G800); }
+kill J800; kill G800;
+ideal J801 = C,p2,p4,p5,p8,p9,p11;
+ideal G801 = std(J801); if (dim(G801)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 801; dim(G801); }
+kill J801; kill G801;
+ideal J802 = C,p2,p4,p5,p8,p10,p11;
+ideal G802 = std(J802); if (dim(G802)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 802; dim(G802); }
+kill J802; kill G802;
+ideal J803 = C,p2,p4,p5,p9,p10,p11;
+ideal G803 = std(J803); if (dim(G803)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 803; dim(G803); }
+kill J803; kill G803;
+ideal J804 = C,p2,p4,p6,p7,p8,p9;
+ideal G804 = std(J804); if (dim(G804)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 804; dim(G804); }
+kill J804; kill G804;
+ideal J805 = C,p2,p4,p6,p7,p8,p10;
+ideal G805 = std(J805); if (dim(G805)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 805; dim(G805); }
+kill J805; kill G805;
+ideal J806 = C,p2,p4,p6,p7,p8,p11;
+ideal G806 = std(J806); if (dim(G806)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 806; dim(G806); }
+kill J806; kill G806;
+ideal J807 = C,p2,p4,p6,p7,p9,p10;
+ideal G807 = std(J807); if (dim(G807)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 807; dim(G807); }
+kill J807; kill G807;
+ideal J808 = C,p2,p4,p6,p7,p9,p11;
+ideal G808 = std(J808); if (dim(G808)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 808; dim(G808); }
+kill J808; kill G808;
+ideal J809 = C,p2,p4,p6,p7,p10,p11;
+ideal G809 = std(J809); if (dim(G809)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 809; dim(G809); }
+kill J809; kill G809;
+ideal J810 = C,p2,p4,p6,p8,p9,p10;
+ideal G810 = std(J810); if (dim(G810)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 810; dim(G810); }
+kill J810; kill G810;
+ideal J811 = C,p2,p4,p6,p8,p9,p11;
+ideal G811 = std(J811); if (dim(G811)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 811; dim(G811); }
+kill J811; kill G811;
+ideal J812 = C,p2,p4,p6,p8,p10,p11;
+ideal G812 = std(J812); if (dim(G812)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 812; dim(G812); }
+kill J812; kill G812;
+ideal J813 = C,p2,p4,p6,p9,p10,p11;
+ideal G813 = std(J813); if (dim(G813)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 813; dim(G813); }
+kill J813; kill G813;
+ideal J814 = C,p2,p4,p7,p8,p9,p10;
+ideal G814 = std(J814); if (dim(G814)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 814; dim(G814); }
+kill J814; kill G814;
+ideal J815 = C,p2,p4,p7,p8,p9,p11;
+ideal G815 = std(J815); if (dim(G815)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 815; dim(G815); }
+kill J815; kill G815;
+ideal J816 = C,p2,p4,p7,p8,p10,p11;
+ideal G816 = std(J816); if (dim(G816)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 816; dim(G816); }
+kill J816; kill G816;
+ideal J817 = C,p2,p4,p7,p9,p10,p11;
+ideal G817 = std(J817); if (dim(G817)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 817; dim(G817); }
+kill J817; kill G817;
+ideal J818 = C,p2,p4,p8,p9,p10,p11;
+ideal G818 = std(J818); if (dim(G818)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 818; dim(G818); }
+kill J818; kill G818;
+ideal J819 = C,p2,p5,p6,p7,p8,p9;
+ideal G819 = std(J819); if (dim(G819)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 819; dim(G819); }
+kill J819; kill G819;
+ideal J820 = C,p2,p5,p6,p7,p8,p10;
+ideal G820 = std(J820); if (dim(G820)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 820; dim(G820); }
+kill J820; kill G820;
+ideal J821 = C,p2,p5,p6,p7,p8,p11;
+ideal G821 = std(J821); if (dim(G821)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 821; dim(G821); }
+kill J821; kill G821;
+ideal J822 = C,p2,p5,p6,p7,p9,p10;
+ideal G822 = std(J822); if (dim(G822)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 822; dim(G822); }
+kill J822; kill G822;
+ideal J823 = C,p2,p5,p6,p7,p9,p11;
+ideal G823 = std(J823); if (dim(G823)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 823; dim(G823); }
+kill J823; kill G823;
+ideal J824 = C,p2,p5,p6,p7,p10,p11;
+ideal G824 = std(J824); if (dim(G824)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 824; dim(G824); }
+kill J824; kill G824;
+ideal J825 = C,p2,p5,p6,p8,p9,p10;
+ideal G825 = std(J825); if (dim(G825)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 825; dim(G825); }
+kill J825; kill G825;
+ideal J826 = C,p2,p5,p6,p8,p9,p11;
+ideal G826 = std(J826); if (dim(G826)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 826; dim(G826); }
+kill J826; kill G826;
+ideal J827 = C,p2,p5,p6,p8,p10,p11;
+ideal G827 = std(J827); if (dim(G827)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 827; dim(G827); }
+kill J827; kill G827;
+ideal J828 = C,p2,p5,p6,p9,p10,p11;
+ideal G828 = std(J828); if (dim(G828)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 828; dim(G828); }
+kill J828; kill G828;
+ideal J829 = C,p2,p5,p7,p8,p9,p10;
+ideal G829 = std(J829); if (dim(G829)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 829; dim(G829); }
+kill J829; kill G829;
+ideal J830 = C,p2,p5,p7,p8,p9,p11;
+ideal G830 = std(J830); if (dim(G830)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 830; dim(G830); }
+kill J830; kill G830;
+ideal J831 = C,p2,p5,p7,p8,p10,p11;
+ideal G831 = std(J831); if (dim(G831)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 831; dim(G831); }
+kill J831; kill G831;
+ideal J832 = C,p2,p5,p7,p9,p10,p11;
+ideal G832 = std(J832); if (dim(G832)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 832; dim(G832); }
+kill J832; kill G832;
+ideal J833 = C,p2,p5,p8,p9,p10,p11;
+ideal G833 = std(J833); if (dim(G833)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 833; dim(G833); }
+kill J833; kill G833;
+ideal J834 = C,p2,p6,p7,p8,p9,p10;
+ideal G834 = std(J834); if (dim(G834)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 834; dim(G834); }
+kill J834; kill G834;
+ideal J835 = C,p2,p6,p7,p8,p9,p11;
+ideal G835 = std(J835); if (dim(G835)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 835; dim(G835); }
+kill J835; kill G835;
+ideal J836 = C,p2,p6,p7,p8,p10,p11;
+ideal G836 = std(J836); if (dim(G836)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 836; dim(G836); }
+kill J836; kill G836;
+ideal J837 = C,p2,p6,p7,p9,p10,p11;
+ideal G837 = std(J837); if (dim(G837)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 837; dim(G837); }
+kill J837; kill G837;
+ideal J838 = C,p2,p6,p8,p9,p10,p11;
+ideal G838 = std(J838); if (dim(G838)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 838; dim(G838); }
+kill J838; kill G838;
+ideal J839 = C,p2,p7,p8,p9,p10,p11;
+ideal G839 = std(J839); if (dim(G839)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 839; dim(G839); }
+kill J839; kill G839;
+ideal J840 = C,p3,p4,p5,p6,p7,p8;
+ideal G840 = std(J840); if (dim(G840)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 840; dim(G840); }
+kill J840; kill G840;
+ideal J841 = C,p3,p4,p5,p6,p7,p9;
+ideal G841 = std(J841); if (dim(G841)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 841; dim(G841); }
+kill J841; kill G841;
+ideal J842 = C,p3,p4,p5,p6,p7,p10;
+ideal G842 = std(J842); if (dim(G842)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 842; dim(G842); }
+kill J842; kill G842;
+ideal J843 = C,p3,p4,p5,p6,p7,p11;
+ideal G843 = std(J843); if (dim(G843)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 843; dim(G843); }
+kill J843; kill G843;
+ideal J844 = C,p3,p4,p5,p6,p8,p9;
+ideal G844 = std(J844); if (dim(G844)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 844; dim(G844); }
+kill J844; kill G844;
+ideal J845 = C,p3,p4,p5,p6,p8,p10;
+ideal G845 = std(J845); if (dim(G845)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 845; dim(G845); }
+kill J845; kill G845;
+ideal J846 = C,p3,p4,p5,p6,p8,p11;
+ideal G846 = std(J846); if (dim(G846)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 846; dim(G846); }
+kill J846; kill G846;
+ideal J847 = C,p3,p4,p5,p6,p9,p10;
+ideal G847 = std(J847); if (dim(G847)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 847; dim(G847); }
+kill J847; kill G847;
+ideal J848 = C,p3,p4,p5,p6,p9,p11;
+ideal G848 = std(J848); if (dim(G848)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 848; dim(G848); }
+kill J848; kill G848;
+ideal J849 = C,p3,p4,p5,p6,p10,p11;
+ideal G849 = std(J849); if (dim(G849)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 849; dim(G849); }
+kill J849; kill G849;
+ideal J850 = C,p3,p4,p5,p7,p8,p9;
+ideal G850 = std(J850); if (dim(G850)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 850; dim(G850); }
+kill J850; kill G850;
+ideal J851 = C,p3,p4,p5,p7,p8,p10;
+ideal G851 = std(J851); if (dim(G851)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 851; dim(G851); }
+kill J851; kill G851;
+ideal J852 = C,p3,p4,p5,p7,p8,p11;
+ideal G852 = std(J852); if (dim(G852)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 852; dim(G852); }
+kill J852; kill G852;
+ideal J853 = C,p3,p4,p5,p7,p9,p10;
+ideal G853 = std(J853); if (dim(G853)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 853; dim(G853); }
+kill J853; kill G853;
+ideal J854 = C,p3,p4,p5,p7,p9,p11;
+ideal G854 = std(J854); if (dim(G854)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 854; dim(G854); }
+kill J854; kill G854;
+ideal J855 = C,p3,p4,p5,p7,p10,p11;
+ideal G855 = std(J855); if (dim(G855)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 855; dim(G855); }
+kill J855; kill G855;
+ideal J856 = C,p3,p4,p5,p8,p9,p10;
+ideal G856 = std(J856); if (dim(G856)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 856; dim(G856); }
+kill J856; kill G856;
+ideal J857 = C,p3,p4,p5,p8,p9,p11;
+ideal G857 = std(J857); if (dim(G857)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 857; dim(G857); }
+kill J857; kill G857;
+ideal J858 = C,p3,p4,p5,p8,p10,p11;
+ideal G858 = std(J858); if (dim(G858)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 858; dim(G858); }
+kill J858; kill G858;
+ideal J859 = C,p3,p4,p5,p9,p10,p11;
+ideal G859 = std(J859); if (dim(G859)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 859; dim(G859); }
+kill J859; kill G859;
+ideal J860 = C,p3,p4,p6,p7,p8,p9;
+ideal G860 = std(J860); if (dim(G860)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 860; dim(G860); }
+kill J860; kill G860;
+ideal J861 = C,p3,p4,p6,p7,p8,p10;
+ideal G861 = std(J861); if (dim(G861)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 861; dim(G861); }
+kill J861; kill G861;
+ideal J862 = C,p3,p4,p6,p7,p8,p11;
+ideal G862 = std(J862); if (dim(G862)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 862; dim(G862); }
+kill J862; kill G862;
+ideal J863 = C,p3,p4,p6,p7,p9,p10;
+ideal G863 = std(J863); if (dim(G863)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 863; dim(G863); }
+kill J863; kill G863;
+ideal J864 = C,p3,p4,p6,p7,p9,p11;
+ideal G864 = std(J864); if (dim(G864)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 864; dim(G864); }
+kill J864; kill G864;
+ideal J865 = C,p3,p4,p6,p7,p10,p11;
+ideal G865 = std(J865); if (dim(G865)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 865; dim(G865); }
+kill J865; kill G865;
+ideal J866 = C,p3,p4,p6,p8,p9,p10;
+ideal G866 = std(J866); if (dim(G866)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 866; dim(G866); }
+kill J866; kill G866;
+ideal J867 = C,p3,p4,p6,p8,p9,p11;
+ideal G867 = std(J867); if (dim(G867)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 867; dim(G867); }
+kill J867; kill G867;
+ideal J868 = C,p3,p4,p6,p8,p10,p11;
+ideal G868 = std(J868); if (dim(G868)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 868; dim(G868); }
+kill J868; kill G868;
+ideal J869 = C,p3,p4,p6,p9,p10,p11;
+ideal G869 = std(J869); if (dim(G869)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 869; dim(G869); }
+kill J869; kill G869;
+ideal J870 = C,p3,p4,p7,p8,p9,p10;
+ideal G870 = std(J870); if (dim(G870)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 870; dim(G870); }
+kill J870; kill G870;
+ideal J871 = C,p3,p4,p7,p8,p9,p11;
+ideal G871 = std(J871); if (dim(G871)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 871; dim(G871); }
+kill J871; kill G871;
+ideal J872 = C,p3,p4,p7,p8,p10,p11;
+ideal G872 = std(J872); if (dim(G872)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 872; dim(G872); }
+kill J872; kill G872;
+ideal J873 = C,p3,p4,p7,p9,p10,p11;
+ideal G873 = std(J873); if (dim(G873)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 873; dim(G873); }
+kill J873; kill G873;
+ideal J874 = C,p3,p4,p8,p9,p10,p11;
+ideal G874 = std(J874); if (dim(G874)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 874; dim(G874); }
+kill J874; kill G874;
+ideal J875 = C,p3,p5,p6,p7,p8,p9;
+ideal G875 = std(J875); if (dim(G875)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 875; dim(G875); }
+kill J875; kill G875;
+ideal J876 = C,p3,p5,p6,p7,p8,p10;
+ideal G876 = std(J876); if (dim(G876)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 876; dim(G876); }
+kill J876; kill G876;
+ideal J877 = C,p3,p5,p6,p7,p8,p11;
+ideal G877 = std(J877); if (dim(G877)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 877; dim(G877); }
+kill J877; kill G877;
+ideal J878 = C,p3,p5,p6,p7,p9,p10;
+ideal G878 = std(J878); if (dim(G878)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 878; dim(G878); }
+kill J878; kill G878;
+ideal J879 = C,p3,p5,p6,p7,p9,p11;
+ideal G879 = std(J879); if (dim(G879)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 879; dim(G879); }
+kill J879; kill G879;
+ideal J880 = C,p3,p5,p6,p7,p10,p11;
+ideal G880 = std(J880); if (dim(G880)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 880; dim(G880); }
+kill J880; kill G880;
+ideal J881 = C,p3,p5,p6,p8,p9,p10;
+ideal G881 = std(J881); if (dim(G881)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 881; dim(G881); }
+kill J881; kill G881;
+ideal J882 = C,p3,p5,p6,p8,p9,p11;
+ideal G882 = std(J882); if (dim(G882)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 882; dim(G882); }
+kill J882; kill G882;
+ideal J883 = C,p3,p5,p6,p8,p10,p11;
+ideal G883 = std(J883); if (dim(G883)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 883; dim(G883); }
+kill J883; kill G883;
+ideal J884 = C,p3,p5,p6,p9,p10,p11;
+ideal G884 = std(J884); if (dim(G884)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 884; dim(G884); }
+kill J884; kill G884;
+ideal J885 = C,p3,p5,p7,p8,p9,p10;
+ideal G885 = std(J885); if (dim(G885)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 885; dim(G885); }
+kill J885; kill G885;
+ideal J886 = C,p3,p5,p7,p8,p9,p11;
+ideal G886 = std(J886); if (dim(G886)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 886; dim(G886); }
+kill J886; kill G886;
+ideal J887 = C,p3,p5,p7,p8,p10,p11;
+ideal G887 = std(J887); if (dim(G887)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 887; dim(G887); }
+kill J887; kill G887;
+ideal J888 = C,p3,p5,p7,p9,p10,p11;
+ideal G888 = std(J888); if (dim(G888)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 888; dim(G888); }
+kill J888; kill G888;
+ideal J889 = C,p3,p5,p8,p9,p10,p11;
+ideal G889 = std(J889); if (dim(G889)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 889; dim(G889); }
+kill J889; kill G889;
+ideal J890 = C,p3,p6,p7,p8,p9,p10;
+ideal G890 = std(J890); if (dim(G890)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 890; dim(G890); }
+kill J890; kill G890;
+ideal J891 = C,p3,p6,p7,p8,p9,p11;
+ideal G891 = std(J891); if (dim(G891)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 891; dim(G891); }
+kill J891; kill G891;
+ideal J892 = C,p3,p6,p7,p8,p10,p11;
+ideal G892 = std(J892); if (dim(G892)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 892; dim(G892); }
+kill J892; kill G892;
+ideal J893 = C,p3,p6,p7,p9,p10,p11;
+ideal G893 = std(J893); if (dim(G893)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 893; dim(G893); }
+kill J893; kill G893;
+ideal J894 = C,p3,p6,p8,p9,p10,p11;
+ideal G894 = std(J894); if (dim(G894)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 894; dim(G894); }
+kill J894; kill G894;
+ideal J895 = C,p3,p7,p8,p9,p10,p11;
+ideal G895 = std(J895); if (dim(G895)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 895; dim(G895); }
+kill J895; kill G895;
+ideal J896 = C,p4,p5,p6,p7,p8,p9;
+ideal G896 = std(J896); if (dim(G896)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 896; dim(G896); }
+kill J896; kill G896;
+ideal J897 = C,p4,p5,p6,p7,p8,p10;
+ideal G897 = std(J897); if (dim(G897)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 897; dim(G897); }
+kill J897; kill G897;
+ideal J898 = C,p4,p5,p6,p7,p8,p11;
+ideal G898 = std(J898); if (dim(G898)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 898; dim(G898); }
+kill J898; kill G898;
+ideal J899 = C,p4,p5,p6,p7,p9,p10;
+ideal G899 = std(J899); if (dim(G899)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 899; dim(G899); }
+kill J899; kill G899;
+ideal J900 = C,p4,p5,p6,p7,p9,p11;
+ideal G900 = std(J900); if (dim(G900)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 900; dim(G900); }
+kill J900; kill G900;
+ideal J901 = C,p4,p5,p6,p7,p10,p11;
+ideal G901 = std(J901); if (dim(G901)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 901; dim(G901); }
+kill J901; kill G901;
+ideal J902 = C,p4,p5,p6,p8,p9,p10;
+ideal G902 = std(J902); if (dim(G902)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 902; dim(G902); }
+kill J902; kill G902;
+ideal J903 = C,p4,p5,p6,p8,p9,p11;
+ideal G903 = std(J903); if (dim(G903)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 903; dim(G903); }
+kill J903; kill G903;
+ideal J904 = C,p4,p5,p6,p8,p10,p11;
+ideal G904 = std(J904); if (dim(G904)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 904; dim(G904); }
+kill J904; kill G904;
+ideal J905 = C,p4,p5,p6,p9,p10,p11;
+ideal G905 = std(J905); if (dim(G905)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 905; dim(G905); }
+kill J905; kill G905;
+ideal J906 = C,p4,p5,p7,p8,p9,p10;
+ideal G906 = std(J906); if (dim(G906)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 906; dim(G906); }
+kill J906; kill G906;
+ideal J907 = C,p4,p5,p7,p8,p9,p11;
+ideal G907 = std(J907); if (dim(G907)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 907; dim(G907); }
+kill J907; kill G907;
+ideal J908 = C,p4,p5,p7,p8,p10,p11;
+ideal G908 = std(J908); if (dim(G908)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 908; dim(G908); }
+kill J908; kill G908;
+ideal J909 = C,p4,p5,p7,p9,p10,p11;
+ideal G909 = std(J909); if (dim(G909)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 909; dim(G909); }
+kill J909; kill G909;
+ideal J910 = C,p4,p5,p8,p9,p10,p11;
+ideal G910 = std(J910); if (dim(G910)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 910; dim(G910); }
+kill J910; kill G910;
+ideal J911 = C,p4,p6,p7,p8,p9,p10;
+ideal G911 = std(J911); if (dim(G911)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 911; dim(G911); }
+kill J911; kill G911;
+ideal J912 = C,p4,p6,p7,p8,p9,p11;
+ideal G912 = std(J912); if (dim(G912)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 912; dim(G912); }
+kill J912; kill G912;
+ideal J913 = C,p4,p6,p7,p8,p10,p11;
+ideal G913 = std(J913); if (dim(G913)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 913; dim(G913); }
+kill J913; kill G913;
+ideal J914 = C,p4,p6,p7,p9,p10,p11;
+ideal G914 = std(J914); if (dim(G914)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 914; dim(G914); }
+kill J914; kill G914;
+ideal J915 = C,p4,p6,p8,p9,p10,p11;
+ideal G915 = std(J915); if (dim(G915)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 915; dim(G915); }
+kill J915; kill G915;
+ideal J916 = C,p4,p7,p8,p9,p10,p11;
+ideal G916 = std(J916); if (dim(G916)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 916; dim(G916); }
+kill J916; kill G916;
+ideal J917 = C,p5,p6,p7,p8,p9,p10;
+ideal G917 = std(J917); if (dim(G917)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 917; dim(G917); }
+kill J917; kill G917;
+ideal J918 = C,p5,p6,p7,p8,p9,p11;
+ideal G918 = std(J918); if (dim(G918)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 918; dim(G918); }
+kill J918; kill G918;
+ideal J919 = C,p5,p6,p7,p8,p10,p11;
+ideal G919 = std(J919); if (dim(G919)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 919; dim(G919); }
+kill J919; kill G919;
+ideal J920 = C,p5,p6,p7,p9,p10,p11;
+ideal G920 = std(J920); if (dim(G920)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 920; dim(G920); }
+kill J920; kill G920;
+ideal J921 = C,p5,p6,p8,p9,p10,p11;
+ideal G921 = std(J921); if (dim(G921)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 921; dim(G921); }
+kill J921; kill G921;
+ideal J922 = C,p5,p7,p8,p9,p10,p11;
+ideal G922 = std(J922); if (dim(G922)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 922; dim(G922); }
+kill J922; kill G922;
+ideal J923 = C,p6,p7,p8,p9,p10,p11;
+ideal G923 = std(J923); if (dim(G923)==-1) { nz=nz+1; } else { ns=ns+1; "SOLVABLE_OVER_Q subset"; 923; dim(G923); }
+kill J923; kill G923;
+"empty_variety="; nz; "nonempty="; ns;
+quit;

@@ -1,0 +1,9 @@
+{
+ "unknowns": 16,
+ "ngens": 28,
+ "ncollateral": 16,
+ "maxdeg": 2,
+ "nregion_quadratic": 0,
+ "linear_collateral": 117,
+ "quadratic_collateral": 22
+}

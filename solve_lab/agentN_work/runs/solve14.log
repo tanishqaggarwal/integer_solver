@@ -1,0 +1,33 @@
+=== exact integer constraints from the surviving collateral generators ===
+   c3996     27*s2 = 0  -> s2 = 0
+   c7052     22*s2 = 0  -> s2 = 0
+   c8680     1*s1^2 = 0 -> s1 = 0  (square: same over Z as over Q)
+   c10670    12*s2 = 0  -> s2 = 0
+   c12618    -23*s2 = 0  -> s2 = 0
+   c18284    39*s2 = 0  -> s2 = 0
+   c19291    -34*s2 = 0  -> s2 = 0
+   c24386    -30*s2 = 0  -> s2 = 0
+   c28650    12*s2 = 0  -> s2 = 0
+   c30579    19*s2 = 0  -> s2 = 0
+   c30981    4*s2 = 0  -> s2 = 0
+   c34058    22*s2 = 0  -> s2 = 0
+   c34195    -16*s2 = 0  -> s2 = 0
+   c35307    9*s2 = 0  -> s2 = 0
+   c37816    1*s2 = 0  -> s2 = 0
+   c38230    22*s2 = 0  -> s2 = 0
+   variables forced to 0: 2 -> [1, 2]
+   remaining lattice rank: 14
+
+=== region system on the exact variety: 12 rows x 14 unknowns, all affine ===
+rows already zero at the witness: 5
+OPT (max integrally zeroable region rows) = 5 of 12   exhaustive=True  nodes=363  (0.0s)
+   best row set: [2554, 6816, 8124, 9123, 9421]
+   => failing = 7, score = 39026
+
+=== blast radius vs widen.py (step-1 secant, kernel dim 14) ===
+widen kernel dim 14 ; exact-variety lattice rank 14
+same lattice (HNF equal): False
+rank of the union: 15 (exact 14, widen 14)
+
+=== collateral budgets, exact polynomial model ===
+|W|=1 : 125 admissible drop sets, max g = 5, failing = 8, score = 39025  (102.8s)

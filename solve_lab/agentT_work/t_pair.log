@@ -1,17 +1,41 @@
-Traceback (most recent call last):
-  File "/home/user/integer_solver/solve_lab/agentT_work/t_pair.py", line 20, in <module>
-    exec(compile(open(os.path.join(T, 'from_L', 'closeS4.py')).read().split("if __name__")[0],
-  File "c4", line 7, in <module>
-  File "<string>", line 7, in <module>
-  File "<string>", line 6, in <module>
-  File "<string>", line 7, in <module>
-  File "<string>", line 4, in <module>
-  File "<string>", line 3, in <module>
-  File "<string>", line 5, in <module>
-  File "/home/user/integer_solver/solve_lab/agentF_work/fwd.py", line 22, in __init__
-    d,s=load()
-        ^^^^^^
-  File "/home/user/integer_solver/solve_lab/agentF_work/fwd.py", line 9, in load
-    d=pickle.load(open(os.path.join(HERE,'circ4.pkl'),'rb'))
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/home/user/integer_solver/solve_lab/agentF_work/circ4.pkl'
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+|S|=8 end state: 3 nonzero atoms of 9032
+     ((x18956-x37892)-x32237)
+     ((x21408*x10138)-(15333171*x658))
+     ((x24468-x13682)-(12354891*x34243))
+surviving c>1 violations: 3
+condition atom : ((x21408*x10138)-(15333171*x658))
+c              = 15333171 = 3^1 * 7^1 * 19^1 * 83^1 * 463^1
+baseline global nonzero count: 3
+candidate shift wires: 6 of 6 admitted by influences()  [2498, 7421, 14623, 28955, 34194, 36403]
+
+== PASS 1: bivariate fit + EXHAUSTIVE root enumeration mod each prime of c ==
+pair (x2498  ,x7421  ) deg 3,1 cross=True   fit-vs-recompute OK  roots/prime [3, 7, 18, 82, 462] = 14320152 mod c  (0s)
+pair (x2498  ,x14623 ) deg 3,2 cross=False  fit-vs-recompute OK  roots/prime [3, 8, 19, 74, 479] = 16163376 mod c  (0s)
+pair (x2498  ,x28955 ) deg 3,3 cross=True   fit-vs-recompute OK  roots/prime [2, 6, 19, 83, 461] = 8723964 mod c  (0s)
+pair (x2498  ,x34194 ) deg 3,1 cross=True   fit-vs-recompute OK  roots/prime [2, 6, 19, 83, 463] = 8761812 mod c  (0s)
+pair (x2498  ,x36403 ) deg 3,2 cross=True   fit-vs-recompute OK  roots/prime [3, 8, 18, 71, 464] = 14231808 mod c  (0s)
+pair (x7421  ,x14623 ) deg 1,2 cross=False  fit-vs-recompute OK  NO ROOT mod 3  (0s)
+pair (x7421  ,x28955 ) deg 1,3 cross=True   fit-vs-recompute OK  NO ROOT mod 3  (0s)
+pair (x7421  ,x34194 ) deg 1,1 cross=False  fit-vs-recompute OK  NO ROOT mod 7  (0s)
+pair (x7421  ,x36403 ) deg 1,2 cross=False  fit-vs-recompute OK  NO ROOT mod 3  (0s)
+pair (x14623 ,x28955 ) deg 2,3 cross=True   fit-vs-recompute OK  roots/prime [2, 8, 18, 78, 477] = 10715328 mod c  (0s)
+pair (x14623 ,x34194 ) deg 2,1 cross=True   fit-vs-recompute OK  roots/prime [3, 7, 18, 82, 462] = 14320152 mod c  (0s)
+pair (x14623 ,x36403 ) deg 2,2 cross=True   fit-vs-recompute OK  NO ROOT mod 3  (0s)
+pair (x28955 ,x34194 ) deg 3,1 cross=True   fit-vs-recompute OK  roots/prime [2, 6, 19, 83, 463] = 8761812 mod c  (0s)
+pair (x28955 ,x36403 ) deg 3,2 cross=False  fit-vs-recompute OK  roots/prime [2, 8, 19, 88, 447] = 11958144 mod c  (0s)
+pair (x34194 ,x36403 ) deg 1,2 cross=True   fit-vs-recompute OK  roots/prime [3, 7, 18, 82, 462] = 14320152 mod c  (0s)
+
+PASS 1 SUMMARY: 15 pairs, 5 with NO bivariate root, 10 with roots
+
+== PASS 2: apply the roots, closeS4 global guard, direct recomputation ==
+  *** x2498 += p*1201079 , x7421 += p*3402495  CLEARS and global 3 -> 2
+  (x2498  ,x7421  ) roots 14320152  tried 1  cleared-by-recomputation 1  improved 1  best global 2 (base 3)  distinct collateral patterns 1  (0s)
+        collateral: 0 newly-nonzero atoms  x1   []
+
+TOTAL WALL 4 s
+WINNER: two-wire shift x2498 += p*1201079 , x7421 += p*3402495  -> 2 nonzero atoms
+    ((x18956-x37892)-x32237)
+    ((x24468-x13682)-(12354891*x34243))
+dumped close_T8pair.json -- now run checker.py on it

@@ -4853,3 +4853,61 @@ note that M's space reduction does not depend on it.
 **A coordinator heartbeat is scheduled every ~50 minutes** for the authorised 8-hour window: check
 for another restart, commit in-flight work, verify the three transcripts are still being written,
 and relaunch from RESUME files if any agent has died.
+
+### Fleet expanded to six — three new angles (U, V, W)
+
+Three agents added on user instruction. Each takes a **genuinely open** item rather than re-treading
+a closed thread; all three inherit a closed agent's machinery via its RESUME file.
+
+| Agent | Work dir | Angle |
+|---|---|---|
+| **U** | `agentU_work/` | **The partition theorem** — inherits K. The single highest-value open question in the campaign. |
+| **V** | `agentV_work/` | **The multi-wire joint solve** — inherits L. The `\|S\| = 17` residue nobody has attacked with the right instrument. |
+| **W** | `agentW_work/` | **O's unfinished budget + the frame-B flag** — inherits O. Two bounded items that close open ledger rows. |
+
+**U — why it is the highest-value question.** Q measured at all 383 gadgets that **two equal live
+inputs make both congruences vanish identically regardless of the output** — verified even with the
+output set to a random wrong value. So a gadget fed two coinciding values has an unconstrained
+output and the root can be driven to the target by inverting the law in closed form: **a full solve
+with no scalar recovery.** Three independent routes fixed the exact condition —
+`Σ_{i∈A} 2^i − Σ_{j∈B} 2^j = ±N` with A, B non-empty and drawn from a gadget's two slot supports,
+and only ±N possible since the largest subset-sum difference is `2²⁵⁶ − 1 < 2N`. **The
+unconstrained version of that condition is TRUE** (N has 64 zero bits; rewrite `2^j = 2^{j+1} − 2^j`),
+**so the entire question lives in the partition and nowhere else.** K's negative rests on two
+*measured* partition facts it flagged as the thing to attack, and nobody has. U verifies those facts
+in a parse that is not K's, then tests ±N-representability **per gadget, directly**, rather than
+relying on K's sufficient condition. U also inherits K's two unfinished items: blocking backward
+derivation at **every** slot rather than only the root and re-running the whole fold validation
+table, and publishing the promised sweep of K's own results produced under unguarded closures.
+
+**V — the instrument L never built.** `closeS4.py` works **one wire at a time** and accepts a shift
+only if the global nonzero-atom count strictly decreases. At `|S| = 17` the diagnosis — from L and T
+independently, agreeing — is that clearing one condition on a wire silently re-breaks a satisfied
+one, and **a residue needing two wires moved together is indistinguishable from no solution under a
+single-wire search.** V reproduces the run, reports the **full** component structure of the
+"shares a condition" graph (L measured `[1,1]` for one pair at one point, which is not a general
+statement), and builds the genuine multi-wire solve: enumerate one wire per prime power, root-find
+the rest, CRT, **verify by direct recomputation**. It reports **component sizes and measured cost**,
+since cost grows as `q^(e(k−1))` and there is a size beyond which this stops being bounded. Explicitly
+told to measure one configuration before launching a sweep — L burned four rounds estimating cost
+from the shape of the algorithm instead of measuring it.
+
+**W — two bounded closures.** O's compensation search is complete at `j=1,b=0` and `j=2,b≤1`, and at
+`j=3,b≤2` for only **14 of 35 triples** — those containing eq12231. **The other 21 were never
+reached**, and `j≥4` was greedy only. This matters because of a near-miss O caught: its greedy pass
+flagged a triple as dropping *exactly 3*, net zero, **and since greedy only upper-bounds, the true
+minimum could have been 2 — i.e. 39,027.** Enumerated properly, none. **The same trap could hide in
+the 21 unreached triples.** W also settles T's open flag on O's knob set: T rebuilt `K` in the
+**default** orientation and got **23, not O's 34** (12 free S-carriers against 26, 11 region-reaching
+against 15, overlap 0 where O's numbers imply 7). O scopes explicitly to frame B, which promotes
+defined variables to free — the likely innocent explanation — but **T never reproduced frame B, so
+the row is open.** W reproduces it and settles it either way.
+
+**All six carry the standing rules**, including the ones bought with retractions: state the knob set
+*and* configuration on any "nothing can do X"; greedy only upper-bounds; separate *this number is
+wrong* from *this result is wrong*; measure a correction's blast radius before reporting it; never
+trust a symbolic expansion or a disjointness argument without direct recomputation; price in
+equations, not atoms; dump the assignment and run the checker; and **never identify a process by
+command-line matching** — that has caused three failures here, one of them a fabricated measurement.
+
+**Live: M, N, T, U, V, W. Closed: P, R, S, K, Q, L, O.**

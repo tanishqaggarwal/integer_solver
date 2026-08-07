@@ -1,0 +1,16 @@
+{
+ "lattice_rank": 14,
+ "knobs": 68,
+ "opt": 5,
+ "exhaustive": true,
+ "failing": 7,
+ "score": 39026,
+ "rows": [
+  2554,
+  6816,
+  8124,
+  9123,
+  9421
+ ],
+ "six_subsets_solvable": 0
+}

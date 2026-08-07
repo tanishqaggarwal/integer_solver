@@ -1,0 +1,15 @@
+lattice rank 15 in 68 knobs
+residue eq 8680: {(0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0): 1}
+the single nonlinear generator forces coordinate s7 = 0 over Z
+
+region system: 12 rows x 14 unknowns, all affine over Z
+rows already zero at the witness: 5
+OPT = 5 of 12   exhaustive=True   nodes=363   (0.0s)
+   rows: [2554, 6816, 8124, 9123, 9421]
+   => failing = 7, score = 39026
+
+checking all 924 six-subsets for integer solvability ...
+six-subsets integrally solvable: 0 of 924
+
+knob set: 68 (exact polynomial support) vs 49 (widen.py step-1 filter)
+wrote runs/solve68.{json,pkl}

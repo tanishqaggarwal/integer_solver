@@ -1,0 +1,13 @@
+S = [19745, 33287, 30242, 12422, 16586, 35110, 3545, 34974, 4940, 32872, 4362, 30420, 3707, 4287, 5090, 37147, 1695]
+outer 0: global nonzero 10, violated c-conditions 10
+   single-wire pass: 6 accepted shift(s)
+outer 1: global nonzero 3, violated c-conditions 3
+   single-wire pass STALLED -> two-wire pass
+  atom ((x24468-x13682)-(12354891*x34243))  c=12354891=3^1*89^1*46273^1  wires=2 pairs=1
+  atom ((x10261-x8912)-(13040669*x27539))  c=13040669=19^1*199^1*3449^1  wires=2 pairs=1
+     (x10261 ,x27156 ) 250 roots tried, 250 verified, none passed the global guard
+   two-wire pass also stalled -> stop
+|S|=17  T17w    NONZERO ATOMS = 3 of 9032   WALL = 112.3 s  -> close_T17w.json
+     ((x18956-x37892)-x32237)
+     ((x24468-x13682)-(12354891*x34243))
+     ((x10261-x8912)-(13040669*x27539))

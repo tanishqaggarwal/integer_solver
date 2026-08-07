@@ -1,0 +1,63 @@
+exact syntactic candidates: 68
+equations any candidate can touch: 12 region + 7250 outside
+exact polynomials over all 68 candidates built in 0.3s
+
+DEGREE DISTRIBUTION over all 7262 rows: {-1: 7019, 1: 126, 2: 116, 4: 1}
+max total degree of the exact system: 4
+region row degrees: {2554: 2, 6816: 2, 8124: 2, 9123: 2, 9421: 2, 12231: 2, 12270: 2, 12350: 2, 14584: 2, 18673: 2, 22044: 2, 29125: 2}
+max terms in a row: 665 ; max coefficient bits: 6083
+
+candidates that genuinely move the region (exact polynomial support): 67 of 68
+   knobs the step-1 filter MISSED: 18 -> [2239, 4068, 4339, 8173, 9106, 9325, 11368, 13502, 14466, 18822, 24490, 24559, 26064, 26874, 28969, 30095, 31731, 34660]
+   knobs the step-1 filter kept that do NOT move the region: 0 -> []
+
+=== reduction on the complete knob set (68 unknowns) ===
+outside rows the candidates actually move: 231
+   126 purely linear, 105 quadratic
+ker_Z of the linear collateral rows: dim 37
+quadratic collateral rows that force a coordinate to 0: 3 (coords [2, 5, 14])
+quadratic collateral rows that need a genuine branch: 43
+   eq 483    const=False lin=7 quad=0 []
+   eq 608    const=False lin=2 quad=0 []
+   eq 996    const=False lin=5 quad=0 []
+   eq 1531   const=False lin=2 quad=0 []
+   eq 2043   const=False lin=13 quad=0 []
+   eq 3081   const=False lin=2 quad=0 []
+   eq 4096   const=False lin=10 quad=0 []
+   eq 4681   const=False lin=6 quad=0 []
+   eq 5916   const=False lin=4 quad=0 []
+   eq 6494   const=False lin=14 quad=0 []
+   eq 7425   const=False lin=2 quad=0 []
+   eq 8273   const=False lin=2 quad=0 []
+   eq 8680   const=False lin=0 quad=171 [(0, 0), (0, 3), (0, 4), (0, 6), (0, 11), (0, 12)]
+   eq 8687   const=False lin=8 quad=0 []
+   eq 8985   const=False lin=2 quad=0 []
+   eq 9708   const=False lin=2 quad=0 []
+   eq 13599  const=False lin=6 quad=0 []
+   eq 13790  const=False lin=2 quad=0 []
+   eq 15046  const=False lin=6 quad=0 []
+   eq 18030  const=False lin=2 quad=0 []
+   eq 18126  const=False lin=2 quad=0 []
+   eq 18436  const=False lin=4 quad=0 []
+   eq 20876  const=False lin=5 quad=0 []
+   eq 22563  const=False lin=17 quad=0 []
+   eq 23083  const=False lin=12 quad=0 []
+   eq 23919  const=False lin=7 quad=0 []
+   eq 24373  const=False lin=3 quad=0 []
+   eq 24775  const=False lin=2 quad=0 []
+   eq 25305  const=False lin=8 quad=0 []
+   eq 25682  const=False lin=2 quad=0 []
+   eq 27706  const=False lin=2 quad=0 []
+   eq 28754  const=False lin=2 quad=0 []
+   eq 28864  const=False lin=2 quad=0 []
+   eq 30383  const=False lin=2 quad=0 []
+   eq 30487  const=False lin=2 quad=0 []
+   eq 31423  const=False lin=5 quad=0 []
+   eq 31609  const=False lin=6 quad=0 []
+   eq 34816  const=False lin=6 quad=0 []
+   eq 35036  const=False lin=4 quad=0 []
+   eq 35561  const=False lin=15 quad=0 []
+   eq 35640  const=False lin=6 quad=0 []
+   eq 36489  const=False lin=2 quad=0 []
+   eq 36866  const=False lin=4 quad=0 []
+region rows genuinely quadratic on the variety: 0 of 12

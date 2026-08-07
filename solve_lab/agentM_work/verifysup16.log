@@ -1,0 +1,22 @@
+H16 = [642, 1844, 2892, 9629, 18253, 23642, 23754, 28355, 28730, 29305, 29854, 31864, 34113, 35619, 37413, 37720]  (16 handles), checkpoint complete at 65,536
+supersets of the witness in H16: 4,096  (expect 2^12 = 4,096)
+
+supersets scoring >= 39026: 114 of 4096
+  |W|= 4:   1 winners of     1 supersets at that size
+  |W|= 5:  12 winners of    12 supersets at that size
+  |W|= 6:  56 winners of    66 supersets at that size
+  |W|= 7:  45 winners of   220 supersets at that size
+  |W|= 8:   0 winners of   495 supersets at that size
+  |W|= 9:   0 winners of   792 supersets at that size
+  |W|=10:   0 winners of   924 supersets at that size
+  |W|=11:   0 winners of   792 supersets at that size
+  |W|=12:   0 winners of   495 supersets at that size
+  |W|=13:   0 winners of   220 supersets at that size
+  |W|=14:   0 winners of    66 supersets at that size
+  |W|=15:   0 winners of    12 supersets at that size
+  |W|=16:   0 winners of     1 supersets at that size
+
+checkpoint total at 39,026 : 114
+supersets attaining it     : 114
+therefore NON-supersets    : 0
+CLAIM VERIFIED over 2^16

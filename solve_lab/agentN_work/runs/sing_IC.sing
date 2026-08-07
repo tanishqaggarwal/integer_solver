@@ -1,0 +1,34 @@
+ring r = 0,(s(0),s(1),s(2),s(3),s(4),s(5),s(6),s(7),s(8),s(9),s(10),s(11),s(12),s(13),s(14),s(15)),dp;
+LIB "primdec.lib";
+ideal I = (27)*s(2),
+  (22)*s(2),
+  (1)*s(1)*s(1),
+  (12)*s(2),
+  (-23)*s(2),
+  (39)*s(2),
+  (-34)*s(2),
+  (-30)*s(2),
+  (12)*s(2),
+  (19)*s(2),
+  (4)*s(2),
+  (22)*s(2),
+  (-16)*s(2),
+  (9)*s(2),
+  (1)*s(2),
+  (22)*s(2);
+
+ideal G = std(I);
+"dim="; dim(G);
+"degree=";
+if (dim(G) >= 0) { "  "; degree(G); }
+"vdim="; vdim(G);
+"ngens_gb="; size(G);
+
+ideal Rad = radical(I);
+"radical_gens="; size(std(Rad));
+"radical_dim="; dim(std(Rad));
+list pd = minAssGTZ(I);
+"components="; size(pd);
+for (int i=1; i<=size(pd); i++) { "  comp"; i; "  dim"; dim(std(pd[i])); }
+
+quit;

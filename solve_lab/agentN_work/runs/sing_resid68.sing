@@ -1,0 +1,15 @@
+ring r = 0,(s(0),s(1),s(2),s(3),s(4),s(5),s(6),s(7),s(8),s(9),s(10),s(11),s(12),s(13),s(14)),dp;
+LIB "primdec.lib";
+ideal I = (1)*s(7)^2;
+ideal G = std(I);
+"dim="; dim(G); "vdim="; vdim(G); "gbsize="; size(G);
+ideal Rad = radical(I); ideal GR = std(Rad);
+"radical_dim="; dim(GR); "radical_gbsize="; size(GR);
+"radical_gens_are_linear=";
+int ok=1;
+for (int i=1;i<=size(GR);i++){ if (deg(GR[i])>1) { ok=0; } }
+ok;
+list pd = minAssGTZ(I); "components="; size(pd);
+for (i=1;i<=size(pd);i++){ "  dim"; dim(std(pd[i])); "  maxdeg";
+  int mx=0; for (int j=1;j<=size(pd[i]);j++){ if (deg(pd[i][j])>mx){mx=deg(pd[i][j]);} } mx; kill mx; }
+quit;

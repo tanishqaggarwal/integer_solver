@@ -1,0 +1,172 @@
+[
+ {
+  "w": 2498,
+  "v": 7421,
+  "st": "roots",
+  "n": 14320152,
+  "dw": 3,
+  "dv": 1,
+  "cross": 1,
+  "fitok": true,
+  "trunc": false,
+  "tried": 1,
+  "cleared": 1,
+  "improved": 1,
+  "best": 2,
+  "ncoll": 1
+ },
+ {
+  "w": 2498,
+  "v": 14623,
+  "st": "roots",
+  "n": 16163376,
+  "dw": 3,
+  "dv": 2,
+  "cross": 0,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 2498,
+  "v": 28955,
+  "st": "roots",
+  "n": 8723964,
+  "dw": 3,
+  "dv": 3,
+  "cross": 3,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 2498,
+  "v": 34194,
+  "st": "roots",
+  "n": 8761812,
+  "dw": 3,
+  "dv": 1,
+  "cross": 2,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 2498,
+  "v": 36403,
+  "st": "roots",
+  "n": 14231808,
+  "dw": 3,
+  "dv": 2,
+  "cross": 1,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 7421,
+  "v": 14623,
+  "st": "noroot",
+  "n": 0,
+  "dw": 1,
+  "dv": 2,
+  "cross": 0,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 7421,
+  "v": 28955,
+  "st": "noroot",
+  "n": 0,
+  "dw": 1,
+  "dv": 3,
+  "cross": 1,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 7421,
+  "v": 34194,
+  "st": "noroot",
+  "n": 0,
+  "dw": 1,
+  "dv": 1,
+  "cross": 0,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 7421,
+  "v": 36403,
+  "st": "noroot",
+  "n": 0,
+  "dw": 1,
+  "dv": 2,
+  "cross": 0,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 14623,
+  "v": 28955,
+  "st": "roots",
+  "n": 10715328,
+  "dw": 2,
+  "dv": 3,
+  "cross": 1,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 14623,
+  "v": 34194,
+  "st": "roots",
+  "n": 14320152,
+  "dw": 2,
+  "dv": 1,
+  "cross": 1,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 14623,
+  "v": 36403,
+  "st": "noroot",
+  "n": 0,
+  "dw": 2,
+  "dv": 2,
+  "cross": 1,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 28955,
+  "v": 34194,
+  "st": "roots",
+  "n": 8761812,
+  "dw": 3,
+  "dv": 1,
+  "cross": 2,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 28955,
+  "v": 36403,
+  "st": "roots",
+  "n": 11958144,
+  "dw": 3,
+  "dv": 2,
+  "cross": 0,
+  "fitok": true,
+  "trunc": false
+ },
+ {
+  "w": 34194,
+  "v": 36403,
+  "st": "roots",
+  "n": 14320152,
+  "dw": 1,
+  "dv": 2,
+  "cross": 1,
+  "fitok": true,
+  "trunc": false
+ }
+]

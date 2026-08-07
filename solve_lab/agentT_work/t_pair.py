@@ -13,11 +13,15 @@ used -- ledger rule 6.
 """
 import os, sys, json, time, itertools, random
 from math import gcd
-L = '/home/user/integer_solver/solve_lab/agentL_work'
+# NOTE: the container restart wiped every *.pkl (gitignored).  agentL_work / agentF_work were
+# rebuilt into a PRIVATE MIRROR under agentT_work/mirror so nothing outside my directory is
+# written; t_rebuild.sh / t_rebuild2.sh do it, and the mirror reproduces L's own census numbers
+# (3,681 slope atoms, 2,747 with c==1 plus 7 zero-slope, 383 nodes, 256 live leaves).
 T = '/home/user/integer_solver/solve_lab/agentT_work'
+L = os.path.join(T, 'mirror', 'L')
 os.chdir(L); sys.path.insert(0, L)
 g = {'__name__': 'drv'}
-exec(compile(open(os.path.join(T, 'from_L', 'closeS4.py')).read().split("if __name__")[0],
+exec(compile(open(os.path.join(L, 'closeS4.py')).read().split("if __name__")[0],
              'c4', 'exec'), g)
 E = g['E']; SL = g['SL']; SHIFT = g['SHIFT']; p = g['p']; NV = g['NV']
 relift = g['relift']; vars_of = g['vars_of']; atomvalvars = g['atomvalvars']
@@ -38,6 +42,11 @@ print('|S|=8 end state: %d nonzero atoms of %d' % (len(NZ0), len(E.res)), flush=
 for a in NZ0:
     print('    ', a[:100])
 viol = [a for a in SL if r[E.residx[a]] != 0 and SL[a] and r[E.residx[a]] % abs(SL[a]) != 0]
+print('surviving c>1 violations: %d' % len(viol), flush=True)
+# the two TARGET congruences (on the target wires x24468 / x18956) are meant to stay nonzero --
+# they are nonzero in every closing run too.  The obstruction is the third one.
+TGT = ('x24468', 'x18956')
+viol = [a for a in viol if not any(t in a for t in TGT)]
 assert len(viol) == 1, viol
 A = viol[0]; IA = E.residx[A]; C = abs(SL[A])//p
 FC = sorted(factor(C).items())
