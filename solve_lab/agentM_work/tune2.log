@@ -1,0 +1,7 @@
+=== TUNER CALIBRATION: must recover 39,026 from the deliverable's own site ===
+  base(untuned) 39008 -> TUNED 39026   (5 knobs, 18 greedy sols, best at prefix 5, 4s)
+  TUNER CALIBRATION PASSED
+
+=== pricing candidates (tuned) ===
+  CALIBRATION (deliverable) c=27994 4971.va  [642, 28730, 29854, 31864]       base 39008 -> TUNED 39026 (4s)
+  c=27634 23762.va                           [10509, 20157, 32245, 33044]     base 39008 -> TUNED 39008 (1s)

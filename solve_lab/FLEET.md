@@ -1803,3 +1803,97 @@ If the joint obstruction survives motion along the kernel it is a real statement
 instance rather than about cfg0 — the first such statement anyone will have earned. If it does
 not survive, the endgame condition dissolves entirely. **S earned this question by removing the
 two weaker versions of it.**
+
+---
+
+## Check-in 26–27 — the region is characterised exactly (agents O, P)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified by O.
+
+### O — the defect region, in closed form
+
+**Two independent 39,026 reconstructions from O's own model**, both `checker.py`-verified:
+`agentO_work/grow23618_39026.json` and `region_opt_39026.json` — the latter a **distinct point at
+the same score**, using different values for all seven region variables.
+
+**The region, exactly.** The witness's 8 bad atoms are touched by exactly **12 equations** (13 with
+`a23618`, the extra being eq8680), and **7 variables are private to that region**;
+`failing = |E(R)| − maxsat(R)` exactly. Exhaustive over all **4,095** subsets: **only the
+witness's own 5 are integrally satisfiable.** Over ℚ the system has **rank 8 = #unknowns** with all
+5 dependent rows exactly consistent — **a unique rational solution satisfying all 13.** Over ℤ,
+**exactly four divisibilities block it: three by p, one by a 278-bit modulus.** That is the
+sharpest characterisation of the deliverable's defect in the lab.
+
+**Tension resolved by mechanism.** cfg0 is the **(0,1) branch** (`x_7715 = 0`, `x_34554 = 1`, so
+`x_15298 = 0`); atoms 20649/20652/32148 are **vacuous there** and go live the instant any a-tree
+bit sets `x_15298 = 1`. **That one gate is the whole monotone cost.**
+
+**Refuted.** "a28647 blocks" / "the closure needs more rounds": the witness's repair is **outside
+the dependency cone by construction** — `cone(20649, 20652, 32148)` has 277 free variables and
+contains **none** of the witness's six carriers, each carrier's +1 probe having zero delta on all
+three rows, so **no cone-generated closure at any `maxr`/`maxv` can reach it.** And, independently
+of M and O's other work: **E's frame cannot express the deliverable** — feeding the witness's own
+free values through `engine.forward` gives **25 failing, not 7**, with four divergence roots
+`x_31864, x_29854, x_642, x_28730`. **Those are exactly M's four corrupted handles and exactly
+P's four handles whose value p does not divide. Three models, same four variables.**
+
+**Complete singles sweep**: all 106 proven pin-solvable bits at cfg0 — **none beats the empty
+set** (best per group 38,995 / 38,989 / 38,977; the 16 "inert" bits 38,928–38,953). Unfiltered
+knob set does not help (3,511–3,552 knobs against E's 134, never below E's 28 failing). 68 (a,b)
+pairs are uniformly **39,013** with residual exactly `{20649, 20652, 32148}`, independent of b.
+
+**O's barrier, stated with knob set AND configuration** (and "outside that knob set I claim
+nothing"): `x_17499 = x_22665 = x_28961 = x_28599 = p` exactly, every adjacent variable-freeing
+atom has the form `x_t − p·x_new` so its column is ≡ 0 mod p, and **all 39 single and all 741
+double region growths fail on the same row, eq29125, by the same factor of p.** Knob set: the ≤10
+variables private to `R0 ∪ {a23618} ∪ {≤2 adjacent atoms}`; configuration: the witness's.
+
+**Reconciliation flagged to O, not a contradiction:** M withdrew a divisibility obstruction on
+eq29125 (single-row solvability is `gcd | s0`, and eq29125's gcd is 1). M's is over its full
+affine knob set, O's over ≤10 private variables. Compatible, but O has been asked to state the
+relationship since its barrier carries the tighter scope.
+
+**O re-tasked, with a rate question attached.** O proposes scanning 2,800 (a,b) pairs, building
+the witness analogue with H's `frameB.Frame([642, 28730, 29854, 31864])` (which reproduces the
+witness bit-for-bit, where E's `forward` cannot), and testing integral solvability at ~2 s each —
+**a configuration clearing all four numerators mod p yields all 39,033 equations.** Coordinator
+condition: **compute the expected hit rate first.** If the numerators behave like unstructured
+residues the probability is ~p⁻⁴ and 2,800 trials is not a search; the scan is then a
+**measurement of whether the numerators are structured** — correlated across configurations,
+whether clearing one forces or forbids another, whether the 278-bit modulus behaves differently.
+If O can show they are constrained, it *is* a search and gets run at full width. **The rate is the
+first deliverable either way.**
+
+### P — composition NOT settled, and P says so
+
+**`i3/i4` resolved in the honest direction.** `stepof()` **did** find the atoms for all four
+inputs; the y-coordinate leaf atoms genuinely carry multiplier **1**, so step 1 was correct and not
+a default masking a miss. A `found` flag now distinguishes the cases permanently. P's check-in-20
+worry is **discharged, and it was right.**
+
+**Composition: no answer.** `pcompose.py` is written and finds the parent/child candidates, but the
+run did not complete. **The blocker is P's own `q²` inner loop** — `conds()` re-scans all 39,277
+atoms to look up each condition's modulus on every call — not anything about the instance. Hoisting
+the three per-block `(c_k1, c_k2, c_k)` triples fixes it.
+
+**Recorded as a HYPOTHESIS, at P's explicit request, and to be cited as nothing else:** a parent's
+input is joined to its child's output by a mod-P copy congruence `x_a − x_b = c·h` carrying a free
+lift of step `c·P`; *if* that holds, the parent's conditions could be satisfied via the copy-edge
+lifts without touching the child's and composition would largely decouple. **Untested. Not a
+result.** It is what step 5 of `pcompose.py` was built to test.
+
+**Handover, durable:** `plift5.py` (working integer lift constructor; at one leaf ON the only
+nonzero atoms are the two target congruences), `prank.py` (6-parameter rank, runs end to end,
+verdict verified at block 2), `pcompose.py` (needs the hoist). **Two standing guards, both learned
+the hard way: never brute-force over `lcm(c_k)` — factor, go prime-by-prime, CRT; and never trust a
+symbolic expansion without direct recomputation**, which caught a real sign bug that would have
+inverted check-in 24's result.
+
+**Run first:** `cands[0]` — smallest leaf support, child a leaf⊕leaf merge, parent's other slot
+live. The smallest configuration with two live merges in a parent/child relation, hence the first
+that can distinguish individual from simultaneous lifting.
+
+**Reduction status, fifth consecutive check-in:** 2,780 of 3,707 free at `c = 1`; **927 carrying
+`c·P | R`; satisfiability OPEN.** In P's own words, one block settled favourably at `|S| = 2` is
+one of 927 **in the configuration that cannot test simultaneity** — and simultaneity is what the
+reduction needs.

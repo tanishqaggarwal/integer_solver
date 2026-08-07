@@ -17,7 +17,7 @@ def add(P1,P2):
     l=(3*x1*x1+a)*pow(2*y1,p-2,p)%p if P1==P2 else (y2-y1)*pow((x2-x1)%p,p-2,p)%p
     x3=(l*l-x1-x2)%p; return (x3,(l*(x1-x3)-y1)%p)
 def rawx(P1): return None if P1 is None else (P1[0]-c)%p
-os.chdir(S); sys.path.insert(0,S)
+os.chdir(S); sys.path.insert(0,S); sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentE_work')
 import engine as E
 ALLSEL={int(k) for k in qleaf}
 asg=json.load(open('/home/user/integer_solver/solve_lab/best/new_instance_partial_39026.json'))
@@ -39,6 +39,11 @@ def probe(exps,label):
     tot=sum(ind.values())
     print('%-30s indiv-leaf wires %-22s sum-wires %-4d  %s'%(
         label,str(ind)[:22],nsum,'GROUP SUM PRESENT' if nsum else ('leaves only' if tot else 'NO leaf reaches a wire')),flush=True)
+# --- are the 256 selectors even independently assignable free variables? ---
+free=[s for s in ALLSEL if E.definer[s] is None]
+print('\n256 leaf selectors that are FREE variables in agent E\'s parse: %d of %d'%(len(free),len(ALLSEL)),flush=True)
+notfree=[s for s in ALLSEL if E.definer[s] is not None]
+if notfree: print('   DEFINED (not freely assignable): %s'%notfree[:20],flush=True)
 random.seed(7)
 print('\n-- control: reproduce the deliverable\'s own ON-set through this code path --',flush=True)
 probe(e_on0,'deliverable ON-set %s'%e_on0)

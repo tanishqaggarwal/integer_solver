@@ -536,3 +536,65 @@ runs it rather than rebuilds it. To extend:
    that is the smallest case where coupling actually bites.
 
 ## 43. Best verified score: **39,026 / 39,033 — unchanged, not mine.** No score attempted.
+
+---
+# CHECK-IN 25 — i3/i4 resolved; composition NOT settled. Handover.
+
+## 44. The i3/i4 step weakness I flagged: **resolved, and it was never a lookup failure**
+```
+i3/i4 step audit at block 2:
+   i1 = x30632   step=4373213    atom found=True
+   i2 = x27436   step=7633471    atom found=True
+   i3 = x10424   step=1          atom found=True
+   i4 = x20930   step=1          atom found=True
+```
+`stepof()` **did** find the atom for all four; the y-coordinate leaf atoms genuinely carry
+multiplier **1**. So step 1 is the correct value, not a default masking a miss, and
+`stepof()` is correct as written — it now returns a `found` flag so the two cases can never be
+confused again. My check-in-20 worry that this was "optimistic if wrong" is **discharged**:
+it was right.
+
+## 45. Composition: **NOT SETTLED. I did not get an answer.** Saying so plainly.
+`pcompose.py` is written and finds the parent/child candidates, but the run did not complete.
+The blocker is mine and it is mundane: **`conds()` re-scans all 39,277 atoms to look up each
+condition's modulus on every single call, and it is called inside a `q²` inner loop.** Hoist
+the three `(c_k1, c_k2, c_k)` triples out — they are per-block constants — and the run becomes
+fast. Nothing about the instance blocked this; my inner loop did.
+
+## 46. An unverified hypothesis I want on the record as a hypothesis
+While wiring `pcompose.py` I noticed that a parent's input is joined to its child's output by a
+**mod-P copy congruence** `x_a − x_b = c·h`, which itself carries a free lift of step `c·P`.
+**If** that holds, the parent's conditions could be satisfied using the copy-edge lifts without
+touching the child's, and composition would largely decouple — which would be the favourable
+answer. **I did not verify this and it is not a result.** It is precisely what step 5 of
+`pcompose.py` was built to test, and it is untested. Do not cite it as anything else.
+
+## 47. HANDOVER — exactly what to run first
+State of the tooling, all in `solve_lab/agentP_work/`:
+* `plift5.py` — working integer lift constructor (seeds copy targets via the `h = 0` rule,
+  processes in SLP order, does not pre-empt the divisibility test at a handle's own def atom).
+  At one leaf ON, the **only** nonzero atoms are the two target congruences.
+* `prank.py` — the 6-parameter rank computation, runs end to end, verified verdict at block 2.
+* `pcompose.py` — composition test, written, **needs the §45 hoist before it will run**.
+
+Two guards, both already in the files, both learned the hard way:
+1. **Never brute-force over `lcm(c_k)`** — factor and go prime-by-prime, then CRT.
+2. **Never trust a symbolic expansion without direct recomputation** — rebuild the shifted
+   integers and recheck `P | N1`, `P | N2`, `c_k·P | R` from scratch. This caught a real sign
+   bug in my own algebra (`A*h2` where it should be `B*h2`) and would have inverted my
+   check-in-20 result had I skipped it.
+
+**The one configuration to run first:** `cands[0]` in `pcompose.py` — the parent/child pair
+with the smallest leaf support in which the child is a leaf⊕leaf merge and the parent's other
+slot is live. That is the smallest configuration with two live merges in a parent/child
+relation, and therefore the first one that can distinguish "each condition lifts individually"
+from "they lift simultaneously". Simultaneity is what the reduction needs; individual lifting
+is all anyone has shown, including me.
+
+## 48. Reduction status — unchanged. Fifth time, and still not softened.
+**2,780 of 3,707 handles free at `c = 1`; 927 carrying `c·P | R`; satisfiability OPEN.**
+One block settled favourably at `|S| = 2` (check-in 20) is one of 927, in the configuration
+where the system is decoupled — i.e. in exactly the case that cannot test simultaneity.
+Knob set: 256 selectors, liveness derived; everything else mod P.
+
+## 49. Best verified score: **39,026 / 39,033 — unchanged, not mine.** No score attempted.

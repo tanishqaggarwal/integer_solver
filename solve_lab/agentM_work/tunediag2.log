@@ -1,0 +1,19 @@
+baseline 39008, 25 failures; deliverable fixes 18
+delta on freed vars: {642: 728, 7068: 735, 28730: 729, 29854: 731, 31864: 724} (digits)
+applying the delta -> score 39026  (vars differing from deliverable 0)
+affine freed vars: [642, 7068, 28730, 29854, 31864]
+  eq   2554: model predicts ZERO, actual ZERO  match=True
+  eq   5324: model predicts ZERO, actual ZERO  match=True
+  eq   6816: model predicts ZERO, actual ZERO  match=True
+  eq   8124: model predicts ZERO, actual ZERO  match=True
+  eq   8680: model predicts ZERO, actual ZERO  match=True
+  eq   9041: model predicts ZERO, actual ZERO  match=True
+  eq   9123: model predicts ZERO, actual ZERO  match=True
+  eq   9421: model predicts ZERO, actual ZERO  match=True
+  eq  11226: model predicts ZERO, actual ZERO  match=True
+  eq  15558: model predicts ZERO, actual ZERO  match=True
+  eq  21000: model predicts ZERO, actual ZERO  match=True
+  eq  22534: model predicts ZERO, actual ZERO  match=True
+
+model/actual agreement on sampled fixed equations: 12 agree, 0 disagree
+  -> if agreement is high, the model is sound and the SOLVER is the weak part.
