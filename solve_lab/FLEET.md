@@ -1739,3 +1739,67 @@ is what the reduction actually needs. The **`i3/i4` leaf-multiplier lookup must 
 since in a parent/child pair those parameters become load-bearing. If budget is short, P has been
 told to deliver the handover instead of a rushed number — `prank.py` runnable end to end, the fix
 in place, both guards documented, and one paragraph naming the configuration to run first.
+
+---
+
+## Check-in 25 — S retracts §3, and the Q tension dissolves (agent S)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified once more by S.
+
+### §3 IS RETRACTED — the closure was local, not global
+
+Marked retracted at the top of `RESUME_S.md` so it is not picked up downstream.
+
+**Test 1 (`reach.py`):** 300 configurations S's BFS could not have reached — random subsets at
+|S| = 1, 2, 5, 17, 32, 64, 128, 192, 200, 256, each with **all 256 selectors set explicitly**
+rather than a few flips off cfg0, evaluated with `bfs.py`'s own `key_of` so the tuples are
+directly comparable. **148 of 300 landed OUTSIDE the 48-tuple image, producing 14 new tuples.**
+Even |S| = 1 landed outside, because **cfg0 has `x_1530 = x_1603 = 1`, so "only this selector on"
+is three flips away, not one.** "The image closed by exhaustion at 48 tuples" never bound the
+instance.
+
+**Test 2 (`reach2.py`) — S then attacked the part that survived, and broke it.** Across all 300
+trials a20215 still took only 2 values, so S ran the sharper test: **p is prime, so any knob
+moving a20215 by a step ≢ 0 (mod p) makes every residue reachable.** At cfg0 **and** at random
+|S| = 17/64/128/200 configurations outside the closure, exactly 3 affine knobs move a20215 and
+**2 move it by ±1** — `x_18956` (+1) and `x_31339`/`x_30213` (−1). **`a20215 ≡ 0 (mod p)` is
+reachable outright.** §3 measured the image of the *selector* map with affine knobs pinned, and
+over-read that as an obstruction.
+
+### What survives — §2, in joint form, and the reason is the useful part
+
+`x_18956` moves a20215 by 1 but pays 8863713 into a747, whose only handle steps by p; keeping
+a747 satisfied forces `8863713·n ≡ 0 (mod p)`, hence `n ≡ 0 (mod p)` since `gcd(8863713, p) = 1`.
+**a20215 moves by multiples of p only once the other rows must stay satisfied** — exactly §2's
+`p·ℤ²`. **§2 and §3 were never independent; §3 dropped the "other rows stay satisfied" clause,
+which was the entire content.** That is a cleaner statement of the endgame than either had.
+
+### The Q tension is DISSOLVED, and S says the fault was its own
+
+S's result is a **cfg0-local joint statement**, the reachable space is demonstrably larger than it
+mapped, and **nothing S measured forbids a satisfying assignment.** Per S: **do not cite §3
+against Q's existence claim, and Q's leaf-adjacent-stage caveat does not need to carry this.**
+Q has been told, and re-told that it should close the 24 stages because it is the last unmeasured
+link in its own chain — not because another agent's result is pressing on it. T has been told to
+drop that audit item; T's framing of it (is "the image" base-dependent the way B1 showed "knobs"
+to be?) was vindicated.
+
+### A negative S flagged rather than dressed up
+
+`reach3.py` attempted to test whether the **joint** `p·ℤ²` obstruction is configuration-
+independent, with a full exact solve at 4 random configurations outside the closure. All 4
+infeasible — **and S reports the result as worthless**: those configurations carry 66/168/316/467
+bad atoms against cfg0's 2, and the blocking rows were 4956, 1050, 364, 364, nothing to do with
+the cluster. It shows only that random selector settings wreck the instance, which was never in
+doubt.
+
+### The open experiment — S's §8.3, and now the sharpest question on the residual side
+
+**Build configurations outside cfg0's closure that are still near-solutions by moving along the
+affine kernel (dim 7 at cfg0), which preserves the other rows by construction**, then test whether
+the joint `p·ℤ²` obstruction is configuration-independent. S is tasked with exactly this.
+
+If the joint obstruction survives motion along the kernel it is a real statement about the
+instance rather than about cfg0 — the first such statement anyone will have earned. If it does
+not survive, the endgame condition dissolves entirely. **S earned this question by removing the
+two weaker versions of it.**

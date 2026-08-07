@@ -1,0 +1,34 @@
+UNCORRUPTED BASELINE: score 39008, 25 failures, 5 bad atoms
+  bad atoms  : [23618, 34120, 36660, 36661, 36662]
+  failures   : [2554, 5324, 6816, 8124, 8680, 9041, 9123, 9421, 11226, 12231, 12270, 12350, 14584, 15558, 18673, 21000, 22044, 22534, 22997, 28929, 29125, 29330, 32026, 35512, 38051]
+
+DELIVERABLE:         score 39026, 7 failures, 8 bad atoms
+  failures   : [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+
+fixed by the deliverable (in baseline, not in deliverable): 18
+   [2554, 5324, 6816, 8124, 8680, 9041, 9123, 9421, 11226, 15558, 21000, 22534, 22997, 28929, 29330, 32026, 35512, 38051]
+NEWLY BROKEN by the deliverable (not in baseline, in deliverable): 0
+   []
+common to both: 7 -> [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+
+--- the decisive question ---
+The greedy tuner only builds rows for equations FAILING AT BASELINE.
+Of the deliverable's 7 failures, how many are already failing at baseline?  7
+Of the 18 equations the deliverable FIXES, all are baseline failures by
+construction, so they ARE in the row set. So the rows exist -- the issue is that
+zeroing them requires ACCEPTING the newly-broken ones, which greedy never models.
+
+deliverable delta on the freed variables (vs uncorrupted baseline):
+  x_642    delta 728 digits
+  x_7068   delta 735 digits
+  x_28730  delta 729 digits
+  x_29854  delta 731 digits
+  x_31864  delta 724 digits
+
+checking affinity of the freed handles AT THE BASELINE:
+  affine among the 5 freed: [642, 7068, 28730, 29854, 31864]
+  x_642    column touches atoms [23616, 36664]
+  x_7068   column touches atoms [23616, 34120]
+  x_28730  column touches atoms [23617, 23618]
+  x_29854  column touches atoms [36659, 36660]
+  x_31864  column touches atoms [36661, 36663]

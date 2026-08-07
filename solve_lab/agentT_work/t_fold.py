@@ -34,8 +34,7 @@ def add(P1,P2):
 LP={}
 for e,var in lad.items():
     xs,ys=qleaf[str(var)][0],qleaf[str(var)][1]
-    X=(int(xs)+c)%p; Y=int(ys)%p
-    LP[int(e)]=(X,Y)
+    LP[int(e)]=(int(xs)%p,int(ys)%p)   # qleaf already stores the SHIFTED (X,Y) chart
 bad=[e for e,P1 in LP.items() if not oncurve(*P1)]
 print('ladder leaves on the cubic: %d/%d  (off: %s)'%(len(LP)-len(bad),len(LP),bad[:5]),flush=True)
 os.chdir(S); sys.path.insert(0,S)
@@ -69,3 +68,18 @@ for T in TESTS:
     nind=sum(vs[w] for w in indiv)
     verdict='GROUP SUM PRESENT' if nsum else ('only individual leaves' if nind else 'neither')
     print('%-26s %-9d %-9d %-9s %s   (%.0fs)'%(str(T)[:26],nsum,nind,'-',verdict,time.time()-t0),flush=True)
+
+# ---- CONTROL: reproduce Q's own §5b numbers on the deliverable, to validate the wire scan.
+print('\n== CONTROL: agent Q §5b says at the deliverable, L_72 x-coord is on 92 wires,',flush=True)
+print('   L_235 on 5, the group sum L_72+L_235 on 0, target C1 on 4. ==',flush=True)
+asg=json.load(open('/home/user/integer_solver/solve_lab/best/new_instance_partial_39026.json'))
+seed={int(k[2:]):int(v) for k,v in asg.items()}
+v=E.forward(seed)
+vs=collections.Counter(x%p for x in v if x)
+def rawx(P1): return (P1[0]-c)%p
+s72,s235=LP[72],LP[235]
+print('   L_72   on %d wires'%vs[rawx(s72)],flush=True)
+print('   L_235  on %d wires'%vs[rawx(s235)],flush=True)
+print('   L_72+L_235 on %d wires'%vs[rawx(add(s72,s235))],flush=True)
+C1=91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002%p
+print('   target C1 on %d wires'%vs[C1],flush=True)

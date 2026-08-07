@@ -8,3 +8,41 @@
      handles [642, 28730, 29854, 31864] freed 5 knobs 40 | L-incid 13 | base(untuned) 39008 -> TUNED 39008  (5s)
   c=27634 parent 23762.va
      handles [10509, 20157, 32245, 33044] freed 5 knobs 44 | L-incid 14 | base(untuned) 39008 -> TUNED 39008  (5s)
+  c=31049 parent 14869.vb
+     handles [9541, 19546, 25227, 31891] freed 5 knobs 44 | L-incid 15 | base(untuned) 39008 -> TUNED 39008  (6s)
+  c=30609 parent 14692.va
+     handles [3260, 11588, 30400, 37248] freed 5 knobs 46 | L-incid 15 | base(untuned) 39008 -> TUNED 39008  (6s)
+  c=34711 parent 3154.vb
+     handles [2493, 3022, 6019, 15174] freed 5 knobs 45 | L-incid 15 | base(untuned) 39008 -> TUNED 39008  (6s)
+  c=35056 parent 3154.va
+     handles [1405, 3052, 4806, 16433] freed 5 knobs 43 | L-incid 15 | base(untuned) 39008 -> TUNED 39008  (4s)
+  c=6593  parent 25642.va
+     handles [9337, 17894, 23336, 33996] freed 6 knobs 48 | L-incid 15 | base(untuned) 39008 -> TUNED 39008  (5s)
+  c=25642 parent 37991.vb
+     handles [19053, 21505, 22193, 23910] freed 5 knobs 53 | L-incid 15 | base(untuned) 39008 -> TUNED 39008  (5s)
+  c=37034 parent 11182.va
+     handles [10074, 16399, 16800, 35694] freed 5 knobs 41 | L-incid 16 | base(untuned) 39008 -> TUNED 39008  (5s)
+  c=23089 parent 37919.vb
+     handles [1768, 6389, 26662, 31362] freed 5 knobs 44 | L-incid 16 | base(untuned) 39008 -> TUNED 39008  (6s)
+  c=37220 parent 33113.va
+     handles [6254, 7439, 21115, 38560] freed 4 knobs 44 | L-incid 16 | base(untuned) 39008 -> TUNED 39008  (5s)
+  c=7383  parent 16012.vb
+     handles [1079, 15006, 15333, 32131] freed 5 knobs 43 | L-incid 16 | base(untuned) 39008 -> TUNED 39008  (5s)
+
+=== SUMMARY (tuned) ===
+handles                            L-incid  untuned   TUNED
+[642, 28730, 29854, 31864]              13    39008   39008
+[10509, 20157, 32245, 33044]            14    39008   39008
+[9541, 19546, 25227, 31891]             15    39008   39008
+[3260, 11588, 30400, 37248]             15    39008   39008
+[2493, 3022, 6019, 15174]               15    39008   39008
+[1405, 3052, 4806, 16433]               15    39008   39008
+[9337, 17894, 23336, 33996]             15    39008   39008
+[19053, 21505, 22193, 23910]            15    39008   39008
+[10074, 16399, 16800, 35694]            16    39008   39008
+[1768, 6389, 26662, 31362]              16    39008   39008
+[6254, 7439, 21115, 38560]              16    39008   39008
+[1079, 15006, 15333, 32131]             16    39008   39008
+
+throughput: 5s per candidate (tuned) -> ~691/hour single-core
+baseline to beat: 39026

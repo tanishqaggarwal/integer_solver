@@ -41,20 +41,20 @@ for nm in ('i1','i2','i3','i4'):
     print("   %s = x%-6d  step=%-9d  atom found=%s"%(nm,b2[nm],s,found))
 
 # ---- 2. find a parent/child pair of live merges ----
-pair=None
+cands=[]
 for jp,row in enumerate(F.SRC):
-    kinds=[k[0] for k in row]
-    if 'S' not in kinds: continue
     for slot,k in enumerate(row):
         if k[0]!='S': continue
         jc=k[1]
-        if all(x[0]=='L' for x in F.SRC[jc]) and row[1-slot][0]=='L':
-            pair=(jp,jc,slot); break
-    if pair: break
-jp,jc,slot=pair
-sel=set()
-for x in F.SRC[jc]: sel.add(x[1])
-sel.add(F.SRC[jp][1-slot][1])
+        if not all(x[0]=='L' for x in F.SRC[jc]): continue
+        other=row[1-slot]
+        if other[0] not in ('L','S'): continue
+        tot=len(F.supp[jp])
+        cands.append((tot,jp,jc,slot))
+cands.sort()
+print("parent/child candidates (smallest leaf support first):",cands[:5])
+_,jp,jc,slot=cands[0]
+sel=set(F.supp[jp])
 print("\nparent block %d  <-  child block %d ; |S| = %d"%(jp,jc,len(sel)))
 
 val,obs,und,sz,live=plift5.build(sel)
