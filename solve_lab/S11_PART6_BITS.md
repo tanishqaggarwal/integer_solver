@@ -103,3 +103,58 @@ session was attacking, and it is the one worth attacking next.
     s11/bits5,7,8.py   exact weight-1 and exhaustive weight-2 message scans
     s11/bits10..16.py  invariants: conservation, dependency, degeneracy, C-subset search
     s11/chanC,chanC2.py the third channel's system and its drop search
+
+---
+
+# Part XVIII — invariant 5, enumerated completely
+
+## 7. It sees only 18 of the 256 bits
+
+Classifying the 37 C bits by the value of inv5 on the weight-1 message (`s11/bits20.py`):
+
+    19 bits give the SAME value as the empty C-subset  -- inert for inv5
+    18 bits each give a distinct value                 -- active
+
+So inv5 is a function of a subset of **18** bits.  It is *not* additive on them (0 of 40 random
+subsets matched the sum of singles, `s11/bits21.py`) — consistent with OR-tree saturation, where
+what matters is which subtree fires rather than how many bits fire.
+
+## 8. A cone evaluator, and the complete enumeration
+
+inv5 needs only the transitive input cone of its 8 atoms: **2,888 variables of 38,748**, 2,455 SCC
+components of 30,575.  Evaluating just that cone takes **3.9 ms** instead of 80 ms, and it matches
+the full evaluator exactly on every test (`s11/bits23.py`).  That makes 2^18 tractable:
+
+    s11/bits24.py:  262,144 C-subsets enumerated EXHAUSTIVELY  (19 min)
+                    232 distinct values of inv5
+                    zeros: 0
+
+262,144 inputs collapsing onto 232 outputs is extreme degeneracy — multiplicity profile
+`[(1,83),(3,54),(127,21),(381,18),(57,11),(174,9)]`, i.e. 83 values hit exactly once and a handful
+hit hundreds of times.  **Zero is not in the image.**
+
+## 9. What that does and does not prove
+
+The scoping matters, and a full knob sweep settles it (`s11/bits25.py`, all 1,470 live non-bit
+knobs, not the thin 150-sample of bits19):
+
+    checkpoint {x2081,x24601} : 14 knobs touch the certificate rows; all 6 certificates
+                                annihilate all 14   -> INV is EXACTLY conserved here
+    sibling  {x4287,x24601}   : 14 knobs touch;      annihilate 12 of 14 (13 for inv5)
+                                -> NOT exactly conserved there
+
+So:
+
+* **At the checkpoint's own message the result is a proof** (within the affine model): INV_5 is
+  exactly conserved, it is nonzero, and it must vanish for a full mod-p solution.  That message
+  cannot be completed — which is finally a *reason* for the eleven-session plateau at 39,026,
+  rather than another failed search.
+* **Across the other 2^18 messages it is a screen, not a proof.** The true certificate drifts with
+  the message (12/14 rather than 14/14), so the enumerated quantity is the checkpoint's functional
+  evaluated elsewhere. Never hitting zero in 262,144 tries is strong evidence that channel A is
+  dead, and no more than that.
+
+The honest reading: channel A is very likely unable to produce a full solution for *any* message,
+and the effort belongs in channels B (`x5647`, 3 failing checks) and C (`x34606`, certificates as
+small as two rows).  Deriving the exact certificate for a shortlist of messages there — 15 min
+each with the cached pipeline — is the concrete next move.

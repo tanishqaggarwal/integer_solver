@@ -21,11 +21,6 @@ scanned 256 single-bit messages (32s)
     x 35062 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 5988, 7930, 10506]
     x 38643 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
     x   438 tree C U=0 V=1  failing checks mod p =  23  [688, 1618, 2423, 7930, 10506, 21617]
-   0/32640 best=26 (0s)
-   4000/32640 best=10 (522s)
-   8000/32640 best=4 (1049s)
-   12000/32640 best=4 (1570s)
-   16000/32640 best=4 (2082s)
-   20000/32640 best=4 (2600s)
-   24000/32640 best=4 (3119s)
-   28000/32640 best=4 (3653s)
+active C bits for inv5: 18
+additive on 0/40 random subsets of the 18 active bits
+  example mismatches: [((24365, 6821), '585664017146', '307756534274'), ((11368, 2081, 35979, 34974, 16586), '544541995965', '845923752572'), ((11368, 35979, 2081), '585637914271', '112186204029')]

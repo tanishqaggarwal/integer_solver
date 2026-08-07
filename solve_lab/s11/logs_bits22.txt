@@ -1,4 +1,4 @@
-scanned 256 single-bit messages (32s)
+scanned 256 single-bit messages (33s)
   distribution: {15: 1, 17: 3, 19: 3, 21: 5, 22: 7, 23: 15, 24: 48, 25: 44, 26: 60, 27: 47, 28: 17, 29: 3, 30: 3}
   best:
     x 24601 tree B U=1 V=0  failing checks mod p =  15  [688, 1618, 7930, 21617, 25676, 29539]
@@ -21,11 +21,7 @@ scanned 256 single-bit messages (32s)
     x 35062 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 5988, 7930, 10506]
     x 38643 tree B U=1 V=0  failing checks mod p =  22  [688, 1618, 2423, 7930, 10506, 21617]
     x   438 tree C U=0 V=1  failing checks mod p =  23  [688, 1618, 2423, 7930, 10506, 21617]
-   0/32640 best=26 (0s)
-   4000/32640 best=10 (522s)
-   8000/32640 best=4 (1049s)
-   12000/32640 best=4 (1570s)
-   16000/32640 best=4 (2082s)
-   20000/32640 best=4 (2600s)
-   24000/32640 best=4 (3119s)
-   28000/32640 best=4 (3653s)
+  weight 0 done: 1 subsets, 1 distinct, zero=0 (0s)
+  weight 1 done: 19 subsets, 19 distinct, zero=0 (1s)
+  weight 2 done: 172 subsets, 104 distinct, zero=0 (11s)
+  weight 3 done: 988 subsets, 204 distinct, zero=0 (66s)
