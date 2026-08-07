@@ -1,0 +1,34 @@
+raw line 8680, LHS length 3175 chars
+nesting depth: 0  (lengths [3175])
+innermost form S: 3175 chars
+
+--- (1) which power?  evaluate LHS and S on perturbed vectors
+   x_4432 += 1 :  S = 1   LHS = S^4 ? True   LHS = S^2 ? True
+   x_4432 += 2 :  S = 16   LHS = S^4 ? False   LHS = S^2 ? False
+   x_4432 += 3 :  S = 81   LHS = S^4 ? False   LHS = S^2 ? False
+   x_4432 += 5 :  S = 625   LHS = S^4 ? False   LHS = S^2 ? False
+   => LHS == S^4 for all samples: False      LHS == S^2: False
+
+--- (3) derivatives: which object has slope +1?
+   S at the witness = 0
+   dS/dx_4432   = 1
+   dS/dx_19964  = 1
+   dS/dx_28730  = 1
+
+--- (2) how many terms?  18 or 20?
+   E's parse gives 20 (coef, atom) entries
+   raw text of S splits into 1 top-level "+"-separated groups
+        ((((((((((((((((((((((((x_4432)-(x_19964))))-(x_28730)))+(6)*((x_23754)-((x_26
+
+   does sum(c * atom) over E's entries equal S ?
+      x_4432 += 0 :  sum = 0   S = 0   equal: True
+      x_4432 += 1 :  sum = 1   S = 1   equal: True
+      x_4432 += 2 :  sum = 2   S = 16   equal: False
+      x_4432 += 5 :  sum = 5   S = 625   equal: False
+      => E's entries sum exactly to S: False
+
+   coefficients appearing more than once in E's parse: {1: 3, -13: 2, 25: 2, -5: 2}
+   (a bracket like  -13 * (A + B)  becomes TWO entries sharing coefficient -13,
+    which is how 18 bracketed groups become 20 (coef, atom) entries.)
+   1 groups + 19 extra splits = 20 entries
+DONE

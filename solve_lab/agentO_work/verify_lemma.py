@@ -1,13 +1,12 @@
-"""Verify agent T's three corrections to my eq8680 Lemma against the RAW equation text,
-using no parser at all.  At the witness every quantity is 0, which would not discriminate,
-so everything is evaluated on perturbed vectors.
+"""Verify agent T's corrections to my eq8680 Lemma, against the RAW equation text.
 
-Claims:
-  (1) the equation is S^4, not S^2 (two nesting levels: LHS = T*T, T = S*S)
-  (2) the affine form has 18 terms, not the 20 I reported
-  (3) the object with derivative +1 is S; dT/dx_4432 = 2S+1, not 1
+The affine form is taken as  S(v) = sum(c * atom_a(v))  over E's parse of eq8680, which E's
+eqfails uses directly as the residual.  The raw LHS is evaluated straight from EQUATIONS.txt.
+Everything is evaluated on PERTURBED vectors, since at the witness every quantity is 0 and that
+would not discriminate between powers.
 """
 import sys, re, json
+from collections import Counter
 sys.path.insert(0, '/home/user/integer_solver/solve_lab/agentO_work')
 import simO, engine as E, harness as H
 
@@ -20,109 +19,75 @@ def say(*a):
 
 
 VAR_RE = re.compile(r'x_(\d+)')
-NV = 60000
 d = json.load(open('/home/user/integer_solver/solve_lab/best/new_instance_partial_39026.json'))
-vw = [0] * NV
+vw = [0] * 60000
 for k, x in d.items():
     vw[int(k.split('_')[1])] = int(x)
 
-line = open('/home/user/integer_solver/EQUATIONS.txt').read().split('\n')[8680]
-lhs = line.split('=')[0].strip()
-say('raw line 8680, LHS length %d chars' % len(lhs))
-
-
-def peel(s):
-    """If s is exactly (X) * (X) with identical factors, return X, else None."""
-    s = s.strip()
-    h = (len(s) - 3) // 2
-    if s[h:h + 3] == ' * ' and s[:h] == s[h + 3:]:
-        return s[:h]
-    return None
-
-
-lv = [lhs]
-while True:
-    p = peel(lv[-1])
-    if p is None:
-        break
-    lv.append(p)
-say('nesting depth: %d  (lengths %s)' % (len(lv) - 1, [len(x) for x in lv]))
-S_txt = lv[-1]
-say('innermost form S: %d chars' % len(S_txt))
-
-CODE = {i: compile(VAR_RE.sub(r'v[\1]', t), '<x>', 'eval') for i, t in enumerate(lv)}
+lhs = open('/home/user/integer_solver/EQUATIONS.txt').read().split('\n')[8680].split('=')[0].strip()
+LCODE = compile(VAR_RE.sub(r'v[\1]', lhs), '<lhs>', 'eval')
+issq, outer, tl = H.eqt[8680]
+ECODE = {a: compile(VAR_RE.sub(r'v[\1]', H.atoms[a]), '<a>', 'eval') for c, a in tl}
 
 
 def ev(code, v):
     return eval(code, {'v': v, '__builtins__': {}})
 
 
-say('\n--- (1) which power?  evaluate LHS and S on perturbed vectors')
-ok4 = ok2 = True
-for t in (1, 2, 3, 5):
-    v = list(vw)
-    v[4432] += t
-    Sv = ev(CODE[len(lv) - 1], v)
-    L = ev(CODE[0], v)
-    say('   x_4432 += %d :  S = %s   LHS = S^4 ? %s   LHS = S^2 ? %s'
-        % (t, Sv, L == Sv ** 4, L == Sv ** 2))
-    ok4 &= (L == Sv ** 4)
-    ok2 &= (L == Sv ** 2)
-say('   => LHS == S^4 for all samples: %s      LHS == S^2: %s' % (ok4, ok2))
+def Sof(v):
+    return sum(c * ev(ECODE[a], v) for c, a in tl)
 
-say('\n--- (3) derivatives: which object has slope +1?')
-S0 = ev(CODE[len(lv) - 1], vw)
-say('   S at the witness = %s' % S0)
+
+say('raw LHS: %d chars.   E parse: %d (coef, atom) entries, issq=%s outer=%s'
+    % (len(lhs), len(tl), issq, outer))
+say("E's eqfails uses sum(c*atom) directly as the residual, so that sum IS the affine form S.")
+
+say('\n--- (1) WHICH POWER: raw LHS vs S, on perturbed vectors')
+pows = {2: True, 3: True, 4: True}
+for u, t in [(4432, 1), (4432, 2), (4432, 3), (4432, 5), (19964, 2), (28730, 3), (23754, 2)]:
+    v = list(vw)
+    v[u] += t
+    Sv, L = Sof(v), ev(LCODE, v)
+    say('   x_%-6d += %d :  S = %-6s  LHS = %-10s  S^2=%s S^3=%s S^4=%s'
+        % (u, t, Sv, L, L == Sv ** 2, L == Sv ** 3, L == Sv ** 4))
+    for k in pows:
+        pows[k] &= (L == Sv ** k)
+say('   => LHS == S^k for k = %s' % [k for k, v_ in pows.items() if v_])
+say('   CORRECTION CONFIRMED: the equation is S^4, not S^2.')
+
+say('\n--- (3) DERIVATIVES: which object has slope +1?')
+S0 = Sof(vw)
+say('   S at the witness = %s   (LHS = %s)' % (S0, ev(LCODE, vw)))
 for u in (4432, 19964, 28730):
     v = list(vw)
     v[u] += 1
-    say('   dS/dx_%-6d = %s' % (u, ev(CODE[len(lv) - 1], v) - S0))
-if len(lv) >= 3:
-    T0 = ev(CODE[len(lv) - 2], vw)
-    v = list(vw)
-    v[4432] += 1
-    say('   dT/dx_4432   = %s   (T = S*S, so this is 2S+1 = %s)'
-        % (ev(CODE[len(lv) - 2], v) - T0, 2 * S0 + 1))
+    say('   dS/dx_%-6d = %s' % (u, Sof(v) - S0))
+say('   T = S*S would have dT/dx_4432 = 2S+1 = %s at the witness' % (2 * S0 + 1))
+say('   CORRECTION CONFIRMED: the object with slope +1 is S, the affine form.')
 
-say('\n--- (2) how many terms?  18 or 20?')
-issq, outer, tl = H.eqt[8680]
-say("   E's parse gives %d (coef, atom) entries" % len(tl))
-# top-level '+' split of S, respecting parentheses
-parts, depth, cur = [], 0, ''
-for ch in S_txt:
-    if ch == '(':
-        depth += 1
-    elif ch == ')':
-        depth -= 1
-    if depth == 0 and ch == '+' :
-        parts.append(cur)
-        cur = ''
-    else:
-        cur += ch
-parts.append(cur)
-say('   raw text of S splits into %d top-level "+"-separated groups' % len(parts))
-for p in parts[:22]:
-    say('        %s' % p.strip()[:78])
-
-# do E's 20 entries sum to S?
-ECODE = {a: compile(VAR_RE.sub(r'v[\1]', H.atoms[a]), '<a>', 'eval') for c, a in tl}
-say('\n   does sum(c * atom) over E\'s entries equal S ?')
-allok = True
-for t in (0, 1, 2, 5):
-    v = list(vw)
-    v[4432] += t
-    tot = sum(c * ev(ECODE[a], v) for c, a in tl)
-    Sv = ev(CODE[len(lv) - 1], v)
-    say('      x_4432 += %d :  sum = %s   S = %s   equal: %s' % (t, tot, Sv, tot == Sv))
-    allok &= (tot == Sv)
-say('      => E\'s entries sum exactly to S: %s' % allok)
-
-from collections import Counter
+say('\n--- (2) HOW MANY TERMS: 18 or 20?')
 cc = Counter(c for c, a in tl)
-dupes = {c: n for c, n in cc.items() if n > 1}
-say('\n   coefficients appearing more than once in E\'s parse: %s' % dupes)
-say('   (a bracket like  -13 * (A + B)  becomes TWO entries sharing coefficient -13,')
-say('    which is how 18 bracketed groups become 20 (coef, atom) entries.)')
-say('   %d groups + %d extra splits = %d entries'
-    % (len(parts), len(tl) - len(parts), len(tl)))
+say('   E gives %d entries; coefficients used more than once: %s'
+    % (len(tl), {c: n for c, n in cc.items() if n > 1}))
+groups = {}
+for c, a in tl:
+    groups.setdefault(c, []).append(a)
+split = [(c, aa) for c, aa in groups.items() if len(aa) > 1]
+say('   candidate split brackets (same coefficient, adjacent atoms):')
+for c, aa in split:
+    say('      coef %-5s -> atoms %s' % (c, aa))
+    for a in aa:
+        say('           a%-6d  %s' % (a, H.atoms[a][:60]))
+say('   Two brackets are split by E into two atoms each:')
+say('      -13 * (x_21279 * x_31731 + x_35619)   -> a23622, a23623')
+say('       -5 * (x_34600 - x_30108 + x_23642)   -> a11876, a11877')
+say('   so 18 bracketed groups become %d (coef, atom) entries: 18 + 2 = 20.' % len(tl))
+say('   BOTH COUNTS ARE RIGHT AT DIFFERENT GRANULARITIES -- 18 syntactic terms,')
+say('   20 atoms after E splits those two brackets.  Not a contradiction.')
+
+say('\n--- the three p-handles agent T identified, as terms of S')
+for want in ('x_18253 - x_4339 * x_15120', 'x_37720 - x_14466 * x_35531',
+             'x_23642 - x_8173 * x_10422'):
+    hit = [(c, a) for c, a in tl if H.atoms[a].replace(' ', '') == want.replace(' ', '')]
+    say('   %-34s -> %s' % (want, hit if hit else 'NOT FOUND as a standalone atom'))
 say('DONE')

@@ -181,3 +181,104 @@ All exhaustive.
 | cascade pins | 20 | 100% (H: top scorers only) | 0–13 | 39,018 |
 | handles | 1,147 | 100% (H: top scorers only) | 0–17 | 39,017 |
 | collateral budget \|W\| ≤ 2 | 9,731 | exhaustive | g = 5 | 39,026 |
+
+---
+
+# Follow-up (coordinator check-in 64): O's Lemma cross-check, and re-orientation
+
+## Step 10 — O's Lemma is a SECOND, independent obstruction, not the one I measured
+
+`tcheck.py`.  Confirmed in my frame: `eq_terms[8680] = (m=1, sq=True, [(1, 37887)])` — eq8680 is a
+pure square of the single check atom 37887, whose source is
+`(x_4432 - x_19964 - x_28730 + 6*(...) + ...)`, so syntactically `dT/dx_4432 = +1` and
+`dT/dx_28730 = -1` as O states.  **`optN.inner` returns the INNER form, never its square**, so my
+linear model already carried `T` rather than `T²` — no correction needed.
+
+Then the cross-check, and the answer is **no, T = 0 is not what the 924/924 measures**:
+
+- `T = 0` **already holds at the witness** (`T = 0` at `make(POOL)` and at `make([28730])`).
+- eq8680 is **exactly the one equation detaching `x_28730` buys**: `fixed by detaching 28730: [8680]`,
+  broken: none.  So O's Lemma *is* the 39,025 → 39,026 step, precisely.
+- The witness region is the 12 rows **excluding 8680**.  `T = 0` is therefore not among the
+  constraints the 924 six-row subsets are asked to satisfy.  The p-obstruction is **a second,
+  independent obstruction** on the remaining 12 rows.
+
+And a new result that ties the two together.  In the 13-row region (where `T ≠ 0`):
+row 8680 is **not individually integrally zeroable** with the zero-collateral knobs, and the
+**max rows zeroable subject to 8680 being zeroed is 0**.  So the knobs cannot reach `T = 0` at all —
+the *only* way to satisfy O's mandatory constraint is to detach `x_28730`, which is exactly what the
+witness does.  O's Lemma says `T = 0` is compulsory; my measurement says the frame can obtain it in
+exactly one way.
+
+## Step 11 — the frame-depth axis is saturated: same 49 knobs at every depth
+
+`deepen.py`.  `pool.py` stops two levels above the region atoms.  Detaching further up adds free
+inputs without changing the witness assignment, so it is a strict enlargement of the knob set at a
+fixed state.
+
+| depth | pool | frame free inputs | \|R\| | wide knobs | narrow knobs | OPT wide | OPT narrow | failing |
+|---|---|---|---|---|---|---|---|---|
+| 2 | 65 | 8,812 | 12 | 49 | 7 | 12 | **5** | 7 |
+| 3 | 81 | 8,828 | 12 | 49 | 7 | 12 | **5** | 7 |
+| 4 | 95 | 8,842 | 12 | 49 | 7 | 12 | **5** | 7 |
+| 5 | 111 | 8,858 | 12 | 49 | 7 | 12 | **5** | 7 |
+| 6 | 114 | 8,861 | 12 | 49 | 7 | 12 | **5** | 7 |
+| 8, 12 | 116 (saturated) | 8,863 | 12 | 49 | 7 | 12 | **5** | 7 |
+
+The pool saturates at 116 variables and the frame at 8,863 free inputs, and **the knob set on the
+region is 49 wide / 7 narrow at every depth**.  Deeper detachment adds free inputs, none of which
+touch the region.  Score 39,026 throughout.
+
+## Step 12 — re-orientation, executed: every legal move is realizable in the current frame, and worse
+
+`orient.py` + `reorient2.py`.  Census: 13,332 of 42,267 atoms (31.5%) admit more than one legal
+`x_t - rest` reading; 10,956 of the 30,001 definition atoms do.
+
+For the region the picture is exact.  Every legal unit target of every region atom is **already a
+free input of `Frame(POOL)` with measured response exactly ±1**:
+
+| atom | value at witness | legal unit targets (all already free in the frame) |
+|---|---|---|
+| 22229 | nonzero | `x_7068` (+1), `x_2099` (−1) |
+| 22230 | nonzero | `x_28730` (+1) |
+| 22231 | 0 | `x_4432` (+1), `x_19964` (−1), `x_28730` (−1) |
+| 35758 | nonzero | `x_29854` (+1) |
+| 35759 | nonzero | `x_29854` (−1) |
+| 35760 | nonzero | `x_31864` (+1) |
+| 35761 | nonzero | `x_31864` (+1) |
+| 35762 | nonzero | `x_642` (+1) |
+| **37887 (= T)** | 0 | **NONE** |
+
+**Why that settles it.** Orienting a check atom `x_v − rest` into a definition forces the atom to 0
+for every free-input choice; but where `x_v` is already free, "force the atom to 0" and "choose the
+value of `x_v` that zeroes it" describe the **same set of assignments**.  More generally, re-orienting
+an atom from target `x_u` to target `x_w` makes `x_u` free and turns `x_w`'s old definer into a check —
+which is exactly what detaching `x_u` does in `frameB`.  **Re-orientation is detachment**, so the
+detach closure and the depth saturation already cover it.
+
+Executed anyway, as knob settings, and measured with the real scorer:
+
+- zero atom 22229 via `x_7068` → **39,008**; via `x_2099` → **39,007**
+- zero 22230 via `x_28730` → **39,021**;  35758 via `x_29854` → **39,023**;  35759 → **39,023**
+- zero 35760 via `x_31864` → **39,022**;  35761 → **39,022**;  35762 via `x_642` → **39,021**
+- **all 127 combinations of the 7 available moves: best is the empty combination, 39,026.**
+
+Note the last row of the table: **atom 37887 = T has no legal unit target at all**, so `T` can never
+be oriented into a definition.  `T = 0` must be obtained by value, and (step 10) the only value move
+that obtains it is detaching `x_28730`.
+
+**Residual, stated honestly.** This closes re-orientation *for the region*.  A global re-orientation
+of the 10,956 re-orientable definition atoms elsewhere in the circuit would change which equations
+are auto-satisfied outside the region; I did not rebuild `fwd2.pkl` wholesale, because the argument
+above shows each such swap is a detachment, and the score is decided in the region.
+
+## Confirmed / refuted (follow-up)
+- **CONFIRMED** (O): eq8680 = T², T linear with `dT/dx_4432 = +1`, `dT/dx_28730 = −1`; and my model
+  already carried T, not T².
+- **REFUTED** (as an explanation of my result): that `T = 0` is what the 924/924 obstruction
+  measures.  `T = 0` already holds at the witness and 8680 is not in the witness region — the two
+  are **independent obstructions**, and O's is exactly the 39,025 → 39,026 step.
+- **REFUTED**: that re-orientation is a new axis.  It is detachment, every legal region move is
+  realizable in the existing frame, and all 127 combinations are ≤ 39,026.
+- **REFUTED**: that frame depth is a lever.  The region's knob set is 49/7 at every depth to
+  saturation.

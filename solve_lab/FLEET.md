@@ -3899,3 +3899,62 @@ wall clock; `enumsub16.pkl` checkpoints every 2,000 and is resumable. **M told t
 starting 2¹⁸** — the two extra atoms in the 18 are incident **only to eq8680**, which T has now
 confirmed is `S⁴ = 0`, forced everywhere and holding at the witness, so they are the least likely to
 buy anything. `ieng.py` held interruptible for L.
+
+---
+
+## Check-in 72 — CORRECTION: the |S|=17 residue is not bivariate; it was a grouping bug
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### Check-in 67 is corrected, on L's own report
+
+I recorded L's `|S| = 17` residue as a **genuine bivariate obstruction across two wires**. **It is
+not.** L ran the component computation I had asked for and it killed its own diagnosis:
+
+```
+COMPONENT SIZES at |S|=17 of the shares-a-condition graph:  [1, 1]
+```
+
+**The two residual conditions are in separate components and share no influencing wire at all** —
+`c1 = 1707229 = 43·39703`, `c2 = 5930437` (prime), coprime; on the wire pair, one atom has degree
+(2,1) and the other **(0,0)**. **There is no bivariate coupling.** S6h is marked **superseded**
+rather than quietly edited, so a later reader sees the correction rather than inheriting a claim
+that was never true.
+
+**The clinching evidence is path-dependence:** the residual pair is **not stable across runs** — at
+S6h it was `(x9776, x10261)` with different moduli, here a different pair entirely. **A genuine
+structural obstruction would not be path-dependent.**
+
+### The real mechanism — T's, and it is a bug rather than a barrier
+
+`solve_group` groups only the currently-**stuck** atoms on a wire and **ignores the `c > 1` atoms
+that wire influences which are currently satisfied.** Clearing a stuck condition silently breaks an
+already-discharged one, which reappears next round. **Fix:** intersect root sets over **every**
+`c > 1` atom the wire influences, requiring violated ones to clear and satisfied ones to be
+preserved (`t = 0` is always in the latter's root set). Machinery already written.
+
+### Why nothing finished, and the fix
+
+L implemented the fix and launched |S| = 3, 5, 8, 2, 17 with dumping — **it did not complete.**
+`influences()` computes wire→atom influence **by probing**: `E.run` twice per (atom, wire), 927
+atoms × ~0.14 s ≈ **130 s per wire**. **It should be built once, structurally, from
+`atomvalvars`/`vars_of` (already in memory), with probing only to confirm a nonzero derivative on
+the few survivors** — by L's own estimate the sweep is then minutes. **No |S| = 3/5/8 result yet, so
+"closes for small |S| vs closes generally" — the question that matters — stays open.**
+
+### Process, handled well
+
+- **The metric caveat is applied retroactively** across `RESUME_L.md`, not just going forward: every
+  earlier "0 undischarged" now carries it, with the nonzero-atom figures marked as the sound ones.
+  Reporting **nonzero atoms of 9,032** from here.
+- **`closeS.py` now dumps `close_<tag>.json` on every run**, closing the gap that left the `|S| = 2`
+  result model-internal until T reproduced and checked it. Recorded as a standing rule alongside
+  L's `pkill` and file-splitting rules — three process rules it has hit repeatedly this session.
+
+**Next round, and it is bounded:** build the influence map structurally, then run **|S| = 2, 3, 5, 8,
+17**, each dumped and checked, with **|S| = 2 as the control** (must reproduce T's 39,018 with
+exactly 2 nonzero atoms, or the fix changed something it should not have).
+
+> **The placement side is closing** — M has exhaustively priced 4,096 subsets with nothing above
+> 39,026 and the witness the unique optimum at support 4, and O's Lemma survived audit as `S⁴ = 0`
+> forced unconditionally. **The integer lift is where the open question now lives.**
