@@ -101,3 +101,13 @@ outer 3: global nonzero 10, violated c-conditions 9, nonzero handle-less 1
      (x664   ,x7814  ) |group|=1 200 candidate(s) verified, guard rejected all
      (x664   ,x14370 ) |group|=1 200 candidate(s) verified, guard rejected all
      (x664   ,x24959 ) |group|=1 NO JOINT ROOT mod 3 (exhaustive)
+     (x664   ,x25606 ) |group|=1 200 candidate(s) verified, guard rejected all
+     *** (x4860 += p*1016846 , x7814 += p*7589839) |group|=1  global 10 -> 9
+outer 4: global nonzero 9, violated c-conditions 8, nonzero handle-less 1
+   single-wire pass over 25 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x36314*(x4230-6064644793453307956804001185462850983862  c=7194955
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x37880*x1991)-(4254277*x27861))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
