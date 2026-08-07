@@ -54,3 +54,6 @@ atoms with exactly 1 handle: 3681 of 9032
      SOLVED c=10937191  deg=1 wire x23238  t=2441479    (0s, verified exactly)
      SOLVED c=13040669  deg=1 wire x10261  t=11755990   (0s, verified exactly)
   round 11: 2 stuck
+     SOLVED c=10696593  deg=3 wire x23238  t=4689583    (13s, verified exactly)
+     SOLVED c=2264251   deg=3 wire x10261  t=1001365    (0s, verified exactly)
+  FINAL: 2 undischarged, 4 nonzero atoms (2 = the target congruences)

@@ -534,3 +534,62 @@ and **what the other 278 route through is open** and is the one loose end I am l
 `t_slack3.py` (p-class, the unique literal-p atom, the slack products) · `t_slack4.py` (forcing
 chain + the 278 multi-hop aliases).
 Reproduce the answer: `cd solve_lab/agentT_work && python3 t_slack3.py`.
+
+=============================================================================================
+# SIXTH PASS — the two loose ends, both closed   [coordinator check-in 57]
+
+## U. LOOSE END 1 CLOSED — the 278 were MY artifact.  The hand-off covers all 764.
+`t_278.py`, `t_final.py`, `t_cross.py`.
+The 278 "multi-hop" aliases were an artifact of my own pairing, not a feature of the instance.
+I matched `OUT[n][j]` against `OUT[child][j]` — index to index.  But L's `calib2` already measured
+a per-node parent/child **coordinate alignment** (188 orient=1, 67 orient=0), so at a flipped node
+the correct partner is `OUT[child][1-j]`.  Decoding a concrete path showed it immediately: for
+`x23450.va` the path ended `((x34166-x28992)-x33628)`, i.e. the child output aliases to the node's
+*other* coordinate wire.  Re-pairing to allow the cross:
+```
+   aliased via SAME coordinate index : 486
+   aliased via CROSSED index         : 278
+   still no one-atom alias           :   0
+   TOTAL                             : 764
+   slack wire is a p-handle (= p*u)  : 764 of 764
+```
+> **Every one of the 764 parent/child links is a one-atom affine alias whose slack is exactly
+> `p*u`.**  The mod-p closure is **not** scoped to 486 — it covers all 764.  **Q's hand-off result
+> is complete**, and the qualification I flagged as possible does not exist.  My T18 "0 of 764
+> direct" stands; my "278 multi-hop" is **withdrawn** — I was measuring my own index convention.
+
+## V. LOOSE END 2 CLOSED — the 26 reconciles exactly, and it costs M three atoms
+`t_26.py`, `t_final.py`.  My p-handle family vs L's 3,681 census:
+```
+   mine \ L : 33     L \ mine : 7     33 - 7 = 26      3,707 - 33 + 7 = 3,681  exactly
+```
+* **The 7 L counts that I do not are not p-handles at all** — in each, *neither* operand of the
+  product is in the p-class (`(x14163-(x13271*x11852))` etc.).  They are a different family that
+  L's census sweeps in.
+* **The 33 I count and L does not ARE genuine p-handles** (`h = p*u`, u free), whose guards are
+  stage checks and leaf pins rather than slot links — e.g. `((x34600-x30108)+x23642)`,
+  `((x22579*(x19965-9843406673...))-x3178)`.  L's census shape appears to be scoped to slot-link
+  guards.
+
+### V1. **CONSEQUENCE FOR M: the enumeration space is 18 atoms, not 15**
+Three of the 33 L omits are **incident to the baseline-failing set**, and all three satisfy the
+exact criterion L verified on its 3,681 (free cofactor, occurring in exactly one atom,
+`eqs(u) == eqs(atom_u)`):
+```
+   u=x10422  (x23642-(x8173*x10422))    guard ((x34600-x30108)+x23642)          -> 12231 12350 14584 29125
+   u=x15120  (x18253-(x4339*x15120))    guard ((x13502*x3629)-x18253)           -> 12231 12350 14584 29125
+   u=x35531  (x37720-(x14466*x35531))   guard ((9994531*(x13502*x8976))-x37720) -> 12231 12350 14584 29125
+```
+> **L's "of 3,681 atoms exactly 15 are incident" is missing 3.  The true count is 18, and M's
+> enumeration space is 2^18 = 262,144 candidates, not 2^15 = 32,768.**  The filter logic is sound
+> — my K3 check confirmed the criterion on all 3,681 — but it was applied to a census that omits
+> the stage-check/leaf-pin guarded handles.  Re-run the incidence filter over the full p-handle
+> family (3,707, or 3,714 counting both operand orders) before enumerating.
+Note this is the *opposite* failure mode from B1: not a count that changed under re-decomposition,
+but a family delimited by guard *shape* when the defining property is `h = p*u`.
+
+## W. NEW FILES (sixth pass)
+`t_26.py` (the 33/7 split) · `t_278.py` (path search over the multi-hop set) ·
+`t_final.py` (the 3 omitted incident atoms; concrete path decode) · `t_cross.py` (**the close**:
+764/764 one-atom aliases, 764/764 slack = p*u).
+Reproduce the close: `cd solve_lab/agentT_work && python3 t_cross.py`.

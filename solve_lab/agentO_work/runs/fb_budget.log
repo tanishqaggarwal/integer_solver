@@ -1,0 +1,17 @@
+knobs 34  rows 175  satisfied 168  failing 7
+T = 0 is represented by the "S" row; breaking it = breaking eq8680.
+
+=== j=2, b<=1 : COMPLETE test (buy 2 of the seven, break at most 1 arbitrary row)
+pairs feasible on their own: 21 of 21  -> [(12231, 12270), (12231, 12350), (12231, 14584), (12231, 18673), (12231, 22044), (12231, 29125), (12270, 12350), (12270, 14584), (12270, 18673), (12270, 22044), (12270, 29125), (12350, 14584), (12350, 18673), (12350, 22044), (12350, 29125), (14584, 18673), (14584, 22044), (14584, 29125), (18673, 22044), (18673, 29125), (22044, 29125)]
+j=2 complete test: 3570 solves, 21s, improvement found: False
+
+=> COMPLETE for j=2: no way to buy two of the seven while breaking at most one row.
+   Combined with j=1,b=0 (exhaustive), the trade cannot be leveraged at budget 2.
+
+=== j>=3 : greedy upper bound (a BUDGET, not a proof)
+   buy [12231, 12270, 12350]: greedy keeps 165 of 168 satisfied rows -> drops 3 (need < 3)
+   buy [12231, 12270, 12350, 14584]: greedy keeps 143 of 168 satisfied rows -> drops 25 (need < 4)
+   buy [12231, 12270, 12350, 14584, 18673]: greedy keeps 142 of 168 satisfied rows -> drops 26 (need < 5)
+
+BEST: 39026 unless a WROTE line appears above
+DONE

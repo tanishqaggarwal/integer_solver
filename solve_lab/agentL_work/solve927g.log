@@ -1,0 +1,7 @@
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+=== |S|=17 JOINT solve ===
+round 0: 8 stuck
+   wire x23238  cleared 2 condition(s) jointly, t=79784602390776 (13s, verified)
+   wire x16419  cleared 1 condition(s) jointly, t=5518125    (0s, verified)
+   wire x36106  cleared 1 condition(s) jointly, t=3476715    (0s, verified)

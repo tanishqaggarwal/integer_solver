@@ -12,12 +12,31 @@ constants read out of `EQUATIONS.txt` and verified against the equations themsel
 - **I did not beat it.** Nothing in `agentK_work/` is a better partial.
 - **No infeasibility is claimed.** The instance is *satisfiable*; see §5.
 
-### READ THIS FIRST (3) — SELF-AUDIT: which of my results came from an unguarded closure
+### CLOSED. Status at close, in one paragraph.
 
-Two of my headline results were wrong because the closure solves constraints **backwards**.
-`cascadep.CascadeP.close` now takes `pin={var: atom}` — a per-variable guard restricting each
-slot/leaf wire to its own pin, so no consumer can drive it. (`forbid=` was the older, cruder
-global-atom version and only covered the target pins.) Sweep of everything in this directory:
+This thread produced a negative (§4: no gadget can be fed two coinciding inputs), a withdrawal
+of it, a retraction of the withdrawal, and a failed attempt to settle it. Every correction was
+found by another agent's challenge, not by me. **§4's final status: premise UNREFUTED, NOT
+ESTABLISHED** — do not cite it as a barrier and do not cite it as withdrawn. The durable output
+is the audit table immediately below: it tells you exactly which of my results to trust. The
+fold evaluator I was building to settle §4 is **not** validated end to end and should not be
+rebuilt — agent Q has since established the same thing from an independent parse and *without
+any closure* (383/383 gadgets verified by Schwartz–Zippel against the real sub-DAG, 383/383
+slots, one tree with a single root over all 256 selectors, the hand-off measured as an affine
+alias). Rebuilding my guard would re-derive a settled result with the least trustworthy
+instrument in this campaign.
+
+--------------------------------------------------------------------------------------------------
+## THE AUDIT TABLE — READ THIS BEFORE USING ANYTHING ELSE IN THIS DIRECTORY
+
+Two of my headline results were wrong because the closure solves constraints **backwards** — a
+consumer atom gets solved for a wire the consumer should only read. The axis that matters is
+therefore: **does this result read values out of a closure?** If no, it is arithmetic or parsing
+and it stands. If yes, distrust it.
+
+(`cascadep.CascadeP.close` gained `pin={var: atom}`, a per-variable guard. It does not work —
+see "the guard diagnosis" at the end of this section. `forbid=` is the older global-atom version
+and covers only the target pins.)
 
 | result | closure? | status |
 |---|---|---|
@@ -30,7 +49,7 @@ global-atom version and only covered the target pins.) Sweep of everything in th
 | variable classification (`k25`) | no | **SAFE** (regex bug separately fixed) |
 | equation-footprint / site-cost table (`k27`, §5) | no | **SAFE** — pure incidence |
 | §2 fold validation table (`k26`, `bside.log`) | **yes, unguarded** | **STILL UNVALIDATED** — see the failed generalization below |
-| provenance back-cone (`k29`) | yes, partial | **INCOMPLETE** — my `ABOVE` set omitted `x608`/`x22978`, which is exactly the pass-through path that was doing the backward driving. The "no backward flow" conclusion was scoped too narrowly. |
+| provenance back-cone (`k29`) | yes, partial | **INCOMPLETE IN A WAY THAT HID THE BUG.** I tested for leakage from "above the root" and my `ABOVE` set omitted `x608`/`x22978` — precisely the pass-through path that was doing the backward driving. **I concluded "flow is forward" from a check that could not see the violation.** If you take one lesson from this directory, take that one: a negative from a hand-built check is only as good as the enumeration of what the check looks for. |
 | "what is B" (`k31`) | yes, partial | **SUSPECT** — re-run before citing |
 | divergence localizer (`k34`) | yes | **UNUSABLE** as written (also uses inflated supports) |
 | 900 booleans inert (`k35`) | yes, partial | **RE-RUN** → `k44.log` §B |
@@ -38,7 +57,13 @@ global-atom version and only covered the target pins.) Sweep of everything in th
 | alias search (`k39`) | yes, partial | (A) **SAFE** — depends only on handles = 0; (B) moot |
 | slot cost in equations (`k41`) | yes, partial | **RE-RUN** → `k44.log` §C |
 | TEST 1 / TEST 2 (`k37`) | yes, partial | **RETRACTED** — see below |
-| handles absorb over Z, 0 conflicts (`k9`) | **yes, unguarded** | **SUSPECT** — integer cascade, never re-run with a guard. Cited in §6 as a load-bearing fact; treat as unverified. |
+| handles absorb over Z, 0 conflicts (`k9`) | **yes, unguarded** | **SUSPECT — do not lean on it.** Integer cascade, never re-run with a guard. I cited it in §6 as load-bearing for "the binding content of the instance is mod p". **That conclusion no longer needs k9**: agent L established independently that the six unpinned slack factors *are* the constant `p`, and agent T turned it into a proof — exactly one atom in the whole instance contains the literal `p`, propagated across a 220-wire copy class, with `ker(M) = 0` and `M` faithful forcing it. **The mod-p closure stands on L and T, not on my k9.** |
+
+#### The guard diagnosis — kept for whoever wants it. DO NOT REBUILD THE GUARD.
+
+The job it was for is done: Q established the gadget law, the slot law, the tree and the
+hand-off from an independent parse with no closure at all. What follows is only so the dead end
+is not re-entered.
 
 #### The global forward guard FAILED. Do not read `k43.log` / `k43b.log` as a result.
 
@@ -57,10 +82,11 @@ free variables changed nothing (all 1,278 were already free), so that was not th
 **The 0/18 says nothing about the instance.** The correct pin map has to come from the decoded
 slot→source direction (`MUX.source_of`), not from atom shape. Until then:
 
-> **The fold evaluator is NOT validated end to end.** The verified points remain: single leaves
-> on both halves, A-half 2- and 3-leaf folds, and `ON={e0,e1}` under the targeted root guard —
-> all with the *unguarded or partially guarded* closure, i.e. exactly the tool this audit says
-> to distrust. §4's premise is **unrefuted but not established**, and I could not upgrade it.
+> **The fold evaluator is NOT validated end to end, and is not to be rebuilt.** The verified
+> points remain: single leaves on both halves, A-half 2- and 3-leaf folds, and `ON={e0,e1}`
+> under the targeted root guard — all with the *unguarded or partially guarded* closure, i.e.
+> exactly the tool this audit says to distrust. §4's premise is **unrefuted but not
+> established**, and I could not upgrade it. Q's closure-free measurements are the route.
 
 **Rule I should have been applying, now stated: the score counts equations, so price in
 equations.** My TEST 2 failure was counting atoms; §5's table was already in equations and I
@@ -199,7 +225,8 @@ one. **No claim is made here, in either direction, about whether `k` is obtainab
 instance is satisfiable, a satisfying assignment exists, and nothing below argues otherwise.
 
 --------------------------------------------------------------------------------------------------
-## 2. THE FOLD EVALUATOR — built and VALIDATED (F's priority 2, done)
+## 2. THE FOLD EVALUATOR — built, NOT validated end to end (heading corrected at close)
+### Superseded: Q established the gadget law, slot law, tree and hand-off without any closure.
 
 `fold.py` — extracts the 256 points and the target from the equations (`build_points()`),
 composes them (`add`, `fold`). `points.json` is its output.
@@ -289,8 +316,9 @@ honest `leaf(2081)`; that lie surfaces only at the gate-21279 off-pins, cost 7 e
 **So a degenerate stage has a free output. That is a real, exploitable hole — and it is closed.**
 
 --------------------------------------------------------------------------------------------------
-## 4. THE DEGENERACY ROUTE IS CLOSED — as a claim about the PARTITION, not about N
-### (sub-sections run 4.0, 4a, 4b, 4d, 4c — 4d is the argument that stands; 4b/4c are the repair history)
+## 4. THE DEGENERACY ROUTE — premise UNREFUTED, NOT ESTABLISHED (heading corrected at close)
+### It is a claim about the PARTITION, not about N. Cite it as neither closed nor withdrawn.
+### (sub-sections run 4.0, 4a, 4b, 4d, 4c — 4d is the argument; 4b/4c/4.0b-d are the repair history)
 
 A stage is degenerate iff its two children carry the *same* coordinate pair (equal x AND equal
 y; `a_x=b_x, a_y=-b_y` gives `x35389 = -(2a_y)^2 != 0`, so that case does not work).

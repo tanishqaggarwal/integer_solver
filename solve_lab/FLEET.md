@@ -3430,3 +3430,106 @@ trust.
 **Closed threads: P, R, S, K. Live: L (fit-and-solve over the 927), M (incremental engine, then
 verification), O (budgeted multi-atom compensation among `T`'s other 19 atoms), Q (reconcile 47,198
 against F's parse; then the atom-compensation test), T (the 278 multi-hop aliases; the 26-atom gap).**
+
+---
+
+## Check-ins 62–64 — |S|=2 closes over ℤ; §15 fully restored; the detach axis is exhausted
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### L — the first many-leaf configuration to close over ℤ
+
+**|S| = 2: 0 undischarged, the only nonzero atoms being the two target congruences.** The stuck
+condition (`c = 6672769`, prime, degree 2, wire `x24908`) was **solved exactly and verified**, not
+fitted and hoped. **First ON-set beyond a single leaf for which every one of the 927 conditions is
+discharged.**
+
+**P's degree bound confirmed on a second, unshared model:** L fitted to degree 4 and recorded the
+top nonzero degree every time — **observed 1, 2 and 3; degree 4 never appeared**, in any condition,
+in either ON-set. With the earlier cross-term corroboration that is **two independent confirmations
+of P's algebra**, and L did not need the relayed pickles — **so the degree bound and the
+nonlinearity are properties of the instance rather than of either decomposition.**
+
+**Cost tracks the largest prime factor of `c`, not `c`:** 59 s for prime `c = 6672769` against ~1 s
+for `c = 15194385 = 3⁴·5·37517`. **P's factor-first guard, now measured rather than inherited.**
+
+**L diagnosed its own remaining gap:** it replaced *linear solve* with *exact polynomial solve* but
+not *one at a time* with *jointly*, so |S| = 17 oscillates 8 → 3 → 3 → 3 → 3 because `x23238` and
+`x10261` each carry two conditions. **The same simultaneity that defeated the greedy round-robin,
+one level up.** Fix fully specified and now running: `solve_one` → `solve_group`, intersecting root
+sets via CRT across the distinct `c_j` on each contended wire; only 2–3 wires are contended.
+
+### Q — §15 FULLY RESTORED, and the atom is not the unit of failure
+
+**Q closed the gate it had opened, with the reconciliation it says it should have run first.**
+47,198 distinct terms; **39,032 occur in ≥2 equations against F's 39,033 atoms**; **8,166 singletons
+account for exactly the 8,165 excess.** The "nullity ≥ 8,165" was Q's own parser granularity, each
+split landing in one equation — **never a statement about the instance.** With `ker(M) = 0` and T's
+faithfulness check, **all-atoms-zero is an equivalence in the 39,033 decomposition.**
+
+**Full restoration.** Every link in *satisfying assignment with ON-set S ⟹ k = Σ2^i satisfies
+kG = T* is measured, and the hand-off's mod-p qualifier is **exactly the modulus this direction
+needs** — the 927 sit on the converse. So, as statements about **the instance**: no satisfying
+assignment has `k < 2⁴⁴` or `N−k < 2⁴⁴`; **none has Hamming weight ≤ 6**; none has all ON-bits in a
+34-bit window; none has `m·T` on the ladder for `m ≤ 10⁷`; none has `k = ±λ^j·2^i` or `k = a+bλ`
+with `|a|,|b| < 2²¹`. **`wt7` is restored at its true coverage — 33.7%, a partial, not a bound.**
+
+**Settled: the atom is not the unit of failure.** `ker(M) = 0` forbids all equations holding with
+some atom nonzero; it does **not** forbid an atom being nonzero inside an equation that still sums
+to zero — and the deliverable is exactly that case, with every atom in six of its seven failing
+equations occurring in **6–15** equations while only 7 break. **Compensation is already happening in
+the lab's best assignment, and the gap runs in the favourable direction: an atom can be wrong in
+many equations and cost only a few.** Routed to M. This is the equation-side form of L's
+"cancellation is a value property" and of O's 1-for-1 trade.
+
+**Q's thread is CLOSED** — the circuit is measured end to end and its two open items belong to
+others. **Rule adopted from it: a count derived from one parse is a fact about that parse until
+reconciled** (five atom counts exist here). And the thing worth remembering: **Q withdrew six of its
+own search programs unprompted, held the withdrawal through two check-ins, and restored them only
+when every link was measured. The searches never changed; what changed was what could honestly be
+claimed from them.**
+
+### N — the detach axis is EXHAUSTED, not sampled
+
+**H's `stageB.py:solve_int` is refuted:** it zeroes all non-pivot coordinates and demands exact pivot
+divisions, so **systems solvable with nonzero free coordinates were reported unsolvable.** N replaced
+it with a complete test (integer column-lattice membership, row-HNF via python-flint) and an exact
+max-clique search not capped at `min(n, rank, 8)`, **self-tested against brute force on 500 random
+systems both directions.** H's "rank-8 sets zero exactly ONE row" is really **OPT = 5**; **706 of
+1,147 handle scores change.**
+
+| layer | priced | coverage | OPT | best |
+|---|---|---|---|---|
+| detach singletons / pairs | 65 / 2,080 | 100% | 5 | 39,026 |
+| detach triples | 43,680 | **100%** (H: 4.0%) | 5 | 39,026 |
+| detach quadruples | 677,040 | **100%** | 5 | 39,026 |
+| **whole detach lattice** | **2⁶⁵** | **100%, exactly** | **5** | **39,026** |
+| cascade pins / handles | 20 / 1,147 | 100% | 0–13 / 0–17 | 39,018 / 39,017 |
+
+**Closed, not sampled:** only **4 of 65** pool variables have witness value ≠ gate value — exactly
+**`{642, 28730, 29854, 31864}`** — so detaching the other 61 is a no-op and all 2⁶⁵ subsets reduce to
+**16 states**, matching the 16 measured signatures, all priced exactly. `outside = 0` throughout;
+1,337+ random audits with 0 mismatches.
+
+> **That is the FIFTH independent model to land on exactly `{642, 28730, 29854, 31864}`** — M's freed
+> definers, P's four handles whose value p does not divide, O's frame-B divergence roots, L's
+> incident slot links, and now N's pool variables differing from their gate values.
+
+**Mechanism for the blocked 6th row:** the witness region is **rationally unobstructed** (all 12 rows
+simultaneously solvable over ℚ), yet **all 924/924 six-row subsets are integrally blocked, and in
+924/924 the obstruction denominator is divisible by p.** Integer reachability, not rational rank, is
+binding — with a mechanism.
+
+**Two of H's restrictions lifted, both negative:** the full integer kernel gives a rank-**8**
+admissible lattice against H's 7 with **OPT still 5**; and with no collateral limit the region **is**
+fully zeroable (to 4,917 bits) but costs **69 equations → 38,964**, the affine model exact there.
+**"The zero-collateral filter was the limiting restriction" is refuted.**
+
+**N re-tasked: re-orient the frame.** The detach axis is exhausted *because* `fwd2`'s orientation
+makes 61 of 65 pool variables gate-consistent with the witness, and **`b` is the only input to OPT
+that ever varied** — so rebuilding `fwd2.pkl` with a different target choice is the only remaining
+way to reach `b` values outside the current 16. **Plus a cross-check:** whether N's 924/924
+obstruction is measuring O's `T = 0` — if so, N's exhaustive detach result and O's Lemma are the
+same statement from two sides.
+
+**Closed threads: P, R, S, K, Q. Live: L, M, N, O, T.**

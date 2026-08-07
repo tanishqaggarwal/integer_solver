@@ -55,7 +55,7 @@ for s in itertools.combinations(POOL, 4):
             fn = f'M_isweep_{sc}.json'
             json.dump({f"x_{k}": int(v[k]) for k in range(ieng.NV) if v[k] != 0}, open(fn, 'w'))
             print(f'  *** ABOVE BASELINE {sc} at {s} -> {fn} ***', flush=True)
-    if n % 5000 == 0:
+    if n % 500 == 0:
         el = time.time() - t0
         print(f'  [{n:,}/{TOTAL:,}] {el:.0f}s  {n/el:.0f} sites/s  best {best[0]}', flush=True)
         pickle.dump({'dist': dict(dist), 'best': best, 'n': n, 'last': last,
