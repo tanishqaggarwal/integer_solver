@@ -27,3 +27,9 @@ x1413   nres=8  label={'x1': 5096, 'y1': 16742, 'x2': 14853, 'y2': 31339, 'x3': 
   (47,438): nres=14 oncurve=[False, False, True]  Fp-nonlinear
   (47,490): nres=16 oncurve=[False, False, True]  Fp-nonlinear
   (47,542): nres=12 oncurve=[False, True, True]  Fp-nonlinear
+  (91,112): nres=12 oncurve=[False, False, True]  Fp-nonlinear
+  (91,438): nres=13 oncurve=[True, False, True]  Fp-nonlinear
+  (91,490): nres=15 oncurve=[True, False, True]  Fp-nonlinear
+  (91,542): nres=11 oncurve=[False, False, True]  Fp-nonlinear
+  (112,438): nres=14 oncurve=[False, False, True]  Fp-nonlinear
+  (112,490): nres=16 oncurve=[False, False, True]  Fp-nonlinear
