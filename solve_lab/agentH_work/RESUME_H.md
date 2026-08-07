@@ -90,11 +90,36 @@ possible carrier - one check atom by definition, so no siblings to cancel agains
 **The witness is the only carrier in the instance whose realizable knob-image rank exceeds its
 balance deficit.  7 is the floor across every carrier class, not just the cascade.**
 
+## 10. TWO-SELECTOR RE-PRICING - the single-selector concern, tested (LOG.md Step 13)
+**The 39,026 witness has TWO selectors ON (x_24601, x_2081).**  The headline rank=7/deficit=4 row
+was never a single-selector measurement.  The cascade-pin and handle rows WERE one-selector, so
+`twosweep.py` re-ran the whole pin sweep from 1-, 2- and 3-selector bases:
+
+  base frame        base score  base deficit/rank  pins best  maxrank  min(deficit-rank)  wins
+  1sel                 39018         9 / 2          39018        5           6             0
+  2sel same-u          38997        24 / 5          38997        8          18             0
+  2sel same-u far      38997        20 / 2          38998        9          14             0
+  2sel same-w          38999        21 / 2          38999        6          17             0
+  2sel witness set     39012         9 / 5          39012        9           4             0
+  3sel u+u+w           38986        27 / 5          38986       11          17             0
+  WITNESS                             4 / 7         39026        7          -3           **1**
+
+Rank DOES rise with selectors (5->8->9->11) - the one-selector frame was a smaller space, as F
+suspected - but deficit rises faster, because each extra selector drags in its own pin cascade.
+Gap minimum 4, never closes; every 2-/3-selector closure scores WORSE (38,986-39,012).
+The accumulator x_11317 = x_11532 + x_14681 exists in my frame with BOTH summands already FREE
+inputs, so a second selector adds no freedom my orientation lacked; at the witness both move atoms
+outside the region and neither is a zero-collateral knob.
+
+**What distinguishes the witness is NOT selector count but the four detached variables
+x_642, x_28730, x_29854, x_31864.**  Its own selector set, closed by my engine, reaches only
+deficit 9 / rank 5 / 39,012; the witness reaches deficit 4 / rank 7 / 39,026 by sitting off my
+closer's manifold.  The floor is not a selector-count artifact.
+
 ## Single next experiment
-The census covers carriers that are single atoms.  The one class untested is a defect split across
-TWO carriers at once (e.g. one cascade pin plus one handle), where the deficits add but the knob
-images may union to a higher rank.  `hsweep.py`'s stage-A pricing runs unchanged on a pair; the
-20 x 1,143 grid is ~23k placements at ~0.1 s each.  Only pairs whose combined rank exceeds their
-combined deficit can win, and the per-carrier table above bounds that: max combined rank 7+5=12
-against min combined deficit 4+12=16, so a pair can win only if the union region SHRINKS - which is
-the precise thing to test.
+Chase the off-manifold placement directly, since that - not selector count - is what buys the last
+14 equations.  The four detached variables are exactly the gate outputs the witness violates on
+purpose.  Enumerate small DETACH SETS (frameB.Frame takes any set), close from each, and price:
+`Frame(D)` for every 1-, 2- and 3-subset of the ~30 gate outputs feeding the residual region, then
+run the stage-A pricing.  If any detach set yields deficit < 4 or rank > 7, it beats the witness.
+This is the one axis of the construction I have never varied.

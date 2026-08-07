@@ -246,3 +246,56 @@ identical signature (3,16,4,12,2,2,16,39017) are handles whose carrier atom sits
   named non-solo handles           4      39017      no
 **The witness placement is the ONLY carrier in the entire instance whose realizable knob-image rank
 exceeds its balance deficit.  7 failing is the floor across every carrier class.**
+
+## Step 13 — TWO-SELECTOR RE-PRICING (the single-selector concern, tested)
+**The concern was legitimate for the cascade-pin and handle rows, which WERE built from a
+one-selector closure.  It was NOT legitimate for the headline row:**
+
+    selectors ON in the 39,026 witness: 2  ->  x_24601 (w-group) and x_2081 (B-side)
+
+So the rank=7 / deficit=4 measurement was never a single-selector artifact.  The witness is a
+genuine two-selector state; my table's most important row already lives in the larger space.
+
+**The accumulator, in my frame.**  x_11317 = x_11532 + x_14681 exists here too, and BOTH summands
+are FREE INPUTS in my orientation — x_14681 is the very input my cascade closer uses to repair
+a9193.  So my frame never "forced x_11532 to zero"; it was free all along, and turning on a second
+selector adds no freedom my frame did not already have.  At the witness, x_11532 moves atoms
+{38822, 38989, 40772, 41935} and x_14681 moves {9193, 39614} — all OUTSIDE the 8-atom region, so
+neither is a zero-collateral knob and neither raises the rank.
+
+`two.py` — two-selector closures priced directly (criterion unchanged, rank > deficit):
+
+  frame                    nz  |R|  |S|  deficit  knobs  rank  failing  score   gap
+  ONE-SELECTOR              4   15    6      9      2     2      15    39018     7
+  same-u adjacent           8   36   12     24      5     5      36    38997    19
+  same-u near              10   33   18     15      2     2      33    39000    13
+  same-u mid               10   30   15     15      5     5      30    39003    10
+  same-u far                8   36   16     20      2     2      36    38997    18
+  same-w adjacent           8   34   13     21      2     2      34    38999    19
+  cross u/w                 7   27   15     12      9     7      27    39006     5
+  cross u/w 2               7   26   14     12      2     2      26    39007    10
+
+`twosweep.py` — the full cascade-pin sweep re-run from 1-, 2- and 3-selector bases:
+
+  base frame          base score  chain  base deficit/rank  pins: best  maxrank  min(deficit-rank)  wins
+  1sel   u[0]            39018     20        9 / 2            39018       5            6            0
+  2sel   same-u          38997     22       24 / 5            38997       8           18            0
+  2sel   same-u far      38997     31       20 / 2            38998       9           14            0
+  2sel   same-w          38999     29       21 / 2            38999       6           17            0
+  2sel   witness set     39012     36        9 / 5            39012       9            4            0
+  3sel   u+u+w           38986     39       27 / 5            38986      11           17            0
+  WITNESS (2 selectors + 4 detached vars)     4 / 7            39026       7          -3          **1**
+
+**RANK DOES RISE with more selectors — maxrank 5 -> 8 -> 9 -> 11 — which is exactly F's intuition,
+and my one-selector frame was indeed a smaller space.  But the DEFICIT rises faster: each extra
+selector drags in its own pin cascade, adding equations faster than it adds zero-collateral knobs.
+The gap never closes: minimum 4, and it is 4 in the witness's own selector frame.  Zero wins in
+any frame.  All two- and three-selector closures score WORSE than one selector (38,986-39,012).**
+
+### What actually distinguishes the witness
+Not the selector count (2, same as several rows above) but the FOUR DETACHED VARIABLES
+x_642, x_28730, x_29854, x_31864.  The witness's selector set closed by my engine reaches only
+deficit 9 / rank 5 / 39,012; the witness reaches deficit 4 / rank 7 / 39,026 because those four
+variables sit off my closer's manifold.  **The floor is not a selector-count artifact.  What buys
+the last 14 equations is the off-manifold placement, and that is what the four detached variables
+encode.**
