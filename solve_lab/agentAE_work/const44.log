@@ -22,3 +22,4 @@ tier const: 37 families
   c_inv_11               R=44 jumps=33554432     dps=262222   dp/cf=1.0003  43.5s OK miss
   c_inv_13               R=44 jumps=33554432     dps=262863   dp/cf=1.0027  39.6s OK miss
   c_pow2_16              R=44 jumps=33554432     dps=261389   dp/cf=0.9971  32.3s OK miss
+  c_pow2_64              R=44 jumps=33554432     dps=261966   dp/cf=0.9993  26.3s OK miss

@@ -162,3 +162,21 @@ outer 8: global nonzero 13, violated c-conditions 9, nonzero handle-less 4
      (x6623  ,x37049 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
      (x12821 ,x25195 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
      (x12821 ,x33657 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
+     (x12821 ,x37049 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
+     (x25195 ,x33657 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
+     (x25195 ,x37049 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
+     (x33657 ,x37049 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
+     no addable collateral -- giving up on ((x10746*(x3494-2778267233628510002638332493
+  atom ((x15406*(x16384-438322026738768970900837834147486384204  c=7210925
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x20341*x17978)-(2489415*x30102))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x7070  ,x8157  ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     (x7070  ,x10652 ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     (x7070  ,x16384 ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     (x7070  ,x19141 ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     (x7070  ,x28644 ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     (x8157  ,x10652 ) |group|=2 NO JOINT ROOT mod 25 (exhaustive)
+     *** (x8157 += p*855126917772 , x16384 += p*1482089796706) |group|=2  global 13 -> 12
+outer 9: global nonzero 12, violated c-conditions 8, nonzero handle-less 4
+   handle-less pass: 4 nonzero handle-less atom(s)

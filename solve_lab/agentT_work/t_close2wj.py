@@ -495,12 +495,22 @@ def close(S, tag, outer_max=16, logf=None):
             break
     gen = 0
     TGT = ('x24468', 'x18956')
+
+    def dump(why):
+        """T38: dump after EVERY outer round, not only at the end.  close_T128.json was lost when
+        that process was killed mid-round after 40 minutes -- a long run must always leave a
+        scorable artefact, and a log is not an artefact."""
+        json.dump({'x_%d' % i: vv[i] for i in range(NV) if vv[i]},
+                  open(os.path.join(T, 'close_%s.json' % tag), 'w'))
+        log('   [dumped close_%s.json after %s]' % (tag, why))
+
     for outer in range(outer_max):
         base = nzcount(vv); r = E.run(vv); gen += 1
         viol = [a for a in SL if r[E.residx[a]] != 0 and SL[a] and r[E.residx[a]] % abs(SL[a]) != 0]
         hl0 = [a for a in E.res if r[E.residx[a]] and a not in SL]
         log('outer %d: global nonzero %d, violated c-conditions %d, nonzero handle-less %d'
             % (outer, base, len(viol), len(hl0)))
+        dump('outer %d (global nonzero %d)' % (outer, base))
         if not viol and not hl0:
             break
         if not viol:                       # only handle-less exact conditions left

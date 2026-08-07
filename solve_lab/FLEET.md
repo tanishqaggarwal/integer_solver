@@ -7299,3 +7299,63 @@ past `n = 255`; AA's `c0` at `m ≤ 8`.
 Custody note: AI's `ALARMS.log` still does not exist — disk, memory and both custodial jobs clear
 throughout. **Job B completed under custody and its read-off was applied from the pre-registered
 rule, not reconstructed afterwards.** That is the procedure working exactly as intended.
+
+---
+
+## Check-in 121 — AA's deep run launches, and AA prices the point where depth stops paying
+
+**`c0` at `m ≤ 8` in flight.** `aa_deep8.sh`, 16 balanced `s0` chunks × 8 table shards, **all eight
+shards of a chunk closing before the next starts**, so *"chunks 0..j complete"* is an exact fraction
+rather than a vague partial. At hand-off: **1 of 128 shard-units closed clean** —
+`range=[0,9) n=192557240 zero=0 320.7s`, **exactly the closed form** — 0 hits, 0 degenerate events.
+`aa_prog8.py` reports coverage **from engine evidence only** and refuses to count partially-run
+chunks. Engine PID located **by open-file ownership in `/proc/*/fd`**, not by name.
+
+**Validation first, at the awkward cases — 4/4 passed.** `m = 8` has exactly one split (`4|4`), so a
+plant is found at `b = 4` or not at all. **`allneg`** — every sign negative, so the match must land on
+the `−` branch, *the exact case that caught AA's predictor last round* — matched
+`HIT 4 137361549593411846 488 16576806765062180157` **bit for bit** on branch `−1` as predicted.
+`edges` (exponents 0 and 255), `adjacent` (stressing the `nxt()` step that forbids repeated
+exponents) and `tight` (all eight in a narrow high window, stressing **the recursion cut, the one
+place an over-eager prune silently loses answers**) all found, 8/8 shards each.
+
+**Duplicates pruned.** Kept **`2p256`** and **`n2p256`** — the pure exponent-256 terms, the exact
+centres of their distance-1 clusters; dropped `ones`, `p2p256p1`, `n2p256m1`, and collapsed
+`halfN`/`inv2` and `lam2`/`n_lam`. The precise statement, which is why nothing is lost: **the
+representative at depth `m` subsumes every dropped member at depth `m−1`**, and all were complete at
+`m ≤ 7`. Any future depth on `2p256` re-covers agent Y's `ones` class one level behind.
+
+**No further redundant controls.** Wave 3 was stopped **before** it reached `p2_128`, `p2_128p1`,
+`p2_255`, `p2_255_1` — literally next in its queue. Two were run, behaved exactly as `reach = 1, 2`
+predicts, **and the rest is a theorem.**
+
+### The number worth keeping — where depth stops being worth buying
+
+Stated against a model rather than as a bound on `w`, to the standard AC set. Under uniformity
+`|S(0,8)| = 2^56.56` (62.4× the `m ≤ 7` ball) gives `P(hit) = 2^-199.4` — nothing, consistent with
+AC's `2^-201.6`. Against `H_W` = *designer picks the signed-digit weight uniform on `{1..W}`*, a miss
+at `m ≤ M` removes `M/W`, likelihood ratio `1/(1−M/W)`:
+
+| `W` | 8 | 10 | 12 | 16 | 20 | 30 | 60 |
+|---|---|---|---|---|---|---|---|
+| had (`m ≤ 7`) | 8.00× | 3.33× | 2.40× | 1.78× | 1.54× | 1.30× | 1.13× |
+| **this run (`m ≤ 8`)** | **killed** | **5.00×** | **3.00×** | **2.00×** | **1.67×** | 1.36× | 1.15× |
+| marginal | — | 1.50× | 1.25× | 1.12× | 1.08× | 1.05× | 1.02× |
+
+> **It kills `H_8` outright, and past `W ≈ 20` it moves nothing worth reporting** — a **62-fold**
+> growth in covered keys converts to a **1.08×** nudge at `W = 20`.
+
+**That is the number to hold the next run to, and by that number there should not be a next one at
+`m ≤ 9`.** AA supplied the argument that retires its own strategy, for the second consecutive round.
+
+AA also corrected its own earlier reporting: the `.pid` files it had said were *"swept by the
+environment"* were **its own quoting bug** — `cd X && setsid … &` backgrounds the `cd` too, so
+`echo $! > f` wrote to the original working directory.
+
+### Scheduling ruling — the box is oversubscribed and I am fixing it
+
+AA measured **600k candidate-evals/s under load ~20 against 2.7M/s uncontended: a 4.5× penalty.**
+Its sweep is ~10.4 h contended. X's rotation sweep is at **19/128** and needs ~4 h. Running both flat
+out is the worst schedule for both. **AA instructed to `renice` its engine so X's sweep takes
+priority**: X's is the shorter job and ends in a citable bound, AA's is the longer job either way and
+loses little by yielding.
