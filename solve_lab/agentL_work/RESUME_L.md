@@ -277,7 +277,11 @@ My baseline = the deliverable with its 16 tuned handle/cofactor vars zeroed.  I 
 that could only fix one of M's extra 12.  Whoever reconciles these should use the union until
 the two baselines are the same object.
 
-**RESULT: of 3,681 atoms with a unique cofactor, exactly 15 are incident to the 25.**
+**RESULT: 15 incident atoms -- CORRECTED BY T TO 18.**  My census was scoped to slot-link
+guards; T's 33 extra genuine p-handles (guards = stage checks and leaf pins) include **3 more
+incident** ones (u=x10422, u=x15120, u=x35531, all hitting 12231/12350/14584/29125).  My
+*criterion* is sound -- T verified `eqs(u)==eqs(atom_u)` at 3,681/3,681, zero violations -- what
+was too narrow is the FAMILY it ranged over.  Use the full p-handle family (3,707 / 3,714).
 All 3,666 others provably cannot change any target equation, whatever value they are given.
 Grouped by the node they guard (h = the P-multiple to corrupt, u = its free cofactor):
 
@@ -466,6 +470,32 @@ at once, or a proof that none exists, in which case fall back to a different wir
 them.  Only 2-3 wires are contended, so the intersection is over 2 conditions at a time.
 Everything needed is already in `solve927.py`; it is `solve_one` that needs to become
 `solve_group`.
+
+--------------------------------------------------------------------------------------------
+## 6h. JOINT SOLVE: |S|=17 GOES 8 -> 2, AND THE RESIDUE IS BIVARIATE  (`solve927g.py`)
+`solve_one` -> `solve_group`: for a contended wire, intersect root sets prime-power by
+prime-power, CRT, then verify by direct recomputation.
+
+**It works, and same-wire contention is gone.**  Round 0 cleared **2 conditions jointly on one
+wire** (x23238, t=79784602390776, verified) -- exactly the case that oscillated before.
+Undischarged went **8 -> 2** and stayed at 2.
+
+**THE RESIDUE IS A DIFFERENT OBSTRUCTION, NOT OSCILLATION FROM GREED.**  The surviving pair sits
+on **two different wires, x9776 and x10261**.  Each is individually solvable and verified every
+round -- but clearing one on x9776 breaks the other on x10261 and vice versa, so the loop cycles
+    round 2: x9776 t=1890710 , x10261 t=1550230
+    round 3: x9776 t=6051501 , x10261 t=1345905
+    round 4: x9776 t=4302428 , x10261 t=11694764   ... stable 2-cycle
+Per-wire grouping cannot reach this: the coupling is **across wires**, so it is a genuine
+**bivariate** system, not a contended single wire.
+
+**THE FIX, STILL BOUNDED.**  Solve the pair simultaneously in (t1,t2): each atom is degree <= 3
+in each variable (bound confirmed in S6g), so for each prime power q^e of the two moduli, **loop
+t1 over q^e and root-find t2 from the resulting univariate polynomial** -- one loop, not a double
+loop, so ~10^7 cheap polynomial evaluations, comparable to the 59 s already spent on a single
+prime c.  Then CRT across prime powers and verify by recomputation.  Generally: `solve_group`
+must range over wire SETS, taken from the connected components of the "shares a condition"
+graph -- here exactly one component of size 2.
 
 ## 7. FILES (all in `agentL_work/`)
 Code: `trace.py ortree.py ortree2.py census.py wire.py link.py crux.py onset.py fail7.py

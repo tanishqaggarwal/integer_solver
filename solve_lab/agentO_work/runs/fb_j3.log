@@ -1,2 +1,3 @@
 knobs 34  rows 175  satisfied 168  failing 7
 target: buy 3, break <= 2  ->  39,027.   cap 2400s
+ triple [12231, 12270, 12350]: b<=2 exhausted, none  (14198 solves so far, 124s)

@@ -3622,3 +3622,53 @@ not restraint, it was bookkeeping — the expensive part was resisting the resto
 at one slot, when the shape was clearly right."*
 
 **Closed threads: P, R, S, K, Q. Live: L, M, N, O, T.**
+
+---
+
+## Check-in 67 — the |S|=17 residue is BIVARIATE, not greedy (agent L)
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+**`solve_group` worked.** Round 0 cleared **2 conditions jointly on wire `x23238`**
+(`t = 79784602390776`), verified by direct recomputation — exactly the case that oscillated under
+the per-condition solver. **Undischarged: 8 → 2.**
+
+**But the residue is a genuinely different obstruction.** The surviving pair sits on **two different
+wires — `x9776` and `x10261`** — each individually solvable and verified every round, with clearing
+one breaking the other in a **stable 2-cycle**:
+
+```
+round 2: x9776 t=1890710   x10261 t=1550230
+round 3: x9776 t=6051501   x10261 t=1345905
+round 4: x9776 t=4302428   x10261 t=11694764   ... repeating
+```
+
+**Per-wire grouping cannot reach it: the coupling is across wires, so it is a bivariate system, not
+a contended single wire.** `|S| = 17` did not close, **and the reason is not greediness** — the
+distinction the task asked for, measured cleanly rather than asserted.
+
+**The fix, bounded and specified by L:** for each prime power `q^e` of the two moduli, **loop `t₁`
+over `q^e` and root-find `t₂` from the resulting univariate polynomial** — one loop, not a double
+loop, so ~10⁷ cheap evaluations, comparable to the 59 s already spent on a single prime `c` — then
+CRT across prime powers and verify by direct recomputation.
+
+**And the general form, which L named itself:** `solve_group` must range over wire **sets**, taken
+from connected components of the "shares a condition" graph — here exactly one component of size 2.
+**L has been asked to report component sizes at `|S| = 17` and beyond**, since cost grows as
+`q^(e(k−1))` in component size `k` — **there is a size beyond which this approach stops being
+bounded, and that number should be known before anyone plans on it.**
+
+**Corrections accepted on both sides.** L confirms **"of 3,681 atoms exactly 15 are incident" was
+wrong; the true count is 18** — its census was scoped to slot-link guards and never ranged over
+p-handles guarded by stage checks or leaf pins, and the three it missed satisfy its own criterion
+exactly. **`emit_for_M.json`'s handle sets are correspondingly incomplete**, and M filters over the
+full 3,707/3,714 family. L also notes that **T's re-pairing used L's own `calib2` orientation data**
+(188 orient=1, 67 orient=0) to close the hand-off over all 764 links — one agent's measurement
+fixing another's analysis.
+
+**Status: `|S| = 2` remains the largest ON-set closed over ℤ; `|S| = 17` stands at 2 undischarged
+with the obstruction characterised as bivariate.** That is a better position than the bare count,
+and it is the campaign's live edge.
+
+*Process note, flagged by L as a repeat: its `pkill` matched its own shell twice this session
+(exit 144). No data lost either time; the rule is now in `RESUME_L.md`.*
