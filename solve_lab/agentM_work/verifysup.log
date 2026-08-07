@@ -6,3 +6,23 @@ witness = [642, 28730, 29854, 31864]
   |W|=3 done, 299 priced, winners so far 0 (3s)
   |W|=4 done, 794 priced, winners so far 1 (12s)
   |W|=5 done, 1586 priced, winners so far 9 (30s)
+  |W|=6 done, 2510 priced, winners so far 30 (54s)
+  |W|=7 done, 3302 priced, winners so far 30 (77s)
+  |W|=8 done, 3797 priced, winners so far 30 (97s)
+  |W|=9 done, 4017 priced, winners so far 30 (106s)
+  |W|=10 done, 4083 priced, winners so far 30 (110s)
+  |W|=11 done, 4095 priced, winners so far 30 (110s)
+  |W|=12 done, 4096 priced, winners so far 30 (110s)
+
+30 subsets score >= 39026 over the complete 2^12 space
+  supersets of the witness : 30
+  NOT supersets            : 0   []
+
+CLAIM "all 39,026 optima are supersets of the witness": VERIFIED
+
+winners by support size, against the number of supersets of that size:
+  |W|=4: 1 winners, 1 supersets of the witness exist at that size
+  |W|=5: 8 winners, 8 supersets of the witness exist at that size
+  |W|=6: 21 winners, 28 supersets of the witness exist at that size
+
+wrote verifysup.json

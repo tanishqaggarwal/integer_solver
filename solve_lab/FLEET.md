@@ -4021,3 +4021,72 @@ signatures are complete rather than merely reached. Also: **if N's 924/924 obstr
 O's `S = 0` — now proved forced unconditionally — then N's result and O's Lemma are the same
 statement from two sides.** N is still live, so a disagreement can be resolved rather than left
 standing.
+
+---
+
+## Check-in 74 — re-orientation IS detachment; O's Lemma is the 39,025 → 39,026 step (agent N)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified.
+
+### Re-orientation is closed, negative — and it turns out to *be* detachment
+
+Census: **13,332 of 42,267 atoms (31.5%)** admit another `x_t − rest` reading; 10,956 of 30,001
+definition atoms do. For the region the picture is exact: **every legal unit target of every region
+atom is already a free input of `Frame(POOL)`, with measured response exactly ±1.**
+
+> Where `x_v` is already free, "force the atom to 0" and "choose the `x_v` that zeroes it" are **the
+> same assignment set**; and re-orienting an atom from `x_u` to `x_w` makes `x_u` free and turns
+> `x_w`'s old definer into a check — **which is exactly what detaching `x_u` does. Re-orientation is
+> detachment**, so N's exact detach closure already covers it.
+
+**N ran it anyway with the real scorer** rather than resting on the argument: zeroing atom 22229 via
+`x_7068` → 39,008 (via `x_2099` → 39,007); 35758/35759 → 39,023; 35760/35761 → 39,022;
+22230/35762 → 39,021. **All 127 combinations: best is the empty one, 39,026.**
+
+**And the sharpest line: atom 37887 (= `T`) has NO legal unit target at all — `T` can never be
+structurally forced to zero, only obtained by value.**
+
+### O's Lemma and N's 924/924 are INDEPENDENT obstructions
+
+Confirmed in N's frame: `eq_terms[8680] = (m=1, sq=True, [(1, 37887)])`, a pure square of one check
+atom, with `dT/dx_4432 = +1` and `dT/dx_28730 = −1` **syntactically** — and `optN.inner` returns the
+inner form, never its square, **so N's linear model already carried `T`, not `T²`; no correction
+needed.**
+
+But `T = 0` is **not** what the 924/924 measures:
+
+- **`T = 0` already holds at the witness.**
+- **eq8680 is exactly the one equation detaching `x_28730` buys** — fixed: `[8680]`, broken: none.
+  ⇒ **O's Lemma is precisely the 39,025 → 39,026 step**, which nobody had identified.
+- The witness region is the 12 rows **excluding 8680**, so `T = 0` is not among the constraints the
+  924 six-row subsets are asked to satisfy. **The p-obstruction is independent.**
+
+**New result tying them:** in the 13-row region (`T ≠ 0`), row 8680 is **not individually integrally
+zeroable**, and **max rows zeroable subject to 8680 being zeroed is 0.** The knobs cannot reach
+`T = 0` at all — **detaching `x_28730` is the only way.** So **O's Lemma says `T = 0` is compulsory;
+N's frame obtains it in exactly one way.** Complementary, not duplicative.
+
+### Frame depth — saturated
+
+Deepening the pool **65 → 81 → 95 → 111 → 114 → 116 (saturated)**, frame free inputs 8,812 → 8,863:
+the region's knob set stays at **49 wide / 7 narrow and OPT at 5 at every depth.** Deeper detachment
+adds free inputs, **none of which touch the region.**
+
+### Residual, stated by N rather than glossed
+
+This closes re-orientation **for the region**. N did **not** rebuild `fwd2.pkl` wholesale — the
+argument shows each *region* swap is a detachment and the score is decided in the region, but the
+**10,956 re-orientable definition atoms elsewhere decide which equations are auto-satisfied outside
+it**, and that is untested.
+
+**N's next and last task, its own §(d): rebuild `fwd2.pkl` under a different target rule and check
+whether the 7 failing equations still reduce to the same 7 nonzero atoms
+`{22229, 22230, 35758, 35759, 35760, 35761, 35762}`.** **If they survive, 39,026 is the frame's
+ceiling under every orientation** — a terminal result, and one of the strongest optimality
+statements in the lab because it would not be scoped to a chosen frame. **If they do not, the frame
+choice is load-bearing for the score**, which is bigger still and would qualify several results
+including N's own.
+
+*T is auditing N's detach exhaustion concurrently — specifically the reduction that only 4 of 65
+pool variables differ from their gate values. Both are live, so a disagreement can be settled
+rather than left standing.*
