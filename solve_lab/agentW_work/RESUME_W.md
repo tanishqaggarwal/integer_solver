@@ -161,7 +161,10 @@ I found last round** (`{2554, 6816, 8124, 9123, 9421, S}`), which are also four 
 | "no third family" | **holds at the ATOM level.**  See the boundary below. |
 | the off-pin incidence table (9…20) | **exhaustive** over 383 blocks — but it is an *incidence*, **a screen, not a price**, and §6b shows it does **not** predict price |
 | injection cost at the 5 minimum-incidence blocks | **budget, not exhaustion** — one magnitude, 1–2 slots per block (§6b) |
-| `minbreak(P) = |P|`, gain 0, on the corrected knob set `K+ = 40` | **exhaustive over the essential-row family**; general breaks are **not** re-proved on `K+` (§6c) |
+| `minbreak(P) = |P|`, gain 0, on the corrected knob set `K+ = 40` | **exhaustive over the essential-row family** (§6c) |
+| cocircuits of size ≤ 4 on `K+` | **EXHAUSTIVE** — exact case split, no window, no skipped subsets (§7e/§7f) |
+| general breaks, `j ≤ 5`, on `K+` | **EXHAUSTIVE**, gain 0 (§7e) |
+| general breaks, `j = 6, 7`, on `K+` | **budget** until the `s = 5, 6` levels land (§7f) |
 
 > ### THE ONE BOUNDARY, stated plainly
 > # **THE CLASSIFICATION IS CLOSED AT ATOM LEVEL AND OPEN AT EQUATION LEVEL.**
@@ -171,7 +174,10 @@ I found last round** (`{2554, 6816, 8124, 9123, 9421, S}`), which are also four 
 >
 > The checker requires each **equation** to vanish, and an equation is a coefficiented sum of
 > ~12 atoms (congruence atoms sit in **9–16 equations each, mean 12.28; none is ever alone in
-> an equation**).  Everything above classifies the solutions of **atoms = 0**.  Equation-level
+> an equation**).  **The exception, measured in §7h: 17 of the 205 rows are SINGLETON SQUARED
+> equations — one atom, so no cancellation is possible and atom-level = equation-level exactly
+> there.  `eq8680` is one of them.**  The gap below lives entirely in the other 188 rows
+> (3–24 atoms each).  Everything above classifies the solutions of **atoms = 0**.  Equation-level
 > cancellation between atoms is a strictly larger solution set and this theorem does not cover
 > it — that is exactly the trade machinery I measured in round 1 (32-way, 1-for-1, gain 0
 > inside K).  **The deliverable itself does not use it at gadget level: all 1149 congruence
@@ -344,6 +350,34 @@ and 6 can still gain members — from the `s = 5` and `s = 6` levels.  Concretel
 row of the frame-B budget is now **exhaustive on the corrected knob set**; `j = 6, 7` remain
 **budget** until `s = 5, 6` land.  That is a strictly stronger statement than anything round 1
 could support, and it is stated at the level, not rounded up.
+
+### 7h.  RECONCILIATION with U's route pricing — the two are the SAME five equations, exactly
+
+`w_recon.py`.  U priced all 255 merge slots by route and found one configuration buying a
+5-equation discount on the structural 12: **`{2554, 6816, 8124, 8680, 9421}`**.  Measured here:
+
+```
+atom a37887 (my "S" row) appears in exactly ONE equation: 8680
+eq8680 has 1 atom, squared, coefficient 1      ->   eq8680  <=>  a37887 = 0
+```
+
+> **My "S" row IS equation 8680** — not analogous to it, identical.  So my essential-row family
+> `{2554, 6816, 8124, 9123, 9421, S}` is literally `{2554, 6816, 8124, 9123, 9421, 8680}`,
+> **which is exactly the six prices of my round-1 32-way trade.**  U's five are that set minus
+> `9123`, and `set(U) ⊆ set(my prices)` verified.
+
+Three independently-derived objects coincide: the **rank-drop criterion** (lattice side, §6c),
+the **32-way trade prices** (exact pricing through `frameB.State`, round 1), and **U's route
+discount** (~2,700 checker-exact evaluations).  The single difference is `9123`, which is
+essential to the lattice but not part of U's discount.
+
+**A detail that sharpens §5's boundary.**  `eq8680` is a **singleton squared** equation, so its
+linearisation is **identically zero** (`rows[8680] = {}`, because `a37887 = 0` at base) — which
+is precisely why the `S` row exists: it linearises the *inner* atom instead.  17 of the 205 rows
+are singleton squared equations.  **On those 17 there is no atom/equation gap at all** — one
+atom means no cancellation is possible, so equation-level and atom-level coincide exactly.  The
+gap in §5 lives entirely in the other 188 rows, which carry 3–24 atoms each (the six essential
+rows carry 16, 24, 14, 16, 17 and **1**).
 
 ### 7g.  Compute discipline
 Running **one** process at a time from here (coordinator's instruction; the box is 4 cores

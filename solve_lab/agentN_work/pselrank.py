@@ -297,6 +297,11 @@ def measure(tag, on, lattice=True, cap_knobs=2400, cap_rows=3000, verbose=True):
     rQa = rank_q(aug, n + 1)
     rP = rank_mod(M, n, Pp)
     rPa = rank_mod(aug, n + 1, Pp)
+    rC = rank_mod(M, n, Qc)
+    rCa = rank_mod(aug, n + 1, Qc)
+    live_cols = [j for j in range(n) if any(M[i][j] for i in range(nR))]
+    pq_p = sum(1 for j in live_cols if not any(M[i][j] % Pp for i in range(nR)))
+    pq_c = sum(1 for j in live_cols if not any(M[i][j] % Qc for i in range(nR)))
 
     rec = dict(tag=tag, nlive=len(on), live=sorted(on), score=st.score(),
                R=nR, nz=len(NZ), knobs=n, rooted=nroot, outside=len(outside),
@@ -305,7 +310,10 @@ def measure(tag, on, lattice=True, cap_knobs=2400, cap_rows=3000, verbose=True):
                nonaffine_rows=sorted(nonaff_rows), degree_overflow=len(deg_overflow),
                amb_rk_Q=rQ, amb_rk_Q_aug=rQa, amb_gap_Q=rQa - rQ,
                amb_rk_p=rP, amb_rk_p_aug=rPa, amb_gap_p=rPa - rP,
-               amb_deficiency=rQ - rP)
+               amb_deficiency=rQ - rP,
+               amb_rk_q=rC, amb_rk_q_aug=rCa, amb_gap_q=rCa - rC,
+               amb_deficiency_ctl=rQ - rC,
+               knobs_live=len(live_cols), pq_knobs_p=pq_p, pq_knobs_ctl=pq_c)
 
     if lattice:
         C = [[cols_o[j][i] for j in range(n)] for i in range(nO)]
@@ -351,15 +359,6 @@ def measure(tag, on, lattice=True, cap_knobs=2400, cap_rows=3000, verbose=True):
             # 0 mod p moves the region only in multiples of p.  These are invisible mod p, and
             # they are the mechanism behind rk_p < rk_Q -- the deficiency EXPLAINED rather than
             # reported.
-            # Counted in the KNOB basis, which is canonical, so the numbers are basis-independent
-            # facts about the frame.  (The same count on a lattice BASIS would not be: on the
-            # lattice the invariant statement is exactly the deficiency rk_Q - rk_p.)
-            live = [j for j in range(n) if any(M[i][j] for i in range(nR))]
-            rec['knobs_live'] = len(live)
-            rec['pq_knobs_p'] = sum(1 for j in live
-                                    if not any(M[i][j] % Pp for i in range(nR)))
-            rec['pq_knobs_ctl'] = sum(1 for j in live
-                                      if not any(M[i][j] % Qc for i in range(nR)))
     rec['secs'] = round(time.time() - t0, 1)
     if verbose:
         print(fmt(rec), flush=True)
@@ -369,10 +368,12 @@ def measure(tag, on, lattice=True, cap_knobs=2400, cap_rows=3000, verbose=True):
 def fmt(r):
     if 'note' in r:
         return '%-24s SKIP %s' % (r['tag'], r['note'])
-    s = ('%-24s live=%-3d score=%-6d |R|=%-4d k=%-4d na=%-4d | AMB rkQ=%-4d rkp=%-4d gapQ=%d '
-         'gap_p=%d' % (r['tag'], r['nlive'], r['score'], r['R'], r['knobs'],
-                       r['nonaffine_entries'], r['amb_rk_Q'], r['amb_rk_p'],
-                       r['amb_gap_Q'], r['amb_gap_p']))
+    s = ('%-24s live=%-3d score=%-6d |R|=%-4d k=%-4d | AMB rkQ=%-4d rkp=%-4d rkq=%-4s '
+         'def_p=%-4d def_q=%-4s pq_p=%-4s/%-4s' %
+         (r['tag'], r['nlive'], r['score'], r['R'], r['knobs'],
+          r['amb_rk_Q'], r['amb_rk_p'], r.get('amb_rk_q'),
+          r['amb_deficiency'], r.get('amb_deficiency_ctl'),
+          r.get('pq_knobs_p'), r.get('knobs_live')))
     if 'lat_dim' in r:
         s += ' | LAT dim=%-4d rkQ=%-4d rkp=%-4d gapQ=%s gap_p=%s ubp=%s' % (
             r['lat_dim'], r.get('lat_rk_Q', -1), r.get('lat_rk_p', -1),
@@ -386,6 +387,10 @@ def main():
     args = sys.argv[2:]
     if args and args[0] == 'consistent':
         MODE[0] = 'consistent'
+        args = args[1:]
+    nolat = False
+    if args and args[0] == 'nolat':
+        nolat = True
         args = args[1:]
     shard = nshard = None
     if len(args) == 2 and args[0].isdigit() and args[1].isdigit():
@@ -414,7 +419,7 @@ def main():
         if nshard is not None and i % nshard != shard:
             continue
         try:
-            rec = measure(tag, on)
+            rec = measure(tag, on, lattice=not nolat)
         except Exception as ex:
             import traceback
             traceback.print_exc()

@@ -5905,3 +5905,58 @@ W's injection-not-degeneracy retraction.
 **Continuing:** `s = 5`, then `s = 6`, one process, each reported as its own result. If both add only
 size-6 members the way `s = 4` did, **a shape that repeats is itself evidence about where the
 remaining structure can live.**
+
+---
+
+## Check-in 100 — the three-way cross-check closes EXACTLY (agent W)
+
+Deliverable unchanged: **39,026 / 39,033**. `s = 5` still running, one process, load holding 6–7
+against ~21 before the caps.
+
+### They are the same six equations, not analogous ones
+
+```
+atom a37887 appears in exactly ONE equation: 8680
+eq8680 has 1 atom, squared, coefficient 1   ->   eq8680  <=>  a37887 = 0
+```
+
+**W's "S" row IS equation 8680.** So its essential family is literally
+**`{2554, 6816, 8124, 9123, 9421, 8680}`** — identical to the six prices of its round-1 **32-way
+trade**. **U's five are that set minus `9123`**, with `set(U) ⊆ set(W's prices)` **verified, not
+eyeballed.**
+
+> **Three independently-derived objects coincide:** the **rank-drop criterion** (lattice), the
+> **32-way trade prices** (exact pricing through `frameB.State`), and **U's route discount**
+> (~2,700 checker-exact evaluations). Different machinery, different agents, same six equations.
+
+### The one difference — `9123` — is the reconciliation target
+
+The lattice calls it **essential**; U's route discount **never touches it**. Two distinguishable
+readings: either the route *can* reach it and U's construction happens not to, or the route
+**structurally cannot** and the lattice sees a constraint the route has no access to. **The second
+would mean route pricing has a blind spot exactly one equation wide**, which bears directly on how
+much weight U's "structural 12 at every slot" carries. W is chasing it while `s = 5` runs — it has
+the lattice side and it costs no extra cores.
+
+### A genuine narrowing of W's own scope boundary
+
+**17 of the 205 rows are singleton squared equations** — one atom, so **no cancellation is possible
+and equation-level coincides exactly with atom-level on those.** W's §5 atom-vs-equation caveat
+therefore lives entirely in the other **188** rows (3–24 atoms each; the six essential rows carrying
+16, 24, 14, 16, 17 and **1**). *A narrowing, not a restatement.*
+
+Also recorded: `eq8680`'s linearisation is **identically zero** (`rows[8680] = {}`, since
+`a37887 = 0` at base), **which is precisely why O's `S` row exists** — it linearises the *inner* atom
+instead. **Same constraint entered twice, handled correctly** — the kind of thing that reads as a bug
+until someone checks it.
+
+### Standing, unchanged
+
+`s ≤ 4` exact → **169 minimal cocircuits, 0 mod-p artefacts, 619 break-sets, 4,427 solves, BEST GAIN
+= 0.** **Cocircuits of size ≤ 4 COMPLETE on `K+`; `j ≤ 5` EXHAUSTIVE; `j = 6, 7` budget** until
+`s = 5, 6` land.
+
+**Next:** `s = 5` reported as its own result, **including whether it repeats the `s = 4` shape of
+adding only size-6 members** — a shape repeating twice constrains where remaining structure can live.
+**If `s = 5` adds members below size 6, that is the more interesting outcome and is to be said
+loudly.** Then `s = 6`.

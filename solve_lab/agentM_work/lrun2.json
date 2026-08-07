@@ -1,0 +1,1892 @@
+{
+ "knobs": [
+  642,
+  950,
+  1329,
+  3629,
+  4432,
+  6418,
+  6947,
+  7068,
+  8731,
+  8976,
+  9118,
+  9413,
+  10422,
+  10903,
+  12553,
+  15120,
+  17325,
+  21574,
+  28730,
+  29854,
+  31864,
+  33168,
+  35531
+ ],
+ "dropped_nonaffine": [
+  2081,
+  4287,
+  11368,
+  13195,
+  16763,
+  24559,
+  32230
+ ],
+ "rows": [
+  12231,
+  12270,
+  12350,
+  14584,
+  18673,
+  22044,
+  29125
+ ],
+ "results": [
+  {
+   "rows": [
+    12231
+   ],
+   "solved": true,
+   "score": 39015,
+   "targets_zeroed": 1,
+   "targets": 1,
+   "new_failures": 12,
+   "nknobs_moved": 2,
+   "still_failing": 18
+  },
+  {
+   "rows": [
+    12270
+   ],
+   "solved": true,
+   "score": 39022,
+   "targets_zeroed": 1,
+   "targets": 1,
+   "new_failures": 5,
+   "nknobs_moved": 1,
+   "still_failing": 11
+  },
+  {
+   "rows": [
+    12350
+   ],
+   "solved": true,
+   "score": 39023,
+   "targets_zeroed": 1,
+   "targets": 1,
+   "new_failures": 4,
+   "nknobs_moved": 1,
+   "still_failing": 10
+  },
+  {
+   "rows": [
+    14584
+   ],
+   "solved": true,
+   "score": 38999,
+   "targets_zeroed": 1,
+   "targets": 1,
+   "new_failures": 28,
+   "nknobs_moved": 4,
+   "still_failing": 34
+  },
+  {
+   "rows": [
+    18673
+   ],
+   "solved": true,
+   "score": 39023,
+   "targets_zeroed": 1,
+   "targets": 1,
+   "new_failures": 4,
+   "nknobs_moved": 1,
+   "still_failing": 10
+  },
+  {
+   "rows": [
+    22044
+   ],
+   "solved": true,
+   "score": 39005,
+   "targets_zeroed": 1,
+   "targets": 1,
+   "new_failures": 22,
+   "nknobs_moved": 2,
+   "still_failing": 28
+  },
+  {
+   "rows": [
+    29125
+   ],
+   "solved": true,
+   "score": 38999,
+   "targets_zeroed": 1,
+   "targets": 1,
+   "new_failures": 28,
+   "nknobs_moved": 2,
+   "still_failing": 34
+  },
+  {
+   "rows": [
+    12231,
+    12270
+   ],
+   "solved": true,
+   "score": 39016,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 12,
+   "nknobs_moved": 3,
+   "still_failing": 17
+  },
+  {
+   "rows": [
+    12231,
+    12350
+   ],
+   "solved": true,
+   "score": 39016,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 12,
+   "nknobs_moved": 4,
+   "still_failing": 17
+  },
+  {
+   "rows": [
+    12231,
+    14584
+   ],
+   "solved": true,
+   "score": 38999,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 29,
+   "nknobs_moved": 5,
+   "still_failing": 34
+  },
+  {
+   "rows": [
+    12231,
+    18673
+   ],
+   "solved": true,
+   "score": 39016,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 12,
+   "nknobs_moved": 3,
+   "still_failing": 17
+  },
+  {
+   "rows": [
+    12231,
+    22044
+   ],
+   "solved": true,
+   "score": 38999,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 29,
+   "nknobs_moved": 4,
+   "still_failing": 34
+  },
+  {
+   "rows": [
+    12231,
+    29125
+   ],
+   "solved": true,
+   "score": 38999,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 29,
+   "nknobs_moved": 4,
+   "still_failing": 34
+  },
+  {
+   "rows": [
+    12270,
+    12350
+   ],
+   "solved": true,
+   "score": 39016,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 12,
+   "nknobs_moved": 3,
+   "still_failing": 17
+  },
+  {
+   "rows": [
+    12270,
+    14584
+   ],
+   "solved": true,
+   "score": 39016,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 12,
+   "nknobs_moved": 3,
+   "still_failing": 17
+  },
+  {
+   "rows": [
+    12270,
+    18673
+   ],
+   "solved": true,
+   "score": 39022,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 6,
+   "nknobs_moved": 2,
+   "still_failing": 11
+  },
+  {
+   "rows": [
+    12270,
+    22044
+   ],
+   "solved": true,
+   "score": 39022,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 6,
+   "nknobs_moved": 3,
+   "still_failing": 11
+  },
+  {
+   "rows": [
+    12270,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 28,
+   "nknobs_moved": 4,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12350,
+    14584
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 28,
+   "nknobs_moved": 5,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12350,
+    18673
+   ],
+   "solved": true,
+   "score": 39015,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 13,
+   "nknobs_moved": 4,
+   "still_failing": 18
+  },
+  {
+   "rows": [
+    12350,
+    22044
+   ],
+   "solved": true,
+   "score": 39006,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 22,
+   "nknobs_moved": 3,
+   "still_failing": 27
+  },
+  {
+   "rows": [
+    12350,
+    29125
+   ],
+   "solved": true,
+   "score": 38999,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 29,
+   "nknobs_moved": 3,
+   "still_failing": 34
+  },
+  {
+   "rows": [
+    14584,
+    18673
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 28,
+   "nknobs_moved": 5,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    14584,
+    22044
+   ],
+   "solved": true,
+   "score": 38999,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 29,
+   "nknobs_moved": 5,
+   "still_failing": 34
+  },
+  {
+   "rows": [
+    14584,
+    29125
+   ],
+   "solved": true,
+   "score": 38999,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 29,
+   "nknobs_moved": 4,
+   "still_failing": 34
+  },
+  {
+   "rows": [
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39006,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 22,
+   "nknobs_moved": 3,
+   "still_failing": 27
+  },
+  {
+   "rows": [
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 38999,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 29,
+   "nknobs_moved": 3,
+   "still_failing": 34
+  },
+  {
+   "rows": [
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38999,
+   "targets_zeroed": 2,
+   "targets": 2,
+   "new_failures": 29,
+   "nknobs_moved": 3,
+   "still_failing": 34
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350
+   ],
+   "solved": true,
+   "score": 39016,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 13,
+   "nknobs_moved": 5,
+   "still_failing": 17
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    14584
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    18673
+   ],
+   "solved": true,
+   "score": 39017,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 12,
+   "nknobs_moved": 4,
+   "still_failing": 16
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    22044
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    14584
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    18673
+   ],
+   "solved": true,
+   "score": 39016,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 13,
+   "nknobs_moved": 5,
+   "still_failing": 17
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    22044
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 5,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    14584,
+    18673
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    14584,
+    22044
+   ],
+   "solved": true,
+   "score": 38987,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 42,
+   "nknobs_moved": 6,
+   "still_failing": 46
+  },
+  {
+   "rows": [
+    12231,
+    14584,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 5,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 5,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 5,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 5,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    14584
+   ],
+   "solved": true,
+   "score": 39016,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 13,
+   "nknobs_moved": 5,
+   "still_failing": 17
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    18673
+   ],
+   "solved": true,
+   "score": 39017,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 12,
+   "nknobs_moved": 4,
+   "still_failing": 16
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    22044
+   ],
+   "solved": true,
+   "score": 39016,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 13,
+   "nknobs_moved": 5,
+   "still_failing": 17
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12270,
+    14584,
+    18673
+   ],
+   "solved": true,
+   "score": 39017,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 12,
+   "nknobs_moved": 4,
+   "still_failing": 16
+  },
+  {
+   "rows": [
+    12270,
+    14584,
+    22044
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12270,
+    14584,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12270,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39023,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 6,
+   "nknobs_moved": 4,
+   "still_failing": 10
+  },
+  {
+   "rows": [
+    12270,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 28,
+   "nknobs_moved": 5,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12270,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12350,
+    14584,
+    18673
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12350,
+    14584,
+    22044
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12350,
+    14584,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 5,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12350,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12350,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12350,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 4,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    14584,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    14584,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 5,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    14584,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 4,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 3,
+   "targets": 3,
+   "new_failures": 29,
+   "nknobs_moved": 4,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    14584
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    18673
+   ],
+   "solved": true,
+   "score": 39017,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 13,
+   "nknobs_moved": 6,
+   "still_failing": 16
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    22044
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    14584,
+    18673
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    14584,
+    22044
+   ],
+   "solved": true,
+   "score": 38988,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 42,
+   "nknobs_moved": 8,
+   "still_failing": 45
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    14584,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    14584,
+    18673
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    14584,
+    22044
+   ],
+   "solved": true,
+   "score": 38988,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 42,
+   "nknobs_moved": 7,
+   "still_failing": 45
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    14584,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    14584,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 38988,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 42,
+   "nknobs_moved": 7,
+   "still_failing": 45
+  },
+  {
+   "rows": [
+    12231,
+    14584,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    14584,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38988,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 42,
+   "nknobs_moved": 7,
+   "still_failing": 45
+  },
+  {
+   "rows": [
+    12231,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    14584,
+    18673
+   ],
+   "solved": true,
+   "score": 39017,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 13,
+   "nknobs_moved": 6,
+   "still_failing": 16
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    14584,
+    22044
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    14584,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39017,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 13,
+   "nknobs_moved": 6,
+   "still_failing": 16
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12270,
+    14584,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12270,
+    14584,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12270,
+    14584,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38999,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 31,
+   "nknobs_moved": 7,
+   "still_failing": 34
+  },
+  {
+   "rows": [
+    12270,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12350,
+    14584,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12350,
+    14584,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12350,
+    14584,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12350,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 6,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    14584,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39001,
+   "targets_zeroed": 4,
+   "targets": 4,
+   "new_failures": 29,
+   "nknobs_moved": 5,
+   "still_failing": 32
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    14584,
+    18673
+   ],
+   "solved": true,
+   "score": 39002,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 31
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    14584,
+    22044
+   ],
+   "solved": true,
+   "score": 38989,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 42,
+   "nknobs_moved": 8,
+   "still_failing": 44
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    14584,
+    29125
+   ],
+   "solved": true,
+   "score": 38989,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 42,
+   "nknobs_moved": 8,
+   "still_failing": 44
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39002,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 31
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39002,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 31
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38989,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 42,
+   "nknobs_moved": 9,
+   "still_failing": 44
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    14584,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 38987,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 44,
+   "nknobs_moved": 9,
+   "still_failing": 46
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    14584,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 31,
+   "nknobs_moved": 8,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    14584,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38987,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 44,
+   "nknobs_moved": 9,
+   "still_failing": 46
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39002,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 29,
+   "nknobs_moved": 8,
+   "still_failing": 31
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    14584,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 38989,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 42,
+   "nknobs_moved": 7,
+   "still_failing": 44
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    14584,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 38989,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 42,
+   "nknobs_moved": 7,
+   "still_failing": 44
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    14584,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38989,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 42,
+   "nknobs_moved": 7,
+   "still_failing": 44
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38989,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 42,
+   "nknobs_moved": 8,
+   "still_failing": 44
+  },
+  {
+   "rows": [
+    12231,
+    14584,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38989,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 42,
+   "nknobs_moved": 8,
+   "still_failing": 44
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    14584,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 39002,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 31
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    14584,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 39002,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 31
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    14584,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38987,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 44,
+   "nknobs_moved": 8,
+   "still_failing": 46
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39002,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 29,
+   "nknobs_moved": 7,
+   "still_failing": 31
+  },
+  {
+   "rows": [
+    12270,
+    14584,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 39000,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 31,
+   "nknobs_moved": 8,
+   "still_failing": 33
+  },
+  {
+   "rows": [
+    12350,
+    14584,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38989,
+   "targets_zeroed": 5,
+   "targets": 5,
+   "new_failures": 42,
+   "nknobs_moved": 7,
+   "still_failing": 44
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    14584,
+    18673,
+    22044
+   ],
+   "solved": true,
+   "score": 38988,
+   "targets_zeroed": 6,
+   "targets": 6,
+   "new_failures": 44,
+   "nknobs_moved": 9,
+   "still_failing": 45
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    14584,
+    18673,
+    29125
+   ],
+   "solved": true,
+   "score": 38988,
+   "targets_zeroed": 6,
+   "targets": 6,
+   "new_failures": 44,
+   "nknobs_moved": 9,
+   "still_failing": 45
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    14584,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38988,
+   "targets_zeroed": 6,
+   "targets": 6,
+   "new_failures": 44,
+   "nknobs_moved": 10,
+   "still_failing": 45
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38990,
+   "targets_zeroed": 6,
+   "targets": 6,
+   "new_failures": 42,
+   "nknobs_moved": 10,
+   "still_failing": 43
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    14584,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38988,
+   "targets_zeroed": 6,
+   "targets": 6,
+   "new_failures": 44,
+   "nknobs_moved": 10,
+   "still_failing": 45
+  },
+  {
+   "rows": [
+    12231,
+    12350,
+    14584,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38988,
+   "targets_zeroed": 6,
+   "targets": 6,
+   "new_failures": 44,
+   "nknobs_moved": 9,
+   "still_failing": 45
+  },
+  {
+   "rows": [
+    12270,
+    12350,
+    14584,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38988,
+   "targets_zeroed": 6,
+   "targets": 6,
+   "new_failures": 44,
+   "nknobs_moved": 9,
+   "still_failing": 45
+  },
+  {
+   "rows": [
+    12231,
+    12270,
+    12350,
+    14584,
+    18673,
+    22044,
+    29125
+   ],
+   "solved": true,
+   "score": 38989,
+   "targets_zeroed": 7,
+   "targets": 7,
+   "new_failures": 44,
+   "nknobs_moved": 11,
+   "still_failing": 44
+  }
+ ]
+}
