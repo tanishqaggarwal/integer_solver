@@ -29,3 +29,9 @@ tier const: 37 families
   c_pow2_192             R=44 jumps=33554432     dps=262475   dp/cf=1.0013  35.6s OK miss
   c_pow2_224             R=44 jumps=33554432     dps=262475   dp/cf=1.0013  26.3s OK miss
   c_pow2_250             R=44 jumps=33554432     dps=262766   dp/cf=1.0024  28.3s OK miss
+  c_pow2_254             R=44 jumps=33554432     dps=261761   dp/cf=0.9985  34.5s OK miss
+  c_pow2_255             R=44 jumps=33554432     dps=262515   dp/cf=1.0014  31.4s OK miss
+  c_two256_modN          R=44 jumps=33554432     dps=261981   dp/cf=0.9994  35.3s OK miss
+  c_lam                  R=44 jumps=33554432     dps=262267   dp/cf=1.0005  29.5s OK miss
+  c_lam2                 R=44 jumps=33554432     dps=260941   dp/cf=0.9954  23.3s OK miss
+  c_beta_modN            R=44 jumps=33554432     dps=261985   dp/cf=0.9994  35.3s OK miss

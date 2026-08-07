@@ -7440,3 +7440,115 @@ two checks X had not claimed.
 verified in effect from `/proc`** — `aa_signed` at `NI=15`, so X's rotation sweep has priority as
 ruled; it stands at **20/128**. Disk 11 GB free and flat. T's `close_T192*` / `close_T250*` artefacts
 do not exist yet, so **AF's pre-registered prediction of 39,018/39,033 remains untested.**
+
+---
+
+## Check-in 124 — AD kills §8 quantitatively, from an independent construction
+
+**Verdict: §8 is dead.** `agentAD_work/SMALL_ANALOGUE.md`, 536 lines, 464 KB, no shared table
+touched, no process left running. **`EQUATIONS.txt` was never opened by any script in AD's
+directory** — the analogue was built from the decoded law alone, as the brief required.
+
+### The convergence that makes this credible
+
+AD and AF attacked §8 from opposite ends — AD by exhaustive enumeration on 8–16 bit curves where
+ground truth exists, AF by derivation on the real instance — and **independently produced the same
+structural fact**:
+
+> **live merge blocks = `|S| − 1` exactly** (AD: closed form, 0 mismatches at every size; AF:
+> Theorem 1, `Σ_v L_v(s) = |S| − 1`, shape-independent).
+
+AD also **independently reproduced W's Jacobian `[[A²,0],[B,A]]`** by differentiating its own `nu`
+formulas. Three agents, three constructions, one answer.
+
+### The three questions, answered
+
+**Do the conditions close for the true `S` only?** No — **they never mention `T`**, which enters only
+at the root pin. At the real instance's own ratio (`927/3707 = 25 %` nontrivial moduli), the
+*majority* of coefficient draws close **all `2ⁿ` subsets**.
+
+**Correlated with `|S|`?** Only through the `|S| − 1` channel, giving closure rate `≈ ρ^{|S|−1}`. And
+the shape is **the opposite of what an upper bound needs**:
+
+> **At the realistic parameter the curve is U-shaped and returns to 1.0000 at `|S| = n`** — the
+> deficit sits in the *middle* weights and **the top weights are untouched.**
+
+**Off-pins?** No signal, no constraint: active count is `2(n − |S|)` exactly — it **decreases** with
+`|S|` — and the variables are private, confirmed by driving every dead block's private outputs to
+random nonzero multiples of `P` and re-evaluating **11,987** other condition values: **0 moved.**
+
+### Why — the absorbing-block theorem, and why no threshold can exist
+
+Proved and machine-checked on 2,515 cases: **if `gcd(A,c) = 1` the block's own output lifts satisfy
+all three conditions for any input lifts — it constrains nothing.** And `A = a + P·δ` with `δ` a free
+lift difference and `P` invertible mod any small `c`, **so even a bad `a` is repairable.** There is no
+mechanism that can produce a threshold in `|S|`.
+
+Model `#closing(w) ≈ C(n,w)·ρ^{w−1}`, **stated before fitting** and validated on 340 draws: predicts
+`Bmax` exactly in 74 %, within ±1 in 99.4 %. `ρ` is **flat in `n`** across five sizes; `j = 0` vs
+generic is indistinguishable (0.7881 vs 0.7980). Extrapolating with **the most constraining `ρ` seen
+anywhere** (0.545, from an adversarial sweep four times tighter than the real instance): **`w ≤ 205`.
+Median: `w ≤ 241`. Free bound 255. §8 needs `≲ 56`.**
+
+**Two independent reasons it cannot get there.** (a) A Mertens floor `ρ_b ≥ ∏_{ℓ|M_b}(1 − 1/ℓ)`, so
+`ρ ≤ 0.093` needs every block's modulus to have prime support to `X ≈ 420` — three moduli each about
+`2^170`; and for prime powers `2^k` a block binds only when `A` is even, so `ρ ≥ 1/2` regardless of
+`k`. (b) **It eats itself:** at `ρ = 0.093` the *true* weight-56 subset would itself close with
+probability `2^-188`.
+
+### AD's confirmatory check — I ran it, and it splits
+
+AD proposed: *"are the `|c| > 1` values' prime supports anywhere near spanning primes ≤ 420?"*,
+predicting from W's census that they are **"ordinary small integers"** ⇒ `ρ ≈ 1`, `Bmax = 256`. I ran
+it on AF's parsed conditions (`agentAF_work/af_cond.pkl`):
+
+- The `927 / 2780` split **reproduces exactly** from a third reader.
+- **`max |c| = 16,718,259` (24 bits); 893 distinct primes divide some `c`; the largest is
+  16,595,977.** So **AD's premise is wrong** — these are not ordinary small integers, and the prime
+  support runs far past 420.
+- **But AD's conclusion survives, by an order of magnitude.** On AD's own floor formula the
+  per-condition floor is **min 0.3883, median 0.8073, mean 0.8008**. With ≤1 `c>1` congruence and ≤1
+  `c>1` off-pin per block (AF, §S), the worst conceivable block floor is `0.388² = 0.151`, against
+  the **`ρ ≤ 0.093`** §8 would need for `w ≤ 56` and **`0.037`** for `w ≤ 24`.
+
+> **On the real instance's own moduli, `ρ ≥ 0.15` everywhere — the §8 threshold is unreachable by a
+> factor of at least 1.6, and typically by a factor of ~7.** That is a computed statement about this
+> instance, not an extrapolation from the analogue.
+
+**Flagged as coordinator arithmetic, not an agent result:** the floor formula is AD's and the block
+assignment is AF's; I composed them. It wants an agent's verification before it travels further.
+**What matters is that AD's prediction of the outcome was right while its stated reason was wrong** —
+worth more than a clean confirmation, because it tells us the census AD relied on is not what it
+thought.
+
+### Validation AD ran before measuring anything
+
+**V2b** closed-form `nu` against raw big-integer `N1/P` — **the exact check for agent N's failure
+mode** (dropped quadratic, truncated fourth power): 0 bad. **V3/V3b** tree DP against **exhaustive
+raw-integer enumeration of every lift assignment**: 3,456 + 3,072 comparisons, **0 mismatches**.
+**V4** at `n = 8` and `n = 12` **in full**, 16 configurations: equation solution set `== {S : k(S)G = T}`,
+**16/16** — with an exceptional-block census matching a closed form exactly (DEGEN 0, CANCEL exactly
+1, the subset with `k(S) = N`). **Without that census the model would have been wrong**, since a
+degeneracy makes the equation solution set a strict superset. **V5 plants, both awkward:** a target
+with **two valid subsets of different weights (3 and 5)**, both recovered; and rigged coefficients
+whose failure set is **3 of 64** subsets — proper and non-empty, **explicitly not vacuous in agent X's
+sense** — reproduced exactly against brute force.
+
+### Consequences
+
+- **AB's §8 can be closed. The ranked list of upper-bound mechanisms is now empty**, apart from Y's
+  complement, whose value is the hit branch only.
+- **T's high-`|S|` probes are not worth continuing for this purpose.** AD: in the analogue an upper
+  bound shows up as the **top weights emptying**, and the top weights are the fullest. **A stall at
+  `|S| = 128` is a solver gap, exactly as T's own standard says** — and it was not even a stall
+  (check-in 119).
+- **T's `|S| = 250` run keeps one purpose only:** testing AF's pre-registered prediction of
+  39,018/39,033 on the same footprint. It is a confirmation, not a decisive experiment, and nothing
+  follows it.
+
+**AD's own limits, flagged as AB flagged `d_reg`:** measured is that `ρ` is per-block and flat over
+five exhaustive sizes and that the model predicts `Bmax`; **extrapolated is only that `ρ` stays flat
+to 256** — supported by the theorem, since a block sees only its own two children and there is no `n`
+in it, but still an extrapolation, and **the verdict rests on it.** The one raw-fit outlier
+(`ρ = 0.266`, a five-point `n = 8` fit) is **reported rather than hidden**; even at face value it
+only reaches `w ≤ 132`.

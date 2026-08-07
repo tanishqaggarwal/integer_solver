@@ -34,15 +34,15 @@ def parse_done(path):
 rows = []
 
 # --- headline
-for tag, R, f in (('R=58 magnitude k0 < 2^58', 58, 'head58.err'),
-                  ('R=60 magnitude (abandoned)', 60, 'head60_PARTIAL_ABANDONED.txt'),
-                  ('R=64 magnitude (abandoned)', 64, 'head64_PARTIAL_ABANDONED.txt')):
+for tag, R, f in (('magnitude k0 < 2^58 (headline)', 58, 'head58.out'),
+                  ('magnitude k0 < 2^60 (abandoned)', 60, 'head60_PARTIAL_ABANDONED.txt'),
+                  ('magnitude k0 < 2^64 (abandoned)', 64, 'head64_PARTIAL_ABANDONED.txt')):
     d = parse_done(f)
     if not d: continue
     j = d.get('jumps', 0)
     rows.append(dict(family=tag, R=R, n=1, jumps=j, size=2.0 ** R,
-                     dpcf=(d['dps'] / (d['jumps'] / 2.0 ** 14)) if (not d['partial'] and 'dps' in d) else None,
-                     complete=not d['partial'], conf=conf(j, R), hit=False))
+                     dpcf=(d['dps'] / d['dpexp']) if (not d['partial'] and d.get('dpexp')) else None,
+                     complete=not d['partial'], conf=conf(j, R), hit=(d.get('cands', 0) > 0)))
 
 # --- tiers
 for tier, fn in (('const', 'res_const.json'), ('orbit', 'res_orbit.json'), ('window', 'res_window.json')):
@@ -69,8 +69,8 @@ for f in sorted(glob.glob('res_quot_*.json')):
                      jumps=2 * 2 ** m, size=sz, dpcf='n/a', complete=(q['rc'] == 0),
                      conf=1.0, hit=bool(q['verified'])))
 
-print('| family | keys covered | prior P(k0 in F) | ops | exclusion confidence | outcome |')
-print('|---|---|---|---|---|---|')
+print('| family | keys covered | prior P(k0 in F) | ops (jumps) | DP/closed-form | exclusion confidence | outcome |')
+print('|---|---|---|---|---|---|---|')
 tot = 0.0
 for r in rows:
     if 'abandoned' in r['family']:
@@ -82,9 +82,11 @@ for r in rows:
     else:
         st = 'exhausted-no-hit' if 'EXHAUSTIVE' in r['family'] else 'miss'
         tot += r['size']
-    print('| %s | 2^%.2f | 2^%.1f | 2^%.1f | %s | %s |' % (
+    dp = r['dpcf']
+    dps = ('%.4f' % dp) if isinstance(dp, float) else (('%.4f-%.4f' % dp) if isinstance(dp, tuple) else str(dp))
+    print('| %s | 2^%.2f | 2^%.1f | 2^%.1f | %s | %s | %s |' % (
         r['family'], math.log2(r['size']), math.log2(r['size']) - LGN,
-        math.log2(max(r['jumps'], 1)),
+        math.log2(max(r['jumps'], 1)), dps,
         ('%.1f%%' % (100 * r['conf'])) if r['conf'] < 1 else '100% (exhaustive)', st))
 print()
 print('TOTAL keys excluded by rows that completed: 2^%.2f  (prior mass 2^%.1f)'

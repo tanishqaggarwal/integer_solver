@@ -88,3 +88,16 @@ outer 2: global nonzero 11, violated c-conditions 10, nonzero handle-less 1
      (x14052 ,x36128 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
      (x24221 ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
      (x24221 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x24221 ,x36128 ) |group|=2 200 candidate(s) verified, guard rejected all
+     (x25477 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     *** (x25477 += p*4679798154593 , x36128 += p*736949988298) |group|=2  global 11 -> 10
+outer 3: global nonzero 10, violated c-conditions 9, nonzero handle-less 1
+   single-wire pass over 31 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x22366*x5209)-(8054097*x37199))  c=8054097
+     round 0: |group|=1 (0 exact) wires=6 new pairs=15
+     (x664   ,x4860  ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x7814  ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x14370 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x24959 ) |group|=1 NO JOINT ROOT mod 3 (exhaustive)

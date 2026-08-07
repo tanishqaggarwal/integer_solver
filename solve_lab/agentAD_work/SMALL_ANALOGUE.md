@@ -1,7 +1,7 @@
 # SMALL_ANALOGUE.md — §8 settled in the small, and it is DEAD
 
 Agent AD. Everything below was computed in this directory. No git commands were run.
-`PYTHONDONTWRITEBYTECODE=1` throughout. Footprint: ~350 KB, no shared table touched.
+`PYTHONDONTWRITEBYTECODE=1` throughout. Footprint: 464 KB, no shared table touched, no process left running.
 
 **Rule-2 compliance.** The small system was built from the *decoded mathematics* — the
 five-atom integer law recorded in `agentW_work/RESUME_W.md`, the mux quadrants and the

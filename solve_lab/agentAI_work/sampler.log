@@ -24,3 +24,4 @@
 22:31:30 availMB=9737 aaMB=11276 xMB=5866 rot=19 shards=114 hits=0 A(30892)=alive B(6881)=DEAD dregRSSmb=0 memAvailMB=13136 load=18.98
 22:33:30 availMB=12517 aaMB=11276 xMB=3090 rot=20 shards=120 hits=0 A(30892)=alive B(6881)=DEAD dregRSSmb=0 memAvailMB=13140 load=18.61
 22:35:30 availMB=10439 aaMB=11276 xMB=5159 rot=20 shards=120 hits=0 A(30892)=alive B(6881)=DEAD dregRSSmb=0 memAvailMB=13068 load=17.67
+22:37:30 availMB=9990 aaMB=11276 xMB=5611 rot=21 shards=126 hits=0 A(30892)=alive B(6881)=DEAD dregRSSmb=0 memAvailMB=13188 load=16.48

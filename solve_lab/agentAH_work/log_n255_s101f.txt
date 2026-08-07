@@ -65,3 +65,29 @@ outer 0: global nonzero 155, violated c-conditions 149, nonzero handle-less 6
      [hb] wire 158/697  nz-guard evals=647  sg3 calls=159  sg3 time=104s  accepted=34  t=698s
      [hb] wire 275/697  nz-guard evals=2350  sg3 calls=275  sg3 time=281s  accepted=52  t=887s
      [hb] wire 494/697  nz-guard evals=3156  sg3 calls=494  sg3 time=383s  accepted=87  t=1007s
+     [hb] wire 689/697  nz-guard evals=3997  sg3 calls=679  sg3 time=490s  accepted=117  t=1132s
+   single-wire pass: 118 accepted
+outer 1: global nonzero 21, violated c-conditions 15, nonzero handle-less 6
+   single-wire pass over 21 wires (max atoms/wire 1)
+   handle-less pass: 6 nonzero handle-less atom(s)
+      *** x13454 += p*13189448 zeroes (x12827-(x31566*x24511)) (exact, recomputed)
+      *** x36038 += p*605517349896 zeroes (x11231-(x8233*x21728)) (exact, recomputed)
+outer 2: global nonzero 19, violated c-conditions 15, nonzero handle-less 4
+   single-wire pass over 21 wires (max atoms/wire 1)
+   handle-less pass: 4 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x29327*(x36128-359702590479861189598273782415394539357  c=1514949
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x31778*x19594)-(9401079*x17407))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x6930  ,x14052 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x24221 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x36128 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x24221 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x36128 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x24221 ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x24221 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
