@@ -9,3 +9,5 @@ candidate violated-sets with total multiplicity <= 6 : 443068  (enumeration is E
   budget 2: no admissible violated-set (1s)
   budget 3: 76 admissible relaxations tested
   budget 3: no admissible violated-set (18s)
+  budget 4: 934 admissible relaxations tested
+  budget 4: no admissible violated-set (99s)

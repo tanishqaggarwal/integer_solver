@@ -231,5 +231,18 @@
   "knobs": 10,
   "minfail": null,
   "forced": 0
+ },
+ {
+  "tag": "X30108",
+  "add": [
+   11773,
+   34813,
+   36618
+  ],
+  "nE": 37,
+  "new": 24,
+  "knobs": 9,
+  "minfail": null,
+  "forced": 0
  }
 ]
