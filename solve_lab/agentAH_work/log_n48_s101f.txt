@@ -38,3 +38,27 @@ S(seed=101,n=48) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357, 
    [pre] relift round 36: 29 bad atoms, 27 fixed, t=52s
    [pre] relift round 37: 29 bad atoms, 27 fixed, t=53s
    [pre] relift round 38: 29 bad atoms, 26 fixed, t=55s
+   [pre] relift round 39: 29 bad atoms, 27 fixed, t=57s
+   [pre] relift round 40: 29 bad atoms, 27 fixed, t=58s
+   [pre] relift round 41: 29 bad atoms, 27 fixed, t=60s
+   [pre] relift round 42: 29 bad atoms, 27 fixed, t=61s
+   [pre] relift round 43: 29 bad atoms, 27 fixed, t=63s
+   [pre] relift round 44: 29 bad atoms, 27 fixed, t=65s
+   [pre] relift round 45: 28 bad atoms, 26 fixed, t=66s
+   [pre] relift round 46: 29 bad atoms, 27 fixed, t=68s
+   [pre] relift round 47: 29 bad atoms, 27 fixed, t=70s
+   [pre] relift round 48: 28 bad atoms, 26 fixed, t=71s
+   [pre] relift round 49: 29 bad atoms, 26 fixed, t=72s
+   [pre] relift round 50: 29 bad atoms, 27 fixed, t=72s
+   [pre] relift round 51: 29 bad atoms, 27 fixed, t=73s
+   [pre] relift round 52: 28 bad atoms, 26 fixed, t=75s
+   [pre] relift round 53: 29 bad atoms, 27 fixed, t=76s
+   [pre] relift round 54: 29 bad atoms, 27 fixed, t=78s
+   [pre] relift round 55: 29 bad atoms, 27 fixed, t=80s
+   [pre] relift round 56: 29 bad atoms, 27 fixed, t=81s
+   [pre] relift round 57: 28 bad atoms, 26 fixed, t=83s
+   [pre] relift round 58: 29 bad atoms, 27 fixed, t=85s
+   [pre] relift round 59: 28 bad atoms, 25 fixed, t=86s
+   [pre] fixpoint done in 86s (60 rounds)
+outer 0: global nonzero 30, violated c-conditions 29, nonzero handle-less 1
+   single-wire pass over 133 wires (max atoms/wire 2)

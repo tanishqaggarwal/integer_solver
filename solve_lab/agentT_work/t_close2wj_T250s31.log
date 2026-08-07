@@ -66,3 +66,14 @@ outer 5: global nonzero 16, violated c-conditions 12, nonzero handle-less 4
      (x6623  ,x37049 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
      (x12821 ,x25195 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
      (x12821 ,x33657 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
+     (x12821 ,x37049 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
+     (x25195 ,x33657 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
+     (x25195 ,x37049 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
+     (x33657 ,x37049 ) |group|=2 NO JOINT ROOT mod 5 (exhaustive)
+     no addable collateral -- giving up on ((x10746*(x3494-2778267233628510002638332493
+  atom ((x7142*(x30083-4725795621547676761289812792260460638150  c=8569197
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x32585*x95)-(16708939*x25070))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x18570 ,x19833 ) |group|=2 NO JOINT ROOT mod 9 (exhaustive)
+     (x18570 ,x27886 ) |group|=2 NO JOINT ROOT mod 9 (exhaustive)
