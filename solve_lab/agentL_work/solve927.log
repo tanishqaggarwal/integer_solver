@@ -34,3 +34,23 @@ atoms with exactly 1 handle: 3681 of 9032
      SOLVED c=10937191  deg=1 wire x23238  t=1719685    (0s, verified exactly)
      SOLVED c=13040669  deg=1 wire x10261  t=12862303   (0s, verified exactly)
   round 5: 3 stuck
+     SOLVED c=7942211   deg=1 wire x9776   t=3639783    (17s, verified exactly)
+     SOLVED c=10696593  deg=3 wire x23238  t=5411377    (15s, verified exactly)
+     SOLVED c=2264251   deg=3 wire x10261  t=316308     (0s, verified exactly)
+  round 6: 3 stuck
+     SOLVED c=10353929  deg=3 wire x27928  t=740207     (0s, verified exactly)
+     SOLVED c=10937191  deg=1 wire x23238  t=5525814    (0s, verified exactly)
+     SOLVED c=13040669  deg=1 wire x10261  t=12724361   (0s, verified exactly)
+  round 7: 2 stuck
+     SOLVED c=10696593  deg=3 wire x23238  t=5170779    (16s, verified exactly)
+     SOLVED c=2264251   deg=3 wire x10261  t=1585122    (0s, verified exactly)
+  round 8: 2 stuck
+     SOLVED c=10937191  deg=1 wire x23238  t=5766412    (0s, verified exactly)
+     SOLVED c=13040669  deg=1 wire x10261  t=11455547   (0s, verified exactly)
+  round 9: 2 stuck
+     SOLVED c=10696593  deg=3 wire x23238  t=8495712    (15s, verified exactly)
+     SOLVED c=2264251   deg=3 wire x10261  t=1284679    (0s, verified exactly)
+  round 10: 2 stuck
+     SOLVED c=10937191  deg=1 wire x23238  t=2441479    (0s, verified exactly)
+     SOLVED c=13040669  deg=1 wire x10261  t=11755990   (0s, verified exactly)
+  round 11: 2 stuck

@@ -1063,3 +1063,55 @@ clock at the current rate.
 ## 67. Round-10 files
 `enum103.py` -> `enum103.log` (stopped before checkpoint; no pkl written). δ₀ work retired per
 O's `DELTA0_STATUS.md`.
+
+---
+
+# LOG_M ROUND 11 — the incremental engine, calibrated. 4.25M sites is now a bounded job.
+
+## 68. What made the general enumeration slow, and the two observations that remove it
+Every 4-subset changes the demotion set, so `E3.Eng(demote)` was rebuilt (30k-entry
+SEQ/SOLVE/_pos) and a full `forward` (30,378 `_solvevar` calls) plus a full `badatoms`
+(40,727 evals) ran **per site**. Two facts remove all of it:
+
+1. **The baseline vector is the SAME for every site.** Seeding the freed variables at their
+   uncorrupted values and propagating reproduces `v_unc` exactly, whatever the demotion set,
+   because `v_unc` satisfies every definer atom. So `v_unc` and `badatoms(v_unc)` are computed
+   **once** and shared -- and therefore so is the baseline failing set (the 25), so the
+   equation coefficient maps are precomputed once too.
+2. **No engine object is needed at all.** A site is fully described by its pinned set;
+   propagation is the global `H.SEQ` order with pinned variables skipped, since they are
+   inputs rather than solved variables.
+
+Per site the cost is then a few incremental probes for the affine columns, the small greedy
+solves, and a few incremental scorings. Nothing scales with 30k or 40k. (`ieng.py`)
+
+## 69. Calibration — all six gates passed (`icalib.py`)
+    G1  deliverable from its four handles : 39026, fails exactly the 7, 8 atoms,
+                                            0 variables differing              PASSED
+    G2  the three CLI-agreeing points     : 39026 / 39000 / 38961, all exact   PASSED
+    G3  T's calibration (12 cofactors 0)  : 39021, 12 failing, list matches     PASSED
+    G4  incremental == full engine3       : same score, same atoms,
+                                            0 variables differing              PASSED
+    G5  tune() from the shared baseline   : 39008 -> 39026 in 0.02s            PASSED
+    G6  timing on GENERAL 4-subsets       : 0.025 s/site
+
+**G4 is the one that matters for trust**: the incremental result is not an approximation of
+the full engine, it is identical to it -- same vector, same atom set, same score.
+
+## 70. The speedup, and what it buys
+    old: ~0.4 s/site, and ONLY for sites sharing the deliverable's demotion set;
+         1-2 orders slower for a general 4-subset
+    new: 0.025 s/site for GENERAL 4-subsets
+
+    projected C(102,4) = 4,249,575 sites -> 29.8 core-hours, 7.4 h on 4 cores
+
+**The full enumeration is now a bounded overnight job rather than out of reach.** For scale:
+the original `C(32,4) = 35,960` target -- the one I withdrew as the wrong space -- now takes
+about **15 minutes**.
+
+## 71. Held interruptible, on purpose
+`isweep.py` walks the rt-ranked lexicographic order, checkpoints every 5,000 sites to
+`isweep.pkl`, and is safe to kill at any instant; a partial run is a real measurement over a
+stated prefix with its last site named. This is deliberate: the campaign may need this frame
+as a **verifier** for agent L's nonlinear fit-and-solve at short notice, and that takes
+priority over any sweep in progress.

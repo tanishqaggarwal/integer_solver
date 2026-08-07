@@ -3364,3 +3364,69 @@ Final sweep: **28 of 48 image points analysed, 26 other-rows-infeasible, 2 solva
 why, the repeat-counting pattern named as S's own across all three instances with the rule stated
 (*check for repeats before reporting any rate — state what makes two data points independent before
 counting them*), and status with the reopening note. **All `dirsearch` workers stopped; cores freed.**
+
+---
+
+## Check-in 61 — K's guard fails; the self-audit is the deliverable; K closed
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+**The global forward guard did not work, and K reported it as broken rather than as a signal.**
+Per-variable pinning over 1,278 wires gave **guarded 0/18 halves matching against unguarded 6/18** —
+and it broke `ON=[0]`, a single leaf and pure pass-through, which matched before. **A guard that
+breaks the simplest case is a broken guard, so the 0/18 says nothing about the circuit.** Not the
+clean background the task hoped for; a dirty one, and K said so first.
+
+**Diagnosis, precise enough to act on:** in `((xW − xZ) − xH)` K assumed `W` is the slot and `Z` the
+mux source — true for the four root slots, which is why the **targeted** 4-wire guard in k42 worked
+and converted `ON={e0,e1}` to a match, **but not in general**; where the roles reverse, pinning `W`
+blocks the wire's real source. The alternative (restrict to free variables) was tested and ruled
+out — all 1,278 were already free. **The correct map must come from the decoded slot→source
+direction, not from atom shape.**
+
+**§4's status is unchanged: premise unrefuted, not established.** The fold evaluator is still not
+validated end to end.
+
+### The self-audit — split by "does this read values out of a closure"
+
+**SAFE** (parsing, identities, incidence counting — no closure): leaf/target extraction and the
+big-literal inventory; the doubling chain and low-weight searches; `N` via Cornacchia with
+`N·G = O`; commutativity / associativity / doubling identities; the degeneracy DPs and the
+`2²⁵⁶ − N < 2¹²⁹` size bound; corrected support recovery (k36); variable classification; **the
+equation-footprint / site-cost table.**
+
+**SUSPECT or worse** (closure-derived): the §2 validation table; `k31`; `k35`; `k38`; `k41`; `k34`
+(unusable); `k37` (retracted).
+
+**Two entries flagged by K itself:**
+
+- **`k9` — "handles absorb every quotient over ℤ, 0 conflicts" — UNVERIFIED.** It ran on the
+  unguarded integer cascade and was never re-run, and K had cited it in §6 as load-bearing for "the
+  binding content of the instance is mod p". **Flagging a result it had leaned on, in the same
+  report as a failure, is the hardest kind of disclosure.** *That conclusion no longer depends on
+  it*: L established the slack factors **are** the constant p, and T turned it into a proof — one
+  atom containing the literal p, propagated across a 220-wire copy class, with `ker(M) = 0` and M
+  faithful. **The mod-p closure stands on those, not on k9.**
+- **`k29` — incomplete in a way that hid the bug.** Its back-cone check tested for leakage from
+  "above the root" and its `ABOVE` set **omitted `x608`/`x22978`** — precisely the pass-through path
+  doing the backward driving. **It concluded "flow is forward" from a check that could not see the
+  violation.**
+
+### K's thread is CLOSED
+
+Not because the guard fix is wrong, but because **the job it was for has been done by other means.**
+Q has, from an independent parse and with no closure at all: 383/383 chord gadgets verified by
+Schwartz–Zippel against the real sub-DAG; 383/383 slots implementing identity/pass-through/sum with
+both coordinate muxes cross-checked; one tree with a single root over all 256 leaf selectors; and
+the coordinate hand-off measured as an affine alias, closing mod p. **K's fold evaluator was the
+tool for establishing what Q has now established without it.** Rebuilding the guard would re-derive
+a settled result with the instrument this campaign has least reason to trust.
+
+**K's own summary, kept:** a negative, a withdrawal of it, a retraction of the withdrawal, and a
+failed attempt to settle it — **each correction found by someone else's challenge.** What it
+produced is a self-audit precise enough that the next reader knows exactly which of its results to
+trust.
+
+**Closed threads: P, R, S, K. Live: L (fit-and-solve over the 927), M (incremental engine, then
+verification), O (budgeted multi-atom compensation among `T`'s other 19 atoms), Q (reconcile 47,198
+against F's parse; then the atom-compensation test), T (the 278 multi-hop aliases; the 26-atom gap).**

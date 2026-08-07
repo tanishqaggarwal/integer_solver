@@ -433,6 +433,40 @@ primes in 7 of the 8 cases above (3, 5, 11, 19, 43, 127, 199, 449, 3449, 4787, .
 finding is trivial.  Then **verify by direct recomputation**, per P's second guard.  The two
 linear conditions should be solved jointly with the rest, not greedily.
 
+--------------------------------------------------------------------------------------------
+## 6g. FIT-AND-SOLVE WORKS PER CONDITION; |S|=2 CLOSES OVER Z  (`solve927.py`)
+Ran the recipe.  Per condition: evaluate R(t) at t=0..4, exact Newton forward-difference fit,
+root-find mod each prime power of c, CRT, then **verify by direct recomputation** (P's guard).
+
+**RESULT 1 — |S| = 2 CLOSES COMPLETELY OVER Z.**
+    round 0: 1 stuck -> SOLVED c=6672769 (prime) deg=2 wire x24908 t=2990790, verified
+    FINAL: **0 undischarged, 2 nonzero atoms** — and those 2 are the target congruences.
+This is the first ON-set beyond |S|=1 for which every one of the 927 conditions is discharged.
+
+**RESULT 2 — P's degree bound is CONFIRMED on a second model.**  I fitted to degree 4 and
+recorded the top nonzero degree every time.  Observed degrees: **1, 2 and 3.  A degree-4 term
+never appeared, in any condition, in either ON-set.**  P's expansion bounds it at 3; measured
+independently here, it holds.
+
+**RESULT 3 — cost is driven by the largest prime factor of c, not by c.**  c = 6672769 is prime
+and takes ~59 s (6.6M evaluations of the *fitted polynomial* — cheap, unlike E.run);
+c = 15194385 = 3^4*5*37517 takes ~1 s.  Brute-forcing the fit is fine; brute-forcing E.run is not.
+
+**REMAINING GAP, PRECISELY LOCATED — the solver is still per-condition, so it oscillates on
+SHARED wires.**  |S| = 17 goes 8 stuck -> 3 -> 3 -> 3.  Every individual condition is solved and
+verified exactly, but the same wires recur — **x23238 and x10261 each carry two different
+conditions**, so clearing one re-breaks the other.  This is the same simultaneity that defeated
+the greedy round-robin, now one level up: I replaced "linear solve" with "exact polynomial solve"
+but not "one at a time" with "jointly".
+
+**THE FIX, AND IT IS SMALL.**  For a wire w carrying conditions {a_1..a_k}, do not solve them
+one at a time: fit each a_j as a polynomial in t_w, root-find each mod its own c_j, and take the
+**INTERSECTION of the root sets** via CRT across the distinct c_j — a t_w that clears all of them
+at once, or a proof that none exists, in which case fall back to a different wire for one of
+them.  Only 2-3 wires are contended, so the intersection is over 2 conditions at a time.
+Everything needed is already in `solve927.py`; it is `solve_one` that needs to become
+`solve_group`.
+
 ## 7. FILES (all in `agentL_work/`)
 Code: `trace.py ortree.py ortree2.py census.py wire.py link.py crux.py onset.py fail7.py
 handles.py handles2.py exp1.py model.py model2.py calib.py fold.py fold2.py global.py

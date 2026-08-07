@@ -432,3 +432,50 @@ Only **eq 22044** contains singleton atoms (both of its 2).  In the other six, e
 7 break in total.  Either the nonzero atoms are very few and concentrated, or **compensation between
 atoms is already happening in the lab's best assignment**.  That is a concrete, cheap handle on the
 atom-forcing question and it belongs with agent A's incidence matrix.
+
+## 23. RECONCILIATION WITH F'S PARSE — MY RANK ARGUMENT WAS AN ARTEFACT, AND §22'S GATE IS CLOSED
+Measured against my own `qmult.pkl`:
+
+| | count |
+|---|---|
+| my distinct terms | **47,198** |
+| ...occurring in **>= 2** equations | **39,032**  <- F reports **39,033** atoms |
+| ...occurring in **exactly 1** equation | **8,166** |
+| my excess over F (47,198 - 39,033) | **8,165** |
+
+**My multi-occurrence terms match F's atom count to within 1, and my 8,166 singletons account for
+exactly the 8,165 excess.**  So the entire "nullity >= 8,165" observation of §22 is a restatement of
+my own extra granularity: my parser splits sub-expressions that F treats as single atoms, each split
+landing in exactly one equation.  It was never a statement about the instance.  I said in §22 that
+my finer atoms are constrained functions of wires rather than free coordinates; that caveat turns
+out to be the whole story.
+
+With F's `ker(M) = 0` (three independent computations) and T's faithfulness check (exact list
+equality between `{e : (Ma)_e != 0}` and `checker.evaluate_all` at 10 points), all-atoms-zero is an
+**equivalence** in the 39,033 decomposition: any assignment satisfying all 39,033 equations makes
+every atom vanish.  **The atom-forcing gate I opened in §22 is closed.**
+
+## 24. FINAL RULING ON SECTION 15 — FULL RESTORATION
+The implication the six negatives need,
+`satisfying assignment with ON-set S  ==>  k = sum_{i in S} 2^i satisfies kG = T`,
+now has every link measured: all-atoms-zero is forced (§23); the leaves are `2^i G`; 383/383 chord
+gadgets compute `P_a + P_b`; 383/383 slots implement identity / pass-through / sum; the slots form
+one tree with a single root over all 256 leaf selectors; and the coordinate hand-off follows that
+tree **mod p** — which §22 established is exactly the modulus this direction needs, the 927 `c > 1`
+conditions over Z sitting on the *converse* (existence) direction.
+
+> **`dlp_bsgs.py`, `lowwt.py`, `window.py`, `smallmul.py`, `lam.py` are restored to full
+> instance-level standing.  `wt7.py` is restored at its true coverage: 33.7% of the weight-<=7
+> sweep, no hit in that portion — a partial, not a bound.**
+
+The weight-<=6 bound, the k < 2^44 bound, the 34-bit-window bound, the m <= 10^7 bound and the
+lambda-basis bound are statements about **the instance**, not about the group model.
+
+## 25. (d) SETTLED — THE ATOM IS NOT THE UNIT OF FAILURE
+`ker(M) = 0` forbids *all* equations being satisfied with some atom nonzero.  It does **not** forbid
+an atom being nonzero in an equation that still sums to zero.  The 39,026 partial shows exactly
+that: its 7 failing equations contain 20, 8, 24, 20, 3, 2 and 15 atoms, and outside eq 22044 every
+atom in them occurs in **6-15** equations — so most occurrences of those nonzero atoms **cancel**,
+and only 7 equations break.  **Compensation between atoms is already happening in the lab's best
+assignment.**  Scoring as though one bad atom costs one equation is therefore not exact, and the gap
+runs in the favourable direction: an atom can be wrong in many equations and cost only a few.

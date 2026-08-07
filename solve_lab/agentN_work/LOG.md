@@ -37,7 +37,7 @@ The complete test gives **OPT = 5** for them (score 39,025, not 39,020). Over th
 | singletons | 65 | **100%** | 5 for all 65 | 39,026 (`{28730}` only) |
 | pairs | 2,080 | **100%** | 5 for all 2,080 | 39,026 (the 64 containing 28730) |
 | triples | 43,680 | **100%** (H: 1,744 = 4.0%) | **5 for all 43,680** | 39,026 (the 2,016 = C(64,2) containing 28730) |
-| quadruples | 677,040 | in progress | — | 39,026 so far |
+| quadruples | 677,040 | **100%** | 5 for all 677,040 | 39,026 (the 41,664 = C(64,3) containing 28730) |
 
 Every run exhaustive (`exh=True`), no node-cap truncation. `|R| = 12` exactly when `28730 ∈ D`,
 `|R| = 13` otherwise; `outside = 0` throughout. So `failing = |R| - 5`, and the entire detach axis
@@ -54,9 +54,10 @@ that re-does the full build on cache hits and checks the knob list and `M` reall
 **Audits: 212 on triples, 35 on pairs, 20 on singletons — 0 mismatches.** Fast path cross-checked
 set-by-set against the exact path on all 65 singletons: 0 mismatches.
 
-The reason for the collapse: `make(D)` gives the detached pool members their **witness** values.
-For 64 of the 65 pool variables the witness value already equals the gate value, so detaching them
-changes nothing. `x_28730` is the exception, and it alone accounts for `|R| = 12`.
+The reason for the collapse is measured exactly in step 9: `make(D)` gives detached pool members
+their **witness** values, and for 61 of the 65 pool variables the witness value already equals the
+gate value, so detaching them changes nothing.  Only `{642, 28730, 29854, 31864}` differ, and
+`x_28730` alone accounts for `|R| = 12`.
 
 ## Step 4 — the other two carrier classes, re-ranked exactly (H ran stage B only on top scorers)
 
@@ -147,3 +148,36 @@ selector configuration = the witness's own, from `best/new_instance_partial_3902
   full net-zero-collateral integer kernel (rank 8 > 7) leaves OPT at 5.
 - **REFUTED (as a reading of H's tables)**: "the rank>deficit sets zero exactly one row." They
   zero five.
+
+## Step 9 — the detach axis is CLOSED, not sampled
+
+`make(D)` gives detached pool members their **witness** values.  Comparing the witness value of
+each pool variable against its gate value in the all-re-attached state: only **4 of the 65** differ,
+and they are exactly `{642, 28730, 29854, 31864}` — the witness set.  Detaching any of the other
+61 leaves every variable unchanged.  Therefore `make(D)` depends only on
+`D ∩ {642,28730,29854,31864}`, the whole `2^65` detach lattice has exactly **16 states**, and that
+matches the 16 distinct `(R,b)` signatures the 722,865-placement sweep measured.
+
+All 16 priced exactly (`runs/detach_closure.json`): OPT = 5 for all 16, `outside = 0` for all 16,
+`|R| = 12` iff `28730 ∈ D`.  Best over the entire lattice: **39,026**, attained by the 8 states
+containing `28730`.  Verified: `make(POOL)` reproduces the witness assignment bit-for-bit
+(score 39,026), `make([])` scores 39,020.
+
+**The detach axis is finished.**  Sweeping k = 5, 6, ... is provably redundant.
+
+## Quadruple layer (for the record, run before the closure was found)
+677,040 sets, **100%**, 0.016 s/set, 1,337 audits with 0 mismatches: OPT = 5 for all 677,040,
+`|R| = 12` for exactly 41,664 = C(64,3) (those containing 28730) → 39,026, the rest 39,025.
+All exhaustive.
+
+## Coverage table, final
+| layer | sets priced | coverage | OPT | best |
+|-------|-------------|----------|-----|------|
+| detach singletons | 65 | 100% | 5 | 39,026 |
+| detach pairs | 2,080 | 100% | 5 | 39,026 |
+| detach triples | 43,680 | **100%** (H: 4.0%) | 5 | 39,026 |
+| detach quadruples | 677,040 | **100%** | 5 | 39,026 |
+| whole detach lattice | 2^65 | **100% exactly (16 states)** | 5 | **39,026** |
+| cascade pins | 20 | 100% (H: top scorers only) | 0–13 | 39,018 |
+| handles | 1,147 | 100% (H: top scorers only) | 0–17 | 39,017 |
+| collateral budget \|W\| ≤ 2 | 9,731 | exhaustive | g = 5 | 39,026 |
