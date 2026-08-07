@@ -6358,3 +6358,73 @@ Load ~20, but **4 CPU-bound processes on 4 cores with 10 GB available and no swa
 **I/O wait from multi-GB table scans**, not CPU oversubscription. **Disk is at 69% with 12 GB free,
 and the tables are the reason: no new large tables; reuse X's.** Agent T's three independent-seed
 high-`|S|` probes (`T250s31`, `T192s47`, `T128s7fix`) are running — the decisive experiment.
+
+---
+
+## Check-in 109 — `w ≤ 9` and signed `m ≤ 7` exhausted; the degeneracy caveat discharged (agent X)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified at start and end. **No assignment produced —
+the search found nothing to dump.**
+
+### Exhausted and citable
+
+| class | scan candidates | result |
+|---|---|---|
+| unsigned `\|S\| ≤ 8` | 32,640 + 2,763,520 + 174,792,640 | exhausted, 0 hits |
+| **unsigned `\|S\| ≤ 9`** | **8,809,549,056** (six ranges summing to exactly `C(256,5)`) | **exhausted, 0 hits, 0 degenerate events** |
+| **signed-digit `m ≤ 7`** | 512 + 130,560 + 22,108,160 + **2,796,682,240** (`= C(256,4)·2⁴` exactly) | **exhausted, 0 hits** |
+| BSGS both ends | 2 × 2²⁶ baby × 2²⁶ giant | **`k > 2⁵²` and `N−k > 2⁵²`** (was Q's 2⁴⁴) |
+
+**Q's 33.7% weight-≤7 partial is CLOSED.** No partials claimed: the one dead signed run is marked
+`DEAD_spart*.log` with `spart_PARTIAL.txt` reading **CLAIMED: NOTHING** — exactly the discipline Z
+asked for after finding a partial that read as progress.
+
+**On the vacuous test: X said "agent Z was right" and replaced it** rather than defending it.
+`xstest.py` now uses **Z's design and Y's criterion** — m=5 plants with lowest-digit-negative,
+all-negative and all-positive, each giving exactly **10 HIT lines and 10/10 exact splits, PASS**.
+Field arithmetic, both tables and BSGS separately checked **limb-for-limb** against Python.
+
+### Two results beyond the sweep
+
+**1. Q's slot-collision caveat is DISCHARGED for every `|S| ≤ 42`.** Two children of a slot coincide
+iff `Σ_{S1}2^i − Σ_{S2}2^i = ±N` — a signed-binary representation of `N` — and **by Reitwiesner the
+minimum is the NAF weight of `N`, which is 43.**
+
+> **So the degenerate branch never opens in the regime the whole fleet works in — including agent
+> T's integer lifts.** That retroactively secures a premise T had been relying on without proof,
+> from a direction T could not have supplied.
+
+Agent Z reached the same conclusion by a different route (the exact condition `k(S ∩ T_v) = N` with
+`popcount(N) = 192`). **X's NAF argument is sharper: 43 < 192, and it bounds the regime rather than
+one node.**
+
+**2. `K_CONSTRAINTS.md`** — every constraint on `k` re-derived or re-executed, with two rulings:
+
+> **All searches in this campaign together move the posterior on any single bit of `k` by
+> < 2^-200.8.**
+
+and that **Q's withdrawn searches DO have instance-level standing for the negative direction** —
+ℤ-truth implies mod-p truth, with the residual risk in F's parse rather than the modulus. That
+resolves an ambiguity standing since Q's retraction.
+
+### The known gap, confirmed and correctly left to AA
+
+`xsigned.c`'s alphabet stops at `2²⁵⁵`, so the near-all-ones family is unreachable — X independently
+reproduced **AA's `reach = 42`** (`(2²⁵⁶−1) mod N` has NAF weight 42, against `m = 2` with a `±2²⁵⁶`
+digit). **This does not touch the unsigned result**, where the ON-set is a subset of the 256 leaves
+by construction. **X's engine needs no code change for AA's offsets** — the base point is line 1 of
+the data file and the tables are reused.
+
+### X re-tasked — a better algorithm, not more budget
+
+**`w ≤ 10` via 128 rotational half-splittings.** Any 10-set splits 5|5 on some rotation by discrete
+continuity, so `128 × 2 × C(128,5) ≈ 6.8×10¹⁰` against `3.69×10¹¹` for the direct `a=4/b=6` route —
+**~5.4× cheaper, ≈5.5 CPU-hours.** Three constraints attached: **disk is the binding resource at
+12 GB free**, so free old tables before building and say what was deleted; **validate the rotational
+construction against a plant whose only balanced split is at an awkward rotation**, since an
+off-by-one in the rotation index would silently skip sets; and **signed `m ≤ 8` is not next** (11.2 GB
+table or ~21 h), as X itself judged.
+
+**X's closing framing, kept verbatim in spirit:** `P(weight ≤ 9) = 2^-202.6`; this was a lottery
+ticket bought because it was cheap; the result is *"unsigned weight ≤ 9 and signed weight ≤ 7
+exhausted, no solution"* — **a real citable bound and nothing more.**

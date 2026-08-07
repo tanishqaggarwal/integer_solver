@@ -560,3 +560,23 @@ scan size 3 range [0,256): 2763520 candidates, zero-events 0, 8.6s
   i0=49 done cum=27977380 390.9s
   i0=50 done cum=31971818 392.9s
   i0=51 done cum=29507919 394.2s
+  i0=52 done cum=29351081 398.8s
+  i0=53 done cum=33325218 424.0s
+  i0=54 done cum=30841219 424.9s
+  i0=55 done cum=30664481 425.1s
+  i0=46 done cum=15276772 426.9s
+  i0=56 done cum=34618917 427.9s
+  i0=58 done cum=31919371 428.0s
+  i0=57 done cum=32115415 428.5s
+  i0=60 done cum=35835782 449.1s
+  i0=61 done cum=33117515 449.8s
+  i0=62 done cum=33295031 450.4s
+  i0=63 done cum=36997062 453.3s
+  i0=64 done cum=34260650 454.4s
+  i0=65 done cum=34420211 455.1s
+  i0=66 done cum=38104476 456.7s
+  i0=67 done cum=35350486 457.3s
+  i0=68 done cum=35492656 459.5s
+  i0=59 done cum=16512552 459.6s
+  i0=69 done cum=39159716 462.5s
+  i0=70 done cum=36388706 463.0s
