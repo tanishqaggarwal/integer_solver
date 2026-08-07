@@ -60,10 +60,13 @@
  67/256 bit 15406  tree A match=True  conflicts=0   running: match 64, conflict 0, t=837s
  68/256 bit 15730  tree A match=True  conflicts=0   running: match 65, conflict 0, t=850s
  69/256 bit 16214  tree A match=True  conflicts=0   running: match 66, conflict 0, t=864s
-6 bit 14601  tree A match=True  conflicts=0   running: match 61, conflict 0, t=899s
- 64/256 bit 14644  tree A match=False conflicts=0   running: match 61, conflict 0, t=914s
- 65/256 bit 14928  tree A match=True  conflicts=0   running: match 62, conflict 0, t=926s
- 66/256 bit 15064  tree A match=True  conflicts=0   running: match 63, conflict 0, t=939s
+ 70/256 bit 16411  tree A match=True  conflicts=0   running: match 67, conflict 0, t=877s
+ 71/256 bit 16688  tree A match=True  conflicts=0   running: match 68, conflict 0, t=892s
+ 72/256 bit 17149  tree A match=True  conflicts=0   running: match 69, conflict 0, t=905s
+6 bit 15064  tree A match=True  conflicts=0   running: match 63, conflict 0, t=939s
  67/256 bit 15406  tree A match=True  conflicts=0   running: match 64, conflict 0, t=952s
  68/256 bit 15730  tree A match=True  conflicts=0   running: match 65, conflict 0, t=966s
  69/256 bit 16214  tree A match=True  conflicts=0   running: match 66, conflict 0, t=980s
+ 70/256 bit 16411  tree A match=True  conflicts=0   running: match 67, conflict 0, t=994s
+ 71/256 bit 16688  tree A match=True  conflicts=0   running: match 68, conflict 0, t=1009s
+ 72/256 bit 17149  tree A match=True  conflicts=0   running: match 69, conflict 0, t=1022s
