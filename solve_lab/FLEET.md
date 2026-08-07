@@ -7404,3 +7404,39 @@ passes carry the engine's own `DONE` line with the exact closed-form count, and 
 chunks separately without counting them. The single claimable statement on completion is fixed in
 advance: *`k` has signed-digit weight > 8 over exponents `0..255`; against `H_W` this kills `H_8`,
 gives 5.00× against `H_10`, 2.00× against `H_16`, 1.67× against `H_20`, and nothing beyond.*
+
+---
+
+## Check-in 123 — the watchdog cried DEAD on a job that had finished
+
+`ALARMS.log` fired for the first time:
+
+```
+22:31:30 ALARM dreg(6881) DEAD
+22:33:30 ALARM dreg(6881) DEAD
+```
+
+**PID 6881 did not die. It completed**, wrote its read-off, and exited — `dreg3.log` ends
+`-> n=4 solving degree >=6 (6330s)` and `MEASURED SOLVING DEGREES: {2: '=4', 3: '=5', 4: '>=6'}`,
+which is the outcome recorded in check-in 120. **No action needed and nothing is lost.**
+
+**But the alarm is worth a permanent line, because the fleet's own lesson has recursed onto its
+monitor.** AI's sampler tests `kill -0` and reports **`DEAD` on absence** — a *claim* inferred from a
+process being gone — when the evidence was sitting in the log the whole time. **A watchdog that
+cannot distinguish "completed" from "died" is the status-marker failure in monitoring clothes:**
+
+> **Absence of a process is not evidence of failure. The completion line is evidence; the missing PID
+> is a claim.** A monitor must read the artefact before it names the outcome — the same rule that
+> kept Y's lie out of the record, applied to the thing that watches.
+
+This is the second time an instrument has been more trustworthy than a marker and the fourth
+process-identification defect in a row, and it lands on the agent whose entire job was to catch that
+class of error. **Recorded without prejudice to AI**, whose custody has otherwise been exact — it
+caught the live `aa_shard.sh` hazard before it bit, verified each rotation shard against *its own*
+closed form rather than the sum I specified, and independently re-verified X's restored tables with
+two checks X had not claimed.
+
+**Box state, all healthy:** `MemAvailable` 13.4 GB of 16, no swap, load 18.9. **AA's renice is
+verified in effect from `/proc`** — `aa_signed` at `NI=15`, so X's rotation sweep has priority as
+ruled; it stands at **20/128**. Disk 11 GB free and flat. T's `close_T192*` / `close_T250*` artefacts
+do not exist yet, so **AF's pre-registered prediction of 39,018/39,033 remains untested.**

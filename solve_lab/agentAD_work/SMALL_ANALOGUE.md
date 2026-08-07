@@ -435,11 +435,10 @@ i.e. it is vacuous, and it is worse than agent Y's complement mechanism at `W = 
 
 The smallest `ρ` observed anywhere in this study, across every curve, size, tree shape,
 coefficient pool and draw — including settings **four times more constraining than the real
-instance** (`frac = 1.0` vs `927/3707 = 0.25`) — is **0.658** (robust fit; **0.266** for a
-single small-sample `n = 8` raw fit, which even taken at face value only reaches `w ≤ 132`);
-the sweep over adversarial modulus pools (`{4}`, `{8}`, `{2,4,8}`, `{3,9}`,
-`{2,3,5,7,11,13}`, all at `frac = 1.0`) pushes the robust minimum to **0.545**, which implies
-`w ≤ 205` at `n = 256`.  Note which pools do it: **concentrated** small prime powers
+instance** (`frac = 1.0` vs `927/3707 = 0.25`) — is **0.545** (robust fit; **0.266** for a
+single small-sample `n = 8` raw fit, which even taken at face value only reaches `w ≤ 132`).
+That minimum comes from the adversarial modulus sweep of §3.3, and it implies `w ≤ 205` at
+`n = 256`.  Note which pools reach it: **concentrated** small prime powers
 (`{8}`, `{3,9}`) are the worst case; a *wide* pool `{2,3,5,7,11,13}` is much weaker
 (`ρ ≈ 0.78–1.00`), because each condition then draws only one modulus and a block is rarely
 bound by all of them.

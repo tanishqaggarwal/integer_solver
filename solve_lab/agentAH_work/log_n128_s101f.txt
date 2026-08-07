@@ -63,3 +63,25 @@ S(seed=101,n=128) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357,
 outer 0: global nonzero 81, violated c-conditions 78, nonzero handle-less 3
    single-wire pass over 382 wires (max atoms/wire 2)
      [hb] wire 198/382  nz-guard evals=1107  sg3 calls=198  sg3 time=125s  accepted=36  t=368s
+   single-wire pass: 63 accepted
+outer 1: global nonzero 13, violated c-conditions 10, nonzero handle-less 3
+   single-wire pass over 32 wires (max atoms/wire 1)
+   handle-less pass: 3 nonzero handle-less atom(s)
+      *** x34218 += p*322948684674 zeroes (x23514-(x6677*x23504)) (exact, recomputed)
+      *** x36038 += p*605517349896 zeroes (x11231-(x8233*x21728)) (exact, recomputed)
+outer 2: global nonzero 11, violated c-conditions 10, nonzero handle-less 1
+   single-wire pass over 32 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x29327*(x36128-359702590479861189598273782415394539357  c=1514949
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x31778*x19594)-(9401079*x17407))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x6930  ,x14052 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x24221 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x36128 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x24221 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)

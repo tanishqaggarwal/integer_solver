@@ -95,3 +95,9 @@ STATUS jumps=827719680 dps=50420 cands=0 t=933.8 rate=0.886M/s
 STATUS jumps=837419008 dps=51034 cands=0 t=943.8 rate=0.887M/s
 STATUS jumps=846528512 dps=51627 cands=0 t=953.9 rate=0.887M/s
 STATUS jumps=856227840 dps=52226 cands=0 t=963.9 rate=0.888M/s
+STATUS jumps=865730560 dps=52804 cands=0 t=973.9 rate=0.889M/s
+STATUS jumps=876085248 dps=53454 cands=0 t=983.9 rate=0.890M/s
+STATUS jumps=888471552 dps=54215 cands=0 t=994.0 rate=0.894M/s
+STATUS jumps=902430720 dps=55081 cands=0 t=1004.0 rate=0.899M/s
+STATUS jumps=915800064 dps=55843 cands=0 t=1014.0 rate=0.903M/s
+STATUS jumps=929169408 dps=56664 cands=0 t=1024.0 rate=0.907M/s
