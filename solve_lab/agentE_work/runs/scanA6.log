@@ -97,3 +97,5 @@ x_21305	pins=[3048, 3049]	FEAS=False	msg=core too large (245x490)	exact=None	9s
 x_21392	pins=[10013, 31592]	FEAS=False	msg=core infeasible	exact=None	2s
 x_22106	pins=[35671, 35672, 40398]	FEAS=False	msg=core infeasible	exact=None	6s
 x_22140	TIMEOUT	45s
+x_22282	pins=[29836, 29837]	FEAS=False	msg=core infeasible	exact=None	29s
+x_22492	pins=[23923, 23924]	FEAS=True	msg=ok	exact=(16, [])	5s

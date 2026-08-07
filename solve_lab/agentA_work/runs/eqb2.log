@@ -7,3 +7,5 @@ mod p: rank=15 of 32 knobs (17 knob columns vanish), syndrome dim w=53, g nonzer
   RIGOROUS: no |D| <= 4 is mod-p consistent -> every integer point violates >= 5
   Prange trial 0: weight 9 [0s]
   Prange trial 83: weight 7 [1s]
+  Prange: 3000 trials, 2025 solvable, lightest weight SEEN = 7 (an upper bound)
+  P(a weight-<=6 mod-p-consistent D exists and was missed) <= 9.48e-208

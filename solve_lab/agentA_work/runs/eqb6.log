@@ -2,3 +2,7 @@ new_instance_partial_39026.json lev6: atoms=235 eqs=230 nontrivial rows=163 knob
 mod p: rank=53 of 109 knobs (56 knob columns vanish), syndrome dim w=110, g nonzero=True
   mod-p exhaustive |D|=1: 163 subsets, consistent: NONE [0s]
   mod-p exhaustive |D|=2: 13203 subsets, consistent: NONE [2s]
+  mod-p exhaustive |D|=3: 708561 subsets, consistent: NONE [218s]
+  RIGOROUS: no |D| <= 3 is mod-p consistent -> every integer point violates >= 4
+  Prange trial 9: weight 9 [1s]
+  Prange trial 55: weight 7 [7s]

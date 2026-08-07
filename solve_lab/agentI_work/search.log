@@ -42,3 +42,26 @@ pairs among the 8 cheapest additions:
   +a23435,a23437 |E|= 16 knobs= 9 minfail=7
   +a23435,a23438 |E|= 16 knobs= 8 minfail=7
   +a36224,a23436 |E|= 17 knobs= 7 minfail=7
+  +a36224,a36223 |E|= 15 knobs= 9 minfail=7
+  +a36224,a6256 |E|= 18 knobs= 7 minfail=7
+  +a36224,a23437 |E|= 18 knobs= 8 minfail=7
+  +a36224,a23438 |E|= 18 knobs= 7 minfail=7
+  +a23436,a36223 |E|= 18 knobs= 8 minfail=7
+  +a23436,a6256 |E|= 19 knobs= 7 minfail=7
+  +a23436,a23437 |E|= 16 knobs= 8 minfail=7
+  +a23436,a23438 |E|= 16 knobs= 7 minfail=7
+  +a36223,a6256 |E|= 18 knobs= 8 minfail=7
+  +a36223,a23437 |E|= 19 knobs= 9 minfail=7
+  +a36223,a23438 |E|= 19 knobs= 8 minfail=7
+  +a6256,a23437 |E|= 20 knobs= 8 minfail=7
+  +a6256,a23438 |E|= 20 knobs= 7 minfail=7
+  +a23437,a23438 |E|= 16 knobs= 8 minfail=7
+
+triples among the 6 cheapest additions:
+  +(23434, 23435, 36224) |E|= 16 knobs= 9 minfail=7
+  +(23434, 23435, 23436) |E|= 15 knobs=10 minfail=7
+  +(23434, 23435, 36223) |E|= 17 knobs=10 minfail=7
+  +(23434, 23435, 6256) |E|= 18 knobs= 9 minfail=7
+  +(23434, 36224, 23436) |E|= 17 knobs= 8 minfail=7
+  +(23434, 36224, 36223) |E|= 16 knobs=10 minfail=7
+  +(23434, 36224, 6256) |E|= 19 knobs= 8 minfail=7
