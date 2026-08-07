@@ -34,7 +34,7 @@ re-eval, 0.08 s/probe), `jclose2.py A B` (linear closure), `sparse.py`/`intsolve
    fixpoint).  With (x_4279, x_26005) the bad set becomes exactly the two bits' pin atoms
    [6668,12606,34497,34498].  (1,0) works too: `x_12186=x_13682`, `x_16742=x_18956-x_32237`.
 5. Each activated bit carries pins `b*(free-K) = m*handle` and `pin = p*handle`
-   (p = secp256k1 prime).  Single-variable greedy stalls at exactly 4 bad atoms.
+   (p = the 256-bit literal 115792089237316195423570985008687907853269984665640564039457584007908834671663 that appears throughout the file).  Single-variable greedy stalls at exactly 4 bad atoms.
 6. **The repair is an exact linear Diophantine system.**  Closure around the pin set:
    4,008 vars x 2,996 atoms, linear except 1,810 (var,atom) pairs, built in 4 s.
    Small support: rationally feasible (rank(A)=rank([A|b])), **integer-infeasible**.

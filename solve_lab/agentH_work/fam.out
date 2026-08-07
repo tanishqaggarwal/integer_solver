@@ -18,3 +18,5 @@ TWO-RUN family (exhaustive over all 33k x 33k): hits = []   39.7s
   d=16 done  79.2s
 PERIODIC family (d<=16, all 2^d residue sets): hits = []   79.2s
 --- BSGS on -T : covers k = N - c, c < 2^44 ---
+  baby built+sorted 201s
+NEG-BSGS: c = None  (k = N-c)  460s

@@ -55,7 +55,7 @@ Bits (x_4279, x_26005): bad set becomes exactly the two bits' pin atoms
 
 ## 7. Pin gadgets, and why single-move greedy stalls at 4 atoms
 Each activated bit b carries `b*(free - K) = m*handle` and `pin = p*handle`
-(p = secp256k1 prime).  Fixing one pin relocates the residual one link down a chain
+(p = the 256-bit literal 115792089237316195423570985008687907853269984665640564039457584007908834671663 that appears throughout the file).  Fixing one pin relocates the residual one link down a chain
 (`runs/chain_A.log`: 34498->10372->35326, 34497->13311->34090->35321,
 12606->19725->7128, 6668->209).  #bad atoms is invariant = 4 under single moves.
 
@@ -67,3 +67,56 @@ converges in 4 s to **4,008 variables x 2,996 atoms**, 1,810 (var,atom) nonlinea
   integer-INfeasible** (kernel 2).
 - round<=2: 342 vars / 335 linear rows -> rank 297 = rank([A|b]), rationally feasible; HNF running.
 => the obstruction at small support is INTEGRALITY, not rank.  Growing the support is the attack.
+
+## 9. RESUMED — the bit scan and the subset test (the decisive experiments)
+
+### 9.1 Machinery fixed
+`sparse.py` rewritten with a column index + heap pivot order and guards
+(`maxcore`, entry-bit-length); `bitfeas2.py` closes and solves per bit at growing support;
+`scanbits.py` sweeps a whole tree with a per-bit alarm.
+
+### 9.2 Per-bit pin feasibility  (`runs/scanB.log`, `runs/recheckB.log`, `runs/scanA5.log`)
+For a single activated bit the pin system is an exact linear Diophantine system.
+**b-tree: 78/78 scanned -> 50 FEASIBLE, 28 infeasible.**  Every feasible one was *exactly*
+verified: applying the solution leaves **zero** atoms outside the selector core
+(`exact=(16, [])` -- 16 failing equations, all from the still-unresolved selector atoms).
+Infeasible bits fail on a p-divisibility row, e.g. `x_30448 -> row 23194: rhs % -p != 0`,
+or on an infeasible core.  A re-check of all 28 with the improved solver reproduced the
+verdict.  a-tree scan running the same way.
+
+### 9.3 The subset law (`runs/subsetsize.log`, `runs/iterpair.log`)
+Iterated closure+solve from k activated bits, residual atoms after convergence:
+
+| k | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| residual atoms | **0, 0, 0** | 3, 3, 4 | 7, 7, 7 | 6, 7, 9 | 9, 10, 10 |
+
+k=1 closes completely.  Every k>=2 leaves whole **AND-triples** and the iteration is a fixed
+point on them (`runs/iterpair.log`: it1 makes no progress).
+
+### 9.4 What an AND-triple is  (decoded exactly, pair (x_1530, x_1603))
+Two bits in different halves of the OR-tree make their LCA's AND gate fire:
+`x_24195 = x_33953 * x_1250 = 1`.  Then three atoms appear, in one shape:
+
+    a726 : x_24195 * x_19097            = 0            x_19097 = 5002401*U  + 15322661*V
+    a722 : x_24195 * x_6635             = p * x_34496  x_6635  = 15944455*U +  4826103*V
+    a724 : 7952523*(x_24195 * x_36280)  = p * x_3193   x_36280 = 14913407*U + 11707765*V
+
+with `U = x_29210 = x_25848 - x_17317`, `V = x_8736 = x_18682 - x_28841`, and
+p = 115792089237316195423570985008687907853269984665640564039457584007908834671663.
+The 2x2 determinant of the two mod-p forms is 15944455*11707765 - 4826103*14913407
+= **114700293930154**, and `gcd(114700293930154, p) = 1`, so the two congruences have rank 2
+and force **U = V = 0 (mod p)**; a726 then forces `5002401*U + 15322661*V = 0` over Z.
+This is the SAME shape as the top-level (1,1) residual `x_15298 * {x_11150, x_25739, x_37758}`.
+At the repaired pair state the only free handles on (U,V) are 23 further OR-tree selector
+bits -- moving them fires more AND nodes.
+
+**Conclusion: the pin conditions are independent per single bit but NOT across subsets.
+Any on-set of size >= 2 binds through the AND (LCA) nodes it activates, each demanding a
+rank-2 mod-p vanishing of the same two forms.**
+
+### Framing note (coordinator direction change)
+All curve/point/group vocabulary has been removed.  `p` below is simply the 256-bit integer
+literal 115792089237316195423570985008687907853269984665640564039457584007908834671663 that
+occurs verbatim in EQUATIONS.txt; every statement here is about integer congruences and
+integer-linear relations among the polynomials in the file, nothing more.

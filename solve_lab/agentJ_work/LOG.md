@@ -101,3 +101,26 @@ constraints.  They are not a mod-p degree of freedom.  This CORROBORATES agent I
 step 6 from an independent parse, measured over the full constraint set rather than
 a subsystem.  What is NOT established: infeasibility.  The 254 data bits remain a
 combinatorial search, and that search is the ECDLP.
+
+## THE OFF-MANIFOLD ROUTE: my own proposal was backwards, and the data says why
+`jcode.py` computes, for a residual support T, the EXACT support-only lower bound
+  failures >= #{equations whose intersection with T has size exactly 1}
+(if j is in the support then a_j != 0, so such an equation cannot cancel).  No
+knowledge of the atom VALUES is needed.
+
+    support                                    |T|  |R|  alone-rows  => min failures
+    DELIVERABLE {23326,23327,35889..35893}      7    12      1              1
+    on-manifold CD-fixed {8583,30271}           2    29     29             29
+    branch (1,0) pins {731,31571}               2    22     19             19
+    branch (1,1) EC {20407,20409,31575}         3    20      7              7
+    lifted J_b10_38998 {731,3895,31571}         3    35     32             32
+
+So "2 nonzero atoms beats 7" is FALSE.  What matters is not the number of nonzero
+atoms but their CO-OCCURRENCE FOOTPRINT.  a8583 and a30271 never share an equation,
+so all 29 touched equations are un-cancellable and 39004 is the ceiling for that
+support.  The deliverable's 7 atoms are a tight cluster touching only 12 equations
+with a single un-cancellable row.  The deliverable is not lucky; it is sitting on
+the best-connected cluster in the instance.
+
+=> The real question is not "fewer atoms" but "can the deliverable's own 12-row,
+7-unknown cluster be pushed from 5 zeroed rows to 6?"  That is score 39027.

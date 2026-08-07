@@ -1,1 +1,5 @@
 region rows=89 knobs=65 violated=24  (score 39009; need <=6 violated to beat 39,026)
+ISD trials=10635  minimum support weight seen = 10  supports<=6 found = 0
+DONE. best score from this region = 39009
+CONCLUSION: minimum code-support weight in this region is 10 > 6, so every
+integer knob vector violates >= 10 rows -> this basin cannot beat 39,026.

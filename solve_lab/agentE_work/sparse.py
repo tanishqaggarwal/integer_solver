@@ -71,6 +71,11 @@ def solve_sparse(rows, rhs, names=None, verbose=True, maxcore=400, maxbits=20000
     if verbose: print(f"  elim: {nsing} singletons, {len(subs)} pivots, core {len(core)}x{len(corevars)}, {time.time()-t0:.1f}s",flush=True)
     if len(core)>maxcore or len(corevars)>maxcore:
         return None,'core too large (%dx%d)'%(len(core),len(corevars)),fixed
+    if core:
+        mb=max((abs(x).bit_length() for i in core for x in R[i].values()), default=0)
+        mb=max(mb, max((abs(B[i]).bit_length() for i in core), default=0))
+        if mb>4000:
+            return None,'core entries too large (%d bits)'%mb,fixed
     sol=dict(fixed)
     if core:
         A=[[R[i].get(v,0) for v in corevars] for i in core]

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""For every free variable that moves the three EC constraints, measure how many
+"""For every free variable that moves the three nonlinear constraints, measure how many
 OTHER constraints it breaks (mod p).  Cheap knobs = candidates for a real solve."""
 import os, pickle, random, sys, time
 import jengine as E, jman as J, jmodp as MP
@@ -7,7 +7,7 @@ from collections import deque
 
 P = MP.P
 definer = J.definer
-EC = [20407, 20409, 31575]
+NL = [20407, 20409, 31575]
 CONS = MP.CONS
 
 base = [x % P for x in J.BASE]
@@ -16,9 +16,9 @@ r0 = MP.residues(base)
 bad0 = set(i for i, x in r0.items() if x)
 print("base violated:", sorted(bad0))
 
-# cone leaves of the EC constraints
+# cone leaves of the nonlinear constraints
 seen = set(); q = deque()
-for i in EC:
+for i in NL:
     q.extend(E.varsof[i])
 leaves = set()
 while q:
@@ -40,7 +40,7 @@ for n, z in enumerate(LV):
     v[z] = random.randrange(P)
     MP.fwd_modp(v)
     r = MP.residues(v)
-    moved_ec = [i for i in EC if r[i] != r0[i]]
+    moved_ec = [i for i in NL if r[i] != r0[i]]
     if not moved_ec:
         continue
     broke = sorted(i for i in CONS if r[i] and i not in bad0)

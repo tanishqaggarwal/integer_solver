@@ -1,0 +1,3 @@
+x_47	pins=[25147, 25148]	FEAS=False	msg=core infeasible	exact=None	7s
+x_112	pins=[30126, 30127]	FEAS=False	msg=core infeasible	exact=None	5s
+x_542	pins=[14579, 14580, 40589]	FEAS=False	msg=core infeasible	exact=None	6s

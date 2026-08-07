@@ -1,5 +1,0 @@
-complement target computed
-  size<=2 built 32896  1.6s
-  size<=3 built 2796416 subsets  127.0s
-sorted 2796416 137.2s
-complement weight<=3 hits: []

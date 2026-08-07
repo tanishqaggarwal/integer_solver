@@ -90,6 +90,28 @@ Memory and disk stayed ample. Stopped, each having delivered its angle's result:
 | H | decomposition delivered | acyclic frame over all 38,748 vars, 8,747 free inputs — cleaner than prior sessions' |
 | J | verdict delivered | reduced parameterization independently re-derived and CONFIRMED real |
 
+### WITHDRAWN BY USER INSTRUCTION — do not resume, do not re-derive
+
+The section below records a reading of the instance that the user has directed the fleet to
+drop entirely. All agents have been told to delete its artifacts, purge its vocabulary from
+their notes, and not re-derive it. **It is retained here only so a future session recognizes
+the direction as closed rather than rediscovering it.** Do not act on it, cite it, or use it
+to argue that the instance is unsolvable.
+
+The reason for the change is sound independently of whether the reading was correct: every
+agent had begun interpreting every result through a single lens, and that lens was being used
+to conclude the instance cannot be solved — which narrowed what anyone was willing to search.
+Work the equations as integer polynomials.
+
+Note what survives translation, because it is most of the durable content: the exact affine
+region models, the optimality lemmas, the effective-support reduction, the exact-gauge kernel
+result, the "not affine" measurement of the boolean-to-residual map, the flat 5–6 cost profile
+over discrete knobs, and every checker-verified score. None of those depend on the discarded
+framing.
+
+<details>
+<summary>Withdrawn (historical record only)</summary>
+
 ### The finding that reframed the campaign
 
 Agent I derives, from its own parse with each step reproducible, that the instance
@@ -124,3 +146,30 @@ Independence is the point: none may import agent I's artifacts.
 
 A clean refutation would be the campaign's most valuable result; a clean confirmation lets
 the situation be stated precisely instead of gestured at.
+
+</details>
+
+### Current tasking — after the withdrawal
+
+All framing-dependent searches were stopped. The live work is algebraic and combinatorial,
+and most of it needed no reframing because it was never framing-dependent:
+
+| Agent | Task |
+|-------|------|
+| A | ISD / coset-leader search on the mod9118_0 basin: 89 affine rows, 65 knobs, rank 65, Q-consistent with a unique non-integral solution, so every integer point's violated set must contain a code support. Report the minimum support weight observed. |
+| C | Fix the settable classifier so it reproduces the deliverable's true cost of 7, then re-run globalscan over all 3,349 settable handle-definition atoms with corrected pricing |
+| E | Pin-feasibility scan per bit, then subsets: do the pin conditions constrain subsets independently, or only through their sum? |
+| F | Multi-modular: solve mod many primes and prime powers, locate where lift obstructions actually concentrate, then Hensel-lift and CRT-reconstruct |
+| G | Minimum-weight coset decoding in the exact equation-level model (6,613 linear + 161 nonlinear equations, 4,652 unknowns) — the only model in the fleet posed at equation level rather than atom level |
+| H | Integer relations among the 512 load-pin constants and the two residual congruences, using close2.py's constructive cascade closer rather than search |
+| I | Maximize cancellation: min number of nonzero equations over atom vectors in the image of the atom map, seeded from a 2-atom cut |
+| J | Second off-manifold coding: 2 nonzero atoms vs the deliverable's 7, choosing handle lifts into as many equation-row kernels as possible |
+
+I and J attack the same formulation from different models and are barred from importing each
+other's work; A, C and G attack adjacent versions of the placement question the same way.
+
+The open question that matters most, stated without any framing: **"all atoms zero" is
+sufficient but not necessary.** 1,853 atoms occur in exactly one equation and the deliverable
+itself carries 9 nonzero atoms, so every optimality argument this campaign has produced —
+including two exhaustive ones — lives inside a single branch of the system. I's and J's
+cancellation experiments are the probe of what lies outside it.

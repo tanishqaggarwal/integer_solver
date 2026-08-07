@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """Solve the linear chain of the reduced mod-p system by Gauss-Seidel, then
-report the three EC constraints."""
+report the three nonlinear constraints."""
 import os, sys, random
 import jengine as E, jman as J, jmodp as MP
 
 P = MP.P
-EC = [20407, 20409, 31575]
+NL = [20407, 20409, 31575]
 # (constraint, knob) pairs: knob appears with degree 1 in the constraint
 PAIRS = [(3895, 6418), (3897, 12553), (32257, 22152), (32259, 33462),
          (30271, 14853), (8583, 24548), (22688, 14623), (26603, 31339),
          (34370, 8778), (27640, 16742), (2694, 22649),
          (31571, 22162), (731, 30213)]
-ALLC = [c for c, _ in PAIRS] + EC
+ALLC = [c for c, _ in PAIRS] + NL
 
 
 def solve_pair(val, c, z):

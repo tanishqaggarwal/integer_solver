@@ -113,3 +113,59 @@ That measurement is the input to the LLL / low-density-subset-sum attack in RESU
 ~300/1156; both terminated. Partial pickles: `bigscan_all.pkl`, `pinscan.pkl`.
 Best verified score remains the inherited 39,026 — I did not beat it.
 All my artifacts are under solve_lab/agentG_work/; no shared file was modified.
+
+## Exp G41 — MY REFUTATION (i) IS WRONG. RETRACTED.
+I tested the curve in the wrong (short) form. Re-run in general Weierstrass form,
+deriving every constant from my own A,B identities and nothing else (`g41_curve.py`):
+* On `y^2 = x^3 + a2 x^2 + a4 x + a6` the chord-and-tangent addition is exactly
+  `A = 0` with **K = a2**, and `B = 0`. So the constant K in my A identity IS a2.
+  a2 = K = 97553848499418123410591666447050222001188385549510401465815187079080512838891
+* Solving for a4, a6 from P1, P2:
+  a4 = 114170008767671698752186727197936107864370654164657728518655355473804451402762
+  a6 = 77755683306591771556999954628254672912734268662742093169295805431582354953490
+* **a4 == a2^2/3 exactly, so j = 0.** After x -> x - a2/3: A_short = 0 (exactly),
+  B_short = 64019533680030876408443198762210829058751700634554282185987325820393598524794.
+  B_short/7 is a **6th power** mod p -> the curve is ISOMORPHIC to secp256k1 over F_p.
+* P1, P2 **and** P3 all lie on it; `[n_secp]P1 = [n_secp]P2 = O`.
+* Isomorphism: `x_sec = (x + a2/3)/u^2`, `y_sec = y/u^3`,
+  u = 4210889811980686189396764679825672592540066047176031544704936155054310740018.
+Agent C's finding is confirmed independently. My earlier negative came from assuming a2=0.
+
+## Exp G42–G51 — WHAT THE INSTANCE ACTUALLY IS
+* `g42_secp.py`: the three coordinates map to genuine secp256k1 points of order n.
+  P1+P2 != P3, so the residual `A=B=0` is exactly the assertion **P3 = P1 + P2**.
+* `g46_table.py` / `g45_pointscan.py`: flipping a message bit FREES a coordinate pair and
+  lights load-pin obligations that re-pin it — and the re-pinned value is again a genuine
+  curve point. Each bit therefore selects a table point.
+* `g47_pairs.py`: two bits acting on the SAME coordinate give a value that is neither
+  bit's point, nor the base, nor their group sum, and is OFF the curve — same-coordinate
+  bits conflict. Cross-coordinate pairs are group-affine in D = P3-(P1+P2), trivially.
+* `g49_loads.py`: **exactly 256** boolean free inputs carry huge load pins (886 pins);
+  602 of the 886 constants are valid x-coordinates vs ~443 at random.
+* `g50_points.py`: pairing each bit's load constants into curve points and testing the
+  doubling map gives **255 doubling hits over 256 points**.
+* `g51_chain.py`: the 256 points form ONE chain with a unique root; ordering it and
+  recomputing gives **P(bit_i) = [2^i]P0 for all 256 positions, 0 exceptions**.
+  P0 is a secp256k1 point of order n (not G, not a small multiple of G).
+* `g53_export.py` (re-verified, `secp_identification.json`):
+  **P1 = [2^72]P0 (bit x24601), P2 = [2^235]P0 (bit x2081)** — the two bits set in the
+  base state — and P3 is the pinned target, on the curve, of order n.
+
+### THEREFORE
+The message is a 256-bit scalar `k = sum_i b_i 2^i`; the circuit is a double-and-add of
+`[k]P0` and the instance asserts `[k]P0 = P3`. With only two bits on, the double-and-add
+degenerates to a single addition — which is exactly why my exact reduction found ONE
+point addition and 57 non-constant checks. **A full solve is precisely
+`k = log_{P0}(P3)` on secp256k1.**
+This settles the coordinator's dichotomy on the NEGATIVE side: the bits do NOT act
+affinely on (A,B) — they act by GROUP DOUBLING. `sum b_i [2^i]P0 = P3` is the discrete
+logarithm itself, not a low-density knapsack (density 1, and the map is the group
+exponential, not an F_p-linear form), so no LLL / subset-sum attack applies.
+
+## Exp G52 — the one cheap shot at the trapdoor
+`g52_lowweight.py`: meet-in-the-middle over subsets of the 256 chain points.
+Hamming weight of k **<= 4 is ruled out** (weight 1,2 exhaustive; 3,4 by MITM);
+the weight<=6 pass was still running at cutoff. `k = 2^72 + 2^235` (the current state)
+is confirmed NOT a solution. Nothing below weight 5 works, so k is a generic 256-bit
+scalar and Pollard rho (~2^128) is the only generic route. I stop here honestly:
+the instance is satisfiable by construction (the setter knows k) but finding k is ECDLP.
