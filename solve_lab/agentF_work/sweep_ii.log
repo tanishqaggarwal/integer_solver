@@ -238,9 +238,14 @@
 245/256 bit 33287  tree B match=True  conflicts=0   running: match 237, conflict 0, t=2358s
 246/256 bit 34175  tree B match=True  conflicts=0   running: match 238, conflict 0, t=2366s
 247/256 bit 34974  tree B match=True  conflicts=0   running: match 239, conflict 0, t=2374s
- 29785  tree B match=True  conflicts=0   running: match 233, conflict 0, t=2443s
-242/256 bit 30448  tree B match=True  conflicts=0   running: match 234, conflict 0, t=2452s
-243/256 bit 31899  tree B match=True  conflicts=0   running: match 235, conflict 0, t=2461s
-244/256 bit 32669  tree B match=True  conflicts=0   running: match 236, conflict 0, t=2470s
-245/256 bit 33287  tree B match=True  conflicts=0   running: match 237, conflict 0, t=2478s
-246/256 bit 34175  tree B match=True  conflicts=0   running: match 238, conflict 0, t=2486s
+248/256 bit 35179  tree B match=True  conflicts=0   running: match 240, conflict 0, t=2383s
+249/256 bit 35740  tree B match=True  conflicts=0   running: match 241, conflict 0, t=2391s
+250/256 bit 35839  tree B match=True  conflicts=0   running: match 242, conflict 0, t=2400s
+251/256 bit 35979  tree B match=True  conflicts=0   running: match 243, conflict 0, t=2408s
+252/256 bit 36044  tree B match=True  conflicts=0   running: match 244, conflict 0, t=2418s
+ 34175  tree B match=True  conflicts=0   running: match 238, conflict 0, t=2486s
+247/256 bit 34974  tree B match=True  conflicts=0   running: match 239, conflict 0, t=2494s
+248/256 bit 35179  tree B match=True  conflicts=0   running: match 240, conflict 0, t=2502s
+249/256 bit 35740  tree B match=True  conflicts=0   running: match 241, conflict 0, t=2510s
+250/256 bit 35839  tree B match=True  conflicts=0   running: match 242, conflict 0, t=2518s
+251/256 bit 35979  tree B match=True  conflicts=0   running: match 243, conflict 0, t=2526s
