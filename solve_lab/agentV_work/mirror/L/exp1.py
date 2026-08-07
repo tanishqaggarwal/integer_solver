@@ -1,7 +1,7 @@
 """EXPERIMENT 1 (agent L): two leaves ON in the SAME OR-group.
 Measure by exact re-propagation what the slot wire actually holds."""
 import sys, os, json, collections, pickle
-F='/home/user/integer_solver/solve_lab/agentT_work/mirror/F'; sys.path.insert(0,F)
+F='/home/user/integer_solver/solve_lab/agentV_work/mirror/F'; sys.path.insert(0,F)
 from fwd import Engine, NV
 E=Engine()
 p=115792089237316195423570985008687907853269984665640564039457584007908834671663

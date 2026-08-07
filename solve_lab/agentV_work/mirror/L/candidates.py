@@ -2,7 +2,7 @@
    2 slot-link handles (parent's slot wires for child c) + 2 guard handles (c's own vab wires).
 Calibration: the deliverable is the site c=x27994 / parent x4971.va -> {642,28730,29854,31864}."""
 import sys, pickle, collections, re, json
-sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentT_work/mirror/F')
+sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentV_work/mirror/F')
 from fwd import Engine,NV
 from circ2 import vars_of
 E=Engine()

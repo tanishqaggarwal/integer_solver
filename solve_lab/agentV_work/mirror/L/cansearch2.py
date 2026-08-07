@@ -3,7 +3,7 @@ import sys, os, json, pickle, time, collections
 from math import gcd
 sys.path.insert(0,'/home/user/integer_solver/solve_lab')
 import checker as CK
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/cansearch.py').read().split("print('loading checker...'")[0]
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/cansearch.py').read().split("print('loading checker...'")[0]
 src='\n'.join(l for l in src.split('\n') if 'import checker as CK' not in l)
 exec(src)
 print('loading checker...',flush=True); t0=time.time()

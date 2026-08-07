@@ -1,0 +1,21 @@
+case                           rank   rk_Q(M)    rk_p(M)    rk_p([M|b])  consistent mod p?
+baseline |W|=0                 14     7          3          4            no
+drop eq 996 (rank 16)          16     9          4          5            no
+drop eq 2043 (rank 16)         16     9          4          5            no
+drop eq 4096 (rank 16)         16     9          4          5            no
+drop eq 5916 (rank 16)         16     9          4          5            no
+drop eq 6494 (rank 16)         16     9          4          5            no
+drop eq 8687 (rank 16)         16     9          4          5            no
+drop eq 19631 (rank 16)        16     9          4          5            no
+drop eq 22563 (rank 16)        16     9          4          5            no
+drop eq 23083 (rank 16)        16     9          4          5            no
+drop eq 23919 (rank 16)        16     9          4          5            no
+drop eq 25305 (rank 16)        16     9          4          5            no
+drop eq 28754 (rank 16)        16     9          4          5            no
+drop eq 31423 (rank 16)        16     9          4          5            no
+drop eq 35561 (rank 16)        16     9          4          5            no
+drop eq 8680 (rank 15)         15     8          4          5            no
+
+Interpretation: extra lattice dimensions bought with collateral are invisible mod p —
+the mod-p rank of the region response does not move, so the certificate that kills all
+924 six-subsets at |W| = 0 is untouched by the budget.

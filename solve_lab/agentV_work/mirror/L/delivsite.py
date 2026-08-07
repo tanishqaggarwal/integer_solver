@@ -1,5 +1,5 @@
 import json, pickle, sys
-sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentT_work/mirror/F')
+sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentV_work/mirror/F')
 from fwd import Engine,NV
 E=Engine()
 p=115792089237316195423570985008687907853269984665640564039457584007908834671663

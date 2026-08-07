@@ -1,6 +1,6 @@
 """Which of the 15 atoms can EVER be driven by circuit values, and at what selector setting?"""
 import sys, json, pickle, collections
-sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentT_work/mirror/F')
+sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentV_work/mirror/F')
 from fwd import Engine,NV
 E=Engine()
 MD=pickle.load(open('full_model.pkl','rb'))

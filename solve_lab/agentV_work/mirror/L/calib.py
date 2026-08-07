@@ -1,6 +1,6 @@
 """Per-node coordinate alignment (from slot links) + per-node chord orientation (numeric)."""
 import sys, os, json, collections, pickle, re, time
-F='/home/user/integer_solver/solve_lab/agentT_work/mirror/F'; sys.path.insert(0,F)
+F='/home/user/integer_solver/solve_lab/agentV_work/mirror/F'; sys.path.insert(0,F)
 from fwd import Engine, NV
 from circ2 import vars_of
 E=Engine()

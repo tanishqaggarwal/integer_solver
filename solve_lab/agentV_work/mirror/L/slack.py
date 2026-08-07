@@ -1,6 +1,6 @@
 """Is anything forcing x_4116 and its sibling shared factors to zero?"""
 import sys, pickle, collections
-sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentT_work/mirror/F')
+sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentV_work/mirror/F')
 from fwd import Engine,NV
 from parse import node_str
 from circ2 import vars_of

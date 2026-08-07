@@ -1,0 +1,7 @@
+information set: 26 rows, 142 outside
+dual basis verified (identity block)
+  s=1 (exact): 11 hits, 11 supports, 0s
+  s=2 (exact): 58 hits, 69 supports, 0s
+  s=3 (window 8): 11197 hits, 756 supports, 6s
+  s=4 (window 8): 44831 hits, 2438 supports, 62s
+  s=5 (window 6): 15938 hits, 4017 supports, 119s

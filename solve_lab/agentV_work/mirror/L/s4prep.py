@@ -1,7 +1,7 @@
 """Batched-inversion fold for |S|=2 and |S|=3, to make |S|=4 plausible.
 Montgomery batch inversion: N inversions for the cost of 1 + 3N mults."""
 import importlib.util, itertools, time, pickle
-spec=importlib.util.spec_from_file_location('ss','/home/user/integer_solver/solve_lab/agentT_work/mirror/L/subsearch.py')
+spec=importlib.util.spec_from_file_location('ss','/home/user/integer_solver/solve_lab/agentV_work/mirror/L/subsearch.py')
 ss=importlib.util.module_from_spec(spec); spec.loader.exec_module(ss)
 p=ss.p; K=ss.K; live=ss.live
 def batch_inv(xs):

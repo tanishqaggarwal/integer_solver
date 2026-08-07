@@ -1,5 +1,0 @@
-alignment bad (pre-repair): 4
-atoms with exactly 1 handle: 3681 of 9032
-|S|=2   S2    NONZERO ATOMS = 2 of 9032   WALL = 172.0 s  -> close_S2.json
-     ((x18956-x37892)-x32237)
-     ((x24468-x13682)-(12354891*x34243))

@@ -3,7 +3,7 @@ forcing t == 0 mod c_keep (t=0 is always a root of a currently-satisfied atom). 
 of keep root sets at all.  fit() cached per (atom,wire) within a pass.  Verified by recomputation."""
 import sys, pickle, collections, json, time, itertools
 from math import gcd
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/solve927g.py').read().split("#MAINSTART")[0]
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/solve927g.py').read().split("#MAINSTART")[0]
 exec(src)
 CGT2={a for a,s in SL.items() if s and s%p==0 and abs(s)//p>1}
 W2A=collections.defaultdict(list)

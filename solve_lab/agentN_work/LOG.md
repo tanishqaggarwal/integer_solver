@@ -543,3 +543,25 @@ target**, so "no legal target" does not pick out the carrier set. **The polynomi
 purchase on why the other eight are invariant.** Their only shared distinction here is high equation
 incidence (6–10 equations each), which is my own "price in equations" rule pointing at the answer
 from the other side.
+
+### |W| = 2: priced, not run — and the reason it is predictable
+
+Sharded 4 ways (`budget68b.py w2 <shard> 4`), resumable in `runs/budget68_w2_*.jsonl`. Observed
+throughput under contention (three other agents' jobs on the same 4 cores): **~1,038 pairs in 26
+wall-minutes**, so 26,565 pairs is **~11 wall-hours / ~63 CPU-hours**. Partial state at hand-off:
+**1,038 of 26,565 (3.9%), max g = 5**, lattice rank 14 in 970, 15 in 5, 16 in 63.
+
+What makes the remainder predictable rather than merely expensive (`pgrow.py`):
+
+| case | lattice rank | rk_Q(M) | rk_p(M) | rk_p([M\|b]) | consistent mod p |
+|---|---|---|---|---|---|
+| |W| = 0 baseline | 14 | 7 | 3 | 4 | **no** |
+| the 14 |W| = 1 drops that reach rank 16 | 16 | 9 | 4 | 5 | **no** (all 14) |
+| drop eq 8680 (rank 15) | 15 | 8 | 4 | 5 | **no** |
+
+Paying collateral does buy lattice dimensions — `rk_Q(M)` goes 7 -> 9 — but **`rk_p([M|b])` rises in
+lockstep with `rk_p(M)`, so the inconsistency gap stays exactly 1 in every case measured.** The
+extra dimensions are visible over Q and invisible to the obstruction. Also note `rk_Q(M) = 7` on a
+rank-14 lattice: **7 of the 14 available directions already do not move the region at all**, so the
+region is not dimension-starved — it is p-starved. Measured at |W| ∈ {0,1} (231 exact reductions
+plus 15 rank-raising cases); an indicator for |W| >= 2, not a proof.

@@ -1,7 +1,7 @@
 """|S|=3 sweep with batched inversion."""
 import pickle, sys, time, itertools
 import importlib.util
-spec=importlib.util.spec_from_file_location('ss','/home/user/integer_solver/solve_lab/agentT_work/mirror/L/subsearch.py')
+spec=importlib.util.spec_from_file_location('ss','/home/user/integer_solver/solve_lab/agentV_work/mirror/L/subsearch.py')
 ss=importlib.util.module_from_spec(spec); spec.loader.exec_module(ss)
 p=ss.p; K=ss.K; TGT=ss.TGT; live=ss.live; ORIENT=ss.ORIENT
 lca=ss.lca; val_at=ss.val_at; sw=ss.sw; sw2root=ss.sw2root; chord=ss.chord
@@ -33,7 +33,7 @@ def fold3(A,B,C):
 if __name__=='__main__':
     # validate against full fold
     import random
-    spec2=importlib.util.spec_from_file_location('ff','/home/user/integer_solver/solve_lab/agentT_work/mirror/L/fastfold.py')
+    spec2=importlib.util.spec_from_file_location('ff','/home/user/integer_solver/solve_lab/agentV_work/mirror/L/fastfold.py')
     ff=importlib.util.module_from_spec(spec2); spec2.loader.exec_module(ff)
     rnd=random.Random(4); ok=0;bad=0
     for _ in range(200):

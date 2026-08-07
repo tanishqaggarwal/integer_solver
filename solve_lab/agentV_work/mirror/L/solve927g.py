@@ -2,7 +2,7 @@
 Root sets are intersected prime-power by prime-power, then CRT'd. Verified by recomputation."""
 import sys, pickle, collections, json, time, itertools
 from math import gcd
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/solve927.py').read().split("if __name__")[0]
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/solve927.py').read().split("if __name__")[0]
 exec(src)
 def rootset_pp(coeffs,q,e):
     m=q**e

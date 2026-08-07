@@ -1,5 +1,5 @@
 import sys, pickle, random, collections
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/calib2.py').read()
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/calib2.py').read()
 src=src.split("# numeric perm repair")[0]
 exec(src)
 C2=pickle.load(open('calib2.pkl','rb')); perm.update(C2['perm']); ORIENT=C2['ORIENT']

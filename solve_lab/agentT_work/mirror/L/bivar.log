@@ -1,8 +1,0 @@
-alignment bad (pre-repair): 4
-atoms with exactly 1 handle: 3681 of 9032
-residue: 2 conditions
-COMPONENT SIZES at |S|=17: [1, 1]
-atoms c1=1707229 {43: 1, 39703: 1} ; c2=5930437 {5930437: 1}
-coprime moduli? True
-wires available: [5460, 5616, 23971, 27156, 28246, 28486, 34194, 38101]
-  wires (x5460,x5616): deg(atom1)=(2, 1)  deg(atom2)=(0, 0)

@@ -1,6 +1,6 @@
 import sys, pickle, json, time, collections
 from math import gcd
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/lift.py').read().split("if __name__")[0]
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/lift.py').read().split("if __name__")[0]
 exec(src)
 SL=pickle.load(open('slopes.pkl','rb'))
 Hd=pickle.load(open('handles.pkl','rb')); valuevars=set(Hd['value'])

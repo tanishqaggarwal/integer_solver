@@ -1,6 +1,6 @@
 """Re-filter the 378 candidate sites against the baseline-failing equations (M's criterion)."""
 import sys, json, pickle, collections
-sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentT_work/mirror/F')
+sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentV_work/mirror/F')
 from fwd import Engine,NV
 E=Engine()
 M25=[2554,5324,6816,8124,8680,9041,9123,9421,11226,12231,12270,12350,14584,15558,18673,

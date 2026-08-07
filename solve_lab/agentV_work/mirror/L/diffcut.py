@@ -1,7 +1,7 @@
 """Diff my generalised cut against the deliverable AT THE DELIVERABLE'S OWN SITE."""
 import sys, os, json, pickle, time, collections
 from math import gcd
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/cansearch.py').read()
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/cansearch.py').read()
 src=src.split("if __name__")[0]
 lines=[l for l in src.split(chr(10))
        if 'import checker as CK' not in l and 'CK.load_equations' not in l

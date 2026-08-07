@@ -1,5 +1,5 @@
 import sys, json, pickle, collections, itertools
-sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentT_work/mirror/F')
+sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentV_work/mirror/F')
 from fwd import Engine,NV
 from circ2 import vars_of
 E=Engine()

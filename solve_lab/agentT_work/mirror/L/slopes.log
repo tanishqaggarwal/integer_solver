@@ -1,7 +1,0 @@
-alignment bad (pre-repair): 4
-atoms with exactly 1 handle: 3681 of 9032
-1000 10.158497333526611
-4000 59.07724165916443
-slopes for 3681 atoms, 93s
-slope/p hist [(1, 2747), (0, 7), (9027329, 1), (13921279, 1), (8422691, 1), (2818759, 1)]
-slopes not divisible by p: 0

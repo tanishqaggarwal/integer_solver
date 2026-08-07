@@ -1,9 +1,0 @@
-distinct handle multipliers M: 927 sample [9027329, 13921279, 8422691, 2818759, 13818563, 1001745, 10608873, 12194295]
-modulus 9027329      solved=True  nz_atoms=0    failing_eqs=0     t=4.4
-modulus 13921279     solved=True  nz_atoms=0    failing_eqs=0     t=3.5
-modulus 8422691      solved=True  nz_atoms=0    failing_eqs=0     t=3.5
-modulus 2818759      solved=True  nz_atoms=0    failing_eqs=0     t=3.3
-modulus 13818563     solved=True  nz_atoms=0    failing_eqs=0     t=2.8
-modulus 1001745      solved=True  nz_atoms=0    failing_eqs=0     t=4.2
-modulus 7376877      solved=True  nz_atoms=0    failing_eqs=0     t=3.3
-modulus 22130631     solved=True  nz_atoms=0    failing_eqs=0     t=3.3

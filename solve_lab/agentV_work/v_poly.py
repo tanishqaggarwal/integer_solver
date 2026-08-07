@@ -248,9 +248,11 @@ def roots_pp(u_newton, q, e):
     """roots mod q^e of the Newton-form univariate poly u.  Returns a list, or 'ALL'.
     Hensel-lifts the mod-q roots; falls back to enumeration when q^e is small."""
     m = q**e
-    if m <= 200000:
-        rs = [t for t in range(m) if _neval(u_newton, t, m) == 0]
-        return rs
+    # MEASURED: this is the inner loop of the joint solve -- it runs q^(e(k-1)) times, so an
+    # O(m) enumeration here costs O(m^k) overall.  At q=39703 that is 1.6e9 evaluations (~35 min
+    # observed) versus ~8 s through the monomial route.  Enumerate only when m is genuinely tiny.
+    if m <= 1024:
+        return [t for t in range(m) if _neval(u_newton, t, m) == 0]
     if e == 1:
         mo = newton_to_mono(u_newton, q)
         if mo is None:

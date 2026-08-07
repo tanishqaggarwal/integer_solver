@@ -1,7 +1,7 @@
 """Support is now identical to the deliverable; find the VALUE difference driving 13 vs 7."""
 import sys, json, pickle, collections
 from math import gcd
-_c2=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/cansearch2.py').read()
+_c2=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/cansearch2.py').read()
 _mark='CODES,_=CK.load_equations()'
 _pre=_c2[:_c2.index('print(chr(39)+chr(39))') if False else _c2.index(_mark)]
 _pre=_pre[:_pre.rindex(chr(10),0,_pre.rindex('loading checker'))]

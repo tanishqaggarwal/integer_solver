@@ -1,5 +1,5 @@
 import sys, os, pickle, collections, time, random
-exec(open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/calib.py').read().split("if __name__=='__main__':")[0])
+exec(open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/calib.py').read().split("if __name__=='__main__':")[0])
 C=pickle.load(open('calib.pkl','rb')); ORIENT=C['ORIENT']
 if __name__=='__main__':
     rnd=random.Random(11)

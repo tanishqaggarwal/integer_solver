@@ -4985,3 +4985,143 @@ way.** Below 7 at any slot is **terminal for the campaign**; at or above 7 every
 deliverable's 7 stops being an exhaustion and becomes a mechanism** — the first time that number
 would have an explanation rather than a measurement behind it. Price per slot to be reported, not
 just the minimum, with exact and bounded slots distinguished.
+
+---
+
+## Check-in 88 — RETRACTION: there is no closure boundary; |S| = 8 and 17 both CLOSE (agent T)
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### T withdrew its own headline and replaced it with the opposite result
+
+**"Closure is a small-|S| phenomenon; the boundary lies between 5 and 8" is WITHDRAWN.** There is no
+boundary at 8 — **it was `closeS4`'s single-wire granularity.** Recorded as a campaign result at
+check-ins 84 and 86 and reported to the user; **corrected on T's own report.**
+
+**T's own §AK1 caveat was the load-bearing sentence** — *"this solver did not close it" is not "it
+cannot be closed"* — written at the time and now proved. **Rule 9 in the ledger: a negative from a
+solver is a statement about that solver's granularity until you have varied the granularity.**
+
+- **`|S| = 8` CLOSES.** All 15 pairs of the 6 admitted wires; 2-D Newton fit **validated against
+  direct recomputation at 5 random points per pair, 15/15**; exhaustive root enumeration per prime of
+  `c = 3·7·19·83·463`. 5 of 15 pairs have no bivariate root, 10 do; the **first verified candidate
+  cleared it with zero collateral**, 3 → 2 atoms. `close_T8pair.json` → **39,018**, identical
+  15-equation failing set, F's parse showing **exactly 2 nonzero atoms, footprint == failing set**.
+  Reproduced from cold in 66 s. **The winner carries a genuine `t_w·t_v` cross term — the residue
+  really was the bivariate shape**, so §AO was right about the mechanism, not just the outcome.
+- **`|S| = 17` CLOSES.** Two wires alone insufficient: its residue admits only 2 wires → **exactly
+  one pair, exhausted not sampled**, on which 398/400 roots clear and **every one breaks the same two
+  named atoms**. All three solved jointly, exhaustive per prime power over 7.4×10¹⁷ solutions,
+  cleared on the first candidate → **39,018**, identical failing set, 2 nonzero atoms, footprint ==
+  failing. **`t_close2wj.py` rediscovers the collateral itself and closes it from cold in 134 s.**
+- **§AO confirmed and sharpened:** `|S|=8` is *no univariate root / bivariate root / zero collateral*;
+  `|S|=17` is *roots exist / no cross term / blocked by two named atoms*. **Two mechanisms, both
+  discharged.**
+
+> **LEDGER §4 ITEM 1 — L's bivariate residue, the last named open obstruction on that line — is
+> DISCHARGED. The integer lift closes at `|S| = 17`: all 927 conditions, at instance level.**
+
+**New at `|S| = 32`, and stated correctly:** the 927 still discharge, but the constructor leaves
+**handle-less** atoms nonzero — no cofactor, so they must be **exactly zero over ℤ**, and `closeS4`
+is **indexed by handle and never sees them**. Each has one wire where `R(t)` is linear with an exact
+integer root. **A solver-coverage gap, not a demonstrated obstruction.**
+
+Every state dumped and run through `checker.py` **and** F's parse. T also corrected its own §AN/AO
+prose (three violated `c`-conditions, not one) with the measurement untouched, since `t_leaf.py` had
+looped over all three.
+
+### Environment finding, broadcast to the fleet
+
+**The restart wiped every `*.pkl`** — `.gitignore` carries a global `*.pkl`, so none was ever
+committed. **Nothing in F's or L's chain runs from cold.** T rebuilt the whole chain
+(`circ4 → sched → global → ortree2 → handles2 → buildall → calib2 → slopes`) into a **private
+mirror**, and left `t_rebuild.sh` / `t_rebuild2.sh` for any agent to run in its own directory. The
+mirror reproduces L's published census **exactly** — 3,681 handle atoms, 2,747 `c==1` + 7 zero-slope,
+383 OR nodes, 256 live leaves, 256 pins / 0 bad — which is what makes it usable by others.
+
+### Tasking
+
+**T → close a large ON-set, `|S| = 64` then `128`**, and extend the joint solver to mix
+exact-integer (handle-less) conditions with divisibility ones — the surviving `|S|=32` atom's wire
+`x19965` is shared with a `c>1` guard, so the group must carry `R(t)=0` over ℤ **and** `R(t)≡0 mod c`
+on the same pair. That is the only thing between this fleet and *"the integer lift closes for an
+arbitrary ON-set"*, the premise every existence argument rests on. Measure one large configuration
+before sweeping — cost has gone 66 s → 134 s.
+
+**V → REDIRECTED off `|S| = 17`**, which T closed while V was building the same solve. V now
+characterises the **handle-less population** structurally: how many, what distinguishes them, how the
+surviving count grows with `|S|`, and whether any is genuinely unreachable. Complementary to T's
+solver extension. If V finds one unreachable, it is the first hard obstruction on the integer side.
+
+---
+
+## Check-in 89 — the polynomial direction closes: the variety IS the affine one (agent N)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified twice. **No assignment to dump — the
+polynomial solve returns the deliverable's own optimum.**
+
+### Size first, as ordered
+
+| knob set | unknowns | rows | max total degree | max terms/row | max coef bits |
+|---|---|---|---|---|---|
+| 7 narrow | 7 | 12 | **1** | 8 | 2,435 |
+| 49 wide | 49 | 12+139 | **2** | 48 | 6,083 |
+| **68 complete** | **68** | **12+231** | **4** | **665** | **6,083** |
+
+Exact sparse `Z[t]` arithmetic through the frame's DAG, every `x_a*x_b` **carried, never probed**,
+verified against direct recomputation: **906 evaluations, 0 mismatches**, then **144 more with all 68
+knobs at |t| up to 10⁶, 0 mismatches.**
+
+### N refutes its own premise
+
+**Carrying products adds nothing.** The saturation loop converges rank **68 → 37 → 15**, and
+**exactly one nonlinear generator survives in the whole system: eq 8680, a single monomial `s²` with
+coefficient 1.** Singular on the residue: **`dim 14, radical_dim 14, radical generators linear, one
+component of dim 14 and degree 1`.** Over ℤ a perfect square is the same condition as its base.
+`solve68.py`: **OPT = 5 of 12, exhaustive, 0 of 924 six-subsets integrally solvable, score 39,026.**
+
+> **The polynomial variety IS the affine one; its radical is generated by linear forms.** The narrow
+> 7-knob model is affine **by proof** — those knobs touch zero downstream DAG variables — so the
+> 924/924 p-obstruction and OPT = 5 were always exact.
+
+**And the single surviving nonlinear generator is `eq8680`** — the same atom O proved is a perfect
+square forcing `S = 0`, T audited against raw text, and U found the deliverable pays 7 to route
+around. **Four threads, four methods, one atom.**
+
+### Two corrections to inherited tooling, blast radius measured
+
+`widen.py`'s step-1 finite-difference filter **missed 18 knobs**; and its secant differs from the
+true linear part in **28 of 7,399 entries** — both lattices rank 14, **but their union rank 15, so
+neither contains the other.** **Blast radius: zero on every conclusion** (OPT = 5 on the exact model,
+complete knob set, at |W| = 0 and |W| = 1).
+
+### A certificate replaces the search
+
+On the exact rank-14 variety: **791/792** five-subsets, **924/924** six-subsets, **792/792**
+seven-subsets inconsistent mod p; the one consistent 5-subset is exactly the OPT set. Cross-checked
+against zsolve. `p = 2, 3, 5, 1000003, 2⁶¹−1` each certify **0/924**.
+
+**Barrier, with knob set AND configuration:** on the *zero-collateral rank-14 lattice* eq 29125 is
+unzeroable mod p — **but over the full 68-knob space `pambient.py` finds 0 of 12 rows unzeroable.
+The barrier belongs to the lattice, not the row.**
+
+**Budgets:** |W|=1 **refuted** (all 231 rows dropped in turn, max g = 5); |W|=2 priced at ~63
+CPU-hours, 1,554 of 26,565 done, resumable. **Carriers refuted as explainable**: only 37887 is
+structurally forced to be a check; the other eight admit 1–3 legal unit targets, so "no legal target"
+does not pick out the set — their only shared trait is high equation incidence.
+
+### N's next: the rank gap, which predicts rather than reports
+
+`pgrow.py` found the mechanism: paying collateral raises `rk_Q(M)` **7 → 9**, but **`rk_p(M)` and
+`rk_p([M|b])` rise in lockstep (3→4, 4→5), so the inconsistency gap stays exactly 1** in all 15
+lattice-enlarging |W|=1 cases. And `rk_Q(M) = 7` on a rank-14 lattice — **7 of 14 directions already
+do not move the region.** ***The region is not dimension-starved, it is p-starved.***
+
+**N → price `rk_p(M)` against `rk_Q(M)` across the 16 proven detach states and across placements**,
+hunting a configuration where the region response is **not** rank-deficient mod p. Seconds per
+configuration, and **the first quantity in this lab that predicts the optimum rather than reporting
+it.** The |W| = 2 sweep is dropped — 63 CPU-hours for a search whose |W| = 1 sibling is already
+refuted.
+
+**Environment inventory, now the fleet's record:** sympy 1.14.0, python-flint 0.9.0, **Singular
+4.3.2**; **no msolve, Sage, Macaulay2, Magma, CoCoA or PARI/gp** available or installable here.

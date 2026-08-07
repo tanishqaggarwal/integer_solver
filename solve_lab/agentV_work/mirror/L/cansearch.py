@@ -3,7 +3,7 @@ import sys, os, json, pickle, time, collections
 from math import gcd
 sys.path.insert(0,'/home/user/integer_solver/solve_lab')
 import checker as CK
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/mkassign2.py').read().split('#MAINSTART')[0]
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/mkassign2.py').read().split('#MAINSTART')[0]
 exec(src)
 TGT=tuple(pickle.load(open('target.pkl','rb')))
 NODE=M['NODE']; OUT=M['OUT']; tree=M['tree']; sub=M['sub']; ROOT=M['ROOT']; liveset=set(M['live'])

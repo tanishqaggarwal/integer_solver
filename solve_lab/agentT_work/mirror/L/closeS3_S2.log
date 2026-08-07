@@ -1,9 +1,0 @@
-alignment bad (pre-repair): 4
-atoms with exactly 1 handle: 3681 of 9032
-|S|=2   S2    NONZERO ATOMS = 8 of 9032   WALL CLOCK = 186.2 s  -> close_S2.json
-     ((x24908-x17601)+x5201)
-     ((6788513*(x16742-x19083))-x9254)
-     ((x12186-x23927)-x25758)
-     ((537773*(x15298*x37758))-x35605)
-     ((x15298*x11150)+x4007)
-     ((x18956-x37892)-x32237)

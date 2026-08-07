@@ -1,7 +1,7 @@
 """How many of the 927 c>1 integer conditions are actually exercised and discharged?"""
 import sys, pickle, json, collections
 from math import gcd
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/mkassign2.py').read().split('#MAINSTART')[0]
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/mkassign2.py').read().split('#MAINSTART')[0]
 exec(src)
 CGT={a for a,s in SL.items() if s and s%p==0 and abs(s)//p>1}
 print('atoms carrying a c>1 integer condition: %d'%len(CGT))

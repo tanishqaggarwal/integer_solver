@@ -1,6 +1,0 @@
-alignment bad (pre-repair): 4
-atoms with exactly 1 handle: 3681 of 9032
-loading checker...
-  153s
-VALIDATION G=24601 L=2081 csite=27994 set_vab=True -> nonzero atoms 9, EXACT failing 49  (deliverable=7)
-VALIDATION G=24601 L=2081 csite=27994 set_vab=False -> nonzero atoms 7, EXACT failing 47  (deliverable=7)

@@ -1,6 +1,6 @@
 """Complete tree model with NUMERIC pin extraction and NUMERIC per-node law verification."""
 import sys, os, json, collections, pickle, re, time
-F='/home/user/integer_solver/solve_lab/agentT_work/mirror/F'; sys.path.insert(0,F)
+F='/home/user/integer_solver/solve_lab/agentV_work/mirror/F'; sys.path.insert(0,F)
 from fwd import Engine, NV
 E=Engine()
 p=115792089237316195423570985008687907853269984665640564039457584007908834671663

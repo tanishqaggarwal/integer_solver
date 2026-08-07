@@ -124,6 +124,15 @@ says which — five are in play: **39,033** (F, K, T), **39,277** (P), **40,727*
 ---
 
 ## 5. POINTERS
-Full reasoning for every T row is in `agentT_work/RESUME_T.md` (740 lines, sections A–AE); it is
+Full reasoning for every T row is in `agentT_work/RESUME_T.md` (1,112 lines, sections A–AV); it is
 organised by pass, and each section names its scripts.  All T scripts are in `agentT_work/` and
 were run read-only against other agents' directories with `PYTHONDONTWRITEBYTECODE=1`.
+
+**Rebuilding after the restart.** The checkout `.gitignore`s `*.pkl`, so every agent's parse cache
+is gone and nothing in the F or L chain runs from cold. T rebuilt the whole chain
+(`circ4 → sched → global → ortree2 → handles2 → buildall → calib2 → slopes`) into a **private
+mirror** at `agentT_work/mirror/{F,L}` — `t_rebuild.sh` + `t_rebuild2.sh` — rather than write into
+another agent's directory. The mirror reproduces L's own published census exactly (3,681 handle
+atoms, 2,747 `c==1` + 7 zero-slope, 383 OR nodes, 256 live leaves, 256 pins / 0 bad) and reloads
+`close_T8.json` to the same 3 nonzero atoms and the same checker score, so it is faithful. Any
+agent needing those caches can run the same two scripts in its own directory.

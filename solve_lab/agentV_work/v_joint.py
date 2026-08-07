@@ -322,5 +322,10 @@ if __name__ == '__main__':
     S = [int(x) for x in arg.split(',')] if ',' in arg else B.onset(int(arg))
     kmax = int(sys.argv[3]) if len(sys.argv) > 3 else 3
     budget = int(sys.argv[4]) if len(sys.argv) > 4 else 400
+    # The job writes its OWN pid.  $! is unreliable through setsid/nohup wrappers (it names the
+    # wrapper, which then exits), and matching a command line has failed four times in this lab.
+    # This is the only identification that cannot name the wrong process.
+    open(os.path.join(V, 'run_%s.pid' % tag), 'w').write('%d\n' % os.getpid())
+    print('pid %d -> run_%s.pid' % (os.getpid(), tag), flush=True)
     print('S (|S|=%d) = %s' % (len(S), S), flush=True)
     close(S, tag, kmax, budget)

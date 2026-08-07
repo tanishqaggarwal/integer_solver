@@ -258,3 +258,244 @@
 {"drop": [593, 20061], "opt": 5, "rank": 14, "note": "exact"}
 {"drop": [593, 20624], "opt": 5, "rank": 14, "note": "exact"}
 {"drop": [593, 21798], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 23083], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [593, 23869], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 24348], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 24754], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 25305], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [593, 25682], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 26785], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 27372], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 28726], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 28881], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 29638], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 30102], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 30579], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 31220], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 31423], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [593, 32151], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 32427], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 33073], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 34195], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 34816], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 35640], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 36106], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 37257], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 37715], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [593, 38230], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 697], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 1179], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 1985], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 2842], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 4083], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 4304], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 5207], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 5788], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 6494], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [608, 7052], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 7645], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 8249], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 8680], "opt": 5, "rank": 15, "note": "exact"}
+{"drop": [608, 9043], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 9907], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 10815], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 11166], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 11689], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 12061], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 12806], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 13470], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 13743], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 14989], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 15201], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 16048], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 18030], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 18436], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 19153], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 20013], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 20602], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 20992], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 22948], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 23667], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 24147], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 24721], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 25242], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 25609], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 26001], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 27204], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 28650], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 28864], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 29367], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 29959], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 30487], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 30981], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 31400], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 32138], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 32300], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 32787], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 34131], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 34724], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 35561], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [608, 35936], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 36866], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 37666], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 37816], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [608, 38726], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 1179], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 1985], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 2842], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 4083], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 4304], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 5207], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 5788], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 6494], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [697, 7052], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 7645], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 8249], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 8680], "opt": 5, "rank": 15, "note": "exact"}
+{"drop": [697, 9043], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 9907], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 10815], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 11166], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 11689], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 12061], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 12806], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 13470], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 13743], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 14989], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 15201], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 16048], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 18030], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 18436], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 19153], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 20013], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 20602], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 20992], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 22948], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 23667], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 24147], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 24721], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 25242], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 25609], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 26001], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 27204], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 28650], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 28864], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 29367], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 29959], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 30487], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 30981], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 31400], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 32138], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 32300], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 32787], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 34131], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 34724], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 35561], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [697, 35936], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 36866], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 37666], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 37816], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [697, 38726], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 1531], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 2026], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 3081], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 4096], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [732, 4339], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 5225], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 5790], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 6556], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 7156], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 7740], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 8273], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 8687], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [732, 9309], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 10093], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 10838], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 11276], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 11736], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 12594], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 12981], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 13479], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 13790], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 15018], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 15585], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 16191], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 18126], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 18493], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 19291], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 20061], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 20624], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 21798], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 23083], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [732, 23869], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 24348], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 24754], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 25305], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [732, 25682], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 26785], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 27372], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 28726], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 28881], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 29638], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 30102], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 30579], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 31220], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 31423], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [732, 32151], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 32427], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 33073], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 34195], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 34816], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 35640], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 36106], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 37257], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 37715], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [732, 38230], "opt": 5, "rank": 14, "note": "exact"}
+{"drop": [996, 1017], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 1881], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 2432], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 3996], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 4248], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 4861], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 5578], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 5916], "opt": 5, "rank": 17, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 6967], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 7425], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 8223], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 8625], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 8985], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 9708], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 10670], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 11034], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 11331], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 11915], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 12676], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 13316], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 13629], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 14243], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 15074], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 15755], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 17801], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 18379], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 18937], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 19631], "opt": 5, "rank": 17, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 20356], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 20916], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 22563], "opt": 5, "rank": 17, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 23482], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 23919], "opt": 5, "rank": 17, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 24386], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 25225], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 25575], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 25866], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 27124], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 27706], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 28754], "opt": 5, "rank": 17, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 29012], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 29887], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 30443], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 30910], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 31236], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 31609], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 32260], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}
+{"drop": [996, 32535], "opt": 5, "rank": 16, "note": "RELAXED(upper bound), dropped [8680]"}

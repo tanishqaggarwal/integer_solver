@@ -1,6 +1,6 @@
 """Distinguish the free cofactor u from the defined P-multiple h. Check P's 927."""
 import sys, pickle, collections, re
-sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentT_work/mirror/F')
+sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentV_work/mirror/F')
 from fwd import Engine,NV
 from circ2 import vars_of
 from parse import node_str

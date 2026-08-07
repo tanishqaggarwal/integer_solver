@@ -11,7 +11,7 @@ after dividing by p).  So we measure the shape rather than assuming it.
 """
 import sys, pickle, collections, json, itertools
 from math import gcd
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/mkassign2.py').read().split('#MAINSTART')[0]
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/mkassign2.py').read().split('#MAINSTART')[0]
 exec(src)
 CGT={a for a,s in SL.items() if s and s%p==0 and abs(s)//p>1}
 def factor(n):

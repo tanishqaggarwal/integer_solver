@@ -1,6 +1,6 @@
 """Batched |S|=3 sweep (Montgomery batch inversion)."""
 import importlib.util, itertools, time, pickle, sys
-spec=importlib.util.spec_from_file_location('ss','/home/user/integer_solver/solve_lab/agentT_work/mirror/L/subsearch.py')
+spec=importlib.util.spec_from_file_location('ss','/home/user/integer_solver/solve_lab/agentV_work/mirror/L/subsearch.py')
 ss=importlib.util.module_from_spec(spec); spec.loader.exec_module(ss)
 p=ss.p; K=ss.K; TGT=ss.TGT; live=ss.live; ORIENT=ss.ORIENT
 depth=ss.depth; parent=ss.parent; swapup=ss.swapup; sw2root=ss.sw2root

@@ -1,5 +1,5 @@
 import json, pickle, sys, collections, importlib.util
-sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentT_work/mirror/F')
+sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentV_work/mirror/F')
 from fwd import Engine,NV
 E=Engine()
 p=115792089237316195423570985008687907853269984665640564039457584007908834671663
@@ -24,7 +24,7 @@ print('  coord0 equal?',A[0]==B[0],'  coord1 equal?',A[1]==B[1])
 sel=NODE[ROOT]['sab'][0]; sa=NODE[ROOT]['sa'][0]; sb=NODE[ROOT]['sb'][0]
 print('root selectors: sel_a x%d=%s  sel_b x%d=%s  sel_ab x%d=%s'%(sa,val(sa),sb,val(sb),sel,val(sel)))
 # what my model says the fold of {2081,24601} is
-spec=importlib.util.spec_from_file_location('ss','/home/user/integer_solver/solve_lab/agentT_work/mirror/L/subsearch.py')
+spec=importlib.util.spec_from_file_location('ss','/home/user/integer_solver/solve_lab/agentV_work/mirror/L/subsearch.py')
 ss=importlib.util.module_from_spec(spec); spec.loader.exec_module(ss)
 print('my fold2(2081,24601) =',ss.fold2(2081,24601))
 print('TARGET               =',ss.TGT)

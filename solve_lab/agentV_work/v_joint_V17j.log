@@ -1,16 +1,6 @@
 alignment bad (pre-repair): 4
 atoms with exactly 1 handle: 3681 of 9032
+pid 32629 -> run_V17j.pid
 S (|S|=17) = [19745, 33287, 30242, 12422, 16586, 35110, 3545, 34974, 4940, 32872, 4362, 30420, 3707, 4287, 5090, 37147, 1695]
-greedy init 5.5 s -> global nonzero 10
+greedy init 7.5 s -> global nonzero 10
 outer 0: global nonzero 10, violated c-conditions 10
-   single-wire pass: 6 accepted
-outer 1: global nonzero 3, violated c-conditions 3
-   single-wire pass: 0 accepted
-  condition c=13040669 = 19^1*199^1*3449^1  on 2 wire(s)
-    group: target c=13040669 + 2 collateral c>1 condition(s); wires ['x10261', 'x27156']
-    mod 11         : 33 joint 2-tuple(s)  [0.0s, exhaustive over 1 wire(s)]
-    mod 19         : 19 joint 2-tuple(s)  [0.0s, exhaustive over 1 wire(s)]
-    mod 43         : 3 joint 2-tuple(s)  [0.0s, exhaustive over 1 wire(s)]
-    mod 199        : 199 joint 2-tuple(s)  [0.0s, exhaustive over 1 wire(s)]
-    mod 3449       : 3449 joint 2-tuple(s)  [16.0s, exhaustive over 1 wire(s)]
-    mod 4787       : 14361 joint 2-tuple(s)  [30.9s, exhaustive over 1 wire(s)]

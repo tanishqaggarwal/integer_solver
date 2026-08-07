@@ -1,7 +1,7 @@
 """Bivariate solve for the cross-wire residue + component sizes of the shares-a-condition graph."""
 import sys, pickle, collections, json, time, itertools, os
 from math import gcd
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/solve927g.py').read().split("#MAINSTART")[0]
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/solve927g.py').read().split("#MAINSTART")[0]
 exec(src)
 MYPID=os.getpid()
 def fit2(vv,i,w1,w2,deg=4):

@@ -6,7 +6,7 @@ one pass suffices and the round-robin cycling disappears.
 """
 import sys, pickle, collections, json
 from math import gcd
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/mkassign2.py').read().split('#MAINSTART')[0]
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/mkassign2.py').read().split('#MAINSTART')[0]
 exec(src)
 NODE=M['NODE']; OUT=M['OUT']; ROOT=M['ROOT']; tree=M['tree']
 parent={}

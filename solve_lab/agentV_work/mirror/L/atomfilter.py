@@ -1,7 +1,7 @@
 """The complete set of atoms whose corruption could possibly affect the target equations.
 This is more fundamental than a site list: it bounds the entire space of useful corruptions."""
 import sys, json, pickle, collections
-sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentT_work/mirror/F')
+sys.path.insert(0,'/home/user/integer_solver/solve_lab/agentV_work/mirror/F')
 from fwd import Engine,NV
 from circ2 import vars_of
 E=Engine()

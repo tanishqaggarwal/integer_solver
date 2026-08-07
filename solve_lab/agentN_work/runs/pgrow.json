@@ -1,0 +1,130 @@
+[
+ {
+  "case": "baseline |W|=0",
+  "lattice": 14,
+  "rankQ": 7,
+  "rank_p": 3,
+  "rank_p_aug": 4,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 996 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 2043 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 4096 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 5916 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 6494 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 8687 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 19631 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 22563 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 23083 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 23919 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 25305 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 28754 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 31423 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 35561 (rank 16)",
+  "lattice": 16,
+  "rankQ": 9,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ },
+ {
+  "case": "drop eq 8680 (rank 15)",
+  "lattice": 15,
+  "rankQ": 8,
+  "rank_p": 4,
+  "rank_p_aug": 5,
+  "consistent": false
+ }
+]

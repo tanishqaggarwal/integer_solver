@@ -2,8 +2,8 @@
 import pickle, sys, collections
 p=115792089237316195423570985008687907853269984665640564039457584007908834671663
 K=97553848499418123410591666447050222001188385549510401465815187079080512838891
-M=pickle.load(open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/full_model.pkl','rb'))
-C2=pickle.load(open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/calib2.pkl','rb'))
+M=pickle.load(open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/full_model.pkl','rb'))
+C2=pickle.load(open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/calib2.pkl','rb'))
 tree=M['tree']; PIN=M['PIN']; live=M['live']; ROOT=M['ROOT']; order=M['order']; sub=M['sub']
 perm=C2['perm']; ORIENT=C2['ORIENT']; NODE=M['NODE']
 parent={}

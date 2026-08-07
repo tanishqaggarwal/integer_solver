@@ -1,6 +1,6 @@
 """Cut at node x: put the target-inverted value on x's parent slot wires. Only those 2 atoms break."""
 import sys, pickle, json, collections
-src=open('/home/user/integer_solver/solve_lab/agentT_work/mirror/L/mkassign2.py').read().split('#MAINSTART')[0]
+src=open('/home/user/integer_solver/solve_lab/agentV_work/mirror/L/mkassign2.py').read().split('#MAINSTART')[0]
 exec(src)
 TGT=tuple(pickle.load(open('target.pkl','rb')))
 NODE=M['NODE']; OUT=M['OUT']; tree=M['tree']; sub=M['sub']; ROOT=M['ROOT']; liveset=set(M['live'])
