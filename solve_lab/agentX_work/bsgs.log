@@ -5,3 +5,5 @@ DONE sign=1 checked=67108864 cand=2 (covers |k| <= 2^52)
 === real target, +T ===
 DONE sign=1 checked=67108864 cand=0 (covers |k| <= 2^52)
 === real target, -T ===
+DONE sign=-1 checked=67108864 cand=0 (covers |k| <= 2^52)
+=== BSGS ALL DONE ===

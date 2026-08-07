@@ -118,12 +118,12 @@ sizes:
 | 34-bit window | 2^41.80 |
 | small multiple `m ≤ 10⁷` | 2^31.25 |
 | endomorphism orbit | 1,536 |
-| **union (upper bound)** | **< 2^53.9** |
+| **union (upper bound)** | **2^54.20** |
 
-A single-bit fiber `{k : bit_i(k) = b}` has `2²⁵⁵` elements. The searches remove at most `2^53.9`
-of them, a fraction **`2^-201.1`**. Both fibers of every bit are hit essentially equally. **No
+A single-bit fiber `{k : bit_i(k) = b}` has `2²⁵⁵` elements. The searches remove at most `2^54.20`
+of them, a fraction **`2^-200.80`**. Both fibers of every bit are hit essentially equally. **No
 search performed by this campaign has moved the posterior on any individual bit of `k` by more than
-`2^-201`.** That is the precise sense in which every constraint is global.
+`2^-200.8`.** That is the precise sense in which every constraint is global.
 
 ### 3.2 Structurally, from the group: per-bit information *is* the whole problem
 
@@ -167,7 +167,7 @@ there is no per-bit information to be had, and the fleet should stop looking for
 
 `k` is a 256-bit scalar with weight ≥ 9 (≥ 10 pending), not near either end of `[0,N)` by 2⁵²,
 not window-confined, not in the endomorphism orbit, not a small multiple — and **essentially
-unique**, so there is no "many needles" advantage. The residual search space is `2²⁵⁶ · (1 − 2^-202)`.
+unique**, so there is no "many needles" advantage. The residual search space is `2²⁵⁶ · (1 − 2^-201.2)`.
 Generic DLP on secp256k1 is ~2¹²⁸ with a √3 discount. Nothing in the circuit reduces it, because the
 fold is a homomorphism of the selector vector.
 

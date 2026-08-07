@@ -1,2 +1,0 @@
-E_drop2081               live=1   score=38999  |R|=39   k=104  na=221  | AMB rkQ=31   rkp=28   gapQ=0 gap_p=0 | LAT dim=24   rkQ=10   rkp=4    gapQ=1 gap_p=1 ubp=39006 | CTL rkq=10   gapq=1 (192s)
-E_swap24601_sibling      live=2   score=38979  |R|=59   k=179  na=185  | AMB rkQ=58   rkp=44   gapQ=0 gap_p=0 | LAT dim=51   rkQ=17   rkp=10   gapQ=0 gap_p=1 ubp=39033 | CTL rkq=17   gapq=0 (269s)

@@ -1570,3 +1570,56 @@ The claim that survives all of them, and it is the only claim I make about the m
 > 39,026 and it is attained at W = {642, 28730, 29854, 31864} — the witness. Nothing anywhere has
 > exceeded it. At |W| = 4, the size at which 39,026 is first reached, the witness is the UNIQUE
 > maximiser over all 1,820 four-element supports, under BOTH knob sets.**
+
+## 94. 2^16 at p80 — COMPLETE, 65,536/65,536, and nothing exceeds 39,026
+    === H16: 65,536/65,536 priced  (2030s, 32/s, complete=True) ===
+      39026:    114        39015:  6,294
+      39023:     18        39014:    496
+      39022:     64        39013: 11,426
+      39021:  2,048        39012:    578
+      39020:    156        39011:    170
+      39019:  5,848        39010:    156
+      39018:     82        39009:  4,286
+      39017:    532        39008: 32,554
+      39016:    714
+    above 39026: 0     equal 39026: 114     errors/skips: 0
+    BEST 39026 at W = (642, 28730, 29854, 31864)
+
+By support size, every size COMPLETE:
+
+    |W|   subsets   best    count@best        |W|  subsets   best    count@best
+      0         1  39008        1              9   11,440   39023        1
+      1        16  39010        1             10    8,008   39021      172
+      2       120  39022        1             11    4,368   39021       56
+      3       560  39023        1             12    1,820   39021       11
+      4     1,820  39026        1  <- witness 13      560   39021        1
+      5     4,368  39026       12             14      120   39019       13
+      6     8,008  39026       56             15       16   39019        1
+      7    11,440  39026       45             16        1   39013        1
+      8    12,870  39023        5
+
+**The count at 39,026 is 114 at BOTH granularities** — the set of subsets attaining the maximum
+is granularity-invariant even though 84% of individual scores are not. The p80 refinement lifts
+the body of the distribution (39,021 goes 38 -> 2,048; 39,013 goes 816 -> 11,426) and changes the
+best at |W| = 8, 9, 10-13, but it moves neither the maximum nor where it is attained.
+
+**Unimodality confirmed at the finer granularity:** best rises 39,008 -> 39,010 -> 39,022 ->
+39,023 -> **39,026** (|W| = 4-7) -> 39,023 -> 39,021 -> 39,019 -> 39,013. Peak at 4-7, one size
+wider than the p10 run's 4-6.
+
+## 95. Row-order instrument (I4), sizes 0-5 COMPLETE over 2^16 (`enumsub3.py`, 480 s budget)
+    |W|=0 COMPLETE 39008(1)   |W|=3 COMPLETE 39023(2)
+    |W|=1 COMPLETE 39021(1)   |W|=4 COMPLETE 39026(1)   <- witness, unique, third instrument
+    |W|=2 COMPLETE 39022(1)   |W|=5 COMPLETE 39026(12)
+    |W|=6 partial 4,142/8,008, best 39026 (56)
+    11,027/65,536 priced, above 39,026: 0, errors 0, BEST 39026 at the witness
+
+Note |W| = 1 reaches **39,021** here where the fixed-order instrument gets 39,010 — the same lift
+the cofactor instrument produced, from a completely different mechanism. And at |W| = 5 the
+count at 39,026 is **12, the same as the fixed-order run** — so unlike the cofactor instrument,
+varying row order does not lose the 39,026 points.
+
+## 96. 2^18 started only after 2^16 finished, per instruction (`r14_chain18.sh`)
+`H18 = H16 u {7945, 23822}`; the two extra atoms are incident only to eq8680 = `S^4 = 0`, forced
+in every satisfying assignment and holding at the witness. Sizes 0-3 COMPLETE, identical bests to
+2^16 (39,008 / 39,010 / 39,022 / 39,023), running into |W| = 4.

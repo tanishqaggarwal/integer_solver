@@ -2,3 +2,40 @@ alignment bad (pre-repair): 4
 atoms with exactly 1 handle: 3681 of 9032
 S = [19745, 12134, 35062, 23262, 17710, 28754, 30823, 7780, 33824, 12422, 33434, 33951, 91, 5910, 35835, 33095, 22579, 20603, 853, 35635, 36961, 2441, 8319, 9294, 21305, 2143, 18022, 11368, 8370, 10591, 3320, 23794, 1931, 22282, 3216, 14039, 16348, 30673, 24912, 22595, 29785, 10428, 490, 32558, 24774, 3106, 6312, 35979, 12814, 27738, 28005, 37147, 28825, 31899, 24136, 19737, 35110, 6825, 34715, 15406, 38288, 22623, 38645, 30420, 7401, 16688, 19435, 7745, 33822, 4940, 542, 11189, 34510, 21392, 29327, 33283, 2460, 38459, 2455, 112, 1746, 1413, 31767, 37862, 4701, 19326, 14823, 23751, 24517, 22106, 35839, 36459, 35079, 32092, 28645, 7142, 19743, 28737, 32872, 22140, 5663, 36293, 17681, 21112, 26078, 30242, 11777, 24365, 12054, 12747, 29661, 30207, 1530, 25104, 3414, 2527, 35537, 21103, 22562, 11170, 35450, 14601, 34974, 3420, 1603, 33099, 1357, 4279]
 outer 0: global nonzero 70, violated c-conditions 67, nonzero handle-less 3
+   single-wire pass: 55 accepted
+outer 1: global nonzero 10, violated c-conditions 7, nonzero handle-less 3
+   handle-less pass: 3 nonzero handle-less atom(s)
+      *** x13454 += p*13189448 zeroes (x12827-(x31566*x24511)) (exact, recomputed)
+outer 2: global nonzero 9, violated c-conditions 7, nonzero handle-less 2
+   handle-less pass: 2 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x22366*x5209)-(8054097*x37199))  c=8054097
+     round 0: |group|=1 (0 exact) wires=6 new pairs=15
+     (x664   ,x4860  ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x7814  ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x14370 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x24959 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x25606 ) |group|=1 200 candidate(s) verified, guard rejected all
+     *** (x4860 += p*7397480 , x7814 += p*75188) |group|=1  global 9 -> 8
+outer 3: global nonzero 8, violated c-conditions 6, nonzero handle-less 2
+   handle-less pass: 2 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x12134*(x27137-113476461412842355952148348673776174265  c=4847139
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x4237*x19004)-(6256063*x6487))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x14520 ,x19075 ) |group|=2 NO JOINT ROOT mod 9 (exhaustive)
+     (x14520 ,x19689 ) |group|=2 NO JOINT ROOT mod 9 (exhaustive)
+     *** (x14520 += p*217456327217 , x27137 += p*43368324358) |group|=2  global 8 -> 7
+outer 4: global nonzero 7, violated c-conditions 5, nonzero handle-less 2
+   handle-less pass: 2 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x2820-x17195)-(8271997*x17079))  c=8271997
+     round 0: |group|=1 (0 exact) wires=2 new pairs=1
+     (x2820  ,x14047 ) |group|=1 191 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x5794*x19670)-(8567205*x2062))', '((x14047-x19324)-(3914361*x6389))']
+     round 1: |group|=3 (0 exact) wires=8 new pairs=27
+     (x2820  ,x13880 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x2820  ,x15237 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x2820  ,x19965 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x2820  ,x22362 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)

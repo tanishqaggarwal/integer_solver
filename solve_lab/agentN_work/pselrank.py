@@ -126,7 +126,10 @@ class Probe:
         s.specO = specO
         s.baseav = st.av
 
-    def read(s, Y, t):
+    def read(s, Y, t, iR, iO):
+        """Values of ONLY the rows a move of knob Y can change (iR into specR, iO into specO).
+        Every other row's response is exactly 0 -- the atoms it is built from do not contain Y,
+        so this is a restriction of the work, not of the model."""
         st = s.st
         v = st.v[:]
         ns = {'v': v, '__builtins__': {}}
@@ -136,11 +139,12 @@ class Probe:
         av = {a: eval(FB.ACODE[a], ns) for a in fr.chk.get(Y, [])}
         base = s.baseav
         out = []
-        for specs in (s.specR, s.specO):
-            row = []
-            for rs in specs:
+        for specs, idx in ((s.specR, iR), (s.specO, iO)):
+            row = {}
+            for i in idx:
+                rs = specs[i]
                 if rs[1] is not None:
-                    row.append(eval(rs[1], ns))
+                    row[i] = eval(rs[1], ns)
                 else:
                     tot = 0
                     for c, a in eq_terms[rs[0]][2]:
@@ -149,7 +153,7 @@ class Probe:
                             x = base.get(a)
                         if x:
                             tot += c * x
-                    row.append(tot)
+                    row[i] = tot
             out.append(row)
         return out
 
@@ -224,6 +228,8 @@ def measure(tag, on, lattice=True, cap_knobs=2400, cap_rows=3000, verbose=True):
     nR, nO = len(Rl), len(specO)
     bo = [0] * nO
 
+    posR = {e: i for i, (e, c) in enumerate(specR)}
+    posO = {e: i for i, (e, c) in enumerate(specO)}
     pr = Probe(st, specR, specO)
     cols, cols_o = [], []
     nonaff_entries = 0
@@ -231,20 +237,29 @@ def measure(tag, on, lattice=True, cap_knobs=2400, cap_rows=3000, verbose=True):
     reinterp = 0
     deg_overflow = []
     for Y in K:
-        r1, o1 = pr.read(Y, 1)
-        r2, o2 = pr.read(Y, 2)
-        cR = [r1[i] - b[i] for i in range(nR)]
-        cO = [o1[i] - bo[i] for i in range(nO)]
-        badR = [i for i in range(nR) if (r2[i] - b[i]) != 2 * cR[i]]
-        badO = [i for i in range(nO) if (o2[i] - bo[i]) != 2 * cO[i]]
+        affeq = set()
+        for a in fr.chk.get(Y, []):
+            affeq |= atom_eqs[a]
+        iR = [posR[e] for e in affeq if e in posR]
+        iO = [posO[e] for e in affeq if e in posO]
+        r1, o1 = pr.read(Y, 1, iR, iO)
+        r2, o2 = pr.read(Y, 2, iR, iO)
+        cR = [0] * nR
+        cO = [0] * nO
+        for i in iR:
+            cR[i] = r1[i] - b[i]
+        for i in iO:
+            cO[i] = o1[i] - bo[i]
+        badR = [i for i in iR if (r2[i] - b[i]) != 2 * cR[i]]
+        badO = [i for i in iO if (o2[i] - bo[i]) != 2 * cO[i]]
         if badR or badO:
             reinterp += 1
             nonaff_entries += len(badR) + len(badO)
             for i in badR:
                 nonaff_rows.add(Rl[i])
-            reads = [([b[i] for i in range(nR)], [bo[i] for i in range(nO)]), (r1, o1), (r2, o2)]
+            reads = [({i: b[i] for i in iR}, {i: bo[i] for i in iO}), (r1, o1), (r2, o2)]
             for t in range(3, MAXT + 1):
-                reads.append(pr.read(Y, t))
+                reads.append(pr.read(Y, t, badR, badO))
             for i in badR:
                 c1, ok = lin_coeff([reads[t][0][i] for t in range(MAXT + 1)])
                 cR[i] = c1

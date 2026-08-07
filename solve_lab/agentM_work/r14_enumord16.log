@@ -17,3 +17,45 @@ CALIBRATION on the witness: 39008 -> 39026  PASSED
   |W|= 5         COMPLETE  best 39026  count@best 12
          dist: 39026:12  39022:74  39021:784  39020:495  39010:20  39009:1,711  39008:1,272
   [8,000/65,536] 283s 28/s  best 39026  |W|=6  errors 0
+  [10,000/65,536] 435s 23/s  best 39026  |W|=6  errors 0
+  [budget stop at index 11,027]
+
+=== H16 max-over-3-orders: 11,027/65,536 priced  (480s, 23/s, complete=False) ===
+  39026: 69
+  39023: 7
+  39022: 236
+  39021: 3,048
+  39020: 1,584
+  39010: 45
+  39009: 3,195
+  39008: 2,843
+
+above 39026: 0
+equal 39026: 69
+errors/skips: 0
+BEST 39026 at W=(642, 28730, 29854, 31864)
+
+by support size:
+  |W|= 0         COMPLETE  best 39008  count@best 1
+         dist: 39008:1
+  |W|= 1         COMPLETE  best 39021  count@best 1
+         dist: 39021:1  39009:3  39008:12
+  |W|= 2         COMPLETE  best 39022  count@best 1
+         dist: 39022:1  39021:3  39020:11  39010:3  39009:30  39008:72
+  |W|= 3         COMPLETE  best 39023  count@best 2
+         dist: 39023:2  39022:2  39021:35  39020:66  39010:8  39009:176  39008:271
+  |W|= 4         COMPLETE  best 39026  count@best 1
+         dist: 39026:1  39023:2  39022:22  39021:210  39020:220  39010:14  39009:656  39008:695
+  |W|= 5         COMPLETE  best 39026  count@best 12
+         dist: 39026:12  39022:74  39021:784  39020:495  39010:20  39009:1,711  39008:1,272
+  |W|= 6 partial 4142/8008  best 39026  count@best 56
+         dist: 39026:56  39023:3  39022:137  39021:2,015  39020:792  39009:619  39008:520
+H16 = [642, 1844, 2892, 9629, 18253, 23642, 23754, 28355, 28730, 29305, 29854, 31864, 34113, 35619, 37413, 37720]
+  total 2^16 = 65,536   3 row orders   nprobe=80 budget=180.0
+CALIBRATION on the witness: 39008 -> 39026  PASSED
+RESUMED at index 11,027/65,536, best 39026
+  [12,000/65,536] 37s 26/s  best 39026  |W|=6  errors 0
+  [14,000/65,536] 112s 27/s  best 39026  |W|=6  errors 0
+  |W|= 6         COMPLETE  best 39026  count@best 56
+         dist: 39026:56  39023:3  39022:137  39021:2,015  39020:792  39010:21  39009:3,274  39008:1,710
+  [16,000/65,536] 278s 18/s  best 39026  |W|=7  errors 0

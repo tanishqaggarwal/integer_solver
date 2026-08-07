@@ -76,11 +76,24 @@ handled, not miscounted.)*
 
 ## 4. RESULTS
 
-Coverage design: table = every subset of size **1..4** (177,589,056 keys); scan = every subset
-of size **1..5**. Every `S` with `2 ≤ |S| ≤ 9` splits as `α ⊎ β` with `1 ≤ |α| ≤ 4`,
-`1 ≤ |β| ≤ 5`, so the pair (table, scan) covers it. `|S| = 0` and `|S| = 1` checked directly
-(`xedge.py`: `T` is not `O` and is not any `2^i·G`). Degenerate `dx = 0` events are trapped and
-reported, not silently skipped — **0 occurred**.
+Coverage design: table = every subset of size **1..4** (177,589,056 keys, `tbl4s.bin`);
+scan = every subset of size **2, 3, 4** and then **5**. The splits actually executed, and what
+each covers — this is the exact coverage argument, not a sketch:
+
+| `|S|` | split used | where |
+|---|---|---|
+| 0 | — | `T ≠ O` (`xedge.py`) |
+| 1 | — | `T` is not any of the 256 `2^i·G` (`xedge.py`, full point comparison) |
+| 2, 3, 4 | `α = S`, `β = ∅` | `TX`'s 64-bit key is **not in the table** (`xedge.py`). Truncation can only create false positives, never false negatives, so a miss here is exact |
+| 5 | `|α| = 3`, `|β| = 2` | scan size 2 |
+| 6 | `|α| = 4`, `|β| = 2` | scan size 2 |
+| 7 | `|α| = 4`, `|β| = 3` | scan size 3 |
+| 8 | `|α| = 4`, `|β| = 4` | scan size 4 |
+| 9 | `|α| = 4`, `|β| = 5` | scan size 5 |
+
+(`|β| = 1` is therefore never needed and was not run.) Degenerate `dx = 0` events — which is how a
+scan point equal to `±` a ladder point, or the identity, would show up — are trapped and reported,
+not silently skipped: **0 occurred** at every completed size.
 
 | weight | candidates | status | time |
 |---|---|---|---|
@@ -139,7 +152,7 @@ fleet works in, including T's integer lifts at `|S| = 2,3,5,6,7,8,17`.
 `xbsgs.c`, same field code as `xmitm.c` (`xfield.h`), 2²⁶ baby steps × 2²⁶ giant steps in W = 512
 parallel chains with batched inversion. `smul` cross-checked against Python at 5 scalars, and a
 **planted `k₀ = 5·2²⁶ + 1234567` was recovered at exactly `i = 5`**.
-Result: `+T` → **0 candidates**. `−T` → see `bsgs.log`.
+Result: **`+T` → 0 candidates, `−T` → 0 candidates**, 67,108,864 giant steps each.
 So `k > 2⁵²` and `N − k > 2⁵²`. Baby table: `babys.bin` (537 MB, sorted).
 
 ### 6.4 Per-bit measurement on the instance (`xperbit.py`)
@@ -153,3 +166,23 @@ The box is heavily oversubscribed by the rest of the fleet (load 22–28 on 4 co
 gets ~0.4 cores despite 8 OMP threads. It is **not** I/O bound (`read_bytes = 0`, RSS 1.9 GB fully
 resident) — purely CPU-starved. `tbl4.bin` (unsorted, 1.4 GB) and `baby.bin` were deleted to relieve
 page-cache pressure; both are regenerable in under a minute.
+
+---
+
+## 7. RUNNING STATE (for a restart)
+
+The size-5 sweep runs as **six independent processes** in **separate sessions** (this box schedules
+CPU per session via `sched_autogroup`, so six sessions get ~4× the share of one 8-thread process —
+measured 0.41 → 1.65 cores). Disjoint `i0` ranges, each writing a `DONE size=5 range=[lo,hi)` line
+to `rep_real.txt` on completion:
+
+```
+[0,10) [10,20) [20,33) [33,51) [51,77) [77,256)      # ~16-18% of the work each
+setsid env OMP_NUM_THREADS=2 nohup ./xmitm scan data_real.txt 5 tbl4s.bin bm4.bin rep_real.txt LO HI > partN.log 2>&1 &
+```
+
+PIDs in `PIDS.txt` (test with `kill -0 PID`; never match on the command line). Per-`i0` completion
+lines land in `partN.log`, so `prog.py` reports exact fractional coverage and a restart only needs
+to re-run the `i0` values with no `i0=N done` line. **A HIT prints `HIT <size> <code> <m> <key>` to
+`rep_real.txt` and is decoded by `xdecode.py tbl4.bin "<line>"`** — which needs `tbl4.bin`
+(build-order table) regenerated first: `./xmitm table data_real.txt 4 tbl4.bin` (50 s).

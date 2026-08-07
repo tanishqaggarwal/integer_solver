@@ -1,0 +1,4 @@
+pid=28875 cpu_ticks_delta=-9502 over 300s  => cores=-.31
+grep: scanB.log: No such file or directory
+i0 completions so far: 
+tail: cannot open 'scanB.log' for reading: No such file or directory

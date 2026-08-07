@@ -1,3 +1,0 @@
-B_13195_24601            live=2   score=38933  |R|=101  k=120  na=283  | AMB rkQ=55   rkp=53   gapQ=0 gap_p=0 | LAT dim=55   rkQ=28   rkp=25   gapQ=1 gap_p=1 ubp=39004 | CTL rkq=28   gapq=1 (145s)
-E_drop2081               live=1   score=38950  |R|=84   k=112  na=282  | AMB rkQ=51   rkp=48   gapQ=0 gap_p=0 | LAT dim=53   rkQ=27   rkp=24   gapQ=1 gap_p=1 ubp=39006 | CTL rkq=27   gapq=1 (134s)
-E_swap2081_4287          live=2   score=38929  |R|=105  k=123  na=285  | AMB rkQ=64   rkp=62   gapQ=0 gap_p=0 | LAT dim=66   rkQ=37   rkp=36   gapQ=1 gap_p=1 ubp=39020 | CTL rkq=37   gapq=1 (147s)

@@ -336,3 +336,11 @@ and that is not invariant — it moves (4 at the deliverable, 6, 8, 3, ... elsew
 **Separate "this number is wrong" from "this result is wrong": the number is right, the framing was.**
 The fix is a control prime `q` of the same size, unrelated to the instance; `rk_Q - rk_q = 0`
 while `rk_Q - rk_p > 0` is what actually shows the deficiency belongs to `p`.
+
+## A 10-13x speedup, verified against direct recomputation before it was used
+`Probe.read` was re-evaluating all ~7,600 collateral rows for every knob when only the equations
+reachable from that knob's check atoms can change. Restricting to
+`union(atom_eqs[a] for a in fr.chk[Y])` is a restriction of the WORK, not of the model — every
+other row's response is exactly 0. **Checked, not assumed: re-measured three completed
+configurations and compared every recorded field — 0 differing fields, 16.4s->5.2s, 269s->21s,
+192s->20s.**
