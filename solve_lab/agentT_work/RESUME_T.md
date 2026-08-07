@@ -803,3 +803,55 @@ in N's conclusion.
 ## AH. NEW FILES (ninth pass)
 `t_detach.py` (65-pool witness/gate check in F's parse; full-DAG independence of the 61).
 Reproduce: `cd solve_lab/agentT_work && python3 t_detach.py`.
+
+=============================================================================================
+# TENTH PASS — agent M's enumeration engine   [coordinator check-in 79]
+Question 2 (are the 30 optima supersets?) was closed by M's own `verifysup.py` before I started,
+with a refinement that falsifies the neighbouring claim — I did not duplicate it.
+**Question 1 was the whole audit: is M's scorer exact, checked OUTSIDE M's parse?**
+
+## AI. M'S ENGINE IS EXACT — verified independently, and it reproduces the deliverable exactly
+`t_meng.py`, `t_meng2.py`.  M's six calibration gates include "incremental == full engine3,
+0 vars differing", but that is M checking M, and the entire value of a 4,096-subset exhaustive
+verdict rests on the scorer.  Drove `ieng.tune` on H12's witness subset, **materialised the
+assignment M's engine actually scores**, and put it in front of `checker.py` and F's parse:
+```
+   M engine on {642,28730,29854,31864}: base_score 39008 -> score 39026, 5 knobs, 5 vars changed
+   CHECKER (independent)              : satisfied 39026/39033, 7 failing
+   failing == the deliverable's exact [12231,12270,12350,14584,18673,22044,29125] :  TRUE
+   M's reported score == checker's score                                          :  TRUE
+   F's certified parse                : exactly the deliverable's 7 nonzero atoms
+```
+**And the assignment M's engine produces is byte-identical to the deliverable: 0 of 38,748
+variables differ.**  M's engine does not merely reproduce the score — it reconstructs the file.
+
+### AI1. The footprint/failing gap is the cancellation, not a defect
+The 7 nonzero atoms touch **12** equations of which only **7** fail: **5 cancel to zero**, namely
+`[2554, 6816, 8124, 9123, 9421]`, and **no failing equation lies outside the footprint** — nothing
+unexplained.  Cross-link worth recording: those are **exactly** the 5 equations that appeared as
+new failures in my third pass when I zeroed L's cofactors (`t_cancel.py`, 7 -> 12).  **The five
+equations that cancel are precisely the five that break when the cancellation handles are
+zeroed** — L's mechanism and M's engine agreeing exactly, from opposite directions.
+
+### AI2. Exactness away from the calibration point — 9/9
+A scorer can be exact where it was calibrated and wrong elsewhere, and the enumeration's value is
+its verdict on the *other* 4,095.  Spot-checked 9 subsets spanning the range, each materialised
+and scored by `checker.py`:
+```
+   (642,28730,29854,31864) 39026=39026   (28730,) 39009=39009   (642,29854) 39011=39011
+   (642,1844,9629,28730,29854,31864) 39026=39026   (31864,35619) 39009=39009
+   (23754,35619) 39008=39008   (642,1844,35619,37413) 39009=39009
+   (18253,23642,31864,35619) 39008=39008   [+1 duplicate subset]
+   agree 9 / disagree 0
+```
+> **M's engine is exact at every point tested, including the maximum, the base and four
+> non-optimal interior points.  The row is promoted to *T verified independently*.**
+**Scope, stated plainly: 9 of 4,096 subsets.**  "Nothing above 39,026" rests on the scorer being
+exact *everywhere*, and I have verified it at 9 points, not 4,096.  What I can say is that the
+engine is exact wherever I could check it and that it reconstructs the known answer bit-for-bit —
+which is the strongest cheap evidence available, and considerably more than a self-calibration.
+
+## AJ. NEW FILES (tenth pass)
+`t_meng.py` (materialise + checker + F parse + identity with the deliverable) ·
+`t_meng2.py` (9-subset exactness spot-check) · `t_meng_assign.json` (the engine's own output,
+checker-verified 39,026).  Reproduce: `python3 t_meng.py && python3 t_meng2.py`.

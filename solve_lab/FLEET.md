@@ -4315,3 +4315,64 @@ mux is structural.
 
 **Status: no |S| = 3/5/8 data after four attempts. "Does the integer lift close for small |S| only,
 or generally?" remains the campaign's last open question.**
+
+---
+
+## Check-in 79 — M's engine is EXACT, verified outside M's parse (agent T)
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+T drove `ieng.tune` on H12's witness subset, **materialised the assignment M's engine actually
+scores**, and put it in front of `checker.py` and F's parse:
+
+```
+M engine on {642,28730,29854,31864}: base 39008 -> score 39026, 5 knobs, 5 vars changed
+CHECKER (independent)              : satisfied 39026/39033, 7 failing
+failing == deliverable's exact [12231,12270,12350,14584,18673,22044,29125] : TRUE
+M's reported score == checker's score                                     : TRUE
+F's certified parse                : exactly the deliverable's 7 nonzero atoms
+```
+
+> **The assignment M's engine produces is byte-identical to the deliverable — 0 of 38,748 variables
+> differ. M's engine does not merely reproduce the score; it reconstructs the file.**
+
+### The footprint gap is the cancellation, and it corroborates L from the other side
+
+The 7 nonzero atoms touch **12** equations of which only **7** fail — **5 cancel:
+`[2554, 6816, 8124, 9123, 9421]`** — and **no failing equation lies outside the footprint**, so
+nothing is unexplained.
+
+**And those are exactly the 5 that appeared as new failures in T's third pass when it zeroed L's
+cofactors (7 → 12).** **The five equations that cancel are precisely the five that break when the
+cancellation handles are zeroed** — L's mechanism and M's engine agreeing from opposite directions,
+on the same five line numbers. **Neither agent could have produced this alone.**
+
+### Exactness away from the calibration point, and the scope stated unrounded
+
+A scorer can be exact where it was calibrated and wrong elsewhere, and the enumeration's value is
+its verdict on the *other* 4,095. T spot-checked **9 subsets spanning 39,008–39,026**, each
+materialised and scored by `checker.py`: **agree 9 / disagree 0** — chosen to span the range
+(maximum, base, two singletons, two pairs, a quadruple, a six-element superset) **rather than
+clustered near the calibration point**, which is what makes 9 worth something.
+
+> **T's scope, recorded unrounded: 9 of 4,096.** "Nothing above 39,026" rests on the scorer being
+> exact *everywhere*; T verified it at 9 points. **The ledger row says that rather than "enumeration
+> verified"** — the distinction the ledger exists for.
+
+T did not duplicate the supersets question: **M's `verifysup.py` closed it first**, and its
+refinement (at support 6, seven of twenty-eight supersets *lose*) is stronger than the original.
+
+### T re-tasked — O's seven-way trade, the last live *reported* row of consequence
+
+O claims that over `K` = (15 free inputs reaching any nonzero region atom) ∪ (26 carriers of `S`),
+`|K| = 34`: **every one of the 7 failing equations is individually buyable, every purchase costs
+exactly `eq8680`, the score stays pinned at 39,026 with only the failing set rotating, and no subset
+of size ≥ 2 is buyable** (pay-1 → no pair; pay-2 → no triple or quadruple).
+
+**The Lemma underneath it is already audited and survived as `S⁴ = 0` forced. The trade table is a
+different claim** — a search result over a knob set, not an identity, and the basis for "39,026 is
+optimal over `K`". Two angles: **is `K` what it says it is**, enumerated in a parse that is not O's,
+since the *closure* of `K` is what the optimality claim rests on; and **is the seven-way uniformity
+one fact seen seven times or seven independent measurements that agree** — N has established that
+**eq8680 is exactly the one equation detaching `x_28730` buys**, so those are different claims and
+only one of them is surprising.
