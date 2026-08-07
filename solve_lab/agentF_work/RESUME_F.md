@@ -1,137 +1,136 @@
-# RESUME_F — agent F (multi-modular / p-adic lifting).  NO curve/group framing; integer polynomials only.
+# RESUME_F — agent F.  Self-contained handoff: rebuild everything from here.
+No curve/group framing anywhere; integers, congruences and polynomials only.
 
-## READ THIS FIRST — the instance is a 96-STAGE COMBINATION TREE.  Infeasibility WITHDRAWN.  Wide open.
-96 gates carry exactly 3 checks each, each with its OWN distinct six-tuple of free inputs (96 gates,
-96 six-tuples).  Gate-support sizes over the 256 conditional-pin booleans:
-   0:7  1:20  2:32  3:9  4:11  6:2  7:4  8:1  9:1  10:1  11:1  14:1  21:2  22:1  50:1  88:1  256:1
-That is a binary tree: 256 pin constants are the leaves, 96 internal stages each combine TWO values into
-one, the root (gate x15298, support 256) must produce (K1 mod p, K2 mod p).
-**Stage x24533 fully decoded and its law CONFIRMED EXACTLY**: inputs (x14681,x38551) and (x25591,x736),
-output (x11532,x5186); the gate is 1 iff both inputs are live; its three checks are linear in the output,
-rank 2, consistent, and the output they demand equals chordK(A,B) digit for digit with the SAME universal
-K = 97553848499418123410591666447050222001188385549510401465815187079080512838891 as the root stage.
-So the accumulator COMPOSES.  The reachable root value is exponential in the number of active leaves.
-My 13,884-pair enumeration covered depth-0 configurations only; **section 7 of LOG.md is invalid**.
-**The law is UNIFORM**: `stage_law2.py` searched all role partitions and all coordinate orderings for
-every stage -- 72 of 72 stages with a full six-tuple obey chord-with-offset, and the offset is the SAME
-universal K in all 72, zero exceptions (the other 24 stages have only 4 free inputs: leaf-adjacent stages
-where one input is a literal).  Tree depth 6, root gate x15298 (support 256); structure in `tree96.json`.
-**Link (ii) sweep FINISHED, 256/256 booleans, 0 contradictions**: 248 fully confirm, 8 only partially
-derived and every derived value is still a pin constant of its boolean (3 of those carry only one pin).
-So the remaining task is: choose a subset of the 256 leaves whose fold through the fixed tree hits the
-target (K1 mod p, K2 mod p).
-**THE LAW IS INVERTIBLE — YES** (200/200 random triples, both directions, exact, O(1) each):
-    B from (A,O): l=(o_y+a_y)/(a_x-o_x); b_x=l^2-a_x-o_x-K; b_y=a_y+l*(b_x-a_x)
-    A from (B,O): l=(o_y+b_y)/(b_x-o_x); a_x=l^2-b_x-o_x-K; a_y=b_y+l*(a_x-b_x)
-So the target can be pushed DOWN the tree exactly as cheaply as leaves are pushed up: meet-in-the-middle
-over the root's two input slots, and because inversion is exact at every stage the meeting point can be
-moved deeper than the root.  This is what makes the tree attackable.
-**Wiring**: each stage input slot is a free variable w with a residual atom `((w - z) - handle)` where z
-is a sum of exactly THREE `selector*value` terms -- a 3-way gated mux over child outputs or leaf
-constants (same shape as the root's `x13682 = x34606*x1 + x5647*x2 + x15298*x3`).  39 of 144 slots decoded.
-**Mux decode statistics** (`mux.py` -> `mux_wiring.json`, |Z| = 7,202 always-zero wires used to strip
-handles): of the 288 slot wires, 116 unfold to a 3-term gated mux, 64 to a 1-term source, and 108 are not
-mux-fed at all -- their atom shapes identify them as conditional LEAF pins (`(X*(X-C))-(C*X)`,
-`(X*(X-C))-X`) or as stage CHECK atoms, i.e. output wires.  47 of 72 stages fully wired; **56 stages still
-have an undecoded slot pair and NOTHING was filled by guess.**
-**Root split measured: inA leaf support 178 booleans, inB leaf support 78.**  Lopsided, so a
-meet-in-the-middle at the root needs 2^78 on the smaller side -- hopeless.  Memory ceiling here is about
-2^24-2^25 hash entries (1-2 GB), i.e. an even split of ~48-50 bits.  The meeting point MUST go deeper,
-which per-stage invertibility permits.  Also: the space is NOT 2^256 flat subsets -- each slot is a 3-way
-or 1-way mux, so a configuration is a live-branch choice per stage plus the gated leaf pattern; COUNT
-those configurations before enumerating anything.
-**NOT DONE, and nothing should be believed from it until it is**: the fold evaluator is not built and not
-validated, and no subset search has been run.
-
-One thing is proved: **rank(M) = 39,033, dim ker(M) = 0** (three independent computations).  That closes
-the "cancelling nonzero residual" route and makes all-atoms-zero *equivalent* to a full solve.
-It does NOT make the instance infeasible.  My section-7 exhaustion assumed at most one ON boolean per
-OR-tree ("link (i)").  A rigorous mod-p rigidity engine (`cfg_rigid2.py`) now shows that assumption is
-UNSUPPORTED: on same-tree pairs it derives no contradiction (45 pairs, 0 conflicts), both booleans' pin
-wires stay forced to their own constants, and the wire that lost its forcing is an ADDER
-`x11317 := x11532 + x14681` that carried the whole selected value in the single-boolean case.  That is an
-accumulator signature.  A numerical run with two same-tree booleans also activates a SECOND gate
-(x24533) with three further checks.  So the reachable set of the selected pair may be far larger than the
-13,884 one-per-tree combinations I enumerated.  **No infeasibility is claimed by me.**
-
-## PROVED:  rank(M) = 39,033 and dim ker(M) = 0  (exact, certificate-verified)
-M = the 39,033 x 39,033 equation-atom incidence matrix (525,982 nonzeros, coefficients from the spine
-decomposition).  A characteristic-free peeling cascade -- a row whose surviving support is a single atom
-forces that atom to 0 -- starts from the unique degree-1 row and **forces all 39,033 atoms to zero**.
-The elimination order is stored as a checkable certificate (`peel_order.npy`) and re-verified by an
-independent pass (`peel_cert.py` -> `certificate verified: True`).  Holds over Z and over every field of
-characteristic > 80.
-Independently confirmed by **Wiedemann over two word primes**: q = 2^31-1 gives minpoly degree 39,033 = n
-with trailing coefficient 268435456 != 0, and q = 2147483629 gives degree 39,033 with trailing coefficient
-11716781 != 0 -- M nonsingular both times (implementation validated first on 4 nonsingular and 3
-rank-deficient controls with independently computed true ranks).  The pivots of the peeling cascade are all +-1 or +-2, none divisible by
-any odd prime tested, and three randomized peeling orders all force 39,033/39,033 atoms.
-**Consequence: any assignment satisfying all 39,033 equations must make all 39,033 atoms exactly zero.**
-The all-atoms-zero model is therefore not a restriction but an equivalence; the "cancelling nonzero
-residual" route to a full solution does not exist, and every frame-optimality result in this lab that was
-conditional on that model loses that condition.
-
-## Scores
-- Shared baseline **39,026** re-verified by me (`solve_lab/best/new_instance_partial_39026.json`).
+--------------------------------------------------------------------------------------------------
+## 0. SCORES (nothing here beats the shared baseline)
+- Shared baseline **39,026 / 39,033**, re-verified by me:
+  `python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json`
+  -> `satisfied 39026/39033 (7 failing)`, failing `[12231,12270,12350,14584,18673,22044,29125]`.
 - My own pipeline's best: **39,024** = `agentF_work/best_F_39024.json` (checker-verified, 9 failing).
-  Also `best_F_39022.json` (39,022, only 2 nonzero atoms) and `F_frame.json` (39,023).
-- Nothing above 39,026 yet.
+  Also `best_F_39022.json` (39,022, only 2 nonzero atoms in the whole instance), `F_frame.json` (39,023).
+- **No infeasibility is claimed.**  I held one two rounds ago and withdrew it; section 7 of LOG.md is
+  marked INVALID.  Do not resurrect it.
 
-## Established (mine, independent)
-- 39,033 atoms; 30,001 definitions form a **DAG**; 8,747 free inputs; **9,032 residual atoms**.
-  **All residual atoms zero => all 39,033 equations hold.**
-- All-free-inputs-zero => **39,005**, only 3 nonzero atoms.  Engine `fwd.py`, 16 ms/pass, matches checker.
-- Every check has the exact form `A - B = M*p*h` with h a free integer, M a ~24-bit literal, and
-  p = 115792089237316195423570985008687907853269984665640564039457584007908834671663 a 256-bit prime
-  literal of the file (it defines x26064).  So every check is a congruence mod M*p.
-- **The lift obstruction concentrates at the single modulus p.**  `modq.py` fully solves the entire
-  39,033-equation system mod q (0 broken atoms, 0 failing equations) for 13 primes q != p including
-  2^127-1 and 2^255-19 (size control).  Reason: `M*p*h` is surjective mod any q coprime to M*p.
-- **No obstruction above p^1**: with the two unconditional constant pins relaxed, everything closes exactly
-  over Z (`relaxed_pin.json`) -- handles absorb every quotient.  A mod-p solution would lift immediately.
-- All-atoms-zero model is exhausted (13,884 combinations, zero solutions) but **no infeasibility is claimed**:
-  a solution may carry nonzero atoms that cancel; that needs ker(M) != 0 for the 39,033x39,033 incidence
-  matrix M (525,982 nnz), which I have NOT computed.
-- 39,026 optimality in its own frame independently CONFIRMED (unique integrally-reachable 5-subset of 12
-  rows; all 924 6-subsets solvable over Q -- integrality is the barrier).
+--------------------------------------------------------------------------------------------------
+## 1. WHAT THE INSTANCE IS  (all measured, all reproducible)
+Every equation LHS is `(scalar)*S^k` or `(c1+c2)*S`, so each equation holds iff its **core S** is 0.
+S is a left-nested spine of **atoms**; there are exactly **39,033 distinct atoms**.
+30,001 atoms are *definitions* `x_out - f(inputs)` forming a **DAG**; forward evaluation from the
+**8,747 free inputs** zeroes them all, leaving **9,032 residual atoms**.
 
-## Re-enter
-    cd /home/user/integer_solver/solve_lab/agentF_work
-    python3 parse3.py; python3 circ4.py; python3 sched.py; python3 supp.py   # rebuild pickles (~1 min)
-    python3 fwd.py       # 39,005 from all zeros, 3 broken atoms
-    python3 modq.py      # full solve mod q for many q
-    python3 frame.py     # frame/lattice analysis helpers ; intsolve.py = exact integer HNF solver
+**rank(M) = 39,033, dim ker(M) = 0** for the 39,033 x 39,033 equation-atom incidence matrix (525,982
+nonzeros).  Three independent confirmations: a characteristic-free peeling certificate over Z
+(`peel_order.npy`, re-verified by `peel_cert.py`; all pivots are +-1 or +-2, none divisible by any odd
+prime, so it holds over Z and every field of char != 2), and Wiedemann over q=2^31-1 (minpoly degree
+39,033, trailing coeff 268435456) and q=2147483629 (trailing coeff 11716781).
+=> **any assignment satisfying all 39,033 equations must make all 39,033 atoms exactly zero.**
+All-atoms-zero is EQUIVALENT to a full solve; a cancelling nonzero residual cannot exist.
 
-## Next experiments (in order)
-1. **Settle the accumulator question** -- this is now the top item and it is a CONSTRUCTIVE opportunity,
-   not a barrier.  With two same-tree booleans ON: does the selected wire equal the SUM of the two
-   per-boolean contributions?  If yes, the selected pair ranges over subset sums of the 256 pin constants
-   and the enumeration that produced "no solution" was over a tiny slice of the real space.
-   Tools ready: `cfg_rigid2.build(bits)` (~15 s, exact, 0 conflicts everywhere so far) and `gs2.solve`.
-   The right experiment: take two same-tree booleans, and instead of letting `gs2` zero the contributions,
-   force the selected wire to C_j1 + C_j2 (mod p) and see whether the residual atoms close.
-   Also characterise the extra gate x24533 that turns on with two same-tree booleans and its 3 new checks.
-2. Finish `sweep_ii.py` (exhaustive link (ii), ~15 s/boolean, checkpointed to `sweep_ii.json`).
-3. Continue `sweep_i.py` only as a diagnostic -- it is currently inconclusive by construction, so treat
-   its coverage percentage as "fraction tested", never as "fraction excluded".
-2. Coset search for a better cancellation frame: the number of the 12 frame rows that cancel is decided by
-   the coset of the residual value in the 7-generator lattice (invariants: r1 mod 7376877, r2 mod p,
-   r3+r4 mod p, r5-r6 mod p).  Sweep the ON-boolean pair and the break placement to move the coset; a
-   6-row coset would give 39,027.  (Note: r2 mod p can never be 0, since the two boolean groups' pin
-   constants are disjoint mod p, so equation 29125 appears to be unavoidable in this frame family.)
-3. mod p^k with a proper Hensel step rather than greedy repair, to characterise the mod-p residue variety.
+Every check has the exact shape `A - B = M*p*h` with h a free integer, M a ~24-bit literal, and
+**p = 115792089237316195423570985008687907853269984665640564039457584007908834671663** a 256-bit prime
+literal of the file (it defines x26064).  So every check is a congruence mod M*p.
+**The lift obstruction is at exactly ONE modulus, p, at level p^1 only:**
+ - `modq.py`/`modm.py` fully solve the entire 39,033-equation system (0 nonzero atoms, 0 failing
+   equations, ~3.5 s) modulo every prime tried from 3 to 2^255-19, every prime power tried
+   (2^100, 3^80, 5^40, 7^25, 11^20, 13^20, 1009^8, 65537^4, 1000003^3, (2^31-1)^2), and the handle
+   multipliers M themselves.  58 checkpoints in `modm_results/`.
+ - mod p: 21 nonzero atoms / 124 failing.  mod p^2: 15 / 102.  Same code, same booleans.
+ - `relaxed_pin.json`: relax the two unconditional constant pins and everything else closes exactly over
+   Z -- the handles absorb every quotient.  So a mod-p solution lifts to Z immediately.
+ - CRT of 20 independent 7-digit-prime solutions gives a solution modulo a **399-bit** composite Q with
+   0 failing equations mod Q (`crt.py`, `crt_sols/`); its balanced representative scores 38,991.
 
-## Multi-modular results (new)
-- FULL system solved (0 broken atoms, 0 failing equations) modulo: all primes < 110, 1009, 10007, 100003,
-  1000003, 10000019, 10^9+7, 2^31-1, 2^61-1, 2^89-1, 2^127-1, 2^255-19; prime powers 2^64, 2^100, 3^40,
-  3^80, 5^10..5^40, 7^25, 11^20, 13^20, 1009^8, 65537^4, 1000003^3, (2^31-1)^2; and the handle multipliers
-  M themselves.  Checkpoints in `modm_results/`.
-- CRT of 20 independent 7-digit-prime solutions gives a solution modulo a **399-bit** composite Q with
-  0 failing equations mod Q (`crt.py`, vectors in `crt_sols/`, report `crt_report.json`).
-  Its balanced integer representative scores 38,991 (`crt_balanced.json`) -- CRT alone does not lift.
-- Handle structure validated at scale: 3,173 genuine divisibility atoms all have handle ≡ 0 mod p under
-  4 random draws of all free inputs.
-- **Obstruction is at exactly one modulus, p, at level p^1 only.**
-- **mod p and mod p^2 do NOT solve**: same code, same booleans -> 21 nonzero atoms / 124 failing eqs (p) and
-  15 / 102 (p^2), versus 0/0 in 3.5 s for all 60 other moduli.  Checkpoints `modm_results/P_p.json`,
-  `modm_results/P_pp2.json`.
+--------------------------------------------------------------------------------------------------
+## 2. THE DECODED STRUCTURE  — a 96-stage combination tree
+**96 stage gates**, each carrying exactly 3 checks, each with its OWN distinct six-tuple of free inputs.
+Root = gate **x15298** (leaf support 256).  Containment depth 6.  `tree96.json`.
+
+**One uniform law, one universal constant.**  For every stage the three checks are satisfied exactly when
+the output pair equals the chord-with-offset of the two input pairs:
+
+    l = (b_y - a_y)/(b_x - a_x)
+    out_x = l^2 - a_x - b_x - K
+    out_y = l*(a_x - out_x) - a_y                            (all mod p)
+    K = 97553848499418123410591666447050222001188385549510401465815187079080512838891
+
+`stage_law2.py` searched all role partitions AND all coordinate orderings per stage, solving the 3x2
+system once per partition and requiring two independent random draws to agree:
+**72 of 72 stages with a full six-tuple obey it, and the offset is the SAME K in all 72 — zero
+exceptions.**  Per-stage roles (which wires are inputs, which output, and the coordinate ordering) are in
+`stage_roles.json`.  The remaining 24 stages have six-tuples with only 4 or 2 free inputs -- leaf-adjacent
+stages whose missing inputs are literals hard-wired in the circuit; NOT yet resolved.
+Stage x24533 was decoded by hand and its demanded output matched chordK(A,B) **digit for digit**.
+
+**THE LAW IS INVERTIBLE — YES** (200/200 random triples, both directions, exact, O(1) each):
+
+    B from (A,O):  l = (o_y + a_y)/(a_x - o_x);  b_x = l^2 - a_x - o_x - K;  b_y = a_y + l*(b_x - a_x)
+    A from (B,O):  l = (o_y + b_y)/(b_x - o_x);  a_x = l^2 - b_x - o_x - K;  a_y = b_y + l*(a_x - b_x)
+
+So the target inverts DOWN the tree as cheaply as leaves fold up, at every stage, not just the root.
+
+**Wiring.**  Each stage input slot is a free variable w with a residual atom `((w - z) - handle)`; z
+unfolds to a sum of gated `selector*value` terms.  `mux.py` (uses |Z| = 7,202 wires that are == 0 mod p
+for EVERY assignment, to strip handles) decodes the 288 slot wires of the 72 full stages:
+    116 -> 3-term gated mux ;  64 -> 1-term source ;
+    108 -> not mux-fed: their atom shapes identify them as conditional LEAF pins `((X*(X-C))-(C*X))`,
+           `((X*(X-C))-X)` or as stage CHECK atoms (output wires).
+`mux_wiring.json` covers **47 of 72** stages.  **56 stages still have an undecoded slot pair and NOTHING
+was filled by guess.**
+
+**The 3-way mux is the three non-zero quadrants of two OR-groups** -- verified:
+    x34606 = x7715*x23597 = a*(1-b),  x5647 = x34554*x19271 = b*(1-a),  x15298 = x7715*x34554 = a*b
+so **exactly one branch is live** whenever the subtree has any live leaf.
+
+--------------------------------------------------------------------------------------------------
+## 3. PRIORITY 1 ANSWERED — the reachable space is 2^256-1, and I was WRONG to suggest otherwise
+Because exactly one mux branch is live per slot, EVERY boolean assignment yields a well-defined fold.
+The count then obeys, for a stage with child slots S1,S2 (fold when both live, pass-through when one is):
+    N(stage) = N(S1)*N(S2) + N(S1) + N(S2),   N(leaf) = 1
+which solves to **N(n) = 2^n - 1** exactly for a subtree with n leaves (N(2)=3, N(3)=7, ...).
+So the reachable configuration count at the root is **2^256 - 1 non-empty leaf subsets**.
+**This CORRECTS my previous round.**  I warned that the phrase "choose a subset of 256 leaves" might be
+wrong because the gating could restrict reachable patterns.  It does not restrict them -- the quadrant
+structure makes every non-empty subset well-defined.  The original phrasing was right; my caution was not.
+(Caveat, stated: this is a model from 47/72 wired stages plus the verified quadrant structure, not an
+exhaustive check.  What remains genuinely open is what happens when two leaves in the SAME OR-group are
+both ON -- both pins fire on different wires and the slot may then see a sum rather than a single value.
+That case is not covered by the count and must be settled by the completed decode.)
+
+**Consequence: enumeration is NOT the attack.  Inversion is.**
+
+--------------------------------------------------------------------------------------------------
+## 4. PRIORITY 4 DATA — leaf-support profile of all 96 stages (`stage_profile.json`)
+Root split: inA = (x12186,x16742) <- sources (x23927,x19083), **leaf support 178**;
+            inB = (x14853,x24908) <- sources (x1308,x17601),  **leaf support 78**; out = (x22162,x30213).
+Only **three** stages exceed 24 leaves: **256 (x15298), 88 (x30973), 50 (x24533)**.
+**93 of 96 stages have leaf support <= 24**, and 66 lie in the window 2..24.
+Memory ceiling on this box: 2^27 entries x 64 B = 8.6 GB, so realistically **2^24-2^25 entries (1-2 GB)**.
+A meet-in-the-middle at the root needs 2^78 on the smaller side -- hopeless.  But the window is populated:
+**invert the target down through the 78-side chain to a node of support <= 24 and enumerate there.**
+The chain from the root to those nodes runs through x30973 (88) and x24533 (50), so the inversion has to
+pass two large nodes; each pass is O(1) per candidate by the formulas in section 2.
+
+--------------------------------------------------------------------------------------------------
+## 5. WHAT IS NOT DONE (believe nothing from these until they exist)
+- The **fold evaluator is not built and not validated**, and **no subset search has been run**.
+- 56 of 72 stages have an undecoded slot pair; the 24 leaf-adjacent stages' literal inputs are unresolved.
+- The same-OR-group double-leaf case (section 3 caveat) is unsettled.
+- Agent E's 7 residue classes were NOT compared with my channels: with 56 stages incomplete a partial
+  match would be spurious.  Do it after the decode completes.
+
+## 6. NEXT, IN ORDER
+1. Finish the decode: the 56 stages and the 24 leaf-adjacent ones.  Settle the same-group double-leaf case.
+2. Build the evaluator over `tree96.json` + `stage_roles.json` + `mux_wiring.json`.
+   **VALIDATE**: reproduce the deliverable's ON-set {24601, 2081}; the prediction that must hold is
+   root = fold of those two leaves and **NOT** the target.  If it equals the target, the evaluator is wrong.
+3. Deep meet-in-the-middle: invert the target down the 78-side to a node of support <= 24, enumerate that
+   side forward, match in a hash table of <= 2^24 entries.
+4. Then compare channels with agent E's residue classes.
+
+## 7. FILES
+Code: `parse*.py circ*.py sched.py supp.py fwd.py full.py jac.py intsolve.py lin.py frame.py gs2.py
+modq.py modm.py crt.py buildM.py peel.py peel_cert.py wiedemann.py cfg_rigid2.py stage_law2.py mux.py`
+Data: `tree96.json stage_roles.json mux_wiring.json stage_profile.json sweep_ii.json sweep_i.json
+M.npz peel_order.npy modm_results/ crt_sols/ supp.pkl circ4.pkl sched.pkl`
+Rebuild pickles (~1 min): `python3 parse3.py; python3 circ4.py; python3 sched.py; python3 supp.py`
+Full narrative with every measurement and every retraction: `LOG.md` (sections 1-32).

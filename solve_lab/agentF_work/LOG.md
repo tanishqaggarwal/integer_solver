@@ -423,3 +423,27 @@ The evaluator is not built and not validated, and no search was run.  Nothing in
 read as a search result.  Remaining, in order: finish the 56 undecoded stages, build the evaluator,
 validate on the deliverable's ON-set {24601, 2081} (the prediction that must hold is: root = fold of those
 two leaves, NOT the target), then push the meeting point deeper and enumerate.
+
+## 33. PRIORITY 1 ANSWERED — and it CORRECTS my own previous round
+Verified the 3-way mux selectors are the three non-zero quadrants of two OR-groups:
+    x34606 = x7715*x23597 = a*(1-b),  x5647 = x34554*x19271 = b*(1-a),  x15298 = x7715*x34554 = a*b
+so exactly one branch is live whenever the subtree has any live leaf, and EVERY boolean assignment yields
+a well-defined fold.  The count then obeys N(stage) = N(S1)*N(S2) + N(S1) + N(S2) with N(leaf)=1, which
+solves to **N(n) = 2^n - 1** exactly.  Reachable configurations at the root: **2^256 - 1**.
+Last round I warned that "choose a subset of 256 leaves" might be the wrong phrasing because the gating
+could restrict reachable patterns.  **It does not.**  The mux structure makes every non-empty subset
+well-defined rather than fewer of them.  The original phrasing was right and my caution was wrong.
+Caveat that remains genuinely open: two leaves ON in the SAME OR-group fire two pins on different wires,
+and the slot may then see a sum rather than a single value; that case is outside this count and needs the
+completed decode.
+**Consequence: enumeration is not the attack; inversion is.**
+
+## 34. PRIORITY 4 DATA — leaf-support profile of all 96 stages (`stage_profile.json`)
+Only THREE stages exceed 24 leaves: 256 (x15298, root), 88 (x30973), 50 (x24533).
+**93 of 96 stages have leaf support <= 24**; 66 lie in the window 2..24.
+Root split 178 / 78; memory ceiling here ~2^24-2^25 hash entries (1-2 GB), so a root-level
+meet-in-the-middle at 2^78 is hopeless, but the enumerable window IS populated: invert the target down the
+78-side chain (through x30973 and x24533) to a node of support <= 24 and enumerate there.
+Each inversion step is O(1) by the closed forms in section 26.
+
+## 35. Steps 2-4 not reached this round.  Evaluator still not built, no search run.
