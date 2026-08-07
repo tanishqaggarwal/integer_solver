@@ -2,3 +2,7 @@ lev6: n=163 rows, nk=109 knobs
 rank(N)=109 ; parity check H is 54 x 163
 zero columns of H (weight-1 codewords): 0
   dependent-column search size 2: 13203 subsets, found: NONE [2s]
+  dependent-column search size 3: 708561 subsets, found: NONE [195s]
+  RIGOROUS: no <= 3 dependent columns -> minimum support weight >= 4
+  greedy-ISD trial 1: support weight 13 [0s]
+  greedy-ISD trial 1: support weight 7 [1s]

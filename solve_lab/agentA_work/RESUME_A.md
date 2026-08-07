@@ -128,3 +128,15 @@ Re-run any of them with:  python3 eqbound.py <state> <level> 6 <trials> <exhaust
   Use `eqmindist.py` instead: rigorous dependent-column floors + greedy information sets.
 * Condition (a) final: L=2 exhaustive floor >= 5 and P(missed) <= 9.5e-208;
   L=6 P(missed) <= 6.7e-64; L=16 in `runs/eqb16.log`.
+
+## Reconciliation with a global kernel computation (agent F's question, stated abstractly)
+If a global computation finds a nontrivial kernel of the equation-atom incidence matrix M,
+that is an ATOM vector b with M b = 0 — every equation satisfied by cancellation.  My
+windows say no integer knob vector in them reaches fewer than 7 violated equations.  The
+two are compatible and the reconciliation is forced: such a kernel vector is not in the
+IMAGE of the knob-to-atom map.  My models make that concrete — the knob-to-atom map is
+exactly affine with rank = #knobs, so its image is a single coset of a rank-|K| lattice in
+Z^|A|, while ker(M) has dimension |A| - rank(M) which is far larger.  Realizability, not
+cancellation, is what is missing.  Independent support: `cancel.py` shows 3,235 atoms occur
+in exactly one equation and NONE carries a private handle, so the atoms a kernel vector
+would need to move most freely are exactly the ones that cannot be moved independently.

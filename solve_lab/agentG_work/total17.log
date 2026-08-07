@@ -1,0 +1,4 @@
+support 17 unknowns ; affine rows 68 ; higher-degree 22
+distinct directions 19 ; multiplicity histogram {1: 15, 16: 1, 11: 1, 13: 2}
+directions with multiplicity <= 6 : 15
+baseline (T = {}): total 0 + 20
