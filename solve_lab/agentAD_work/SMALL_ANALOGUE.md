@@ -332,12 +332,13 @@ repair `A` (T3, `n = 12`, stress):
 independently per draw.)
 
 **Model validated on the measured points before being used** (`ad_report.py` §1): over
-**84 draws** spanning every configuration,
+**158 draws** spanning every configuration, curve, size and tree shape,
 
 ```
-model-Bmax - measured-Bmax = 0 : 79 draws (94.0%)
-model-Bmax - measured-Bmax = +1:  5 draws ( 6.0%)
-|error| <= 1                   : 100% of 84 draws
+model-Bmax - measured-Bmax = -1 :   3 draws ( 1.9%)
+model-Bmax - measured-Bmax =  0 : 144 draws (91.1%)
+model-Bmax - measured-Bmax = +1 :  11 draws ( 7.0%)
+|error| <= 1                    : 100% of 158 draws
 ```
 
 That is the licence to extrapolate, and it is the only licence claimed.
@@ -348,13 +349,13 @@ carry `≥ 20` subsets and `≥ 5` closing ones and at least 4 such weights to s
 fit at `n = 8` can rest on five points with single-digit counts, and that is exactly where the
 outliers live.
 
-| `n` | draws | raw `ρ` min/med/max | **robust `ρ`** min/med/max | `n − Bmax` |
+| `n` | draws | raw `ρ` min / med / max | **robust `ρ`** min / med / max | `n − Bmax` |
 |---|---|---|---|---|
-| 8 | 32 | 0.2657 / 0.7846 / 1.0612 | **0.6583** / 0.8163 / 1.0612 | 0–4 |
-| 10 | — | ~0.76 / ~1.00 | (few constrained draws) | 0–1 |
-| 12 | 32 | 0.6853 / 0.8008 / 0.8858 | **0.7102** / 0.8196 / 0.8897 | 1–2 |
-| 14 | — | 0.6653 / ~0.86 | (few constrained draws) | 0–3 |
-| 16 | 20 | 0.6688 / 0.7805 / 0.8877 | **0.6688** / 0.8028 / 0.9128 | 1–4 |
+| 8 | 48 | 0.2657 / 0.7846 / 1.0612 | **0.6583** / 0.8163 / 1.0612 | 0–4 |
+| 10 | 16 | 0.9888 / 1.0196 / 1.0610 | **0.9748** / 1.0180 / 1.0610 | 0–0 |
+| 12 | 48 | 0.6853 / 0.7964 / 0.8858 | **0.7102** / 0.8173 / 0.8897 | 1–2 |
+| 14 | 16 | 0.6653 / 0.7711 / 0.8790 | **0.6653** / 0.8134 / 0.9072 | 1–3 |
+| 16 | 30 | 0.6688 / 0.7558 / 0.8877 | **0.6688** / 0.7838 / 0.9128 | 1–4 |
 
 **`ρ` is flat in `n`** over five sizes — it is a per-block quantity, as §5 says it must be.
 `n − Bmax` stays in `0..4` while `n` doubles; it is not `c·n`, not `n/2`, not `n − c` with

@@ -20,7 +20,7 @@ def two_sided(c, R):
 def fam_interval(name, Qfam, lo, R, note=''):
     return dict(kind='interval', name=name, Q=Qfam, lo=lo % N, R=R, note=note)
 
-def build(tier):
+def build(tier, R_const=48, R_orbit=52, R_window=40):
     fams = []
     A = lambda *x: fams.append(fam_interval(*x))
 
@@ -28,16 +28,16 @@ def build(tier):
         A('mag_small_R64', T, 0, 64, 'k0 < 2^64')
 
     if tier == 'orbit':
-        R = 56
-        A('mag_top_R56', T, (N - (1 << R)) % N, R, 'N - k0 < 2^56  (i.e. -k0 small)')
+        R = R_orbit
+        A('mag_top', T, (N - (1 << R)) % N, R, 'N - k0 < 2^R  (i.e. -k0 small)')
         P1 = L.phi(T); P2 = L.phi(P1)
-        A('orb_lam_R56',   P1, 0, R, 'lam*k0 < 2^56')
-        A('orb_lam_negR56', L.neg(P1), 0, R, '-lam*k0 < 2^56')
-        A('orb_lam2_R56',  P2, 0, R, 'lam^2*k0 < 2^56')
-        A('orb_lam2_negR56', L.neg(P2), 0, R, '-lam^2*k0 < 2^56')
+        A('orb_lam',   P1, 0, R, 'lam*k0 < 2^R')
+        A('orb_lam_neg', L.neg(P1), 0, R, '-lam*k0 < 2^R')
+        A('orb_lam2',  P2, 0, R, 'lam^2*k0 < 2^R')
+        A('orb_lam2_neg', L.neg(P2), 0, R, '-lam^2*k0 < 2^R')
 
     if tier == 'const':
-        R = 48
+        R = R_const
         ones = (1 << 256) - 1
         C = []
         for d in (2, 3, 4, 5, 6, 7, 8, 10, 16, 100):
@@ -76,7 +76,7 @@ def build(tier):
             A('c_' + nm, T, two_sided(c, R), R, 'k0 within 2^%d of %s' % (R - 1, nm))
 
     if tier == 'window':
-        R = 40
+        R = R_window
         inv2 = pow(2, -1, N)
         P = T
         for s in range(256):
@@ -86,8 +86,9 @@ def build(tier):
             P = L.mul(inv2, P)
     return fams
 
-def run_tier(tier, threads=1, kpt=None, log2max=None, tablebits=21, seed=20250807):
-    fams = build(tier)
+def run_tier(tier, threads=1, kpt=None, log2max=None, tablebits=21, seed=20250807,
+             R_const=48, R_orbit=52, R_window=40):
+    fams = build(tier, R_const, R_orbit, R_window)
     print('tier %s: %d families' % (tier, len(fams)))
     out = []
     hits = []
