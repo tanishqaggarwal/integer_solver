@@ -1,2 +1,8 @@
 deliverable    atoms=4   [3130, 3131, 3132, 7251]
                eqs=13   failing=13   cancelling=0
+gs2 [24601]    atoms=3   [4495, 4498, 6894]
+               eqs=20   failing=20   cancelling=0
+gs2 [24601, 2081] atoms=6   [4297, 4298, 4484, 4485, 4486, 7774]
+               eqs=28   failing=28   cancelling=0
+gs2_24601: atom overlap with deliverable = 0 ; equation overlap = 0
+gs2_24601,2081: atom overlap with deliverable = 0 ; equation overlap = 0

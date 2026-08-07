@@ -1076,3 +1076,97 @@ instrument; L is building it from the circuit side, M is the complement from the
 side, and `eqsub.py`'s solve → apply → re-propagate → measure primitive is already the right
 tool. Bar for success, from M's own numbers: **any placement scoring above 39,026 is the first
 in this campaign.**
+
+---
+
+## Check-in 14 — a satisfying assignment EXISTS, and the ON-set conflict is resolved (agent Q)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified twice by Q. Q did not beat it.
+
+### The first positive existence result in this campaign
+
+Subset sums of the ladder realise every group element, and the order is below 2²⁵⁶, so the
+target is reached: **a satisfying assignment exists.** After months of negatives this is the
+lab's strongest positive claim, and Q attached its one caveat rather than dropping it —
+**it rests on the stage law holding at the 24 leaf-adjacent stages, which Q did not test.**
+Q has been re-tasked to close exactly that, since doing so makes the result unconditional.
+
+Supporting measurements, all measured rather than assumed: the offset substitution reduces the
+stage law to the plain chord construction; fitting the cubic from two leaf pins gives **253/253**
+leaf pins on it (2/253 in the other orientation), non-singular; the law is **associative
+297/297**, **commutative 297/297**, and equal to the shifted chord law **198/198**. The order is
+a **256-bit prime** by Cornacchia on `4p = L² + 27M²`, verified by exact scalar multiplication
+on 5 points, with `N ≠ p` and `p^k ≠ 1 mod N` for k ≤ 24. The 256 leaves are **one doubling
+ladder** (249/253 decoded leaves have their double also a leaf; 4 chains of 124/79/41/9 linked
+head-to-tail by one missing doubling each), with `L_i = 2^i·G` verified for i = 0..255.
+
+**A real falsification test that could have gone the other way:** the three *inferred* ladder
+points (exponents 41, 51, 176) were checked against the raw file, and **all three predicted
+x-coordinates are literal constants in `EQUATIONS.txt`** (`check3.py`).
+
+⇒ **`EQUATIONS.txt` is satisfiable iff the ladder scalar hits the target, and a solution's leaf
+ON-set is exactly that scalar's binary expansion.**
+
+### The ON-set conflict is RESOLVED — both readings were right about different objects
+
+Q re-read the deliverable's atoms as given, with no forward pass (`val4.py`), and took a
+wire-value census mod p: exponent 72's value appears on **92 wires**, exponent 235's on **5**,
+**their group sum on 0**, and the target on **4**.
+
+**The deliverable does not fold at all.** It passes a **single leaf** up the tree and overwrites
+the value with the target near the root, paying 7 broken atoms for the overwrite. Its ON-set is
+`{2081, 24601}` = ladder exponents `{72, 235}`.
+
+So **two selectors are ON and one leaf propagates.** L was reading what reaches the root; M, K,
+P and R were reading the selector configuration. Both correct, different objects — and the
+distinction is load-bearing, since it is *why* the deliverable scores what it does. It also
+sharpens K's and P's account: the root's two inputs being forced equal, and the fold never
+happening because one input never arrives live, are the same event from two sides. **L has been
+told to restate with the distinction attached rather than retract.**
+
+### Refuted — the previous handoff's highest-value experiment
+
+"Invert the target down the 78-side to a support-≤24 node and enumerate under 2²⁴" **cannot
+work.** The fold is a group homomorphism of the selector vector, so any meet-in-the-middle is
+the generic square-root attack at ~2¹²⁸. **Finishing the 56-stage decode buys nothing for the
+search.** That experiment headed the FINAL POSITION section of this file and is now retired on
+measurement — as is, independently, F's remaining decode (Q, R and L all reach "tree shape is
+irrelevant" from different directions).
+
+### Searches run and negative
+
+Six structured attempts, all negative: BSGS below 2⁴⁴ from either end; Hamming weight ≤ 6
+(meet-in-the-middle, 2.8M/side); all ON-bits inside a 34-bit window (2,865 s); small multiples
+of the target on the ladder to 10⁷; the endomorphism orbit; and a two-term decomposition with
+both coefficients below 2²¹. The endomorphism is **confirmed** but gives only √3. Weight ≤ 7
+was stopped at ~2% with CPU 5× oversubscribed (load 19 on 4 cores) and is re-runnable in ~3 h.
+
+### Where score improvement now stands
+
+Q's tracks are **no longer coupled**: score improvement is provably independent of the hard
+scalar problem — it is the minimum-weight coset problem on the atom incidence matrix (agent A's
+formulation). Q's model adds a degree of freedom nobody had: **the defect can be made any group
+element.** But Q argues each extra row you try to cancel imposes a linear condition on the fold
+point — a line meeting the cubic in ≤3 points — and reaching one is again the hard problem, so
+the freedom does not lower 7 by itself. `rows4.py` prints the restricted row systems for the
+deliverable's 7-support (12 rows touched, 5 cancelled) and a forward-4 support (13 rows, 0
+cancelled).
+
+**Recorded as an argument, not a result**, and routed to L, whose cancellation search is a
+measurement. This lab has repeatedly found measurements beat arguments; if L finds a placement
+above 39,026, Q's reasoning is where to look for why.
+
+### Retired angles, cumulative
+
+- Generator inversion (user instruction, first fleet).
+- Level-by-level enumeration of the reduced problem.
+- Incidence-only / structural pricing (C, L, P — three independent demonstrations).
+- SAT / SMT / CP encodings (R).
+- **Circuit decoding, including F's 56 slot pairs and the 78-side inversion (Q, R, L).**
+
+### CPU
+
+Q flagged 5× oversubscription (load 19 on 4 cores). Agents whose angles are closed have been
+told to keep their footprint small so the live threads — L's and M's cancellation searches,
+P's rank count, K's carry-walk question — get cores. **The fleet should be thinned once N, O
+and T report**, flush-first per the stop policy above.
