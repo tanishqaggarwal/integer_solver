@@ -780,6 +780,22 @@ choice and the number did not move.
 
 # Part VII — the number theory, closed; and the root pin's true price
 
+## 32. The secp256k1 hypothesis, tested and refuted
+
+`p = 2^256 − 2^32 − 977` is the secp256k1 field prime, so the natural question is
+whether the binding residues are curve coordinates (`s10/curve.py`):
+
+```
+(D0, K2) on y^2 = x^3 + 7 : False        (K2, D0) : False
+D0 a valid x-coordinate   : False        K2       : False
+n, G_x, G_y present as literals          : False (p itself IS present)
+constants whose (c mod p) is a valid x   : 7870 of 15734  (random expectation 7867)
+7-digit multipliers prime                : 507 of 7999    (random expectation ~470)
+```
+
+**Exactly random on every axis.** The prime is used as a convenient 256-bit
+modulus, not as a curve.
+
 ## 33. Rational reconstruction: the constants carry no structure
 
 Given `r mod p`, extended-Euclid yields the unique small `a/b ≡ r` whenever

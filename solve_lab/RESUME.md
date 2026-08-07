@@ -541,6 +541,11 @@ imposed exactly: region 12 -> 16, max satisfied 5 -> 9. **Failing: 7.**
 
 ### PART VII: number theory CLOSED; and the root pin costs 1, not 12
 
+**secp256k1 hypothesis refuted** (`s10/curve.py`): (D0,K2) is not on y^2=x^3+7, neither is
+a valid x-coordinate, n/G_x/G_y are absent (p itself IS present), 7870/15734 constants have
+(c mod p) a valid x-coord vs random expectation 7867, and 507/7999 multipliers are prime vs
+~470 expected. Exactly random on every axis -- p is a convenient modulus, not a curve.
+
 **Rational reconstruction: no structure** (`s10/ratrec.py`). Every residue (D0, K2, D0/K2,
 K2/D0, D0*K2, D0+-K2, 1/D0, 1/K2, HUGE mod p, C1 mod p) returns MAXIMAL 38-39 digit a and b
 -- right at the sqrt(p/2) bound, i.e. no small rational. gcd(HUGE,C1)=1; HUGE//p and C1//p
