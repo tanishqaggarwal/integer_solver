@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/user/integer_solver/solve_lab/agentL_work/bivar.py", line 5, in <module>
+    exec(src)
+  File "<string>", line 5
+    src=open('/home/user/integer_solver/solve_lab/agentL_work/solve927.py').read().split("
+                                                                                         ^
+SyntaxError: unterminated string literal (detected at line 5)

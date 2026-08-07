@@ -68,8 +68,8 @@ for outer in range(12):
     if prog==0: break
 left=relift(vv); r=E.run(vv)
 stuck=[a for a in left if r[E.residx[a]]%p==0]
-nz=[a for a in E.atoms if r[E.residx[a]]]
-print('\nIN L\'s MODEL: %d undischarged, %d nonzero atoms of %d'%(len(stuck),len(nz),len(E.atoms)),flush=True)
+nz=[a for a in E.residx if r[E.residx[a]]]
+print('\nIN L\'s MODEL: %d undischarged, %d nonzero atoms of %d'%(len(stuck),len(nz),len(E.residx)),flush=True)
 for a in nz: print('    %s'%a[:88],flush=True)
 # --- AUDIT ADDITION 1: how many atoms in `left` were EXCLUDED from the stuck count? ---
 notmodp=[a for a in left if r[E.residx[a]]%p!=0]

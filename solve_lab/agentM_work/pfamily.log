@@ -59,3 +59,8 @@ p-handle family by algebraic form: 3707 atoms (3707 counting both operand orders
   u=x35531  in family: True   atom a20452   incident to the 7: True   to the 12: True
 
 === verify T's criterion eqs(u) == eqs(atom_u) over the whole family ===
+  checked 3707, violations 919  (CRITERION FAILS)
+
+wrote pfamily.json
+
+SPACE: 2^16 = 65,536 (against the 12-equation far side)

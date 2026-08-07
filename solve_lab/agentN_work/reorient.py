@@ -59,7 +59,7 @@ for e in FAIL:
             else:
                 where = 'unresolved'
             cand.append('x_%d(sign%+d, %s)' % (v, s, where))
-        print('   coef %-4s atom %-6d %-14s witness value %s   unit targets: %s'
+        print('   coef %-4s atom %-6d %-14s witness value %s   unit targets:'
               % (c, a, state, ('0' if val == 0 else 'NONZERO(%d digits)' % len(str(abs(val))))),
               end='')
         print(' %s' % ('; '.join(cand) if cand else 'NONE'))
