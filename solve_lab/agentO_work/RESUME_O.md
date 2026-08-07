@@ -96,19 +96,94 @@ lazy row activation over 30 iterations — the residual moves but never drops be
   configuration: the witness's, `x_2081` and `x_24601` on, all other cluster booleans off,
   all non-private variables at the witness's values.  Outside that knob set I claim nothing.)*
 
-## 5. Single highest-value next experiment
-The four blocking residues are `(≈2,420-bit numerator) mod p`.  The numerators depend on the
-selector configuration; **p does not**.  So: for each of the 2,800 (a-bit, b-bit) pairs drawn
-from the 106 proven bits, construct the witness analogue — agent H's `frameB.Frame([642,
-28730,29854,31864])` reproduces the witness bit-for-bit and is the right tool, *not* E's
-`forward` — and test whether the 13-equation region system is integrally solvable there.
-That test is ~2 s per configuration once the state is built.  A configuration in which the
-four numerators are ≡ 0 mod p gives **all 39,033 equations**, because the private variables
-cannot break anything outside E(R).
+## 4b. THE RATE — the configuration scan is dead twice over, but the conditions INVERT
+Coordinator asked for the expected hit rate before spending cores.  Here it is, measured.
 
-Second choice: enlarge the private set beyond the cone — look for regions elsewhere in the
-instance whose private variables have columns **coprime to p** (all four of this region's
-p-multiplier atoms are the obstruction; a region built on unit-coefficient atoms would not be).
+**Correction to §4: there are FIVE blocking coordinates, not four** (`rate.py`).  The unique
+rational solution has denominators `2458959, p, p, p, 2458959·p` on
+`x_642, x_1329, x_9413, x_10903, x_17325` — i.e. **4 conditions mod p and 2 mod 2458959**
+(= 3 × 819653; note 7376877 = 3 × 2458959 is the literal in atom 23616).
+
+### Kill 1 — the rate (`hitrate.py`)
+Admissible boundary changes form a coset `δ0 + Λ0`.  Measured period in each direction with an
+exact solvability oracle: **p** for `const(a23618)`, `const(a36660)`, `const(a36662)`; for
+`const(a23616)` the period exceeds every modulus tested (up to 2458959·p).  So
+`[Z⁴ : Λ0] ≥ 2^768` and the **scan hit rate is ≈ 2⁻⁷⁶⁷**.
+Expected hits in 2,800 configurations ≈ **10⁻²²⁷**; in all 13,884 ≈ 10⁻²²⁶.  Not a search.
+
+### Kill 2 — zero variance, which is worse than a bad rate (`bscan.py`)
+The four quantities a configuration would have to move are
+`K1 = x_7068−x_2099`, `L = x_4432−x_19964`, `K2 = 5113045·x_9118`, `J = x_7075·x_8731`.
+Across **35 configurations** (empty, 12 a-bits, 12 b-bits, 10 (a,b) pairs) in E's frame all four
+are **identically 0** — 1 distinct value out of 35, for every one of them.  The scan would have
+measured a single point 2,800 times.  **They are assignment knobs, not configuration knobs**:
+the witness has `J = 2428 bits` and `K2 ≠ 0` because it *assigns* the free variables
+x_8731 / x_9118, not because of its selector pair.
+
+### The positive result — the conditions are invertible, and I have the target
+`invert.py` / `tunable.py` / `target.py`: put the boundary shift δ into the unknown vector and
+solve `A z + B δ = b0` over Z.
+- δ = 0: unsolvable (the witness).  **0 of 9** single supports, **0 of 36** pairs, **0 of 84**
+  triples work; **12 of 126** quadruples do — including `{a23616, a23618, a36660, a36662}`,
+  i.e. **exactly the four constants that are not p-multipliers**.
+- Applying that δ0 makes **all 13 region equations hold** (verified end-to-end, `target.log`).
+- Shifts required: 2440 / 2419 / 2428 / 2429 bits.  The a36660 shift must be divisible by the
+  carrier factor 5113045; `gcd(5113045, p) = 1`, and the period there is p, so a CRT lift in the
+  same class mod p always exists (computed: `x_9118 += ` a 2406-bit value).  Exact values in
+  `target.json`.
+- **Two of the four shifts are free**: `a36662` is carried by x_8731 and `a36660` by x_9118 —
+  precisely agent H's zero-collateral knobs.  The remaining two, `K1` and `L`, are carried by
+  ordinary derived variables whose collateral **must be evaluated in frame B**; my atom-level
+  model holds non-private variables fixed and cannot express re-derivation, which is exactly
+  why it sees 8 knobs where H sees 9.
+- So the honest statement is: *if* the K1 and L shifts can be realised without disturbing
+  anything outside E(R), the result is all 39,033 equations.  That "if" is the open question —
+  it is not established, and I am not claiming it.
+
+Why a move-based search would never find this: δ0 is an exact 2,429-bit lattice target.  H's
+70,008 single moves and 576 zero-collateral pairs over the same nine knobs could not have
+stumbled on it.  That is the difference between sampling the conditions and inverting them.
+
+## 4c. Reconciling with agent M on eq29125 — two different claims, no contradiction
+M withdrew a divisibility obstruction on eq29125: single-row solvability is `gcd(coef) | s0`,
+and eq29125's gcd is 1, so all seven failing rows pass.  **That is correct and it does not
+conflict with my barrier**, because we are testing different things:
+- **M**: is eq29125 satisfiable *on its own*, over M's full affine knob set?  Yes — gcd 1.
+- **Me**: eq29125 is the row at which the *simultaneous* elimination of all 13 region equations
+  fails, over the ≤10 variables **private to my region**.  The factor p is not in the row as
+  written; it appears only *after* the other twelve are eliminated, because `x_17499 = p`
+  exactly, leaving coefficient p against an rhs that is not ≡ 0 mod p.
+A row can be individually satisfiable and jointly infeasible; gcd-1 is a statement about the row
+before elimination, my p is a statement about the pivot after it.  **My barrier is the one with
+the tighter knob set, so its scope must always be carried with it** — it says nothing about
+M's knob set, and nothing outside the region-private variables.
+My §4b result independently *supports* M's direction: because the obstruction lives only in the
+joint elimination and not in the row, changing the rhs clears it — which is exactly what δ0 does.
+
+## 5. Single highest-value next experiment (REVISED after §4b)
+**DO NOT run the 2,800-configuration scan** — I proposed it, then measured it dead twice (§4b:
+rate 2⁻⁷⁶⁷, and the four boundary quantities are configuration-invariant, 1 distinct value
+across 35 configurations).  It would burn 1.5 hours to sample one point repeatedly.
+
+Instead, the target is now explicit.  In **agent H's frame B** (`frameB.Frame([642, 28730,
+29854, 31864])`, which reproduces the witness bit-for-bit — *not* E's `forward`, which
+provably cannot represent it):
+1. Apply the two free shifts: `x_8731 += δ0(a36662)` and `x_9118 += (CRT-lifted δ0(a36660))
+   / 5113045` — both are H's zero-collateral knobs, so these cost nothing.  Values in
+   `target.json`.
+2. The whole question then reduces to the remaining two shifts,
+   `K1 = x_7068 − x_2099 += δ0(a23616)` and `L = x_4432 − x_19964 += δ0(a23618)`.
+   Measure their collateral **in frame B** (each shift is free to move by multiples of p in the
+   `a23618` direction, so there is a p-indexed family of representatives to choose from —
+   pick one whose collateral is zero, if any exists).
+3. If a zero-collateral representative exists for both, all 39,033 equations follow.  If none
+   does, the cost of the cheapest representative is the new bound, and it is a *measured* bound
+   rather than a search outcome.
+
+Second choice, if that closes negative: look for regions elsewhere in the instance whose
+private variables have columns **coprime to p**.  Every p-multiplier atom in this region
+(`a23617, a36659, a36661, a36664`, all with multiplier exactly p) is what forces the mod-p
+conditions; a region built on unit-coefficient atoms would not have them.
 
 ## 6. Do not redo
 - Singles over all 106 representatives at cfg0 (done, negative, `runs/singles.jsonl`).

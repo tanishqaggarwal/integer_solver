@@ -1,0 +1,35 @@
+--- end-to-end verification of the inverted solution
+  equations of the region not satisfied after applying delta0: NONE
+  => with those four boundary shifts, all 13 region equations hold, so the whole
+     instance would be satisfied (nothing outside E(R) can be touched).
+
+--- the exact targets (shift of each boundary constant)
+  const(a23616 )  K1 = x_7068 - x_2099                 shift = 2440 bits
+        divisible by the carrier factor 1: True
+  const(a23618 )  L  = x_4432 - x_19964                shift = 2419 bits
+        divisible by the carrier factor 1: True
+  const(a36660 )  K2 = 5113045 * x_9118                shift = 2428 bits
+        divisible by the carrier factor 5113045: False
+        gcd(carrier factor, p) = 1  -> CRT lift available: True
+        lifted shift (same class mod p, divisible by 5113045): 2428 bits, x_9118 += 2406 bits
+  const(a36662 )  J  = x_7075 * x_8731  (x_7075 = 1)   shift = 2429 bits
+        divisible by the carrier factor 1: True
+
+  (each shift is free to move by multiples of p in the a23618 / a36660 / a36662
+   directions -- measured periods -- so a representative divisible by the carrier
+   factor always exists.)
+
+--- what realizing them costs, and where that must be evaluated
+  x_8731   occurs in 4 atoms [1633, 9081, 36662, 40630]
+  x_9118   occurs in 5 atoms [1639, 9083, 36660, 36969, 40630]
+  x_7068   occurs in 6 atoms [2448, 18172, 22548, 23616, 39006, 40658]
+  x_2099   occurs in 3 atoms [23616, 30316, 40630]
+  x_4432   occurs in 4 atoms [2446, 22549, 23618, 34121]
+  x_19964  occurs in 3 atoms [1635, 23618, 40630]
+  x_8731 and x_9118 are agent H's ZERO-COLLATERAL knobs (frame B), so the a36660 and
+  a36662 shifts cost nothing there.  x_7068/x_2099/x_4432/x_19964 are ordinary derived
+  variables; their collateral has to be evaluated in frame B, not in my atom-level model,
+  which holds non-private variables fixed and therefore cannot express re-derivation.
+
+wrote target.json
+DONE

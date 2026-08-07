@@ -3,3 +3,5 @@ A built 2796417  111s
   B i=0 done=2752515 331s
   B i=8 done=23724037 1353s
   B i=16 done=42729484 2138s
+  B i=24 done=59899917 2634s
+wt7 STOPPED at side-B 59,899,917 / 177,589,057 tuples = 33.7% (weight<=7 sweep incomplete)

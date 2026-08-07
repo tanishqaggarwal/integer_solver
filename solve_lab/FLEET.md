@@ -2276,3 +2276,83 @@ than selector flips, re-solving the other rows after each. That searches near-so
 rather than sampling classes and hoping. S has been asked to report the **starvation rate**, since
 that decides whether the question is answerable this way at all — and to say plainly if even the
 trade knobs starve, which would close the line honestly rather than leave it looking open.
+
+---
+
+## Check-in 37 — routing is a CONSTRAINT, and Q withdraws its own search results
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### Confirmed from an independent parse: "set the selectors and evaluate" is not well-posed
+
+Q ran the routing test non-circularly. `qsolve.py` parses **every term of every equation** (47,198
+distinct) and unit-propagates mod p, solving any term with exactly one unknown — **leaf wires are
+solved from the pin atoms, never assigned**, which answers T's circularity objection. Only the 256
+selector bits were set.
+
+| weight | ON-leaf X solved | OFF-leaf Y forced to 0 | gadget outputs | root |
+|---|---|---|---|---|
+| 1 | **0/1** | 219/255 | 25/383 | no |
+| 2 | **0/2** | 219/254 | 25/383 | no |
+| 3 | **0/3** | 217/253 | 25/383 | no |
+| 5 | **0/5** | 215/251 | 25/383 | no |
+| 7 | **0/7** | 214/249 | 25/383 | no |
+| 128 | **0/128** | 111/128 | 13/383 | no |
+
+At weight 1: 520/8,583 free inputs solved, 3,236/38,748 wires known, **0 contradictions**. Turning a
+selector ON **does not put that leaf's coordinate on any wire.**
+
+**T's finding is confirmed in a second, independent frame: routing is a constraint, not a
+propagation.** This **contradicts** the report that liveness is fully determined by the selectors,
+giving a configuration space of exactly 2²⁵⁶. Q explicitly does not adjudicate between P and T and
+reports only that its own measurement lands with T. **Unresolved between three models; the 2²⁵⁶
+count should not be quoted as established until it is.**
+
+### T's item 4 confirmed, and item 3 came out worse than predicted
+
+With a selector OFF, that leaf's y-wire is forced to **0** (~86% of OFF leaves). Prime odd order ⇒
+no 2-torsion ⇒ `(w, 0)` is not a curve point. **Identity behaviour cannot come from the leaf value;
+it must come from the mux coefficients.**
+
+**The degenerate branch is VACUOUS, not undefined.** Feeding a gadget two **equal** live points
+makes both residuals vanish **regardless of the output** — verified **383/383, even with the output
+set to a random wrong value.** The circuit does not implement doubling: where two coinciding values
+meet at a gadget, that gadget's output is **completely unconstrained**.
+
+> **This is the consequence half of K's partition theorem, now measured at every gadget rather than
+> assumed.** Q's closing line is the standing question: *the fold picture additionally requires that
+> no two equal points ever meet, and nothing guarantees that.* Routed to K, whose partition
+> statement is now the single condition between this lab and a trivial full solve.
+
+### Q WITHDRAWS the instance-level standing of its own search results
+
+`dlp_bsgs.py`, `lowwt.py`, `wt7.py`, `window.py`, `smallmul.py`, `lam.py` all computed the fold
+**inside the group model** and never checked the circuit agrees — and weights 1–7 are exactly where
+the circuit-side check fails to close. **Their clean-miss verdicts are evidence about the group
+model, not about the instance, and are withdrawn as instance-level evidence until the mux layer is
+verified.** The searches are correct and re-runnable; only their standing changes.
+
+**This costs the lab several standing negatives, including the weight ≥ 7 bound**, and Q
+volunteered it unprompted. Anything in earlier check-ins resting on "enumeration is retired" or on
+bounded search results should be re-read with this attached.
+
+### Existence result — still conditional, on a sharper thing
+
+It holds **iff** the mux-coefficient layer makes an OFF leaf act as the identity and routes each
+gadget's output onward. **Unaffected and still measured:** all 383 gadgets enforce plain `P_a + P_b`
+for distinct inputs, and the census is a combination tree over 256 leaves. **Not established: that
+the selector bits pick out a subset at all.**
+
+### Q re-tasked — solve the mux layer, do not propagate through it
+
+Unit propagation stalls at 25/383 gadget outputs *because* routing is a constraint. So characterise
+the constraint directly, at **one** gadget, symbolically: write out its mux atoms in full and
+determine what the output is forced to as a function of the selector bits and input wires — **when
+a selector is OFF, what makes the accumulated value pass through unchanged?** If the coefficients do
+implement pass-through and identity, the existence result closes on measurement; if not, the fold
+picture is wrong about this instance and the central reduction needs restating. One gadget done
+completely beats another sweep. L's mutually-exclusive-quadrants finding is the claim to test in
+Q's frame, not to take.
+
+**`wt7` stopped** — by Q's own §(f) it is a group-model measurement, and it was consuming cores on a
+contended box for a result whose standing Q had just withdrawn.

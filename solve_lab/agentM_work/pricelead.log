@@ -1,0 +1,118 @@
+CORRECTED POOL: 103 incident handles over all definer forms (of 30383 definer variables, 0.34%)
+  my earlier shape-restricted 32: 32 of 32 survive, 71 handles were MISSING from it
+  deliverable four in pool: {642: True, 28730: True, 29854: True, 31864: True}
+  stage checks in pool    : {23754: True, 35619: True, 9629: True}
+
+=== fast-tuner calibration (must reach 39,026 on the deliverable's four) ===
+  base 39008 -> 39026   (0.4s, 25 rows, 5 knobs)
+  full re-propagation of same seed: 39026  incremental exact: True
+  CALIBRATION PASSED
+
+=== pricing 99 five-handle supersets (stage checks first) ===
+  [1/99] +x23754  rt 20 rows 25 -> 39026  <== STAGE CHECK
+  [2/99] +x35619  rt 17 rows 25 -> 39026  <== STAGE CHECK
+  [3/99] +x9629   rt 16 rows 25 -> 39026  <== STAGE CHECK
+  [4/99] +x7068   rt 41 rows 21 -> 39011
+  [5/99] +x30175  rt 34 rows 25 -> 39026
+  [6/99] +x2218   rt 31 rows 25 -> 39026
+  [7/99] +x34600  rt 31 rows 25 -> 39026
+  [8/99] +x11425  rt 29 rows 25 -> 39011
+  [9/99] +x5168   rt 27 rows 25 -> 39026
+  [10/99] +x23538  rt 26 rows 25 -> 39026
+  [11/99] +x21279  rt 25 rows 25 -> 39026
+  [12/99] +x15324  rt 25 rows 25 -> 39026
+  [13/99] +x1627   rt 24 rows 25 -> 39026
+  [14/99] +x26732  rt 24 rows 25 -> 39026
+  [15/99] +x31465  rt 23 rows 25 -> 39026
+  [16/99] +x26188  rt 22 rows 25 -> 39026
+  [17/99] +x11075  rt 22 rows 25 -> 39026
+  [18/99] +x21718  rt 22 rows 24 -> 39011
+  [19/99] +x36826  rt 22 rows 25 -> 39012
+  [20/99] +x10861  rt 20 rows 25 -> 39026
+  [21/99] +x22342  rt 20 rows 25 -> 39026
+  [22/99] +x7075   rt 16 rows 25 -> 39026
+  [23/99] +x18253  rt 16 rows 25 -> 39026
+  [24/99] +x10250  rt 16 rows 25 -> 39026
+  [25/99] +x11543  rt 15 rows 25 -> 39026
+  [26/99] +x13502  rt 14 rows 25 -> 39026
+  [27/99] +x37720  rt 14 rows 25 -> 39026
+  [28/99] +x18723  rt 14 rows 25 -> 39026
+  [29/99] +x7062   rt 14 rows 20 -> 39011
+  [30/99] +x26756  rt 14 rows 25 -> 39026
+  [31/99] +x18992  rt 13 rows 25 -> 39026
+  [32/99] +x623    rt 13 rows 19 -> 39011
+  [33/99] +x19964  rt 12 rows 25 -> 39026
+  [34/99] +x4863   rt 12 rows 18 -> 39011
+  [35/99] +x6480   rt 12 rows 18 -> 39011
+  [36/99] +x23642  rt 11 rows 25 -> 39026
+  [37/99] +x1956   rt 11 rows 25 -> 39026
+  [38/99] +x17499  rt 11 rows 25 -> 39026
+  [39/99] +x26874  rt 11 rows 25 -> 39026
+  [40/99] +x17008  rt 11 rows 25 -> 39026
+  [41/99] +x22916  rt 10 rows 25 -> 39026
+  [42/99] +x28599  rt 10 rows 25 -> 39026
+  [43/99] +x2099   rt 10 rows 25 -> 39026
+  [44/99] +x25442  rt 10 rows 25 -> 39026
+  [45/99] +x24490  rt  9 rows 25 -> 39026
+  [46/99] +x1844   rt  9 rows 25 -> 39026
+  [47/99] +x2239   rt  9 rows 25 -> 39026
+  [48/99] +x30095  rt  8 rows 25 -> 39026
+  [49/99] +x28961  rt  8 rows 25 -> 39026
+  [50/99] +x4339   rt  8 rows 25 -> 39026
+  [51/99] +x37413  rt  8 rows 25 -> 39026
+  [52/99] +x14466  rt  8 rows 25 -> 39026
+  [53/99] +x38492  rt  8 rows 25 -> 39026
+  [54/99] +x31731  rt  8 rows 25 -> 39026
+  [55/99] +x9106   rt  8 rows 25 -> 39026
+  [57/99] +x23227  rt  7 rows 25 -> 39026
+  [58/99] +x2892   rt  6 rows 25 -> 39026
+  [59/99] +x22665  rt  6 rows 25 -> 39026
+  [60/99] +x8173   rt  6 rows 25 -> 39026
+  [61/99] +x29305  rt  6 rows 25 -> 39026
+  [62/99] +x28098  rt  6 rows 25 -> 39026
+  [63/99] +x24981  rt  6 rows 25 -> 39026
+  [64/99] +x4971   rt  6 rows 25 -> 39026
+  [65/99] +x12394  rt  6 rows 25 -> 39026
+  [66/99] +x10376  rt  6 rows 18 -> 39011
+  [67/99] +x34660  rt  5 rows 25 -> 39026
+  [68/99] +x30108  rt  5 rows 25 -> 39026
+  [69/99] +x17065  rt  5 rows 25 -> 39026
+  [70/99] +x33001  rt  5 rows 25 -> 39026
+  [71/99] +x19530  rt  4 rows 25 -> 39026
+  [72/99] +x4598   rt  4 rows 25 -> 39026
+  [73/99] +x5444   rt  4 rows 25 -> 39026
+  [74/99] +x8972   rt  3 rows 25 -> 39026
+  [75/99] +x28355  rt  3 rows 25 -> 39026
+  [76/99] +x28969  rt  3 rows 25 -> 39026
+  [77/99] +x37254  rt  3 rows 25 -> 39026
+  [78/99] +x14199  rt  3 rows 25 -> 39026
+  [79/99] +x23318  rt  3 rows 25 -> 39026
+  [80/99] +x21488  rt  3 rows 25 -> 39026
+  [81/99] +x36505  rt  3 rows 25 -> 39026
+  [82/99] +x12143  rt  2 rows 25 -> 39026
+  [83/99] +x34113  rt  2 rows 25 -> 39026
+  [84/99] +x23822  rt  2 rows 25 -> 39026
+  [85/99] +x23669  rt  2 rows 25 -> 39026
+  [86/99] +x15422  rt  2 rows 25 -> 39026
+  [87/99] +x16583  rt  1 rows 25 -> 39026
+  [88/99] +x16495  rt  1 rows 25 -> 39026
+  [89/99] +x18140  rt  1 rows 25 -> 39026
+  [90/99] +x4264   rt  1 rows 25 -> 39026
+  [91/99] +x9325   rt  1 rows 25 -> 39026
+  [92/99] +x18822  rt  1 rows 25 -> 39026
+  [93/99] +x30754  rt  1 rows 25 -> 39026
+  [94/99] +x37639  rt  1 rows 25 -> 39026
+  [95/99] +x29084  rt  1 rows 25 -> 39026
+  [96/99] +x28871  rt  1 rows 25 -> 39026
+  [97/99] +x6247   rt  1 rows 25 -> 39026
+  [98/99] +x7945   rt  1 rows 25 -> 39026
+  [99/99] +x36215  rt  1 rows 25 -> 39026
+
+=== DISTRIBUTION over 98 priced five-handle sites ===
+  39026: 89
+  39012: 1
+  39011: 8
+priced out at 0 rows once tuned: 0 of 98
+above 39026: 0
+equal 39026: 89
+BEST 39026  None
