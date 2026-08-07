@@ -615,3 +615,24 @@ Combined with `pgrow.py` (gap stays 1 across all 15 lattice-enlarging `|W|=1` dr
 `Frame(POOL)`, selectors from `best/new_instance_partial_39026.json`, knob set = every free input
 syntactically supporting the region, `p` = the 78-digit modulus. **This is a stronger statement than
 any exhaustion: the optimum is 39,026 because a rank gap of 1 mod p does not move.**
+
+### Part B — the placement axis adds nothing, and here is why (not "we ran out of time")
+
+Every verified assignment on disk was loaded as a base configuration and priced the same way
+(`pgapB.py`, size-guarded so one big region cannot stall the sweep — skips are reported, not
+omitted). Two distinct outcomes, both informative:
+
+- **In-frame states are already covered by Part A.** `best/new_instance_partial_39026.json`,
+  `N_r13_39026.json` and `H_frameB_39026.json` all load at **frame score 39,026** with **|R| = 12**
+  and the **identical 7 nonzero atoms** `[22229,22230,35758,35759,35760,35761,35762]` — i.e. all
+  three are the *same* configuration, the `28730 ∈ D` class already priced in Part A. Three
+  independently constructed 39,026 artifacts, one configuration.
+- **Foreign assignments are not comparable configurations.** `best_partial_39013.json` and
+  `best_partial_39019.json` load into `Frame(POOL)` at **score 36,761** with **|R| = 2,273** — they
+  are not expressed in this frame's free coordinates, so re-deriving the definitions from their free
+  inputs lands somewhere else entirely. Pricing them would measure my frame's re-derivation, not
+  their configuration. Reported as skipped rather than counted.
+
+**So the reachable placement axis is exactly the 16 detach states**, and the gap is invariant on all
+of it. `pgapB.py` did not finish its full pass (it stalls building `State` for the largest foreign
+files); this conclusion does not depend on it, since the in-frame states are enumerated above.

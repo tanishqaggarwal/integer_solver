@@ -5320,3 +5320,75 @@ result shows integrality is where everything lives. **If the list closes at two,
 campaign's terminal theorem. If there is a third, it is the only thing in this lab that could produce
 a full solve.** Fallback if it proves unbounded: the s=3..6 cocircuit gap, which would convert the
 frame-B budget row from *budget* to *exhaustive at every j*.
+
+---
+
+## Check-in 93 — the rank gap is an INVARIANT: gap_p = 1 on the whole detach axis (agent N)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified.
+
+### The result
+
+All **16 detach states — the entire 2⁶⁵ lattice by proof** — priced exactly, complete knob set,
+exact saturation loop, one rank computation each:
+
+| class | \|R\| | knobs | lattice | rk_Q(M) | gap_Q | rk_p(M) | **gap_p** | OPT | score |
+|---|---|---|---|---|---|---|---|---|---|
+| 8 states **with** `28730` | 12 | 68 | 14 | 7 | **0** | 3 | **1** | 5 | **39,026** |
+| 8 states **without** `28730` | 13 | 76 | 15 | 8 | **0** | 4 | **1** | 6 | **39,026** |
+
+**`gap_Q = 0` and `gap_p = 1` in all 16.** With `pgrow.py`'s gap of 1 across all 15
+lattice-enlarging `|W| = 1` drops, **the gap is invariant across the entire detach axis and across
+collateral budget 1.**
+
+> **The first simply-stateable *explanation* of the optimum this campaign has produced: the region is
+> not dimension-starved, it is p-starved, and the deficiency is invariant.**
+
+**Scope, stated properly:** `Frame(POOL)`, selectors from `best/new_instance_partial_39026.json`,
+knob set = every free input syntactically supporting the region, `p` = the 78-digit modulus. It also
+**reproduces N's corrected step-16 table exactly** — the cross-check that the model is right rather
+than merely self-consistent.
+
+### Rule 9 caught a known failure mode recurring in N's own fresh code
+
+N's first `pgap.py` run reported the 8 states without `28730` at **39,025 with `gap_Q = 1`** — the
+**pre-correction** number, and a claim those regions are inconsistent **over ℚ**. Cause: `price()`
+built each region row from its constant and linear parts and **discarded the quadratic**, truncating
+eq 8680's square instead of rooting it — **exactly the defect T caught in `optN.inner`, reintroduced
+by N in new code.** Fixed (a single-square-atom row is replaced by its `square_base`). **Not reported
+before it was checked.**
+
+### The pickle wipe cost N nothing, and its chain is self-contained
+
+Both `fwd2.pkl` and `model.pkl` were wiped; N's chain **hard-failed with `FileNotFoundError` on the
+first script, before any measurement** — it never degraded silently. Rebuilt from `EQUATIONS.txt` and
+verified **faithful, not merely runnable**: 42,267 atoms / 39,033 equations; 30,001 defs / 12,266
+checks / 8,747 free; a known state at **39,026 with 0 vars differing** and the identical failing set;
+`optN` calibration `|R|=12 |S|=8 knobs=7 rank=7 OPT=5 failing=7 score=39026 exhaustive lin=True`.
+**N does not consume F's or L's chain**, so `t_rebuild*.sh` were not needed.
+
+### The placement axis is exactly those 16
+
+`best/new_instance_partial_39026.json`, `N_r13_39026.json` and `H_frameB_39026.json` **all load at
+frame score 39,026, `|R| = 12`, with the identical 7 nonzero atoms** — three independently
+constructed artifacts, one configuration, already in the table. Foreign assignments
+(`best_partial_3901*.json`) land at **36,761** with `|R| = 2,273` because they are **not in this
+frame's coordinates**; pricing them would measure N's re-derivation rather than their configuration.
+**Reported as skipped, not counted.**
+
+### N re-tasked — the one input held fixed in all 16
+
+The gap is invariant on everything reachable **from this frame**, and N's diagnosis of what that
+leaves is exact: **`p` enters through the frame's constants, and the one input to `rk_p(M)` held
+fixed in every configuration priced is the selector setting** — all 16 inherit the witness's.
+
+**Hunt a selector setting whose region response is not rank-deficient mod `p`.** One rank computation
+per configuration. Told to **vary settings structurally rather than numerically** — both leaves on
+one side of the root, more leaves live, live set drawn from a different subtree, since those change
+which constants enter the frame — and to **report the distribution of `gap_p`, not just whether a
+zero was found.**
+
+**If `gap_p = 1` holds across selector settings, that is N's terminal result** — *the optimum is a
+rank deficiency mod p that no reachable move changes*. **If any setting drops it to 0, that
+configuration is the target** and everything else becomes secondary to constructing an assignment
+there.

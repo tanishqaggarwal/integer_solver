@@ -221,12 +221,47 @@ equations each), which points back at my own "price in equations, not atoms" rul
     python3 pgrow.py                 # why collateral budget does not touch it
     python3 budget68b.py w2 <s> 4    # resumable |W|=2 shard
 
-## Single next experiment (superseding the one above)
-The polynomial axis is closed and the barrier is now a **mod-p rank deficiency of the region
-response matrix on the zero-collateral lattice**, with the gap `rk_p([M|b]) - rk_p(M) = 1` invariant
-under every lattice enlargement measured. **The next experiment is to attack that gap directly
-rather than search for moves**: find a configuration (detach set / selector setting) under which the
-region response matrix is NOT rank-deficient mod p. Concretely, price `rk_p(M)` vs `rk_Q(M)` across
-the 16 proven detach states and across placements — it is one rank computation each, far cheaper
-than any sweep, and it is the first quantity in this lab that predicts the optimum instead of
-reporting it.
+## The rank-gap experiment: RUN, and the gap is an INVARIANT (step 18)
+
+Post-restart integrity first: `*.pkl` is globally gitignored, so **both `fwd2.pkl` and `model.pkl`
+were wiped**. My chain **hard-failed** on the missing pickle before any measurement, so nothing I
+reported came from a partial cache. Rebuilt from `EQUATIONS.txt` and verified faithful, not merely
+runnable: 42,267 atoms / 39,033 equations; 30,001 defs / 12,266 checks / 8,747 free; `frameB.py`
+reloads a known state to **score 39,026** with the exact 7 nonzero atoms, the identical failing set
+and **0 vars differing**; `optN.py` calibration reproduces `|R|=12 OPT=5 score=39026`.
+
+**All 16 detach states — the whole 2^65 lattice by proof — priced exactly (`pgap.py`):**
+
+| class | \|R\| | knobs | lattice | rk_Q(M) | gap_Q | rk_p(M) | **gap_p** | OPT | score |
+|---|---|---|---|---|---|---|---|---|---|
+| 8 states **with** `28730` | 12 | 68 | 14 | 7 | **0** | 3 | **1** | 5 | **39,026** |
+| 8 states **without** `28730` | 13 | 76 | 15 | 8 | **0** | 4 | **1** | 6 | **39,026** |
+
+**`gap_Q = 0` and `gap_p = 1` in all 16.** With `pgrow.py` (gap 1 across all 15 lattice-enlarging
+`|W|=1` drops), the gap is invariant across the entire detach axis and across collateral budget 1.
+Reproduces the corrected step-16 table exactly, which is the cross-check that the model is right.
+
+**Rule 9 caught a real error in my own new code**: the first `pgap.py` run reported the
+`28730 ∉ D` states at 39,025 with `gap_Q = 1` — the *pre-correction* number — because `price()`
+kept only the constant and linear parts of each region row and so **truncated eq 8680's square
+instead of rooting it**. Fixed by replacing a single-square-atom row with its `square_base`. Not
+reported before it was checked.
+
+**The placement axis is exactly those 16.** `best/new_instance_partial_39026.json`,
+`N_r13_39026.json` and `H_frameB_39026.json` all load at frame score 39,026, `|R| = 12`, the
+identical 7 nonzero atoms — **three independent artifacts, one configuration**. Foreign assignments
+(`best_partial_3901*.json`) land at score 36,761 with `|R| = 2,273`: they are not in this frame's
+coordinates and pricing them would measure my re-derivation, not their configuration.
+
+## Single next experiment
+The gap is invariant on everything reachable from this frame, so **the target is now a configuration
+this frame cannot reach**. The gap is a property of `p` and the region response; `p` enters through
+the frame's constants, and the one axis never varied is the **selector setting** — every
+configuration I priced inherits the witness's selectors. So: find a selector setting whose region
+response is not rank-deficient mod `p`. It is still one rank computation per configuration, and it
+is the only remaining input to `rk_p(M)` that I have held fixed throughout.
+
+## Dropped deliberately
+`|W| = 2` (26,565 pairs, ~63 CPU-hours under contention) — its `|W| = 1` sibling is refuted over all
+231 rows and `pgrow.py` explains why the budget cannot touch the gap. **Left resumable at
+2,004/26,565, max g = 5**: `python3 budget68b.py w2 <shard> 4`.
