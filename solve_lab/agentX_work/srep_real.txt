@@ -1,0 +1,2 @@
+DONE signed sz=1 range=[0,512) n=512 zero=0 0.0s
+DONE signed sz=2 range=[0,512) n=130560 zero=0 0.1s

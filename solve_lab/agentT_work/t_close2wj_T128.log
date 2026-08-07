@@ -223,3 +223,4 @@ outer 8: global nonzero 3, violated c-conditions 3, nonzero handle-less 0
      folding in collateral: ['((x5794*x19670)-(8567205*x2062))', '((x14047-x19324)-(3914361*x6389))']
      round 1: |group|=3 (0 exact) wires=8 new pairs=27
      (x2820  ,x13880 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x2820  ,x15237 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
