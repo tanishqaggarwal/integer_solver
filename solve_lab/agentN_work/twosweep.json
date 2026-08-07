@@ -1,0 +1,68 @@
+{
+ "1sel  u[0]": {
+  "base_score": 39018,
+  "chain": 20,
+  "best": 39018,
+  "mingap": 6,
+  "maxrank": 5,
+  "wins": 0,
+  "base_deficit": 9,
+  "base_rank": 2,
+  "base_knobs": 2
+ },
+ "2sel  same-u": {
+  "base_score": 38997,
+  "chain": 22,
+  "best": 38997,
+  "mingap": 18,
+  "maxrank": 8,
+  "wins": 0,
+  "base_deficit": 24,
+  "base_rank": 5,
+  "base_knobs": 5
+ },
+ "2sel  same-u far": {
+  "base_score": 38997,
+  "chain": 31,
+  "best": 38998,
+  "mingap": 14,
+  "maxrank": 9,
+  "wins": 0,
+  "base_deficit": 20,
+  "base_rank": 2,
+  "base_knobs": 2
+ },
+ "2sel  same-w": {
+  "base_score": 38999,
+  "chain": 29,
+  "best": 38999,
+  "mingap": 17,
+  "maxrank": 6,
+  "wins": 0,
+  "base_deficit": 21,
+  "base_rank": 2,
+  "base_knobs": 2
+ },
+ "2sel  witness set": {
+  "base_score": 39012,
+  "chain": 36,
+  "best": 39012,
+  "mingap": 4,
+  "maxrank": 9,
+  "wins": 0,
+  "base_deficit": 9,
+  "base_rank": 5,
+  "base_knobs": 7
+ },
+ "3sel  u+u+w": {
+  "base_score": 38986,
+  "chain": 39,
+  "best": 38986,
+  "mingap": 17,
+  "maxrank": 11,
+  "wins": 0,
+  "base_deficit": 27,
+  "base_rank": 5,
+  "base_knobs": 5
+ }
+}
