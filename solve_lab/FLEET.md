@@ -4749,3 +4749,75 @@ is the result**, closed the way O closed its scan by pricing it rather than runn
 
 N has also adopted T's identity in its write-up, which is what makes its 4-of-65 reduction checkable
 without its frame.
+
+---
+
+## Check-in 86 — the closure break is ONE LEAF, and it is not the |S|=17 mechanism
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### Localised: a single leaf, not a size horizon
+
+Prefix passed **explicitly** rather than re-drawn from `Random(7)`, so nesting is **guaranteed, not
+assumed**:
+
+```
+chain: [19745, 33287, 30242, 12422, 16586, 35110, 3545, 34974]
+|S|=3  2 atoms  39,018  CLOSES
+|S|=5  2 atoms  39,018  CLOSES
+|S|=6  2 atoms  39,018  CLOSES   (+35110)
+|S|=7  2 atoms  39,018  CLOSES   (+3545)
+|S|=8  3 atoms  39,002  ** FAILS ** (+34974)
+```
+
+All four closing runs give the **identical** two target congruences and the **identical**
+15-equation failing set. **Adding `x34974` is what introduces the surviving condition** — six of the
+eight leaves are free. **So the break is a property of one leaf, not of size.**
+
+### The coordinator's hypothesis is REFUTED, by the solver's own criterion
+
+I suggested the `|S| = 8` residue might be the shared-wire simultaneity diagnosed at `|S| = 17`. T
+interrogated `((x21408*x10138)-(15333171*x658))` against `closeS4`'s own refusal criterion:
+
+```
+candidate shift wires: 6
+wires with a root but BLOCKED by collateral : 0
+wires with NO ROOT AT ALL                   : 6
+```
+
+**Nothing is blocked by collateral — there is no root to refuse.** Simultaneity is clearing one
+condition and re-breaking another **on the same wire**; that is measurably not what happens here.
+**The `|S| = 8` and `|S| = 17` failures are two phenomena, not one.**
+
+### The pointer, and the next test
+
+**A condition with no *univariate* root on any wire is exactly the shape of L's bivariate residue**,
+where a `p·t_w·t_v` term survives mod `c`. So the right follow-up is **not** a joint solve over
+shared wires — that addresses simultaneity, now excluded — but a **two-wire shift on this condition:
+6 wires, 15 pairs**, exhaustive over the pairs and the only structural hypothesis left standing for
+this residue.
+
+**Both outcomes are terminal for the line.** If a pair clears it, **`|S| = 8` closes and the
+"closure is a small-|S| phenomenon" statement moves.** If no pair clears it over all 15, **the
+obstruction survives both univariate and bivariate shifts on its own wires** — a materially stronger
+negative than "this solver did not close it".
+
+**Scope kept:** single- and now two-wire granularity, on wires `influences()` admits, **one ON-set
+per size**.
+
+### Corrections applied, one better than asked
+
+**O's Lemma stays VERIFIED with the "39,025 → 39,026" attribution stripped** — T's audit was against
+the raw decomposition, not N's pricing, so the Lemma is untouched. **N's row carries the retraction
+with its counterexample** (`D = []`, checker-verified 39,026) and the note that N re-ran on the
+corrected model with identical results. **T corrected its own §AG in place** rather than leaving it
+standing, having recorded N's split as fact — the same discipline it has been auditing others for,
+applied unasked.
+
+**Rule 8 added, credited to N: *measure the blast radius of a correction before reporting it*** —
+sited beside Rule 7 with the distinction spelled out: **Rule 7 asks what the conclusion rests on;
+Rule 8 measures how far the error actually reaches.** A sharper statement of the pair than the
+coordinator had.
+
+Artifacts `close_T2ctl/T3/T5/T6/T7/T8.json`, all checker-verified. L's invalid
+`close_S3/S5/S8.json` were **not read**. `LEDGER.md` 118 lines; `RESUME_T.md` 995 lines (A–AQ).
