@@ -1,3 +1,4 @@
 --- PHASE A: k = 2^a * (2^m - 1)  (runs of consecutive set bits) ---
   runs tested 32896  hits []  14.8s
 --- PHASE B: BSGS, baby=2^22 giant=2^22  => covers k < 2^44 ---
+--- PHASE B: BSGS, baby=2^22 giant=2^22  => covers k < 2^44 ---

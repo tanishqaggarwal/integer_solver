@@ -1,57 +1,55 @@
-# Agent D — resume brief
+# Agent D — resume brief (FINAL)
 
-## Best verified so far
-Global best is still `solve_lab/best/new_instance_partial_39026.json` = **39,026** (re-verified).
-MY best own state: `agentD_work/D_39017.json` = **39,017**, checker-verified,
-failing [56,133,2071,8073,13660,15299,16622,17726,19066,22093,25480,28653,31061,32894,34517,34892].
-Its residual is only THREE atoms {a688, a1618, a40608} = the two mod-p pins on (x3,y3).
-Pipeline that produced it: D_state1 -> adv3.sweep -> 39,013 (D_adv.json) -> ecsolve2.py -> handles -> 39,017.
+## Verdict
+**The instance is a 256-bit ECDLP on a curve isomorphic to secp256k1, with prime group order.**
+Derived independently, from the residual downward, without importing anyone's artifacts.
+A full solve is therefore not reachable by search; the deliverable stays `39,026`.
 
-## Pipeline (all inside agentD_work/, independent of s9/s10 caches)
+## Best verified
+* Global best unchanged: `solve_lab/best/new_instance_partial_39026.json` = **39,026** (re-verified by me).
+* My own best independent state: `agentD_work/D_39017.json` = **39,017**, checker-verified,
+  failing [56,133,2071,8073,13660,15299,16622,17726,19066,22093,25480,28653,31061,32894,34517,34892].
+  Residual = only THREE atoms {a688, a1618, a40608} (the two mod-p pins on the output point).
+
+## The reduction, in five lines
+1. Forward-eval from free inputs kills all 31,475 gate atoms; only checks can fail.
+2. 192 "advice" congruences `K*(u_free - w) - p*handle` — one Gauss–Seidel sweep (`adv3.py`) closes
+   them all: **39,013** (`D_adv.json`). Residual is then only `sel * (combo of A,B) == 0 (mod p)`.
+3. `A = x_35389 = (x1+x2+x3+K)(x2-x1)^2 - (y2-y1)^2`, `B = x_6671 = (y3+y1)(x2-x1) - (y2-y1)(x1-x3)`,
+   verified digit-for-digit. The whole instance holds iff A ≡ B ≡ 0 (mod p).
+4. K = x_24453 is the `a2` of a general Weierstrass curve. Fitting a4,a6 → **256/256** gated
+   table points and the pinned target lie on it. Depressed form: **y^2 = x^3 + B, A = 0**,
+   B = 64019533680030876408443198762210829058751700634554282185987325820393598524794,
+   B/7 is a 6th power mod p ⇒ isomorphic to secp256k1; order = n_secp256k1 (prime).
+5. The 256 gated points are one **doubling chain** of length 256 rooted at bit x_2779, so the
+   assertion is `k·P_0 = T` — a 256-bit discrete log. `ecdlp.json` has B, shift, ladder, T.
+
+## Pipeline (self-contained in agentD_work/, no s9/s10 caches)
 ```
 cd solve_lab/agentD_work
-python3 build_cache.py          # rebuilds cache/{atoms,polys,gates,topo}.pkl  (~45 s)
-python3 -c "import dlib as L, engine2 as E; st=E.St(L.load('D_state1.json')); print(st.score, st.nz())"
+python3 build_cache.py                  # cache/{atoms,polys,gates,topo}.pkl  (~45 s)
+python3 adv3.py D_state1.json D_adv.json # 39,002 -> 39,013
+python3 ecsolve2.py D_adv.json           # CRT solve of A,B -> 39,009, then handles -> 39,017
+python3 gens26b.py && python3 lat26b.py  # proves MAX 5 of 12 at the 39,026 placement
 ```
-* `dlib.py`   — atoms/polys/gates/topo + exact eval (42,267 atoms, 39,033 eqs, 31,475 gates, 7,273 free inputs)
-* `engine2.py`— `St` state with **incremental apply/revert** (~5 ms per move, exact ints)
-* `rad.py`    — reverse-mode AD mod 2^61-1 → free-input knob list for any atom in ~0.02 s
-* `fwd.py`, `dig.py`, `ortree.py`, `consts.py`, `pins.py` — structure tools
+Tools: `dlib.py` (exact eval), `engine2.py` (**St with block=** — incremental apply/revert, ~5 ms),
+`rad.py` (reverse AD mod 2^61-1), `hsweep.py`, `scanAB.py`, `scanpairs.py`, `table.py`, `banks.py`,
+`condpins.py`, `intsolve.py` (column-HNF integer solver), `placement.py`.
 
-## Established by me this session (measured, not inherited)
-1. Forward eval from the 39,026 witness's free inputs → 38,996, 6 nonzero checks. Confirmed.
-2. Zeroing free inputs x_9118,x_8731,x_1329,x_10903 → **39,004**; then forcing
-   x_24548:=x_25442, x_14853:=x_1308 → fixed point **39,002** with residual moved to
-   {a19297,a19299,a21617,a30984,a36185,a37662,a40812}. (Prior "oscillation" confirmed.)
-3. **Only 4 large public constants in the whole instance**: x_26064 = p (secp256k1),
-   x_24453 = C_A (256-bit), a688: x_18956 ≡ C_B (296-bit) mod p, a1618: x_24468 ≡ C_C (296-bit) mod p.
-4. Decompiled the pins: with selectors x_15298=1, x_34606=x_5647=0,
-   **x_18956 ≡ y3 and x_24468 ≡ x3**, i.e. a688/a1618 pin the *output point* (x3,y3) = (C_C, C_B) mod p.
-   In D_state1 x_22162 = C_C and x_30213 = C_B exactly, so those pins already hold.
-5. x_15298 = AND of two 192-leaf OR trees, 384 leaves, 256 of them free; only x_2081 and
-   x_24601 are nonzero. Zeroing both → 38,879 (selector door is expensive). Confirmed prior.
-6. Residual conditions at D_state1 reduce to **A ≡ B ≡ 0 (mod p)** (EC addition identities)
-   plus the advice equality a21617: x_14623 ≡ x_27522 (mod p).
+## TRAP that will bite anyone searching from the 39,026 witness
+Its five deliberately-broken **gate** atoms {22229, 22230, 35758, 35761, 35762} are silently
+repaired by any plain forward ripple, which collapses the score to ~39,008. Always construct the
+state as `E.St(v, block={22229,22230,35758,35761,35762})`.
 
-## Next experiment (highest value)
-Solve A=B=0 in closed form: pick x1,x2 free, s = sqrt(x1+x2+x3) mod p,
-y1 = s(x1-x3) - y3, y2 = y1 + s(x2-x1) — then re-solve the advice equality DAG and measure.
-The advice checks are `K*(u - w) - p*handle` with u a free input, so each is closable by
-u := w; the question is whether the DAG fixed point is compatible with the EC solution.
+## Optimality, re-derived independently
+With gates blocked, the cost-free generator lattice at the 39,026 placement is **9 generators**
+(x_642, x_1329, x_8731, x_9118, x_9413, x_10903, x_17325, x_29854, x_31864); only a22231 is frozen.
+Enumerating all 2^12 subsets of its 12 equations with an exact integer (HNF) solver:
+sizes 12..6 all infeasible over Z, size 5 feasible ⇒ **failing = 7 ⇒ 39,026 is exact.**
 
-## Structure, fully decompiled (mine, measured)
-* 256 free boolean bits; each pins EXACTLY 2 variables to 2 296-bit constants (condpins.py).
-  178 gate the OR-tree x_7715 ("P1 selected"), 78 gate x_34554 ("P2 selected").
-  bitswap.py: turning bit i on (and setting its 2 pinned vars) makes (x1,y1) = that bit's pair.
-* Selectors are mutually exclusive: x_15298 = f1*f2, x_34606 = f1*(1-f2), x_5647 = f2*(1-f1),
-  x_15574 = 1-x_15298.  With x_15298=1 the two public pins read  x3 ≡ C_C,  y3 ≡ C_B (mod p).
-* Whole instance is satisfied iff (at the advice fixed point) A = x_35389 ≡ 0 and B = x_6671 ≡ 0 (mod p),
-  A = (x1+x2+x3+C_A)(x2-x1)^2 - (y2-y1)^2,  B = (y3+y1)(x2-x1) - (y2-y1)(x1-x3).
-* A,B are EXACTLY affine over Z in (δx3, δy3); solving them costs breaking the two pins = 16 equations.
-* banks.py: exhaustive over 178x78x4 orderings — NO bit pair makes A or B vanish. Table constants
-  are NOT secp256k1 points. Two bits on in a bank gives x1 = 0 (tree MUX, not a subset sum).
-
-## Next experiment
-Rank ALL knob pairs (u1,u2) that span (dA,dB) mod p by the number of equations their broken
-atoms occupy, and run the ecsolve2 CRT construction with the cheapest pair. Currently
-(x3,y3) costs 16; a pair costing <= 6 would beat 39,026.
+## Single highest-value next experiment
+None inside the search paradigm. The only thing that changes the answer is the discrete log
+`k·P_0 = T` on secp256k1 — so the next experiment is a *feasibility* one: verify the ladder root
+P_0 against the standard secp256k1 generator under the isomorphism (x,y) -> (x/u^2, y/u^3),
+u^6 = B/7, and confirm T is not a small or otherwise special multiple of P_0 (BSGS to 2^40,
+a few core-hours) before declaring the instance closed at 39,026.
