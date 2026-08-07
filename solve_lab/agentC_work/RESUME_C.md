@@ -23,6 +23,14 @@ Installed (absent before): z3-solver, python-sat, cvc5, python-flint, ortools, s
    slack as the deliverable's 12/8 cluster in half the equations, so `failing = 7 - 3 + c`
    (6 -> 39,027 if c = 2; 4 -> 39,029 if c = 0).
 
+## DURABLE ARTIFACTS (run these first)
+* `python3 agentC_work/CERT_second_door.py` -> PASS/FAIL certificate that the P1 = P2 door is
+  closed.  Self-contained from EQUATIONS.txt.  Includes a self-test so a vacuous reject cannot pass.
+  KEY NUMBER: max reachable kA = 9.2485e76 < n = 1.1579e77, so NO nonzero multiple of n is
+  reachable at all — stronger and simpler than the carry-overflow phrasing.
+* `agentC_work/CURVE.md` -> a2/a4/a6, B_short, sixth-power witness, order proof, and the
+  on-curve table for Q under both forms.  READ IT BEFORE testing anything against y^2 = x^3 + 7.
+
 ## PRIORITY-1 OUTCOME: REFUTED (see LOG.md Step 9)
 The x_10513 cluster's 12x8 matrix has rank 8 = |S|, kernel ZERO: the 5 "compensators" are shadow
 atoms (fixed linear combinations in their own square equations), so they add no freedom.  Exact

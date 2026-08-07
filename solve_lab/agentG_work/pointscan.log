@@ -17,3 +17,7 @@ bit x1203   ninc=0 nzc=0 nres=8 oncurve=None AB=None D=None
   (47,490): ninc=0 nres=16  
   (91,112): ninc=0 nres=12  
   (91,438): ninc=0 nres=13  
+  (91,490): ninc=0 nres=15  
+  (112,438): ninc=0 nres=14  
+  (112,490): ninc=0 nres=16  
+  (438,490): ninc=0 nres=17  

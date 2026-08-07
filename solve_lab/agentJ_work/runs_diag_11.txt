@@ -1,1 +1,21 @@
    col 0/523 0s
+   col 100/523 29s
+   col 200/523 65s
+   col 300/523 99s
+   col 400/523 132s
+   col 500/523 181s
+
+branch (1,1)  violated [20407, 20409, 31575]
+Jacobian 988 x 523  nnz 2683
+  a20407: gradient support 226 knobs
+  a20409: gradient support 226 knobs
+  a31575: gradient support 226 knobs
+
+Q1 full system: rank 426, inconsistent rows 7 -> [31571, 32543, 32545, 32547, 34738, 37119, 37121]
+
+Q2 rank of satisfied-only Jacobian: 426 (of 523 cols)  => kernel dimension 97
+  a20407: gradient lies ENTIRELY in the span of the satisfied rows => FROZEN on ker(J_sat); residual CANNOT be moved  (reduced rhs nonzero)
+  a20409: gradient lies ENTIRELY in the span of the satisfied rows => FROZEN on ker(J_sat); residual CANNOT be moved  (reduced rhs nonzero)
+  a31575: gradient lies ENTIRELY in the span of the satisfied rows => FROZEN on ker(J_sat); residual CANNOT be moved  (reduced rhs nonzero)
+
+Q3 satisfied(homogeneous) + violated(inhomogeneous): rank 426, inconsistent 3

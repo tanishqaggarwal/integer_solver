@@ -1,0 +1,7 @@
+mod9118_0.json score=39009 failing=24 nz=[21617, 29539, 37662, 40826]
+region atoms=76 knobs=65 eqs=98 skipped=0 nontrivial=89 dead-violated=0 cur-violated=24
+violated rows: [2449, 4134, 7276, 7861, 8402, 15440, 15581, 15724, 17045, 20639, 21600, 22825, 24974, 26912, 27999, 29181, 29305, 31134, 31269, 31803, 32463, 33195, 35852, 36387]
+dead (unfixable) rows: []
+rank=65 free=0 incons=0 non-integral knobs=[(5040, 'p'), (30163, 'p')]
+residual-atom equations in region: 24 [2449, 4134, 7276, 7861, 8402, 15440, 15581, 15724, 17045, 20639, 21600, 22825, 24974, 26912, 27999, 29181, 29305, 31134, 31269, 31803, 32463, 33195, 35852, 36387]
+targeted candidate drop-sets: 190050

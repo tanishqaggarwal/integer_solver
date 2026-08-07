@@ -111,3 +111,28 @@ verified constant across 8 bit pairs and random coordinate perturbations; y-law 
    7251 `(x7068-x2099)-(7376877*x642)` are the two chain rows that force (x2,y2) to bit x2081's pinned
    point; the deliverable state instead sets (x2,y2)=(x1,y1) (the degenerate doubling that makes
    A = B = 0 identically) and pays with those same two chain atoms.
+
+## Curve / ladder (coordinator-requested verification, all derived from my own parse)
+5. **N == secp256k1's own group order n = 0xFFFF...BAAEDCE6AF48A03BBFD25E8CD0364141**, exactly.  So E_b is
+   the sextic twist of secp256k1 whose order coincides with secp256k1's.  PRIME (no factor < 10^6;
+   sympy.isprime; Miller-Rabin bases 2..100).  No small-order or smooth structure => Pohlig-Hellman useless.
+   Quadratic twist: 3^2*13^2*3319*22639*(211-bit prime) -- irrelevant for a static instance.
+6. **Single doubling chain of length 256, rooted at bit x_2779** -- derived independently.  Of the 256
+   conditional-pin bits, 253 give full points; those form 4 doubling chains (124,79,41,9).  The 3 bits with
+   only ONE pin (18184, 22579, 33434) are exactly the 3 missing links: for each, the reconstructed point is
+   the double of a chain end AND its own double is a chain root.  Joining them gives ONE chain of 256.
+   Root = bit 2779 (tree A).  Matches agent D's independent result.
+7. **Isomorphism to y^2=x^3+7.**  b/7 IS a 6th-power residue mod p; u = 4210889811980686189396764679825672592540066047176031544704936155054310740018 with u^6 = b/7.
+   Map (x,y) -> (x/u^2, y/u^3).  Under it:
+     P0 -> (91177636130617246552803821781935006617134368061721227770777272682868638699771,
+            83121579216557378445487899878180864668798711284981320763518679672151497189239)
+     **P0 is NOT the standard secp256k1 generator G, and not -G.**
+     T  -> (114954170896069557132556805100131732357111921696325538947571150063618718558108,
+            91578489866056872372702644448953676913149983582649043065634377525007271268642)  -- not G.
+   T IS on the curve.  No structured log: T != k*P0 for k <= 5000 and for k = 2^i (i<256), (N±1)/2, N-1.
+   BSGS to 2^40 running (`bsgs.py`, log `bsgs.log`).
+8. **Correction to my own earlier note**: my "infeasible under all-atoms-zero" statement exhausts only the
+   ONE-BIT-PER-OR-TREE family reachable from the all-zero base.  With the 256-long doubling chain now
+   visible, the real semantics is a ladder: many bits on simultaneously, with the ladder advice set to the
+   true intermediate values.  That family is exactly ECDLP (k*P0 = T on a 256-bit prime-order group) and is
+   NOT excluded by my enumeration.  No infeasibility is claimed.

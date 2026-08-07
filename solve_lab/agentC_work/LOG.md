@@ -142,3 +142,28 @@ From my curve.json alone, all three descriptions are the same curve:
   F_p-isomorphic to secp256k1 by x -> u^2 x, y -> u^3 y with u^6 = B_short/7.
   Agent I is right that b differs, but a *different b with the same group order* is an isomorphic
   copy, not a nontrivial twist (a nontrivial sextic twist would carry one of the other five CM orders).
+
+## Step 11. DURABLE CERTIFICATE + CURVE.md (final)
+`agentC_work/CERT_second_door.py` — self-contained, rebuilt from EQUATIONS.txt, prints PASS/FAIL
+per check, exit 0 iff all pass.  ALL CHECKS PASS.  It verifies, adversarially:
+ (1) 384 leaves / 256 free, no leaf on both sides; (2) **512 of 512 leaf-pin handles are
+ p-quantised** (this is the certificate's stated hypothesis, and exactly what the deliverable
+ pays 7 to violate); (3) one curve fitted from the constants carries **256/256** leaf points,
+ nonsingular; (4) distinct points, a unique doubling chain of length 256, and `P_i = 2^i G`
+ verified for **all** i (0 mismatches); (5) n prime + [n]G = O + G != O => ord(G) = n, A_short = 0,
+ B_short/7 a sixth power; (6) E1/E2 is a genuine PARTITION of {0..255} (178/78);
+ (7) the reachable interval for w = kA - kB; (8) a forced signed-digit search, with a
+ **self-test on 400 randomly CONSTRUCTED representations plus both extremes**, so a vacuously
+ rejecting routine cannot yield a PASS.
+
+**REFINEMENT — the argument is stronger and simpler than "both carry chains overflow".**
+The certificate computes the interval exactly:
+    lo = -23306790212000492931035432369566002706193213587630440834752411869388007846952
+    hi = +92485299025315702492535552639121905147076771078010123204705172138525121792983
+and **hi < n = 1.1579e77**.  So the ONLY multiple of n inside [lo, hi] is j = 0, which is
+excluded by disjoint nonempty supports.  There is nothing to test at j = +-1 at all — the carry
+overflow I reported earlier was a correct but roundabout way of seeing that `sum_{i in E1} 2^i`
+simply never reaches n.  The certificate enumerates j over a window wider than needed
+(j = -3..3) so the bound is checked rather than assumed.
+`agentC_work/CURVE.md` records a2, a4, a6, B_short, the sixth-power witness, the order proof,
+and the both-forms on-curve table for Q, with the a2 = 0 error called out at the top.

@@ -7,3 +7,9 @@ targeted candidates: 421
   60/421 t=148s
   partial a18873 nconf=2 und=10047 eqs=12 X25739 - (X25156 + X3023)
   80/421 t=187s
+  100/421 t=239s
+  partial a24195 nconf=0 und=10070 eqs=12 X15298 - X7715 * X34554
+  120/421 t=287s
+  140/421 t=352s
+  partial a18872 nconf=2 und=10047 eqs=13 X3023 - 6926539 * X6671
+  160/421 t=404s

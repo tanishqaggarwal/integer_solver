@@ -27,3 +27,4 @@
   BSGS done 532.5s  found=None
 --- PHASE C: k = 2^a * s with s < 2^22 (strip trailing zeros) ---
   shifted-target hits: []
+  shifted-target hits: []
