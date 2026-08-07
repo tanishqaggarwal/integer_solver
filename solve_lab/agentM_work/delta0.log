@@ -1,0 +1,25 @@
+BASE = deliverable: score 39026  fails [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+carriers free in my frame: {7068: True, 4432: True, 9118: True, 8731: True, 642: True, 28730: True, 29854: True, 31864: True, 9413: True, 17325: True}
+
+carrier increments (bits): d1 2440 d2 2419 d3 2406 d4 2429
+
+=== A: delta0 applied directly (carriers shifted, z as INCREMENTS) ===
+  [A_incr] score 38998  nbad 5  nfail 35  region still failing 7/13 [6816, 9123, 9421, 12270, 12350, 14584, 18673]
+
+=== B: same carriers, z as ABSOLUTE values ===
+  [B_abs] score 38992  nbad 11  nfail 41  region still failing 13/13 [2554, 6816, 8124, 8680, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+
+=== C: MINIMAL REPRESENTATIVES ===
+  reduced (bits): d1 2440->22 (mod 7376877), d2 2419->255, d3 2406->255, d4 2429->253
+  d1 reduced value = -3228258
+  [C_incr] score 38993  nbad 7  nfail 40  region still failing 12/13 [2554, 6816, 8124, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+  [C_abs] score 38992  nbad 11  nfail 41  region still failing 13/13 [2554, 6816, 8124, 8680, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+
+=== D: reduce ONLY the x_7068 carrier (the 34120 lever), keep the rest as O gave ===
+  [D_only7068] score 38995  nbad 6  nfail 38  region still failing 10/13 [6816, 8124, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044]
+
+=== E: carriers only, no private z (isolates the carrier cost) ===
+  [E_carriers_reduced] score 38992  nbad 11  nfail 41  region still failing 13/13 [2554, 6816, 8124, 8680, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+  [E_freecarriers_only] score 39022  nbad 8  nfail 11  region still failing 11/13 [6816, 8124, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+
+baseline 39026 ; perfect 39033

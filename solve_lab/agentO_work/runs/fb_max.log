@@ -1,0 +1,29 @@
+nonlinear checks: [37887]
+   knob x_4432 is nonlinear on check 37887 : "(x_4432 - x_19964 - x_28730 + 6 * (x_23754 - x_26874 * x_6947) + 15 * (6122989 *"
+   knob x_28730 is nonlinear on check 37887 : "(x_4432 - x_19964 - x_28730 + 6 * (x_23754 - x_26874 * x_6947) + 15 * (6122989 *"
+rows 28  (witness satisfies 21, fails 7)  skipped [8680]
+skipped equations currently failing: []
+
+sanity: the set the witness already satisfies must be solvable
+   solvable: True
+
+--- add one failing equation to the witness-satisfied set (each success = 39,027)
+   +eq12231  SOLVABLE -> exact score 39026  failing [8680, 12270, 12350, 14584, 18673, 22044, 29125]
+   +eq12270  SOLVABLE -> exact score 39026  failing [8680, 12231, 12350, 14584, 18673, 22044, 29125]
+   +eq12350  SOLVABLE -> exact score 39026  failing [8680, 12231, 12270, 14584, 18673, 22044, 29125]
+   +eq14584  SOLVABLE -> exact score 39026  failing [8680, 12231, 12270, 12350, 18673, 22044, 29125]
+   +eq18673  SOLVABLE -> exact score 39026  failing [8680, 12231, 12270, 12350, 14584, 22044, 29125]
+   +eq22044  SOLVABLE -> exact score 39026  failing [8680, 12231, 12270, 12350, 14584, 18673, 29125]
+   +eq29125  SOLVABLE -> exact score 39026  failing [8680, 12231, 12270, 12350, 14584, 18673, 22044]
+
+--- every subset of the 7 failures, largest first
+   no solvable subset of size 7
+   no solvable subset of size 6
+   no solvable subset of size 5
+   no solvable subset of size 4
+   no solvable subset of size 3
+   no solvable subset of size 2
+   +[12231] SOLVABLE -> exact score 39026  failing [8680, 12270, 12350, 14584, 18673, 22044, 29125]
+
+BEST: 39026  (added [12231])
+DONE

@@ -32,7 +32,9 @@ Work from `solve_lab/agentS_work/`. Symlinks to E's `orient.pkl`, `users.pkl`,
 | `kernel.py` | sec 8.3: displace along the affine kernel, re-measure the obstruction |
 | `kernel2.py` | sec 8.3 complement: obstruction at each BFS image point (moves the mod-p class) |
 | `trade.py` | trade-knob walk — VACUOUS, checks span membership up front (sec 6g) |
-| `relax.py` | relaxed selectors (R's lead) — genuine structural move, other rows infeasible (sec 6h) |
+| `relax.py` | relaxed selectors — genuine structural move, other rows infeasible (sec 6h) |
+| `structural.py` | row-deficiency analysis over all 72 logged configurations (sec 6i) |
+| `structural2.py` | finds off-shape full-row-rank configurations — the valid test cases (sec 6i) |
 | `degen2.py` | degeneracy discriminator: zero AND unresponsive |
 | `selcouple.py`,`selcouple2.py` | selector-coupling census + classification |
 
@@ -343,6 +345,53 @@ x_12714 broke **6** atoms — `[10569, 20212, 20649, 20652, 32148, 32628]`, 74 f
 includes cluster/mux atoms a20212, a20649, a20652, a32148, not only a booleanity atom. Either the
 parses decompose differently or the claim needs narrowing to particular selectors. Worth R
 re-checking on the specific selectors it has in mind before the floor of 39,027 is relied on.
+
+## 6i. ANSWER to "is there a direction that moves the post-solve class AND preserves solvability?"
+**YES. Such directions exist, the infeasibility is NOT intrinsic to leaving the span, and it is
+characterisable structurally** (`structural.py`, `structural2.py` — these read only my own run
+logs, no new sampling, because my own starvation table says sampling cannot answer this).
+
+**The mechanism is row deficiency.** Every `lat3.analyse` line records the shape of the
+other-rows system: `knobs=K other-rows=M kernel-dim=d`, so rank = K − d and
+**deficiency = M − (K − d)**. Recovered across **72 logged configurations**:
+
+| deficiency | feasible | infeasible |
+|---|---|---|
+| 0 | **47** | 4 |
+| > 0 | **0** | **21** |
+
+- **deficiency > 0 ⟹ infeasible, 21 of 21, no exceptions.** This is why leaving the span usually
+  kills solvability: breaking atoms adds *rows* faster than it adds *knobs*, the system becomes
+  over-determined, and it dies. That is the structural answer to why relaxed selectors starved —
+  x_12714 goes to (53, 52, 5), deficiency 4; x_16348 to deficiency 5.
+- **Deficiency 0 is necessary but NOT sufficient** — 4 of 51 zero-deficiency systems were still
+  infeasible. Full row rank over Q does not give solvability over Z; the residue conditions
+  (`rhs % modulus != 0`) still bite.
+
+**The existence proof is `img4`** (`runs_kernel2.log`), verified directly from the log rather than
+from my scraper:
+
+    [img4(|on|=1)] knobs=62 other-rows=54 kernel-dim=8 : FEASIBLE      -> rank 54 = rows, deficiency 0
+    MEMBERSHIP of -residual in reachable lattice: NO
+    row a20215 residual mod p = 84623865150894944922022514250283073331537809300837942433997946904552394898251
+    row a28647 residual mod p = 47440525290535544708674620248717482764057423781520898897748888929433376949781
+
+It **left cfg0's shape** (62/54/8 vs 54/47/7), **kept full row rank**, was **FEASIBLE**, and its
+**post-solve class differs from cfg0's** on both coordinates. That is exactly the valid,
+independent test case §6f was starved of — and it was **blocked**.
+
+**This refines, and partly corrects, my §6g/§6h conclusion.** "The question may not be answerable
+by sampling at all" is right about *blind* sampling and wrong as a general statement: it is
+answerable with a **deficiency-directed generator**. The recipe follows from the table: look for
+selector settings that add knobs at least as fast as they add rows (img4 gained +8 knobs against
++7 rows). Of 26 logged off-shape configurations, 5 had deficiency 0 and 1 of those was feasible —
+a ~4% hit rate blind, but a targeted search optimising (K − d) − M should do far better than that.
+
+**Status of the endgame condition: still open, but now with a working generator.** Independent
+data points remain **2** (img0 at cfg0's class, img4 at a different class), both blocked. Two is
+not configuration-independence and I am still not claiming it. But the residual side is no longer
+blocked on "we cannot make test cases" — it is blocked on running a deficiency-directed search,
+which is a concrete, bounded next step rather than an open-ended one.
 
 ## 7. Scores
 - Best verified: **39,026** — the existing deliverable, re-verified by me with `checker.py`.

@@ -1,184 +1,222 @@
-# RESUME_R — agent R (automated reasoning against the REDUCED problem). Self-contained.
+# RESUME_R — agent R. Self-contained. Read §0, then §A; §B is withdrawn, §C is how I got burned.
 
-## 0. Score
-- Baseline re-verified by me from cold, 26 s:
+## 0. Score and standing
+- Baseline re-verified by me from cold, twice:
   `python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json`
   -> `satisfied 39026/39033 (7 failing)`, failing `[12231,12270,12350,14584,18673,22044,29125]`.
-- **I did not beat it.** No assignment of mine scores above 39,013.
-- **No infeasibility claim is made anywhere in this directory.** A solution exists.
+- **I did not beat it.** Nothing I produced scores above 39,013 on `checker.py`.
+- **No infeasibility is claimed anywhere in this directory.** A solution exists.
+- My angle produced **two withdrawn results and one durable explanation**. The sections below are
+  separated so the next reader can tell which is which without reading the narrative.
+- Full narrative with every number and every dead end: `LOG.md`. Raw data: `runs/`.
 
-## 1. MAIN RESULT — the reduced problem, made explicit
-Re-derived here from agent F's decode artifacts (read-only), every step checked:
-`model.py` `group.py` `ladder.py` `order.py`.
+---
+# §A. SURVIVES — pure equation-incidence, no group model anywhere in it
 
-1. `X = x + K/3` removes the offset: the stage law becomes the plain chord law (checked vs
-   `chordK` on 200 random pairs).
-2. All 248 forced pin points **and the target** satisfy one relation `Y^2 = X^3 + B`,
-   `B = 64019533680030876408443198762210829058751700634554282185987325820393598524794`
-   (fitted from 2, verified on 246 + target, 0 exceptions).
-3. So the fold is an **abelian group law** — commutativity and associativity checked on 200 random
-   triples. **The fold of a leaf subset therefore does not depend on the tree shape.** F's
-   outstanding decode (56 slot pairs, 24 leaf-adjacent stages) is *not needed*.
-4. **The 256 leaves are one doubling chain** `L_i = 2^i · L_0`: 9 doubling-closed pieces
-   (111,61,28,12,11,9,8,5,3 = 248 named), each piece's end doubled twice lands exactly on the next
-   piece's start (8 splices, 1 unknown point per gap, 1 head) -> `ladder.json`, 256 points.
-5. **Group order** by Cornacchia (`4p = L²+27M²`), the candidate annihilating the base point:
-   `N = 115792089237316195423570985008687907852837564279074904382605163141518161494337`,
-   **256-bit prime**. Prime order ⇒ no decomposition into smaller subproblems.
+These are facts about `EQUATIONS.txt` as a set of equations over atoms. They do not depend on the
+accumulator model that died in §B, and nothing in §B is needed to state or check them.
 
-> **The reduced problem is: find the 256-bit scalar `k` with `k·L_0 = T`,
-> bit *i* of `k` being the selector of leaf `L_i`.**
+## A1. The footprint-cost framework
+For a set S of atoms held nonzero:
+`cost(S) = |equations touched by S| − max #{touched equations a nonzero value vector annihilates}`.
+`cost(S)` is the **failing floor** for any assignment whose nonzero-atom set is exactly S.
+Beating 39,026 requires a support with `cost(S) ≤ 6`.
+Agent F's evaluator model: **9,032 atoms, 39,033 equations, 121,261 incidences.**
 
-**F's requested validation PASSED**: deliverable ON-set {24601, 2081} -> ladder indices {72, 235}
--> `k = 2^72 + 2^235`, and `fold(k) != T`, exactly as F said a correct evaluator must report.
+## A2. THE DURABLE RESULT — why every configuration-first search bottoms out at 7
+Single-atom footprint cost distribution (cost -> number of atoms):
+2->1, 3->1, 4->1, 5->1, 6->2, 7->8, 8->36, 9->113, 10->354, 11->863, 12->1481, 13->1793,
+14->1835, 15->1327, 16->721, 17->339, 18->112, 19->33, 20->9, 21->1.
 
-## 2. Measured outcomes (full tables in `LOG.md` §4, raw in `runs/`)
-- **z3 QF_BV**, m=8 sibling (7 stages, 8-bit prime), *all selectors pinned to the known solution*:
-  **sat in 119 s**. Selectors free: **timeout 300 s**. QF_NIA: timeout even pinned.
-- **CNF** (z3 bit-blast, m=8 pinned, 57,299 vars / 388,439 clauses):
-  CaDiCaL 1.9.5 sat 107.6 s, **165,725 conflicts**, 354,424 decisions, 34.6M propagations;
-  Glucose 4.2 sat 276.7 s, 353,100 conflicts, 122.9M propagations.
-- **CNF size scaling**: clauses/stage = 55,481 (m=8) and 123,637 (m=12), both fitting
-  `≈863·m²`. Extrapolated to the real instance (m=256, 255 stages):
-  **≈1.4×10^10 clauses / 1.9×10^9 vars ≈ 600 GB of DIMACS**, versus 29 GB of disk.
-- **CP-SAT** (best of the three families): free selectors solved at m=8 (0.7 s, 79 conflicts) and
-  m=10 (4.6 s, 578 conflicts), then **UNKNOWN at 300 s for m = 12, 14, 16, 20, 24, 28**.
-  At m=12 brute force takes ~10 ms, so CP-SAT is ~10^5× slower than enumeration.
-  At m=31 CP-SAT returns MODEL_INVALID — it cannot represent the arithmetic at all.
-- **Uninterpreted-law variant** (brief's option 2): sat in 0.01 s with no field semantics —
-  **vacuous**; adding distinctness makes it `unknown` in a quantified fragment. Closed.
-- **Exhaustive Hamming weight ≤ 6 on the real 256-bit instance: NO SOLUTION** (108 s,
-  meet-in-the-middle over all size-≤3 subsets both sides). So `k` has weight ≥ 7.
-- **Configuration dependence**: single-bit configurations give 3 nonzero atoms / 20 equations
-  (uniform over 45 bits tested), pairs 6/28, triples 9/48; the deliverable's *placement*
-  (7 atoms / 12 equations, 5 cancelling) is worth ~21 equations more than `gs2`'s repair of the
-  same configuration.
-  **SCOPED CEILING — read the scope before quoting the number.** `price.py` fixes the nonzero-atom
-  *support* to the one `gs2.solve` happens to land in and then optimises only over the *values* on
-  that support. Under that fixed support the ceilings are single bit **≤ 39,020** and pair
-  **≤ 39,022**. **This is a statement about `gs2`'s support, not about the configuration and not
-  about the instance.** A repair that relocates the defect to a different support is not bounded by
-  it — and relocating the defect is exactly what the deliverable does. The ceiling therefore does
-  **not** kill the §4 experiment.
+Split by kind, which is the whole point:
 
-## 3. Confirmed / refuted
-- CONFIRMED: F's tree decode, its law, its invertibility, and its ON-set prediction.
-- CONFIRMED (new, unconditional): the fold is a commutative associative group law, so the tree
-  shape is irrelevant and the leaves form a single doubling ladder over a 256-bit prime order.
-- REFUTED: that the reduced problem is 96 coupled stage constraints — it is one scalar equation.
-- REFUTED: that "encode the reduced problem in SAT/SMT/CP" is a live attack. Measured, not assumed.
-- NOT REFUTED, and previously mis-stated by me: whether a different selector configuration can
-  beat 39,026. What is measured is only that **`gs2.solve`'s support** for single-bit and pair
-  configurations is capped at 39,020 / 39,022. Support is a free choice of the repair, so this
-  bounds my repair, not the configuration and not the instance. See §4.
+| | minimum single-atom cost |
+|---|---|
+| **relational** atoms (≥2 variables — the only ones that can carry the defect) | **7** |
+| **boolean-ness** atoms `x·(1−x)` (one variable; assert `x ∈ {0,1}`) | 2 |
 
-## 4. The single-bit experiment: RUN, and it fails for a quantified reason
-Cancellation, not support, is the instrument (`cancel.py`, `runs/cancel.json`). Single-bit
-footprint = 3 live atoms, 20 equations, **0 cancelling**; deliverable = 13 equations, **6
-cancelling**. Of the 20, **0 can never cancel** (all have a dead partner atom) but **0 have a
-partner costing ≤3**: the cheapest partner anywhere is atom 7954, present in **10** other
-equations, then 4490/4497 at 11, 4496/4561 at 12, 8259 at 13, 4500/4331 at 14. Each cancellation
-bought **touches ≥10 further equations**; the configuration is 13 short.
-**Touched is not failed** — those equations may cancel downstream, and incidence has been shown
-three times in this lab not to price cost. So this is a measured price floor in *touches* with a
-~10x margin, **not** a proof the purchase cannot pay. The occurrence counts are facts about
-`EQUATIONS.txt`; the touches-to-failures inference is not established; which footprint `gs2`
-reaches stays scoped to my repair.
+> **Every atom with footprint cost ≤ 6 is a boolean-ness atom on a single variable.**
+> The cheapest *relational* atoms cost exactly 7 — **3131, 3138, 3588, 8749, 8777** — and
+> **atom 3131 is one of the deliverable's own four live atoms.**
 
-**Why the deliverable wins:** not a better configuration, not a bigger support — a rare footprint
-where 6 of 13 equations cancel *for free*. Every footprint I reached charges ≥10 for the first.
+**So the deliverable sits at the single-atom relational optimum, and 7 failing is that optimum.**
+`|S| = 2` ties but never beats: over the 60 cheapest relational atoms, all 34 equation-sharing
+pairs floor at ≥ 7, the best (3131+3138, 3138+8749, 3588+5558, 8777+2569) tying at exactly 7
+(9 touched, 2 killed) — cancellation buys back exactly what the larger support costs.
 
-## 4b. INVERTED SEARCH - footprints ranked first, reachability second (LOG.md 15)
-E's model: 9,032 atoms / 39,033 equations / 121,261 incidences. Footprint cost
-`= |equations touched| - max killable by a nonzero value vector` = the failing floor for a support.
+This is the best explanation anyone has produced for why five independent configuration-first
+searches all stopped at 7. Reproduce with `footprints.py` then `rank.py`.
 
-- **Min cost over RELATIONAL atoms (>=2 vars, the only ones that can carry the defect) = 7.**
-  Cheapest are 3131, 3138, 3588, 8749, 8777 - and **3131 is one of the deliverable's own live
-  atoms.** So the deliverable sits at the single-atom optimum; `|S|=2` ties but never beats it (all
-  34 equation-sharing pairs among the 60 cheapest relational atoms floor at >=7).
-  **That is why five configuration-first searches all bottomed out at 7.**
-- **Every atom with cost <=6 is a boolean-ness atom `x*(1-x)` on one variable.** The cheapest of
-  all (8508, cost 2) is a trap: its variable occurs in no other atom - cheap *because
-  disconnected*, and a disconnected variable cannot carry the defect.
-- **THE LEVER (new): relax a SELECTOR off {0,1}.** 173 of the 2,283 boolean-ness atoms sit on
-  selector/conditional-pin variables and the cheap ones are not disconnected: x33095 (cost 3),
-  x19326 (6), x28825 (6), x4362 (7). A non-boolean `b` does **not** force the mux atoms nonzero -
-  `acc' = acc + b*(S-acc)` stays satisfiable with `acc'` a free point on a line - so only the
-  boolean-ness atoms are forced. Two relaxed selectors = 2 free parameters against the target's 2
-  coordinates, generically solvable for *any* boolean choice of the other 254.
-  **x33095+x19326 and x33095+x28825 each have a 6-equation union (overlap 3) -> floor 39,027.**
-- **UNREALIZED.** `realize.py` (gs2 repair, selector frozen non-boolean) returned nothing in
-  ~15 min/call - it repairs forward and cannot back-solve two parameters against the root.
-  **39,027 is a floor with no construction. Not a score. Do not quote it as one.**
+## A3. The disconnected-cheapness trap
+The cheapest atom of all is **8508 = `x29570·(1−x29570)`, cost 2** — and `x29570` occurs in **no
+other atom**. It is cheap *because it is disconnected*, and a disconnected variable cannot carry
+the defect (the defect links the leaf selection to the target and must flow through atoms that
+connect them). Same for 7888 (`x27026`, cost 5), 8512, 8764 — all zero-collateral.
+**Cheapness and load-bearingness anti-correlate here.** This eliminates the four cheapest entries
+and is the ranking's own version of "incidence does not price cost". `reach2.py`.
 
-## 4c. DEPTH PROFILE, AND AN OBSTRUCTION I FALSIFIED MYSELF (LOG.md 16)
-Lookup fixed: `pins.json` stores each pin as (y, x), not (x, y) -> `ladder = LX[(val2+S) mod P]`.
-Validated: x24601 -> 72, x2081 -> 235 (both OK).
-Positions: x24267 -> 8, x19326 -> 73, x33095 -> 132, x28825 -> 218, x4362 -> 243.
+## A4. The 39,029 floor — the arithmetic, not the reachability
+Exhaustive over all 253 selector boolean-ness atoms that have a ladder position:
+`{x24267 (atom 7887), x33095 (atom 8509)}` have a **4-equation union -> floor 39,029**; three
+further pairs floor at 39,027; four tie at 39,026. **These are floors, i.e. lower bounds on
+failing equations for those supports. The argument that any of them is REACHABLE is withdrawn
+(§B2).** `obstruct.py`, `runs/obstruct.json`.
 
-**Better floor found (my earlier scan had a regex bug and only ranked 25):** exhaustive over all
-253 placed selector-boolean atoms -> **x24267(8) + x33095(132), union 4 equations, floor 39,029.**
+## A5. Cancellation pricing, stated at measured strength
+`gs2.solve`'s single-bit footprint is 3 live atoms in **20 equations with 0 cancelling**; the
+deliverable's is **13 equations with 6 cancelling**. Of the 20: **0** can never cancel (all have a
+dead partner atom available), but **0** have a partner touching ≤3 other equations. The cheapest
+partner anywhere is atom 7954, present in **10** other equations; then 4490/4497 at 11, 4496/4561
+at 12, 8259 at 13, 4500/4331 at 14.
 
-**I priced an obstruction, then falsified it.** Gap between the relaxed indices drives the
-elimination degree (~2^gap) only if the intervening selectors are arbitrary. **They are not - I
-choose them.** Set them to 0 and the mux is the identity, the accumulator does not move, the
-degree does not grow, and the gap is irrelevant. Confirmed on siblings (`collapse.py`, m=8..16):
-solutions exist at every gap, 10/15 cases, gap 1 sometimes failing and gap 14 succeeding.
+**Stated as measured: buying one cancellation TOUCHES ≥10 further equations. Touched is not
+failed** — they may cancel downstream, and this lab has repeatedly shown incidence does not price
+cost. This is a price floor in *touches* with a ~10x margin against the 13-equation deficit, **not**
+a proof the purchase cannot pay. **The margin is what makes the conclusion likely, not the
+arithmetic.** `cancel.py`.
 
-**The solve at the REAL 256-bit prime (`solve2.py`): elimination degree 8, not 2^124, and
-`gcd(t^P-t,f)` has degree >=1 for ALL FOUR beating pairs -> ROOTS EXIST**, including 8+132/39,029.
+## A6. TOOLING FINDING — agent F's evaluator `E` mis-scores the deliverable
+| evaluator | failing on `best/new_instance_partial_39026.json` |
+|---|---|
+| `checker.py` (ground truth) | **7** — 12231, 12270, 12350, 14584, 18673, 22044, 29125 |
+| agent F's `E` | **13** — those 7 **plus 2554, 6816, 8124, 8680, 9123, 9421** |
 
-**WITHDRAWN AT CHECK-IN 39 - see LOG.md 17. `A = L_0` is REFUTED: leaf 0 is absent from the
-deliverable while both live leaves are present, so the seed is wrong and the roots below are roots
-of the wrong system. Do not route anything to agent M. What survives is the incidence-only part
-(15.1, 15.2, the 39,029 floor as a 4-equation union); what dies is every claim that it is
-reachable. Original text kept below for the record.**
+`E` scores the deliverable **39,020 instead of 39,026**. The over-report is **assignment-dependent,
+not a constant offset**: re-scoring with `checker.py` (`rescore.py`), `E` and `checker.py` agree
+**exactly** on all five `gs2` assignments I generated (39,013 / 39,013 / 39,013 / 39,005, over by 0).
+So scores computed with `E` are usable, but **the deliverable's own footprint cannot be read off
+`E`**, and anything compared against it via `E` is off by 6. Agent L found the same 13 independently.
 
-**STILL NOT A SCORE.** No 38,748-wire assignment, no `checker.py` run. Two unverified things gate
-it: (1) `solve2.py` assumes my ladder-chain model with accumulator seeded at `L_0`; the real
-circuit is a tree, and if its base or gating differs, `A` is wrong and the roots do not transfer -
-**this is the load-bearing assumption**; (2) filling the other wires needs a forward evaluator that
-accepts non-boolean selectors (`gs2` restores booleanness and cannot).
+## A7. The pins -> ladder lookup, corrected and validated by wire contents
+`agentF_work/pins.json` stores each pin as `[[wire, val], [wire, val]]` where the **second** entry
+is the x-coordinate, **unreduced**, in the unshifted frame. So
+`ladder index = LX[(val_second + S) mod P]`. Validated: **x24601 -> 72, x2081 -> 235**, matching
+four agents' independent readings.
 
-## 4d. Superseded next-measurement note
-Realizing 39,027 needs a *backward* solve: fix 254 boolean selectors, treat `t1,t2` as unknowns,
-push `acc' = acc + t*(S-acc)` symbolically to the root, solve 2x2 against the target. Price the
-obstruction FIRST: every stage after a relaxed selector applies the chord law to an off-curve
-point, so composite degree grows with the number of downstream stages.
-**Find where x33095, x19326, x28825 sit in the ladder. Near the root -> small system, straight-
-forward. Near the leaves -> hopeless. Nobody has checked.**
-I tried the lookup and it did not converge in the time left: `agentF_work/pins.json` maps a pin
-variable to `[[wire_x, val_x], [wire_y, val_y]]`, and feeding `(val_x, val_y)` through
-`model.to_short` then indexing `ladder.json` returns NOT FOUND *even for x24601 / x2081*, which I
-had previously mapped to ladder indices 72 / 235 by a different route. So the naive reconstruction
-above is wrong somewhere, not the ladder. Redo it the way the ON-set validation did (that path
-worked); do not trust the two-line version.
+Stronger, and measured against the deliverable's actual wire contents (`validate_A2/A3.py`):
+* exactly **2 of 256** pin variables are nonzero in the deliverable — x2081 and x24601;
+* the **4 coordinate wires those two pins name are all set, all holding exactly the named value**;
+  the other 505 coordinate wires are unset;
+* exactly **2 of 256 ladder points** have a coordinate on a wire — leaves **72 and 235**;
+* the target's coordinates are on wires (x on 13682/22162/24468, y on 10156/18956/30213).
 
-Also: extend the weight search to 7–8 (~1.7×10^8 stored points, ~1.4 GB — feasible);
-`bsgs.py` (k < 2^44) was still running at handoff and is resumable by re-invoking it.
+This is a far stronger check of the ON-set than my earlier `fold(k) != T` test, which was
+**nearly vacuous** (almost any wrong model also yields `fold != T`). Note this is consistent with
+T's and Q's finding rather than in conflict with it: the coordinate wires are free variables the
+deliverable assigns, so forcing the selectors to 0 does not clear them, and a leaf pin
+`sel·(w − C) − z` lands its coordinate only once `z` is separately forced.
 
-## 4c. TOOLING BUG — flag to the fleet
-Agent F's evaluator `E` reports **13** failing on the deliverable where `checker.py` reports **7**
-(the 7 real ones plus 2554, 6816, 8124, 8680, 9123, 9421), scoring it 39,020 instead of 39,026.
-The over-report is assignment-dependent, not a constant: on all five `gs2` assignments I generated
-`E` and `checker.py` agree exactly. So scores computed with `E` are usable, but **the deliverable's
-own footprint cannot be read off `E`**, and anything compared against it via `E` is off by 6.
-Also: `NOTEBOOK.md` §Session 10's atom numbering (22229, 35758…) is a different indexing from `E`'s
-(3130, 7251…) — I cross-quoted them once and it was wrong; corrected in LOG.md §13.
+## A8. Solver measurements — survive as measurements of TOOLS, with one dependency flagged
+Full tables in `LOG.md` §4. Headline numbers: z3 QF_BV needs **119 s** on an 8-bit-prime, 7-stage
+instance with **every selector pinned to the known solution**, and times out with them free;
+CaDiCaL 1.9.5 needs **165,725 conflicts** to verify the same pinned instance; CP-SAT (much the best
+of the three) solves 8- and 10-bit free instances then fails at 12, 14, 16, 20, 24, 28, and returns
+MODEL_INVALID at 31 bits because it cannot represent the arithmetic; bit-blasted CNF grows as
+`≈863·m²` clauses per stage.
 
-## 5. Files
-Model/derivation: `model.py group.py ladder.py order.py fastgrp.py ladder.json points_short.json`
-Encoders: `z3enc.py encode.py witness.py sibling.py` -> `encodings/*.smt2`, `encodings/*.cnf`
-Benchmarks: `bench.py cnfbench.py opt3_cpsat.py opt2_uf.py` -> `runs/bench.json runs/cnf.json
-runs/cnfsize.json runs/cpsat.json runs/opt2.log`
-Real-instance searches: `search_lw.py bsgs.py cfgscan.py defect.py price.py` ->
-`runs/lowweight6.json runs/bsgs.json runs/cfgscan.json runs/defect.json runs/price.json`
-Narrative with every number: `LOG.md`.
+**Dependency to flag:** these ran on `sibling.py` instances built to my chain model, which §B
+refutes as a model of the circuit. They therefore measure *solvers on modular chord-law chains*,
+which is an honest measurement of solver capability but not automatically a measurement of this
+instance. The clause-count extrapolation (≈1.4x10^10 clauses, ≈600 GB of DIMACS against 29 GB of
+disk) is the part least exposed — bit-blasting 256-bit modular multiplication is quadratic
+whatever the topology — but making it model-free would mean recounting multiplications directly
+from `EQUATIONS.txt`. I did not do that. Treat A8 as suggestive, not as A2-grade.
 
-## 6. Standing rules honoured
-- Every "nothing can move X"-style statement above carries its knob set and selector configuration
-  (LOG.md §7, §9).
-- No state I produced exceeds 4,300 digits, so `checker.py` was valid for everything I verified;
-  `agentE_work/verifyE.py` was not needed.
-- No generator forensics, no named-curve framing: `B`, the ladder and `N` are all *measured* from
-  the decoded law and reproducible by the four scripts named in §1.
+---
+# §B. WITHDRAWN — died with the accumulator model. Do not carry forward.
+
+## B1. What died and why
+`solve2.py` seeded the accumulator chain at `L_0`. **Leaf 0 is absent from the deliverable while
+both live leaves are present** — if the fold were seeded at `L_0` the deliverable's live-leaf set
+would be {0, 72, 235} and the ON-set would carry a `2^0` term. It does not; four agents read it as
+`2^72 + 2^235`. **`A = L_0` is refuted.**
+
+Worse for the model generally: **no accumulator value of any kind appears on any wire.** Not the
+fold `L72 + L235`, not `L0 + L72`, not `L0 + L72 + L235`, in any frame. **The deliverable holds the
+inputs and the target and nothing between them** — consistent with T's and Q's finding that
+routing is a constraint that is not propagated, and with K's finding that root slots are not pinned.
+Three agents' models failed this way in one round; mine is one of them.
+
+## B2. The specific claims withdrawn
+* **The four `(t1, t2)` root results** of `LOG.md` §16.5, including the 39,029 pair. Roots of a
+  system built on the refuted seed. **Nothing was routed to agent M and nothing should be.**
+* **The degree-collapse argument** (`collapse.py`) *as an instance claim*. Still true of the
+  siblings, but the siblings are my own construction and the collapse depends on the same model.
+* **"Relaxing a selector leaves the mux atoms satisfiable."** Rests on the mux form
+  `acc' = acc + b·(S − acc)`, which is model, not measurement.
+* **The 2^gap backward-solve obstruction** (`tradeoff.py`). I had already falsified this one myself
+  before the model died — it assumed the intervening selectors are arbitrary when I choose them.
+  Retained in `LOG.md` §16.3 only because the reasoning error is the instructive part.
+
+## B3. Point-level identities — true as identities, NOT as circuit semantics
+These I measured on the point set, and they remain true of those points. What does **not** follow,
+and what I withdraw, is the inference that *the circuit computes with them*:
+* `X = x + K/3` removes the offset; the stage law becomes the plain chord law (200 random pairs).
+* All 248 forced pin points and the target satisfy `Y² = X³ + B` with
+  `B = 64019533680030876408443198762210829058751700634554282185987325820393598524794`
+  (fitted from 2, verified on 246 + target, 0 exceptions).
+* That law is commutative and associative (200 random triples each).
+* The 248 points form one doubling chain `L_i = 2^i·L_0`, recovered as 9 doubling-closed pieces
+  (111,61,28,12,11,9,8,5,3) with 8 two-doubling splices -> `ladder.json`, 256 points.
+* Cornacchia on `4p = L² + 27M²` gives order
+  `N = 115792089237316195423570985008687907852837564279074904382605163141518161494337`,
+  256-bit prime.
+* Exhaustive Hamming weight ≤ 6 meet-in-the-middle: **no `k` of weight ≤ 6 satisfies `k·L_0 = T`
+  in that group** (108 s). This stands as a statement about the group, **not** about the circuit —
+  same withdrawal class as agent Q's six search programs.
+
+---
+# §C. THE BUGS I SHIPPED, and the rules that would have caught them
+
+Four, in two families. All four were mine and three of them silently produced confident wrong
+numbers rather than errors.
+
+## C1. Cross-artifact lookups without a known-good test case (twice)
+* **Pair-order:** I assumed `pins.json` stores `(x, y)`. It stores `(y, x)`. My first lookup
+  returned NOT FOUND for *every* variable — including x24601/x2081, whose answers four agents
+  already knew.
+* **Reduction frame:** wire values are **unreduced ~89-digit integers**; I searched for the
+  reduced/shifted coordinate and reported "**0 of 256** ladder points on wires", which was a false
+  negative that would have over-killed my own model for the wrong reason.
+
+> **Rule: never join two artifacts without first running the join on a pair whose answer is already
+> known.** `x24601 -> 72` and `x2081 -> 235` are this lab's canonical test; a join that fails them
+> is broken regardless of how plausible its output looks.
+
+## C2. Filters that silently drop data
+* **Regex:** `relax.py` used `re.fullmatch(r'\(?x\d+\s*\*?.*')`, which fails on expressions
+  starting `((` — silently dropping atom **7887** (`x24267`, cost 4). That atom turned out to be
+  half of the best floor I later found. My "exhaustive" pair scan had also only ranked the top 25.
+* **Index namespaces:** I cross-quoted atom IDs from `NOTEBOOK.md` §Session 10 (22229, 35758…)
+  against `E`'s indexing (3130, 7251…). Different numbering; the comparison was meaningless. This
+  has now caught four agents.
+
+> **Rule: when a filter selects a subset, print how many it dropped and reconcile against the
+> exhaustive count. When quoting an index, name the artifact that defines it.**
+
+## C3. The meta-lesson, which is the one that actually cost me
+My `fold(k) != T` "validation" passed and meant almost nothing — **almost any wrong model also
+yields `fold != T`.** A validation that a wrong model would also pass is not a validation.
+The test that finally worked was checking predicted **wire contents** against the one verified
+object. **Validate a model by what it predicts is PRESENT, not by what it predicts is absent.**
+
+---
+# §D. Files
+Incidence work (§A, durable): `footprints.py rank.py reach2.py cancel.py obstruct.py price.py
+defect.py cfgscan.py rescore.py crosscheck.py` -> `runs/{footprints1,rank,reach2,cancel,obstruct,
+price,defect,cfgscan,rescore,crosscheck}.json`
+Validation (§A7, §B1): `validate_A.py validate_A2.py validate_A3.py depth.py` -> `runs/validate_A*.json`
+Withdrawn (§B): `solve2.py collapse.py tradeoff.py relax.py realize.py supports.py`
+Model/derivation (§B3): `model.py group.py ladder.py order.py fastgrp.py ladder.json points_short.json`
+Solver benchmarks (§A8): `z3enc.py encode.py witness.py sibling.py bench.py cnfbench.py
+opt3_cpsat.py opt2_uf.py search_lw.py bsgs.py` -> `encodings/`, `runs/{bench,cnf,cnfsize,cpsat}.json`
+Narrative: `LOG.md`. Previous revision of this file: `runs/RESUME_R_prev.md`.
+
+# §E. Standing rules honoured
+- Every "nothing can move X" statement carries its knob set and selector configuration
+  (`LOG.md` §7, §9, and the SCOPE block in §9).
+- Nothing I produced exceeds 4,300 digits, so `checker.py` was valid for everything I verified.
+- No generator forensics and no named-curve framing: `B`, the ladder and `N` are measured from the
+  decoded law by the four scripts in §D and are stated in §B3 as identities about a point set.
+- Reads outside my directory were confined to read-only `agentF_work` imports plus the shared
+  `checker.py` / `best/`. No git commands were run at any point.

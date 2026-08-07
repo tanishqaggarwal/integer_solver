@@ -2687,3 +2687,95 @@ booleanity atom; R has independently withdrawn that claim as model rather than m
 agree. S's remaining bounded question: **relaxed selectors are the only generator that genuinely
 moves the class** (53 knobs / 52 rows / kernel dim 5 against 54/47/7), but the other rows went
 infeasible 6 of 6 — **is that intrinsic to leaving the span, or an artifact of those selectors?**
+
+---
+
+## Check-in 45–46 — the slot census closes at 383/383; R consolidates and closes
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### Q — (d) closed, and the liveness side is a measured tree
+
+**The 195 "unmatched" slots were Q's own labelling artefact, not a different law.** `qstages.py`
+assigned `(u3, y3)` as `sorted(free)[0],[1]`, which is X/Y order at some slots and reversed at
+others, so the matcher was hunting the X-mux on the Y wire. Q found it, and **tightened** the test
+while fixing it — requiring **both** coordinate muxes to use the identical coefficient wires
+`cA, cB, cC`, which rules out accidental structural matches:
+
+> **383/383 slots confirmed** — 40 with both live bits boolean-pinned, 343 with internal live bits,
+> **zero unmatched.** `cA = s1(1−s2)`, `cB = s2(1−s1)`, `cC = s1·s2` holds at **every** slot.
+
+**What the non-matching slots looked like** (asked for, and answered): `x_32909` and `x_7999` both
+carried the same `c·u3` product and the same three-term sum, hanging off the *other* output wire.
+**No slot has a genuinely different structure.**
+
+**Beyond the task — the liveness side is one tree, measured** (`qlivetree.py`): every one of the 383
+slots emits `OR(s1, s2)` of its own two live bits (**383/383**); those ORs give **382 parent←child
+edges** among 383 slots, exactly a tree; **exactly one slot has no parent and all 383 are reachable
+from it**; **all 256 leaf selectors appear under that single root**; and the 766 live-bit slots
+decompose as **256 leaf selectors + 382 child ORs + 128 hard zeros**, the zeros being precisely the
+dead dummy branches of the pass-through slots. **Nothing unaccounted for.**
+
+### The one loose thread — and it may explain K's null result
+
+**Slot outputs do not literally feed the next slot's inputs: `qtree.py` finds 0/383.** There is an
+additional **additive/aliasing layer** between a slot's mux output and its parent's input, and
+between the top slot and the root pin — which is not a slot output at all but
+`x_24468 = x_13682 + 12354891·x_34243`. **Q verified the tree on the liveness side, not the
+coordinate side, and declines to claim the coordinate hand-off on the strength of an isomorphism it
+did not measure.**
+
+**Coordinator observation routed to both Q and K:** this layer is a candidate explanation for K's
+check-in-43 null result. K scanned all 38,748 variables for the predicted composition, shifted and
+raw, and found nothing — but **if compositions only ever appear in aliased form (value plus a
+multiple of another wire, exactly the shape of `x_24468`), a search for the raw or shifted value
+finds nothing even though the composition is present and determined.** Both agents have been asked
+to re-run against the alias form. If the composition is there aliased, **K's withdrawal was too
+strong and the partition theorem may be recoverable**; if it is genuinely represented nowhere, K's
+withdrawal stands on much firmer ground and Q's hand-off layer is what has to be wrong instead.
+
+**Measured end to end now:** 256 leaves are `2^i·G`; all 383 chord gadgets compute plain
+`P_a + P_b`; all 383 slots implement identity/pass-through/sum; the slots form one tree over all 256
+leaves with a single root. **Not measured:** the coordinate hand-off layer, and the collision
+criterion on the particular scalar. **§15 stays in force** — the §9 sweeps regain instance-level
+standing when the hand-off closes, not before.
+
+### R — consolidated, thread closed
+
+`RESUME_R.md` rewritten as a clean handoff, three sections separated at top level, previous revision
+preserved at `runs/RESUME_R_prev.md`. **Durable (§A):** the relational-atom cost floor of 7 with
+atom 3131 among the cheapest and inside the deliverable's own live set — the explanation for why
+five configuration-first searches bottom out at 7; the disconnected-cheapness trap; the 39,029
+four-equation-union floor **with reachability explicitly withdrawn**; cancellation priced in
+*touches* not failures; the `E`-vs-`checker.py` discrepancy; the corrected pins lookup, now
+validated by wire contents rather than by `fold ≠ T`.
+
+**CORRECTION TO CHECK-IN 11, flagged by R itself (§A8).** R's solver benchmarks ran on **siblings
+built to its chain model**, so they measure *solvers on modular chord-law chains* rather than
+automatically measuring this instance. The clause-count extrapolation is least exposed (bit-blasting
+256-bit modular multiplication is quadratic whatever the topology) but making it model-free means
+recounting multiplications from `EQUATIONS.txt`, which R did not do. **R marks it suggestive, not
+A2-grade, and states that the retirement of SAT/SMT/CP rests partly on it.** Check-in 11 recorded
+that retirement as "on measurement"; **that is now qualified.**
+
+**R's §B3 widens the withdrawal**: the point-level identities — chord law, the cubic,
+commutativity/associativity, the doubling ladder, prime `N`, **and the weight-≤6 exhaustion** — are
+true *of that point set*, but the inference that the circuit computes with them is withdrawn. **That
+puts R's weight search in the same withdrawal class as Q's six programs**, so the weight ≥ 7 bound
+is now withdrawn by two agents independently.
+
+**§C — four bugs in two families, three of which produced confident wrong numbers rather than
+errors:** pair-order and reduction-frame errors in cross-artifact lookups; a regex that silently
+dropped atom 7887 (half of the best floor R later found) plus a "top 25" scan called exhaustive; and
+atom-index cross-quoting between namespaces. **Rules attached, and adopted lab-wide: never join two
+artifacts without first running the join on a pair whose answer is already known** (`x24601→72`,
+`x2081→235` is the canonical test), and **print what a filter drops and reconcile it against the
+exhaustive count.**
+
+> **R's meta-lesson, and the best single sentence this campaign has produced:**
+> *Validate a model by what it predicts is present, not by what it predicts is absent.*
+> Its `fold(k) ≠ T` validation passed and meant almost nothing, because almost any wrong model also
+> yields `fold ≠ T`.
+
+**R's thread is complete and closed** — angle retired, survivors consolidated, no new line opened.
+Cores released to M's δ₀ pricing and Q's hand-off measurement.
