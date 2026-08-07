@@ -5767,3 +5767,75 @@ makes it worth building.*
 
 **Parallelism:** cofactor 2¹⁶ (14875) killed — already complete through |W| = 8, covering the whole
 region where 39,026 occurs. 2¹⁸ (28848) to run to |W| = 8 then stop. Then **one** process.
+
+---
+
+## Check-in 98 — the 7 becomes a mechanism: **7 = 12 − 5** (agent U)
+
+Deliverable unchanged: **39,026 / 39,033**. U's own builder reproduces it exactly —
+`agentU_work/u_build_root_24601_2081.json` → 39026/39033, same 7 lines, **0 of 38,748 variables
+differing**. Calibration stated before every number: seed 37 entries, forward → 7 failing, 0 vars
+differing, **PASS**.
+
+### The mechanism
+
+> **The cross-half route costs a STRUCTURAL 12 at every slot** — a depth-6 slot and the generic ROOT
+> produce the **identical** 12 failing lines, both dumped and re-verified. **Exactly one
+> configuration buys a 5-equation discount**, and the five are named:
+> **`{2554, 6816, 8124, 8680, 9421}`**. The deliverable's failing set is a strict **SUBSET** of the
+> generic one — **not a trade.**
+
+**Those are precisely the rows W, N and O have been pricing from the lattice side** — N's essential
+set `{2554, 6816, 8124, 9123, 9421, S}`, W's `eq8680`. **Route pricing and lattice pricing are
+measuring the same five equations from opposite ends.** Four threads, four methods, one object.
+
+**And it confirms W's retraction independently, from the route side:** the discount **dies entirely
+without the DRV seed** (both configurations → 40, discount 0). **The 5 is the price of the
+INJECTION, not of the degeneracy.**
+
+### The measurement
+
+**~2,700 checker-exact evaluations, all with re-propagation, never incidence.** Seed vocabulary
+resolved (2 selectors, 4 honest leaf pin wires, 9 X-route + 11 Y-route wires, 13 DRV entries) and
+**verified by perturbation** — `x_22152 += 1` changes exactly 17 vars, 7→30 — and end-to-end.
+
+**All 255 merge slots priced:** min **12**, median 28, mean 28.2, max 40. **Depth and support size
+are not the drivers** — the eight slots reaching ≤19 are exactly the **eight ancestors of leaf 2081,
+one per depth 1–9.** Exhaustive over honest leaves at all 8 slots that could beat 7 (255
+evaluations): **discount 0 at seven of them, 5 at the ROOT only. Zero evaluations below 7.**
+
+### U retracted its own reduction, and the reason is now a rule
+
+**(A) survives:** the price is **independent of the value carried** — random 296-bit off-curve
+points, `(3,5)`, `(0,0)`, other leaves' points all score identically. **Enlarging off-curve buys
+nothing.**
+
+**(B) REFUTED by U's own control.** "Price depends only on the lying leaf" held at three test slots
+— and failed at the ROOT: **177/178 honest leaves give 12; only `x_24601` gives 7.**
+
+> **RULE (U): a reduction true 99.4% of the time would have hidden the only interesting point in the
+> instance.**
+
+u25's table is therefore reported as a **bound**, with the honest leaf enumerated explicitly wherever
+it could matter.
+
+### U re-tasked — the one axis it held fixed
+
+U's §28 proves **the entire discount lives in 11 free variables** — `642, 1329, 8731, 9118, 9413,
+10903, 17325, 29854, 31864` at 2,100–2,430 bits, plus `18956, 28730` — **held fixed at the
+deliverable's values for all ~2,700 evaluations.** U found that by auditing its own experimental
+design rather than by running more of it.
+
+**Solve for DRV at a non-root slot instead of copying it**, starting at the eight ancestors of leaf
+2081. **If a local DRV buys more than 5 against a generic route of 12, that slot lands below 7 and
+the campaign ends.** If the discount is provably ≤ 5, then **`7 = 12 − 5` is the exact optimum of
+this family** — the sharpest statement anyone will have made about why 39,026 is where it is.
+
+**Bounded, not exhaustive, as U stated it:** the honest leaf at the other 247 slots (bounds ≥ 24,
+needing a discount > 17); the full 178×78 grid at the ROOT (both slices through the optimum
+enumerated, the grid not); >2 ON leaves; pin lies (measured worse — 46/50/88, CRT joint pins 53/36).
+
+*Parallelism: U's four shards were at 400/529 when the cap arrived; killing them would have cost
+~1,200 redone evaluations against ~390 remaining, so it finished them and has been single-process
+since. Explaining the arithmetic rather than obeying wastefully is the right response to that
+instruction.*

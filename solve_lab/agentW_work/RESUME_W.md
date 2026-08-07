@@ -308,24 +308,49 @@ over ℚ (a mod-p artefact would be a *harmless* extra test, but there were none
 * There are **two** minimal size-2 cocircuits — `{22563, 8687}` (round 1's) **and `{36489, 8985}`,
   which round 1 on `K = 34` never saw.**
 
-### 7e.  Status and what is still running (PIDs recorded)
-| job | file | PID | state |
-|---|---|---|---|
-| exact `s = 1..3` | `w_cocirc3_raw_s1_3.json` | — | **done** |
-| exact `s = 4..6` | `w_cocirc3_raw_s4_6.json` | 28998 | running (`s=4` printed at 277 s) |
-| exact `s = 4` only | `w_cocirc3_raw_s4_4.json` | 29354 | running (persists `s=4` without waiting for `s=6`) |
-| window, 3 information sets | `w_cocirc2_raw.json` | 9543 | running (set 0 through `s=5`) |
-| closing test on exact `s≤3` | `w_close3_s13.json` | 31769 | running |
+### 7e.  **`s = 4` FINISHED EXACTLY, and it also returns gain 0** (`w_close3_s14.json`)
 
-**The box is at load ≈ 21 on 4 CPUs** (other agents), so these are far slower than their solo
-timings (`s=4` exact: 277 s of its own time).
+`w_cocirc3_raw_s4_4.json` — the `s = 4` level enumerated exhaustively in 305 s of its own time:
+**25,473 supports, 65,619 positive-dimensional nodes recorded** (round 1 would have skipped
+every one of those).  Combined with the exact `s ≤ 3` file:
 
-> **Honest status of the frame-B optimality row:** `minbreak(P) = |P|`, gain 0 is confirmed on
-> `K+` **over the essential-row family** (§6c, exhaustive) and over the **510** break-sets from
-> the exact `s ≤ 3` enumeration.  **General breaks at `j = 4..7` remain BUDGET, not exhaustion**,
-> and after §7c that budget should be described as *substantially* short, not marginally.
-> Finishing `s = 4,5,6` exactly is what converts it — the enumerator now exists and is correct;
-> it only needs CPU.
+| | exact `s ≤ 3` | **exact `s ≤ 4`** |
+|---|---|---|
+| candidate supports | 3,184 | **28,657** |
+| subset-minimal | 60 | **169** |
+| by size | `{1:6, 2:2, 3:2, 4:3, 5:7, 6:40}` | **`{1:6, 2:2, 3:2, 4:3, 5:7, 6:149}`** |
+| genuinely rank-dropping over ℚ | 60 (0 artefacts) | **169 (0 artefacts)** |
+| union closure, size ≤ 6 | 510 | **619** |
+| exact integer solves | 4,318 | **4,427 in 23 s** |
+| **BEST GAIN** | **0** | **0** |
+
+> **`s = 4` adds 109 minimal cocircuits and every one of them has size exactly 6.**  The size
+> profile at sizes 1–5 is **unchanged** by the `s = 4` level — all six essential rows, both
+> size-2 cocircuits, and the size 3/4/5 ones were already complete at `s ≤ 3`.  Gain is still
+> **0** for all 127 bought-sets: no bought-set of size `k` is buyable with any rank-dropping
+> break-set of size `< k`.  **Nothing beats 39,026.**
+
+### 7f.  EXACTLY which levels are exhaustive and which are budget
+
+| level | status on `K+ = 40` |
+|---|---|
+| `s = 1, 2, 3, 4` | **EXHAUSTIVE** — exact case split, no window, no skipped subsets |
+| `s = 5` | **running** (PID 26066, `w_cocirc3_raw_s5_5.json`) |
+| `s = 6` | not started |
+
+A minimal cocircuit `C` has `s = |C ∩ I| ≥ 1` (a codeword vanishing on the whole information
+set is zero), and `s ≤ |C|`.  So **cocircuits of size ≤ 4 are now COMPLETE**, and only sizes 5
+and 6 can still gain members — from the `s = 5` and `s = 6` levels.  Concretely: the `j ≤ 5`
+row of the frame-B budget is now **exhaustive on the corrected knob set**; `j = 6, 7` remain
+**budget** until `s = 5, 6` land.  That is a strictly stronger statement than anything round 1
+could support, and it is stated at the level, not rounded up.
+
+### 7g.  Compute discipline
+Running **one** process at a time from here (coordinator's instruction; the box is 4 cores
+across six agents).  `9543` (3-information-set window) and `28998` (`s = 4..6` monolith) were
+**killed** — the first because §7c shows more information sets do not fix the window, the
+second because the `s`-at-a-time granularity checkpoints properly and two restarts have already
+hit this fleet today.  Order: `s = 5`, then `s = 6`, re-running `w_close3.py` after each.
 
 ## Re-entry
 ```
@@ -345,7 +370,8 @@ python3 w_sites.py ; python3 w_outk.py     # the four out-of-K blocks; K vs K+
 python3 w_exhaust2.py  # round-1's exhaustive test re-run on K+ = 40   (~105 s)
 python3 w_hom2.py      # K+ preconditions: homogeneous, rank 32, Q-consistent
 WSMIN=1 WSMAX=3 python3 w_cocirc3.py   # EXACT cocircuits, no window, no skips
-WFILES=w_cocirc3_raw_s1_3.json WOUT=w_close3_s13.json python3 w_close3.py
+WSMIN=4 WSMAX=4 python3 w_cocirc3.py   # one level at a time; checkpoints per level
+WFILES=w_cocirc3_raw_s1_3.json,w_cocirc3_raw_s4_4.json WOUT=w_close3_s14.json python3 w_close3.py
 ```
 Artifacts: `w_blocks*.json`, `w_verify.json`, `w_class.json`, `w_deliv.json`, `w_price.json`.
 

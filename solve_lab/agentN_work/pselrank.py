@@ -312,7 +312,7 @@ def measure(tag, on, lattice=True, cap_knobs=2400, cap_rows=3000, verbose=True):
         C = [r for r in C if any(r)]
         t1 = time.time()
         if C:
-            Kn = int_kernel_flint(C, n)
+            Kn = int_kernel_columns(C, n)   # measured FASTER here than flint HNF on this shape
         else:
             Kn = [[1 if i == j else 0 for i in range(n)] for j in range(n)]
         rec['lat_secs'] = round(time.time() - t1, 1)
