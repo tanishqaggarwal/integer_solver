@@ -7,3 +7,4 @@ zero columns of H (weight-1 codewords): 0
   greedy-ISD trial 1: support weight 13 [0s]
   greedy-ISD trial 1: support weight 7 [1s]
   greedy-ISD trial 4: support weight 6 [4s]
+greedy-ISD: 258 trials, 258 usable, lightest support SEEN = 6, supports<=6 found = 582

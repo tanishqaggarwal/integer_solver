@@ -68,8 +68,10 @@ def minfail_bnb(E, base, Mat, budget=6, tlimit=900):
     if forced > budget:
         return None, forced, len(act), 0
     rem = budget - forced
-    # order: rows already satisfied at d=0 first (cheap to keep), then the rest
-    act.sort(key=lambda i: (base[i] != 0))
+    # order: rows NOT already satisfied at d=0 FIRST.  Those force real work, so
+    # an unsolvable prefix prunes the whole subtree early.  (Sorting them last
+    # made the DFS burn its whole budget on trivially-keepable rows.)
+    act.sort(key=lambda i: (base[i] == 0))
     n = len(act)
     best = [rem + 1]
     nodes = [0]

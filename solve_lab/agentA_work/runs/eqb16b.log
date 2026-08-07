@@ -1,8 +1,5 @@
 new_instance_partial_39026.json lev16: atoms=611 eqs=582 nontrivial rows=486 knobs=334 violated=7 (score 39026)
 mod p: rank=162 of 334 knobs (172 knob columns vanish), syndrome dim w=324, g nonzero=True
   mod-p exhaustive |D|=1: 486 subsets, consistent: NONE [0s]
-  mod-p exhaustive |D|=2: 117855 subsets, consistent: NONE [48s]
-  RIGOROUS: no |D| <= 2 is mod-p consistent -> every integer point violates >= 3
+  RIGOROUS: no |D| <= 1 is mod-p consistent -> every integer point violates >= 2
   Prange trial 0: weight 7 [1s]
-  Prange: 250 trials, 97 solvable, lightest weight SEEN = 7 (an upper bound)
-  P(a weight-<=6 mod-p-consistent D exists and was missed) <= 0.000156

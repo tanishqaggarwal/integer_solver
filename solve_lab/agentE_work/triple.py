@@ -46,19 +46,26 @@ if __name__=='__main__':
         a,b=cols[f]
         print(f"   x_{f}: dU={str(a)[:34]} dV={str(b)[:34]}")
     # system:  row1 = exact ;  row2 = U - p*w = 0
-    VARS=movers+['W']
+    W=-1
     r1={f:5002401*cols[f][0]+15322661*cols[f][1] for f in movers}
     b1=-(5002401*U0+15322661*V0)
-    r2={f:cols[f][0] for f in movers}; r2['W']=-P
+    r2={f:cols[f][0] for f in movers}; r2[W]=-P
     b2=-U0
     rows=[r1,r2]; rhs=[b1,b2]
     sol,msg,_=sparse.solve_sparse(rows,rhs,names=['exact','modp'],verbose=True,maxcore=200)
-    print("targeted 2-row solve ->",msg)
+    print("targeted 2-row solve (all movers) ->",msg)
+    if sol is None:
+        lin=[f for f in movers if f not in set(nonlin)]
+        print("retrying with only the LINEAR movers:",lin)
+        r1b={f:5002401*cols[f][0]+15322661*cols[f][1] for f in lin}
+        r2b={f:cols[f][0] for f in lin}; r2b[W]=-P
+        sol,msg,_=sparse.solve_sparse([r1b,r2b],[b1,b2],names=['exact','modp'],verbose=True,maxcore=200)
+        print("linear-only solve ->",msg)
     if sol is not None:
-        print("  moves:",{k:str(x)[:26] for k,x in sol.items() if x and k!='W'})
+        print("  moves:",{k:str(x)[:26] for k,x in sol.items() if x and k!=W})
         ns=dict(s)
         for f,d in sol.items():
-            if f=='W' or not d: continue
+            if f==W or not d: continue
             ns[f]=v0[f]+d
         v=E.forward(ns)
         U,V=v[U_IDX],v[V_IDX]

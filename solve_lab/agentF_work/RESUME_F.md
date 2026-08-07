@@ -1,5 +1,17 @@
 # RESUME_F — agent F (multi-modular / p-adic lifting).  NO curve/group framing; integer polynomials only.
 
+## HEADLINE:  rank(M) = 39,033 and dim ker(M) = 0  (exact, certificate-verified)
+M = the 39,033 x 39,033 equation-atom incidence matrix (525,982 nonzeros, coefficients from the spine
+decomposition).  A characteristic-free peeling cascade -- a row whose surviving support is a single atom
+forces that atom to 0 -- starts from the unique degree-1 row and **forces all 39,033 atoms to zero**.
+The elimination order is stored as a checkable certificate (`peel_order.npy`) and re-verified by an
+independent pass (`peel_cert.py` -> `certificate verified: True`).  Holds over Z and over every field of
+characteristic > 80.
+**Consequence: any assignment satisfying all 39,033 equations must make all 39,033 atoms exactly zero.**
+The all-atoms-zero model is therefore not a restriction but an equivalence; the "cancelling nonzero
+residual" route to a full solution does not exist, and every frame-optimality result in this lab that was
+conditional on that model loses that condition.
+
 ## Scores
 - Shared baseline **39,026** re-verified by me (`solve_lab/best/new_instance_partial_39026.json`).
 - My own pipeline's best: **39,024** = `agentF_work/best_F_39024.json` (checker-verified, 9 failing).
@@ -32,10 +44,13 @@
     python3 frame.py     # frame/lattice analysis helpers ; intsolve.py = exact integer HNF solver
 
 ## Next experiments (in order)
-1. **Compute rank(M) / test ker(M) != 0** for the 39,033 x 39,033 equation-atom incidence matrix
-   (525,982 nnz).  This is the ONLY remaining gate on the all-atoms-zero argument and the only route to a
-   residual that cancels instead of failing.  Wiedemann over a word-size prime with scipy.sparse is the
-   practical method (~2n sparse matvecs).
+1. DONE -- ker(M) = 0, see headline.  What remains conditional is now only two MEASURED links:
+   (i) two ON booleans in the same OR-tree are contradictory (exact integer Jacobian, one pair tested);
+   (ii) an ON boolean forces the selected wire to its pin constant mod p (9 boolean choices tested).
+   `modp_uf2.py` shows these cannot be discharged statically: the path from a pin wire to the selected
+   wire runs through bilinear selector products, so it is configuration-dependent by construction.
+   Making (i) exhaustive costs ~600 s of Jacobian per same-tree pair; making (ii) exhaustive costs ~30 s
+   per boolean x 256 booleans.  Those two sweeps would close the infeasibility argument completely.
 2. Coset search for a better cancellation frame: the number of the 12 frame rows that cancel is decided by
    the coset of the residual value in the 7-generator lattice (invariants: r1 mod 7376877, r2 mod p,
    r3+r4 mod p, r5-r6 mod p).  Sweep the ON-boolean pair and the break placement to move the coset; a

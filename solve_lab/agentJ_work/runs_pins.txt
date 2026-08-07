@@ -1,0 +1,65 @@
+defined movers (breakable pins): 1720; cheapest costs [1, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+cost | var | pin | #constraints disturbed | confined to residual?
+    1  x_24453  a39032  moved=3    confined=True <== USABLE
+    8  x_1799   a35686  moved=7    confined=False 
+    8  x_10257  a35211  moved=7    confined=False 
+    8  x_14598  a19175  moved=7    confined=False 
+    8  x_14893  a17162  moved=7    confined=False 
+    8  x_18863  a8320   moved=7    confined=False 
+    8  x_19884  a38997  moved=7    confined=False 
+    9  x_989    a27091  moved=7    confined=False 
+    9  x_2079   a26851  moved=7    confined=False 
+    9  x_5145   a9649   moved=7    confined=False 
+    9  x_7374   a35041  moved=7    confined=False 
+    9  x_8053   a31711  moved=7    confined=False 
+    9  x_8726   a35443  moved=4    confined=False 
+    9  x_14580  a35015  moved=7    confined=False 
+    9  x_14764  a38091  moved=7    confined=False 
+    9  x_15411  a30301  moved=7    confined=False 
+    9  x_16683  a19176  moved=7    confined=False 
+    9  x_16906  a38149  moved=7    confined=False 
+    9  x_17979  a23129  moved=7    confined=False 
+    9  x_18232  a25718  moved=7    confined=False 
+    9  x_23450  a29228  moved=7    confined=False 
+    9  x_25359  a38995  moved=7    confined=False 
+    9  x_25378  a9648   moved=7    confined=False 
+    9  x_25619  a20604  moved=7    confined=False 
+    9  x_26140  a148    moved=7    confined=False 
+    9  x_27441  a27093  moved=7    confined=False 
+    9  x_29696  a27090  moved=7    confined=False 
+    9  x_34148  a10481  moved=7    confined=False 
+    9  x_34548  a37295  moved=7    confined=False 
+   10  x_66     a14123  moved=7    confined=False 
+   10  x_679    a36893  moved=7    confined=False 
+   10  x_1046   a35012  moved=7    confined=False 
+   10  x_1186   a26854  moved=7    confined=False 
+   10  x_2233   a31928  moved=7    confined=False 
+   10  x_2311   a35467  moved=7    confined=False 
+   10  x_3864   a23126  moved=7    confined=False 
+   10  x_3991   a8259   moved=7    confined=False 
+   10  x_4265   a37818  moved=7    confined=False 
+   10  x_4423   a27092  moved=7    confined=False 
+   10  x_5201   a30272  moved=3    confined=True <== USABLE
+   10  x_5381   a36891  moved=7    confined=False 
+   10  x_5509   a24371  moved=7    confined=False 
+   10  x_6798   a36996  moved=7    confined=False 
+   10  x_7606   a33463  moved=7    confined=False 
+   10  x_7776   a16654  moved=7    confined=False 
+   10  x_7925   a35009  moved=7    confined=False 
+   10  x_9704   a9461   moved=7    confined=False 
+   10  x_10083  a29017  moved=7    confined=False 
+   10  x_10619  a3394   moved=7    confined=False 
+   10  x_10990  a38512  moved=7    confined=False 
+   10  x_11070  a35042  moved=7    confined=False 
+   10  x_12290  a1290   moved=7    confined=False 
+   10  x_12480  a35040  moved=7    confined=False 
+   10  x_12947  a35445  moved=3    confined=True <== USABLE
+   10  x_14489  a10426  moved=7    confined=False 
+   10  x_15231  a14124  moved=7    confined=False 
+   10  x_15723  a3396   moved=7    confined=False 
+   10  x_15848  a13648  moved=7    confined=False 
+   10  x_16516  a25716  moved=7    confined=False 
+   10  x_16834  a13649  moved=7    confined=False 
+
+CONFINED cheap pins: [(1, 24453, 39032, (20407, 20409, 31575)), (10, 5201, 30272, (20407, 20409, 31575)), (10, 12947, 35445, (20407, 20409, 31575))]

@@ -1,0 +1,5 @@
+lev2: n=68 rows, nk=32 knobs
+rank(N)=32 ; parity check H is 36 x 68
+zero columns of H (weight-1 codewords): 0
+  dependent-column search size 2: 2278 subsets, found: NONE [0s]
+  dependent-column search size 3: 50116 subsets, found: NONE [8s]

@@ -213,3 +213,41 @@ a codeword of weight < 7 at all.  That is a pure minimum-distance question about
 information-set decoding with a mod-q filter; I did not duplicate it and did not read
 its work.  If A finds no weight-<7 codeword, 39026 is optimal outright, since
 score = 39033 - ||M a||_0 for EVERY assignment, reachable or not.
+
+## ATOM-LEVEL MINIMUM DISTANCE — the relaxation is VACUOUS (refutes my own fallback)
+score = 39033 - ||M a||_0 with a = atom(x).
+
+SCOPE, stated exactly.  The relaxation "min over nonzero a in Z^n of ||M a||_0" is
+provably <= 1, UNCONDITIONALLY, so it cannot certify anything above 1:
+  * if rank_Q(M) < n, some nonzero a has M a = 0                        -> weight 0
+  * if rank_Q(M) = n, then adj(M)e_1 is a nonzero integer vector with
+    M (adj(M) e_1) = det(M) e_1                                          -> weight 1
+No rank computation changes this, so I did not need to compute rank(M).
+CONCRETE WITNESS (jdist.py): a39032 = (x_24453) - 97553848...891 appears in EXACTLY
+ONE equation, eq27494.  So the support {a39032} has ||M a||_0 = 1 outright.
+Atoms per equation-count: 1,2,3,4 equations each occur; 39 atoms sit in <= 7.
+
+=> THE FALLBACK I PROPOSED CANNOT WORK.  No minimum-distance / information-set-decoding
+argument that drops realizability can show 39026 optimal, because weight-1 supports
+exist.  The entire content of the problem is which supports are ACHIEVABLE.  Reported
+against my own suggestion.
+
+What the support bound is good for: pruning.  alone(T) is exact and values-free.
+jdist.py beam search minimising |R(T)| - |T| over supports: the floor is 5 EVERYWHERE,
+attained by the deliverable's cluster; 60 random atom seeds do no better than 7.
+
+## The single un-cancellable row, and the confined knob
+eq29125 has exactly ONE support atom, a23327, with coefficient 1 -- that row IS the gap.
+Cancelling it needs another atom of eq29125 made nonzero; the cheapest is a23328, which
+brings exactly 1 new row.  (That new row is where eq8680 sits -- same localisation agent
+I reports, reached here independently from the row structure.)
+
+jfree24453.py / jpins.py: breaking a pin costs |eqs(pin atom)| equations and frees its
+variable.  A knob only helps if CONFINED -- it must disturb no constraint outside the
+residual, else we are back in the frozen situation.
+  x_24453 (pin a39032, cost 1 equation) moves EXACTLY the 3 residual constraints and
+  nothing else -- genuinely confined -- but one knob zeroes only one of the three.
+  Of the 60 cheapest breakable pins it is the ONLY confined one; every other disturbs 7.
+Using it leaves T = {a39032, a20409, a31575}, |R| ~ 19 => far worse than 7.
+
+VERDICT: no improvement.  39026 stands.  Nothing new written to best/.

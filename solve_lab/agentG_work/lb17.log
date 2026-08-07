@@ -1,0 +1,9 @@
+support 17 unknowns ; affine rows 68 -> 19 distinct directions ; higher-degree 22
+multiplicity histogram {1: 15, 16: 1, 11: 1, 13: 2} ; directions with multiplicity <= 6 : 15
+candidate violated-sets with total multiplicity <= 6 : 9948 (EXHAUSTIVE)
+   new best lower bound 2  with T=[56, 133]
+
+admissible relaxations tested: 3605 in 58s
+MINIMUM LOWER BOUND on total violated equations over all |T| <= 6 : 2
+  attained by T = [56, 133]
+  (baseline T = {} costs 0 + 20 = 20 ; the 39,026 deliverable costs 7)
