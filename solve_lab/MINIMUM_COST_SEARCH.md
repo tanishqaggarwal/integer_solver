@@ -192,3 +192,65 @@ covers strictly more (low weight, low run-length, short addition-subtraction cha
   low-weight key, the weight exceeds 20"* — a bound on the designer's choice, not on the mathematics.
 
 **Everything below `w ≈ 20` is cheap enough to be worth doing and too weak to conclude much from.**
+
+---
+
+# CORRECTION (check-in 103) — the cost model in §4 was wrong
+
+Agent AB, auditing its own model before leaning on it further, found that a radius-`W` Hamming ball
+was priced at `C(256, W/2)`. **The correct per-ball cost is the cumulative half-volume
+`√W · Vol₁₂₈(W/2)`** (Coppersmith / Stinson splitting systems). Wrong by up to **2^65** at large `W`.
+
+The sanity check that catches it: **at `W = 256` one ball is the whole key space, so the cost must be
+2^128. The old model returned 2^251.7.**
+
+**~~Break-even at B = 198~~ → break-even at `B = 148`. Do not circulate 198.**
+
+**§4's tables are pessimistic.** Time-only, unbounded memory:
+
+| budget | ~~old~~ | corrected |
+|---|---|---|
+| 2^47 | ~~w ≤ 14~~ | **w ≤ 18** |
+| 2^58 | ~~w ≤ 20~~ | **w ≤ 24** |
+| 2^80 | ~~w ≤ 30~~ | **w ≤ 40** |
+| rho crossover | ~~w ≈ 56~~ | **w ≈ 104** |
+
+**MEMORY BINDS, and the corrected figures describe a machine nobody has.** At ~2^30 entries on this
+box the real cap is **`w ≤ 10`**. A memory-aware costing has never been done here; AB is doing it,
+and the deliverable is achievable `w` as a function of **(time, memory)**, not time alone.
+
+**The qualitative conclusion survives and is cleaner.** `w ≤ 148` is +2.6σ on the null, excludes
+~0.4% of null mass (~0.006 bits), and costs **2^126.4 against 2^126.5 to solve outright and learn
+`w` exactly.** The covering optimum degenerates toward *"one ball = the whole space = solve it"*, and
+the gap to AB's independently derived generic lower bound is now **≤2^3 everywhere**, against a
+spurious 2^57 before. **A corrected model agreeing with an independent bound is stronger evidence
+than the original was.**
+
+## Two barriers now stand where §4 previously had only an absence
+
+**Theorem C.** The only weight-preserving affine self-map of `Z_N` is the identity — forced by
+`popcount(2^256 mod N) = 65 ≠ 1`, verified across all 255 `j`. In the generic model affine is all an
+algorithm can realise, so **no weight-preserving randomised self-reduction exists**, and the
+hardcore-bit machinery has nothing to run on.
+
+**Theorem D.** Generic group model: every held element is `σ(α_i + β_i k)`, so a collision is one
+affine equation over the **field** `Z_N` and has one root. For **any** predicate `P` and `m` queries,
+`Adv ≤ m² / (2·min(|D₀|,|D₁|))`. For `P = [w ≤ B]`:
+
+- **`B = 128` ⇒ `m ≥ 2^127.5`**, against 2^126.5 to solve. **Deciding the weight predicate is, to
+  within the automorphism speedup, exactly as hard as solving the instance.**
+- **`B = 20` ⇒ `m ≥ 2^49`**, and corrected MITM achieves **2^50.0 — within 2^1 of optimal.**
+
+Knobs: generic model (coordinate encoding excluded), average-case over a distribution on `k`.
+**HGJ / BCJ representation techniques are the one route that could beat the ball cost, and they need
+`k₀ mod M` — the same obstruction as §3.**
+
+## The instance side is closed by measurement (check-in 102, agent Z)
+
+§7's asserted *"no upper bound is obtainable from the instance"* is now a **measured** result:
+of **819,975 monomials, 0 contain two distinct selectors**; booleanity-reduced affine elimination
+over the complete instance leaves **3,980 rows, all identically `0 = 0`, zero genuine linear
+constraints on the selectors**, run both mod `2^61−1` and exactly over ℚ; and **0 adder-shaped atoms
+among 9,527 all-boolean atoms — `Σ s_i` is never formed anywhere.**
+
+**So the Hamming-weight angle is closed from both ends: bounds must be assumed, never derived.**

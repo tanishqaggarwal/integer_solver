@@ -5,3 +5,47 @@ scan data/p_c0.txt sz=3 [0,512): 22108160 cand zero=0 20.4s
 OFFSET_DONE c0 hits=5595
 scan data/p_ones.txt sz=1 [0,512): 512 cand zero=0 0.1s
 scan data/p_ones.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_ones.txt sz=3 [0,512): 22108160 cand zero=0 19.8s
+OFFSET_DONE ones hits=5608
+scan data/p_a55.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_a55.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_a55.txt sz=3 [0,512): 22108160 cand zero=0 18.5s
+OFFSET_DONE a55 hits=5595
+scan data/p_a01.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_a01.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/p_a01.txt sz=3 [0,512): 22108160 cand zero=0 18.5s
+OFFSET_DONE a01 hits=5595
+scan data/p_inv3.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_inv3.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/p_inv3.txt sz=3 [0,512): 22108160 cand zero=0 19.7s
+OFFSET_DONE inv3 hits=5595
+scan data/p_lam.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_lam.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_lam.txt sz=3 [0,512): 22108160 cand zero=0 20.4s
+OFFSET_DONE lam hits=5595
+scan data/p_2p256.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_2p256.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_2p256.txt sz=3 [0,512): 22108160 cand zero=0 19.8s
+OFFSET_DONE 2p256 hits=5595
+scan data/p_d1e76.txt sz=1 [0,512): 512 cand zero=0 0.1s
+scan data/p_d1e76.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/p_d1e76.txt sz=3 [0,512): 22108160 cand zero=0 21.1s
+OFFSET_DONE d1e76 hits=5629
+scan data/p_n2p256.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_n2p256.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/p_n2p256.txt sz=3 [0,512): 22108160 cand zero=0 18.6s
+OFFSET_DONE n2p256 hits=5595
+scan data/p_n2p256m1.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_n2p256m1.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_n2p256m1.txt sz=3 [0,512): 22108160 cand zero=0 17.1s
+OFFSET_DONE n2p256m1 hits=5608
+scan data/p_p2p256p1.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_p2p256p1.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_p2p256p1.txt sz=3 [0,512): 22108160 cand zero=0 20.1s
+OFFSET_DONE p2p256p1 hits=5595
+scan data/p_p2p257.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_p2p257.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_p2p257.txt sz=3 [0,512): 22108160 cand zero=0 27.2s
+OFFSET_DONE p2p257 hits=5595
+scan data/p_n2p257.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_n2p257.txt sz=2 [0,512): 130560 cand zero=0 0.4s

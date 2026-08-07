@@ -193,3 +193,90 @@ MITM tree rather than merely bounding it.
 ## 11. Best verified score
 **39,026 / 39,033** — the existing deliverable, re-verified. I did not beat it, and my angle
 was never going to: it was a bounding question, and the bound does not exist.
+
+---
+
+# 12. FOLLOW-UP (coordinator check-in 102): density of P's infeasible intermediate
+
+**Verdict: the exclusion is real, exact, and prunes NOTHING. Density `2^-256` — one single
+subset, and that subset was already a non-solution. The lead dies, cheaply and completely.**
+Files: `zleaf.py`, `zdouble.py`, `zinfeas.py`, outputs `zleaves.json`, `zexpo.json`.
+
+## 12.1 Leaves — measured directly, not assumed (`zleaf.py`)
+Reduced the 512 extracted constants mod `p = 2^256 − 2^32 − 977`: **512 distinct residues**,
+2 per selector. Orientation into `(x, y)` was **unambiguous, 256/256, 0 ambiguous cases**,
+against the relation `y² − (x + Q/3)³ ≡ b`, and the recovered
+`b = 64019533680030876408443198762210829058751700634554282185987325820393598524794`
+**reproduces P's constant exactly** — an independent confirmation of P §3.
+
+> **Leaf pairs sharing an x-coordinate: 0. Distinct leaf x-coordinates: 256/256.
+> Leaves that are ± of another leaf: 0.**
+
+## 12.2 Leaf → exponent map, recovered by doubling (`zdouble.py`)
+All 256 leaves verified on `y² = X³ + b`. Doubling each: **255 of 256 doubles land on
+another leaf**, exactly one leaf (selector `x_2779`) is nobody's double, and the successor
+relation is a **single chain of length 256**. So the leaf set is exactly `{2^i·L0}`,
+`i = 0..255`, **established by curve arithmetic rather than taken from the reduction**. Map
+saved to `zexpo.json`.
+
+## 12.3 Step 1 — the `±1` question, settled outright
+`N − 1 = 2^6 · 3 · 149 · 631 · 107361793816595537 · 174723607534414371449 ·
+341948486974166000522343609283189` (product re-verified `== N−1`).
+
+> **`ord_N(2) = 1809251394333065553493296640760748560200586941860545380978205674086221273349`
+> (250 bits), and it is ODD.**
+
+- `+1` case needs `ord_N(2) | (i−j)`: impossible, `ord ≈ 2^250 > 255`.
+- `−1` case needs `ord_N(2)` even: **it is not**, so `2^d ≡ −1 (mod N)` has **no solution
+  for any `d` at all** — not merely none in `|i−j| ≤ 255`.
+- Direct check `pow(2,d,N) ∈ {1, N−1}` for `d = 1..255`: **empty**.
+
+Theory and the direct 12.1 measurement agree: **no two leaves can ever share an `x`.**
+
+## 12.4 Step 2 — intermediates: the exact condition, not an estimate
+A merge node `v` combines `A = Σ_{i ∈ S∩L_v} 2^i·G` and `B = Σ_{i ∈ S∩R_v} 2^i·G` with
+`L_v, R_v` **disjoint** (each leaf lies in one subtree). Then
+
+> `x(A) = x(B)` with `y(A) ≠ y(B)` ⟺ `A = −B` ⟺ **`k(S ∩ T_v) := Σ_{i ∈ S∩T_v} 2^i ≡ 0 (mod N)`**, `T_v = L_v ∪ R_v`.
+
+Disjointness is what makes this exact: the two children's integer values simply **add**.
+And because `0 ≤ k < 2^256` while **`2^256 < 2N`** (verified), the congruence has exactly one
+nonzero solution:
+
+> **`k(S ∩ T_v) = N` exactly. `popcount(N) = 192`, bit positions spanning 0 … 255.**
+
+So a merge at `v` is infeasible **iff `S ∩ T_v = bits(N)`**, which requires
+`bits(N) ⊆ T_v`, hence `|T_v| ≥ 192`.
+
+**This is where the structure decides it.** The coordinator's ~`2/N`-per-pair heuristic is
+the right null; the tree structure makes the event *rarer and rigid*, not commoner, because
+the partial sums are integers below `2^256 < 2N` so the mod-`N` wrap can happen **at most
+once**, collapsing a `~2^-255` random event into a single exact value.
+
+With P's measured root split **178 | 78**, the root (`|T| = 256`) is the **only** node with
+`|T_v| ≥ 192`, and there the condition reads `S = bits(N)`:
+
+> **Exactly ONE configuration out of `2^256` is excluded, density `2^-256`. And it is
+> already a non-solution: `k = N ⇒ k·G = O ≠ T`. The rule removes nothing the target
+> congruence had not removed.**
+
+Worst case over **all** binary trees on 256 leaves (not just this one): nodes with
+`|T_v| ≥ 192` form a root path of at most 65 nodes, so the excluded fraction is at most
+`65 · 2^-192 < 2^-186`. **Negligible under every tree shape.**
+
+## 12.5 Verified by construction (`zinfeas.py`)
+| construction | result |
+|---|---|
+| `Σ_{i ∈ bits(N)} 2^i·L0` | **= identity** (independently confirms `N·L0 = O`, i.e. `N` is the right modulus) |
+| 12 random splits of `bits(N)` into two nonempty disjoint parts | **all 12**: `x(A) = x(B)`, `y(A) = −y(B)`, `y(A) ≠ y(B)` — infeasible, as predicted |
+| control: 200 random weight-192 subsets, random split | **0 x-collisions** |
+
+The predicted configuration fires, and only it fires.
+
+## 12.6 Routing
+**Nothing to route to X, Y or AA.** The infeasible-intermediate exclusion does not prune the
+MITM tree — it removes one leaf of it, which was already dead. Combined with §5–§8 and AB's
+Theorem B, the instance now has **no measured structure in selector space at all**: no bound
+on `w`, no cardinality constraint, and no subset exclusion of any usable density. The
+`2^126.5` rho estimate stands unimproved, and every remaining lever is a *prior* on `k`, not
+a fact about the equations.

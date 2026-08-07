@@ -1,0 +1,237 @@
+# Agent AA — offset-shifted signed-digit MITM
+
+**Angle:** every low-complexity search in this campaign tests one hypothesis — *`k` itself is
+simple*. That is one point in a family. Since
+
+> `k·G = T`  ⟺  `(k − c)·G = T − c·G`
+
+a search for *"`k − c` is simple"* is the **identical machinery with one different point**. So a
+list `C` of structured offsets multiplies the number of hypotheses tested by `|C|`.
+
+**The structural fact that makes it cheap:** in a MITM the *table* side (all signed `a`-term
+ladder sums) does **not** depend on the target. **The table is offset-independent; only the scan
+side moves.** So build the table once, as big as affordable, and spend the per-offset budget on
+the cheap half. That asymmetry is the whole experiment.
+
+**Deliverable unchanged.** `solve_lab/best/new_instance_partial_39026.json` → **39,026 / 39,033**,
+failing `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`. I produced no better assignment.
+
+**Scope, per the coordinator's correction (agent AB's Theorems A and B):** this work is a search
+**for `k`**, not a route to an upper bound on `w`. A hit is a full solve; a miss is a weak,
+citable exhaustion statement about that class and nothing more.
+
+---
+
+## 0. What was rebuilt and re-verified (nothing inherited on trust)
+
+`aa_setup.py` re-derives and re-checks everything from `agentX_work/xdata.json` (read-only):
+
+| check | result |
+|---|---|
+| `p == 2^256 − 2^32 − 977` | **True** |
+| `N ==` secp256k1 group order | **True** |
+| `L_i == 2^i·G` by independent repeated doubling | **256/256, 0 bad** |
+| all 256 ladder points on the curve | **256/256** |
+| `N·G == O`, `T` on curve, `N·T == O`, `lad[0] == G` | **all True** |
+
+**Engine cross-check, the strongest one available:** my table generator, rewritten with sharded
+output, produces a signed `a ≤ 3` table that is **bit-for-bit identical to agent X's independently
+validated `stbls.bin`** — 11,119,616 keys, `(mine == X).all() → True`. So the shared half of the
+machinery is not merely "believed correct", it reproduces another agent's artefact exactly.
+
+---
+
+## 1. The offset list `C` — 51 offsets, one line of rationale each
+
+Ranked by **P(hit)** (per the coordinator), not by bound strength. `reach(c)` = minimum number of
+signed terms with exponents ≤ 255 needed to write `±c mod N` — **the number of extra levels the
+plain `c = 0` search would need to cover this offset for free.** Low reach ⇒ redundant.
+
+### Tier 1 — a key-chooser plausibly typed this constant
+
+| tag | `c` | reach | why a key might sit near it |
+|---|---|---|---|
+| `c0` | 0 | 0 | the plain case; baseline and the fleet's existing frontier |
+| `a33` | `0x3333…33` | **128** | `(2^256−1)/5`, period-4 `0011` — a typed hex pattern |
+| `a55` | `0x5555…55` | **111** | `(2^256−1)/3`, the densest period-2 constant |
+| `aAA` | `0xAAAA…AA` | 103 | the other period-2 phase |
+| `aCC` | `0xCCCC…CC` | 102 | the other period-4 phase |
+| `inv10`,`inv5`,`inv3`,`inv7` | `1/d mod N` | 110/108/104/84 | `T = G/d` — a "nice" key in the *group*, not in binary |
+| `cshift`,`bcurve` | instance constants | 92/90 | the generator may have reused a published constant as the scalar |
+| `lam` | GLV λ | 83 | `k = λ + small` is `a + bλ` with `b = 1` and `a` of low weight — **not** covered by the campaign's `|a|,|b| < 2^21` exclusion |
+| `lam2` | λ² | 84 | the third cube root of 1 |
+| `drep` | `111…1` (77 digits) | 80 | decimal repunit — "nice" in base 10, structureless in base 2 |
+| `d1e76`,`d1e38` | `10^76`, `10^38` | 68/33 | round decimal constants |
+| `a11`,`a0F`,`a05`,`a03` | `0x1111…`,`0x0F0F…`,`0x0505…`,`0x0303…` | 64 | `(2^256−1)/15, /17, /51, /85` — period-4/8 patterns |
+| `ones` | `2^256−1` | **42** | the complement: `k` with few ZERO bits. **agent Y owns this class** |
+| `2p256`,`n2p256` | `±2^256` | 42 | `n2p256` **is `2N mod 2^256`**; these reach the exponent the 256-point ladder cannot hold (see §3) |
+| `p2p256p1`,`n2p256m1` | `2^256+1`, `−(2^256−1)` | 41/42 | round-above-the-top constants |
+| `halfN`,`inv2` | `(N∓1)/2` | 42 | half the group order / `1/2 mod N` |
+| `pmodN` | `p mod N` | 42 | the field prime read as a scalar |
+| `a01`,`aFF00` | `0x0101…`,`0x00FF00FF…` | 32 | `(2^256−1)/255`, `/257` |
+| `a0001`,`aFFFF` | period 16/32 | 16 | `(2^256−1)/65535`, `/65537` |
+| `a32_1`,`a32_F`,`a64_1` | period 32/64 | 8/8/4 | sparse repunits — **weakest members, near-redundant** |
+
+### Tier 2 — negations (12): `n_a55, n_a33, n_a11, n_a0F, n_a01, n_aFF00, n_a0001, n_lam, n_inv3, n_d1e76, p2p257, n2p257`
+`c` and `−c` are **different** offsets (`S(−c,m) = {N − c + small}` = "the group order minus a nice
+constant"), so each needs its own scan. Ranked below the positives because "N minus a pattern" is a
+less likely thing to type than the pattern.
+
+### Tier 3 — controls, provably redundant (4): `p2_128, p2_255, p2_128p1, p2_255_1`
+`2^128`, `2^255`, `2^128+1`, `2^255−1`. Included **only** to make the redundancy claim empirical as
+well as proved. These are the coordinator's "`2^k ± 1` near 128" — see §2.
+
+*Dropped as exact duplicates by the tooling, and recorded as results:* **`c = N` is bit-identical to
+`c = 0`** (same base point), and `p2p256 == 2p256 mod N`.
+
+---
+
+## 2. The containment lattice — computed, not argued (`aa_lattice.py`)
+
+Define the **signed-digit distance** `d(a,b) = w±(a−b)` = minimum number of terms `±2^e` with
+distinct `e ≤ 255` summing to `a−b mod N` (minimised over both integer representatives in
+`(−N,N)`). It is a metric, and
+
+> **`S(c,m) = { k : d(k,c) ≤ m }` — every hypothesis in this family is a BALL, and the whole
+> exercise is a packing problem.**
+
+**(L0) Offsets only matter mod `N`.** `T − cG = T − (c+jN)G`. Two consequences the fleet should not
+re-test: **`c = N` is exactly `c = 0`** (verified: identical base point), and **reduction is
+invisible** — if the designer's integer `κ ∈ [N, 2^256)` has low signed weight, the plain `c = 0`
+search already finds it, because the engine works on points and reduces for free. No offset is
+needed for "the key was chosen ≥ N".
+
+**(L1) `S(c,m) ⊆ S(0, m + reach(c))`.** (Minimal signed weight is subadditive: concatenate the two
+representations and cancel/carry repeats, which never increases the count. Caveat: carries can push
+an exponent from 255 to 256, which is exactly the off-by-one in §3.) Therefore:
+
+- **`c = 2^e` for any `e ≤ 255`: reach 1 ⇒ `S(2^e,m) ⊆ S(0,m+1)`.** One extra level of the plain
+  search subsumes **all 256 of them at once**. Testing `2^255` or `2^128` as an offset is
+  **provably wasted budget.**
+- **`c = 2^a ± 2^b` (so `2^128±1`, `2^255−1`, `2^k±1` for any `k ≤ 255`): reach 2 ⇒ `⊆ S(0,m+2)`.**
+  Also provably wasted. *This is the coordinator's requested "`2^k ± 1` near 128" — it is dead by
+  proof, and I ran two of them anyway as controls because they cost 30 s.*
+- **`c = 2^256−1` has reach 42, not 2** — the ladder has no `2^256`, so the complement is genuinely
+  non-redundant by 42 levels. **This is the same off-by-one agent AB flagged, detected independently
+  here by the reach computation.**
+
+**(L2) What `c = 0` already contains** (so nobody should test these as separate hypotheses):
+
+| hypothesis | contained in | note |
+|---|---|---|
+| unsigned Hamming weight `w ≤ m` | `S(0,m)`, all `ε = +1` | signed at `m` **strictly dominates** unsigned at `w = m` |
+| `k` with `≤ r` runs of ones | `S(0,2r)` | a run `b..a` is `2^{a+1} − 2^b`. **`m ≤ 7` ⇒ any `k` with ≤ 3 runs of ones**, e.g. `0x00FFFFF…F000…0FF`, unsigned weight ~40 |
+| `k` close to a round constant `2^e` | `S(0,m)` | `2^e ± (m−1)` terms |
+| short addition–subtraction chains | `S(0,m)` | length ≤ `m` from powers of two |
+| any of the above on `κ ≥ N` before reduction | same | by (L0) |
+
+**(L3) Offsets dominate basis extension.** A basis extended to exponent `E` covers, at depth `m`,
+the `e = 256` branch with only `m−1` further terms; the offset `±2^256` at depth `m` covers it with
+`m`. **And the offset costs nothing on the table side.** So I kept the 256-point basis and added
+`±2^256, 2^256+1, −(2^256−1), ±2^257` as offsets — strictly stronger than rebuilding the table with
+257 points, and no rebuild.
+
+**(L4) `c` and `−c` are distinct** unless `2c` has weight ≤ `2m`. Hence tier 2.
+
+**(L5) Measured packing — 1,275 pairs.** minimum distance 1; **1,222 pairs are at distance > 2m = 14
+and are therefore PROVABLY DISJOINT at `m ≤ 7`**; 53 pairs overlap and are named in
+`aa_lattice.py`'s output. Collapsing the overlap graph: **51 offsets ⇒ 34 well-separated clusters.**
+
+Near-duplicates found (honest accounting of my own waste):
+
+- **`lam2` and `n_lam` are distance 1** — because `λ² + λ + 1 ≡ 0 mod N`. The lattice computation
+  rediscovered the GLV identity. One offset wasted.
+- **`halfN` and `inv2` are distance 1** (`(N−1)/2` vs `(N+1)/2`). One offset wasted.
+- **`ones` and `2p256` are distance 1**, `p2p256p1` distance 1 — so **agent Y's complement class and
+  my `2^256` family are the same class at this depth.** Coordination note: Y should go *deeper* on
+  `2^256−1` rather than sideways.
+- The sparse repunits `a64_1, a32_1, a32_F, a0001, aFFFF` chain into `c0` at distances 4–16.
+
+**(L6) The honest size of the whole thing.** `|S(c,7)| ≈ 2^50.6`; the union over 34 distinct classes
+is `≈ 2^55.7`, i.e. **`2^−200.3` of the keyspace.** Against a uniformly random `k` this is worth
+nothing, and no amount of offsets changes that. **The entire value is conditional on a designer
+prior**, which is why the list is ranked by "what a person might type", not by cardinality.
+
+---
+
+## 3. Cost grid, and the frontier chosen
+
+Candidate counts are exact (`C(256,b)·2^b`), timings measured on this 4-core box.
+
+| side | `a` or `b` | candidates | cost |
+|---|---|---|---|
+| **table** (offset-independent, built ONCE) | `a ≤ 3` | 11,119,616 | 1.8 s, 89 MB |
+| | **`a ≤ 4`** | **1,409,460,736** | **196 s build + 400 s sort + 24 s bitmap, 11.3 GB** |
+| **scan** (per offset) | `b = 1` | 512 | <0.1 s |
+| | `b = 2` | 130,560 | 0.4 s |
+| | **`b = 3`** | **22,108,160** | **20–30 s** |
+| | `b = 4` | 2,796,682,240 | ~45–60 min |
+
+Reachable depth is `m = a + b`. The grid of what a `|C|`-offset sweep costs:
+
+| table | scan | depth `m ≤` | per offset | 51 offsets |
+|---|---|---|---|---|
+| `a ≤ 3` (89 MB) | `b ≤ 3` | 6 | 4 s | 3.5 min |
+| `a ≤ 3` | `b ≤ 4` | 7 | ~45 min | **38 h — unaffordable** |
+| **`a ≤ 4` (11.3 GB)** | **`b ≤ 3`** | **7** | **~25 s** | **~25 min** |
+| `a ≤ 4` | `b ≤ 4` | 8 | ~50 min | 42 h — pick a few |
+
+**The chosen frontier: pay once for the deep table, then buy breadth.**
+`a ≤ 4` moves `m ≤ 7` from *38 hours* to *25 minutes* for the whole sweep — a **~90× swing that
+exists only because the expensive half is the offset-independent half.** That is the experiment.
+
+**Breadth before depth, deliberately.** One extra level multiplies one class by ~62× in
+*cardinality*; one extra offset multiplies the number of *structural families* by 1. Under a random
+`k` neither matters (§L6). Under a designer prior the mass sits on **exact** structured constants
+plus **very few** corrections — so a new family is worth more than a deeper ball on an old one.
+Depth is then spent on the two or three highest-prior offsets.
+
+---
+
+## 4. Validation — planted answers, per offset class
+
+**Requirement met before any negative was recorded.** `aa_setup.py` plants, for 23 offset classes, a
+random 5-term signed `δ` and sets the fake target `T' = (c + δ)·G`; the pipeline then computes the
+base `B = T' − c·G` **through the same code path as the real runs**, so offset bookkeeping is under
+test, not bypassed. `aa_check_plant.py` predicts in independent Python the exact
+`HIT <sz> <code> <s_last> <key>` line the engine must print, at **both** the `|α|=3/|β|=2` and
+`|α|=2/|β|=3` splits, then decodes that line back to a scalar and re-verifies `k·G == T'` on the
+curve.
+
+**The sign-bookkeeping failure mode is real and this caught it:** my first predictor assumed the
+table's "lowest-exponent sign forced to `+`" WLOG had to be undone in the scan indices. It does not —
+only `x` is compared, so the `±` branch absorbs the global negation. **4 of 8 plants failed, exactly
+the 4 whose lowest-exponent term was negative.** The engine was right and the predictor was wrong;
+had I only checked "some hit appeared", the bug would have passed unnoticed in the predictor and I
+would have had no independent model of the engine at all.
+
+Planted `k` values have unsigned Hamming weights **40 to 188** — every one of them is invisible to
+any plain-weight search ever run in this campaign, which is the coverage gain made concrete.
+
+---
+
+## 5. Files
+
+| file | what |
+|---|---|
+| `aa_setup.py` → `aa_offsets.json`, `data/` | verification, offset list, per-offset base points, plants |
+| `aa_signed.c` / `aa_signed` | the engine (X's `xsigned.c` + sharded table + bitmap mode) |
+| `aa_field.h` | field arithmetic (copied verbatim from X's `xfield.h`) |
+| `aa_sort.py` | per-shard sort |
+| `aa_lattice.py` | the containment lattice / packing computation |
+| `aa_check_plant.py` | planted-answer validation |
+| `aa_run.sh`, `aa_wave1.sh` | sequential sweep drivers (ONE process at a time) |
+| `tbl/t4.0 … t4.7` | **the a ≤ 4 signed table, 11.3 GB — coordinator: this is the large artefact** |
+| `tbl/bm4.bin` | 512 MB prefilter bitmap (26.88 % of `2^32` bits set) |
+| `runs/r_d_<tag>.txt`, `runs/r_p_<tag>.txt` | per-offset scan reports (real / plant) |
+
+**Restart:** `gcc -O3 -march=native -fopenmp -o aa_signed aa_signed.c`; `python3 aa_setup.py`;
+`./aa_signed table data/d_c0.txt 4 tbl/t4 4`; `python3 aa_sort.py tbl/t4`;
+`./aa_signed bitmap tbl/t4 tbl/bm4.bin`; `./aa_wave1.sh`.
+(numpy lives in `../agentX_work/pylib` — set `PYTHONPATH`.)
+
+---
+
+## 6. Results
+
+*(filled in below as the sweep completes)*

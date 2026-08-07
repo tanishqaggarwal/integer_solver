@@ -1,11 +1,23 @@
 # UPPER_BOUND_MAP — every mechanism that could bound `w` FROM ABOVE
 
 Agent AB. Theory task, not search. Every number below was recomputed in this directory
-(`ab_facts.py`, `ab_cost.py`, `ab_rank.py`); nothing is quoted from another agent without
+(`ab_facts.py`, `ab_cost.py`, `ab_rank.py`, and round 2's `ab_barrier.py`, `ab_costfix.py`,
+`ab_soft.py`); nothing is quoted from another agent without
 re-derivation, except where explicitly attributed as *their measurement*.
 
 **Verified before starting:** `python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json`
 → `satisfied 39026/39033 (7 failing) [12231,12270,12350,14584,18673,22044,29125]`.
+
+
+> ## ⚠ CORRECTION NOTICE — READ BEFORE §10
+>
+> **Theorem B's numeric table in §10 was WRONG and is retracted below in §13.0. The qualitative
+> conclusion survives; the numbers do not.** I priced a radius-`W` ball at `C(256, W/2)`. The correct
+> per-ball cost is the *cumulative* half-volume `Vol₁₂₈(W/2) = Σ_{j≤W/2} C(128,j)`, which is smaller
+> — by up to **2^65** at large `W`. The break-even moves from **`B = 198` to `B = 148`**. This is the
+> lab's documented failure mode (a number computed under one configuration reported as a property),
+> committed by me, and the coordinator has already circulated the wrong figure. **§13.0 is the
+> retraction; §13.1–13.2 are the new barrier that replaces it.**
 
 ---
 
@@ -472,3 +484,224 @@ it. Every "nothing can do X" above carries its knob set explicitly (§3 lattice 
 instance-derivable integers; §10 Theorem B MITM over Hamming balls with known centres; §2 exact bit
 oracles, *not* biased weight predicates). `w` remains unknown, with no non-vacuous upper bound
 established by anyone, and §8 unsettled.
+
+
+---
+
+# ROUND 2 — the §2 barrier, and the retraction of my own Theorem B
+
+Round-2 scripts: `ab_barrier.py` (Theorems C and D), `ab_costfix.py` (the retraction),
+`ab_soft.py` (§6 and §9.12).
+
+## 13.0 RETRACTION — Theorem B's cost model was wrong
+
+**What was wrong.** §10 priced a MITM over a Hamming ball of radius `W` at `C(256, W/2)`. Two errors:
+
+1. The standard low-Hamming-weight DLP algorithm (Coppersmith; **Stinson's splitting systems**)
+   splits the **256 positions** into halves and enumerates half-patterns, giving a half-list of size
+   `Σ_{j≤W/2} C(128,j) = Vol₁₂₈(W/2)`, with a `√W`-ish factor of repeated partitions. That is
+   cheaper than `C(256,W/2)` — the naive split is redundant by `C(W,W/2)`.
+2. More seriously, for large `W` the list is the **cumulative volume**, not the single binomial
+   `C(128,W/2)`. That is where the 2^65 lived.
+
+**Sanity check the round-1 model failed.** At `W = 256` a single ball is the whole key space, so the
+cost must be the birthday bound `2^128`. Round-1's model returned `C(256,128) = 2^251.7`. The
+corrected model returns **2^132.0** (`√256 · Vol₁₂₈(128) = 16 · 2^128`) ✔. *I should have run that
+check before publishing the table.*
+
+**Corrected Theorem B** (`ab_costfix.py`; `ball_cost(W) = √W · Vol₁₂₈(W/2)`):
+
+| prove | `|{wt>B}|` | best `W` | **corrected total** | round-1 said | Theorem-D generic LB |
+|---|---|---|---|---|---|
+| `w ≤ 245` | 2^58.0 | 10 | **2^29.7** | 2^33.0 | 2^29.0 |
+| `w ≤ 230` | 2^114.7 | 24 | **2^60.1** | 2^70.0 | 2^57.4 |
+| `w ≤ 220` | 2^143.8 | 34 | **2^74.5** | 2^89.6 | 2^71.9 |
+| `w ≤ 200` | 2^188.6 | 54 | **2^96.8** | 2^122.7 | 2^94.3 |
+| `w ≤ 180` | 2^219.9 | 74 | **2^112.5** | 2^150.0 | 2^110.0 |
+| `w ≤ 152` | 2^246.1 | 102 | **2^125.7** | 2^176.2 | 2^123.1 |
+| `w ≤ 128` | 2^254.9 | 126 | **2^130.5** | 2^185.0 | 2^127.5 |
+
+**Corrected break-even: `B = 148`, not 198.** The largest affordable complement radius is `W = 107`
+(cost 2^126.4 < 2^126.5), proving `w ≤ 148`.
+
+**What survives, and it is the whole qualitative claim.** `w ≤ 148` is `+2.6σ` on the null — still
+above the mean, still excluding only ≈0.4% of the null mass (≈0.006 bits), and costing 2^126.4 when
+**solving outright costs 2^126.5 and returns `w` exactly**. The corrected table also shows *why*:
+the covering optimum degenerates toward "one ball = the whole space = solve it."
+
+> **THEOREM B, CORRECTED. No search-based upper bound below `w ≤ 148` is cheaper than solving the
+> instance, and `w ≤ 148` itself costs 99.5% of what solving costs while returning ~0.006 bits
+> instead of the answer. Every search-based upper bound is vacuous or dominated.**
+
+**A consequence the fleet must act on — the campaign's MITM cost table is pessimistic.**
+`MINIMUM_COST_SEARCH.md` §4 uses `C(256,w/2)` throughout. Corrected, **time-only, unbounded memory**:
+
+| budget | campaign's table | **corrected** | half-list memory |
+|---|---|---|---|
+| 2^47 | `w ≤ 14` | **`w ≤ 18`** | 2^44.2 entries |
+| 2^58 | `w ≤ 20` | **`w ≤ 24`** | 2^54.6 |
+| 2^70 | `w ≤ 24` | **`w ≤ 32`** | 2^66.6 |
+| 2^80 | `w ≤ 30` | **`w ≤ 40`** | 2^77.0 |
+| 2^126 | `w ≤ 56` (rho crossover) | **`w ≤ 104`** | 2^122.4 |
+
+**The rho crossover moves from `w ≈ 56` to `w ≈ 104`** — which nearly doubles the payoff band for §8:
+an instance-side constraint would only have to reach **104**, three σ *below* the null mean, rather
+than 56, to make MITM beat rho.
+
+**Two caveats I am stating rather than burying, having just been burned by not stating one.**
+(i) These are **time-only** figures with unbounded memory. **Memory binds hard**: on this box
+~2^30 entries ⇒ `w ≤ 10`. Beyond that a low-memory variant (van Oorschot–Wiener parallel collision
+search) is needed and costs *more* than the table. **The `w ≤ 104` crossover is a time-only upper
+limit, not a realizable plan.** (ii) A proper memory-aware costing of low-weight MITM has not been
+done by anyone in this campaign and is a concrete, cheap follow-up.
+
+## 13.1 THEOREM C — there is no weight-preserving self-reduction. *Proved, not observed.*
+
+The coordinator asked for the crux: additive shifts scramble weight, so is there **any**
+weight-preserving group action?
+
+**In the generic model every map on scalars an algorithm can realise is affine**: from `G` and `T` it
+can produce `σ(α + βk)` for known `α, β`, and nothing else. So the question is exactly: which affine
+`ψ(k) = ak + b (mod N)` preserve `popcount`?
+
+> **THEOREM C. The only weight-preserving affine self-map of `Z_N` is the identity.**
+>
+> *Proof.* (1) `k = 0` forces `popcount(b) = 0`; since `0 ≤ b < N`, `b = 0`.
+> (2) `k = 1` forces `popcount(a) = 1`, so `a = 2^j`, `j ∈ [0,255]`.
+> (3) For any `j ≥ 1` take `k = 2^{256−j}`. Then `k ≤ 2^255 < N` and `popcount(k) = 1`, while
+> `a·k = 2^256 mod N`, and **`popcount(2^256 mod N) = 65 ≠ 1`**. So `j = 0` and `a = 1`. ∎
+
+Step (3) verified for **all 255** values of `j` — no exceptions (`ab_barrier.py`).
+
+**No approximate version either** (20 000 random `k`, measured):
+
+| `a` | `Pr[wt(ak+b) = wt(k)]` | `corr(wt(k), wt(ak+b))` | `corr` of the predicate `[w ≤ 128]` |
+|---|---|---|---|
+| `1` | 1.0000 | +1.0000 | +1.0000 |
+| `2` | 0.5212 | +0.7451 | +0.6643 |
+| `4` | 0.2893 | +0.6252 | +0.5002 |
+| `2^8` | 0.0504 | +0.4533 | +0.2937 |
+| `2^{-1}` | 0.5213 | +0.7420 | +0.6596 |
+| `−1` | 0.0296 | −0.4934 | −0.3174 |
+| `λ` | 0.0375 | −0.0025 | −0.0040 |
+| `2`, `b=1` | 0.0240 | +0.7451 | +0.6231 |
+| random `a` | 0.0350 | +0.0033 | +0.0018 |
+| random `a,b` | 0.0351 | +0.0104 | +0.0021 |
+
+*Read the baseline correctly:* two independent 256-bit integers share a popcount with probability
+≈ 0.035 (visible in the random rows), so anything near 0.035 is **pure coincidence, not
+preservation**. `a = 2^j` preserves exactly on `{k : 2^j k < N}`, a fraction `2^{−j}` (predicted
+0.500/0.250/0.125/0.0039 for `j = 1,2,3,8`; measured 0.521/0.289/0.169/0.050 = prediction +
+coincidence baseline ✔).
+
+**Consequence.** The only maps with *any* weight preservation are `k ↦ 2^j k`, and their preservation
+set shrinks like `2^{−j}` — so they cannot randomise. **There is no weight-preserving randomised
+self-reduction.** Round 1 observed that additive shifts scramble weight; this proves nothing else
+works. The standard hardcore-bit amplification machinery therefore has **no self-reduction to run
+on** — not "we could not find one".
+
+## 13.2 THEOREM D — the weight predicate has no generic shortcut. *This is the barrier.*
+
+> **THEOREM D.** In the generic group model, every element an algorithm holds after `m` queries is
+> `σ(α_i + β_i k)` with `(α_i, β_i)` known, and its entire view is the equality pattern among them.
+> Two collide iff `(β_i − β_j)k = α_j − α_i` — **one affine equation over the field `Z_N`**
+> (`N` prime), hence **at most one root**. For `k` drawn from any distribution `D`, each nontrivial
+> pair collides with probability `≤ 1/|supp D|`, so
+> `Pr[the view depends on k at all] ≤ m²/(2|supp D|)`. Conditioned on no collision the view — hence
+> the output — is **independent of `k`**. Therefore for **any** predicate `P` and any generic
+> algorithm making `m` queries,
+> `Adv ≤ m² / (2·min(|D₀|,|D₁|))`, i.e. `m ≥ √(2ε·min(|D₀|,|D₁|))`.
+
+Applied to `P = [w(k) ≤ B]` with `D₀` uniform on `{w ≤ B}` and `D₁` uniform on `{w > B}`:
+
+| `B` | `|{w≤B}|` | `|{w>B}|` | generic lower bound (ε = ½) |
+|---|---|---|---|
+| 20 | 2^98.0 | 2^256.0 | `m ≥ 2^49.0` |
+| 30 | 2^129.9 | 2^256.0 | `m ≥ 2^65.0` |
+| 56 | 2^190.4 | 2^256.0 | `m ≥ 2^95.2` |
+| **128** | 2^255.1 | 2^254.9 | **`m ≥ 2^127.5`** |
+| 152 | 2^256.0 | 2^246.1 | `m ≥ 2^123.1` |
+| 198 | 2^256.0 | 2^192.3 | `m ≥ 2^96.1` |
+| 245 | 2^256.0 | 2^58.0 | `m ≥ 2^29.0` |
+
+**Read both ways — this is the whole point.**
+
+* **`B = 128` (the null median): `m ≥ 2^127.5`.** Solving costs 2^126.5. **Deciding whether `w ≤ 128`
+  is, to within the automorphism speedup, exactly as hard as solving the instance.** The weight
+  predicate has **no generic shortcut** — no algorithm that decides it "without producing `k`" can
+  exist in this model, whatever its internal structure.
+* **`B = 20`: `m ≥ 2^49` only.** Small classes really are cheap to decide, and MITM (2^50.0
+  corrected) is within **2^1** of the generic optimum. **This is why every *lower* bound in this
+  campaign was affordable and every *upper* bound is not: the asymmetry is class size, and it is now
+  matched by a lower bound, not merely by a cost model.**
+
+**Theorem D also repairs the gap Theorem B left.** Corrected best-known vs generic lower bound:
+`w ≤ 245`: 2^29.7 vs 2^29.0 · `w ≤ 200`: 2^96.8 vs 2^94.3 · `w ≤ 128`: 2^130.5 vs 2^127.5. **The gap
+is now ≤ 2^3 everywhere** (round-1's model showed a spurious 2^57 gap). Nothing large is left on the
+table.
+
+**Knob set and honest limits — stated, not buried.**
+* Theorem D is a **generic group model** bound: it constrains algorithms that touch the group only
+  through the group law, inversion and equality, and **not** through the `F_p` coordinate encoding.
+  Non-generic attacks exist for other groups (index calculus in `F_p^*`; ECDLP over extension
+  fields). For elliptic curves over **prime** fields none is known — §9.5, §3.
+* It is an **average-case** bound over a distribution on `k`. For a single fixed `k` no lower bound
+  of this shape can hold (an algorithm can hardwire the answer). The statement is about algorithms
+  that work for a non-negligible fraction of instances.
+* The HGJ/BCJ **representation technique** is the one route that could beat the corrected ball cost.
+  It filters intermediate lists by `s mod M` for an auxiliary modulus `M` — and `s = k₀` is exactly
+  what we do not have. Guessing `s mod M` multiplies cost by `M` and cancels the gain. **Same
+  obstruction as §3, and it is why the group version is harder than the integer subset-sum version.**
+
+> **§2 VERDICT, UPGRADED: DEAD, and now a barrier rather than a survey.** Theorem C proves no
+> weight-preserving self-reduction exists; Theorem D proves no generic algorithm decides `w ≤ B` with
+> advantage `ε` in fewer than `√(2ε·min(|D₀|,|D₁|))` operations, which at the only thresholds that
+> would matter is the cost of solving. **The "nobody has looked" gap is closed.**
+
+## 13.3 The other two soft verdicts, re-ranked
+
+**§6 analytic — upgraded from heuristic to structural.** Round 1 leaned on a square-root-cancellation
+threshold I had not derived. The real argument needs no threshold. Any equidistribution statement
+reads `#{k ∈ W : kG ∈ A} = |W||A|/N + E`. To decide membership for one target (`|A| = 1`) you must
+resolve 0 vs 1, so you need `E < 1`; every bound in this literature has `E ≥ √p ≈ 2^128` or
+`E ≥ |W|^{1−δ}`. And decisively: **a *perfect* equidistribution theorem (`E = 0`) says the weight
+class spreads uniformly over targets — i.e. that this `T` is exactly as likely as any other. The
+stronger the equidistribution result, the less it says about one instance.** Only a *bias* could
+help, and it would have to be resolvable at a single point, which is the opposite of what these
+theorems assert. **DEAD, structurally.**
+
+**§9.12 Gröbner — DEAD on complexity, independently of the campaign's empirical failure.** The
+"empirical" objection was fair, so here is the arithmetic (`ab_soft.py`). Macaulay matrix width at
+degree `d` over 256 boolean variables: `d=8 → 2^48.6`, `d=16 → 2^83.2`, `d=32 → 2^135.6` columns.
+At `ω ≈ 2.37`, `d = 8` costs 2^115.2 (affordable), `d = 16` costs **2^197.1** (dead), `d = 24` costs
+2^264.3. **So elimination is affordable only if `d_reg ≲ 11`**, while the standard semi-regular
+estimate for a boolean system with a unique solution puts `d_reg` at a constant fraction of `n`
+(≈ 0.09·256 ≈ 23 for the quadratic-over-`F_2` analogue, larger for the mixed `F_p`/boolean system
+actually present). **And a term order cannot be the missing ingredient: `d_reg` is a property of the
+ideal, not of the order — a different order changes the constant, not the exponent.**
+*Worth exactly one bounded experiment:* degree-truncated linear algebra in Singular on the reduced
+core to **measure** `d_reg` rather than estimate it. Cheap, replaces an estimate with a number. **Not
+worth a week**, and it cannot change the verdict unless `d_reg ≤ 11`, which would itself be the
+finding.
+
+## 13.4 Where round 2 leaves the map
+
+| verdict | status after round 2 |
+|---|---|
+| §2 bit security / **weight predicate** | **DEAD, upgraded to a barrier** (Theorems C + D) — was my least-secure verdict, is now my most secure after §4 |
+| §6 analytic | DEAD, upgraded from heuristic to structural |
+| §9.12 Gröbner | DEAD on complexity; one cheap `d_reg` measurement would close it fully |
+| §10 Theorem B numbers | **RETRACTED and corrected** (§13.0); qualitative claim survives, break-even 198 → 148 |
+| §10 Theorem A | unchanged, unaffected by the cost-model error (it is about centres, not costs) |
+| §8 instance-side | unchanged: **LIVE, UNSETTLED, still rank 1** — and now *more* valuable, since the rho crossover moved from `w ≈ 56` to `w ≈ 104` |
+| everything else | unchanged |
+
+**My least-secure verdict is now §9.12** (one estimate, `d_reg`, not measured), then §6 (rests on the
+shape of the literature rather than a computation I ran), then the **memory-aware costing of MITM**,
+which is not a verdict at all but an unmeasured input that my own corrected table depends on.
+
+**Standing caveat, restated because a retraction is exactly when it matters:** none of this is an
+infeasibility claim about the instance. Theorem D is a generic-model, average-case bound with the
+encoding knob explicitly excluded; Theorem B (corrected) prices ball-covering MITM with unbounded
+memory; Theorem C covers affine maps, which is all the generic model can realise. `w` remains
+unknown, no non-vacuous upper bound is established, and §8 is open.

@@ -3,7 +3,7 @@
 **Mandate:** enumerate every mechanism that could bound the solution's Hamming weight `w` FROM
 ABOVE, settle each DEAD or LIVE. Theory, not search. Deliverable: `UPPER_BOUND_MAP.md` (this dir).
 
-**Status: COMPLETE.** No compute process launched, no long job running, nothing to resume mid-flight.
+**Status: COMPLETE (round 2). ROUND-1 THEOREM B NUMBERS ARE RETRACTED — see below.** No compute process launched, no long job running, nothing to resume mid-flight.
 Everything below is reproducible from cold in < 3 minutes.
 
 ## Files in this directory
@@ -12,7 +12,10 @@ Everything below is reproducible from cold in < 3 minutes.
 | `UPPER_BOUND_MAP.md` | **the deliverable** — 9 numbered mechanisms + 7 extras, 2 theorems, ranked live list | — |
 | `ab_facts.py` | independent curve/G/T/ladder re-verification; complement identity incl. a planted weight-250 end-to-end test; N's binary structure + exact digit-DP for `max popcount(k<N)`; null tail probabilities; λ and negation weight measurements; halving bijection; counting | ~50 s |
 | `ab_cost.py` | **Theorem B** ball-covering cost floor; Theorem A masked-complement correlations (4000 samples); residual curve checks (primality, anomalous, CM, embedding degree, `b/7` a 6th power) | ~60 s |
-| `ab_rank.py` | break-even `B` for Theorem B; cost/informativeness ledger for the complement mechanism | ~20 s |
+| `ab_rank.py` | round-1 break-even + cost/informativeness ledger (**numbers superseded by `ab_costfix.py`**) | ~20 s |
+| `ab_barrier.py` | **round 2** — Theorem C (no weight-preserving self-map, proved) and Theorem D (generic-group bound for an arbitrary predicate of `k`) | ~40 s |
+| `ab_costfix.py` | **round 2** — the retraction: corrected ball cost `√W·Vol₁₂₈(W/2)`, corrected Theorem B, corrected budget→weight table | ~15 s |
+| `ab_soft.py` | **round 2** — §6 upgraded to a structural argument; §9.12 costed by degree of regularity | ~5 s |
 
 Reproduce: `cd solve_lab/agentAB_work && PYTHONDONTWRITEBYTECODE=1 python3 ab_facts.py && python3 ab_cost.py && python3 ab_rank.py`.
 Only external file read: `../agentX_work/xdata.json` (read-only, for `G`, `T`, ladder). Nothing
@@ -20,6 +23,23 @@ outside this directory was modified. No git commands were run.
 
 Deliverable re-verified at start: `checker.py best/new_instance_partial_39026.json` → **39026/39033**,
 failing `[12231,12270,12350,14584,18673,22044,29125]`.
+
+## ⚠ RETRACTION (round 2) — my own Theorem B numbers
+
+I priced a radius-`W` Hamming ball at `C(256,W/2)`. The correct per-ball cost is the **cumulative
+half-volume** `√W · Vol₁₂₈(W/2)` (Coppersmith / Stinson splitting systems). Wrong by up to **2^65**
+at large `W`. The sanity check I failed to run: at `W = 256` one ball is the whole key space, so the
+cost must be 2^128; round-1's model returned 2^251.7, corrected returns 2^132.0.
+
+* **Break-even moves `B = 198` → `B = 148`.** Largest affordable complement radius `W = 107`.
+* **Qualitative claim survives intact:** `w ≤ 148` is +2.6σ on the null, excludes ~0.4% of null mass
+  (~0.006 bits), and costs 2^126.4 while **solving costs 2^126.5 and returns `w` exactly**.
+* **Consequence the fleet must act on:** `MINIMUM_COST_SEARCH.md` §4 uses `C(256,w/2)` and is
+  pessimistic. Corrected (**time-only, unbounded memory**): 2^47 → `w ≤ 18` (not 14); 2^58 → `w ≤ 24`
+  (not 20); 2^80 → `w ≤ 40` (not 30). **The rho crossover moves from `w ≈ 56` to `w ≈ 104`**, which
+  nearly doubles the payoff band for §8.
+* **Caveat stated, not buried:** memory binds. ~2^30 entries on this box ⇒ `w ≤ 10`. A memory-aware
+  costing of low-weight MITM has not been done by anyone and is a cheap concrete follow-up.
 
 ## The three results worth carrying forward
 
@@ -41,6 +61,23 @@ failing `[12231,12270,12350,14584,18673,22044,29125]`.
    giving up on ((x2820-x17195)-(8271997*x17079))`. Also: T's 32/64/128 ON-sets are nested prefixes
    of one `random.Random(7)` chain, i.e. **one correlated sample, not three.**
 
+## Round 2: §2 upgraded from "no mechanism known" to a real barrier
+
+* **THEOREM C — proved.** The only weight-preserving affine self-map of `Z_N` is the identity.
+  `k=0 ⇒ b=0`; `k=1 ⇒ a=2^j`; then `k = 2^{256−j}` gives `ak = 2^256 mod N` with
+  **popcount 65 ≠ 1**, forcing `j=0`. Verified for all 255 `j`. In the generic model affine is all
+  an algorithm can realise, so **no weight-preserving randomised self-reduction exists** — the
+  hardcore-bit machinery has nothing to run on. Measured: the only maps with *any* preservation are
+  `k ↦ 2^j k`, preserving on a fraction `2^{−j}` (coincidence baseline 0.035).
+* **THEOREM D — the barrier.** Generic group model: every held element is `σ(α_i+β_i k)`, collisions
+  are single affine equations over the field `Z_N`, so for any predicate `P` and `m` queries,
+  `Adv ≤ m²/(2·min(|D₀|,|D₁|))`. For `P = [w ≤ B]`: **`B = 128` needs `m ≥ 2^127.5`** (solving costs
+  2^126.5) — **deciding the weight predicate is as hard as solving**; `B = 20` needs only `m ≥ 2^49`,
+  and corrected MITM achieves 2^50.0, within 2^1 of optimal. **The lower/upper asymmetry is class
+  size, now matched by a lower bound rather than a cost model.**
+  *Knobs:* generic model (coordinate encoding excluded), average-case over a distribution on `k`.
+  HGJ/BCJ representations are blocked because they need `k₀ mod M` — the same obstruction as §3.
+
 ## Verdict table (full detail in UPPER_BOUND_MAP.md)
 | # | mechanism | verdict |
 |---|---|---|
@@ -58,14 +95,19 @@ Also settled in passing: **`b/7` is a 6th power mod `p`, so the instance curve i
 secp256k1 `y² = x³ + 7`** — not merely an order-matching sextic twist. And **embedding degree
 > 20 000**, extending the lab's verified `k ≤ 24`.
 
-## Least-secure DEAD verdicts (my own, ranked)
-1. **§2 for the *weight* predicate specifically** — the 256-query reduction covers exact **bit**
-   oracles, not a direct low-cost decider for `w ≤ B`; and standard hardcore-bit machinery does not
-   apply because `k ↦ k+r` scrambles Hamming weight. "No mechanism known", **not** "provably hard".
-   Nobody has looked for a direct weight predicate.
-2. **§6** — my "class too small for square-root cancellation" threshold is heuristic, not derived.
-3. **§9.12 Gröbner** — the argument is empirical (the fleet attacked this system as equation repair
-   and coset decoding, not as elimination with a term order).
+## Least-secure verdicts AFTER round 2 (re-ranked)
+1. **§9.12 Gröbner** — now dead on complexity (`d = 16` Macaulay costs 2^197.1 at `ω=2.37`; affordable
+   only if `d_reg ≲ 11`, estimate ≈ 23), and a term order cannot help since `d_reg` is a property of
+   the ideal. But `d_reg` is **estimated, not measured**. One bounded Singular experiment
+   (degree-truncated linear algebra on the reduced core) would replace the estimate with a number.
+2. **§6 analytic** — upgraded from heuristic to structural (*a perfect equidistribution theorem says
+   the class spreads uniformly over targets, i.e. says nothing about this `T`; the stronger the
+   result, the less it says*), but it rests on the shape of the literature rather than on a
+   computation I ran.
+3. **The memory-aware costing of MITM** — not a verdict but an unmeasured input my own corrected
+   table depends on. Nobody in the campaign has done it.
+
+*(Round 1's #1, §2's weight predicate, is now closed by Theorems C and D above.)*
 
 ## THE next experiment (handed to agent T's tooling / agent Z's angle — I did NOT run it)
 > Run `agentT_work/t_close2wj.py <tag> <n>` at **`|S| = 250`** first, then 192, then finish the
