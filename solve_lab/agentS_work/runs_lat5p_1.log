@@ -1,1 +1,2 @@
 configurations: 48
+cfg19 (|on|=2) bad=[392, 715, 722, 724, 7389, 10187, 18800, 18803, 20215, 21958, 27585, 28647, 30787, 31548] knobs=63 atoms=57 nohandle=[28647] -> core infeasible (177s)

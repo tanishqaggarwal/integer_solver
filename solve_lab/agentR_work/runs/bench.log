@@ -10,3 +10,4 @@ m12_bv_pin         timeout     300.3s  -  clauses/constraints=651 bytes=47563
 m12_bv_free        timeout     301.0s  -  clauses/constraints=640 bytes=46990
 m12_int_pin        timeout     300.4s  -  clauses/constraints=948 bytes=46134
 m12_int_free       timeout     300.3s  -  clauses/constraints=937 bytes=45648
+m16_bv_pin         timeout     300.9s  -  clauses/constraints=887 bytes=66298

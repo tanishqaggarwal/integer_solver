@@ -1347,3 +1347,143 @@ unrelated to the cut, which would masquerade as bad placements in exactly the sw
 run. A contaminated instrument, caught before use.
 
 `|S| = 3` finished: 2,763,520 folds, **no hit**. `|S| = 4` left running unattended, not blocked on.
+
+---
+
+## Check-in 17–19 — the odd variable resolved, the theorem sharpened, the rank still open
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified independently by S, M and K this round.
+
+### S (check-in 17) — adjudication done properly, and a tension created
+
+**S's §4 is the best adjudication in the campaign.** It translated before comparing (per-selector
+occurrence mean **5.89** against P's "5–6", which is what licensed the comparison), classified
+the 48 atoms it found touching ≥2 selectors rather than reporting the raw count as a conflict —
+1 booleanity certificate, **47 bundled, each selector in its own additive term, no atom anywhere
+multiplying two distinct selectors** — and concluded **P's claim stands on S's data**, against
+S's own prior position. The distinction it drew is load-bearing and is now the lab's phrasing:
+
+> **P's claim is about the domain; S's is about the image. A free independent subset domain does
+> not make the residual a subset-sum.** If it were a sum, 2²⁵⁶ inputs would give ~2²⁵⁶ residues
+> and LLL on the bit vector would be right; it gives **48**.
+
+Other results: `lat5.py` at 22 of 48 configurations, **0 feasible**, with **a20215 in the bad set
+22 of 22** — never the *reported* blocking row, because it has a handle (step p) so it is
+individually satisfiable and infeasibility surfaces elsewhere. A second route to the same
+conclusion, independent of reading the image mod p.
+
+**S corroborated K independently and scoped it correctly.** Its discriminator is better than
+"the row is zero" and is **reusable machinery**: degeneracy's signature is *zero AND unresponsive
+to every knob in its cone*, since an identically-vanishing constraint cannot be moved. Over 48
+configurations × 333 cone knobs: **0 degenerate cases**, responsiveness never below 2. S's own
+limit: this is empirical non-observation over a **reached** space, so a degenerate configuration
+isolated from cfg0 under single flips would be invisible. **Corroborates K; does not close it** —
+and is independent of K's carry-walk step, so P's wrap objection does not touch it.
+
+**S retracted its §6** usefully: the ≤6 arithmetic was sound, but **0 of the 769 equations contain
+only one atom** (768 have exactly 2, one has 11), so it was incidence structure only. The
+correction **cuts toward attainability**: two-atom equations mean cancellation is available there,
+so a nonzero footprint-1 atom can cost **zero** equations. Routed to L, which now has an exact
+scorer. Also: **a726 is never bad** (0 of 22) — a satisfied-but-rigid side condition, not an
+obstruction; **a28647 is the only genuinely unhandled bad atom.**
+
+**Open tension, now S's task.** Q proves a satisfying assignment exists; S's image closed at 48
+tuples with **a20215 never 0**, and S's endgame condition is `a20215 ≡ 0 (mod p)`. Both cannot
+describe the same space. S is testing the obvious resolution — evaluate the five rows at random
+high-weight configurations its BFS could not reach and see whether they land outside the 48.
+Q has been told its untested 24-stage caveat is now load-bearing.
+
+### M (check-in 18) — `x_7068` resolved, and the placement neighbourhood is exhausted
+
+**`x_7068` is a definer that is NOT a handle**, established in M's own frame without reading P's
+list: linearly defined (`x_2099 + 7376877·x_642`) where P's four are product- or bare-defined;
+**90 digits** against 723/89/724/724; and its definer *references* the corrupted handle `x_642`.
+Atom 23616 is nonzero *because* `x_642` is corrupted — for it to be satisfied `x_7068` would have
+to be 730 digits and it is 90. `P ∤ x_7068` is automatic for any linear combination containing a
+corrupted term, so P finding exactly four among a product-definer population is consistent with
+`x_7068` not being in that population at all. **M's five = P's four corrupted handles + one
+collateral combiner. The cross-check is complete.**
+
+**Alternative placements priced — none beat 39,026.** Soundness property that makes the search
+trustworthy: demoting an atom and seeding its variable with its current value is **bit-identical**,
+so demotion is score-neutral and purely adds freedom, validated per candidate. All 11 placements
+(the 10 atoms currently zero, in a failing equation, and definers; targets of size 1 and 2),
+solved → applied → re-propagated → scored: **every one returns exactly 39,026.**
+
+**Structural finding:** equations **12270** and **18673** have **zero demotable zero atoms**, so
+**2 of the 7 failures cannot be touched by this move at all**, whatever values are chosen.
+
+**M's scope statement, which is the campaign's live edge:** `eqsub` prices repairs of the current
+placement; `place` prices local neighbours. **Neither prices a genuinely different placement —
+corrupting a different set of handles — and that is where anything above 39,026 must live.**
+Division of labour accepted: **L supplies candidate handle-corruption sets from the circuit side,
+M prices each** with the placement-agnostic primitive; the hand-off is relayed by the coordinator
+since agents do not read each other's directories. M is making the primitive candidate-agnostic
+and validating it by reproducing the deliverable from its own four handles.
+
+### K (check-in 18) — the theorem restated in the form it can actually be proved
+
+K recomputed the coordinator's arithmetic and **confirmed it**, with one correction: the slack is
+**≈1.158×10⁷⁷**, one decimal order larger than the 10⁷⁶ quoted. Conclusion unaffected — `k = ±1`
+is the only wrap, unconditionally — and K restated it using only the measured doubling identities
+(255/255), **with no construction premise**.
+
+**K accepted the representability point and rewrote its claim.** Taking `j = 0` (`bit_0(N) = 1`,
+`bit_1(N) = 0`) gives non-empty disjoint `A, B ⊆ {0..255}` with `Σ_A − Σ_B = N` exactly, so the
+unconstrained condition **is** satisfiable and K's negative cannot come from arithmetic. K's
+phrasing did read as the stronger false claim. **New §4.0 states the theorem in partition form:**
+
+> For every stage, neither slot support contains all of `{129..255}`.
+
+Since `2^256 − N < 2^129`, omitting any exponent ≥129 caps subset sums below `N`. The
+load-bearing facts are two **measured** partition facts — each root half omits 43 and 84
+exponents ≥129, and every interior stage sits inside one root half — and K flagged those as the
+thing to attack.
+
+**B-half gap: three hypotheses killed, still open.** Backward flow **refuted** (provenance
+instrumentation: the back-cone of `x14853` is 5,119 variables and contains no variable from above
+the root); sign/shift bug **refuted**; liveness-bit seeding **refuted** (900 non-leaf booleans
+seeded 0 / seeded 1 / left to derive give byte-identical verdicts) — which also **settles the knob
+set: the boolean inputs really are just the 256 leaf selectors.**
+
+**Classifier bug fixed**: all three idempotency spellings matched; free booleans 369 → **1,156**,
+leaf selectors recognised 82/256 → **256/256**. It did not invalidate earlier results but exposed
+the 900, which forced the test above.
+
+**K listed four errors it made this session**, including that its own interior-stage bound
+`|x−y| < 2ⁿ` is **false** (exponent sets are not initial segments). And per instruction, §1 and §7
+now say plainly that obtaining the scalar is the entire remaining problem, with the negligible
+fraction of the range its bounded searches covered spelled out. No infeasibility claim.
+
+### P (check-in 19) — the constructor works; the parameter count was wrong; the rank is still open
+
+`plift5.py` is a **working, complete lift constructor**. The seeding fix landed (nonzero atoms
+**194 → 3**) and needed two more P had not predicted: a **heap keyed by SLP position**, because a
+plain worklist let a variable be back-solved from a downstream constraint before its own
+definition fired; and a rule that `h = 0` must **not** fire at `h`'s own definition atom, or it
+pre-empts the very divisibility test being measured.
+
+| configuration | division obstructions | nonzero atoms | failing eqs |
+|---|---|---|---|
+| all off | 2 | 3 | 27 |
+| **one leaf ON** | **2** | **2 — exactly the two target congruences** | 17 |
+| two leaves, live merge at block 2 | 4 | 4 — one block-2 law pair + the two targets | 27 |
+
+Diagnostics, **not score attempts**; 9,040 variables remain defaulted. Cross-check: at `|S| = 2`
+L reports 4 violated `c > 1` atoms and P gets one violated pair at the live block plus the two
+targets — **same order, same places, unshared decompositions.**
+
+**P found its own parameter count wrong and said so before reporting any number.** The 512 leaf
+coordinates are pinned only *modulo* P — `s·(x − K) = c·h` with `h = u·P` makes `x = K + c·u·P`
+legal — so fixing `x = K` exactly treated leaves as rigid. **Correct count ~1,278, not ~766, and
+6 rather than 2 at a leaf⊕leaf merge.**
+
+P did obtain a rank result — at block 2 the moduli are `(1, 1, 7038713)` with
+`7038713 = 11·23·43·647`, each prime dividing exactly one modulus, giving **q = 11, 43, 647
+solvable and q = 23 not** — and **declined to report it as the answer**, because it is computed on
+the 2-parameter model P had just shown to be too small. The 6-parameter computation is the one
+that decides it, and P is running exactly that at `|S| = 2`, where blocks are genuinely decoupled.
+
+**Reduction status unchanged: 2,780 free at `c = 1`; 927 carrying `c·P | R`, satisfiability
+unproved.** L's matching count raises confidence in the **count**, not the **satisfiability**.
+P has now declined three times to state it unconditionally.

@@ -74,10 +74,10 @@ base = triple8_seed. This is the whole cone of the 5 rows, so no free variable o
 affect them — but bfs2 did not converge, so this is *measured*, not proved.
 
 ### 3b. `lat5.py` corroboration (independent of the BFS mod-p reading)
-**Status: 19 of 48 configurations completed, 0 feasible.** The remainder was sharded across three
+**Status: 22 of 48 configurations completed, 0 feasible; a20215 was in the bad set in 22 of 22.** The remainder was sharded across three
 `lat5p.py` workers but the box is heavily contended (7+ other agents' python jobs); the workers
 were getting roughly 6% CPU each, so the sweep was left running rather than completed. Anyone
-resuming should check `runs_lat5b.log` (configs 0-18, serial) and `runs_lat5p_{0,1,2}.log`
+resuming should check `runs_lat5b.log` (configs 0-21, serial) and `runs_lat5p_{0,1,2}.log`
 (configs 18-47, sharded) before re-running anything.
 
 `lat5.py` re-measures knobs, handles AND targets at each configuration and runs the full exact

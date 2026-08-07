@@ -2,7 +2,12 @@
 import sys, os, json, pickle, time, collections
 from math import gcd
 src=open('/home/user/integer_solver/solve_lab/agentL_work/cansearch.py').read()
-src=src.split("print('loading checker...'")[0]
+src=src.split("if __name__")[0]
+lines=[l for l in src.split(chr(10))
+       if 'import checker as CK' not in l and 'CK.load_equations' not in l
+       and "loading checker" not in l and 'CK.NVARS' not in l]
+src=chr(10).join(lines)
+src=src.replace('def exact_fail(vv):','def exact_fail(vv):\n    return None\ndef _unused(vv):')
 exec(src)
 D=json.load(open('/home/user/integer_solver/solve_lab/best/new_instance_partial_39026.json'))
 vd=[0]*NV

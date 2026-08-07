@@ -72,14 +72,34 @@ Re-derived here from agent F's decode artifacts (read-only), every step checked:
   configurations is capped at 39,020 / 39,022. Support is a free choice of the repair, so this
   bounds my repair, not the configuration and not the instance. See §4.
 
-## 4. Highest-EV next experiment
-Run the deliverable's own placement optimiser (`solve_lab/s10/lattice3.py` machinery: integer
-kernel by column HNF + the two-congruence integer system) on a **single-bit** configuration. Its
-defect is smaller (3 atoms vs 7) but `gs2` places it badly (20 equations, 0 cancelling). Nobody has
-priced the single-bit footprints with the method that produced 39,026. If a single-bit footprint
-admits a placement into ≤ 12 equations with ≥ 6 cancelling, that beats the deliverable.
-Second: extend the weight search to 7–8 (~1.7×10^8 stored points, ~1.4 GB — feasible);
+## 4. The single-bit experiment: RUN, and it fails for a quantified reason
+Cancellation, not support, is the instrument (`cancel.py`, `runs/cancel.json`). Single-bit
+footprint = 3 live atoms, 20 equations, **0 cancelling**; deliverable = 13 equations, **6
+cancelling**. Of the 20, **0 can never cancel** (all have a dead partner atom) but **0 have a
+partner costing ≤3**: the cheapest partner anywhere is atom 7954, present in **10** other
+equations, then 4490/4497 at 11, 4496/4561 at 12, 8259 at 13, 4500/4331 at 14. Each cancellation
+bought costs ≥10 equations; the configuration is 13 short. **It cannot pay, by ~10×.**
+This one is a property of `EQUATIONS.txt`'s incidence structure, not of my knob set; what stays
+scoped is which footprint `gs2` reaches.
+
+**Why the deliverable wins:** not a better configuration, not a bigger support — a rare footprint
+where 6 of 13 equations cancel *for free*. Every footprint I reached charges ≥10 for the first.
+
+## 4b. Next
+A footprint search: find supports where cancellation is free, i.e. equations whose atoms are
+*already* mutually cancelling, and ask which configurations can be routed into them. That is the
+deliverable's trick, and it has never been searched systematically.
+Also: extend the weight search to 7–8 (~1.7×10^8 stored points, ~1.4 GB — feasible);
 `bsgs.py` (k < 2^44) was still running at handoff and is resumable by re-invoking it.
+
+## 4c. TOOLING BUG — flag to the fleet
+Agent F's evaluator `E` reports **13** failing on the deliverable where `checker.py` reports **7**
+(the 7 real ones plus 2554, 6816, 8124, 8680, 9123, 9421), scoring it 39,020 instead of 39,026.
+The over-report is assignment-dependent, not a constant: on all five `gs2` assignments I generated
+`E` and `checker.py` agree exactly. So scores computed with `E` are usable, but **the deliverable's
+own footprint cannot be read off `E`**, and anything compared against it via `E` is off by 6.
+Also: `NOTEBOOK.md` §Session 10's atom numbering (22229, 35758…) is a different indexing from `E`'s
+(3130, 7251…) — I cross-quoted them once and it was wrong; corrected in LOG.md §13.
 
 ## 5. Files
 Model/derivation: `model.py group.py ladder.py order.py fastgrp.py ladder.json points_short.json`

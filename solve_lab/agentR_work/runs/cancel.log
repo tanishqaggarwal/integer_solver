@@ -1,0 +1,25 @@
+live atoms [4495, 4498, 6894] score(E) 39013
+equations in footprint: 20
+  with only ONE atom total (can NEVER cancel): 0
+  with a dead partner available              : 20
+  whose cheapest partner touches <=3 equations: 0
+   eq 2071   atoms=4   live=2 dead=2 cheapest partners(eqs touched)=[(4561, 12), (4331, 14)]
+   eq 4573   atoms=5   live=1 dead=4 cheapest partners(eqs touched)=[(4497, 11), (4496, 12), (8259, 13)]
+   eq 7123   atoms=8   live=3 dead=5 cheapest partners(eqs touched)=[(4490, 11), (4497, 11), (4496, 12)]
+   eq 7469   atoms=6   live=3 dead=3 cheapest partners(eqs touched)=[(4496, 12), (8259, 13), (4500, 14)]
+   eq 11854  atoms=9   live=1 dead=8 cheapest partners(eqs touched)=[(7954, 10), (4490, 11), (4497, 11)]
+   eq 13660  atoms=5   live=3 dead=2 cheapest partners(eqs touched)=[(4561, 12), (4331, 14)]
+   eq 15299  atoms=4   live=2 dead=2 cheapest partners(eqs touched)=[(4561, 12), (4331, 14)]
+   eq 16622  atoms=12  live=3 dead=9 cheapest partners(eqs touched)=[(7954, 10), (4490, 11), (4497, 11)]
+   eq 17726  atoms=11  live=3 dead=8 cheapest partners(eqs touched)=[(7954, 10), (4490, 11), (4497, 11)]
+   eq 21382  atoms=4   live=3 dead=1 cheapest partners(eqs touched)=[(4500, 14)]
+   eq 22093  atoms=2   live=1 dead=1 cheapest partners(eqs touched)=[(4331, 14)]
+   eq 25480  atoms=3   live=1 dead=2 cheapest partners(eqs touched)=[(4561, 12), (4331, 14)]
+   eq 25539  atoms=3   live=1 dead=2 cheapest partners(eqs touched)=[(8259, 13), (4500, 14)]
+   eq 28653  atoms=8   live=3 dead=5 cheapest partners(eqs touched)=[(4496, 12), (4561, 12), (8259, 13)]
+   eq 29437  atoms=11  live=1 dead=10 cheapest partners(eqs touched)=[(7954, 10), (4490, 11), (4497, 11)]
+   eq 31061  atoms=10  live=3 dead=7 cheapest partners(eqs touched)=[(4490, 11), (4497, 11), (4496, 12)]
+   eq 32894  atoms=6   live=3 dead=3 cheapest partners(eqs touched)=[(8259, 13), (4500, 14), (4331, 14)]
+   eq 32916  atoms=12  live=1 dead=11 cheapest partners(eqs touched)=[(7954, 10), (4490, 11), (4497, 11)]
+   eq 34517  atoms=5   live=3 dead=2 cheapest partners(eqs touched)=[(4500, 14), (4331, 14)]
+   eq 34892  atoms=5   live=3 dead=2 cheapest partners(eqs touched)=[(4561, 12), (4331, 14)]

@@ -165,7 +165,8 @@ honest `leaf(2081)`; that lie surfaces only at the gate-21279 off-pins, cost 7 e
 **So a degenerate stage has a free output. That is a real, exploitable hole — and it is closed.**
 
 --------------------------------------------------------------------------------------------------
-## 4. THE DEGENERACY ROUTE IS CLOSED (a complete, non-heuristic negative)
+## 4. THE DEGENERACY ROUTE IS CLOSED — as a claim about the PARTITION, not about N
+### (sub-sections run 4.0, 4a, 4b, 4d, 4c — 4d is the argument that stands; 4b/4c are the repair history)
 
 A stage is degenerate iff its two children carry the *same* coordinate pair (equal x AND equal
 y; `a_x=b_x, a_y=-b_y` gives `x35389 = -(2a_y)^2 != 0`, so that case does not work).

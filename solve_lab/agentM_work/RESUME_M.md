@@ -142,6 +142,45 @@ E's orientation did by construction, and it costs 27 extra failures.
 
 ---
 
+## 2b. x_7068 identified — the deliverable corrupts exactly FOUR handles
+P reports the four corrupted handles `x642, x28730, x29854, x31864` are exactly the four of 3,707
+for which `P` does not divide the value. Those are four of my five freed vars. **`x_7068` is
+collateral, not a fifth corruption:**
+
+| | the four handles | x_7068 |
+|---|---|---|
+| definer form | product (`h = a*b`), or bare (`x_31864`) | **linear combination** `x_2099 + 7376877*x_642` |
+| magnitude | 723, 89, 724, 724 digits | **90** digits (x_2099 is 89) |
+
+Atom 23616 is 730 digits and the `-7376877*x_642` term alone is 730 digits;
+`atom23616 + 7376877*x_642 = x_7068 - x_2099` is only 89. And for atom 23616 to be *satisfied*,
+`x_7068` would have to be **730** digits — it is 90. So **the deliverable left `x_7068` at its
+natural value and let the atom carry `x_642`'s corruption.** `P` does not divide `x_7068` either,
+but that is automatic for a linear combination containing a corrupted term; `x_7068` is not
+product-defined, so it would not sit in a handle population built from product definers. P finding
+exactly four failures is consistent with `x_7068` not being in that population at all.
+**Answer: a definer that is not a handle.** (Verified in my frame; I did not read P's handle list.)
+
+## 2c. Alternative placements priced — none beat 39,026
+`engine3.py` generalises the engine to an arbitrary demotion set. Demoting an atom and seeding its
+variable with its current value is **bit-identical**, so demotion is score-neutral and purely adds
+freedom (validated per candidate). Candidates: the **10** atoms that are currently zero, sit in a
+failing equation, and are definers. Demoting one frees a variable that can *cancel* the existing
+nonzero contribution inside that shared equation rather than zeroing atoms.
+
+All 11 placements (baseline + 10 single demotions), equation targets of size 1 and 2, solved,
+applied, re-propagated, scored: **every one returns 39,026; none above.**
+
+**Structural constraint found:** equations **12270** and **18673** have **zero demotable zero
+atoms**, so 2 of the 7 failures cannot be touched by this move at all.
+
+**SCOPE — state it plainly.** `eqsub` prices *repairs of the current placement*. `place.py` prices
+*alternative placements in a local neighbourhood of it* (one extra demoted atom drawn from the
+current failing equations). **Neither prices a genuinely different placement** — corrupting a
+*different set of handles*. That space is not reachable by adding atoms to the current failing
+equations, and the handle population is P's object, not enumerable from the residual side.
+**That is where anything above 39,026 would have to live, and it remains untested.**
+
 ## 3. E's monotonicity: ARTIFACT — but not for the reason I gave. I correct myself first.
 
 ### 3a. My §9 mechanism was wrong

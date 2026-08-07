@@ -389,3 +389,82 @@ complete lift at the all-off and one-leaf configurations, then differentiate: fo
 927 `c > 1` conditions compute `∂(R/P)/∂t_v mod c` against the ~766 lift parameters and take
 the rank modulo each prime power dividing the `c`'s. That is the measurement, and it is one
 working lift away.
+
+---
+# CHECK-IN 16 — constructor complete. First rank measurement, on an admittedly wrong parameter set.
+
+## 31. The seeding fix landed, plus a second fix I had not diagnosed
+`plift5.py` is a working, complete lift constructor. Two changes over `plift2.py`:
+1. **The seeding fix you quoted back to me**: when an atom holds two unknowns and one is a
+   handle `h` (a variable defined by `h − (P-alias)·u`), set `h = 0`. That is the general form
+   of "seed every copy target to equal its source exactly over ℤ" — it forces `u = 0` and makes
+   the copy exact. Nonzero atoms dropped from 194 → 3.
+2. **A second stall I had not predicted: ordering.** With a plain worklist a variable could be
+   solved from a *downstream* constraint before its own definition atom fired (e.g. `x23927`
+   was being back-solved out of the target congruence). Replacing the deque with a heap keyed
+   by SLP position fixed it. **A third fix on top:** the `h = 0` rule must *not* fire at `h`'s
+   own definition atom, or it pre-empts the very divisibility test I am trying to measure.
+
+## 32. Verified end-to-end behaviour of the constructor
+| configuration | undetermined | division obstructions | nonzero atoms | failing eqs |
+|---|---|---|---|---|
+| all off | 9,040 | 2 | 3 | 27 |
+| one leaf ON | 9,040 | **2** | **2 — exactly SLP 39273 & 39275, the two target congruences** | 17 |
+| two leaves, live merge at block 2 | 9,040 | 4 | 4 — one block-2 law-congruence pair + the two targets | 27 |
+
+The one-leaf row is the clean one: **the only atoms that fail are the two target congruences,
+nothing else.** That is the constructor behaving exactly as a correct lift should.
+These are diagnostics, **not score attempts and not competitive assignments**; the remaining
+9,040 undetermined variables are still defaulted to 0.
+
+Cross-check against L's table: at `|S| = 2` L reports 4 distinct `c > 1` atoms violated; I get
+one violated `c > 1` pair at the single live block plus the two targets. Same order, same
+places, from unshared decompositions.
+
+## 33. **I was wrong about the parameter count, and it changes the answer**
+I told you ~766 lift parameters (2 per law-block). **That is an undercount.** The 512 leaf
+coordinates are pinned only *modulo* P: the leaf atom is `s·(x − K) = c·h` with `h = u·P`, so
+`x = K + c·u·P` is legal for any `u`. I had been fixing `x = K` exactly and treating leaves as
+rigid. The correct parameter set is **~1,278** (766 block outputs + 512 leaf coordinates),
+and at a leaf⊕leaf merge the local count is **6**, not 2.
+
+## 34. The rank measurement I did get — scoped to what it actually covers
+Per live block the system is closed-form. Writing `n1 = N1/P`, `n2 = N2/P`, shifting
+`i5 → i5 + P·t5`, `i6 → i6 + P·t6`:
+```
+ d(n1) = t5·A²        d(n2) = −(t5·B + t6·A)        condition: c_k | c_k1·n1 + c_k2·n2
+```
+At block 2 the three moduli are `c = (1, 1, 7038713)`, and `7038713 = 11·23·43·647`, each
+prime dividing exactly one modulus — so one equation in two unknowns per prime.
+**Result: q = 11, 43, 647 solvable; q = 23 NOT solvable** (the shift directions are degenerate
+mod 23). So with the 2-parameter-per-block model **the rank is not full.**
+
+**But that measurement is on the wrong parameter set** (§33): it omits the four leaf-coordinate
+lifts that this block's own inputs carry. With them, `A` and `B` themselves move and the mod-23
+degeneracy very likely lifts. **So I am not reporting "the rank is deficient" — I am reporting
+that the rank is deficient in a 2-parameter model I now know to be too small, and that the
+6-parameter computation is the one that decides it.**
+
+## 35. Handover — what remains between this and the rank, precisely
+Everything below is one step, on top of `plift5.py`:
+1. Extend the shift model to the full parameter set: for each live block, parameters
+   `t5, t6` (step `P`) **and** the lifts of whichever of `i1..i4` are leaf coordinates
+   (step `c·P`, with `c` that leaf atom's own multiplier) or are parent-block outputs.
+2. Re-derive `d(n1), d(n2)` including the `A`- and `B`-motion terms — `A = i1 − i2` and
+   `B = i4 − i3` are no longer constants, so `n1 = (E·A² − B²)/P` picks up terms in
+   `t_{i1}, t_{i2}, t_{i3}, t_{i4}`; all still polynomial and exactly computable.
+3. Solve prime-by-prime (`fac(c_k)`, small systems mod `q^e`, CRT across primes) — the
+   loop in this check-in already does this correctly and runs in under a second once the
+   moduli are factored. **Do not brute-force over `lcm(c_k)`; I burned a run doing that.**
+4. Blocks couple: block `j`'s output lift shifts its parent's inputs, so the full system is
+   block-coupled, not block-diagonal. For a configuration with one live merge it *is*
+   decoupled, which is why `|S| = 2` is the right place to start.
+
+## 36. Status of the reduction: **still conditional. Unchanged.**
+2,780 of 3,707 handles free at `c = 1`; **927 carrying `c·P | R`, satisfiability unproved.**
+L's independent 927 (from `c = 1` for 2,747 plus 7 zero-slope) matching mine raises my
+confidence in the *count*, not in the *satisfiability*. The rank is still uncounted on the
+correct parameter set, and I am not stating the reduction unconditionally.
+Knob set: 256 selectors, liveness derived; everything else mod P.
+
+## 37. Best verified score: **39,026 / 39,033 — unchanged, not mine.**

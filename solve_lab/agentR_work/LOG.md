@@ -235,3 +235,69 @@ arithmetic at all, and where the tools *can* be run they are ~10^5 times slower 
 enumeration of the same instance. Agent C's original abandonment of SAT/SMT was right, and it
 remains right after the decode — but now for a stated, reproducible reason rather than an
 instance-size heuristic.
+
+## 12. Coordinator's contradiction, resolved: the ceiling does NOT bind, and the experiment was run
+
+**Resolution.** `price.py` fixes the nonzero-atom **support** to whatever `gs2.solve` lands in and
+optimises only the *values* on that support. Support is itself a free choice of the repair — the
+deliverable deliberately breaks upstream atoms to relocate its defect. So §9's ceilings bound
+**my repair's support**, not the configuration and not the instance. §8's experiment was live.
+Both documents are now re-quoted that way (§9 SCOPE block, `RESUME_R.md` §2/§3).
+
+## 13. TOOLING BUG, worth flagging to the fleet (`crosscheck.py`, `runs/crosscheck.json`)
+Agent F's fast evaluator `E` and the lab's `checker.py` **disagree on the deliverable**:
+
+| evaluator | failing on `best/new_instance_partial_39026.json` |
+|---|---|
+| `checker.py` (ground truth) | **7** — 12231, 12270, 12350, 14584, 18673, 22044, 29125 |
+| agent F's `E` | **13** — the same 7 **plus 2554, 6816, 8124, 8680, 9123, 9421** |
+
+`E` is a strict over-approximation there (`chk-only` is empty), so it scores the deliverable
+**39,020 instead of 39,026**. The over-report is *assignment-dependent*, not a constant offset:
+re-scoring every assignment I generated with `checker.py` (`rescore.py`, `runs/rescore.json`):
+
+| assignment | checker score | E score | E over-reports by |
+|---|---|---|---|
+| deliverable | **39,026** | 39,020 | **6** |
+| gs2 {24601} | 39,013 | 39,013 | 0 |
+| gs2 {2081} | 39,013 | 39,013 | 0 |
+| gs2 {47} | 39,013 | 39,013 | 0 |
+| gs2 {24601, 2081} | 39,005 | 39,005 | 0 |
+
+So my configuration scores were right, and the "placement is worth 21 equations" figure
+(39,026 vs 39,005 on the same configuration) is right **on the checker's scale**. But anyone
+scoring with `E` instead of `checker.py` will under-report the deliverable by 6, and the
+deliverable's own defect footprint cannot be read off `E` at all.
+
+Corrected footprint of the deliverable: its defect occupies **13 equations of which 6 cancel**
+(7 fail). Not the "7 atoms / 12 equations / 5 cancelling" I quoted earlier — that came from
+`NOTEBOOK.md` §Session 10, whose atom numbering (22229, 35758…) is a *different indexing* from
+`E`'s (3130, 7251…). Those two numberings must not be cross-quoted; I did, and it was wrong.
+
+## 14. THE EXPERIMENT — why a single-bit configuration cannot be given cancellation (`cancel.py`)
+The instrument is cancellation, not support. Measured for the single-bit footprint
+(3 live atoms, 20 equations, **0 cancelling**), against the deliverable's 13 equations with
+**6 cancelling**:
+
+| | count |
+|---|---|
+| equations in the single-bit footprint | 20 |
+| ...that can *never* cancel (only one atom in the whole equation) | **0** |
+| ...that do have a dead partner atom available | **20** |
+| ...whose cheapest available partner touches ≤ 3 other equations | **0** |
+
+So cancellation is structurally *available* everywhere — and structurally *unaffordable*
+everywhere. **The cheapest partner atom anywhere in the footprint is atom 7954, which occurs in
+10 other equations**; the next cheapest are 4490 and 4497 at 11, then 4496 and 4561 at 12, 8259 at
+13, 4500 and 4331 at 14. Turning on any partner to cancel one equation lights up **at least 10
+more**. The single-bit configuration is 13 equations short of beating the deliverable
+(39,013 vs a 39,027 target), so it would need ~7 purchased cancellations at ≥10 equations each.
+**It cannot pay, by a factor of about 10.**
+
+This is a property of the incidence structure of `EQUATIONS.txt` — which atoms occur in which
+equations — and so, unlike §9, it is *not* scoped to my knob set. What remains scoped is which
+footprint `gs2` lands in: a repair reaching a different footprint would have to be priced again.
+
+**Why the deliverable wins, stated cleanly:** it is not using a better configuration and not a
+larger support. It sits in a rare footprint where 6 of 13 equations cancel *for free* — no partner
+atoms had to be bought. Every footprint I reached charges ≥10 equations for the first cancellation.

@@ -178,5 +178,20 @@
   "smt2_bytes": 45648,
   "encode_time": 0.46,
   "tmo": 300
+ },
+ "m16_bv_pin": {
+  "answer": "timeout",
+  "time": 300.93,
+  "stats": {},
+  "m": 16,
+  "logic": "bv",
+  "pinned": true,
+  "n": 16,
+  "p": 35401,
+  "k": 58715,
+  "constraints": 887,
+  "smt2_bytes": 66298,
+  "encode_time": 1.79,
+  "tmo": 300
  }
 }
