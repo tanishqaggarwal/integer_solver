@@ -114,3 +114,31 @@ true cost is `>=` it.  Any cluster whose min weight is `>= 7` therefore cannot b
 settability judgement involved.  Minimum weight is attained on a `v` annihilating `|S|-1`
 independent rows, so those are enumerated exactly.  Calibration target: the deliverable's own
 cluster must return 7.
+
+## Step 8. CALIBRATION RESULT — the requested classifier fix is IMPOSSIBLE as posed
+```
+DELIVERABLE cluster: |E|=12 |S|=8  ->  classifier-free min weight = 5   (observed failing = 7)
+x_10513     cluster: |E|=7  |S|=3  ->  classifier-free min weight = 4   (true cost >= 11)
+```
+The task was to fix the "settable atom" classifier so it reproduces the deliverable's cost of 7 and
+then rescan.  The classifier-free relaxation is the strongest purely structural pricing available
+(it drops settability AND integrality, so it is a sound lower bound), and it returns **5, not 7**.
+
+**The gap of 2 is exactly the congruence term, and it is not structural.**  Every handle in the file
+has the form `p*(free variable)` — verified for 512 of 512 leaf pins and for the two coordinate pins
+a26731/a29539 — so each violated atom's value is confined to a FIXED residue class mod p determined
+by which literal constants the construction lands on.  A rational kernel direction of `M` is
+therefore realisable only if it is compatible with those residues, which costs the 2 equations.
+Since the residue vector depends on the construction and not on the equation-atom incidence matrix,
+**no function of the incidence structure alone can return 7.**
+
+Consequences, stated plainly:
+* My earlier `globalscan.py` under-counted; the corrected pricing over-counts freedom instead.  The
+  no-better-cluster verdict is therefore **still suggestive, not established** — I could not upgrade
+  it, and I am recording that rather than presenting the relaxation as if it settled the question.
+* The relaxation is also very loose (4 against a measured >= 11 on x_10513), so it is not useful for
+  ranking either.  Structural pricing of defect placement is a dead instrument.
+* The version that would work is residue-aware: compute `v0 = atom values mod p` from a real
+  construction, keep only subsets `T` with `M_T v0 = 0 (mod p)`, then solve over the p-lattice.
+  That equals 7 on the deliverable by construction.  It costs one construction per cluster, so it
+  must be aimed at a few dozen candidates, not scanned over 3,349.

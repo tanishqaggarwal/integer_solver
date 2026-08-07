@@ -1,54 +1,48 @@
-# Agent C — RESUME.  Best verified of mine: 39,013 (agentC_work/BEST_39013.json).
+# Agent C — RESUME.  Best verified of mine: 39,013 (agentC_work/BEST_39013.json, checker-confirmed).
 
-Setup: rebuild caches `cd solve_lab/s9 && python3 atomize.py && poly.py && gates.py && fwd.py`.
-Installed (absent before): z3-solver, python-sat, cvc5, python-flint, ortools, sympy, numpy.
+Setup: `cd solve_lab/s9 && python3 atomize.py && poly.py && gates.py && fwd.py` (57 s) rebuilds the
+atom/gate caches.  Installed (absent before): z3-solver, python-sat, cvc5, python-flint, ortools,
+sympy, numpy.  Everything here is stated over the raw integer/polynomial content of EQUATIONS.txt.
 
-## Established (independent parse; scripts all in solve_lab/agentC_work/)
-1. Break the 900 duplicate-equality 2-SCCs -> pure DAG, **8,173 free inputs**, 30,575 gates all with
-   output coefficient 1.  Forward from free inputs = 0: 0 broken gates, **6 nonzero checks**, 39,005.
-2. Those 6 = 3 conditions: `x_18956 = K1 (mod p)`, `x_24468 = K2 (mod p)`, `OR(s1,s2) = 1`.
-   In branch (1,1) the outputs are FREE inputs x_22162, x_30213 -> setting them to K2, K1 makes all
-   three conditions EXACTLY zero over Z (DECISIVE.py).  Closing the two activated bits' pins -> 39,013.
-3. Residual = the EC point-addition law.  Curve `y^2 = x^3 + a2 x^2 + a4 x + a6` (curve.json),
-   j = 0, short form A = 0, **group order = n_secp exactly** => isomorphic to secp256k1.
-   Q = (K2 mod p, K1 mod p) is on it.  All 256 free leaf bits carry pinned curve points forming a
-   **doubling chain P_i = 2^i G** (verified i = 1 and i = 255); 178 exponents on the s1 side, 78 on s2.
-4. Two doors: `P1 + P2 = Q` (ECDLP, dead; instance literals tested as the dlog, no hit) or
-   `P1 = P2` (A, B vanish identically, root output free).  **P1 = P2 is EXACTLY IMPOSSIBLE**:
-   it forces kA - kB = +-n with disjoint supports and both deterministic carry chains overflow
-   (carry2.py).  The 39,026 deliverable FAKES it by detaching leaf-pin handle atoms.
-5. Cost model (mincost.py, cluster.py): faking P1 = P2 costs `|E(hx) u E(hy)|` for the overridden
-   bit; min over all 256 bits = **7, at bit x_10513** (a8427: 7 eqs, a8429: 5 eqs, union 7) vs 11 for
-   the deliverable's x_24601.  Cluster balance: x_10513 gives |E| = 7, n = 3, |E| - n = 4 — the same
-   slack as the deliverable's 12/8 cluster in half the equations, so `failing = 7 - 3 + c`
-   (6 -> 39,027 if c = 2; 4 -> 39,029 if c = 0).
+## Model (agentC_work/supp2.py, supp3.py, lib2.py, ort.py)
+* All 900 nontrivial SCCs of the definition graph are size-2 duplicate equalities, so the system is
+  triangular: **8,173 free variables**, 30,575 defined ones, every defining atom linear in its own
+  variable with coefficient 1.  Forward substitution is exact and costs 24 ms.
+* Free variables = 0  ->  0 defining atoms violated, **only 6 of 10,792 remaining atoms nonzero**,
+  score 39,005.  Those 6 collapse to three conditions (see LOG.md Step 2), all three of which are met
+  EXACTLY OVER Z by setting four free variables; closing the rest reaches **39,013** in 2.3 s.
 
-## DURABLE ARTIFACTS (run these first)
-* `python3 agentC_work/CERT_second_door.py` -> PASS/FAIL certificate that the P1 = P2 door is
-  closed.  Self-contained from EQUATIONS.txt.  Includes a self-test so a vacuous reject cannot pass.
-  KEY NUMBER: max reachable kA = 9.2485e76 < n = 1.1579e77, so NO nonzero multiple of n is
-  reachable at all — stronger and simpler than the carry-overflow phrasing.
-* `agentC_work/CURVE.md` -> a2/a4/a6, B_short, sixth-power witness, order proof, and the
-  on-curve table for Q under both forms.  READ IT BEFORE testing anything against y^2 = x^3 + 7.
+## Engines
+`close.py` -> `close2.py` (re-solvable repairs) -> `close3.py` (realise a value down the definition
+DAG) -> `close4.py` (frame DETACHMENT: drop a defining atom so its variable becomes a control input).
+`close4` protects the 220 variables equal to the literal p from being altered during realisation.
 
-## PRIORITY-1 OUTCOME: REFUTED (see LOG.md Step 9)
-The x_10513 cluster's 12x8 matrix has rank 8 = |S|, kernel ZERO: the 5 "compensators" are shadow
-atoms (fixed linear combinations in their own square equations), so they add no freedom.  Exact
-minimum for that cluster is >= 11 failing, not 6.  Measured construction: 38,988.  39,026 stands.
-`eq20538 = 30*a8427` alone is a single-atom guard, the analogue of eq29125 = a22230.
+## Placement result, and the honest state of it
+* `exact10513.py`: the cheapest cluster by equation-count (built on x_10513) has a 12 x 8 incidence
+  matrix of **rank 8, kernel zero**.  Five of its eight atoms are SHADOWS — fixed linear combinations
+  of the other three, each alone in its own squared equation — so they inflate the atom count without
+  adding freedom.  A predicted 39,027 there is **REFUTED**; true cost >= 11, measured 38,988.
+* **eq20538 = 30*a8427** is a single-atom equation forcing that atom to zero, structurally identical
+  to **eq29125 = a22230** in the deliverable's cluster.  Every cheap cluster found so far carries one.
+* `minweight.py` replaces my earlier "settable atom" classifier with a classifier-free quantity: the
+  minimum weight of `M v` over nonzero rational `v`.  **CALIBRATION: it returns 5 on the deliverable's
+  own cluster, whose true cost is 7.**  It is therefore a sound LOWER bound but loose by exactly the
+  congruence term: every handle in the file is `p*(free)`, so each atom value is confined to a fixed
+  residue class mod p, and a rational kernel direction is generally not realisable.
+  **=> No purely structural classifier can reproduce 7.**  The missing 2 is not a property of the
+  incidence matrix; it depends on which literal constants land in the residue vector.
+  Consequence: defect placement is **not closed** — but the bound is also very loose (4 against a
+  true >= 11 on x_10513), so ranking clusters structurally has low predictive value.
 
-## SUPERSEDED (kept for the record) — the reasoning that led to the refuted prediction
-Build the x_10513 plan (`plan10513.py` gives control seeds + detach set, already handles the
-`X = T + p*t` choice that makes the pin multiplier divide) and solve its endgame EXACTLY instead of
-greedily: enumerate the 3 atoms whose equations lie inside the 7-equation cluster, write the
-7 x 3 integer system, and find the minimum-weight coset leader over the p-cosets of the detached
-handle values.  My greedy closure4 only reaches 38,988 there because it cannot repair a688,
-a19299 and the 1-equation shadow atoms (a16509, a39553, a41520, a41532) that contain the detached
-variables — those need the exact solve, not greedy repair.
+## Highest-value next experiment (for whoever takes this on)
+Make the pricing residue-aware instead of structural: for a candidate cluster compute the residue
+vector `v0 = (atom values mod p)` from an actual construction, then a subset `T` of the cluster's
+equations can vanish only if `M_T v0 = 0 (mod p)`; maximise `|T|` subject to that plus the integer
+solve over the p-lattice.  That is the quantity that equals 7 on the deliverable, and it is the only
+version worth scanning.  It needs one construction per cluster, so pick candidates by
+`|E| - |S|` first (agentC_work/truecost.json, clusters.json) and price only the top few dozen.
 
 ## Commands
-python3 checker.py agentC_work/BEST_39013.json      -> 39013/39033
-python3 agentC_work/DECISIVE.py                     -> the three-condition test
-python3 agentC_work/carry2.py                       -> the P1 = P2 impossibility
-python3 agentC_work/mincost.py ; cluster.py         -> the cost model
-python3 agentC_work/run10513.py 10513 4             -> the best-cluster construction
+python3 checker.py agentC_work/BEST_39013.json    -> 39013/39033
+python3 agentC_work/exact10513.py                 -> the 12 x 8 matrix and its rank
+python3 agentC_work/minweight.py                  -> calibration + classifier-free scan

@@ -49,31 +49,19 @@ python3 model.py; python3 fwd2.py; python3 support.py     # rebuild caches (~1 m
 python3 frameB.py     # reproduce the 39,026 witness exactly in the detached frame
 python3 close2.py <u-selector> <w-selector>   # construct + close a branch with no search
 
-## Single next experiment
-The only untried lever with real headroom: my closer builds states with FEW nonzero atoms
-(4 at 39,018) while the witness wins with SEVEN (cancellation inside a 12-equation region).
-Run the closer *backwards*: choose a target region of <= 12 equations first, enumerate atom sets
-whose footprint lies inside it, and have close2 construct the atom VALUES to order — instead of
-closing greedily and accepting whatever region falls out.  That is the one thing my constructive
-tool can do that no search in this lab has done.
-
-## 6. The backwards closer — RUN, and it returns 7 (see LOG.md Step 9)
-`backreg.py` (global region census, 23,059 regions) -> `backgrow.py` (seeded growth) ->
-`backreal.py` (realizability) -> `backopt.py` (exact integer optimum) -> `backprice.py` (pricing).
-- The deliverable's region is |R|=12, |S|=8, **0 un-cancellable rows**.
-- Growth from the defect atoms reaches |R|=23, |S|=21, balance 2, unc 0 — combinatorial floor 4.
-- But only **9** free inputs move that region with zero collateral, and their image spans only the
-  original 7 atoms.  The other 14 atoms are unreachable (7 of them have EMPTY support).
-- The 23 rows are jointly linear in the 9 knobs; exact fraction-free integer elimination over all
-  row subsets of size <= 9 gives **max 16 of 23 rows zeroed = 7 failing.  Witness saturates it.**
-- Pricing the 14 unreachable atoms: cheapest is a22231 at 12 failing; none beats 7.
-
-**Conclusion: |R|-|S| (region shape) is the wrong objective.  The binding quantity is the RANK OF
-THE REALIZABLE KNOB IMAGE, which is 7 for every region reachable from the defect.  This is why
-construction cannot beat search here, and it is a statement about the instance, not about method.**
+## 7. Rank-raising sweep — RUN, terminates at collateral budget 1 (LOG.md Step 10)
+Crossover: one extra knob raises rank by <=1, so it pays only if it drags in ZERO new equations.
+Census over all 8,751 free inputs: the +0 class is EXACTLY the 9 knobs already in the lattice;
+the next cheapest is x_28730 at +1 equation.  Only 5 free inputs move a22231 at all, and all
+16,806 integer combinations of them (coeffs -3..3, plus p-scaled pairs) give zero zero-collateral
+directions and best failing 7.  a37887 lives in exactly ONE equation, eq 8680; of the 17 free
+inputs that move it, only x_28730 moves nothing else outside the region, and it also moves a22231.
+**No direction moves a22231 without moving a37887 -> a22231 buys 1 row and costs eq 8680, exactly.**
 
 ## Single next experiment
-Attack the rank-7 knob image itself, not the region.  Enumerate free inputs whose collateral is
-SMALL BUT NONZERO (my pricing only kept zero-collateral knobs) and ask, for each, whether adding
-its direction to the 9-knob lattice raises the exact optimum by more than its collateral costs.
-`backprice.py` already computes the cost column; what is missing is the gain column.
+Everything reachable from THIS placement is now priced and saturates at 7.  The only untested
+direction left is a different frame: re-run `backreg.py`'s region census with the defect placed on
+a DIFFERENT pin of the cascade (my `place.py` tried four placements around the two congruences;
+the cascade has ~30 pin atoms, each a candidate carrier).  For each, run the same five-stage
+pipeline and read off the rank of its realizable knob image.  If any placement has knob-image rank
+> |R| - |S| + 2 - 7, it beats 7; otherwise 7 is the floor for the whole cascade, not just this region.

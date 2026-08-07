@@ -81,6 +81,35 @@ my solver independently reproduces the optimum 7 AND the optimal sacrificed set
 `[12231,12270,12350,14584,18673,22044,29125]` — the deliverable's own failing lines,
 recovered from scratch by integer linear algebra.
 
+## 7e. The eq8680 hunt (`eq8680.py`, `hunt.py`, `cascade_rand.py`)
+eq8680 is the one row that pins the knob `d28730` to zero and so costs the deliverable
+its seventh equation.
+
+**Complete candidate census.** To change eq8680's core, some atom IN eq8680 must move;
+eq8680 has exactly 18 atoms; to move an atom you need a knob; a knob is a variable all
+of whose atoms are in the support. So the candidate set is exactly `{v2a[x]}` over the
+variables of eq8680's atoms: **43 groups, 30 with nonzero net effect on eq8680** (13
+move it by exactly 0 and provably cannot compensate). This is an enumeration, not a
+sample. Supporting fact: **only 28 atoms in the whole instance share an equation with
+E(S)**; imported-equation counts 1,2,2,3,3,4,4,5,...
+
+The cheapest compensator is `X19964`, group `{a1631, a23434}` — ONE new atom, net effect
+exactly -1 on eq8680, the exact counterweight to `d28730`. My earlier adjacency search
+missed it because `a1631`'s own equations do not touch E(S) at all.
+
+**Every candidate tested gives minfail > 6.** The reason is uniform: every knob that
+moves eq8680 also moves an atom living in 11-16 equations, all of which sit at base 0
+and are pushed off zero by that same knob. Each candidate buys one row and pays 5-27.
+
+**Cascade CHOICE is not a free parameter** (`cascade_rand.py`): randomising which
+dependent variable each absorbed atom consumes gives **8/8 seeds identical** — 1,817
+atoms, 1,817 dependents, the same 7 knobs. The closure is a confluent fixed point.
+
+**Second bug found and fixed**: `minfail_bnb` ordered already-satisfied rows FIRST, so
+the DFS spent its sacrifice budget on trivially keepable rows before reaching the hard
+ones. Reversing it gave ~20x: 300 s timeouts became 2-36 s exact answers. That, not
+instance hardness, is why the first run appeared to hang.
+
 ## 7d. Cascade (two-level) closure
 `cascade.py`. A variable with one atom outside the support is usable if that atom is
 held at zero by re-solving it for another variable whose atoms are all inside; such

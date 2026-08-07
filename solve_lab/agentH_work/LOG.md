@@ -118,3 +118,42 @@ combinatorial object with 0 un-cancellable rows, but its atom-value lattice is 7
 that only nine free inputs move the region with zero collateral, and their span is exactly the
 seven atoms the deliverable already uses.  **|R|-|S| is the wrong objective; rank of the
 realizable knob image is the right one, and it is 7 for every region reachable from the defect.**
+
+## Step 10 — RANK-RAISING SWEEP (attack the knob image, not the region)
+**Crossover argument (this is what makes the sweep exhaustive).** Adding one knob direction raises
+the lattice rank by at most 1, so the number of zeroable rows rises by at most 1.  Every NEW
+equation dragged into the region adds at least 1 to |R'|.  Net failing change >= (new eqs) - 1.
+So a knob can pay ONLY if it drags in ZERO new equations.
+
+`knobcensus.py` — collateral census over ALL 8,751 free inputs of frame B, deltas {1, p}:
+    +0 new eqs :   9 knobs  {642,1329,8731,9118,9413,10903,17325,29854,31864}  (the base lattice)
+    +1 new eq  :   1 knob   x_28730
+    +2 new eqs :   1 knob   x_21574
+    +3 / +4 / +5 : 1 / 1 / 2 knobs
+    +7 and up  : thousands
+**The +0 class is exactly the 9 knobs already in the lattice.  The sweep terminates at budget 1.**
+
+Only 5 free inputs move a22231 (the sole compensator inside the region):
+    x_28730 (+1 new eq), x_12553 (+15), x_4432 (+17), x_4287 (+36), x_2081 (+134).
+
+`kernel22231.py` — could a COMBINATION cancel the collateral?  453 candidate knobs, 888 outside
+atoms; over the 148 rows I could linearise exactly, rank goes 135 -> 136, i.e. a22231 looked
+independent.  740 rows had no exact linear root, so that test was inconclusive by itself.
+`combo5.py` settles it by direct evaluation (ground truth, no linearity assumption): all 16,806
+integer combinations of the five movers with coefficients in [-3,3], plus a p-scaled pair sweep.
+**Zero-collateral combinations found: 0.  Best failing: 7.**
+
+`q37887.py` — the final reduction.  a22231 lives in 10 equations, ALL inside the region.
+a37887 lives in **exactly one equation, eq 8680**.  Scanning all 8,751 free inputs: 17 move a37887;
+exactly ONE of them (x_28730) moves nothing else outside the region — and it also moves a22231.
+**There is no free input anywhere in the instance that moves a37887 without moving a22231**, so the
+two cannot be made to cancel.  a22231 buys at most one row and costs exactly eq 8680.
+
+### Verdict
+The rank-7 realizable knob image cannot be raised at a profit.  The unique candidate is x_28730,
+which raises the rank to 8 and drags in exactly one equation, eq 8680, and the trade is exactly
+1-for-1.  Reached independently and from the free-input side, this lands on the same single row
+another agent localised from the equation side.
+**Scope of the claim:** this is exact for the witness placement, for single-direction augmentation
+of the lattice, and for collateral measured at deltas {+-1, +-p}.  It is NOT a proof that no frame
+anywhere admits 39,027; it is a proof that this region's knob image admits nothing better.
