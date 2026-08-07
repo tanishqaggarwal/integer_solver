@@ -5184,3 +5184,59 @@ not be on the curve**, since β's chord law is vacuous and nothing above β appl
 larger than a curve-point search** — and **the pairing is not the bottleneck** at 232/255 slots;
 propagation cost is. If all 383 proves expensive, a **stratified sample by slot depth and support
 size** is acceptable where a prefix is not.
+
+---
+
+## Check-in 91 — the instrument is calibrated; U hands over at budget
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified by U at close.
+
+### The pkl wipe worked around without a rebuild
+
+`agentE_work/model3.pkl` and `agentE_work/dag.pkl` are both **absent**, so M's chain
+(`engine3 → agentE_work/harness → those pkls`) does not run from cold. **But M kept its own copies
+in `agentM_work/`**, so no rebuild was needed. U's mirror is **two files** in
+`agentU_work/mirror/`: `harness.py` with both pkl paths repointed at `agentM_work/`, and
+`engine3.py` with its **hard-coded `sys.path.insert(0, agentE_work)` repointed at the mirror** —
+that second patch is load-bearing, because otherwise `agentE_work` shadows the mirror and the
+repointing **silently does nothing.** Nothing outside `agentU_work/` was written.
+
+### Calibration PASSES, and it was stated before anything derived from it
+
+```
+seed extracted                      : 37 entries
+forward(seed_of(deliverable))       : 7 failing via checker.py
+variables differing from deliverable: 0 of 38,748
+```
+
+**This reproduces T's audited property from outside M's directory** — the instrument §17 said U
+lacked is now in place and validated. U's own hand-built evaluator **stays retired at 8,229 failing**.
+
+### U stopped again, deliberately, and it was right again
+
+**Zero slots priced, exactly or approximately.** U calibrated and stopped at the end of its context
+budget, because the alternative was to start a 383-slot sweep and leave it half-run **with no one
+able to tell which numbers were finished.** The §16 figures (46 / 50 / 88) remain what they were —
+one leaf pair with stale propagation, **not slot prices**.
+
+### The handover, and the one unknown
+
+The engine takes a **37-entry seed** and returns a full assignment; `checker.py` scores it in ~0.3 s.
+So the sweep is: map §18's construction into a seed, then loop. **The single unknown a successor
+must resolve first is the seed vocabulary** — which of the 37 entries carry the ON-set, which the
+leaf X/Y wire values, which the free slot output — read off `Eng.seed_of` / `Eng.forward` against
+`H.SEQ` / `H.definer`. With that map, §18 runs as written.
+
+**Order the sweep by U's two cautions, not by slot index:** the common point **need not be on the
+curve** (β's chord law is vacuous, nothing above β applies one), so do not restrict to leaf values;
+and at **232/255 slots the pairing is free**, so the cost is propagation — making **slot depth and
+support size** the variables to stratify on. **Do not price a prefix.**
+
+### A successor is launched into the same thread
+
+U's slot is refilled rather than lost: a fresh agent works in `agentU_work/`, re-runs the
+calibration before anything else, resolves the seed vocabulary (verifying its reading by perturbing
+one entry and confirming only the predicted variables change), then runs §18 across the slots.
+**Below 7 at any slot is terminal for the campaign.**
+
+**Fleet: M, N, T, U(successor), V, W — six live.**

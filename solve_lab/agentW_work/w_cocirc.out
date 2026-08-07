@@ -4,3 +4,7 @@ dual basis verified (identity block)
   s=2 (exact): 58 hits, 69 supports, 0s
   s=3 (window 8): 11197 hits, 756 supports, 5s
   s=4 (window 8): 44831 hits, 2438 supports, 56s
+  s=5 (window 6): 15938 hits, 4017 supports, 131s
+  s=6 (window 6): 6256 hits, 5419 supports, 238s
+degenerate (skipped) subsets: 3070206
+raw candidate supports dumped: 5419  (elapsed 238s)

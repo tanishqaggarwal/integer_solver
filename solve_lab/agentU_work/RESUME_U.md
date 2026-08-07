@@ -409,3 +409,72 @@ exhaustion into a mechanism.
 β's chord law is vacuous and nothing above β applies one — so the search space is larger than a
 curve-point search and must not be restricted to leaf values.  (ii) 232 of 255 slots admit a
 feasible pair, so the pairing is not the bottleneck; the propagation cost is.
+
+---
+
+# CHECK-IN 90 FOLLOW-UP — the engine is CALIBRATED and mirrored; the sweep is NOT run
+
+## 19. The pkl wipe, and the mirror that works (`mirror/`, `w6_mcal.py`)
+
+Confirmed exactly as the coordinator warned.  `agentE_work/model3.pkl` and `agentE_work/dag.pkl`
+are **both absent** — `.gitignore` carries a global `*.pkl`.  M's engine chain is
+`engine3 -> agentE_work/harness -> agentE_work/{model3,dag}.pkl`, so it does not run from cold.
+
+**M kept its own copies**: `agentM_work/model3.pkl` and `agentM_work/dag.pkl` are present.  So the
+mirror is two files and no rebuild was needed (I did not have to run `t_rebuild.sh`):
+
+* `agentU_work/mirror/harness.py` — `agentE_work/harness.py` with both pkl paths repointed to
+  `agentM_work/`.
+* `agentU_work/mirror/engine3.py` — `agentM_work/engine3.py` with its `sys.path.insert(0, ...)`
+  repointed at `agentU_work/mirror` (it hard-codes `agentE_work` and otherwise shadows the mirror).
+
+Nothing outside `agentU_work/` was written.
+
+## 20. CALIBRATION — stated before any number derived from it, and it PASSES
+
+```
+engine3 imported 5.9s ; NV = 38748
+deliverable via checker            : 7 failing
+seed extracted                     : 37 entries
+forward(seed_of(deliverable))      : 7 failing via checker.py
+variables differing from deliverable: 0 of 38,748
+CALIBRATION: PASS
+```
+
+This is T's audited property reproduced from outside M's directory: the engine is a genuine
+forward propagator and it is **byte-identical** on the deliverable.  **This is the instrument
+§17 said I lacked, and it is now in place and validated.**  Contrast with my own evaluator
+(`w5_eval.py`), which failed the same control at 8,229 failing — that one stays retired.
+
+## 21. THE SWEEP IS NOT RUN — zero slots priced, still
+
+I calibrated and stopped.  **No slot has been priced, exactly or approximately.**  The three
+numbers in §16 remain what they were: one leaf pair with stale propagation, not slot prices.
+
+**What is left is small and fully specified.**  The engine takes a **37-entry seed** and returns
+a full assignment; `checker.py`'s compiled equations score it in ~0.3 s.  So the whole sweep is:
+map §18's construction into a seed, then loop.  The one unknown a successor must resolve first is
+**the seed vocabulary** — which of the 37 entries carry the ON-set, which carry the leaf X/Y wire
+values, and which carry the free slot output — read off `Eng.seed_of` / `Eng.forward` in
+`mirror/engine3.py` against `H.SEQ` / `H.definer`.  Get that map, and §18 runs.
+
+**Order the sweep by my two cautions, not by slot index.**  The common point need not be on the
+curve (β's chord law is vacuous, nothing above β applies one), so do not restrict to leaf values;
+and at 232/255 slots the pairing is free, so the cost is propagation — which means **slot depth
+and support size are the variables that matter**.  If all 383 is expensive, stratify by those two
+and say so; do not price a prefix.
+
+**Below 7 at any slot is terminal.**  At or above 7 everywhere, the deliverable's 7 becomes a
+mechanism rather than an exhaustion.
+
+## 22. FILES ADDED THIS ROUND
+
+| file | what |
+|---|---|
+| `w1_zfactors.py` | 1,019/1,024 pin factors are free variables |
+| `w2_wire.py` → `w_tag.pkl` | `m=1` on Y at all 256 leaves; `m>1` on X |
+| `w3_crt.py` → `w_xy.pkl` | 26,389/32,640 CRT-feasible pairs; 232/255 slots |
+| `w4_price.py` | checker-exact scores of pin lies **without** re-propagation (46/50/88) |
+| `w5_eval.py` | my own evaluator — **failed calibration at 8,229, retired** |
+| `mirror/harness.py`, `mirror/engine3.py` | the working mirror of M's engine |
+| `w6_mcal.py` | **the calibration: PASS, 7 failing, 0 vars differing** |

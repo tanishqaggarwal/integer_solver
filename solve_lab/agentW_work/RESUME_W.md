@@ -52,3 +52,74 @@ contains it.  Does not change any O conclusion.
 (`core too large`, `coefficient blowup`) and would NOT be negatives.  Over 527 solves spanning
 all 127 bought-sets and a random b=2 sample, **every** `None` was `core infeasible` — i.e. FLINT
 HNF proving no integer solution.  O's negatives rest on a sound oracle.
+
+## TASK 1 — RESULTS
+
+### (a) The 21 unreached triples at j=3, b<=2 — same method as O (`w_j3.py`, `w_j3.log`)
+Running / complete; see `w_j3.log`.  Exact integer `solve_sparse`, ~14,198 solves per triple,
+b=0 then all 168 b=1 then all C(168,2)=14,028 b=2.  **No improvement in any triple reached.**
+
+### (b) The linear model's pricing is EXACT, verified OUTSIDE the model
+`w_dump.py` dumps the "buy eq12231, break eq2554" solution as a full 38,748-variable
+assignment; `solve_lab/checker.py` returns **39,026/39,033 failing
+`[2554, 12270, 12350, 14584, 18673, 22044, 29125]`** — exactly what the model predicted
+(`w_trade_12231_break2554.json`, 27 variables differ from the witness).  So frame-B model
+predictions of score and failing set are trustworthy at this radius.
+
+### (c) AUDIT of O's collateral accounting — CONFIRMED, with one number corrected
+`w_audit.py` / `w_audit.json`.  Each of the 7 failing rows was bought against each of the 6
+essential satisfied rows and the result priced **exactly through `frameB.State`**, not through
+the linear model.  **32 of the 42 combinations are feasible and every one lands on exactly
+39,026 with exactly the predicted failing set** — one row in, one row out, no collateral
+anywhere.  O's collateral accounting is sound.
+
+**But O's "every purchase costs exactly eq8680" is too strong.**  The trade is not seven-way,
+it is **32-way**, and eq8680 is only one of six possible prices:
+
+| bought | prices that work (1-for-1, all exactly 39,026) |
+|---|---|
+| eq12231 | 2554, 6816, 8124, 9123, 9421, **8680** |
+| eq12270 | 2554, 6816, 8124, 9123, **8680** |
+| eq12350 | 2554, 6816, 8124, 9123, 9421, **8680** |
+| eq14584 | 2554, 6816, 8124, 9123, 9421, **8680** |
+| eq18673 | 2554, 6816, 8124, 9123, 9421, **8680** |
+| eq22044 | 2554, **8680** |
+| eq29125 | **8680** only |
+
+Only **eq29125** has eq8680 as its unique price.  This also explains T's unaudited flag that
+"7 knobs move a failing row with `dS = 0`": there are trades that never touch `S` at all.
+*The conclusion — every trade is 1-for-1, no gain — is untouched.  The mechanism claim was
+narrower than the truth.*  **O's Lemma (`S = 0` forced) is completely untouched by this**; it
+is about which assignments exist, not about which row you pay with.
+
+### (d) THE STRUCTURAL RESULT — the frame-B obstruction is ARITHMETIC, not linear
+`w_struct.py`, `w_essential.py`.  Exact rational arithmetic over the 175x34 system:
+
+- **rank([A | b]) over all 175 rows = 28, and the rhs column is NOT a pivot** — so the FULL
+  system, *including all seven failing rows*, is **consistent over ℚ**.  Over ℚ one can buy all
+  7 for free.  **Every part of the frame-B negative is integrality, none of it is rank.**
+  (This is the local, frame-B counterpart of O's §4 "over ℚ unique solution, over ℤ five
+  coordinates blocked", now measured over all 175 rows rather than the 13 region rows.)
+- rank(A_SAT) = 26, so the deltas keeping all 168 satisfied rows satisfied form a **rank-8**
+  lattice; the 7 failing rows add only **2** further dimensions.
+- The 168 satisfied rows are **homogeneous** (rhs = 0 for every one).  Therefore the admissible
+  integer deltas for a kept-set KEEP are exactly `ker_Z(A_KEEP) = Z^34 ∩ ker_Q(A_KEEP)`, so
+  **breaking rows that do not drop rank_Q changes nothing at any budget.**
+- Exactly **6 SAT rows are essential** (single deletion drops rank 26 -> 25):
+  **`{2554, 6816, 8124, 9123, 9421, S}`** — the region's own equations plus the `S` row.
+  The other 162 are individually redundant.
+
+### (e) EXHAUSTIVE over the essential-row break family, all j = 1..7 (`w_exhaust.py`)
+All 2^6 = 64 subsets of the essential rows x all 127 bought-sets, exact integer oracle:
+
+> **minbreak(P) = |P| exactly, for every P with 1 <= |P| <= 6.  GAIN = 0 everywhere.
+> All seven together are NOT buyable at any b <= 6.**
+
+Perfect k-for-k at every k.  30 seconds, vs 33 minutes for O's 14 triples.
+
+### (f) HONEST CORRECTION to my own step (e)
+I first claimed redundant-row breaks were worthless outright.  **False.**  `w_pack.py` packs
+only **t = 2** disjoint rank-20 subsets out of the 162 redundant rows, and the coordinate census
+shows functionals supported on as few as **2** rows — so small cocircuits *do* live inside the
+redundant rows and deleting 2..6 of them CAN enlarge the lattice.  (Only rank-dropping
+deletions matter; that part stands.)  Hence the cocircuit enumeration in (g).

@@ -1,0 +1,12 @@
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+pid 24794 ; 5351 handle-less atoms of 9032
+|S|    seed     globalNZ   handleless c>1 viol    which handle-less
+1      7        2          0          2           []
+1      101      2          0          2           []
+1      202      2          0          2           []
+1      303      2          0          2           []
+2      7        6          0          3           []
+2      101      6          0          3           []
+2      202      6          0          3           []
+2      303      2          0          2           []

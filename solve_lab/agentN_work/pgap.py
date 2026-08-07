@@ -29,6 +29,22 @@ from frameB import State
 from polyexact import P
 from polyfull import exact_polys
 from kerquad import int_kernel_columns
+from sqaudit import square_base
+import frameB as FB
+import re as _re
+_VR = _re.compile(r'x_(\d+)')
+_BASECODE = {}
+
+
+_MISS = object()
+
+
+def base_code(a):
+    c = _BASECODE.get(a, _MISS)
+    if c is _MISS:
+        sb = square_base(a)
+        _BASECODE[a] = c = (compile(_VR.sub(r'v[\1]', sb), '<sb>', 'eval') if sb else None)
+    return c
 
 Pp = 115792089237316195423570985008687907853269984665640564039457584007908834671663
 eq_terms = ev.eq_terms
@@ -112,7 +128,47 @@ def price(st, tag):
             touched |= atom_eqs[a]
     outside = sorted(touched - R)
 
-    polys = exact_polys(st, Rl + outside, cands)
+    # symbolic environment: knobs symbolic, everything else the base state's integer value
+    P.NK = k
+    vv = list(st.v)
+    ns = {'v': vv, '__builtins__': {}}
+    aff, ck = set(), set()
+    for j, Y in enumerate(cands):
+        vv[Y] = P.var(j, st.fv.get(Y, 0))
+        aff.update(fr.desc[Y])
+        ck.update(fr.chk[Y])
+    for u in sorted(aff, key=lambda u: fr.pos[u]):
+        vv[u] = eval(FB.DEFEXPR[u], ns)
+    av = dict(st.av)
+    for a in sorted(ck):
+        av[a] = eval(FB.ACODE[a], ns)
+
+    def rowpoly(e):
+        """exact polynomial whose vanishing is equivalent to equation e being satisfied.
+        A row that is a single top-level SQUARE atom is replaced by that atom's BASE: the
+        equation is a power of the base, so `row = 0` iff `base = 0`, and truncating the
+        square instead (as a linear model does) is exactly the error T caught in eq 8680."""
+        m, sq, tl = eq_terms[e]
+        live_tl = [(c, a) for c, a in tl if isinstance(av.get(a), P) or av.get(a)]
+        if len(live_tl) == 1 and base_code(live_tl[0][1]) is not None:
+            x = eval(base_code(live_tl[0][1]), ns)
+            return x if isinstance(x, P) else P.const(x), True
+        acc = P()
+        for c, a in tl:
+            x = av.get(a)
+            if isinstance(x, P):
+                acc = acc + x * c
+            elif x:
+                acc = acc + P.const(c * x)
+        return acc, False
+
+    polys = {}
+    rooted = []
+    for e in Rl + outside:
+        pol, wasq = rowpoly(e)
+        polys[e] = pol
+        if wasq:
+            rooted.append(e)
     live = [e for e in outside if polys[e].c]
     # collateral rows must be satisfied at the base state
     broken = [e for e in live if polys[e].c.get((0,) * k, 0) != 0]
@@ -195,7 +251,7 @@ def price(st, tag):
     rP, rPa = rank_mod(M, n, Pp), rank_mod(aug, n + 1, Pp)
     opt, rws, exh, nd = zsolve.max_zero_rows(M, b, n, len(M), node_cap=2000000)
     fail = len(Rl) - opt + outside_fail
-    return dict(tag=tag, R=len(Rl), knobs=k, lattice=n, maxdeg=maxdeg,
+    return dict(tag=tag, R=len(Rl), knobs=k, lattice=n, maxdeg=maxdeg, rooted=rooted,
                 rk_Q=rQ, rk_Q_aug=rQa, gap_Q=rQa - rQ,
                 rk_p=rP, rk_p_aug=rPa, gap_p=rPa - rP,
                 opt=opt, exh=bool(exh), outside=outside_fail,
