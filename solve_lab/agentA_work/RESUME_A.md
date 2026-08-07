@@ -107,3 +107,9 @@ them as free cancellers.  `eqwin.py`, `eqwin2.py`, `eqbound.py`, `eqisd.py`, `bo
   handle** — no single-equation atom is independently settable anywhere in the instance,
   and none appears in any of the 7 failing equations (their atoms occur in 6-14 equations).
   The cheap-cancellation lever does not exist where it would matter.
+
+### Jobs still tightening (results already established will only get sharper)
+* `runs/eqisd6.log`  — independent condition (b), code-support ISD at L=6, 0.0981/trial.
+* `runs/eqb2_exh5.log` — exhaustive mod-p floor |D| <= 5 at L=2 (raises >= 5 to >= 6).
+* `runs/eqb6b.log`  — 4000 Prange trials at L=6 (drives P(missed) from 1e-8 towards 1e-180).
+Re-run any of them with:  python3 eqbound.py <state> <level> 6 <trials> <exhaustive_k>
