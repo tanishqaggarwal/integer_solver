@@ -3808,3 +3808,94 @@ term where E showed twenty); and check that **"a square has a single zero locus"
 right object** — it holds over a field, and the equation is over ℤ with a modulus in play, so if
 `eq8680 = T²` means `T² ≡ 0 (mod m)` rather than `= 0` over ℤ, the step to `T = 0` needs `m` prime
 or squarefree.
+
+---
+
+## Check-ins 70–71 — O's Lemma survives audit; the first exhaustive placement result
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### T — O's Lemma AUDITED and it survives; two numbers corrected
+
+**Confirmed:** the equation factors as a perfect power of a single **affine** form `S`; `S` is affine
+in **all 43** of its variables (**0 non-affine**, second differences on every one);
+`dS/dx_4432 = +1`, `dS/dx_28730 = −1`, `dS/dx_19964 = −1` measured exactly; `a23618` enters at
+coefficient **exactly +1** as its first term; and **F's certified parse independently gives the same
+decomposition** — 18 `(coef, atom)` entries, identical to T's flattening of the raw text. **Three
+sources agree.**
+
+**Two corrections:**
+
+1. **The equation is `S⁴`, not `S²`.** Two levels of nesting — `LHS = T·T` with identical factors,
+   `T = S·S` likewise. Numerically `LHS == S^k` **only for k = 4**.
+2. **The linear form has 18 atoms, not 20.**
+
+**The tell T spotted:** "`eq8680 = T²`" and "`dT/dx_4432 = +1`" **cannot describe the same object** —
+the thing that squares to `eq8680` is `T = S²`, with `dT/dx_4432 = 38046996267 = 2S+1`. O conflated
+one nesting level.
+
+**The modulus risk does not arise.** `checker.py` evaluates each LHS as an **exact integer**
+requiring `== 0`, so the constraint is `S⁴ = 0` **over ℤ**, an integral domain ⟹ `S⁴ = 0 ⟺ S = 0`.
+**No modulus at equation level; nothing needs p prime or squarefree.** And the conclusion is
+**robust to the exponent entirely** — `S^k = 0 ⟺ S = 0` for any k ≥ 1 — so the wrong power could not
+have broken it. Same shape as T's degree-bound finding: **"this number is wrong" separated from
+"this result is wrong", twice running.**
+
+> **VERDICT: the Lemma holds. `S = 0` is forced in every satisfying assignment — no knob set, no
+> frame, no configuration, no divisibility. The seven-way trade, the death of δ₀, and M's incidence
+> argument all stand. The first result in this lab that is both unconditional AND audited.**
+
+**Cross-link:** all three p-handles T found that L's census omitted — genuine `h = p·u`, guarded by
+stage checks, incident to the baseline-failing set — **appear as terms of `S`**:
+`+25·(x_18253 − x_4339·x_15120)`, `+1·(x_37720 − x_14466·x_35531)`, `+23·(x_23642 − x_8173·x_10422)`.
+**O's own equation independently confirms their incidence.**
+
+**CAUTION, recorded:** `S` has **18** atom terms and M's enumeration exponent is **also 18**.
+**Different 18s — they must not be conflated.**
+
+**T re-tasked** to write `agentT_work/LEDGER.md` — a cross-agent verification ledger
+(VERIFIED / CONDITIONAL / WITHDRAWN, one row per load-bearing claim, with who established it, who
+checked it, in which decomposition, and what would falsify it), headed by the lab-wide rules each
+attached to the failure that produced it, and closing with what is genuinely open.
+
+### M — 2¹² exhaustive; 2¹⁶ complete through support 5; nothing above 39,026
+
+`H12 = [642, 1844, 9629, 18253, 23642, 23754, 28730, 29854, 31864, 35619, 37413, 37720]`.
+**All 4,096 subsets priced in 68 s, `complete=True`. Above 39,026: ZERO.**
+
+**BEST 39,026 at `S = (642, 28730, 29854, 31864)` — the witness itself.**
+
+| \|S\| | subsets | best | count at best |
+|---|---|---|---|
+| 0 | 1 | 39,008 | 1 |
+| 2 | 66 | 39,022 | 1 |
+| 3 | 220 | 39,023 | 1 |
+| **4** | **495** | **39,026** | **1** |
+| 5 | 792 | 39,026 | 8 |
+| 6 | 924 | 39,026 | 21 |
+| 7 | 792 | 39,022 | 6 |
+| 12 | 1 | 39,015 | 1 |
+
+- **The witness is the UNIQUE optimum at support 4**, and 39,026 is first reached there — best at
+  |S| = 3 is only 39,023.
+- **The other 29 subsets at 39,026 are all supersets of the witness**, the tuner zeroing the extras —
+  the same point dressed up, **not independent optima.**
+- **Score is unimodal in support size, peaking at 4–6.** Breaking all 12 relations scores 39,015 —
+  **worse than breaking four.**
+- **1,999 of 4,096 sit at 39,008**, the uncorrupted baseline: supports that cannot move any failing
+  equation.
+
+**2¹⁶: 8,000 of 65,536 priced, best 39,026 at the witness, above 39,026: ZERO.** Enumerated in
+**increasing |S|**, so |S| = 0..5 are **COMPLETE** (1 / 16 / 120 / 560 / 1,820 / 4,368) and |S| = 6
+partial. **That ordering is what makes the partial meaningful** — a complete statement about small
+supports rather than an arbitrary prefix:
+
+> Over the p-handles incident to the deliverable's own failures, **every** subset is priced and the
+> maximum is exactly 39,026, unique at support 4. Over the wider 16-handle set, **every** subset of
+> size ≤ 5 is priced and the maximum is again exactly 39,026, at the same point.
+
+Throughput ~80/s of script time at fleet load ~10 on four shared cores, roughly a fifth of that in
+wall clock; `enumsub16.pkl` checkpoints every 2,000 and is resumable. **M told to finish 2¹⁶ before
+starting 2¹⁸** — the two extra atoms in the 18 are incident **only to eq8680**, which T has now
+confirmed is `S⁴ = 0`, forced everywhere and holding at the witness, so they are the least likely to
+buy anything. `ieng.py` held interruptible for L.

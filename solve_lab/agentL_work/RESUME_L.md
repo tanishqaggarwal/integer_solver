@@ -527,6 +527,22 @@ i.e. intersect root sets over the whole influenced set, which is exactly the mac
 written — only the atom list passed in is wrong.  This is a one-line change to how `ats` is
 built in `solve927g.py`, plus keeping the existing direct-recomputation guard.
 
+## 6ii. METRIC + ARTIFACT DISCIPLINE (T's audit, accepted in full)
+* **Report NONZERO ATOMS (of 9,032), not the "stuck" count.**  My stuck list was
+  `[a for a in relift(vv) if r[...] % p == 0]`, which **silently drops bad-list entries whose
+  residual is not 0 mod p**.  At |S|=2 the two dropped entries are exactly the target
+  congruences (benign); at |S|=17 the two metrics genuinely differ.  The complete number is the
+  nonzero-atom count.  Every earlier "0 undischarged" in this file should be read with that
+  caveat; the companion nonzero-atom figures quoted alongside them are the sound ones.
+* **ALWAYS dump the assignment and run `checker.py`.**  `solve927.py` dumped nothing, so the
+  |S|=2 closure was model-internal until T reproduced it, dumped it and checked it:
+  `39018/39033`, 2 nonzero atoms = the two target congruences, and their 15-equation footprint
+  is EXACTLY the checker's failing set.  The closure is real, but I should have produced that
+  artifact myself.  `closeS.py` now dumps `close_<tag>.json` for every run.
+* T also confirmed the degree bound a third time (deg <= 6, 8, 10 re-fits, same top degrees) and
+  established it **bounds cost, not correctness** — a wrong bound can only lose a solution, never
+  admit a false one, because the recomputation guard rejects a bad root.
+
 ## 6j. PROCESS RULE (learned twice, flagged, now recorded)
 * **Never `pkill -f <pattern>` where the pattern can match this shell.**  `pkill -f solve927g`
   matched the wrapping shell and killed it (exit 144), twice.  Record the PID at launch
@@ -534,6 +550,14 @@ built in `solve927g.py`, plus keeping the existing direct-recomputation guard.
 * **Never split a source file on a literal that the file itself contains.**  Splitting
   `solve927g.py` on `"if __name__"` cut inside its own `.split("if __name__")` call.  Use an
   explicit `#MAINSTART` marker comment — three occurrences of this bug this session.
+
+**PERFORMANCE BLOCKER IN `closeS.py` (found the hard way, fix is easy).**  The S6i fix needs,
+for each wire w, the set of c>1 atoms w influences.  I computed it by *probing* — `influences()`
+calls `E.run` twice per (atom,wire), so 927 atoms x ~0.14 s = ~130 s **per wire**, and the run
+did not finish.  **Build that map once, structurally**, from `atomvalvars` / `vars_of` (which is
+already in memory) instead of probing: wire -> [atoms mentioning it].  Probing is then only
+needed to confirm a nonzero derivative on the handful of surviving candidates.  With that change
+the |S| = 3, 5, 8, 17 sweep is minutes, not hours.
 
 ## 7. FILES (all in `agentL_work/`)
 Code: `trace.py ortree.py ortree2.py census.py wire.py link.py crux.py onset.py fail7.py

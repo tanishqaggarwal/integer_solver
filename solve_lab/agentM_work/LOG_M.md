@@ -1178,3 +1178,96 @@ incidence**, and the incidence filter is a filter on *reachability*, not on cost
 already measures cost by re-propagation rather than by incidence, so nothing in the tuner
 changes; but it means a 16-atom incident set can still contain placements far cheaper than
 their incidence suggests, which is an argument for pricing all 65,536 rather than ranking.
+
+---
+
+# LOG_M ROUND 13 — exhaustive enumerations over the incident p-handle sets
+
+A subset `S` = the p-handle atoms allowed to be nonzero, i.e. the handles whose relation
+`h = p*u` is broken. The witness is exactly `S = {642, 28730, 29854, 31864}`, size 4, so the
+enumeration contains the known answer and the calibration is built in. Per Q, no ranking and
+no truncation: incidence filters reachability, not cost, so every subset is priced by
+re-propagation.
+
+## 76. 2^12 = 4,096 subsets — COMPLETE, exhaustive, nothing above 39,026
+`H12 = [642, 1844, 9629, 18253, 23642, 23754, 28730, 29854, 31864, 35619, 37413, 37720]`
+(the p-handles incident to the deliverable's own 7 failures). 4,096 subsets in **68 s** at
+60/s, `complete=True`.
+
+    score   count            score   count
+    39026      30            39014     275
+    39023       1            39013     135
+    39022      40            39012     120
+    39021      16            39011     201
+    39020      79            39010      68
+    39019     514            39009     104
+    39018      49            39008   1,999
+    39017      87
+    39016     279            above 39026 :     0
+    39015      99            equal 39026 :    30
+
+**BEST 39,026, attained at S = (642, 28730, 29854, 31864) — the witness itself.**
+
+### The shape of the space, by support size
+    |S|  subsets   best     count at best
+      0        1  39008         1          <- uncorrupted baseline
+      1       12  39010         1
+      2       66  39022         1
+      3      220  39023         1
+      4      495  39026         1          <- the witness, UNIQUE at its size
+      5      792  39026         8
+      6      924  39026        21
+      7      792  39022         6
+      8      495  39022         1
+      9      220  39020         1
+     10       66  39019         1
+     11       12  39019         9
+     12        1  39015         1
+
+Three things worth stating:
+- **The witness is the unique optimum at support 4**, and 39,026 is first reached there --
+  no smaller support gets near it (best at |S|=3 is 39,023).
+- The other 29 subsets scoring 39,026 are all **supersets** of the witness (8 at size 5,
+  21 at size 6): the tuner can zero the extra handles, so they are the same point dressed up,
+  not independent optima.
+- **The score is unimodal in support size**, peaking at 4-6 and falling away on both sides;
+  breaking all 12 relations scores 39,015, worse than breaking four.
+- Exactly **1,999 of 4,096 subsets score 39,008**, the uncorrupted baseline -- these are the
+  supports whose handles cannot move any failing equation at all.
+
+## 77. 2^16 = 65,536 — PARTIAL, and the partial is exhaustive by support size
+`H16 = H12 + [2892, 28355, 29305, 34113]` (the p-handles incident to T's 12-equation far
+side). Enumerated in increasing `|S|`, so a partial run is a complete statement about small
+supports rather than an arbitrary prefix.
+
+    8,000 of 65,536 priced.  best 39,026 at S = (642, 28730, 29854, 31864).  above 39,026: 0
+
+    |S| = 0 :     1 of     1  COMPLETE   best 39008
+    |S| = 1 :    16 of    16  COMPLETE   best 39010
+    |S| = 2 :   120 of   120  COMPLETE   best 39022
+    |S| = 3 :   560 of   560  COMPLETE   best 39023
+    |S| = 4 : 1,820 of 1,820  COMPLETE   best 39026
+    |S| = 5 : 4,368 of 4,368  COMPLETE   best 39026
+    |S| = 6 : 1,115 of 8,008  partial    best 39026
+
+    distribution so far: 39026:23  39023:2  39022:32  39021:28  39020:61  39019:292
+                         39018:40  39017:90  39016:114 39015:208 39014:237 39013:169
+                         39012:184 39011:198 39010:143 39009:1,388 39008:4,791
+
+**Every support of size <= 5 over the 16-handle incident set has been priced exhaustively,
+and none exceeds 39,026.** Combined with the complete 2^12, the statement is:
+
+> Over the p-handles incident to the deliverable's own failures, **every** subset has been
+> priced and the maximum is exactly 39,026, attained uniquely at support 4 by the witness.
+> Over the wider 16-handle set incident to the 12-equation far side, **every** subset of size
+> <= 5 has been priced and the maximum is again exactly 39,026, at the same point.
+
+Runs stalled at ~80/s of script time on a box at load ~10 with four cores shared across the
+fleet; the wall-clock rate was roughly a fifth of that. `enumsub16.pkl` checkpoints every
+2,000 subsets and the run is resumable; 2^18 has not been started.
+
+## 78. Round-13 files
+`enumsub.py` -> `enumsub12.pkl` (complete), `enumsub16.pkl` (partial, resumable),
+`enumsub12.log`, `enumsub16.log`. `ieng.py` held interruptible for L's `solve_group`.
+**No subset anywhere exceeded 39,026, so no assignment was written and there was nothing to
+verify with `checker.py`.**

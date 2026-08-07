@@ -74,3 +74,44 @@ print('   variables in which T is NOT affine: %d %s'%(len(nonlin),nonlin[:8]))
 print('   dT/dx_4432  = %s'%(eval(code_T,{'v':[x+ (1 if i==4432 else 0) for i,x in enumerate(v0)],'__builtins__':{}})-base))
 print('   dT/dx_28730 = %s'%(eval(code_T,{'v':[x+ (1 if i==28730 else 0) for i,x in enumerate(v0)],'__builtins__':{}})-base))
 print('   dT/dx_19964 = %s'%(eval(code_T,{'v':[x+ (1 if i==19964 else 0) for i,x in enumerate(v0)],'__builtins__':{}})-base))
+
+print('\n'+'='*88)
+print('T is non-affine in ALL 43 of its variables -> T is itself a square.  Split again.')
+sub=split_top(Ttxt,'*')
+print('   top-level * factors inside T: %d'%len(sub))
+nsub=[strip_outer(x).replace(' ','') for x in sub]
+print('   identical? %s   lengths %s'%(len(set(nsub))==1,[len(x) for x in sub]))
+S=strip_outer(sub[0])
+code_S=compile(VAR.sub(r'v[\1]',S),'<S>','eval')
+svars=sorted({int(m) for m in VAR.findall(S)})
+print('\nS: %d distinct variables, %d chars'%(len(svars),len(S)))
+rnd2=random.Random(11)
+print('\nnumeric: is LHS == S^k ?')
+for trial in range(4):
+    v=[0]*NV
+    for u in {int(m) for m in VAR.findall(lhs)}: v[u]=rnd2.randint(-40,40)
+    ns={'v':v,'__builtins__':{}}
+    L=eval(code_lhs,ns); Sv=eval(code_S,ns)
+    ks=[k for k in range(1,9) if Sv**k==L]
+    print('   trial %d: S=%-12s LHS matches S^k for k in %s'%(trial,str(Sv)[:12],ks))
+v0=[0]*NV
+for u in svars: v0[u]=rnd2.randint(-30,30)
+b=eval(code_S,{'v':v0,'__builtins__':{}})
+nl=[]
+for u in svars:
+    ys=[]
+    for t in (0,1,2):
+        vv=list(v0); vv[u]=v0[u]+t
+        ys.append(eval(code_S,{'v':vv,'__builtins__':{}}))
+    if ys[2]-ys[1]!=ys[1]-ys[0]: nl.append(u)
+print('\nS: variables in which S is NOT affine: %d %s'%(len(nl),nl[:6]))
+for u in (4432,28730,19964):
+    vv=list(v0); vv[u]+=1
+    print('   dS/dx_%-6d = %s'%(u,eval(code_S,{'v':vv,'__builtins__':{}})-b))
+# count top-level + terms of S
+terms=split_top(S,'+')
+print('\nS top-level + terms: %d'%len(terms))
+print('\n== the modulus question ==')
+print('  checker.py evaluates each equation LHS as an EXACT INTEGER and requires == 0.')
+print('  So the constraint is S^4 == 0 over Z.  Z is an integral domain, so S^4 == 0 <=> S == 0.')
+print('  No modulus, no primality, no squarefreeness is needed anywhere.')

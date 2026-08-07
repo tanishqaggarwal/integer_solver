@@ -675,3 +675,66 @@ cost nothing here and is what turned a model-internal claim into an instance-lev
 `t_S2.py` (reproduce the closure + dump the assignment) · `t_S2_assign.json` (the artifact L's
 run never produced; checker-verified 39,018/39,033) · `t_S2b.py` (F-parse atom check; footprint
 == failing set) · `t_deg.py` (degree bound at 5/7/9/11 sample points).
+
+=============================================================================================
+# EIGHTH PASS — agent O's eq8680 Lemma   [coordinator check-in 69]
+
+## AB. THE LEMMA SURVIVES.  Two numbers in its statement are wrong; the conclusion is not.
+`t_eq8680.py`, `t_eq8680b.py`.  Checked against the raw `EQUATIONS.txt` line and against F's
+certified-faithful parse as a third source.
+
+**CONFIRMED — the substance:**
+* The equation really does factor as a perfect power of a single **affine** form.
+* That form `S` is **affine in ALL 43 of its variables — 0 non-affine**, tested by second
+  differences on every one.
+* `dS/dx_4432 = +1`, `dS/dx_28730 = -1`, `dS/dx_19964 = -1`, measured exactly.
+* `a23618 = x_4432 - x_19964 - x_28730` enters at coefficient **exactly +1** — it is the first
+  of the 18 terms.
+* **F's certified parse independently gives the same decomposition**: 18 `(coef, atom)` entries
+  with coefficients `[-27,-21,-14,-13,-5,-4,1,1,1,6,15,17,20,23,25,25,28,35]`, identical to what
+  I flattened out of the raw text (the only set difference is F's `x4432` vs the file's `x_4432`).
+  **Three sources agree on the decomposition** — this is the case where my five-atom-counts rule
+  is satisfied rather than violated.
+
+**CORRECTION 1 — the equation is `S^4`, not `S^2`.**  The nesting is two levels deep:
+`LHS = T*T` with the two factors textually identical, and `T = S*S`, again identical.
+Numerically, at 4 random points, `LHS == S^k` **only for k = 4** (and `LHS == T^k` only for k=2).
+**CORRECTION 2 — the linear form has 18 atoms, not 20.**  Confirmed twice (raw flatten, F's parse).
+
+**The two corrections expose an internal inconsistency in the statement as written.**
+"`eq8680 = T^2`" and "`dT/dx_4432 = +1`" cannot both be about the same object: the thing that
+squares to eq8680 is `T = S^2`, which is *not* linear, and whose derivative I measured as
+`dT/dx_4432 = 38046996267 = 2S+1` at my test point.  The object with derivative `+1` is `S`, and
+`eq8680 = S^4`.  O conflated one level of the nesting.
+
+## AC. THE CONCLUSION IS UNAFFECTED — and the modulus worry does not arise
+`checker.py` evaluates each equation's LHS as an **exact integer** and requires `== 0`.  So the
+constraint is `S^4 == 0` **over Z**, and Z is an integral domain, so `S^4 == 0 <=> S == 0`.
+* **No modulus is in play at equation level**, so nothing needs p to be prime or squarefree.
+  The coordinator's flagged risk — "`T^2 == 0 (mod something)` rather than over Z" — **does not
+  materialise here.**  O applied "a square has a single zero locus" to the right object in the
+  right ring.
+* And the conclusion is **robust to the exponent entirely**: `S^k = 0 <=> S = 0` for every k >= 1
+  over Z, so O getting the power wrong could not have broken it.  Same shape as my |S|=2 finding
+  that a bad degree bound cannot produce a false verified result.
+
+> **Verdict: agent O's Lemma holds.  `S = 0` is forced in every satisfying assignment, with no
+> knob set, no frame, no configuration and no divisibility condition.  Fix "T^2" to "S^4" and
+> "20 atoms" to "18"; the seven-way trade, the death of delta_0, and M's incidence argument all
+> stand.**  This is the first result in this lab that is both unconditional and audited.
+
+## AD. CROSS-LINK — eq8680 corroborates my sixth-pass finding
+All three cofactors I found in the sixth pass to be genuine p-handles that L's 3,681 census omits
+**and** incident to the baseline-failing set appear as terms of `S`:
+```
+   +25  (x_18253) - ((x_4339)*(x_15120))       <- x15120
+    +1  (x_37720) - ((x_14466)*(x_35531))      <- x35531
+   +23  (x_23642) - ((x_8173)*(x_10422))       <- x10422
+```
+So O's own equation independently confirms they are incident.  **Caution against a numerical
+coincidence:** `S` has **18 atom terms**, and M's enumeration exponent is also now **18** (my
+15 -> 18 correction).  These are different 18s and must not be conflated.
+
+## AE. NEW FILES (eighth pass)
+`t_eq8680.py` (factorisation, affinity, derivatives, the modulus argument) ·
+`t_eq8680b.py` (18-term flatten; cross-check against F's parse; the x10422/x15120/x35531 link).

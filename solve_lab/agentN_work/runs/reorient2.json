@@ -1,0 +1,50 @@
+[
+ {
+  "atom": 22229,
+  "knob": 7068,
+  "zeroed": true,
+  "score": 39008
+ },
+ {
+  "atom": 22229,
+  "knob": 2099,
+  "zeroed": true,
+  "score": 39007
+ },
+ {
+  "atom": 22230,
+  "knob": 28730,
+  "zeroed": true,
+  "score": 39021
+ },
+ {
+  "atom": 35758,
+  "knob": 29854,
+  "zeroed": true,
+  "score": 39023
+ },
+ {
+  "atom": 35759,
+  "knob": 29854,
+  "zeroed": true,
+  "score": 39023
+ },
+ {
+  "atom": 35760,
+  "knob": 31864,
+  "zeroed": true,
+  "score": 39022
+ },
+ {
+  "atom": 35761,
+  "knob": 31864,
+  "zeroed": true,
+  "score": 39022
+ },
+ {
+  "atom": 35762,
+  "knob": 642,
+  "zeroed": true,
+  "score": 39021
+ }
+]
