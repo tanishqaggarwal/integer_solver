@@ -1,0 +1,13 @@
+bad [8010, 8011, 20215, 28647]
+rnd0: +280 (280)
+rnd1: +1092 (1372)
+rnd2: +610 (1982)
+rnd3: +605 (2587)
+rnd4: +712 (3299)
+rnd5: +512 (3811)
+  r<=0: vars=280 rows=536 nl=306 -> core infeasible
+  r<=1: vars=1372 rows=1271 nl=323 -> core infeasible
+  r<=2: vars=1982 rows=1558 nl=355 -> core too large (306x617)
+  r<=3: vars=2587 rows=1965 nl=387 -> core too large (344x693)
+  r<=4: vars=3299 rows=2415 nl=423 -> core too large (441x887)
+  r<=5: vars=3811 rows=2727 nl=436 -> core too large (512x1027)

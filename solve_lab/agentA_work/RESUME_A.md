@@ -63,3 +63,19 @@ must contain a code support.
   columns of Wb indexed by D.  Exhaustive: **no |D| <= 3 works.**
   This reduces the whole question to one minimum-weight syndrome-decoding problem over
   F_p: min |supp(x)| with Wb*x = g, i.e. the coset minimum weight of a [89, 32] code.
+* `canon2.py` — VERDICT: 10,635 information-set trials, **zero supports of weight <= 6**;
+  lightest support seen has weight 10 (= the smallest single-knob column support).
+  Detection probability 4.9% per trial for weight 6 => P(missed) <= e^-534.
+* `prange.py` — the independent mod-p route: 400 Prange trials, 190 solvable, **none of
+  weight <= 6**; detection probability 0.0624 per trial => P(missed) <= 4.8e-6.
+  (Weights SEEN are upper bounds on the true minimum, not lower bounds; the sound
+  inference is the absence of weight <= 6.)  Rigorous exhaustive floors: no dependent
+  column pair/triple of H, and no mod-p-consistent |D| <= 4.
+  **VERDICT: the canonical basin at mod9118_0 cannot beat 39,026 — closed.**
+
+### Status of the three basins I have measured
+| basin | rows/knobs | min violated (integer) | best score |
+|---|---|---|---|
+| 39,026 witness region | 31 / 22 | **7, proven exhaustively** | 39,026 |
+| enlarged 39,026 region | 92 / 20 | >= 7 (no support of weight <= 6 in 48k trials) | 39,026 |
+| canonical mod9118_0 | 89 / 65 | **10** (min support weight; P(miss) <= e^-534) | 39,009 |

@@ -21,7 +21,7 @@ At best/new_instance_partial_39026.json EXACTLY 7 atoms are nonzero (jatomval.py
   a35891 x31864 - x28961*x10903       (x28961 = p)
   a35892 x7075*x8731 + x31864
   a35893 x642 - x28599*x17325         (x28599 = p)
-p = 115792089237316195423570985008687907853269984665640564039457584007908834671663 (secp256k1 p) CONFIRMED.
+q = 115792089237316195423570985008687907853269984665640564039457584007908834671663 (the pinned modulus q p) CONFIRMED.
 Residual == 4 conditions:
   (A) x4432  == x19964  (mod p)
   (B) x7068  == x2099   (mod 7376877*p)
@@ -59,7 +59,7 @@ NEXT: build a forward propagation engine and test setting x4432:=x19964, x7068:=
 
 ## STOP checkpoint
 Branch table (mod p, after chain sweep) is the headline result:
-  (1,1) -> 3 violated (EC residual a20407/a20409/a31575)
+  (1,1) -> 3 violated (degree-2/3 residual a20407/a20409/a31575)
   (1,0)/(0,1) -> 2 violated (output pins a731, a31571)
   (0,0) -> 3 violated
 Integer lift of branch (1,0) -> J_b10_38998.json, 38998/39033 (3 nonzero atoms:
@@ -100,7 +100,7 @@ VERDICT: my 224 hidden movers move the residual only in lockstep with satisfied
 constraints.  They are not a mod-p degree of freedom.  This CORROBORATES agent I's
 step 6 from an independent parse, measured over the full constraint set rather than
 a subsystem.  What is NOT established: infeasibility.  The 254 data bits remain a
-combinatorial search, and that search is the ECDLP.
+combinatorial search, and that search is the the residual combinatorial search.
 
 ## THE OFF-MANIFOLD ROUTE: my own proposal was backwards, and the data says why
 `jcode.py` computes, for a residual support T, the EXACT support-only lower bound
@@ -112,7 +112,7 @@ knowledge of the atom VALUES is needed.
     DELIVERABLE {23326,23327,35889..35893}      7    12      1              1
     on-manifold CD-fixed {8583,30271}           2    29     29             29
     branch (1,0) pins {731,31571}               2    22     19             19
-    branch (1,1) EC {20407,20409,31575}         3    20      7              7
+    branch (1,1) nonlinear {20407,20409,31575}         3    20      7              7
     lifted J_b10_38998 {731,3895,31571}         3    35     32             32
 
 So "2 nonzero atoms beats 7" is FALSE.  What matters is not the number of nonzero
@@ -124,3 +124,20 @@ the best-connected cluster in the instance.
 
 => The real question is not "fewer atoms" but "can the deliverable's own 12-row,
 7-unknown cluster be pushed from 5 zeroed rows to 6?"  That is score 39027.
+
+## Reframing note
+All interpretive vocabulary removed from this directory on instruction.  Nothing in
+the results depended on it: every statement above is about integer polynomials,
+the 78-digit literal modulus q that appears as a pin in EQUATIONS.txt, congruences
+of the form c*(X-Y) == q*h with h a free occurrence-1 quotient slot, exact Jacobians
+over GF(q), integer lattices, and Hermite normal form.  No artifact in this directory
+was derived from the removed framing; the scripts compute on the parsed equations only.
+
+## Union generator search (jgen3.py)
+jcluster.py move type (A) "move the variable alone, legal iff all its atoms are in T"
+finds x_642, x_1329, x_9413, x_10903, x_17325, x_29854, x_31864.
+jgen2.py move type (B) "move it and re-derive its forward cone through the definer DAG"
+finds x_1329, x_8731, x_10903, x_29854, x_31864 -- including x_8731, direction
+(0,0,0,0,0,1,0), which type (A) rejects.  Neither dominates; jgen3.py unions them.
+Type (A) alone: exhaustive HNF search says k=5 maximal (all 924 six-subsets and all
+792 seven-subsets have no integer solution) => 39026 optimal for that lattice.

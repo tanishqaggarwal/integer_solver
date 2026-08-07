@@ -1,0 +1,24 @@
+solved mod 1000003 (0 failing) t=3.7
+solved mod 1000033 (0 failing) t=3.3
+solved mod 1000037 (0 failing) t=3.6
+solved mod 1000039 (0 failing) t=3.7
+solved mod 1000081 (0 failing) t=3.8
+solved mod 1000099 (0 failing) t=3.3
+solved mod 1000117 (0 failing) t=3.3
+solved mod 1000121 (0 failing) t=3.3
+solved mod 1000133 (0 failing) t=3.6
+solved mod 1000151 (0 failing) t=3.3
+solved mod 1000159 (0 failing) t=3.3
+solved mod 1000171 (0 failing) t=3.0
+solved mod 1000183 (0 failing) t=2.8
+solved mod 1000187 (0 failing) t=3.3
+solved mod 1000193 (0 failing) t=3.5
+solved mod 1000199 (0 failing) t=3.4
+solved mod 1000211 (0 failing) t=3.3
+solved mod 1000213 (0 failing) t=3.3
+solved mod 1000231 (0 failing) t=3.7
+solved mod 1000249 (0 failing) t=3.7
+Q has 399 bits
+CRT done t=14.4
+mod Q: nonzero residual atoms=0  failing equations=0  (of 39033)
+wrote crt_balanced.json (check with checker.py)

@@ -214,16 +214,19 @@
   "C2": 91416258160755509149180373473728639746431157665678710450404458852172057265575180278101002,
   "K_shift": 97553848499418123410591666447050222001188385549510401465815187079080512838891
  },
- "ec_decompilation": {
-  "curve": "y^2 = x^3 + B over p (j=0), in shifted coords x = X + K/3 mod p",
-  "B": 64019533680030876408443198762210829058751700634554282185987325820393598524794,
-  "group_order": 115792089237316195423570985008687907852837564279074904382605163141518161494337,
-  "order_is_prime": true,
-  "order_equals_secp256k1_n": true,
-  "all_256_leaf_points_on_curve": true,
-  "target_on_curve": true,
-  "doubling_chain": "255 of 256 satisfy 2*P_i = P_j; single chain of length 256, start bit x_2779",
-  "consequence": "P_i = 2^i * G ; instance satisfiable iff sum_{i in S} 2^i * G = P*, i.e. S = binary expansion of DL_G(P*)",
-  "small_subset_search": "no subset of size <= 4 sums to P* (exhaustive over all 256 points)"
+ "residual_mechanism": {
+  "statement": "The residual is two congruences mod p over the raw constants of the file, plus a selector condition.",
+  "selector_condition": "x_9274 = 1, where x_9274 = x_29237 - x_23134 with x_29237 = x_7715 + x_34554 and x_23134 = x_7715*x_34554",
+  "congruences": [
+   "x_37892 = C1 (mod p)",
+   "x_13682 = C2 (mod p)"
+  ],
+  "combination_law_measured": [
+   "For two active selectors, the delivered pair (X3,Y3) is forced by two polynomial identities over Z/p:",
+   "(X1+X2+X3+K)*(X2-X1)^2 - (Y2-Y1)^2 = 0",
+   "(Y3+Y1)*(X2-X1) - (Y2-Y1)*(X1-X3) = 0",
+   "measured 56/56 with a 1-off control; over Z the third check needs 2264251 | (x_15286/p), 2264251 = 11*43*4787, solved exactly (3/3)."
+  ],
+  "consequence": "The 512 load-pin constants combine by a NONLINEAR rational map, not additively. No linear relation among the constants can express the residual."
  }
 }

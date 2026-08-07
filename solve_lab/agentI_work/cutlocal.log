@@ -54,3 +54,17 @@ targeted candidates: 421
   partial a17812 nconf=2 und=10047 eqs=17 X37758 - (X2287 + X15663)
   420/421 t=1031s
 atoms that reduce the conflict count: 31 [40368, 18873, 24195, 18872, 20061, 30470, 17804, 17805, 20062, 20063, 20071, 20074, 20494, 27801, 17800, 17801, 17814, 17816, 20067, 20066, 20072, 31788, 27803, 17807, 17809, 17810, 17815, 20068, 17811, 17813]
+  GENUINE CUT (40368, 18873, 17814) touches 20 equations
+  GENUINE CUT (40368, 18873, 31788) touches 29 equations
+  GENUINE CUT (40368, 18873, 17810) touches 24 equations
+  GENUINE CUT (40368, 18873, 17815) touches 20 equations
+  GENUINE CUT (40368, 18873, 17811) touches 24 equations
+  GENUINE CUT (40368, 18873, 17813) touches 23 equations
+  GENUINE CUT (40368, 18873, 17812) touches 24 equations
+  GENUINE CUT (40368, 18872, 17814) touches 19 equations
+  GENUINE CUT (40368, 18872, 31788) touches 30 equations
+  GENUINE CUT (40368, 18872, 17810) touches 23 equations
+  GENUINE CUT (40368, 18872, 17815) touches 19 equations
+  GENUINE CUT (40368, 18872, 17811) touches 23 equations
+  GENUINE CUT (40368, 18872, 17813) touches 22 equations
+  GENUINE CUT (40368, 18872, 17812) touches 23 equations

@@ -90,3 +90,81 @@ such atoms.  Setting b = 1 loads  x_T = (H + c2*w)/s  into the circuit; b = 0 lo
 These are the instance's conditional constant loads.  Their literals are recorded only as
 constants of EQUATIONS.txt; no further reading of them is used anywhere below.
 
+
+## PRIORITY 1 RESULT — the canonical basin at mod9118_0 is CLOSED
+Region (regsolve2, strictly-linear knobs, no equation approximated): **89 nontrivial affine
+rows, 65 knobs, rank(N) = 65 = #knobs**, the full system Q-CONSISTENT with a UNIQUE
+rational solution W, non-integral in exactly two coordinates (x5040, x30163, both
+denominator p).  Same lemma as the 39,026 theorem: a unique non-integral W forces every
+integer point's violated set D to contain a code support.
+
+Two INDEPENDENT necessary conditions, both searched to a conclusion:
+
+1. **Code support** (`canon2.py`).  Information-set search over the region code:
+   **10,635 trials, minimum support weight observed = 10, supports of weight <= 6 found: 0.**
+   A random 65-of-89 information set contains <= 2 of a weight-6 support's positions with
+   probability 0.049, so P(a weight-6 support exists and was missed) <= (1-0.049)^10635,
+   about e^-534.  (10 is an UPPER bound on the code's true minimum distance, observed, not
+   a proof of a lower bound — the sound statement is the absence of weight <= 6.)
+   Rigorously, `mindist.py` exhausted all 2- and 3-column subsets of the parity check
+   H (24 x 89) and found **no dependent pair or triple**, so the minimum support is >= 4;
+   the smallest single-knob column support is exactly 10, which is what the ISD keeps
+   finding, i.e. the lightest codeword is just one knob column.
+
+2. **mod-p consistency** (`modpobs.py`, `prange.py`, `modp4.py`) — an independent filter,
+   the same one that killed all 38,760 candidates in the 39,026 region.  Mod p, **33 of the
+   65 knob columns vanish** (the p-quantised handles), rank(N mod p) = 32, left-kernel
+   dim w = 57, and the syndrome g = Wb.B is nonzero.  The retained rows V\D are mod-p
+   consistent **iff g lies in the span of the |D| columns of Wb indexed by D** — so the
+   whole question is one minimum-weight syndrome-decoding problem over F_p for a length-89
+   dimension-32 code.  Prange decoding: 400 trials, 190 with a solution, **none of weight
+   <= 6**; detection probability 0.0624 per trial, so P(missed) <= 4.8e-6.  The lightest
+   solution seen has weight 30 (an upper bound only; the current state itself realises 24).
+   Exhaustively, no |D| <= 3 is mod-p consistent (`modpobs.py`), and modp4.py extends that
+   to |D| <= 4.
+
+**Verdict: every integer knob vector in this region violates at least 7 equations
+(P(exception) < 5e-6 from the mod-p route alone, < e^-534 from the code route), and
+empirically at least 10.  The canonical basin at mod9118_0 cannot beat 39,026 — it can at
+best tie, and observed structure puts it at <= 39,023.**  Best verified score is unchanged.
+
+## Structural note (stated only in integer/polynomial terms)
+`probe2.py`/`ahandles.py` show 512 atoms of the shape  H*b + c2*b*w - s*x_T  with H a
+~296-bit literal, covering exactly 256 distinct gating variables b, each with exactly two
+such atoms.  Setting b = 1 loads  x_T = (H + c2*w)/s  into the circuit; b = 0 loads 0.
+These are the instance's conditional constant loads.  Their literals are recorded only as
+constants of EQUATIONS.txt; no further reading of them is used anywhere below.
+
+
+## PRIORITY 1 RESULT — the canonical basin at mod9118_0 is CLOSED (clean negative)
+Region (regsolve2, strictly-linear knobs, no equation approximated): **89 nontrivial affine
+rows, 65 knobs, rank(N) = 65 = #knobs**, the full system Q-CONSISTENT with a UNIQUE
+rational solution W, non-integral in exactly two coordinates (x5040, x30163, both
+denominator p).  Same lemma as the 39,026 theorem: a unique non-integral W forces every
+integer point's violated set D to contain a code support.
+
+* `canon2.py` — information-set search over the region code (length 89, dim 22 redundancy):
+  **10,635 trials, minimum support weight observed = 10, supports of weight <= 6 found: 0.**
+  Detection probability for a weight-6 support is 4.9% per trial (a random 65-of-89
+  information set contains <= 2 of its 6 support positions), so P(a weight-6 support exists
+  and was missed) <= (1-0.049)^10635 ~ e^-534.
+  => every integer knob vector in this region violates >= 10 equations, i.e. score <= 39,023.
+  **The basin cannot beat 39,026.**
+* Consistent with `mindist.py`: the smallest single-knob column support is exactly 10, and
+  an exhaustive check of the parity check H (24 x 89) found **no 2 or 3 linearly dependent
+  columns**, so the minimum support weight is >= 4 rigorously and = 10 empirically — the
+  minimum-weight codeword is simply a single knob column.
+* `modpobs.py` — an independent necessary condition.  Mod p, **33 of the 65 knob columns
+  vanish** (the p-quantised handles), rank(N mod p) = 32, left-kernel dim w = 57, syndrome
+  g = Wb.B is nonzero.  The retained rows V\D are mod-p consistent iff g lies in the span
+  of the |D| columns of Wb indexed by D — i.e. the whole question is one minimum-weight
+  syndrome-decoding problem over F_p for a length-89 dimension-32 code.  Exhaustive:
+  **no |D| <= 3 is mod-p consistent.**  `prange.py` runs Prange decoding on it (detection
+  probability ~6.4% per trial for weight 6).
+
+## Structural note (stated only in integer/polynomial terms)
+`probe2.py`/`ahandles.py` show 512 atoms of the shape  H*b + c2*b*w - s*x_T  with H a
+~296-bit literal, covering exactly 256 distinct gating variables b, each with exactly two
+such atoms.  Setting b = 1 loads  x_T = (H + c2*w)/s ; b = 0 loads 0.  These are the
+instance's conditional constant loads; only their status as constants of EQUATIONS.txt is
+used anywhere in this log.

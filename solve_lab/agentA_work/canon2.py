@@ -109,6 +109,6 @@ for D in sorted(sups,key=len):
     if x is not None:
         s2=report(x,D); best=max(best,s2)
 print('DONE. best score from this region = %d'%best,flush=True)
-if minw>6:
-    print('CONCLUSION: minimum code-support weight in this region is %d > 6, so every'%minw)
-    print('integer knob vector violates >= %d rows -> this basin cannot beat 39,026.'%minw)
+# NOTE: minw is the smallest support SEEN, i.e. an UPPER bound on the code's minimum
+# distance.  The sound inference is the absence of small supports together with the
+# per-trial detection probability, computed by the caller.

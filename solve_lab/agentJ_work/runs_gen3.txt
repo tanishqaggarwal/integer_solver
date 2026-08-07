@@ -1,2 +1,24 @@
 T = [23326, 23327, 35889, 35890, 35891, 35892, 35893]
 candidates: 477
+
+UNION generators (10):
+    x_642[alone] [-7376877, 0, 0, 0, 0, 0, 1]
+    x_1329[alone] [0, 0, '~78d', 0, 0, 0, 0]
+    x_1329[dag](NONLIN) [0, 0, '~731d', '~731d', 0, 0, 0]
+    x_8731[dag] [0, 0, 0, 0, 0, 1, 0]
+    x_9413[alone] [0, '~78d', 0, 0, 0, 0, 0]
+    x_10903[alone] [0, 0, 0, 0, '~78d', 0, 0]
+    x_10903[dag](NONLIN) [0, 0, 0, 0, '~731d', '~731d', 0]
+    x_17325[alone] [0, 0, 0, 0, 0, 0, '~78d']
+    x_29854[alone] [0, 0, 1, -1, 0, 0, 0]
+    x_31864[alone] [0, 0, 0, 0, 1, 1, 0]
+rows: 12 [2554, 6816, 8124, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+currently zero rows: 5
+  k = 12: no integral solution over 1 subsets
+  k = 11: no integral solution over 12 subsets
+  k = 10: no integral solution over 66 subsets
+  k = 9: no integral solution over 220 subsets
+  k = 8: no integral solution over 495 subsets
+  k = 7: no integral solution over 792 subsets
+  k = 6: no integral solution over 924 subsets
+  k = 5: SOLVABLE rows (0, 1, 2, 3, 4) => score 39026

@@ -1,0 +1,9 @@
+  it0: bad=[8010, 8011, 20215, 28647] fails=43
+  it0: no linear solution
+BIT 17760: fails=43 score=38990 bad=[8010, 8011, 20215, 28647] (14s)
+  it0: bad=[18806, 18807, 20215, 28647] fails=46
+  it0: no linear solution
+BIT 38625: fails=46 score=38987 bad=[18806, 18807, 20215, 28647] (13s)
+  it0: bad=[2072, 2073, 20215, 28647] fails=41
+  it0: no linear solution
+BIT 22623: fails=41 score=38992 bad=[2072, 2073, 20215, 28647] (13s)
