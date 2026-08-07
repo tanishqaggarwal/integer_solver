@@ -1,0 +1,9 @@
+base 39026
+cone of x2099 u x28730: 18 variables
+  x2081    cost=109  score=38913  a22229~89d
+   ...0/18 [3s]
+  x4287    cost=38   score=38983  a22229~724d, a35759~731d, a35761~731d
+  x6418    cost=13   score=39009  a22229-1
+  x9118    cost=0    score=39023  a35759+5113045
+  x28730   cost=16   score=39006  a22230+1
+done

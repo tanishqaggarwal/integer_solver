@@ -7,3 +7,5 @@ beam_39016.json ecl=1 score=39016 fail=17 | atoms=45 knobs=40 eqs=55 skipped=0 r
    trials=1230 supports<=16=0 sizes=[]
    no improvement
 AG_39013.json ecl=1 score=39013 fail=20 | atoms=50 knobs=41 eqs=59 skipped=0 rows=57 deadviol=0 inregion-viol=20
+   trials=1810 supports<=19=0 sizes=[]
+   no improvement

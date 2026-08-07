@@ -74,6 +74,53 @@ agents whose angle has plateaued and let the rest have the cores.
 ## Campaign state
 
 - Best verified partial: **39,026 / 39,033**, `best/new_instance_partial_39026.json`,
-  failing `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
-- Agents A–J launched; none has reported yet. No agent-produced improvement to date.
+  failing `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`. **No agent has beaten it.**
 - Retired angles: generator inversion (dropped by user instruction, agent E redirected).
+
+### Check-in 1 — fleet thinned 10 → 5
+
+CPU was 5x oversubscribed (load 20 on 4 cores), so five agents were stopped flush-first.
+Memory and disk stayed ample. Stopped, each having delivered its angle's result:
+
+| Agent | Why stopped | What it delivered |
+|-------|-------------|-------------------|
+| B | angle complete | independent parser + model, 0/39033 mismatches; every eq is `scalar * L^k = 0` |
+| E | below baseline (39,015) | clean parse + acyclic DAG, 8,365 free inputs, after losing its first angle |
+| G | superseded | exact symbolic forward eval over F_p: 112 symbols, 57 non-constant checks |
+| H | decomposition delivered | acyclic frame over all 38,748 vars, 8,747 free inputs — cleaner than prior sessions' |
+| J | verdict delivered | reduced parameterization independently re-derived and CONFIRMED real |
+
+### The finding that reframed the campaign
+
+Agent I derives, from its own parse with each step reproducible, that the instance
+**reduces exactly to a 256-bit ECDLP**: residual symbols trace to the short-Weierstrass
+addition law after removing a K offset; the 512 conditional-pin constants lie on
+`y^2 = x^3 + b`, a sextic twist of secp256k1 with prime 256-bit group order N; 185 of 219
+table points have their double in the table, so the 256 selectors index a doubling ladder;
+the instance asserts `k*G = P_target`. If step 6 of its chain holds — that there is no
+mod-p freedom anywhere except the selector bits — then 39,026 is a **coding optimum, not a
+near-miss**, and no search closes the remaining 7 equations.
+
+Independent corroboration from agents that never shared a model: D's residual at 39,017 is
+two mod-p pins on `(x3, y3)`; C reduces the system to three conditions; F confirms p is the
+secp256k1 field prime with handles entering as `p*h`; A states the obstruction as two mod-p
+congruences over 12 rank-7 rows.
+
+### Surviving five, all retasked to falsify that claim from their own models
+
+Independence is the point: none may import agent I's artifacts.
+
+- **I** — harden the chain into a PASS/FAIL certificate; be adversarial about step 6, which
+  is the only step carrying "unavoidable" rather than merely "present."
+- **A** — are the two mod-p congruences the same object as the ECDLP? Does any integer
+  combination escape them (HNF/enlargement)? An escape refutes step 6.
+- **C** — decisive and cheap: in branch (1,1), set free inputs `x_22162, x_30213` to K2, K1
+  and report the checker score. Closes the system, or breaks exactly as I predicts.
+- **D** — did the search ever move `(x3, y3)` to a *different* valid curve point? Answerable
+  from logs already held. If it moved freely, step 6 is wrong.
+- **F** — independently verify N's primality (computed once, by one agent, via Cornacchia),
+  and check for smooth/small-order structure. Also test the sharp prediction that lift
+  obstructions concentrate at p alone.
+
+A clean refutation would be the campaign's most valuable result; a clean confirmation lets
+the situation be stated precisely instead of gestured at.

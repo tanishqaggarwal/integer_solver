@@ -1,0 +1,5 @@
+[B26] blocking gates [22229, 22230, 35758, 35761, 35762]
+[B26] start ../best/new_instance_partial_39026.json score=39026 nz=[22229, 22230, 35758, 35759, 35760, 35761, 35762]
+[B26] it200 score=39023 best=39026 T=1.64 t=47s
+[B26] it400 score=39023 best=39026 T=2.02 t=84s
+[B26] it600 score=39023 best=39026 T=1.65 t=113s

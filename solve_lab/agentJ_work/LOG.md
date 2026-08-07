@@ -56,3 +56,14 @@ NEXT: build a forward propagation engine and test setting x4432:=x19964, x7068:=
     b1=1 b2=1 -> 3 violated [20407, 20409, 31575]
   a731  : x18956 == C5 (mod p)        a31571: x24468 == x13682 (mod p)
   Both are the OUTPUT pins, and with x15298 = 0 the coordinates cannot reach them.
+
+## STOP checkpoint
+Branch table (mod p, after chain sweep) is the headline result:
+  (1,1) -> 3 violated (EC residual a20407/a20409/a31575)
+  (1,0)/(0,1) -> 2 violated (output pins a731, a31571)
+  (0,0) -> 3 violated
+Integer lift of branch (1,0) -> J_b10_38998.json, 38998/39033 (3 nonzero atoms:
+a731, a3895, a31571; a3895 is only an integrality slip - lift x6418 to the exact
+literal C1 instead of its residue mod p and it goes away).
+jnewton.py written but NOT run: full mod-p Newton over all 8458 constraints.
+jlead_build.py added so the pipeline rebuilds from source (caches are gitignored).

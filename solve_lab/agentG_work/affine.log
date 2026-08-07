@@ -1,0 +1,17 @@
+base (A,B) = (42288441692606730654477992334300923363430351219005991492903082270078522512476, 30198542159037429362146806524344230561752840864915142381356343449320103876465)
+bit x47     (A,B)=POLY  nres=9
+bit x91     (A,B)=POLY  nres=8
+bit x112    (A,B)=POLY  nres=9
+bit x438    (A,B)=POLY  nres=10
+bit x490    (A,B)=POLY  nres=12
+bit x542    (A,B)=POLY  nres=8
+bit x853    (A,B)=POLY  nres=8
+bit x1203   (A,B)=POLY  nres=8
+bit x1357   (A,B)=POLY  nres=8
+bit x1413   (A,B)=POLY  nres=8
+--- pair additivity test ---
+  (47,91): non-numeric
+  (47,112): non-numeric
+  (47,438): non-numeric
+  (47,490): non-numeric
+  (91,112): non-numeric

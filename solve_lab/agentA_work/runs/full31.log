@@ -5,3 +5,7 @@ information set 22, OUT 9
   j=2 supports=120 [7s]
   j=3 supports=2360 [59s]
   j=4 supports=13280 [206s]
+  j=5 supports=30752 [358s]
+  j=6 supports=38760 [403s]
+EXHAUSTIVE supports <=6 : 38760  sizes=[(6, 38760)]
+admissible violation sets of size <= 6 : 38760
