@@ -1,0 +1,2 @@
+configurations: 48
+cfg0 (|on|=0) bad=[20215, 28647] knobs=54 atoms=49 nohandle=[726, 28647] -> core infeasible (72s)

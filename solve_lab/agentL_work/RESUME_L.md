@@ -122,7 +122,16 @@ No claim is made about other break sets.
 full circuit-driven fold) and `s3.py` (validated 200/200):
 * **|S| = 1 : 256 folds, no hit.**
 * **|S| = 2 : 32,640 folds, no hit.**
-* **|S| = 3 : 2,763,520 folds — running (`s3.log`), see file for the verdict.**
+* **|S| = 3 : 2,763,520 folds, NO HIT** (`s3b.py` / `s3b.log`, 143 s).
+* **|S| = 4 : 174,792,640 folds — RUNNING** (`s4.py` / `s4.log`, measured rate 400k / 56 s => ~6.8 h).  If it is
+  still running or was killed, relaunch with `setsid nohup python3 s4.py > s4.log 2>&1 &`.
+* **No degeneracy anywhere** (`degen.py`): 0 of 32,640 pairs and 0 of ~370 random sets of size
+  3..256 produce a zero chord denominator, so the fold is well defined on everything tested —
+  which is what the 2^256-1 count needs.
+`s3b.py` uses **Montgomery batch inversion** (`batch_inv`): 200k inversions in 1.4 s vs 849 us
+each naively — a 120x speedup, and the whole cost of a fold is its inversions.  Rate measured:
+400,000 triples / 22 s.  At that rate **|S| = 4 (174,792,640 sets) is ~2.7 h** — the next run to
+launch, and it needs only a generic "merge the pair with the deepest LCA" loop over 4 items.
 Root MITM split is 178 | 78 live leaves, so a root-level meet-in-the-middle is 2^78 — out of
 reach.  12 of 383 nodes have live-leaf support > 24; 371 are <= 24.
 

@@ -60,7 +60,7 @@ def price(bits):
 
 if __name__ == '__main__':
     out = {}
-    for c in ([24601, 2081], [24601], [47], [91], [542]):
+    for c in ([24601], [47], [91], [542], [24601, 2081]):
         p = price(c)
         out[','.join(map(str, c))] = p
         print('%-16s atoms=%d eqs=%d  max killable=%d -> floor failing=%d -> implied score <= %d'

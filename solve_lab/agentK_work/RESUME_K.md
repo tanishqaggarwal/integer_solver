@@ -55,6 +55,12 @@ the chain labels every leaf with an exponent `e ∈ 0..255` and leaf(e) = 2^e ·
 > and since `0 < dlog < N < 2^256` and every exponent 0..255 is available exactly once,
 > **the solution is unique: S = the binary support of `dlog_G(T)`.**
 
+**Status of that statement.** The constants, the cubic, the chain, `N` and the 178/78 split are
+all *measured*. The step "fold = group sum" is validated end-to-end on the A half up to 3-leaf
+folds (§2) and rests on F's independent 72/72 stage-law check; the B half is validated for
+single leaves only. Treat the uniqueness sentence as **strongly supported, not proved**, until
+§2's B-half gap is closed.
+
 --------------------------------------------------------------------------------------------------
 ## 2. THE FOLD EVALUATOR — built and VALIDATED (F's priority 2, done)
 

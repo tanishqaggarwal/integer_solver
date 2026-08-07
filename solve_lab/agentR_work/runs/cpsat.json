@@ -178,5 +178,41 @@
   "branches": 0,
   "booleans": null,
   "wall": 0.12
+ },
+ "m28_free": {
+  "m": 28,
+  "n": 28,
+  "p": 165885553,
+  "pin": false,
+  "status": "UNKNOWN",
+  "time": 300.01,
+  "conflicts": 11732,
+  "branches": 43933,
+  "booleans": null,
+  "wall": 300.01
+ },
+ "m31_pin": {
+  "m": 31,
+  "n": 31,
+  "p": 1493464327,
+  "pin": true,
+  "status": "MODEL_INVALID",
+  "time": 0.0,
+  "conflicts": 0,
+  "branches": 0,
+  "booleans": null,
+  "wall": 0.0
+ },
+ "m31_free": {
+  "m": 31,
+  "n": 31,
+  "p": 1493464327,
+  "pin": false,
+  "status": "MODEL_INVALID",
+  "time": 0.0,
+  "conflicts": 0,
+  "branches": 0,
+  "booleans": null,
+  "wall": 0.0
  }
 }

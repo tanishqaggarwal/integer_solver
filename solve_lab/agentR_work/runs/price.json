@@ -1,0 +1,24 @@
+{
+ "24601": {
+  "bits": [
+   24601
+  ],
+  "score": 39013,
+  "atoms": 3,
+  "eqs": 20,
+  "max_killable": 7,
+  "floor_failing": 13,
+  "implied_score": 39020
+ },
+ "47": {
+  "bits": [
+   47
+  ],
+  "score": 39013,
+  "atoms": 3,
+  "eqs": 20,
+  "max_killable": 7,
+  "floor_failing": 13,
+  "implied_score": 39020
+ }
+}

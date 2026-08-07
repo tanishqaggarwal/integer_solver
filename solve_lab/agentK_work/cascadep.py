@@ -51,9 +51,15 @@ class CascadeP:
         for i in forbid: done[i] = 1
         q = collections.deque(i for i in range(self.n) if nunk[i] == 1)
         derived = 0
+        # provenance: trace[u] = atom index that derived u, or None if u was seeded.
+        # deps[u] = the other variables that atom already knew.  Used to walk back from a
+        # wrong value to the first non-forward derivation.
+        self.trace = {}
+        self.deps = {}
 
-        def setv(u, val):
+        def setv(u, val, src=None, dep=()):
             nonlocal derived
+            self.trace[u] = src; self.deps[u] = tuple(dep)
             v[u] = val % P; known[u] = 1
             for j in self.var2atoms[u]:
                 nunk[j] -= 1
@@ -77,7 +83,8 @@ class CascadeP:
                 if a == 0:
                     v[u] = 0; continue
                 v[u] = 0
-                setv(u, (-c0) * pow(a, P - 2, P) % P)
+                setv(u, (-c0) * pow(a, P - 2, P) % P, src=i,
+                     dep=[z for z in self.avars[i] if z != u])
                 derived += 1
         prop()
         for u in order:

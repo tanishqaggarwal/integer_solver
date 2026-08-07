@@ -13,3 +13,6 @@ m=20 pin=False UNKNOWN        300.1s  conflicts=12496 branches=79940
 m=24 pin=True  OPTIMAL          0.1s  conflicts=0 branches=0
 m=24 pin=False UNKNOWN        300.0s  conflicts=3356 branches=21095
 m=28 pin=True  OPTIMAL          0.1s  conflicts=0 branches=0
+m=28 pin=False UNKNOWN        300.0s  conflicts=11732 branches=43933
+m=31 pin=True  MODEL_INVALID     0.0s  conflicts=0 branches=0
+m=31 pin=False MODEL_INVALID     0.0s  conflicts=0 branches=0

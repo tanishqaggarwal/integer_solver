@@ -515,3 +515,133 @@ indices across agent directories without translating first.**
 2. **Price the degeneracy by placement** — enumerate where else a forced equality can be
    planted and what each placement costs. If a cheaper block exists, that beats 39,026
    *without* solving the subset-sum.
+
+---
+
+## Check-in 8 — three reports converge on what 39,026 is (agents S, K, M)
+
+Deliverable unchanged: **39,026 / 39,033**, failing `[12231, 12270, 12350, 14584, 18673,
+22044, 29125]`. S, K and M each re-verified it themselves; none beat it. S's own best
+construction was 39,019; M's best over every base it priced was 39,008 before its engine fix.
+
+### The convergence
+
+Three agents working in three models arrived at the same account of the deliverable:
+
+- **P (check-in 7)**: a merge seeing two equal live inputs has `A = B = 0`, so both its
+  congruences vanish identically and its output is unconstrained. The deliverable's fold
+  differs from P's at six blocks, forcing two blocks equal.
+- **K, independently**: the deliverable's 7 failures are **one gate's off-pins**, and they
+  work by forcing the **root's two inputs equal**, which makes the root check vanish and
+  leaves the root output free — then it is set to the target. Verified that
+  `2·leaf(24601) ≠ T` and `leaf(24601) ≠ T` while every root atom is zero.
+- **M, in equation space** (a frame nobody had used): greedy keeps 79/86 rows and returns
+  **exactly 39,026** — the deliverable already *is* that solve's optimum — stopped by a
+  **divisibility obstruction on equation 29125**.
+
+So 39,026 is not a search failure. It is the price of a degeneracy that cannot be had honestly.
+
+### K — the degeneracy is unreachable by configuration (new closed negative)
+
+**No stage anywhere can be made degenerate.** Interior stages: `|x−y| < 2ⁿ < N` forces
+`x = y`, impossible on disjoint bit sets. Root: `x−y = ±N`, and because each bit belongs to
+exactly one half the carry walk is deterministic — both directions end with a nonzero carry.
+**Knob set as stated by K:** all 256 leaf selectors, all 2²⁵⁶ configurations, every other
+variable free; also checked against all 256 single-exponent reassignments and **0 of 2000**
+random 178/78 partitions. The adjacent hole (a half folding to the identity) is closed too.
+This is consistent with P rather than contradicting it: the degeneracy is reachable only by
+breaking pins, which is what the deliverable pays for.
+
+**K's site-cost table** — the first thing in this lab that prices 7 against alternatives
+instead of asserting it: deliverable's site **7** equations, cheapest leaf-pin pair **10**,
+breaking the target pins **16**, and **the 12 atoms with footprint < 7 are all decoy
+idempotency atoms**. That last clause bears directly on P's SLP-5497 window screen, which
+selects precisely for low-footprint atoms; P has been asked to test the window against it
+before building anything.
+
+K also finished the decode (exactly 516 literals > 10²⁰: 512 leaf pins, 2 target constants,
+`p`, `K` — nothing else), confirmed the 178|78 split independently, and **refuted its own
+first two fold validations mid-session**: a plain cascade runs the target pin *backwards*
+into the tree and returns "A = target X". Anyone building an evaluator must forbid those two
+atoms. Open and not claimed: multi-leaf **B-half** folds are not yet reproduced by K's
+closure (A-half is exact), so its uniqueness sentence is marked *strongly supported, not
+proved*; and `k25_class.py` misses two of three idempotency atom spellings (logged as a bug).
+
+### M — E's engine was structurally incapable of representing the deliverable, and is fixed
+
+M's quadratic-branch hypothesis was **wrong**; the defect is structural. `harness._bootstrap`
+assigns each derived variable a **definer atom** and `forward` solves that atom **to zero**,
+so every definer atom is identically satisfied in every state E's engine can reach — and
+**five of the deliverable's eight nonzero atoms are definers** (23616→x_7068, 23617→x_28730,
+36659→x_29854, 36663→x_31864, 36664→x_642; atom 36663 *is* the expression `x_31864`, so the
+engine defines that variable as zero while the deliverable sets it nonzero). The other 18
+differing variables were downstream contamination.
+
+**Fix (`engine2.py`): demote those 5 atoms, promote 5 variables to free. Zero variables now
+differ from the deliverable; 39,026/39,033; same 7 failing equations; all 8 nonzero atoms
+intact.** Guarded against overfitting: engine2 predicted 39,000 and 38,961 at two
+non-deliverable points and `checker.py` confirmed both exactly. Those 5 variables drive 7 of
+the 8 residual atoms **affinely** and were invisible to every solver before.
+
+**Fleet-level consequence:** any result computed inside the unfixed engine was computed in a
+space that **cannot contain the deliverable**. Check results that came out of it before
+building on them.
+
+**Monotonicity is an ARTIFACT.** M corrected its own check-in 6 reasoning: E's 178-block
+representatives are A-side, so its rows *did* fire the root gate — but every root-firing
+configuration E priced also carried cfg0's two B-side leaves, so **E never priced a clean
+2-leaf root-firing configuration**. From a neutral base (all 2⁸ block-subsets): 38776, 38791,
+**38804**, 38787, 38773, 38761, 38746, 38718, 38655 by live-block count — **unimodal, peaking
+at 2, not monotone**. Root-firing beats 78-side-only 38,804 vs 38,791 overall and 38,804 vs
+38,774 at equal count. The lattice optimum `(47, 490)` reproduces **the deliverable's slot
+pattern**, recovered independently.
+
+M's secondary for F is closed and negative: the 3 stages absent from `mux_wiring` are trivial
+1|1 splits, so **the oracle does not advance the inversion attack**; `blocks8.json` stands.
+M also fixed a bug in its own crossing test and downgraded its 32-block refinement from
+"spurious" to "unvalidated" once P's audit removed the yardstick's authority.
+
+### S — the filter that caused an earlier false barrier was still in place
+
+S found it and removed it: E's channel measurement probed **boolean knobs only**. Over all
+333 cluster-cone knobs there are **pure single-atom handles** — 1,815 free variables that move
+exactly one atom, affinely, by exactly **±p** — so an atom is satisfiable iff its residual is
+≡ 0 mod its handle step. a28647, a30787, a26958, a40306, a726 have **no** handle.
+
+`lat3.py`: over the complete affine knob set (54 knobs, every single-row knob, every atom's
+handle), eliminating the two target rows and solving the other 47 exactly over ℤ (feasible,
+kernel dim 7), the reachable lattice on `(a20215, a28647)` is **exactly p·ℤ²** — so the
+endgame condition is precisely `a20215 ≡ 0 (mod p)` **and** `a28647 ≡ 0 (mod p)`. A BFS over
+configurations **terminated by exhaustion** at 48 mod-p tuples: a7389, a10187, a20212, a28647
+all reach 0; **a20215 takes only 2 values and never 0**. The endgame therefore reduces to the
+**single** condition `a20215 ≡ 0 (mod p)`.
+
+S also confirms saturation is stronger than reported — it holds **across** classes, not just
+within, and both non-boolean "knobs" are switches (1 through 10²⁰ give identical deltas) —
+and refutes "the residual is a subset-sum" on the grounds that saturation makes it one-hot
+selection, so **LLL on the bit vector is the wrong tool**. Whether that contradicts P's
+subset-sum-plus-degenerate statement or merely re-describes it under a different
+decomposition is **unresolved and flagged to both**.
+
+### Standing cautions reinforced this check-in
+
+- **Structural pricing is still a dead instrument.** S's §6 (769 footprint-1 atoms, so ≤6
+  would beat the deliverable) and P's SLP-5497 window are the same kind of count, and K's
+  table says the sub-7 footprints are decoys. Nothing here counts until it is an assignment
+  the checker scores.
+- **Three independent derivations have now landed on the same group law** (P, K, and earlier
+  work). It is the reading the user withdrew, because it was being used to argue the instance
+  is unsolvable. The measurements are kept as the verified polynomial identities they are;
+  **no infeasibility claim stands anywhere in this lab, and none follows from this check-in.**
+  K's own report says it plainly: "Not claimed anywhere: infeasibility. The instance is
+  satisfiable." K has additionally been told not to call the final recovery step "mechanical"
+  — every part of it is mechanical except the part that is the whole problem.
+
+### Live tasking after check-in 8
+
+| Agent | Task |
+|-------|------|
+| K | Close the B-half validation gap (instrument `CascadeP.close`, walk back from `x14853`); fix the idempotency-spelling bug |
+| M | Characterise the divisibility obstruction on equation 29125 exactly; state the knob set, including the 5 newly-freed definer variables |
+| P | Test the SLP-5497 window against K's decoy-idempotency finding **first**; then the carrier, only if it survives |
+| S | Finish `lat5.py` (stopped 29/48, 0 feasible); reconcile its exhaustion with K's unreachability claim |

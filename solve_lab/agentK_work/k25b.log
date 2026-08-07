@@ -1,0 +1,5 @@
+idempotency atoms -> boolean vars: 3484 of which free: 1156
+handles (free, coeff==0 mod p everywhere): 3747
+free split: bools 1156, handles 3747, wires 3844, total 8747 (free=8747)
+leaf selectors that are free bools: 256 of 256
+non-leaf free bools: 900

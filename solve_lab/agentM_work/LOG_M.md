@@ -348,3 +348,26 @@ Scope-limited, because they are phrased in tree96's numbering:
   coarsenings, so its 10 crossings and 2 cut-across verdicts may be the yardstick's error rather
   than the oracle's. `blocks8.json` remains the artifact I would stand behind; the 32-block one
   should be re-judged against the 383-block tree before anyone uses or discards it.
+
+## 20. Still running at hand-off (confirmatory only, both provably capped)
+Two tails were still grinding on a machine at load ~27 on 4 cores when I wrote this up:
+- `rfenum2.py`'s final block (`simsolve` on the top 6 raw configurations) -> `rfenum2.log`
+- `eqsolve2.py`'s greedy row-selection over 999 equations (1500 s budget) -> `eqsolve2.log`
+
+Neither can exceed the baseline: every `simsolve`-based result measured in this round or by E tops
+out at 39,005-39,008 because the instrument overwrites the tuned handle values (§14, §18). No
+candidate file above 39,026 was produced by anything I ran (`ls M_eq*.json M_rf*.json` -> none).
+Whoever picks this up can read the two logs for the confirmatory numbers.
+
+## 21. Round-2 file index
+Engine//infrastructure : `engine2.py` (the fix), `fast2.py`, `fscore.py` (2331x scorer),
+                         `mcore2.py`, `chan2.py`
+Gate and diagnosis     : `gate.py`, `diag1.py`, `diag2.py`, `diag1.pkl`,
+                         `val_4287.json`, `val_17378.json` (checker.py-verified)
+Step 2                 : `enum2.py` (+`enum2_raw.pkl`, `enum2_pairs.pkl`), `rfenum2.py`
+                         (+`rfenum2.pkl`, `rfenum2.log`)
+Equation space         : `eqsolve.py`, `eqsolve2.py` (+`eqsolve2.log`)
+Oracle for F           : `orefine.py` (+`orefine_sigs.pkl`, `orefine.log`), `ofinal.py`,
+                         `xslot.py`, `blocks_corrected.json`, `oracle_for_F.json`,
+                         `xslot_report.json`
+Superseded             : `rfenum.py` (killed: 65k configs on the slow scorer; `rfenum2.py` replaces it)

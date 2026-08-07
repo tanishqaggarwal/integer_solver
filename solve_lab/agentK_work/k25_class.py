@@ -12,9 +12,17 @@ from cascadep import CascadeP, NV, P
 C = CascadeP()
 freeset = set(C.E.free)
 boolv = set()
+# an idempotency constraint x*(x-1)==0 is written three different ways in this file.
+# Missing a spelling silently demotes real booleans to "wires", which is exactly how a
+# filtered knob set gets mistaken for a property of the instance.  All three:
+SPELLINGS = [r'\(x(\d+)\*\(x(\d+)-1\)\)',      # (xA*(xA-1))
+             r'\(x(\d+)\*\(1-x(\d+)\)\)',      # (xA*(1-xA))
+             r'\(\(x(\d+)\*x(\d+)\)-x(\d+)\)'] # ((xA*xA)-xA)
 for nm in C.names:
-    m = re.fullmatch(r'\(x(\d+)\*\(x(\d+)-1\)\)', nm)
-    if m and m.group(1) == m.group(2): boolv.add(int(m.group(1)))
+    for pat in SPELLINGS:
+        m = re.fullmatch(pat, nm)
+        if m and len(set(m.groups())) == 1:
+            boolv.add(int(m.group(1))); break
 print('idempotency atoms -> boolean vars:', len(boolv), 'of which free:', len(boolv & freeset))
 
 d = json.load(open('/home/user/integer_solver/solve_lab/best/new_instance_partial_39026.json'))
