@@ -4494,3 +4494,73 @@ lifetime — which is exactly why someone else running the script is the right n
 sixth round from me.*
 
 **Closed threads: P, R, S, K, Q, L. Live: M, N, O, T.**
+
+---
+
+## Check-in 82 — the last door is shut to a stated budget; O closes
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### The audit's corrections re-verified against the RAW TEXT, no parser
+
+The only way to settle a dispute between two parses. Perturbing one variable and reading the raw
+LHS: `S = 2, 3, 5, −2, −3, −18` give **`16, 81, 625, 16, 81, 104976`** — **exactly `S⁴`, and
+`LHS == S^k` holds for k = 4 only.** Slopes confirmed: `dS/dx_4432 = +1`, `dS/dx_19964 = −1`,
+`dS/dx_28730 = −1`.
+
+**And the error was in the prose alone.** O's frame-B "S row" was built from H's **inner** factor,
+which **is** this affine form, and O had measured its slope as +1 before using it — **so every search
+constrained the right object.** T's rule applied to O's own work: *this number is wrong* is not
+*this result is wrong*.
+
+**18 vs 20 pinned rather than papered over:** the raw text has **18 bracketed groups**; E emits
+**20** entries because it splits exactly two — `−13·(x_21279·x_31731 + x_35619)` and
+`−5·(x_34600 − x_30108 + x_23642)`. **18 + 2 = 20, both correct descriptions of the same form.**
+⚠ **`S`'s 18 ≠ M's enumeration exponent 18.**
+
+**T's three previously-omitted p-handles confirmed as terms of `S` by source match:**
+`25·(x_18253 − x_4339·x_15120)`, `1·(x_37720 − x_14466·x_35531)`, `23·(x_23642 − x_8173·x_10422)`.
+
+### The last door: there is no free compensator
+
+**All 20 atoms of `S` live in 10–18 equations** — none confined to eq8680 the way `a37887` is in H's
+bundled parse; nine are checks in E's frame. **And the equations they disturb are the region's own,
+so every carrier of an `S` component is already a carrier of `a37887` — all 26 were in `K` from the
+start.**
+
+> **The channel was never a missing knob; it is purely a budget.**
+
+| budget | scope | solves | result |
+|---|---|---|---|
+| `j=1, b=0` | **complete** | 7 | none |
+| `j=2, b≤1` | **complete** — 21 pairs × each of 168 rows + the `S=0` row | 3,570 (21 s) | **none** |
+| `j=3, b≤2` | **14 of 35 triples complete** (b=0, all 168 at b=1, all 14,028 at b=2 each) | 198,772 (33 min) | **none** |
+| `j≥4` | greedy only | — | drops 25–26 against needing <4 |
+
+**All 21 pairs were individually feasible, so nothing was vacuously pruned at j=2.**
+
+**And O caught the thing that would have made this a false negative.** The greedy pass flagged
+`[12231, 12270, 12350]` as dropping **exactly 3** — net zero — **and since greedy only upper-bounds
+the drops, the true minimum could have been 2, i.e. 39,027.** Enumerated properly at `b ≤ 2`: none.
+**A weaker agent would have read the greedy number as a negative and stopped.**
+
+**Stated as budget, not exhaustion:** complete at `j=1,b=0` and `j=2,b≤1`; `j=3` complete for the
+**14 of 35 triples containing eq12231**, the other 21 not reached within the cap; `j≥4` greedy only.
+**So the 1-for-1 trade is proven unleverageable at budget 2 over `K`, and at budget 3 for every
+triple containing eq12231.** Scope throughout: **34 of 8,751 free inputs, frame B's orientation.**
+
+### O's thread closes
+
+Consolidating `RESUME_O.md` to give a later reader, in order: the **Lemma** as corrected and audited
+(`S⁴ = 0 ⟹ S = 0`, unconditional, and — from N — **precisely the 39,025 → 39,026 step**); the
+**seven-way 1-for-1 trade** with its knob set inline; the **compensation result with its budget
+stated as a budget**; the **δ₀ line and why it died** (`S = 0` collapsing the shift direction onto
+the handle direction); and the **2⁻⁷⁶⁷ rate computation** — the round where O computed the cost of a
+scan *before* running it and then did not run it, **the single best decision any agent made in this
+campaign.**
+
+**`S = 0` is now load-bearing in three other threads** — it is why δ₀ died, the mechanism behind N's
+finding that eq8680 is exactly what detaching `x_28730` buys, and why M's enumeration space shrank
+from 2¹⁸ to 2¹⁶ — so O writes it to be cited without re-derivation.
+
+**Closed threads: P, R, S, K, Q, L, O. Live: M, N, T.**

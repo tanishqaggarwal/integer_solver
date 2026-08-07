@@ -1,3 +1,21 @@
 alignment bad (pre-repair): 4
 atoms with exactly 1 handle: 3681 of 9032
 closeS4 prefix loaded (6s)
+checker loaded: 39033 equations
+
+=== |S|=2  tag=T2ctl  ON-set=[24601, 2081] ===
+   NONZERO ATOMS = 2 of 9032   WALL = 159.7s
+   checker: 39018  (15 failing)
+   failing: [4573, 7123, 7469, 9648, 11854, 16622, 17726, 21382, 25539, 28653, 29437, 31061, 32894, 32916, 34517]
+      ((x18956-x37892)-x32237)
+      ((x24468-x13682)-(12354891*x34243))
+   CONTROL PASSED  (need 2 nonzero atoms and 39018)
+
+=== |S|=3  tag=T3  ON-set=[19745, 33287, 30242] ===
+   NONZERO ATOMS = 2 of 9032   WALL = 171.5s
+   checker: 39018  (15 failing)
+   failing: [4573, 7123, 7469, 9648, 11854, 16622, 17726, 21382, 25539, 28653, 29437, 31061, 32894, 32916, 34517]
+      ((x18956-x37892)-x32237)
+      ((x24468-x13682)-(12354891*x34243))
+
+=== |S|=5  tag=T5  ON-set=[19745, 33287, 30242, 12422, 16586] ===

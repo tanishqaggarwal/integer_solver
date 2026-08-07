@@ -282,3 +282,114 @@ above shows each such swap is a detachment, and the score is decided in the regi
   realizable in the existing frame, and all 127 combinations are ≤ 39,026.
 - **REFUTED**: that frame depth is a lever.  The region's knob set is 49/7 at every depth to
   saturation.
+
+---
+
+# Follow-up 2 (check-in 74): T's S⁴ flag — a real correction — and the wholesale re-orientation
+
+## Step 13 — CORRECTION and RETRACTION.  T's note was right and it was load-bearing
+
+`atom_src[37887]` parses as `BinOp(Mult)` with the two operands **textually identical**, so
+`av[37887] = S²` and `eq_terms[8680] = (1, sq=True, [(1,37887)])` gives **eq8680 = S⁴**.
+`optN.inner` strips one level and returns `S²` — a quadratic. T's diagnosis is exactly right.
+
+**Blast radius, measured not assumed.** `sqaudit.py` scans every row of every model for top-level
+square atoms AND tests affineness numerically (probe each knob at steps 1, 2, 3; require
+`value(t) − value(0) = t·(value(1) − value(0))`). Result: **exactly two non-affine rows anywhere** —
+eq 8680 (atom 37887) and eq 13985 (atom 39967). Every other row of every model is exactly affine
+against all 49/53 knobs. After stripping both rows to their linear cores, **0 non-affine pairs remain**.
+
+**What survives.** The witness region (|R| = 12) contains *neither* row — 8680 and 13985 are both
+outside it and both have core zero there. So the 924/924 p-obstruction, OPT = 5 at |R| = 12, and
+the exhaustive detach closure at |R| = 12 are **unaffected**.
+
+**What changes — and I am retracting a claim I sent you.** In the |R| = 13 regions row 8680 *is* in
+the region, and it was mis-modelled. Corrected:
+
+| | mis-modelled (S²) | corrected (S) |
+|---|---|---|
+| OPT at \|R\|=13 | 5 | **6** |
+| 8680 individually zeroable | **no** | **yes** |
+| max rows zeroable subject to 8680 = 0 | **0** | **6** |
+| score | 39,025 | **39,026** |
+
+**RETRACTED**: my step-10 statement that "row 8680 is not individually integrally zeroable and max
+rows zeroable subject to 8680 being zeroed is 0, so detaching `x_28730` is the only way to reach
+`T = 0`." That was computed on the quadratic row. **The knobs CAN reach `S = 0`.** In every |R| = 13
+state the optimal 6 rows are `[2554, 6816, 8124, 8680, 9123, 9421]` — 8680 among them.
+
+Constructed and **independently verified with `solve_lab/checker.py`**:
+`agentN_work/N_r13_39026.json`, built from `D = []` (no detachment at all), largest variable 909
+digits — `satisfied 39026/39033`, failing `[12231,12270,12350,14584,18673,22044,29125]`.
+So there are (at least) two routes to `S = 0`: detach `x_28730`, or set the knobs. Both land on
+39,026 with the identical failing set.
+
+**Corrected closure table**: all **16** detach states score **39,026**, not the 39,025 / 39,026 split
+I reported. The `|R| = 12` vs `|R| = 13` distinction dissolves once the row is modelled correctly.
+The conclusion (39,026, not beaten) is unchanged; the intermediate numbers were wrong.
+
+O's Lemma still holds and is still the reason 8680 must be zeroed — what changes is *how many ways*
+the frame has to do it. Please relay the retraction to O and T.
+
+## Step 14 — T's identity, adopted
+
+T's formulation is better than mine and I am adopting it: a pool variable `v` is defined by an atom
+`(v − RHS)`, so **witness(v) ≠ gate(v) ⟺ that defining atom is nonzero at the deliverable.** The
+deliverable has exactly 7 nonzero atoms, and exactly 4 pool variables have a nonzero defining atom —
+`{642, 28730, 29854, 31864}`. That makes the 4-of-65 reduction checkable without my frame. T also
+closed the gap my argument left (0 of the 61 reach a witness variable directly, transitively in the
+pool, or anywhere in the full 30,001-definition DAG), so the 2⁶⁵ lattice has **exactly 16 states by
+proof**, not by enumeration.
+
+## Step 15 — the wholesale re-orientation: the 7 survive
+
+`fwd5.py` rebuilds the frame from scratch under a chosen target rule (fix a target per atom, then
+run `fwd2`'s propagation), then forward-evaluates from the witness values on that frame's free inputs.
+Definition semantics need no re-parsing: an atom is `s·x_v + F` with `s = ±1`, so `x_v ← x_v − s·atom`.
+
+| rule | defs | checks | free | score | failing | nonzero checks (whole instance) | region atoms left nonzero |
+|---|---|---|---|---|---|---|---|
+| **fwd2 baseline** | 30,001 | 12,266 | 8,747 | **39,020** | 13 | — | — |
+| first | 30,970 | 11,297 | 7,778 | 38,996 | 37 | 6 | 35759, 35760 |
+| last | 23,170 | 19,097 | 15,578 | 39,006 | 27 | 4 | 22230, 35759, 35760 |
+| lowvar | 25,863 | 16,404 | 12,885 | 39,005 | 28 | 5 | 35759, 35761, 22231, 37887 |
+| highvar | 25,878 | 16,389 | 12,870 | 38,999 | 34 | 7 | 22230, 35758, 35760 |
+| random/1 | 25,384 | 16,883 | 13,364 | 38,984 | 49 | 12 | 22230, 35758, 35761 |
+| random/2 | 25,103 | 17,164 | 13,645 | 39,005 | 28 | 5 | 35758, 35760, 22231, 37887 |
+| random/3 | 25,136 | 17,131 | 13,612 | 38,955 | 78 | 16 | 35759, 35760, 37887 |
+| random/4 | 25,265 | 17,002 | 13,483 | 39,006 | 27 | 4 | 22230, 35759, 35761 |
+| random/5 | 25,351 | 16,916 | 13,397 | 39,005 | 28 | 5 | 35758, 35760, 22231, 37887 |
+| prefer (aimed at the region) | 30,965 | 11,302 | 7,783 | **39,020** | **13** | 5 | 22229, 35759, 35760, 22231, 37887 |
+
+**No orientation beats the baseline.** The best alternative (`prefer`, built specifically to turn
+region atoms into definitions) ties at 39,020 with **the identical 13 failing equations**.
+
+**The 7 survive.** In every orientation the failing equations reduce to nonzero atoms drawn from the
+same nine `{22229, 22230, 22231, 35758, 35759, 35760, 35761, 35762, 37887}` — 3 to 5 of them are left
+nonzero, never none. Which ones varies; the carrier set does not.
+
+Two structural facts fall out:
+- **Atom 37887 is a CHECK in all 10 orientations.** It has no legal unit target, so no orientation can
+  ever force it to zero. `S = 0` is always a value condition, never a structural one — the global
+  version of what I found locally.
+- **Fewer nonzero atoms is not better.** `last` and `random/4` leave only **4** nonzero check atoms in
+  the whole instance — fewer than the baseline — yet score 39,006 vs 39,020, because those atoms sit
+  in more equations. Atom count is the wrong objective; equation incidence is the right one.
+
+**Scope.** This is the forward score from witness free-input values in each frame (the all-attached
+analogue, which is 39,020 in the baseline). It is not each frame's optimum after knob optimisation.
+The reason I did not compute those: re-orientation is detachment (step 12), the region's knob set is
+49 at every frame depth to saturation (step 11), and the detach lattice is closed at 16 states by
+T-verified proof (step 14) — so the region optimum is 39,026 regardless of orientation.
+
+## Cross-link
+`x_28730` is simultaneously one of my 4 witness variables, one of the h-wires in L's cancellation
+set, and the variable entering O's `S` with `dS/dx_28730 = −1`. Three threads, one wire.
+
+## Confirmed / refuted (follow-up 2)
+- **CONFIRMED** (T): eq8680 is S⁴, not S²; `inner` strips one level too few. Real defect, 2 rows.
+- **RETRACTED** (mine): "the knobs cannot reach `S = 0`; detaching `x_28730` is the only way."
+  Corrected: 8680 is zeroable, OPT at \|R\|=13 is 6 not 5, and all 16 detach states score 39,026.
+- **CONFIRMED** (T): the 4-of-65 reduction, now by proof via the nonzero-defining-atom identity.
+- **REFUTED**: that a different global orientation changes the carriers. Over 10 orientations the
+  failing equations always reduce to the same nine region atoms, and 37887 is never a definition.

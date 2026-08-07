@@ -1,0 +1,6 @@
+=== witness placement, model rebuilt with the two square rows stripped ===
+  |R|=12 outside=139 knobs=49 ; non-affine (row,knob) pairs AFTER the fix: 0
+  outside rows nonzero at the witness after stripping: 0 []
+  region OPT with ALL 49 knobs, no collateral limit: 12 of 12 (exh=True)
+  |W|=0: kernel dim 14, g=5, need 6 -> no
+  |W|=1: 139 subsets exhaustive, max g=5 (W=[0]), need 7 -> no ; best failing 7 (16s)

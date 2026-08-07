@@ -29,3 +29,10 @@ structural influence map: 1901 wires, mean 1.4 c>1 atoms/wire, max 3
         ((x2467*x8672)-x23237)
         ((x24908-x17601)+x5201)
        (186s)
+|S|=17  S17  NONZERO ATOMS = 30 of 9032  -> close_S17.json
+        ((x2597-x24626)-x16720)
+        ((x13580*x35177)-x25413)
+        ((x13580*x22419)+x24671)
+        ((x23823-x8356)-x35476)
+        ((x16259-x5696)-x6829)
+       (350s)

@@ -259,3 +259,38 @@ Full write-up in **`DELTA0_STATUS.md`** (read it before using `DELTA0_FOR_M.json
   `T`'s other 19 atoms.
 - Files: `eq8680.py`, `eq8680_crosscheck.py`, `fb_U.py`, `fb_net.py`, `fb_lincheck.py`;
   `EQ8680_LEMMA.md`; logs in `runs/`.
+
+## 10. Check-in 60 round — Lemma CORRECTED after agent T's audit; last door closed to budget.
+### 10a. Corrections (re-verified by me against the RAW text of EQUATIONS.txt, no parser)
+`verify_lemma.py` / `runs/verify_lemma.log`.  All three of T's corrections confirmed:
+1. **`eq8680`'s LHS = `S⁴`, not `S²`.**  Perturbing one variable and reading the raw LHS:
+   S = 2,3,5,−2,−3,−18 give LHS = 16, 81, 625, 16, 81, 104976 — exactly `S⁴`, and `LHS == S^k`
+   holds for **k = 4 only**.  Nesting is two levels: `LHS = T·T`, `T = S·S`.
+2. **The object with slope +1 is `S`**, the affine form: measured `dS/dx_4432 = +1`,
+   `dS/dx_19964 = −1`, `dS/dx_28730 = −1`.  I had written "`eq8680 = T²`, `T` linear" and quoted
+   `dT/dx_4432 = +1` — those cannot describe the same object (`T = S²` ⇒ `dT/dx = 2S+1`).
+   **Prose error only: my computation used H's inner factor, which IS `S`** (I measured its
+   slope as +1 before using it), so every search constrained the right object.
+3. **18 vs 20 is a granularity difference, not a contradiction.**  18 bracketed groups in the
+   raw text (F, T); E emits 20 `(coef, atom)` entries because it splits exactly two brackets:
+   `−13·(x_21279·x_31731 + x_35619)` → a23622,a23623 and `−5·(x_34600 − x_30108 + x_23642)` →
+   a11876,a11877.  18 + 2 = 20.  ⚠ **`S`'s 18 ≠ M's enumeration exponent 18.  Do not conflate.**
+Also confirmed by source match: T's three previously-omitted p-handles are terms of `S` —
+`25·(x_18253 − x_4339·x_15120)`=a20450, `1·(x_37720 − x_14466·x_35531)`=a20452,
+`23·(x_23642 − x_8173·x_10422)`=a11875.
+The conclusion is unaffected and robust to the exponent: `checker.py` requires the LHS `== 0`
+over **ℤ**, an integral domain, so `S^k = 0 ⟺ S = 0` for any k ≥ 1.
+
+### 10b. The last door — budgeted compensation inside `S`.  See `T_COMPENSATION.md`.
+- **No free compensator**: all 20 atoms of `S` live in 10–18 equations; none is confined to
+  eq8680.  Nine are checks in E's frame.  The equations they disturb are the region's own, and
+  every carrier of a component of `S` is a carrier of `a37887`, so all 26 were already in `K`.
+  The channel was never a missing knob — it is purely a **budget**.
+- Budgets tested (need bought > broken): `j=1,b=0` **complete** — none.  `j=2,b≤1` **complete**
+  (3,570 solves, 21 s; all 21 pairs individually feasible so nothing was vacuously pruned) —
+  **none**.  `j=3,b≤2` **14 of 35 triples enumerated completely** (198,772 solves, 33 min),
+  including the greedy-flagged `[12231,12270,12350]` that had dropped exactly 3 — **none**.
+  `j≥4` greedy only (drops 25–26 vs needing <4).
+- **Not exhausted at j=3**: the 21 triples not containing eq12231 were not reached.
+- Files: `verify_lemma.py`, `tatoms.py`, `fb_budget.py`, `fb_j3.py`; `T_COMPENSATION.md`;
+  corrected `EQ8680_LEMMA.md`; logs in `runs/`.
