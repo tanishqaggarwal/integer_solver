@@ -1,0 +1,13 @@
+slack wires with an identified consumer: 3707   unresolved: 0
+  c == 1 : 2780      c > 1 : 927
+  distinct c>1 values: 927   min 193  max 16718259
+
+shapes of the 927-family consumer atoms:
+     480  ((V * V) - (K * V))
+     256  ((V * (V - K)) - (K * V))
+     191  ((V - V) - (K * V))
+
+deliverable assigns 3540 variables
+P-alias classes: 220 vars ; assigned in deliverable: 220 ; all == P : True
+lift-defining atoms  R - P*u  nonzero on the deliverable: 4 / 3707
+consumer atoms nonzero on the deliverable: 3 / 3707

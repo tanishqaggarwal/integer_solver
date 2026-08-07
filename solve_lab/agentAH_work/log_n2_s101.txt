@@ -1,0 +1,3 @@
+S(seed=101,n=2) = [15064, 26005]
+outer 0: global nonzero 3, violated c-conditions 3, nonzero handle-less 0
+   single-wire pass over 8 wires (max atoms/wire 2)

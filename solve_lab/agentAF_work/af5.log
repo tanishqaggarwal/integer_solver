@@ -1,0 +1,6 @@
+constant-valued variable classes: 3388
+lift atoms  W - (M*u) with P | M : 4601
+distinct multipliers c = M/P : 2
+  c == 1 : 3707      c > 1 : 894
+  top c values: [(1, 3707), (0, 894)]
+  c range: 0 .. 0   (1 distinct)

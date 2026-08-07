@@ -1,0 +1,6 @@
+condition Expr shapes:  product 2427 | pin 512 | difference 766 | other 2
+other shapes: [('(V - K)', 2)]
+variables appearing as a factor in >=2 product conditions: 1022
+  multiplicity histogram: {3: 383, 2: 639}
+gate/complement pairs both used as condition factors: 383
+  (uses of L, uses of 1-L) histogram: {(3, 2): 383}

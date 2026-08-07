@@ -1,0 +1,7 @@
+leaf-pin conditions: 512   distinct selectors: 256
+variables with an explicit booleanity atom: 2340
+  selectors that are boolean: 165 / 256
+boolean-cone nodes reachable from selectors: 5107 (rounds 4)
+  kinds: {'LEAF': 256, 'CONST': 2753, 'AND': 1024, 'SUM': 242, 'NOT': 832}
+  distinct supports among boolean nodes: 346
+  support size histogram (top): [(0, 3181), (1, 1392), (2, 534)] ...max 2

@@ -89,9 +89,6 @@ _SG3 = solve_group3_capped if CAP else solve_group3
 
 def SG3(vv, V, w, gen, base):
     COST['sg3'] += 1
-    sz = 1
-    for a in V:
-        sz *= 1
     t0 = time.time()
     r = _SG3(vv, V, w, gen, base)
     COST['sg3_t'] += time.time()-t0

@@ -1,0 +1,6 @@
+S(seed=101,n=1) = [15064]
+outer 0: global nonzero 2, violated c-conditions 2, nonzero handle-less 0
+   single-wire pass over 8 wires (max atoms/wire 1)
+   single-wire STALLED -> joint two-wire pass
+   only the two TARGET congruences remain -- CLOSED
+DONE tag=n1_s101 n=1 seed=101 reason=CLOSED_TARGETS_ONLY wall=1.0 nz_atoms=2 sampled_miss=0 exh_miss=0

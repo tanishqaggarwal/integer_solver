@@ -1,0 +1,41 @@
+{
+ "tag": "n1_s101",
+ "n": 1,
+ "seed": 101,
+ "S": [
+  15064
+ ],
+ "reason": "CLOSED_TARGETS_ONLY",
+ "outer_reached": 0,
+ "outer_max": 16,
+ "budget": 1800,
+ "wall": 1.0,
+ "import_s": 7.7,
+ "nz_atoms": 2,
+ "n_atoms": 9032,
+ "nz_list": [
+  "((x18956-x37892)-x32237)",
+  "((x24468-x13682)-(12354891*x34243))"
+ ],
+ "sampled_root_misses": 0,
+ "exhaustive_root_misses": 0,
+ "trace": [
+  {
+   "outer": 0,
+   "nz": 2,
+   "viol": 2,
+   "hl": 0,
+   "t": 0.3
+  }
+ ],
+ "relift_rounds": 2,
+ "cost": {
+  "nz": 2,
+  "sg3": 4,
+  "sg3_t": 0.09358596801757812,
+  "sg3_maxcombo": 0,
+  "capped": 0
+ },
+ "cap": 0,
+ "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_n1_s101.json"
+}

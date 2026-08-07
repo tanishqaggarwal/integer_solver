@@ -6735,3 +6735,88 @@ vindication.** AB's §8 payoff table also still runs the retracted `C(256,B/2)` 
 `THEOREM_B_AUDIT.md` beside them. AB has been resumed to adjudicate — concede or rebut, item by item
 — because AG's findings are now themselves an unchallenged headline, and on this campaign that has
 been the reliable predictor of an error.
+
+---
+
+## Check-in 114 — AC delivers the posterior, and with AG it closes the strategic question
+
+Artefact: `agentAC_work/W_POSTERIOR.md`, 204 KB. Under `k₀ ~ uniform[0,N)` conditioned on everything
+the fleet established (`10 ≤ w ≤ 246`):
+
+| quantity | exact |
+|---|---|
+| `P(w ≤ 14)` — this box's reach | **2^-180.780** = 3.80e-55 |
+| `P(w ≤ 24)` — actionable | **2^-144.487** = 3.20e-44 |
+| `P(w ≤ 56)` — ties rho at 2^40 memory | **2^-65.570** = 1.83e-20 |
+| 90 % interval | **`w ∈ [115, 141]`** |
+| `1 − 2^-80` interval | **`w ∈ [49, 207]`** |
+| movement of the distribution by **the entire campaign** | TV = **2^-201.623** |
+
+Every exponent was produced **three independent ways** — exact rational sum, single-term /
+geometric-ratio / entropy brackets, and `mpmath I_{1/2}(256−B, B+1)` at 60 dps — agreeing to six
+decimals. **I re-derived the digit-DP, the lemma, and two of the exponents myself in a separate
+implementation and reproduce AC to the digit** (`P(w≤14) = 2^-180.780`, `P(w≤56) = 2^-65.570`,
+`Σ_b cnt[b] = N` exactly).
+
+### AC's lemma — the truncation is an *identity*, not an approximation
+
+AC struck its own first version of this, which had said `[0,N)` vs `[0,2^256)` was a
+"2^-128-scale effect spread thinly":
+
+> **`#{k < N : popcount(k) = b} = C(256,b)` exactly for every `b ≤ 127`. The first difference is at
+> `b = 128`, and it is exactly 1.**
+
+Because `2^256 − N ∈ [2^128, 2^129)`, every `k ∈ [N, 2^256)` has popcount ≥ 128. Verified here
+independently. **The same lemma kills the "two ON-sets" caveat** — the second representative always
+has popcount ≥ 128.
+
+### The synthesis with AG, which is the answer to the question the campaign was actually asked
+
+AG's corrected Theorem B gives a memory-aware dead band **`[53, 200]`**: no upper bound on `w`
+anywhere in that band is cheaper than solving outright. AC's posterior puts `w` in that band with
+overwhelming probability. Computed exactly here:
+
+> **`P(w ∉ [53,200]) = 2^-67.400 = 5.1e-21`** (of which `P(w ≤ 52) = 2^-73.194`,
+> `P(w ≥ 201) = 2^-67.426`).
+
+> **So: with probability `1 − 2^-67.4`, `w` lies precisely inside the band where — by AG's corrected
+> theorem — no upper bound on `w` is cheaper than simply solving the instance.** The two independent
+> lines of attack, one probabilistic and one complexity-theoretic, meet exactly.
+
+### Three further corrections from AC
+
+1. **X's `< 2^-200.8` per-bit figure needs a small *upward* correction.** X's arithmetic reproduces
+   exactly on X's own inputs (2^54.2037 → 2^-200.7963), but **X's table predates Y's complement
+   sweep**; adding that family gives **2^-200.12**. Still `< 2^-200`; the qualitative claim stands.
+   Consistency with AC's TV figure checks out, as required since the weight-class removals are a
+   subset of the family union.
+2. **Only two of the ten catalogued constraints are conditioning events on `w`** — `w ≥ 10` and
+   `w ≤ 246`, disjoint restrictions with nothing to multiply. **Signed-weight ≥ 8 is nested inside
+   `w ≥ 10`** and adds no bound. The rest perturb class weights by ≤ **7.1e-5 relative** and
+   `< 2^-100` for all `b ≥ 36`. Done by exact NAF-weight DP — which incidentally shows the set has
+   **2^49.38 elements against X's 2^50.60 enumeration count, because representations are not
+   unique** — plus a clean argument from `NAFweight(N) = 43` (recomputed) that the wrapped half
+   cannot reach below `b = 36`.
+3. **§5 is a clean sweep of "no" on `T`**: small-index subgroup (impossible, `N` prime), automorphism
+   fixed points, `T = ±ζ₃ʲ·cG` and `G = ±ζ₃ʲ·mT` for all `c,m ≤ 2^20`, the 1536-point orbit, and every
+   smallness / low-weight / square / cube / proximity test on `x(T)` and `y(T)`. AC reported the one
+   non-bland value rather than burying it — **`y(T)` is 245 bits**, a ~1-in-1000 coincidence across
+   ~30 tests, **worth nothing as evidence and structurally unable to bound `w` since it exhibits no
+   `k`.** That is the right way to report a near-miss.
+
+### The one genuinely useful corollary — and it is not about `w`
+
+> Under uniformity the sweeps buy 2^-201. They buy something only against a **designer hypothesis**,
+> and there the exchange rate is computable: modelling "designer picks `w` uniform on `{1..W}`",
+> exhausting weight ≤ 9 has already removed **`9/W`** of that hypothesis — **56 % at `W = 16`, 14 %
+> at `W = 64`** — and pushing to this box's `w ≤ 14` limit takes it to `14/W`.
+
+**That is the entire case for continuing to search, and from now on it should be stated in those
+terms rather than as progress on bounding `w`.** Note this sits adjacent to the standing prohibition
+on generator forensics: the *exchange rate* is a legitimate statement about what a search buys under
+a stated alternative model. Nobody is to investigate how the instance was produced.
+
+### Minor: a rule breach to route
+
+AH wrote `drvB.log`, `pidA.txt` and `pidB.txt` to the **repository root** instead of
+`agentAH_work/`. Harmless, caught immediately, routed to AH.
