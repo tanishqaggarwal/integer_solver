@@ -153,6 +153,21 @@ What this session established, in order:
     (attained) and `c >= 11 => <= 39,022`.  39,026 IS OPTIMAL for this residual structure.**
     Conditional on the measured coarse cost and on this frame; no infeasibility is claimed.
 
+### Session 12 addendum 7 (Part XXXII): algebraic side pushed to 39,017, then closed
+
+29. **§163–164 — NEW VERIFIED STATE `s10/FIN_39017.json` at 39,017.**  With A ≡ B ≡ 0 (mod p)
+    the three primitives are `8646263A+1073965B`, `10159099A+6926539B`, `8272701A+5921311B`;
+    two absorb immediately, and a19299 needs `6672769 | (10159099a+6926539b)`.  The k·p freedom
+    in x22162/x30213 steps that target by 1963712 and 3063958 mod 6672769 (gcd 1 -> always
+    solvable).  Crucial trap: the greedy absorber uses x22162/x30213 THEMSELVES (coefficients
+    1 and 8863713), undoing A = 0 -- restrict absorption to genuine handles.
+30. **§165 — 39,017 is exact there.**  Ten of the sixteen failing equations hold both a688 and
+    a1618, but **0 of 16** pass the mod-p ratio test, so no handle choice saves any.
+31. **§166 — and 16 is minimal.**  No single coordinate closes A and B (x3's two values differ,
+    y3 is absent from A, y1 needs a non-residue square root), and the pairwise union table puts
+    (x3,y3) at 16 with the next best at 23.
+32. **§167 — algebraic optimum 39,017 < coding optimum 39,026, both now exact.**
+
 **Next actions (Part XXV)**
   - Door A: drive `x15298 → 0` from `s10/AG_39013.json` (never tried with all advice solved).
   - Door B: solve `x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)` — three linear conditions in

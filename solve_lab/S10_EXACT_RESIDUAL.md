@@ -3588,3 +3588,117 @@ advice DAG fixed point                          39,013  [checker-verified]
 coarse move x28730 + a7930 repair               39,011
 all seven residual atoms exactly zero           39,004  [checker-verified]
 ```
+
+---
+
+# Part XXXII — the algebraic side, pushed to 39,017 and then closed
+
+Part XXXI proved 39,026 optimal for the *coding* residual.  This part does the same
+job for the *algebraic* one, and improves it first.
+
+## 163. The last lock is one divisibility, and the k·p freedom solves it
+
+With A = x35389 and B = x6671 both ≡ 0 (mod p) the three primitives are exactly
+
+```
+x11150 = 8646263*A  + 1073965*B     a19297 = x11150 + p*x30317
+x25739 = 10159099*A + 6926539*B     a19299 = x25739 - 6672769*p*x5146
+x37758 = 8272701*A  + 5921311*B     a30984 = 537773*x37758 - p*x2936
+```
+
+so a19297 and a30984 are absorbed by their handles the moment A and B are multiples
+of p.  a19299 is the exception: its handle enters with coefficient `6672769*p`, so
+with `A = p·a`, `B = p·b` it needs one extra divisibility
+
+```
+6672769  |  10159099*a + 6926539*b          (6672769 is prime)
+```
+
+which `s10/handzero.py` and `s10/habsorb.py` show is exactly what blocks it.  But
+a and b are not fixed: every advice value is `k*p + r`, and bumping the k of x22162 or
+x30213 shifts A and B by exact multiples of p while touching **no residue** — hence no
+congruence.  `s10/divlock.py` measures the steps:
+
+```
+x22162 += p  ->  target moves by 1963712 (mod 6672769)
+x30213 += p  ->  target moves by 3063958 (mod 6672769)
+gcd(1963712, 3063958, 6672769) = 1   ->  the congruence ALWAYS has solutions
+```
+
+## 164. Absorb with handles only — 39,017
+
+Every solved candidate still lost points, and `habsorb` says why: **x22162 absorbs
+a1618 with coefficient 1, and x30213 absorbs a688 with coefficient 8863713.**  Those
+are the coordinates themselves, so a greedy absorber "fixes" a1618 by putting x3 back
+on its pin and destroys A = 0.  The absorber must be restricted to genuine handles —
+free inputs whose exact integer coefficient is a multiple of p, which is precisely
+what makes the move invisible mod p and harmless to every congruence.
+
+`s10/finish.py` does that, and at `k1 = -12, k2 = 5812259` the lock goes to zero and
+all three primitives clear:
+
+```
+PF_best_39015    18 failing   checks [688, 1618, 19297, 19299, 40608, 40812]
+FIN_39017        16 failing   checks [688, 1618, 40608]          [checker-verified]
+```
+
+**`s10/FIN_39017.json` verifies at 39,017/39,033** — the best algebraic state, and the
+first time the point addition closes with its primitives fully absorbed.
+
+## 165. 39,017 is exact there: no ratio saves anything
+
+The residual is two numbers, and ten of the sixteen failing equations contain **both**
+a688 and a1618, so a cancellation `c1*a688 + c2*a1618 = 0` could in principle save
+them — the very mechanism that makes 39,026 a coding optimum.  The residues of a688
+and a1618 mod p are pinned by the addition, while their handles add arbitrary
+multiples of p, so an equation is recoverable iff `c1*r688 + c2*r1618 ≡ 0 (mod p)`.
+`s10/ratio.py` tests all sixteen:
+
+```
+eq 56 (34, 0) · eq 133 (-35,-16) · eq 2071 (6,-28) · eq 8073 (-11, 1) · ...
+0 of 16 failing equations pass the mod-p ratio test
+```
+
+**Not one.**  No choice of the two handle multiples can save a single equation, so
+39,017 is the exact optimum at that state.
+
+## 166. And 16 is the minimum cost of closing the addition
+
+Closing A = B = 0 needs exactly **two** coordinate moves — one cannot do it:
+
+```
+x3 from A = 643803984442968010106447024154...     x3 from B = 641082231655455145747261280924...
+   they differ, so x3 alone fails
+y3 appears only in B, so it can never fix A
+A = 0 solved in y1 needs a square root of a NON-RESIDUE mod p -- no y1 exists
+```
+
+and each moved coordinate breaks exactly one congruence plus its bundle atoms.  The
+union of the failing-equation sets over every pair:
+
+| pair | pins | distinct equations | best possible score |
+|---|---|---|---|
+| **(x3, y3)** | a1618 + a688 | **16** | **39,017** |
+| (y3, x1) | a688 + a2423 | 23 | 39,010 |
+| (x1, x2) | a2423 + a29539 | 24 | 39,009 |
+| (x1, y2) | a2423 + a33796 | 25 | 39,008 |
+| (y3, x2) | a688 + a29539 | 25 | 39,008 |
+| … | … | 26–31 | 39,007–39,002 |
+
+The pair this session already uses is the cheapest by seven equations.
+
+## 167. Both optima are now exact, and the coding one wins
+
+```
+CODING     deliverable                39,026   optimal (Part XXXI, integer lattice)
+ALGEBRAIC  addition closed + absorbed 39,017   optimal (this part)
+```
+
+The algebraic route cannot beat the coding route, and the reason is structural rather
+than accidental: closing the addition costs two congruences, the cheapest pair of
+which sits in sixteen equations, while the deliverable's seven residual atoms sit in
+only twelve and cancel in five of them.  **Nine equations separate the two, and both
+ends of that gap are now exact statements** rather than the best a search could find.
+
+Still no infeasibility claim: §166 prices the moves this lab can name, and §165's
+ratio test is exact only for the state it is run at.

@@ -840,6 +840,62 @@
     "s10/compens.py",
     "s10/ceil15.py"
    ]
+  },
+  "part_xxxii": {
+   "improvement": {
+    "from": 39015,
+    "to": 39017,
+    "file": "s10/FIN_39017.json",
+    "verified": true,
+    "residual": [
+     688,
+     1618,
+     40608
+    ]
+   },
+   "divisibility_lock": {
+    "condition": "6672769 | (10159099*a + 6926539*b), A = p*a, B = p*b",
+    "steps_per_k": {
+     "x22162": 1963712,
+     "x30213": 3063958
+    },
+    "modulus": 6672769,
+    "gcd_with_modulus": 1,
+    "always_solvable": true,
+    "solution_used": {
+     "k1": -12,
+     "k2": 5812259
+    }
+   },
+   "absorber_trap": "x22162 absorbs a1618 with coefficient 1 and x30213 absorbs a688 with 8863713 -- the coordinates themselves; a greedy absorber undoes A = 0.  Restrict to handles (coefficient a multiple of p).",
+   "ratio_test": {
+    "failing": 16,
+    "both_atoms_in": 10,
+    "pass_mod_p": 0,
+    "conclusion": "39,017 is exact at that state"
+   },
+   "single_coordinate_impossible": [
+    "x3 from A and from B differ",
+    "y3 appears only in B",
+    "A = 0 in y1 needs a square root of a non-residue"
+   ],
+   "pair_cost_table": {
+    "(x3,y3)": 16,
+    "(y3,x1)": 23,
+    "(x1,x2)": 24,
+    "(x1,y2)": 25,
+    "(y3,x2)": 25,
+    "worst": 31
+   },
+   "conclusion": "algebraic optimum 39,017 < coding optimum 39,026; both now exact",
+   "tools": [
+    "s10/handzero.py",
+    "s10/habsorb.py",
+    "s10/divlock.py",
+    "s10/finish.py",
+    "s10/ratio.py",
+    "s10/algside.py"
+   ]
   }
  }
 }
