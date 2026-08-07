@@ -35,3 +35,45 @@ calibration on the witness subset: 39008 -> 39026  PASSED
   [60,000/65,536] 1699s 35/s  best 39026  |S|=11
   [62,000/65,536] 1792s 35/s  best 39026  |S|=11
   [64,000/65,536] 1880s 34/s  best 39026  |S|=12
+
+=== DISTRIBUTION over 65,536 subsets of H16 (1953s, 34/s, complete=True) ===
+  39026: 114
+  39023: 2
+  39022: 80
+  39021: 38
+  39020: 286
+  39019: 4,016
+  39018: 122
+  39017: 246
+  39016: 1,228
+  39015: 2,318
+  39014: 2,278
+  39013: 816
+  39012: 1,752
+  39011: 1,264
+  39010: 2,862
+  39009: 15,560
+  39008: 32,554
+
+above 39026: 0
+equal 39026: 114
+BEST 39026 at S=(642, 28730, 29854, 31864)
+
+best score by support size |S|:
+  |S|= 0:       1 subsets, best 39008, count at best 1
+  |S|= 1:      16 subsets, best 39010, count at best 1
+  |S|= 2:     120 subsets, best 39022, count at best 1
+  |S|= 3:     560 subsets, best 39023, count at best 1
+  |S|= 4:   1,820 subsets, best 39026, count at best 1
+  |S|= 5:   4,368 subsets, best 39026, count at best 12
+  |S|= 6:   8,008 subsets, best 39026, count at best 56
+  |S|= 7:  11,440 subsets, best 39026, count at best 45
+  |S|= 8:  12,870 subsets, best 39022, count at best 7
+  |S|= 9:  11,440 subsets, best 39022, count at best 1
+  |S|=10:   8,008 subsets, best 39020, count at best 8
+  |S|=11:   4,368 subsets, best 39020, count at best 1
+  |S|=12:   1,820 subsets, best 39019, count at best 189
+  |S|=13:     560 subsets, best 39019, count at best 25
+  |S|=14:     120 subsets, best 39019, count at best 1
+  |S|=15:      16 subsets, best 39010, count at best 12
+  |S|=16:       1 subsets, best 39010, count at best 1
