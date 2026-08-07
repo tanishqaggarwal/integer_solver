@@ -90,32 +90,42 @@ def solvable(S, rows):
     return sol
 
 
-def maxsat(Eqs, rows, exhaustive_upto=15, tries=400, seed=3):
-    n = len(Eqs)
-    if n <= exhaustive_upto:
-        for k in range(n, 0, -1):
-            for S in itertools.combinations(Eqs, k):
-                sol = solvable(S, rows)
-                if sol is not None:
-                    return k, list(S), sol
+def maxsat(Eqs, rows, cap=400000):
+    """Integer solvability is closed downward, so enumerate solvable subsets by increasing
+       size (Apriori): a (k+1)-set is a candidate only if all its k-subsets are solvable.
+       Returns the largest solvable subset, exactly."""
+    Eqs = list(Eqs)
+    idx = {e: i for i, e in enumerate(Eqs)}
+    cur = {}
+    for e in Eqs:
+        sol = solvable([e], rows)
+        if sol is not None:
+            cur[(e,)] = sol
+    if not cur:
         return 0, [], {}
-    rnd = random.Random(seed)
-    best = (0, [], {})
-    for t in range(tries):
-        order = list(Eqs)
-        if t:
-            rnd.shuffle(order)
-        keep = []
-        sol = {}
-        for e in order:
-            cand = keep + [e]
-            s = solvable(cand, rows)
-            if s is not None:
-                keep = cand
-                sol = s
-        if len(keep) > best[0]:
-            best = (len(keep), sorted(keep), sol)
-    return best
+    T0 = next(iter(cur))
+    best = (1, list(T0), cur[T0])
+    nsolve = len(Eqs)
+    while True:
+        keys = set(cur)
+        nxt = {}
+        for S in cur:
+            last = idx[S[-1]]
+            for e in Eqs[last + 1:]:
+                T = S + (e,)
+                if not all(T[:j] + T[j + 1:] in keys for j in range(len(T))):
+                    continue
+                sol = solvable(list(T), rows)
+                nsolve += 1
+                if sol is not None:
+                    nxt[T] = sol
+                if nsolve > cap:
+                    return best
+        if not nxt:
+            return best
+        T = next(iter(nxt))
+        best = (len(T), list(T), nxt[T])
+        cur = nxt
 
 
 def evaluate(R, base=V0, verbose=True):
@@ -136,7 +146,7 @@ def evaluate(R, base=V0, verbose=True):
 def realise(R, P, sol, base=V0):
     w = list(base)
     for u in P:
-        w[u] = sol.get(u, 0)
+        w[u] = base[u] + sol.get(u, 0)   # sparse.solve_sparse returns DELTAS from base
     return w
 
 

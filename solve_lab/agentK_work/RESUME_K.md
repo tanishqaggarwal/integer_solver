@@ -227,11 +227,28 @@ same measurement. The open question is realizability, which footprint alone cann
 | `cascadep.py` | the same closure **mod p** — this is the fast driver | 1–3 s |
 | `k25_class.py` | role-based variable classification -> `varclass2.json` (369 bools / 3747 handles / 4631 wires; **all 256 leaf selectors are free**) | 30 s |
 
-**Known bug in `k25_class.py`, fix before trusting `varclass2.json`'s bool column:** it detects
-idempotency atoms only in the form `(xA*(xA-1))`. They also occur as `(xA*(1-xA))` and
-`((xA*xA)-xA)` — e.g. `x4287` is a boolean but is classified as a "wire". This does not affect
-the leaf-selector list (that comes from the leaf pins, independently) and so does not affect
-any result above, but it is the first thing to fix when extending the driver.
+**Classifier bug — FOUND AND FIXED this session.** `k25_class.py` originally matched
+idempotency atoms only as `(xA*(xA-1))`. The file also writes them `(xA*(1-xA))` and
+`((xA*xA)-xA)`. All three spellings are now matched, and the counts move a long way:
+
+| | before fix | after fix |
+|---|---|---|
+| free booleans | 369 | **1156** |
+| leaf selectors recognised as boolean | 82 / 256 | **256 / 256** |
+| free "wires" | 4631 | 3844 |
+
+**This did not invalidate any result above** — `drive()` takes its 256 selectors from the leaf
+*pins* (`points.json`), independently of the classifier, and seeds them ahead of everything
+else, so §2's validations were driven correctly either way. But it is a clean example of the
+failure mode worth naming: a knob set filtered by a regex that misses a spelling will be
+reported as a property of the instance. Re-run `k25_class.py` before using `varclass2.json`.
+
+**Consequence that is still open:** the fix exposes **900 free booleans that are not leaf
+selectors**. §1 asserts the only boolean inputs are the 256 selectors. `k30_decoys.py` tests
+that by forward cone (deliberately using the most generous, *undirected* notion of influence:
+if a knob cannot reach a leaf wire or a root variable even undirected, it is dead). Until that
+comes back clean, **§1's knob set is "256 selectors plus up to 900 unverified booleans"**, and
+§4's negative is stated over the 256 only.
 
 | `fold.py` | leaf points + target extraction, group composition | 5 s |
 | `k26_drive.py` | `drive(on_set)` -> full mod-p state; `rootpair(v)` -> the root's two input pairs | 3 s/run |

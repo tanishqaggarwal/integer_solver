@@ -1,0 +1,18 @@
+[
+ {
+  "m": 8,
+  "stages": 8,
+  "vars": 57299,
+  "clauses": 388365,
+  "clauses_per_stage": 55481,
+  "blast_s": 9.5
+ },
+ {
+  "m": 12,
+  "stages": 12,
+  "vars": 191699,
+  "clauses": 1360012,
+  "clauses_per_stage": 123637,
+  "blast_s": 41.3
+ }
+]

@@ -738,3 +738,101 @@ route to 39,027+ now runs through either the cancellation search (unbuilt, L tas
 divisibility obstruction on equation 29125, and that the subset-sum itself has resisted every
 enumeration attempted. Enumeration is not the lever; the fleet should not spend further cores
 on level-by-level sweeps.
+
+---
+
+## Check-in 10 — the footprint screen is dead, and 7 is a placement price (agent P)
+
+**P withdrew its own primary prediction**, in the first paragraph of its report, with the
+measurement that killed it. Deliverable unchanged at **39,026 / 39,033**; P produced no new
+assignment and says so plainly.
+
+### The SLP-5497 carrier does not exist
+
+SLP position 5497 is `x29741 − x17440 + x27926` — the `A = i1 − i2` wire **inside law-block
+68** (leaf-support 2, both inputs leaves), footprint 5. Perturbing it changes that block's
+`N1`/`N2`, which **forces the block's three law-congruence atoms at SLP 34872 / 34874 / 34876**
+(footprints 13 / 12 / 11) to become nonzero. The realizable defect is therefore **4 atoms
+touching 22 equations, not 1 atom touching 5**. The only escape is a configuration where block
+68's gate is off — and then the perturbation never reaches the root, so it buys nothing while
+still costing its 5 equations.
+
+**The footprint screen is dead.** `min_p(|eqs touching [p, p+w−1]| − w) = 4` remains true as
+incidence and is useless as a cost. This is the **third independent demonstration** that
+incidence-only pricing fails (C at check-in 3, L's cheapest-2-atom-cut-costs-11, now P), and
+the first to identify the error term exactly: **an atom's true price includes the congruence
+atoms its perturbation forces downstream**, which is residue content, not structure.
+
+### The decoy test, run first as instructed — and the window is *not* a decoy
+
+K's decoy explanation is **corroborated at much larger scale**: in P's parse, **1,158 atoms
+have footprint < 7, of which 1,152 are idempotency atoms** (`x − x²`; 1,145 at footprint 1).
+K's "12" versus P's "1,158" is a decomposition difference, not a disagreement.
+
+But **every atom in 5490–5511 is genuine law-block arithmetic** — products, squares, three-term
+linears, `isidempotency = False` throughout. The window sits in the 6-atom non-decoy remainder.
+So the carrier died of a **third failure mode** (downstream coupling), and **both explanations
+are needed; neither subsumes the other.**
+
+### 7 is the price of the PLACEMENT, not of the degeneracy
+
+P answered this from material already built, without the long enumeration: cheapest **live**
+merges touch 10–11 equations (block 279 → 10; blocks 2, 151, 193, 311, 330 → 11); the
+deliverable's site touches 12 with 7 atoms; worst is 39. But **corrupting a live merge to hit
+the target directly breaks three congruences, not two** — with `Z` forced to the target, `N1`
+and `N2` are determined and no rank-2 combination `c_k1·N1 + c_k2·N2` vanishes. That is
+precisely why the deliverable takes the vacuous route instead. **P found no placement below 7
+and stopped there as directed.**
+
+### A specific hole in K's unreachability negative — routed to K
+
+P cannot adjudicate K's argument (it is stated in a vocabulary P's parse does not produce), but
+identified one precise gap: both `|x−y| < 2ⁿ < N` and "at the root `x−y = ±N`" require the
+modulus actually governing coordinate-pair equality to **exceed the largest signed subset
+difference**, so that only one wrap (`k = ±1`) needs excluding. If that modulus is below 2²⁵⁶,
+the enumeration runs over `x − y = kN` for several `k` and a carry walk covering only `k = ±1`
+is **incomplete**. K has been asked to state which modulus bounds the walk and confirm it
+exceeds 2²⁵⁶. Until then **K's negative is not settled**, and agents have been told not to
+treat it as such.
+
+P's second caution on it: K's argument rests on a premise about how the instance was built
+(256 leaves ↔ distinct exponents in an order-N arithmetic), which sits inside the withdrawn
+reading and inherits its caution. K has been asked whether the carry argument can be restated
+using only the verified identities.
+
+### P vs S adjudicated — subset selection, not one-hot
+
+Decisive and cheap: **zero atoms in the file touch two or more distinct selector variables.**
+Each of the 256 selectors appears in only 5–6 atoms, all local to its own coordinate load and
+liveness fan-out. No cardinality atom, no one-hot tie, no cross-selector coupling. P's residual
+is therefore **free independent subset selection over 256 booleans (2²⁵⁶)**. The one-line test
+— *count atoms containing two or more selector variables* — has been sent to S to run against
+its own parse. If S's parse also finds none, the one-hot reading is describing a different
+object and the difference lies in what S's saturation measurement ranges over.
+
+### The ON-set conflict — now three models to one
+
+P states the deliverable's configuration as **leaves {21, 167} in its own numbering — two live
+leaves**, joining M (`{24601, 2081}`) and K (A = leaf(24601), B = leaf(2081) reproduced
+independently) against L's single-leaf reading. L has been told, and told the numbering caveat
+cuts both ways: **compare by the pinned constants those leaves load, not by index.**
+
+### P re-tasked — the caveat it has carried in every report
+
+P has flagged in three consecutive reports that everything is mod P, that each congruence
+carries a small multiplier `c` on the handle side so the integer condition is `c·P | R`, and
+that "solve the residual ⇒ full solution" is therefore a **conjecture**. L now claims that
+conjecture closed in its model, on the strength of **every one of the 3,681 handle variables
+appearing in exactly one atom**. P — the agent that kept insisting it was unproved — has been
+asked to test that property against its own parse and report the count either way. If it holds,
+this lab's central reduction becomes unconditional; if it fails, L's reduction is over-claimed
+and everything resting on "the lift is free" needs revisiting. P was told to test the property,
+not to read L's artifacts.
+
+### Vocabulary
+
+P restated its §3 neutrally and unprompted: each block imposes the identities `E·A² − B² ≡ 0`
+and `A(i3+i6) − B(i2−i5) ≡ 0 (mod P)`. What it verified are properties **of those identities** —
+closed-form solution for `(i5, i6)` 300/300, operand-pair symmetry 200/200, order-independent
+iteration on the 256 constant pairs 300/300. **No solvability conclusion is drawn, and P notes
+its results point the other way.** This is the register the whole fleet is now writing in.
