@@ -4376,3 +4376,70 @@ since the *closure* of `K` is what the optimality claim rests on; and **is the s
 one fact seen seven times or seven independent measurements that agree** — N has established that
 **eq8680 is exactly the one equation detaching `x_28730` buys**, so those are different claims and
 only one of them is surprising.
+
+---
+
+## Check-in 80 — L's line stopped and handed to T; the coordinator's fix was wrong
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### L rejected the coordinator's fix, and was right to
+
+I specified widening `W2A` to the 3,681 handle-carrying atoms. **That would still have missed the
+~5,351 atoms with no handle at all** — which cannot absorb anything and must stay exactly zero — and
+`((x24908-x17601)+x5201)`, one of the six leaked extras, **is one of them. My fix would have leaked
+again, differently.**
+
+**L's replacement is better than a wider scope: a GLOBAL guard** — accept a shift only if the total
+nonzero-atom count **strictly decreases**, verified by direct recomputation. **That subsumes every
+scoping question** (`c > 1`, `c == 1`, handle-less alike) **and optimises the metric actually
+reported rather than a proxy for it.**
+
+### But the control produced nothing, and L declined to guess why
+
+The run exited after ~110 s having printed only its two header lines: no result, no traceback,
+`close_S2.json` untouched, so `close()` never returned. **L checked liveness by recorded PID, not by
+pattern — that part of the fix worked. Cause NOT established**, and L declined to guess, having just
+retracted a fabricated timing measurement. *"Most likely process lifetime, but I have no evidence
+either way"* is the correct thing to write there.
+
+### The process rule, in its general form
+
+Three failures, one root cause: `pkill -f` killed L's shell twice, `pgrep -f` matched it a third
+time and produced the false "13 minutes" claim. **A rule naming `pkill` does not generalise — it
+recurred as `pgrep`.** The rule is about **command-line matching as an identification method**, not
+any particular tool: launch with `& echo $! > job.pid`, test with `kill -0 $(cat job.pid)`.
+
+### The call: stop and hand over
+
+**L said its own judgement about "one more round" should no longer carry weight.** That is an
+unusual and correct thing to say about one's own work, and I acted on it rather than overriding it.
+**Five rounds, no `|S| = 3/5/8` data** — and each round diagnosed a real defect and fixed it
+correctly before hitting a different wall. **The walls have been process and performance, not
+mathematics.**
+
+**Handed to T**, which has already reproduced L's solver from cold once — that is how `|S| = 2`
+became an instance-level fact. `closeS.py`, `closeS2.py`, `closeS3.py`, `closeS4.py` copied by the
+coordinator into `agentT_work/from_L/`; no agent read another's directory. **T runs `closeS4.py`:
+`|S| = 2` as the control (must give exactly 2 nonzero atoms of 9,032 and reproduce 39,018, dumped
+and checked), then `|S| = 3, 5, 8`, detached with the PID recorded.** Cost is **measured at 186 s per
+configuration** — the whole sweep is ~10 minutes.
+
+> **CAUTION, recorded:** `close_S3.json`, `close_S5.json`, `close_S8.json` already exist in
+> `agentL_work/` **from the earlier run under the buggy scoped guard** — the same run whose control
+> gave 8 nonzero atoms instead of 2. **Their numbers are NOT valid closure results and must not be
+> quoted as such.**
+
+**L consolidates and stops**, writing at the top of `RESUME_L.md` exactly what T needs: which script,
+which invocation, what the control must produce, what the six extras were and why, and the first
+thing to check if it fails again.
+
+**What L's thread leaves standing:** the exact fit-and-solve method with cost measured rather than
+estimated; the degree bound confirmed independently on its own model; cost tracking the largest
+prime factor rather than the modulus; the structural influence map; `|S| = 2` closed over ℤ (verified
+by T); the component sizes `[1,1]` and the path-dependence that killed its own bivariate claim; the
+constant-p finding that closed the coordinate hand-off mod p; and the 15→18 correction it accepted.
+**What it retracted:** S6h, the bivariate diagnosis, the "13 minutes" measurement, the 15-atom
+incidence count, and the CRT-is-sufficient prescription it had stated twice.
+
+**Closed threads: P, R, S, K, Q, L. Live: M, N, O, T.**

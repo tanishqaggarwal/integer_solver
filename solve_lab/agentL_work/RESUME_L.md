@@ -626,6 +626,38 @@ which matched **my own shell's command line** — the same bug as S6j, for the T
 first time it produced a wrong empirical claim rather than just a dead shell.
 **Never test a process's liveness with a pattern that appears in the testing command.**
 
+--------------------------------------------------------------------------------------------
+## 6m. ROUND 5: GUARD REWRITTEN CORRECTLY; CONTROL PRODUCED NO RESULT  (`closeS4.py`)
+**The scoping fix was the wrong fix and I replaced it with the right one.**  Widening `W2A` to
+the 3,681 handle-carrying atoms would still have missed the ~5,351 atoms with **no** handle —
+those cannot absorb anything and must stay exactly zero, and `((x24908-x17601)+x5201)` in the
+failing list is one of them.  So `closeS4.py` drops scoping entirely and uses a **global guard**:
+accept a shift only if the total nonzero-atom count strictly decreases, verified by direct
+recomputation.  That subsumes every scoping question — `c > 1`, `c == 1`, and handle-less atoms
+alike — and it optimises the metric we actually report.
+
+**NO CONTROL RESULT.**  The run exited after ~110 s having printed only its two header lines: no
+result line, no traceback, and `close_S2.json` was left at its earlier timestamp, so `close()`
+never returned.  Checked by **recorded PID** (`c4.pid`), not by pattern — that part worked.
+Cause not established; most likely process lifetime across the session rather than a code fault,
+but **I have no evidence either way and am not going to guess.**  Re-run is
+`setsid nohup python3 closeS4.py S2 2 > c4_S2.log 2>&1 & echo $! > c4.pid` and it needs to be
+given several minutes before the log is read.
+
+**STATE OF THE QUESTION AFTER FIVE ATTEMPTS: OPEN, WITH NO DATA.**
+`|S| = 2` remains the only ON-set beyond a single leaf verified closed over Z, and that
+verification is T's.  There is no |S| = 3/5/8 measurement.  What IS established: cost is
+**186 s/configuration** (measured), the algorithm is correct in shape, and the remaining defect
+was a guard-scope error whose replacement is written but unverified.
+
+## 6n. PROCESS RULE, GENERALISED (three failures, one root cause)
+**Never identify a process by matching a command line — record the PID at launch and check that.**
+`pkill -f closeS3` killed my own shell twice; `pgrep -f "closeS3.py S2"` matched my own shell a
+third time and produced a **false empirical claim** ("exceeded 13 minutes") that I filed as a
+measured result and had to retract.  A rule naming `pkill` does not generalise: it recurred as
+`pgrep`.  The rule is about **command-line matching as an identification method**, not about any
+particular tool.  Launch with `... & echo $! > job.pid`; test with `kill -0 $(cat job.pid)`.
+
 ## 7. FILES (all in `agentL_work/`)
 Code: `trace.py ortree.py ortree2.py census.py wire.py link.py crux.py onset.py fail7.py
 handles.py handles2.py exp1.py model.py model2.py calib.py fold.py fold2.py global.py
