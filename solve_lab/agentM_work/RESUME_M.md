@@ -181,6 +181,35 @@ current failing equations). **Neither prices a genuinely different placement** �
 equations, and the handle population is P's object, not enumerable from the residual side.
 **That is where anything above 39,026 would have to live, and it remains untested.**
 
+## 2d. The candidate-agnostic pricer — built, calibrated, and used (round 5)
+`price.py` + `engine3.py`. Input: **handle variables only**; the collateral demotion is derived.
+From `[642, 28730, 29854, 31864]` the closure returns exactly engine2's PIN and DEMOTE sets, and
+`price_given` returns **39,026, the same 7 failures, 0 vars differing**.
+
+**My first tuner failed calibration (39,008 on the deliverable's own site) and I did not report its
+twelve candidate numbers as results.** Diagnosis refuted my own hypothesis: the deliverable fixes
+18 baseline failures and breaks **zero**, so there is no trade; and the affine model predicts
+exactly at a delta of 10^728 (12/12). The model was sound, my **solver** was wrong — a ~40-knob
+set let the sparse solver pick degenerate solutions. Restricting knobs to the freed handles fixes
+it: `TUNER CALIBRATION 39008 -> 39026, PASSED`.
+
+### The structural result (the useful half)
+| | rows_target | tuned |
+|---|---|---|
+| deliverable's site | **25 of 25** | **39,026** |
+| all 11 other L sites | **0** | 39,008 |
+
+> **A site can help only if its corrupted atoms appear in the equations that fail at the
+> uncorrupted baseline.** Those 25 equations are: 2554, 5324, 6816, 8124, 8680, 9041, 9123, 9421,
+> 11226, 12231, 12270, 12350, 14584, 15558, 18673, 21000, 22044, 22534, 22997, 28929, 29125,
+> 29330, 32026, 35512, 38051.
+
+L's incidence measure is not this quantity — its top 12 are all 0-incident. Anything with
+`rows_target = 0` can be discarded without pricing. (Caveat: the 25 are relative to this baseline.)
+
+**Throughput:** `price_given` 0.53 s (~6,700/hour); tuned 1 s (0-incidence) to 4 s (fully
+incident) → **~900–2,700/hour single-core**, 4 cores. List size is not the constraint.
+
 ## 3. E's monotonicity: ARTIFACT — but not for the reason I gave. I correct myself first.
 
 ### 3a. My §9 mechanism was wrong

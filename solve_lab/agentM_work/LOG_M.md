@@ -572,3 +572,101 @@ No candidate file above 39,026 produced (`ls M_place_*.json` -> none).
 ## 35. Round-4 files
 `engine3.py` (configurable demotion set + validate) · `place.py` -> `place.pkl`, `place.log` ·
 `placecands.pkl` (the 10 candidates). No other agent's directory touched; no git commands run.
+
+---
+
+# LOG_M ROUND 5 — candidate-agnostic pricer built, calibrated, and used on L's sites
+
+## 36. The primitive (`price.py`, `engine3.py`)
+Input is a set of HANDLE variables only. The collateral demotion is **derived**, not supplied:
+corrupting handle h frees it, and any variable whose definer atom references h would otherwise
+absorb the corruption, so it is demoted too. `closure(handles, depth=1)` computes that.
+
+**Calibration, path 1 (values supplied):** from `[642, 28730, 29854, 31864]` alone,
+    closure -> freed [642, 7068, 28730, 29854, 31864]   == engine2's PIN
+             -> demote [23616, 23617, 36659, 36663, 36664] == engine2's DEMOTE
+    score 39026, fails [12231,12270,12350,14584,18673,22044,29125], 8 bad atoms, 0 vars differing
+**The 5th demotion is derived from the 4 handles.** PASSED.
+
+## 37. My first tuner FAILED calibration, and I did not report its numbers
+The value-tuning path initially returned **39,008 for the deliverable's own site** — i.e. it could
+not rediscover 39,026 from the site that is known to reach it. Twelve candidates all read 39,008.
+Per L's caution ("a site priced with unset handles is not a negative result"), those readings were
+the tuner's floor and I did not report them as measurements. Diagnosis instead:
+
+`tunediag.py` — and it **refuted my own written hypothesis**. I had assumed the tuner failed
+because fixing equations requires accepting newly-broken ones. Measured:
+
+    uncorrupted baseline : 39008, 25 failures, bad atoms [23618,34120,36660,36661,36662]
+    deliverable          : 39026,  7 failures
+    fixed by deliverable : 18      NEWLY BROKEN by deliverable : 0
+    the deliverable's 7 failures are all already failing at baseline
+
+**There is no trade at all** — the deliverable fixes 18 and breaks none. So the target was inside
+the searched space and the fault was mine.
+
+`tunediag2.py` — model or solver? Feed the deliverable's own delta (10^724..10^735 on the freed
+vars) into the affine model built from +1/+2/+7 probes:
+
+    applying the delta -> 39026, 0 vars differing
+    model vs actual on the fixed equations: 12 agree, 0 disagree
+
+**The affine model is exact at a delta of 10^728.** The model was sound; the SOLVER was wrong.
+Cause: the knob set had ~40 members, most not globally affine, which let the sparse solver pick
+degenerate solutions satisfying the targeted rows while wrecking others.
+
+## 38. Corrected tuner (`tune2.py`) — knobs = the freed handles ONLY
+    TUNER CALIBRATION: base(untuned) 39008 -> TUNED 39026   (5 knobs, 18 greedy sols, 4s)  PASSED
+
+The pipeline is now validated end to end: from four handle names, with no values supplied, it
+recovers 39,026.
+
+## 39. L's twelve sites, priced with a VALIDATED tuner
+    handles                          rows_target   base    TUNED
+    [642,28730,29854,31864]  (calib)      25      39008    39026
+    [10509,20157,32245,33044]              0      39008    39008
+    [9541,19546,25227,31891]               0      39008    39008
+    [3260,11588,30400,37248]               0      39008    39008
+    [2493,3022,6019,15174]                 0      39008    39008
+    [1405,3052,4806,16433]                 0      39008    39008
+    [9337,17894,23336,33996]               0      39008    39008
+    [19053,21505,22193,23910]              0      39008    39008
+    [10074,16399,16800,35694]              0      39008    39008
+    [1768,6389,26662,31362]                0      39008    39008
+    [6254,7439,21115,38560]                0      39008    39008
+    [1079,15006,15333,32131]               0      39008    39008
+
+`rows_target` = how many of the 25 uncorrupted-baseline failing equations the site can even MOVE.
+
+## 40. THE STRUCTURAL RESULT — a hard filter for the candidate generator
+**The deliverable's site can move all 25 baseline failing equations. All eleven other sites can
+move ZERO of them.** Their 39,008 is therefore not "the tuner found nothing": corrupting at those
+sites cannot fix any failing equation, because their atoms do not appear in any of them. The only
+possible effect is to ADD failures.
+
+> **A site can help only if its corrupted atoms appear in the equations that fail at the
+> uncorrupted baseline.**
+
+The 25 baseline failing equations (relative to the deliverable's free inputs):
+
+    2554, 5324, 6816, 8124, 8680, 9041, 9123, 9421, 11226, 12231, 12270, 12350, 14584,
+    15558, 18673, 21000, 22044, 22534, 22997, 28929, 29125, 29330, 32026, 35512, 38051
+
+L's incidence measure is not this quantity: its top 12 by incidence are all 0-incident to these.
+Filtering the 378 on this criterion should cut it to a small set, and anything with
+`rows_target = 0` can be discarded without pricing.
+
+Caveat: the 25 are relative to THIS baseline (E's orientation from the deliverable's free inputs).
+A different free-input configuration would have a different failure set.
+
+## 41. Throughput
+    price_given (values supplied) : 0.53 s/candidate  -> ~6,700/hour single-core
+    tune        (values tuned)    : 1 s for a 0-incidence site, 4 s for a fully incident one
+                                    -> ~900-2,700/hour single-core, 4 cores available
+So L can emit **thousands**; list size is not the constraint. Better: L can pre-filter on the 25
+equations above and emit only incident sites.
+
+## 42. Round-5 files and score
+`price.py` (Pricer/TunedPricer, closure) · `pricetest.py` · `pricerun.py` (+`pricerun.pkl`) ·
+`tunediag.py`, `tunediag2.py` · `tune2.py` (+`tune2.pkl`, `tune2.log`).
+Nothing above 39,026 produced; no `M_site_*.json` written. Baseline stands.

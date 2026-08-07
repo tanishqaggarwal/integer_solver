@@ -33,13 +33,24 @@ def shrink_to_mus(Z, S):
     return S
 
 
+def find_mus(Z, pool):
+    """Insertion-based: grow a subset until it is unsolvable, then shrink that (small) set.
+    Far cheaper than deleting from the full row set, and the result is still a genuine MUS."""
+    cur = []
+    for r in pool:
+        cur.append(r)
+        if not Z.solvable(cur):
+            return shrink_to_mus(Z, cur)
+    return None
+
+
 def disjoint_muses(Z, rows, limit=12, verbose=True):
     out = []
     pool = list(rows)
     while len(out) < limit:
-        if Z.solvable(pool):
+        m = find_mus(Z, pool)
+        if m is None:
             break
-        m = shrink_to_mus(Z, pool)
         out.append(sorted(m))
         if verbose:
             print('   MUS %d: size %d  rows %s' % (len(out), len(m), m), flush=True)

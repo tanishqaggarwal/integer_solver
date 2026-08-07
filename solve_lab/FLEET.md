@@ -1897,3 +1897,79 @@ that can distinguish individual from simultaneous lifting.
 `c·P | R`; satisfiability OPEN.** In P's own words, one block settled favourably at `|S| = 2` is
 one of 927 **in the configuration that cannot test simultaneity** — and simultaneity is what the
 reduction needs.
+
+---
+
+## Check-in 28 — the stage-law caveat is CLOSED; the gap moves to the routing layer (agent Q)
+
+Deliverable unchanged: **39,026 / 39,033**. No score attempted.
+
+### The caveat is closed, and closed wider than it was stated
+
+All re-derived **directly from `EQUATIONS.txt`**, no input from any agent directory; atom database
+rebuilt locally (`qextract.py` → 32,006 gate atoms, all `+ − *` over ℤ, no division).
+
+- **All 256 leaves now decode exactly — nothing is inferred.** Pin atoms have the shape
+  `(x_g)·((x_w) − BIGCONST)`; scanning for them gives **256 selectors, each with exactly 2 pins**.
+  The three that previously had one constant were an **extraction shortfall, not missing data**.
+  With the correct shift, **256/256 lie on the cubic**, doubling closes into a **single chain of
+  length 256**, and **256/256 satisfy `L_i = 2^i·G`**. Q's earlier reading (4 chains + 3 inferred
+  points) is **superseded by its own better extraction.**
+- **The stage law holds at every stage.** Searching the DAG for the division-free chord shape
+  finds **383 gadgets: 89 leaf-adjacent, 78 mixed, 216 internal.** Each tested by
+  Schwartz–Zippel — random points on the cubic, output set from the group law, then the **actual
+  sub-DAG** evaluated. **383/383 verified, including 89/89 leaf-adjacent, all orientation
+  (+1,+1)** — every stage computes the plain sum, no sign flips. None of the 1,532 stage core
+  wires is multi-defined, so the test used the real gate relations.
+
+### The 178|78 split, derived rather than measured
+
+Census by hard-zero input count: **89 leaf-adjacent gadgets (combine two leaves), 78 mixed (one
+leaf plus a dummy, i.e. pass-throughs), 191 live internal, 25 dead.** The 89 pairs consume **178**
+leaves; the remaining **78** leaves are exactly the 78 pass-throughs.
+
+**That is the 178|78 root split derived from gadget arity rather than from wiring** — a fourth
+independent route to it, and the first that explains *why* the split is 178|78 rather than merely
+measuring that it is. It also corroborates `fold = group sum` independently.
+
+### The gap MOVED — it did not vanish, and Q says so
+
+Gadget outputs **do not feed the next gadget directly; they pass through a selector/mux layer.**
+Q verified the law each gadget enforces **as a function of its four input coordinate wires**. It
+did **not** verify that the selector logic can realise an arbitrary subset of leaves.
+
+**So "a satisfying assignment exists" now rests on the routing layer rather than on the stage
+law.** Strictly smaller and better-supported than the gap Q originally flagged — the census above
+is evidence for it — but real, and **Q declined to call the existence result unconditional.**
+
+Q also ran the weight-128 check in the **fold model**: 300 random configurations, fold equalled
+`k·G`, all on the curve, **300 distinct values**, so under the model the reachable set of root
+values is all of ℤ/N. That tests the model, not the DAG.
+
+### Q re-tasked — one run in machinery it already has
+
+**For random subsets S of the 256 selectors, set the selector variables in the real DAG, evaluate
+it, and check the root coordinate wires equal `fold(S)` computed independently from the ladder** —
+sizes spread 1, 2, 5, 17, 64, 128, 200, 256, including at least one case with two leaves under the
+same pass-through group, since that is where a mux could plausibly do something other than route.
+Match across that spread closes the last link and **makes the existence result unconditional**;
+mismatch locates where the group picture stops describing the instance.
+
+Two claims routed to Q **to test in its own frame, not to take**: P's pass-through mux verified at
+381/381 with liveness fully determined by the selectors (giving exactly 2²⁵⁶ configurations), and
+L's measurement that with two leaves in the same group both pins fire but the mux coefficients are
+mutually exclusive quadrants, so both are multiplied by zero and the slot carries the chord rather
+than a sum (ON-set sizes 1, 2, 5, 73, 200, 256). **Between them those cover the layer Q flagged.**
+Agreement gives the closure three independent supports; disagreement would be the most important
+disagreement in the campaign.
+
+**T's audit target moved with it**: not to duplicate Q's end-to-end test, but to ask what that test
+would miss — which mux configurations random subsets do not exercise, and whether "liveness is
+fully determined by the selectors" has been **measured or assumed**.
+
+### Housekeeping
+
+`wt7` restarted and still running (side A built at 2,796,417 points; side B at 23.7M of ~174M
+after 1,353 s under load ~20; ~2–3 h remaining). No new search tickets built. Q rewrote its §13 to
+record S's retraction as S's own, and took no credit for it — its §11 was measured on its own
+merits and never depended on the withdrawn result.

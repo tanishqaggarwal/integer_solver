@@ -307,3 +307,90 @@ footprint `gs2` lands in remains scoped to my repair.
 **Why the deliverable wins, stated cleanly:** it is not using a better configuration and not a
 larger support. It sits in a rare footprint where 6 of 13 equations cancel *for free* — no partner
 atoms had to be bought. Every footprint I reached charges ≥10 equations for the first cancellation.
+
+## 15. INVERTED SEARCH — rank footprints first, ask reachability second
+(`footprints.py`, `reach2.py`, `rank.py`, `relax.py`; raw in `runs/footprints1.json`,
+`runs/reach2.json`, `runs/rank.json`, `runs/relax.json`.)
+
+Every search in this campaign went configuration-first. This goes the other way: for a live-atom
+support S define
+`cost(S) = |equations touched by S| − max #{touched equations a nonzero value vector annihilates}`,
+which is the failing floor for **any** assignment whose nonzero-atom set is exactly S. Rank by
+cost, then ask which configurations route into the cheap ones. Beating 39,026 needs cost ≤ 6.
+
+E's model: **9,032 atoms, 39,033 equations, 121,261 incidences.**
+
+### 15.1 The cost distribution, and why the deliverable is already at an optimum
+Single-atom footprint costs (cost -> how many atoms): 2->1, 3->1, 4->1, 5->1, 6->2, 7->8, 8->36,
+9->113, 10->354, 11->863, 12->1481, 13->1793, 14->1835, 15->1327, 16->721, 17->339, 18->112,
+19->33, 20->9, 21->1.
+
+Splitting those by kind is the whole result:
+
+| | min single-atom cost |
+|---|---|
+| **relational** atoms (≥2 variables — the ones that can carry the defect) | **7** |
+| **boolean-ness** atoms `x·(1−x)` (one variable, assert `x ∈ {0,1}`) | **2** |
+
+**Every atom with cost ≤ 6 is a boolean-ness atom on a single variable.** The cheapest relational
+atoms cost exactly 7 — 3131, 3138, 3588, 8749, 8777 — and **atom 3131 is one of the deliverable's
+own four live atoms.** So the deliverable sits on the cheapest relational footprint that exists,
+and **7 failing is the single-atom optimum over relational supports.** That is why five agents'
+configuration-first searches all bottomed out at the same number.
+
+`|S| = 2` does not help either (`rank.py` step 3): over the 60 cheapest relational atoms, all 34
+equation-sharing pairs floor at **≥ 7**, the best (3131+3138, 3138+8749, 3588+5558, 8777+2569)
+tying at exactly 7 (9 touched, 2 killed). Cancellation buys back exactly what the larger support
+costs.
+
+### 15.2 The cheapest atom of all is a trap, and the trap is instructive
+Atom 8508 = `x29570·(1−x29570)`, cost **2**. But `reach2.py`: x29570 occurs in **no other atom**.
+It is cheap *because it is disconnected*, and a disconnected variable cannot carry the defect —
+the defect is the mismatch between the leaf selection and the target and must flow through atoms
+that link them. Same for 7888 (`x27026`, cost 5) and 8512, 8764 — all zero-collateral.
+**Cheapness and load-bearingness are anti-correlated here.** This is the ranking's own version of
+the incidence-does-not-price-cost trap, and it eliminates the four cheapest entries.
+
+### 15.3 THE LEVER: relax a SELECTOR off {0,1}
+Of E's 2,283 boolean-ness atoms, **173 are on selector / conditional-pin variables**, and the
+cheapest of those are *not* disconnected:
+
+| atom | variable | cost | selector? |
+|---|---|---|---|
+| 8509 | x33095 | **3** | yes (tree A) |
+| 7889 | x19326 | **6** | yes (tree A) |
+| 8510 | x28825 | **6** | yes (tree A) |
+| 8511 | x4362 | 7 | yes (tree A) |
+
+A selector `b` off `{0,1}` does **not** force its mux atoms nonzero: the mux relation
+`acc' = acc + b·(S − acc)` is still satisfiable — `acc'` just becomes a free point on the line
+through `acc` and `S`. So the collateral can stay zero and the only atoms forced nonzero are the
+boolean-ness atoms of the relaxed selectors. (`reach2.py`'s "true-touch 18–22" for these assumed
+all collateral goes nonzero; it does not have to, which is why that number is an over-estimate.)
+
+Counting parameters: one relaxed selector is 1 free field parameter against the 2 coordinates of
+the target — generically no solution. **Two relaxed selectors are 2 parameters against 2
+conditions, generically solvable for any boolean choice of the other 254.** Pricing the pairs by
+the union of their boolean-atom equations:
+
+| relaxed pair | equations in union | overlap | floor |
+|---|---|---|---|
+| **x33095 + x19326** | **6** | 3 | **39,027** |
+| **x33095 + x28825** | **6** | 3 | **39,027** |
+| x33095 + x4362 | 7 | 3 | 39,026 (ties) |
+| x19326 + x28825 | 7 | 5 | 39,026 (ties) |
+| x28825 + x4362 | 7 | 6 | 39,026 (ties) |
+| x19326 + x4362 | 8 | 5 | 39,025 |
+
+**Two pairs floor at 6 failing equations — 39,027.** The overlap is what does it: x33095's 3
+equations are a subset-heavy intersection with x19326's 6, so the union is 6 rather than 9.
+
+### 15.4 Status of the 39,027 target — UNREALIZED, and it is a floor, not a score
+`cost(S)` is a lower bound on failing equations for a support; it says nothing about whether an
+assignment with that support exists. Realizing it needs the fold to reach the target exactly with
+two non-boolean coefficients — a 2-unknown solve whose difficulty I have not measured, and the
+composite map is a rational function of both parameters through every downstream stage, so its
+degree may be enormous. `realize.py` hands the two relaxed selectors to `gs2`'s repair at fixed
+non-boolean values and scores with `checker.py`; that is a weak attempt (gs2 propagates forward
+from the leaves, so it cannot back-solve the two parameters against the root) and it was still
+running at handoff. **No score above 39,026 has been verified. 39,027 is a target, not a result.**

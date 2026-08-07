@@ -598,3 +598,76 @@ where the system is decoupled — i.e. in exactly the case that cannot test simu
 Knob set: 256 selectors, liveness derived; everything else mod P.
 
 ## 49. Best verified score: **39,026 / 39,033 — unchanged, not mine.** No score attempted.
+
+---
+# CHECK-IN 28 (final) — composition holds at cands[0], jointly verified.
+
+## 50. Result
+`pcompose2.py` (hoist applied: all per-variable lift steps and per-block condition triples
+computed once — 9,164 and 382 of them — instead of re-scanning 39,277 atoms inside the loop).
+
+```
+cands[0] : parent block 193  <-  child block 2 ,  |S| = 3 ,  2 live blocks
+child  conditions : [(0,1), (0,1), (6982445, 7038713)]      -> 1 non-vacuous, c = 11*23*43*647
+parent conditions : [(0,1), (1449394, 1599077), (0,1)]      -> 1 non-vacuous, c = 59*27103
+child  lift steps : [4373213, 7633471, 1, 1, 1, 1]
+parent lift steps : [1, 4373107, 1, 8854455, 1, 1]   (slots (1,2) carry the child's output)
+
+child  conditions solvable with the child's own parameters   : True
+parent conditions solvable with the copy-edge lifts ALONE    : True
+parent conditions solvable with all six parent parameters    : True
+```
+**And then jointly verified rather than inferred:**
+```
+child  CRT shift vector : [6297909, 1145837, 0, 0, 0, 0]   mod 7038713
+parent CRT shift vector : [0, 0, 1229442, 0, 0, 0]         mod 1599077
+both shifts applied SIMULTANEOUSLY, recomputed directly from the shifted integers:
+  CHILD  : P|N1 True   P|N2 True   c*P|R True
+  PARENT : P|N1 True   P|N2 True   c*P|R True
+  parent shift touches only slot 2 (a copy edge) -> child variables untouched : True
+  JOINT VERIFICATION : True
+```
+So at this pair, **individual lifting and simultaneous lifting both hold** — the first data
+point in this campaign that distinguishes the two, and it is favourable.
+
+## 51. Why I ran the joint check, and what it changes
+My first verdict line was a logical AND of two separate searches — an *inference* from
+parameter disjointness, which is exactly the shape of thing my second guard exists to catch.
+So I CRT'd each block's per-prime root vectors coordinate-wise, applied **both** shifts at
+once, and recomputed `N1, N2` and the divisibilities from the shifted integers. It passed.
+Had it not, the disjointness reasoning would have been wrong and I would have reported the
+opposite. The verdict above is verified, not inferred.
+
+## 52. My check-in-25 hypothesis: **confirmed at one pair. Not established.**
+The mechanism is the one I guessed and explicitly refused to claim: the parent's input is
+joined to the child's output by a mod-P copy congruence carrying its own free lift, so the
+parent's condition is discharged by a copy-edge lift that never touches the child. That is now
+**observed**, at one pair, with the child verified untouched. It is not proved in general and
+should be cited as "confirmed at cands[0]", nothing broader.
+
+## 53. Scope — I am not generalising this either
+* **One** parent/child pair, `|S| = 3`, two live merges.
+* Only **2 of the 6** conditions present in this configuration are non-vacuous; four have
+  `c = 1`. So this settles **2 of the 927**.
+* Deeper chains (grandparent/parent/child), sibling live merges feeding one parent, and every
+  `|S| > 3` remain untested. Nothing here says the copy-edge lift is always available or always
+  independent.
+
+## 54. Reduction status — unchanged. Sixth time.
+**2,780 of 3,707 handles free at `c = 1`; 927 carrying `c·P | R`; satisfiability OPEN.**
+Two favourable conditions at one pair is not 927. Knob set: 256 selectors, liveness derived;
+everything else mod P.
+
+## 55. Final state of the durable output
+* `plift5.py` — working integer lift constructor; at one leaf ON the only nonzero atoms are the
+  two target congruences.
+* `prank.py` — 6-parameter rank computation, verified at block 2, `|S| = 2`.
+* `pcompose2.py` — composition test, **hoisted and runnable**; reproduces §50 end to end.
+* Two guards, both learned by being bitten: **never brute-force over `lcm(c_k)`** (factor,
+  prime-by-prime, CRT); **never trust a symbolic expansion or a disjointness argument without
+  direct recomputation** — it caught a sign bug at check-in 20 and it is what turned §50 from
+  inferred into verified.
+* Next configuration to run: `cands[1..3]` (all support 3) to see whether the copy-edge
+  independence repeats, then the first three-deep chain.
+
+## 56. Best verified score: **39,026 / 39,033 — unchanged, not mine.** No score attempted.
