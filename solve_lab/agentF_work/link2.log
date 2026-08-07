@@ -2,3 +2,4 @@
    2/256  bit 112    tree A match=True   good=2  t=140s
    3/256  bit 542    tree A match=True   good=3  t=203s
    4/256  bit 853    tree A match=True   good=4  t=260s
+   5/256  bit 1357   tree A match=True   good=5  t=327s

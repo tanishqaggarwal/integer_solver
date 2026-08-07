@@ -205,5 +205,31 @@
   "knobs": 9,
   "minfail": null,
   "forced": 0
+ },
+ {
+  "tag": "X35619",
+  "add": [
+   23437,
+   23438,
+   35830
+  ],
+  "nE": 17,
+  "new": 4,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X23642",
+  "add": [
+   11772,
+   11773,
+   34814
+  ],
+  "nE": 23,
+  "new": 10,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
  }
 ]
