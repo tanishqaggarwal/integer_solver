@@ -197,3 +197,35 @@ tree partner flags}. Selector configuration: exactly the bits listed in the tabl
   rule is about how many of a footprint's equations can be made to cancel. Nobody has priced the
   single-bit footprints with that method.
 - Did not finish BSGS; did not attempt weight 7–10 (needs ≈1.7×10⁸ stored points, ~1.4 GB, feasible).
+
+## 9. Pricing the alternative configurations — they lose (`price.py`, `runs/price.json`)
+For a configuration's defect footprint, build the (equations touched) × (nonzero atoms) integer
+coefficient matrix and compute the maximum number of those equations a **nonzero** atom vector can
+annihilate. This ignores integer/mod-p realizability, so it is an *optimistic ceiling*.
+
+| configuration (placement reached by `gs2.solve`) | atoms | eqs touched | max killable | floor failing | ceiling score |
+|---|---|---|---|---|---|
+| single bit {24601} | 3 | 20 | 7 | 13 | **≤ 39,020** |
+| pair {24601, 2081} | 6 | 28 | 17 | 11 | **≤ 39,022** |
+| deliverable's own placement (from `NOTEBOOK.md` §Session 10) | 7 | 12 | 5 | 7 | **39,026** |
+
+**Even optimistically, the configurations reachable by `gs2`'s repair cannot beat 39,026.**
+Knob set: `gs2.solve`'s knob set (every free input reaching a nonzero residual atom) minus the
+frozen set {x22162, x30213, x24468, x18956, the selected selector bits, the tree partner flags};
+selector configuration: exactly the bits named in each row, all other selectors 0. This prices
+*the placement `gs2` lands in*, not every placement that configuration admits — an optimiser that
+relocates the defect could do better, and that is the open experiment in section 8.
+
+## 10. CP-SAT's representation ceiling, measured
+`opt3_cpsat.py` at m = 31 returns MODEL_INVALID at once: the product domain `p²` exceeds what
+CP-SAT will accept. So CP-SAT cannot even *state* the real instance's arithmetic — the wall is at
+about 31 bits of modulus, versus the 256 required.
+
+## 11. Verdict for this angle
+Automated reasoning against the reduced problem is **measured to be out of reach**, by a margin of
+roughly 2^120, and the measurement is not a solver opinion: the CNF for the real instance is
+~1.4×10^10 clauses (~600 GB, versus 29 GB of disk), CP-SAT cannot represent 256-bit field
+arithmetic at all, and where the tools *can* be run they are ~10^5 times slower than exhaustive
+enumeration of the same instance. Agent C's original abandonment of SAT/SMT was right, and it
+remains right after the decode — but now for a stated, reproducible reason rather than an
+instance-size heuristic.

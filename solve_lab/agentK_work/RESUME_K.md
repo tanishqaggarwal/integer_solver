@@ -50,16 +50,29 @@ the chain labels every leaf with an exponent `e ∈ 0..255` and leaf(e) = 2^e ·
 
 **Therefore, writing `G` for leaf exponent 0 and `T` for the target point:**
 
+> writing `k` for the integer in `[1,N)` with `k·G = T` under the composition law above,
 > the system is satisfiable exactly by the leaf ON-sets `S` with
-> `sum_{e in S} 2^e ≡ dlog_G(T) (mod N)`,
-> and since `0 < dlog < N < 2^256` and every exponent 0..255 is available exactly once,
-> **the solution is unique: S = the binary support of `dlog_G(T)`.**
+> `sum_{e in S} 2^e ≡ k (mod N)`,
+> and since `0 < k < N < 2^256` and every exponent 0..255 is available exactly once,
+> **the solution is unique: S = the binary support of `k`.**
 
 **Status of that statement.** The constants, the cubic, the chain, `N` and the 178/78 split are
-all *measured*. The step "fold = group sum" is validated end-to-end on the A half up to 3-leaf
-folds (§2) and rests on F's independent 72/72 stage-law check; the B half is validated for
-single leaves only. Treat the uniqueness sentence as **strongly supported, not proved**, until
-§2's B-half gap is closed.
+all *measured*. The step "fold = composition sum" is validated end-to-end on the A half up to
+3-leaf folds (§2) and rests on F's independent 72/72 stage-law check; the B half is validated
+for single leaves only. Treat the uniqueness sentence as **strongly supported, not proved**,
+until §2's B-half gap is closed.
+
+**What the reduction does and does not do — read this before quoting it.** It converts 39,033
+equations into *one* unknown integer `k`. That is a real simplification of the search space
+(from 38,748 coupled variables to 256 bits with a closed-form consistency test), and it is what
+makes §4's negative provable. It **does not finish the instance**: every step after `k` is known
+is bookkeeping, but **obtaining `k` is the entire remaining problem**, and this reduction
+relocates that problem rather than solving it. Concretely, the recovery is a 256-bit one, and
+what I actually ruled out is small: `k < 2^40` (baby-step/giant-step), `k` of Hamming weight
+≤ 3, `T` equal to a leaf or to `2P_i`, and any pair-sum coincidence among the 256 leaves. That
+leaves essentially the whole 256-bit range untouched. I know of no shortcut and I did not find
+one. **No claim is made here, in either direction, about whether `k` is obtainable** — the
+instance is satisfiable, a satisfying assignment exists, and nothing below argues otherwise.
 
 --------------------------------------------------------------------------------------------------
 ## 2. THE FOLD EVALUATOR — built and VALIDATED (F's priority 2, done)
@@ -189,6 +202,21 @@ So beating 7 requires *cancellation below a single atom's footprint*, not a chea
 I did not find one. **This is a measurement over the sites I enumerated (leaf pins, slot pins,
 target pins, all single residual atoms); it is not a proof that no coding does better.**
 
+**Where this table is weakest, stated so it can be attacked.** Two gaps, either of which would
+revise it rather than confirm it:
+* I classified the twelve sub-7-footprint atoms as decoys **by inspection** — they are all
+  idempotency atoms of booleans whose only other appearance is a single trivial definition
+  (`x20650 - x157*10101`, etc.), which is why I judged them unable to carry a defect that
+  changes the fold. I did **not** prove they are inert. If someone exhibits a *realizable*
+  defect carried by a low-footprint atom, the "load-bearing atoms all cost ≥ 7" line is wrong
+  and this table is the thing that gets corrected, not the counterexample.
+* My footprint numbers are **unions, i.e. upper bounds with cancellation ignored**, except for
+  the deliverable's cluster where I checked cancellation explicitly. A site I priced at 10 or 16
+  could be cheaper if its atoms cancel. I did not search for that.
+Anyone screening atoms by footprint (e.g. minimising equations-touched against window size)
+will land on exactly those twelve decoys first; that agreement is not corroboration, it is the
+same measurement. The open question is realizability, which footprint alone cannot see.
+
 --------------------------------------------------------------------------------------------------
 ## 6. TOOLS BUILT (all run from cold in this directory)
 
@@ -226,13 +254,17 @@ Key facts to re-derive cheaply if anything looks wrong:
    Instrument `CascadeP.close` to record, per derived variable, which atom derived it, then run
    `drive({e3,e5})` and walk back from `x14853` to the first variable derived by an atom that is
    not a forward mux/stage atom. Fix the `k25_class.py` idempotency regex at the same time.
-1. **The only thing between here and a full solve is one integer**: `k` with `k·G = T` in the
-   chord group on `Y^2 = X^3 + b (mod p)`. Given `k`, the solve is mechanical: set leaf
-   selector `e` on iff bit `e` of `k` is 1, run `k26_drive.drive()`, then the integer cascade
-   (`cascade2.py`) with handles free to lift to Z, then `checker.py`.
-   Bounded searches already run and **negative**: `k` is not < 2^40 (BSGS), `T` is not a leaf,
-   not a sum of 2 or 3 leaves, `2P_i != T` for all i, no pair-sum collisions among the leaves.
-2. `k28_shots.py` extends the BSGS window; N is prime so there is no exponent split.
+1. **What remains is one integer `k` with `k·G = T` under the chord composition on
+   `Y^2 = X^3 + b (mod p)` — and finding it is the whole job, not a formality.** Do not read
+   "one integer" as "nearly done": *given* `k` the rest is bookkeeping (set leaf selector `e` on
+   iff bit `e` of `k` is 1, run `k26_drive.drive()`, lift to Z with `cascade2.py` leaving the
+   handles free, check with `checker.py`), but obtaining `k` is a 256-bit recovery and every
+   cheap avenue I tried came back empty: `k < 2^40` (baby-step/giant-step, `k28_shots.py`),
+   Hamming weight ≤ 3, `T` a leaf, `T = 2P_i`, pair-sum coincidences among the 256 leaves —
+   all negative. Those rule out a negligible fraction of the range. Budget accordingly, and
+   do not spend a session assuming the reduction has almost closed the instance.
+2. `k28_shots.py` extends the search window; `N` is prime, so the exponent does not split into
+   smaller independent pieces, and that route is closed.
 3. If instead the goal is to beat 39,026: the only opening left is **cancellation** — find an
    atom set whose image under the incidence matrix has weight ≤ 6 *and* is realizable. Use
    `k27_sites.py`'s footprint table as the starting point; the 12 sub-7 atoms are decoys, so

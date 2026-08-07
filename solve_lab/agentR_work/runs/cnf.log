@@ -12,3 +12,4 @@ AttributeError: 'CryptoMinisat' object has no attribute 'cryptosat'
    cryptominisat  {'solver': 'cryptominisat', 'err': 'AssertionError("Package \'pycryptosat\' is unavailable. Check your installation.")'}
    glucose42      {'solver': 'glucose42', 'sat': True, 'time': 276.73, 'stats': {'restarts': 2251, 'conflicts': 353100, 'decisions': 535750, 'propagations': 122898960}}
 m8_free  bit-blast 14.2s  vars=58272 clauses=406016
+   cadical195     {'solver': 'cadical195', 'sat': True, 'time': 888.26, 'stats': {'restarts': 42109, 'conflicts': 790410, 'decisions': 1751748, 'propagations': 142607570}}

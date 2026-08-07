@@ -645,3 +645,96 @@ decomposition is **unresolved and flagged to both**.
 | M | Characterise the divisibility obstruction on equation 29125 exactly; state the knob set, including the 5 newly-freed definer variables |
 | P | Test the SLP-5497 window against K's decoy-idempotency finding **first**; then the carrier, only if it survives |
 | S | Finish `lat5.py` (stopped 29/48, 0 feasible); reconcile its exhaustion with K's unreachability claim |
+
+---
+
+## Check-in 9 — the reduction is complete, and a factual conflict is open (agent L)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified by L with plain `checker.py`. L did not
+beat it; its own best is 39,018 (`agentL_work/assign_L1.json`, checker-verified), and L is
+explicit that this is the canonical output of its constructor rather than a search result.
+
+### The complete decoded reduction
+
+All **383 nodes calibrated** — coordinate alignment from slot links, chord orientation solved
+from each node's own three stage checks against the universal constant — **383/383, 0
+failures**; all 256 leaf pin pairs extracted numerically with **0 conflicts**. For every ON-set
+tried, the entire 39,033-atom system collapses to the **same 2 atoms**:
+
+> The system is satisfiable iff some non-empty subset of the 256 leaves folds to
+> `TARGET = (44859544763832475231923253825569092119321525945631045653619508440821028887,
+> 36200939269128454586076546451607958467047992891178506183612554289882454126226)`
+> (root coordinate order).
+
+Everything else closes exactly over ℤ. The lift is **free**: every one of the 3,681 handle
+variables appears in **exactly one atom** (knob set: all 8,747 free variables), so mod-p
+suffices. This closes the conjecture P left open in check-in 7 — "solve the subset-sum ⇒ full
+solution" is no longer conjectural in L's model.
+
+L's node count of **383** independently corroborates P's recount against F's 96. L identifies
+the unique root as **x9274**, with 384 leaves = **256 free booleans + 128 literal `:= 0`**, and
+confirms F's configuration count of **2²⁵⁶ − 1**.
+
+### The assigned case: no sum
+
+L's task was the same-OR-group double-leaf case. Measured by exact re-propagation: `a` only →
+the slot holds A exactly; `b` only → B exactly; **both → chord(A,B)** — not `A+B`, not A, not B.
+All 10 local atoms vanish mod p in all three cases. **Mechanism:** F was right that both pins
+fire — the leaf value-wire off-guard is `(1−leaf_bit)·w = p·h`, guarded by the *leaf bit*, not
+the selector — but the mux coefficients are the mutually exclusive quadrants, so both firing
+pins are multiplied by zero. Generalised to ON-sets of size 1, 2, 5, 73, 200, 256 (containing
+same-group multi-leaf cases at every depth): all close. **F's same-OR-group sum caveat is
+refuted; the fold law is unchanged.**
+
+L also **retracted two of its own claims** mid-session: its 2^178 configuration count (F's
+2²⁵⁶ − 1 stands) and its 178/78 measurement, which was a *sub*-forest under x8599/x21839 —
+the lab's recurring 178|78 is the live-leaf split **at the root**.
+
+Separated cleanly: **E's saturation is the pass-through branch; the double-leaf case is the
+chord branch.** Different branches of the same mux, not the same phenomenon.
+
+### OPEN — a factual conflict about the deliverable's ON-set
+
+**L reports the deliverable has exactly one leaf ON (x24601)**, the trivial pass-through.
+**M measured `{24601, 2081}`. K independently reports that at ON = {2081, 24601} the circuit
+gives A = leaf(24601) and B = leaf(2081) exactly.** Three models, two answers.
+
+This is load-bearing, not bookkeeping: K's and P's account of *why* the deliverable scores
+39,026 — one gate's off-pins forcing the root's two inputs equal, killing the root check —
+requires **two** live inputs at the root to be the mechanism at all. If L's reading is right
+that account is wrong; if K/M are right, L's extractor is dropping a leaf. L has been asked to
+settle it from the deliverable's own assignment and report which way it falls.
+
+### Converged, from four models: beating 7 means searching cancellation, not support
+
+L, knob set = the 378 parent-slot-wire pairs, incidence-only and therefore
+configuration-independent: **the cheapest 2-atom cut anywhere costs 11**, while the deliverable
+reaches 7 with *four* nonzero atoms — i.e. by **value cancellation inside shared equations**.
+L's own inversion-based cuts priced 39–47. This is the same conclusion as K's site-cost table
+(sub-7 footprints are decoys), M's equation-space result (8 atoms → only 7 failures because
+they cancel inside equations), S's §5 (5 of 12 equations cancel), and check-in 3's finding that
+no function of incidence structure alone returns the true cost of 7.
+
+**Four independent models, one instrument nobody has built.** L has been re-tasked to build it,
+since it has the only tooling that can: 383/383 calibration, exact `invchord`, and a
+checker-verified constructor.
+
+### Searches run and negative
+
+|S| = 1 (256), |S| = 2 (32,640), |S| = 3 (2,763,520): **no hit**. |S| = 4 (174M) was left
+running (~6.8 h). **Zero degenerate folds observed** — consistent with K's closed negative that
+no configuration can make a stage degenerate. L has been told not to block on |S| = 4: 174M of
+a 2²⁵⁶ space is not where the value is, and three empty levels are weak evidence about the
+fourth and none about the rest. Root meet-in-the-middle is 2⁷⁸ and out of reach.
+
+### Position of the campaign after this check-in
+
+Four agents in four models now agree on the shape: the instance reduces to selecting a subset
+of 256 leaf constants that folds through a uniform chord law to a fixed target, the lift off
+that is free, and the deliverable's 39,026 is the price of a degeneracy at the root that
+cannot be obtained by configuration. **No infeasibility claim stands anywhere in this lab**,
+and none of the above is one — but the honest statement of the remaining gap is that every
+route to 39,027+ now runs through either the cancellation search (unbuilt, L tasked) or M's
+divisibility obstruction on equation 29125, and that the subset-sum itself has resisted every
+enumeration attempted. Enumeration is not the lever; the fleet should not spend further cores
+on level-by-level sweeps.

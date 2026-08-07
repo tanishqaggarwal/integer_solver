@@ -20,3 +20,4 @@ k=3 sets=43680 done=0 todo=43680 audit_rate=0.005
 38000/43680  0.0209s/set  eta 2.0 min  signatures=14 audits=180/0 bad  best=39026
 40000/43680  0.0205s/set  eta 1.3 min  signatures=14 audits=188/0 bad  best=39026
 42000/43680  0.0202s/set  eta 0.6 min  signatures=15 audits=196/0 bad  best=39026
+DONE k=3 shard=0: 43680 sets, 15 distinct (R,b) signatures, 212 audits with 0 mismatches, best=39026, 14.9 min

@@ -165,3 +165,102 @@ Caveats, stated per the standing rules: this screen was computed over **all 39,2
 (knob set = every atom, unrestricted), and it is **configuration-independent** — it is a
 property of the equation/atom incidence alone and says nothing about which defect values are
 algebraically reachable at any selector configuration.
+
+---
+# CHECK-IN 8 — the 5497 carrier is dead. Prediction withdrawn.
+
+## 11. PRIMARY RESULT: I withdraw the "deficit 4 at SLP 5497 → 39,029" prediction.
+It was never a score and it is not even a candidate. **Measured, not argued:**
+
+* SLP position 5497 is the atom `x29741 − x17440 + x27926` — the `A = i1 − i2` wire **inside
+  law-block index 68** (`+Q` gate at 5502, leaf-support 2, both inputs leaves). Footprint 5.
+* Perturbing it changes that block's `N1` and `N2`, which forces the block's **three
+  law-congruence atoms at SLP 34872 / 34874 / 34876** (footprints 13 / 12 / 11) to become
+  nonzero. The realizable defect is therefore **4 atoms touching 22 equations**, not 1 atom
+  touching 5.
+* The only way to avoid that is a configuration where block 68's gate is off — and then the
+  perturbation never reaches the root, so it buys nothing toward the target while still
+  costing its 5 equations.
+
+**So the footprint screen is dead**, and agent C's check-in-3 conclusion stands: no function
+of incidence alone prices a defect. My screen's error term is exactly the *coupling* — an
+atom's true cost includes the congruence atoms its perturbation forces downstream, which is
+residue content, not incidence. `min_p(|eqs touching [p,p+w−1]| − w) = 4` remains true as an
+incidence statement and is **useless** as a cost.
+
+## 12. Coordinator item 3 (run first, as instructed): the 5497 window is NOT a decoy
+K's decoy explanation does **not** apply here, so this is a third failure mode, not K's.
+* In my parse, **1,158 atoms have footprint < 7**, of which **1,152 are idempotency atoms**
+  (`x − x²`; 1,145 of them footprint 1) and 6 are not. So K's *kind* of claim is corroborated
+  at much larger scale — low footprint overwhelmingly means idempotency decoy. (K's count of
+  12 vs my 1,158 is a decomposition difference; atom indices/counts are not comparable across
+  directories, as you noted.)
+* But **every atom in the 5490–5511 window is genuine law-block arithmetic** — products,
+  squares, three-term linear combinations. `isidempotency = False` for all of them. The
+  window sits in the 6-atom non-decoy remainder.
+* Net: the screen found a *real* low-footprint atom and still failed, because of coupling.
+  Both explanations are needed; neither subsumes the other.
+
+## 13. Coordinator item 2 — corrected placement cost table (short version)
+I did **not** redo the enumeration K already did. What I did compute, because it was already
+built: for all 382 blocks, the 3 law-congruence atoms and their handle-defs, and the union of
+equations touched by breaking 2 of 3.
+* Cheapest **live** merges: block 279 (`S,S`, supp 3) touches **10**; block 2 (`L,L`, supp 2),
+  block 151 (`L,L`), block 193, block 311, block 330 all touch **11**; the deliverable's own
+  site touches **12** with 7 atoms. Worst is 39.
+* But a live merge corrupted to hit the target directly gives **three** broken congruences,
+  not two: with `Z` forced to `T`, `N1` and `N2` are determined and no rank-2 combination
+  `c_k1·N1 + c_k2·N2` vanishes. That is why the deliverable instead pays for the *vacuous*
+  route. **Answer to your question: 7 is the price of the placement, not of the degeneracy
+  as such** — but I did not find a placement priced below it, and per your instruction I
+  stopped rather than enumerate further.
+
+## 14. On K's unreachability argument — corroboration, and one specific hole
+K's mechanism and mine agree, reached from different decompositions; I am glad to have it
+corroborated. On the impossibility half I can neither confirm nor refute it, because it is
+stated in a vocabulary my parse does not produce. Two things I can say precisely:
+
+1. **It rests on a premise about how the instance was built** (that the 256 leaves correspond
+   one-to-one to distinct exponents in an order-N arithmetic). Nothing in my parse yields
+   that; my parse yields only 256 constant pairs and a degree-3 identity. That premise is the
+   withdrawn lens, so the argument inherits whatever caution attaches to it.
+2. **A concrete hole worth someone's time.** The step "`|x − y| < 2ⁿ < N`, so the difference
+   cannot vanish" and "at the root `x − y = ±N`" both need the relevant modulus to *exceed*
+   the largest signed subset difference, so that only one wrap (`k = ±1`) has to be excluded.
+   If the modulus that actually governs coordinate-pair equality is smaller than 2²⁵⁶, the
+   enumeration is over `x − y = kN` for several `k`, and a carry walk covering only `k = ±1`
+   is incomplete. **Whoever owns that argument should state which modulus bounds the walk and
+   check that it exceeds 2²⁵⁶.** That is the one place I would push.
+
+## 15. Adjudication with S: in my decomposition it is subset selection, not one-hot
+Decisive and cheap to re-run: **zero atoms in the entire file touch two or more distinct
+selector variables.** Each of the 256 selectors appears in only **5–6 atoms**, all local to
+its own coordinate load and its own liveness fan-out. There is no cardinality atom, no
+one-hot tie, no cross-selector coupling anywhere. So the residual I am describing is
+**free independent subset selection over 256 booleans, 2²⁵⁶ configurations.**
+If S's decomposition saturates to one-hot, S and I are describing different objects, and this
+one-line test (`any atom containing two selector vars` → none) is the thing to run against
+S's parse to find out which.
+
+## 16. Vocabulary and scope corrections to §3 above
+Restated neutrally, with no reading of what the instance "is": each block imposes the two
+polynomial identities `E·A² − B² ≡ 0` and `A·(i3+i6) − B·(i2−i5) ≡ 0 (mod P)` with
+`A = i1−i2`, `B = i4−i3`, `E = i1+i2+i5+Q`. The properties I verified are properties of
+**these identities**: solving for `(i5,i6)` given the other four is a closed-form rational
+map (300/300); the map is symmetric in its two operand pairs (200/200); iterating it is
+order-independent **on the 256 constant pairs** (300/300), all of which satisfy the common
+identity `y² − (x + Q/3)³ ≡ b (mod P)`, as does the target. **I draw no conclusion about
+solvability from any of this, and my own results point the other way** — the degeneracy is a
+*second* family of satisfying assignments, not a barrier.
+
+## 17. Standing caveats, unchanged
+* Everything is **mod P**. The integer condition is `c·P | R`; the lift is **still unbuilt**,
+  so "solve the residual ⇒ full solution" remains a **conjecture**, evidenced only by the
+  deliverable being such a lift for its own configuration.
+* Knob set for every determined/free claim: **the 256 selector variables**, liveness derived.
+  §11–13 measurements are configuration-independent incidence/coupling facts; the 376/382
+  fold agreement is at the deliverable's configuration (ON-set = leaves {21, 167} in my index).
+
+## 18. Best verified score — unchanged, and I did not beat it
+**39,026 / 39,033.** I produced no new assignment this check-in. The carrier I predicted does
+not exist, and I am reporting that as plainly as I would have reported a win.

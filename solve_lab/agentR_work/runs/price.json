@@ -20,5 +20,16 @@
   "max_killable": 7,
   "floor_failing": 13,
   "implied_score": 39020
+ },
+ "91": {
+  "bits": [
+   91
+  ],
+  "score": 39013,
+  "atoms": 3,
+  "eqs": 20,
+  "max_killable": 7,
+  "floor_failing": 13,
+  "implied_score": 39020
  }
 }

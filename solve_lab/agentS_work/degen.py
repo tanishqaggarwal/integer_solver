@@ -12,7 +12,8 @@ P = C.P
 
 def deftext(var, depth=0, maxd=3):
     """Recursively unfold the atom that defines x_var."""
-    a = (E.definer[var] if var<len(E.definer) else None)
+    e = (E.definer[var] if var<len(E.definer) else None)
+    a = e[0] if e else None
     if a is None:
         return "x_%d(FREE)" % var
     t = H.atoms[a]
@@ -31,7 +32,8 @@ for a in (20215, 28647):
     print("a%d = %s" % (a, H.atoms[a]))
     for m in re.finditer(r'x_(\d+)', H.atoms[a]):
         v = int(m.group(1))
-        d = (E.definer[v] if v<len(E.definer) else None)
+        e2 = (E.definer[v] if v<len(E.definer) else None)
+        d = e2[0] if e2 else None
         print("    x_%d <- %s" % (v, ("a%d: %s" % (d, H.atoms[d][:110])) if d is not None else "FREE"))
     print()
 
