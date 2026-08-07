@@ -265,3 +265,55 @@ is the only remaining input to `rk_p(M)` that I have held fixed throughout.
 `|W| = 2` (26,565 pairs, ~63 CPU-hours under contention) — its `|W| = 1` sibling is refuted over all
 231 rows and `pgrow.py` explains why the budget cannot touch the gap. **Left resumable at
 2,004/26,565, max g = 5**: `python3 budget68b.py w2 <shard> 4`.
+
+---
+
+# POST-RESTART-2 (step 19): environment rebuilt and re-verified; THE SELECTOR AXIS
+
+## Environment after the second restart — checked before anything was measured
+`*.pkl` wiped again **and site-packages wiped again** (no sympy, no python-flint). Reinstalled
+`sympy 1.14.0` + `python-flint`; rebuilt `fwd2.pkl` and `model.pkl` from `EQUATIONS.txt`.
+Verified FAITHFUL, not merely runnable, to the same five-point standard:
+
+| check | value | matches published |
+|---|---|---|
+| `model.get()` | 42,267 atoms / 39,033 equations | yes |
+| `fwd2.py` | 30,001 defs / 12,266 checks / 8,747 free | yes |
+| `frameB.py` known state | 39,026, nz `[22229,22230,35758..35762]`, failing `[12231,12270,12350,14584,18673,22044,29125]`, **0 vars differing** | yes |
+| `optN.py` calibration | `|R|=12 |S|=8 knobs=7 rank=7 z0=5 OPT=5 outside=0 failing=7 score=39026 exhaustive=True lin=True` | yes |
+| `solve_lab/checker.py best/new_instance_partial_39026.json` | **39026/39033**, identical failing set | yes |
+
+My chain again **hard-failed** on the first missing artifact (`kerquad.py` → `runs/polyfull.pkl`)
+rather than degrading — `ikc.py` lifts `int_kernel_columns` VERBATIM out of `kerquad.py` so the
+rank measurement does not need that pickle.
+
+## New tooling
+- `seltree.py` → `runs/seltree.json`: the selector hierarchy recovered **from my own frame**, with
+  no dependence on another agent's chain. Each defined variable's Frame support restricted to the
+  256 selectors gives 784 distinct blocks; they are 99.5% laminar (1,618 crossing pairs of 306,936).
+- `psel.py`: structural configuration generator + size probe (`runs/psel_size.json`).
+- `pselrank.py`: the rank measurement, exact linear part by Newton interpolation.
+
+## The selector axis — construction (two independent regimes, both self-derived)
+The 256 selectors are pure free inputs of `Frame(POOL)`. The deliverable has **exactly two live**,
+`{2081, 24601}`. `runs/seltree.json` shows the hierarchy is **253 selectors meeting at one root
+plus THREE outliers `{2081, 4287, 13195}` that never join it** — so the deliverable's live set is
+structurally a MIXED pair: one outlier plus one leaf at depth 10 inside the tree.
+
+- **regime "pinned"** (`psel.state_for`): selectors set, every other free input left at the
+  witness. The leaf pins of a newly live leaf then break by construction.
+- **regime "consistent"** (`pselc.state_for`): every leaf pin is `sel*(w - C) - m*z` with **512 of
+  512 wires `w` FREE** and **512 of 512 `z = a*b` carrying a FREE factor**, so setting `w := C` on
+  the live leaves and zeroing one factor of every `z` satisfies **all 512 pins simultaneously for
+  ANY live set** — verified `badpins = 0` in all 51 configurations. *The pins never obstruct a
+  selector setting.* (U's pin result, reached independently from my own parse.)
+
+Knob set in both regimes = every free input syntactically supporting an atom of the region, so the
+**knobs re-tune everything else**; only the selectors are pinned. `pselrank.py` takes the EXACT
+linear part (Newton interpolation on t = 0..6 wherever the second difference is nonzero — a plain
+secant is wrong in exactly the entries where the response is quadratic), and reports both the
+AMBIENT ranks (all knobs free) and the LATTICE ranks (integer kernel of the linear collateral
+response). The lattice is a RELAXATION of `pgap.py`'s exact saturation lattice, so
+`gap_p >= 1` there implies `gap_p >= 1` exactly — the safe direction for a hunt.
+**Calibration: the deliverable's own setting gives `LAT dim=15 rk_Q=8 rk_p=4 gap_Q=0 gap_p=1`,
+i.e. exactly `pgap.py`'s `gap_p = 1` with every rank shifted +1, which is what a relaxation must do.**

@@ -478,3 +478,41 @@ mechanism rather than an exhaustion.
 | `w5_eval.py` | my own evaluator — **failed calibration at 8,229, retired** |
 | `mirror/harness.py`, `mirror/engine3.py` | the working mirror of M's engine |
 | `w6_mcal.py` | **the calibration: PASS, 7 failing, 0 vars differing** |
+
+---
+
+# CHECK-IN 94 — SECOND pkl WIPE: full rebuild, calibration PASSES, and the slots ARE priced
+
+## 23. THE REBUILD (this time nothing was cached — `agentM_work` had 0 pkl too)
+
+The restart wiped every `*.pkl` again.  Unlike check-in 90, **M's private copies were gone as
+well**, so the mirror had to be rebuilt from source.  Everything below was written only in
+`agentU_work/`.
+
+| built | from | into | reproduces |
+|---|---|---|---|
+| `model3.pkl`, `dag.pkl` | `agentE_work/parse3.py`, `agentE_work/dag.py` (copied read-only) | `mirror/E/` | atoms **40,727**, vars defined **30,383**, free **8,365**, cycle hits **0** — M's `shim.py` logs the same three numbers |
+| `full_model.pkl`, `calib2.pkl`, `handles.pkl`, `ors.pkl`, `ortree2.pkl`, `slopes.pkl` | T's `mirror/L` chain (T rebuilt them in its own dir during this session) | copied to `mirror/L/` | md5 `7e034ea6…` / `7f62e53b…` |
+| `v_atoms/v_defs/v_leaves/v_supp2/v_tree_final/w_z/w_tag/w_xy` | my own `v1→v3→v5→v8b→v9b→w1→w2→w3` (`u_rebuild_vw.sh`) | `agentU_work/` | 511 supports, root split **178/78**, **0** gadgets with `maskval ≥ N`, **1,019/1,024** free pin factors, **24,743** gcd-1 pairs — every §1–§15 number reproduced |
+
+**Three path patches, all load-bearing:** `mirror/harness.py` now points at `mirror/E/*.pkl`;
+its `orient.pkl` cache is an absolute path into `mirror/` (it used to land in cwd);
+`mirror/engine3.py` keeps its `sys.path.insert(0, …/mirror)` — without it `agentE_work` shadows
+the mirror and every repoint silently does nothing.  `umodel.py`'s `LDIR` repointed at `mirror/L/`.
+
+## 24. CALIBRATION — stated before any number derived from it
+
+```
+python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json
+  -> satisfied 39026/39033 (7 failing), failing [12231,12270,12350,14584,18673,22044,29125]
+
+engine3 imported 1.7s ; NV = 38748
+deliverable via checker              : 7 failing
+seed extracted                       : 37 entries
+forward(seed_of(deliverable))        : 7 failing via checker.py
+variables differing from deliverable : 0 of 38,748
+CALIBRATION: PASS
+```
+
+Identical to check-in 90's target.  ~0.19 s per candidate end-to-end (build → seed → forward →
+`checker.evaluate_all`).

@@ -1,0 +1,70 @@
+"""Distribution of gap_p over the selector axis."""
+import os, sys, json, glob
+from collections import Counter, defaultdict
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+rows = []
+for f in sorted(glob.glob(os.path.join(HERE, 'runs', 'pselrank*.jsonl'))):
+    for ln in open(f):
+        try:
+            rows.append(json.loads(ln))
+        except Exception:
+            pass
+seen = {}
+for r in rows:
+    seen[r['tag']] = r
+rows = list(seen.values())
+ok = [r for r in rows if 'lat_gap_p' in r]
+sk = [r for r in rows if 'lat_gap_p' not in r]
+
+print('configurations measured: %d   (skipped/failed: %d)' % (len(ok), len(sk)))
+for r in sk:
+    print('   SKIP %-26s %s' % (r['tag'], r.get('note', '')))
+
+print()
+hdr = ('%-26s %-4s %-6s %-5s %-5s %-4s | %-4s %-4s %-4s | %-5s %-4s %-4s %-4s %-4s' %
+       ('tag', 'live', 'score', '|R|', 'knobs', 'na', 'arQ', 'arp', 'agp',
+        'dim', 'lrQ', 'lrp', 'lgQ', 'lgp'))
+print(hdr)
+print('-' * len(hdr))
+for r in sorted(ok, key=lambda r: (r['nlive'], r['R'])):
+    print('%-26s %-4d %-6d %-5d %-5d %-4d | %-4d %-4d %-4d | %-5d %-4d %-4d %-4d %-4d' %
+          (r['tag'], r['nlive'], r['score'], r['R'], r['knobs'], r['nonaffine_entries'],
+           r['amb_rk_Q'], r['amb_rk_p'], r['amb_gap_p'],
+           r['lat_dim'], r['lat_rk_Q'], r['lat_rk_p'], r['lat_gap_Q'], r['lat_gap_p']))
+
+print()
+print('=== DISTRIBUTION of lattice gap_p ===')
+c = Counter(r['lat_gap_p'] for r in ok)
+for k in sorted(c):
+    print('  gap_p = %-3d : %3d configurations' % (k, c[k]))
+print('=== DISTRIBUTION of lattice gap_Q ===')
+c = Counter(r['lat_gap_Q'] for r in ok)
+for k in sorted(c):
+    print('  gap_Q = %-3d : %3d configurations' % (k, c[k]))
+print('=== DISTRIBUTION of ambient gap_p (all knobs free) ===')
+c = Counter(r['amb_gap_p'] for r in ok)
+for k in sorted(c):
+    print('  gap_p = %-3d : %3d configurations' % (k, c[k]))
+print('=== mod-p rank DEFICIENCY rk_Q - rk_p on the lattice ===')
+c = Counter(r['lat_deficiency'] for r in ok)
+for k in sorted(c):
+    print('  deficiency = %-3d : %3d configurations' % (k, c[k]))
+
+z = [r for r in ok if r['lat_gap_p'] == 0]
+print()
+print('configurations with lattice gap_p = 0 (CONSISTENT mod p):', len(z))
+for r in z:
+    print('   %-26s score=%d |R|=%d dim=%d rkQ=%d rkp=%d gapQ=%d' %
+          (r['tag'], r['score'], r['R'], r['lat_dim'], r['lat_rk_Q'], r['lat_rk_p'],
+           r['lat_gap_Q']))
+zq = [r for r in ok if r['lat_gap_Q'] == 0]
+print('configurations with lattice gap_Q = 0 (solvable over Q):', len(zq),
+      [r['tag'] for r in zq])
+print()
+print('score upper bound from the row-level p-obstruction (39033 - unzeroable_p):')
+c = Counter(r.get('score_ub_p') for r in ok)
+for k in sorted(c, key=lambda x: -(x or 0)):
+    print('   <= %-6s : %3d configurations' % (k, c[k]))
+print('degree overflow (a knob response of degree > %d anywhere): %d configurations' %
+      (6, sum(1 for r in ok if r.get('degree_overflow'))))

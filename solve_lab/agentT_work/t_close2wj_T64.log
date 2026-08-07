@@ -1,0 +1,28 @@
+S = [19745, 12134, 35062, 23262, 17710, 28754, 30823, 7780, 33824, 12422, 33434, 33951, 91, 5910, 35835, 33095, 22579, 20603, 853, 35635, 36961, 2441, 8319, 9294, 21305, 2143, 18022, 11368, 8370, 10591, 3320, 23794, 1931, 22282, 3216, 14039, 16348, 30673, 24912, 22595, 29785, 10428, 490, 32558, 24774, 3106, 6312, 35979, 12814, 27738, 28005, 37147, 28825, 31899, 24136, 19737, 35110, 6825, 34715, 15406, 38288, 22623, 38645, 30420]
+outer 0: global nonzero 34, violated c-conditions 31, nonzero handle-less 3
+   single-wire pass: 25 accepted
+outer 1: global nonzero 7, violated c-conditions 4, nonzero handle-less 3
+   handle-less pass: 3 nonzero handle-less atom(s)
+      *** x34218 += p*322948684674 zeroes (x23514-(x6677*x23504)) (exact, recomputed)
+outer 2: global nonzero 6, violated c-conditions 4, nonzero handle-less 2
+   handle-less pass: 2 nonzero handle-less atom(s)
+      *** x13454 += p*13189448 zeroes (x12827-(x31566*x24511)) (exact, recomputed)
+outer 3: global nonzero 5, violated c-conditions 4, nonzero handle-less 1
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x22366*x5209)-(8054097*x37199))  c=8054097
+     round 0: |group|=1 (0 exact) wires=6 new pairs=15
+     (x664   ,x4860  ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x7814  ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x14370 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x24959 ) |group|=1 200 candidate(s) verified, guard rejected all
+     (x664   ,x25606 ) |group|=1 200 candidate(s) verified, guard rejected all
+     *** (x4860 += p*7397480 , x7814 += p*75188) |group|=1  global 5 -> 4
+outer 4: global nonzero 4, violated c-conditions 3, nonzero handle-less 1
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x14370-x17131)-(10573909*x2482))  c=10573909
+     round 0: |group|=1 (0 exact) wires=2 new pairs=1
+     (x2404  ,x14370 ) |group|=1 200 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x2404-x34427)-(9516871*x32385))', '((x22366*x5209)-(8054097*x37199))']
+     round 1: |group|=3 (0 exact) wires=8 new pairs=27

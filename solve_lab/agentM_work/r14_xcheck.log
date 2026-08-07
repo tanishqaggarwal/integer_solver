@@ -1,0 +1,14 @@
+xc14_39026_4_642-28730-29854-31864.json   engine score 39026  (7 failing)  0.0s
+xc14_39010_1_642.json   engine score 39010  (23 failing)  0.0s
+xc14_39009_1_28730.json   engine score 39009  (24 failing)  0.0s
+xc14_39008_1_23642.json   engine score 39008  (25 failing)  0.0s
+xc14_39022_2_642-28730.json   engine score 39022  (11 failing)  0.0s
+xc14_39008_2_1844-37413.json   engine score 39008  (25 failing)  0.0s
+xc14_39023_3_642-28730-29854.json   engine score 39023  (10 failing)  0.0s
+xc14_39026_5_642-23642-28730-29854-31864.json   engine score 39026  (7 failing)  0.0s
+xc14_39021_7_642-2892-23642-28730-29305-29854-31864.json   engine score 39021  (12 failing)  0.0s
+xc14_39008_5_1844-2892-9629-18253-23642.json   engine score 39008  (25 failing)  0.0s
+xc14_39013_10_642-1844-2892-9629-18253-23642-23754-28355-28730-29305.json   engine score 39013  (20 failing)  0.0s
+xc14_39013_16_642-1844-2892-9629-18253-23642-23754-28355-28730-29305-29854-31864-34113-35619-37413-37720.json   engine score 39013  (20 failing)  0.1s
+
+wrote xcheck14.json with 12 cases

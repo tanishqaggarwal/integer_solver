@@ -361,3 +361,99 @@ Do **not** spend more cores on simsolve-based enumeration — it provably cannot
 tuned-handle optimum. The live question is equation 29125's divisibility obstruction: find a knob
 set in which that row becomes solvable, or prove the obstruction is invariant. `eqsolve2.py` is
 the harness for it; it currently reports "core infeasible" at 162 knobs / 999 equations.
+
+---
+
+# ROUND 14 (post-restart #2) — LIVE STATE. Read this first.
+
+## R14.0 The environment resets `*.pkl` globally. Rebuild before measuring ANYTHING.
+`solve_lab/.gitignore` (and the repo root's) carry `*.pkl`, so every restart wipes the whole
+parse/orientation cache chain, mine included. The rebuild is three commands and ~90 s:
+
+    cd solve_lab/agentM_work
+    python3 -u _rb_parse3.py   # copy of agentE_work/parse3.py -> model3.pkl  (atoms 40,727)
+    python3 -u _rb_dag.py      # copy of agentE_work/dag.py    -> dag.pkl     (free 8,365, seq 30,383)
+    python3 -u calib_r14.py    # imports shim -> harness_m.py; builds orient.pkl; runs the gates
+
+`shim.py` must be imported BEFORE `ieng`/`price`, so `harness` resolves to `harness_m.py`
+(E's harness with the three pkl paths repointed into agentM_work). Everything I run does this.
+Do NOT write into agentE_work.
+
+**Careful with backgrounding**: `cd X && cmd & echo $! > p.pid` backgrounds the whole `cd X && cmd`
+chain, so the `.pid` lands in the ORIGINAL cwd. I put four pid files in the repo root that way and
+moved them back. Use `nohup bash -c 'cd X && cmd' & echo $! > /abs/path/p.pid`.
+
+## R14.1 Gate G1 re-passed after the rebuild (`calib_r14.log`)
+    model: atoms 40727  eqs 39033  free 8365  seq 30383      (all pre-restart values)
+    baseline: 39008, 25 failing, 5 bad atoms
+    G1  witness {642,28730,29854,31864} -> 39026, fails exactly the 7,
+        8 bad atoms, vars differing 0 of 38,748                 PASSED
+    G2  39026 / 39000 / 38961 on the three CLI-agreeing points  PASSED
+    G3  T's 12 cofactors zeroed -> 39021, 12 failing, list ==   PASSED
+    G4  incremental == full engine3 (0 vars differing)          PASSED
+    G5  tune() 39008 -> 39026 at nprobe=10                      PASSED
+    G5b tune() 39008 -> 39026 at nprobe=80                      PASSED
+    G6  0.006 s/site on general 4-subsets (box is uncontended now)
+`checker.py solve_lab/best/new_instance_partial_39026.json` -> 39026/39033, failing
+[12231,12270,12350,14584,18673,22044,29125]. Deliverable verified independently.
+
+## R14.2 What was already done between LOG_M §81 and restart #2 (logs only, never logged)
+    enumsub2.py      resumable rewrite: real resume, per-size distributions, errors COUNTED
+    2^12             COMPLETE 4,096/4,096, above 39,026 = 0
+    2^16 @ p10/30    COMPLETE 65,536/65,536, above 39,026 = 0, best 39,026 at the witness
+    verifysup16      all 114 subsets at 39,026 over 2^16 contain the witness; 0 do not
+    granul           p10/30 -> p80/180 moved 773 of 1,784 sampled subsets UP (max +10), 0 above
+    2^16 @ p80/180   COMPLETE through |W| = 8, killed at |W| = 9
+    2^18 @ p10/30    COMPLETE through |W| = 11, killed inside |W| = 12 (234k/262k)
+
+## R14.3 Granularity: axis 1 is SATURATED, axis 2 is live
+`tune()` probes `sols[j]`; `len(sols) <= |FAILS_UNC| = 25`, so at `nprobe = 80` the index set
+already covers every solution. **`nprobe > 80` is a no-op — do not spend cores on p400.**
+The live axis is the greedy ROW ORDER. `gran2.py`, 1,193 subsets x 9 orders: **1,001 moved up,
+max +12, 0 above 39,026, witness optimum attained at the identity order.** Every per-subset score
+in every distribution I have published is therefore a LOWER BOUND; the maximum is not.
+
+## R14.4 The axis nothing has explored: the cofactors are not knobs
+All 12 cofactors are FREE INPUTS, hence never in a closure, hence never in `tune`'s knob set.
+The enumeration varies which handle relations break while holding the cofactors at the
+deliverable's values. `enumcof.py` widens the knob set to closure(W) u cofactors (4 or 12).
+
+## R14.5 Scripts added this round (all in agentM_work)
+    _rb_parse3.py _rb_dag.py   rebuild the pkl chain after a restart
+    calib_r14.py               the gates, shim-first          -> calib_r14.log
+    gran2.py                   row-order granularity          -> r14_gran2_16.log, gran2_16.json
+    enumsub3.py                enumeration, max over row orders (resumable)
+    enumcof.py                 enumeration with cofactor knobs (resumable)
+    xcheck14.py + r14_runchecker.sh   materialise 12 spread subsets and run checker.py on each
+
+## R14.6 Jobs in flight (resume points if a third restart lands)
+Every enumeration checkpoints to a `.pkl` every 2,000 subsets and replays from the stored index,
+so a restart costs only the rebuild — but the `.pkl` itself is wiped by the restart, so in
+practice a restart means re-running from 0. Budget accordingly: 2^16 is ~20-40 min under fleet
+load, 2^18 is ~4x that.
+
+    r14_enum16_d.log     2^16 @ p10/30  -- I KILLED it at index 40,000 with |W|=0..8 COMPLETE
+                         (its full result is on record from the pre-restart run, and this run
+                         reproduced all nine distributions entry-for-entry).  ckpt enumsub16.pkl
+    r14_enum16_p80.log   2^16 @ p80/180 -- the headline run.  ckpt enumsub16_p80.pkl
+    r14_enumcof16.log    2^16 @ p80/180 with the 4 cofactor knobs.  ckpt enumcof16_c4_p80.pkl
+    r14_enum18_p80.log   2^18 @ p80/180 -- chained by r14_chain18.sh to start only once the
+                         2^16 p80 run prints its final BEST.  ckpt enumsub18_p80.pkl
+    r14_checker.log      12 materialised subsets, each scored by checker.py from outside my parse
+
+If anything ever exceeds 39,026 the enumerators write the full assignment to
+`M_sub*/M_cof*/M_ord*_<score>_<handles>.json` themselves and print `*** ABOVE 39026 ***`.
+Grep the logs for `ABOVE` before trusting a summary.
+
+## R14.7 RULE learned this round — the pricer is not monotone in the knob set
+Adding knobs can LOWER `ieng.tune`'s score. Measured: at |W| = 5 over 2^16, 12 subsets reach
+39,026 with handle knobs only but only 1 does with the 4 cofactor knobs added. Mechanism: more
+columns make more rows individually solvable, the greedy therefore KEEPS a larger row set, and
+the larger system's solution scores worse. `tune()` maximises over probes inside one greedy
+chain, never over chains.
+
+> **Take the maximum over knob sets and over granularities, never within one instrument.**
+> A widened knob set is a different instrument, not a refinement.
+
+Corollary: the cofactor run does NOT supersede the handle-only run, and neither supersedes the
+row-order-varied run. All three are needed and the reported best is the max of the three.

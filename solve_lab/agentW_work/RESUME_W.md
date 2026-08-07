@@ -1,22 +1,214 @@
-# RESUME_W — agent W.  IN PROGRESS.
+# RESUME_W — agent W.  Round 2: THE CLASSIFICATION QUESTION.  Answered.
 
 **Best verified score: 39,026 / 39,033** — `solve_lab/best/new_instance_partial_39026.json`,
-re-verified from cold with `solve_lab/checker.py`, failing
+re-verified from cold this session with `solve_lab/checker.py`, failing
 `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`.  **I did not beat it.**
 
-Inherited agent O's closed thread.  Two tasks: finish O's frame-B budget (TASK 1) and settle
-T's frame-B flag on `|K| = 34` (TASK 2).
+Environment rebuilt after the restart: `python3 model.py; python3 fwd2.py` in `agentW_work`.
+`model.pkl` md5 `ca31583ff6d604bfdc5b72da2f0e3f84`, `fwd2.pkl` md5 `69a85eae6b52612be2bbabc2aae2f8f6`
+— **md5-identical to agent N's**, so this is H's model, not a re-derivation.  `agentH_work`
+untouched (it still has no `.pkl`).  `PYTHONDONTWRITEBYTECODE=1`.  No git commands.
 
-## Environment I built (agentW_work only; agentH_work never written to)
-`model.py`, `fwd2.py`, `frameB.py` are byte-copies of agent H's; run from `agentW_work` they
-build `model.pkl`/`fwd2.pkl` **here**, so H's directory stays untouched (H had no `.pkl` at all —
-importing `frameB` from `agentH_work` would have created them there).  My `model.pkl` and
-`fwd2.pkl` are **md5-identical to agent N's**, so this is H's model, not a re-derivation.
-`PYTHONDONTWRITEBYTECODE=1` throughout.  No git commands.
+Round-1 results (frame-B budget, |K|=34, the 32-way trade, integrality) are unchanged and are
+in check-in 92; the round-1 section of this file is preserved at the bottom.
+
+---
+
+# THE ANSWER: the classification closes at TWO families.
+
+## 0.  The ring, stated first
+
+I did **not** assume the mod-P picture.  I measured the integer form of every block.
+Every one of the 383 law blocks carries **five** atoms, not three:
+
+```
+congruence k=1,2,3 :   a_k  * L     * ( c_k1*N1 + c_k2*N2 )  =  c_k  * P * u_k
+off-pin    j=5,6   :   a'_j * (1-L) *   i_j                  =  c'_j * P * u'_j
+```
+
+with `N1 = E*A^2 - B^2`, `N2 = A*(i3+i6) - B*(i2-i5)`, `A=i1-i2`, `B=i4-i3`, `E=i1+i2+i5+Q`,
+`L` the block's liveness gate, and `u_k, u'_j` **private handle variables**.
+`P = 115792089237316195423570985008687907853269984665640564039457584007908834671663`
+(= `x_26064`, 220 aliases), `Q = x_24453`.  Both recovered by my own regex over `EQUATIONS.txt`.
+
+**Every one of the 1149 congruence atoms and all 766 off-pin atoms was verified by direct
+symbolic expansion through the definition DAG down to `{i1..i6, L, u, P, Q}` and compared to
+the formula above.  1149/1149 and 766/766 exact, ZERO mismatches** (`w_verify.py`, `w_final.py`).
+This is a recomputation, not a re-reading of P's expansion.
+
+Because `u` is free, the exact integer condition is `c*P | a*L*Z`, i.e. by CRT
+**`P | L*Z_k`  AND  `c_k | a_k*L*Z_k`**.  The second is a genuine small-modulus integer
+condition invisible mod P; **it only ever restricts, it can never create a family.**
+
+Measured over all 383 blocks: `gcd(a_k,P) = gcd(c_k,P) = 1` for all 1149; **288 congruences
+carry `|c|>1` on the handle side and 287 carry `|a|>1` outside** — so P's "the real condition
+is `c*P | R`" is confirmed and localised.
+
+## 1.  Nothing escapes through the gate — and booleanity is not even needed
+
+* The liveness cone below the 383 gates is a **pure boolean circuit**: 2,551 nodes —
+  256 leaves (**all 256 have an explicit booleanity atom**), 128 constants, 638 aliases,
+  765 ANDs, 382 ORs realised as `(a+b) - a*b` on the *same* pair (the 382 SUM nodes occur
+  **only** inside those ORs).  Every gate is an AND of two provably-boolean nodes, so
+  **L ∈ {0,1} at all 383 blocks** (`w_live3.py`).  My first pass (`w_live2.py`) wrongly
+  reported 153 non-boolean gates — that was a **decorrelated abstraction** treating the two
+  arms of `(a+b)-a*b` as independent.  Recorded as my own error, caught and fixed.
+* **The theorem does not need booleanity.**  For *any* integer `L`:
+  * `L ≡ 0 (mod P)`  → congruences vacuous, but the **off-pins force `i5 ≡ i6 ≡ 0 (mod P)`**;
+  * `L ≢ 0 (mod P)`  → `P | Z_k` for k=1,2,3, and the 3×2 matrix has rank 2 mod P, so
+    `N1 ≡ N2 ≡ 0 (mod P)`; if additionally `L ≢ 1` the off-pins pin the output to 0 as well.
+  So **either the law holds mod P or the output is 0 mod P.  There is no third door.**
+* Rank 2 mod P is **exhaustive, not sampled**: all 383 matrices are distinct, all six 2×2
+  minors per block are nonzero, and `max|minor| = 260,582,651,319,840 < 2^48 << P`, so no minor
+  can be a nonzero multiple of P (`w_rank.py`).
+* The gate/mux alignment is exact: in **383/383 blocks the output pair `(i5,i6)` is consumed by
+  a multiplication gate and that gate is exactly `L`, with no other** (`w_gate.py`).  Every
+  short atom touching an output falls into exactly 7 kinds; nothing else reads `i5`,`i6`.
+
+## 2.  THE THEOREM (per gadget, over ℤ with the handles free)
+
+> Write `A = i1-i2`, `B = i4-i3`.  Then modulo P:
+> ```
+> d(N1,N2)/d(i5,i6) = [[A^2, 0], [B, A]] ,   det = A^3
+> ```
+> * **`A ≡ 0` forces `B ≡ 0`** (N1 collapses to `-B^2`, and 𝔽_P is a field), and then
+>   `N1 ≡ N2 ≡ 0` **identically**: the output `(i5,i6)` is completely free.  — DEGENERACY.
+> * **`A ≢ 0`** forces `λ := B/A`, `E ≡ λ^2`, `i3+i6 ≡ λ(i2-i5)`: the output is **uniquely
+>   determined** by `(i1..i4)`.  — CHORD.
+>
+> **There is no third case, and `A ≡ 0, B ≢ 0` is not merely unreachable, it is impossible.**
+> "Output has any freedom at all" ⟺ `A ≡ B ≡ 0` ⟺ the gadget sees two equal live inputs.
+
+**Exhaustive machine check of the case analysis** (`w_class.py`): over `p ∈ {5,7,11,13}`,
+**every** `Q ∈ 𝔽_p` and **every** `(i1..i6) ∈ 𝔽_p^6` — all `p^7` tuples covered (`N1` does not
+involve `i6`, so the loop is `p^6` outer with the `i6` sweep entered exactly when `N1 = 0`) —
+the solution set is *exactly* `p^5` degeneracies + `p^4(p-1)` chords, e.g. 371,293 + 342,732
+at `p = 13`.
+**`THIRD FAMILY` count: 0.  `A=0,B≠0` count: 0.  At every p.**
+
+Over ℤ the classification acquires one extra clause and no extra family: `A ≠ 0` needs
+`A^2 | B^2`, which for integers forces `A | B` (verified by enumeration, 0 counterexamples),
+so `λ ∈ ℤ`; otherwise the block is **integrally infeasible** — an obstruction, not a solution.
+Note the coordinate map `(i1..i6) → (A,B,E,i3+i6,i2-i5)` has all its 5×5 minors in `{0, ±3}`,
+so it is only surjective away from characteristic 3; I therefore ran the exhaustive check in
+the **original `i`-coordinates**, which sidesteps this entirely.
+
+## 3.  END-TO-END against the deliverable — and a correction to the fleet's account of it
+
+`w_deliv.py`, `w_lie.py`.  The 39,026 witness driven through the full forward map (score
+re-derived: 39,026) and every block evaluated **exactly over ℤ**:
+
+| | |
+|---|---|
+| blocks with all four inputs 0 | **367** |
+| gate off, inputs live | **15** |
+| **degeneracy `A ≡ B ≡ 0 (mod P)`, gate on** | **1** — block `E = x_33469` |
+| chord | 0 |
+| **LAW VIOLATED** | **0** |
+| nonzero congruence atoms (of 1149) | **0** |
+| nonzero leaf pins (of 512) | **0** |
+
+Exactly one degenerate block — **U's §6 finding reproduced from a completely independent
+route** (U decoded the curve; I only evaluated `A` and `B`).
+
+> ### REFINEMENT of "it pays 7 equations for a lie on a leaf"
+> **It does not lie on a leaf — all 512 leaf pins hold.**  The seven broken atoms are
+> ```
+> a35759  5113045*(x_7075 * x_9118) - x_29854      OFF-PIN i5 of block E = x_7181
+> a35761  x_7075 * x_8731 + x_31864                OFF-PIN i6 of block E = x_7181
+> a22229, a22230, a35758, a35760, a35762           the P*u handle/alias atoms of the
+>                                                  four corrupted variables
+> ```
+> The mechanism is: **break the two off-pins of one DEAD block (`E=7181`, gate `L=0`) so its
+> output escapes `≢ 0 mod P`**; that escaped value flows up and makes block `E=33469` see two
+> equal live inputs.  So the price splits **5 (injection) + 2 (handles)**, not 7 at one place.
+> This is the same object P and U described, named exactly.
+
+## 4.  THE LEAD — and it reconciles my own round-1 region
+
+The two off-pins of a block touch a small set of equations.  Over all 383 blocks
+(`w_price.py`) the histogram runs 9…20, and the **minimum, 9, is attained by exactly five
+blocks**:
+
+| block | off-pin atoms | its 9 equations |
+|---|---|---|
+| **E=7181** (the deliverable's) | 35759, 35761 | `6816, 8124, 9123, 9421, `**`12231, 12270, 12350, 14584, 18673`** |
+| E=3227 | 36124, 36126 | 7081, 11690, 12051, 12233, 17743, 20277, 24141, 32935, 33806 |
+| E=4429 | 25138, 25140 | 3068, 7587, 15247, 17392, 24422, 25097, 30542, 31606, 32294 |
+| E=30886 | 7516, 7518 | 658, 3005, 4489, 13891, 15141, 15635, 17675, 30993, 33618 |
+| E=31606 | 31199, 31201 | 4655, 7223, 12086, 16607, 17668, 18924, 23660, 29322, 35517 |
+
+**All ten pairwise overlaps are 0.**  The four non-deliverable ones share nothing with the
+failing set.
+
+**This derives my round-1 frame-B region from scratch.**  Block 7181's nine equations are
+five of the seven failures **plus `6816, 8124, 9123, 9421` — four of the six essential rows
+I found last round** (`{2554, 6816, 8124, 9123, 9421, S}`), which are also four of the six
+"prices" in the 32-way trade.  **K (34 free inputs) IS the off-pin neighbourhood of block
+7181**, arrived at here by pure structure with no linear algebra.
+
+## 5.  SCOPE — stated as the rules require
+
+| claim | status |
+|---|---|
+| the 5-atom integer form of every block | **exhaustive**, 1149+766 symbolic identities, 0 mismatches |
+| rank 2 mod P of the 3×2 matrix | **exhaustive**, all 383, via minor magnitudes |
+| gate ∈ {0,1}; gate/mux alignment; off-pins present | **exhaustive**, 383/383 and 766/766 |
+| the two-family classification | **proved** over any integral domain; the *case analysis* additionally **machine-checked exhaustively** over 𝔽_p, p ∈ {5,7,11,13}, all Q, all (i1..i6) |
+| "no third family" | **holds at the ATOM level.**  See the boundary below. |
+| the off-pin incidence table (9…20) | **exhaustive** over 383 blocks — but it is an *incidence*, **a screen, not a price** |
+
+> ### THE ONE BOUNDARY, stated plainly
+> # **THE CLASSIFICATION IS CLOSED AT ATOM LEVEL AND OPEN AT EQUATION LEVEL.**
+> Everything in §2 classifies the solutions of **`atoms = 0`**.  It does **not** classify the
+> solutions of `equations = 0`, which is a strictly larger set.  Do not cite §2 as "the gadget
+> has only two solution families" without this sentence attached.
+>
+> The checker requires each **equation** to vanish, and an equation is a coefficiented sum of
+> ~12 atoms (congruence atoms sit in **9–16 equations each, mean 12.28; none is ever alone in
+> an equation**).  Everything above classifies the solutions of **atoms = 0**.  Equation-level
+> cancellation between atoms is a strictly larger solution set and this theorem does not cover
+> it — that is exactly the trade machinery I measured in round 1 (32-way, 1-for-1, gain 0
+> inside K).  **The deliverable itself does not use it at gadget level: all 1149 congruence
+> atoms and 764 of 766 off-pins evaluate to exactly 0 in the witness.**
+
+## 6.  Highest-value next experiment (my ranking)
+
+1. **Run the round-1 frame-B machinery at blocks 3227, 4429, 30886, 31606.**  Four
+   equation-disjoint copies of the deliverable's own injection site, all at the same minimum
+   incidence 9, all **outside K** — which is precisely where I concluded any improvement must
+   come from and where O's Lemma constrains nothing.  Detach each block's four handle
+   variables, build the local system, run the exact integer oracle.  Cheap: round 1's
+   equivalent test was 49 s.  **If any of the four injects for fewer than 5 broken equations,
+   or if two can be driven from one escape, the score moves.**  This is the first concrete
+   out-of-K target the campaign has had.
+2. The `s = 3..6` cocircuit gap (round-1 item #1), which would convert the frame-B budget row
+   from *budget* to *exhaustive at every j*.  Still open, still worth it, now second.
+
+## Re-entry
+```
+cd solve_lab/agentW_work
+python3 model.py ; python3 fwd2.py     # rebuild the pkls (~30 s)
+python3 w_blocks.py ; python3 w_cong.py ; python3 w_ring.py   # the 383 blocks + the ring
+python3 w_rank.py      # rank 2 mod P, exhaustive                      (~1 s)
+python3 w_live3.py     # the gate is boolean                           (~30 s)
+python3 w_gate.py ; python3 w_offpin.py                                (~1 min)
+python3 w_verify.py    # 1149 congruence identities, symbolic          (~52 s)
+python3 w_final.py     # 766 off-pin identities + handle privacy       (~15 s)
+python3 w_class.py     # THE CLASSIFICATION + exhaustive small-field   (~2 min)
+python3 w_deliv.py ; python3 w_lie.py  # end-to-end on the 39,026 witness
+python3 w_price.py     # the five minimum-incidence blocks
+```
+Artifacts: `w_blocks*.json`, `w_verify.json`, `w_class.json`, `w_deliv.json`, `w_price.json`.
+
+---
+---
+
+# ROUND 1 (check-in 92) — preserved verbatim below
+
+**Best verified score: 39,026 / 39,033** — same file, same 7 failures.  **I did not beat it.**
 
 ## TASK 2 — SETTLED.  O's `|K| = 34` is CORRECT in frame B.
-`python3 w_K.py` (and `w_K_default.py` for the contrast).
-
 Frame B = `frameB.Frame([642, 28730, 29854, 31864])` reproduces the witness bit-for-bit:
 score **39,026**, same 7 failures, **0 of 38,748 variables differing**, 7 nonzero check atoms
 `[22229, 22230, 35758, 35759, 35760, 35761, 35762]`.
@@ -26,171 +218,39 @@ score **39,026**, same 7 failures, **0 of 38,748 variables differing**, 7 nonzer
 | **frame B** `[642,28730,29854,31864]` | 8,751 | 39,026 | 7 | **15** | **26** | **7** | **34** |
 | default (no detach) | 8,747 | **39,020** | 5 (incl. a37887) | 30 | 26 | 26 | 30 |
 
-O's three numbers — 15 free inputs reaching a region atom, 26 free carriers of `S`, union 34 —
-**all reproduce exactly in frame B**.  T's rebuild (12 / 11 / 23, overlap 0) is a fact about
-**F's parse in the default orientation**, which is a different point: the witness's free values
-pushed through the default DAG score **39,020**, not 39,026, and its nonzero atom set is a
-different set of 5 (including `a37887` itself, i.e. eq8680 fails there).  So T's numbers and O's
-are measurements of different objects, exactly as O's scope line said.
-**Ledger row → CONDITIONAL, scope: agent H's model (`model.py`/`fwd2.py`), frame B's
-orientation.  Not a defect.**  Note `|C| = 26` is the same in both orientations — the
-frame-dependence is entirely in `U`.
+T's rebuild (12 / 11 / 23, overlap 0) is a fact about **F's parse in the default orientation**.
+Ledger row → CONDITIONAL, scope: agent H's model, frame B's orientation.  **Not a defect.**
 
-## TASK 1 — in progress.  See below.  Setup reproduces O's exactly:
-`python3 w_setup.py` → knobs **34**, rows **175**, satisfied **168**, failing **7**,
-nonlinear rows dropped **16**, reachable checks **64**, reachable equations **190**,
-S-row support **17**, `S0 = 0`.  Identical to `runs/fb_j3.log`'s header.
+## TASK 1 — RESULTS (round 1)
+* **(a)** the 21 triples O never reached: all `b<=2 exhausted, none`; 298,158 exact integer
+  solves, 2,065 s (`w_j3.py`, `w_j3.log`).  O's brief said 14 = "every triple containing
+  eq12231"; there are 15, so the gap was **21**, not 20.
+* **(b)** the linear model's pricing is EXACT outside the model: `w_trade_12231_break2554.json`
+  → checker 39,026/39,033, 27 variables from the witness.
+* **(c)** AUDIT: **the trade is 32-way, not 7-way.**  eq8680 is one of six prices and the
+  unique price for **eq29125 alone**.  O's collateral accounting is sound; O's Lemma untouched.
+* **(d)** `rank([A|b]) = 28` over all 175 rows with the rhs **not** a pivot → **the full system
+  including all seven failing rows is CONSISTENT over ℚ.  The entire frame-B obstruction is
+  integrality; no ℚ or LP relaxation can ever prune here.**  Exactly **6 essential rows**:
+  `{2554, 6816, 8124, 9123, 9421, S}`.
+* **(e)** exhaustive over the essential-break family, all j=1..7: **`minbreak(P) = |P|`
+  exactly, gain 0 everywhere**; all seven unbuyable at any `b <= 6`.
+* **(f)** honest correction to my own (e): redundant-row breaks are **not** worthless —
+  `{22563, 8687}` is a genuine minimal cocircuit containing no essential row.
+* **(g)** cocircuits: 70 minimal, sizes `{1:6, 2:1, 3:2, 4:5, 5:14, 6:42}`.  `s<=2` **exact**;
+  `s=3..6` is a **bounded search** (3,070,206 degenerate subsets skipped).
+* **(h)** 520 union-of-minimal-cocircuit break-sets × 127 bought-sets, 6,806 exact solves,
+  49 s: **BEST GAIN = 0.**
 
-### Correction to O's own budget statement
-O's `T_COMPENSATION.md` says the 14 completed triples are "every triple containing eq12231".
-There are **C(6,2) = 15** such triples; O's list has **14**.  `[12231, 22044, 29125]` was **not
-reached** either.  So the unfinished set is 21 triples, of which 20 avoid eq12231 and one
-contains it.  Does not change any O conclusion.
-
-### The solver oracle is sound (`w_oracle.py`)
-`solve_sparse` returns `None` for five distinct reasons, two of which are give-ups
-(`core too large`, `coefficient blowup`) and would NOT be negatives.  Over 527 solves spanning
-all 127 bought-sets and a random b=2 sample, **every** `None` was `core infeasible` — i.e. FLINT
-HNF proving no integer solution.  O's negatives rest on a sound oracle.
-
-## TASK 1 — RESULTS
-
-### (a) The 21 unreached triples at j=3, b<=2 — COMPLETE, same method as O (`w_j3.py`, `w_j3.log`)
-**All 21 enumerated completely: `b<=2 exhausted, none` in every one.  298,158 exact integer
-solves, 2,065 s, improvement: False.**  With O's 14, **all 35 triples are now done by brute
-force**, and independently by the structural route in (h).  Per triple: b=0, then all 168 at
-b=1, then all C(168,2)=14,028 at b=2 — 14,198 solves each, exactly O's protocol.
-
-### (b) The linear model's pricing is EXACT, verified OUTSIDE the model
-`w_dump.py` dumps the "buy eq12231, break eq2554" solution as a full 38,748-variable
-assignment; `solve_lab/checker.py` returns **39,026/39,033 failing
-`[2554, 12270, 12350, 14584, 18673, 22044, 29125]`** — exactly what the model predicted
-(`w_trade_12231_break2554.json`, 27 variables differ from the witness).  So frame-B model
-predictions of score and failing set are trustworthy at this radius.
-
-### (c) AUDIT of O's collateral accounting — CONFIRMED, with one number corrected
-`w_audit.py` / `w_audit.json`.  Each of the 7 failing rows was bought against each of the 6
-essential satisfied rows and the result priced **exactly through `frameB.State`**, not through
-the linear model.  **32 of the 42 combinations are feasible and every one lands on exactly
-39,026 with exactly the predicted failing set** — one row in, one row out, no collateral
-anywhere.  O's collateral accounting is sound.
-
-**But O's "every purchase costs exactly eq8680" is too strong.**  The trade is not seven-way,
-it is **32-way**, and eq8680 is only one of six possible prices:
-
-| bought | prices that work (1-for-1, all exactly 39,026) |
-|---|---|
-| eq12231 | 2554, 6816, 8124, 9123, 9421, **8680** |
-| eq12270 | 2554, 6816, 8124, 9123, **8680** |
-| eq12350 | 2554, 6816, 8124, 9123, 9421, **8680** |
-| eq14584 | 2554, 6816, 8124, 9123, 9421, **8680** |
-| eq18673 | 2554, 6816, 8124, 9123, 9421, **8680** |
-| eq22044 | 2554, **8680** |
-| eq29125 | **8680** only |
-
-Only **eq29125** has eq8680 as its unique price.  This also explains T's unaudited flag that
-"7 knobs move a failing row with `dS = 0`": there are trades that never touch `S` at all.
-*The conclusion — every trade is 1-for-1, no gain — is untouched.  The mechanism claim was
-narrower than the truth.*  **O's Lemma (`S = 0` forced) is completely untouched by this**; it
-is about which assignments exist, not about which row you pay with.
-
-### (d) THE STRUCTURAL RESULT — the frame-B obstruction is ARITHMETIC, not linear
-`w_struct.py`, `w_essential.py`.  Exact rational arithmetic over the 175x34 system:
-
-- **rank([A | b]) over all 175 rows = 28, and the rhs column is NOT a pivot** — so the FULL
-  system, *including all seven failing rows*, is **consistent over ℚ**.  Over ℚ one can buy all
-  7 for free.  **Every part of the frame-B negative is integrality, none of it is rank.**
-  (This is the local, frame-B counterpart of O's §4 "over ℚ unique solution, over ℤ five
-  coordinates blocked", now measured over all 175 rows rather than the 13 region rows.)
-- rank(A_SAT) = 26, so the deltas keeping all 168 satisfied rows satisfied form a **rank-8**
-  lattice; the 7 failing rows add only **2** further dimensions.
-- The 168 satisfied rows are **homogeneous** (rhs = 0 for every one).  Therefore the admissible
-  integer deltas for a kept-set KEEP are exactly `ker_Z(A_KEEP) = Z^34 ∩ ker_Q(A_KEEP)`, so
-  **breaking rows that do not drop rank_Q changes nothing at any budget.**
-- Exactly **6 SAT rows are essential** (single deletion drops rank 26 -> 25):
-  **`{2554, 6816, 8124, 9123, 9421, S}`** — the region's own equations plus the `S` row.
-  The other 162 are individually redundant.
-
-### (e) EXHAUSTIVE over the essential-row break family, all j = 1..7 (`w_exhaust.py`)
-All 2^6 = 64 subsets of the essential rows x all 127 bought-sets, exact integer oracle:
-
-> **minbreak(P) = |P| exactly, for every P with 1 <= |P| <= 6.  GAIN = 0 everywhere.
-> All seven together are NOT buyable at any b <= 6.**
-
-Perfect k-for-k at every k.  30 seconds, vs 33 minutes for O's 14 triples.
-
-### (f) HONEST CORRECTION to my own step (e)
-I first claimed redundant-row breaks were worthless outright.  **False.**  `w_pack.py` packs
-only **t = 2** disjoint rank-20 subsets out of the 162 redundant rows, and the coordinate census
-shows functionals supported on as few as **2** rows — so small cocircuits *do* live inside the
-redundant rows and deleting 2..6 of them CAN enlarge the lattice.  (Only rank-dropping
-deletions matter; that part stands.)  Hence the cocircuit enumeration in (g).
-
-### (g) Cocircuit enumeration — how far the closure actually reaches (`w_cocirc.py`, `w_close.py`)
-The code `c -> (row_e . c)_e` has rank 26 and length 168.  Fix an information set `I` (26 rows,
-identity block).  Any break-set `T = N(x)` with `|T| <= 6` is a **union of minimal cocircuits**
-(proof in `w_close.py`'s docstring: if `T` properly contained the union `T'` of the minimal
-cocircuits inside it, the two kernels would coincide and `x` would satisfy `T \ T'`).
-
-- `s = |T ∩ I| = 1` and `s = 2` are enumerated **EXACTLY** (no window, no degeneracy: `s=1` is
-  the basis codeword itself; `s=2` is the most-frequent-ratio over all 142 outside columns).
-  A cocircuit of size <= 2 has `|T ∩ I| <= 2`, so **all cocircuits of size <= 2 are complete.**
-- `s = 3..6` uses an adaptive column window and is a **bounded search, not exhaustion**:
-  3,070,206 subsets were skipped as degenerate.
-
-Result: 5,419 candidate supports, **70 minimal** — sizes `{1:6, 2:1, 3:2, 4:5, 5:14, 6:42}`.
-The size-1s are the 6 essential rows.  The **only** minimal cocircuit of size 2 is
-**`{22563, 8687}`**, which contains no essential row — this is the concrete witness that (f)'s
-correction was necessary.  Union closure to size <= 6: **520 candidate break-sets**.
-
-## SCOPE, stated as budget not exhaustion
+### Round-1 scope
 | claim | status |
 |---|---|
-| j=1, b=0 | **exhaustive** (O, reconfirmed) |
-| j=2, b<=1 | **exhaustive** — every break-set of size <= 1 that drops rank is an essential row, and all 6 were tested |
-| **j=3, b<=2, all 35 triples** | **exhaustive** — all cocircuits of size <= 2 are enumerated exactly, so every rank-dropping break-set of size <= 2 was tested.  This supersedes O's 14 triples *and* my brute-force 21 |
-| j=3, b<=2 by O's own brute force | O: 14 triples; **W: the remaining 21** (`w_j3.log`), independent agreement |
-| j=1..7, breaks restricted to the 6 essential rows | **exhaustive**: minbreak(P) = \|P\| exactly, gain 0 (`w_exhaust.py`) |
-| j=4..7, b<=6, general breaks | **budget, not exhaustion**: 520 union-of-minimal-cocircuit break-sets tested (`w_close.py`); the size-3..6 cocircuit search skipped 3.07M degenerate subsets |
-| everything above | scope: **34 of 8,751 free inputs, frame B, agent H's model** |
+| j=1 b=0 ; j=2 b<=1 ; **j=3 b<=2 all 35 triples** | **exhaustive** (the last twice: brute force and structurally) |
+| j=1..7 restricted to the 6 essential rows | **exhaustive** |
+| j=4..7 general breaks | **budget, not exhaustion** |
+| all of it | scope: **34 of 8,751 free inputs**, frame B, agent H's model |
 
-## Do not redo
-- The ℚ relaxation of the frame-B system.  All 175 rows are simultaneously ℚ-satisfiable, so
-  every ℚ feasibility test is vacuously YES and no ℚ/LP relaxation can ever prune anything here.
-- Brute-forcing break-sets that do not drop `rank_Q`.  162 of the 168 satisfied rows are
-  individually redundant; deleting them changes `ker_Z` not at all.  O's C(168,2)=14,028 inner
-  loop per triple is doing ~14,000 solves where **16** distinct lattices exist.
-- Reading a greedy net-zero as a negative (O's warning, still correct).
-
-### (h) RESULT of the closing test (`w_close.py`, `w_close.json`)
-520 candidate break-sets (all unions of minimal cocircuits, size <= 6) x all 127 bought-sets,
-exact integer oracle, **6,806 solves in 49 s**:
-
-> **BEST GAIN = 0.**  For every bought-set P and every rank-dropping break-set B of size < |P|
-> tested, `(SAT \ B) + P` is integer-infeasible.  Nothing beats 39,026.
-
-Combined with (e): `minbreak(P) = |P|` exactly at every size 1..6, and the full seven is not
-buyable at any b <= 6.  **The frame-B region is a perfect k-for-k trade at every k.**
-
-## Re-entry
-```
-cd solve_lab/agentW_work
-python3 w_K.py          # TASK 2: |K| = 34 in frame B                          (~10 s)
-python3 w_setup.py      # O's setup reproduced: 34/175/168/7/16                (~5 s)
-python3 w_audit.py      # the 32-way 1-for-1 trade, priced exactly             (~2 min)
-python3 w_essential.py  # the 6 essential rows                                 (~3 min)
-python3 w_exhaust.py    # exhaustive over essential breaks, all j              (~30 s)
-python3 w_cocirc.py     # cocircuit enumeration                                (~4 min)
-python3 w_close.py      # the closing test                                     (~1 min)
-python3 w_j3.py         # the 21 triples O never reached, O's own method       (~30 min)
-```
-Artifacts: `w_trade_12231_break2554.json` (checker-verified 39,026, a *new* point, 27 vars from
-the witness), `w_K.json`, `w_struct.json`, `w_essential.json`, `w_exhaust.json`,
-`w_cocirc_raw.json`, `w_close.json`, `w_audit.json`.
-
-## What is left, honestly
-1. The `s = 3..6` cocircuit search skipped 3.07M degenerate window subsets.  Closing that —
-   e.g. multiple information sets and randomised windows, or a proper minimum-weight-codeword
-   routine on a rank-26 length-168 code — would upgrade j=4..7 from budget to exhaustive.
-2. Everything here is **inside K**.  Per O's §9 and confirmed by (d), any improvement must come
-   from the other **8,717** free inputs.  O's Lemma constrains none of them.
+### Do not redo
+* The ℚ relaxation of the frame-B system — vacuously YES, nothing can prune.
+* Brute-forcing break-sets that do not drop `rank_Q` (162 of 168 rows are redundant).
+* Reading a greedy net-zero as a negative.

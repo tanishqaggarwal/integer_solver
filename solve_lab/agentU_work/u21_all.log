@@ -1,0 +1,33 @@
+merge slots (both subtrees live): 255 ; nodes in tree: 383 ; ROOT=9274
+    0/255 beta=31255 d=2 |I|=1 |J|=1 -> 25 / 43   (1s)
+   25/255 beta=4641 d=2 |I|=2 |J|=2 -> 29 / 47   (11s)
+   50/255 beta=37919 d=2 |I|=1 |J|=1 -> 30 / 40   (21s)
+   75/255 beta=34084 d=2 |I|=2 |J|=2 -> 27 / 44   (30s)
+  100/255 beta=25582 d=1 |I|=1 |J|=1 -> 27 / 27   (39s)
+  125/255 beta=14255 d=1 |I|=1 |J|=1 -> 29 / 29   (46s)
+  150/255 beta=15653 d=1 |I|=1 |J|=1 -> 31 / 31   (54s)
+  175/255 beta=35723 d=7 |I|=50 |J|=40 -> 26 / 39   (64s)
+  200/255 beta=24206 d=2 |I|=2 |J|=1 -> 29 / 39   (73s)
+  225/255 beta=8218 d=3 |I|=3 |J|=3 -> 43 / 30   (83s)
+  250/255 beta=36835 d=4 |I|=4 |J|=3 -> 46 / 42   (93s)
+
+=== 255 slots priced in 95s ===
+min 12  median 29  max 42
+distribution: [(12, 4), (19, 1), (24, 4), (25, 13), (26, 21), (27, 35), (28, 29), (29, 46), (30, 22), (31, 25), (32, 13), (33, 10), (34, 3), (35, 6), (37, 3), (38, 7), (39, 5), (40, 2), (41, 4), (42, 2)]
+
+cheapest 15 slots:
+  beta=4971   d=2  |I|=2   |J|=1   a=2081 b=13195 -> 30 / 12  coin=True/True
+  beta=16102  d=3  |I|=3   |J|=3   a=11368 b=2081 -> 12 / 27  coin=True/True
+  beta=13976  d=4  |I|=6   |J|=4   a=2081 b=12054 -> 27 / 12  coin=True/True
+  beta=23131  d=5  |I|=11  |J|=10  a=490 b=2081 -> 12 / 30  coin=True/True
+  beta=27994  d=1  |I|=1   |J|=1   a=4287 b=2081 -> 19 / 19  coin=True/True
+  beta=13787  d=3  |I|=1   |J|=3   a=23262 b=1203 -> 24 / 44  coin=True/True
+  beta=30347  d=4  |I|=4   |J|=3   a=1203 b=8370 -> 33 / 24  coin=True/True
+  beta=37991  d=5  |I|=7   |J|=11  a=1203 b=5090 -> 28 / 24  coin=True/True
+  beta=32083  d=6  |I|=23  |J|=18  a=91 b=1203 -> 24 / 40  coin=True/True
+  beta=31255  d=2  |I|=1   |J|=1   a=33095 b=24267 -> 25 / 43  coin=True/True
+  beta=170    d=3  |I|=2   |J|=3   a=24267 b=4362 -> 27 / 25  coin=True/True
+  beta=29240  d=2  |I|=1   |J|=2   a=29545 b=1685 -> 25 / 47  coin=True/True
+  beta=2295   d=3  |I|=3   |J|=1   a=1685 b=3320 -> 29 / 25  coin=True/True
+  beta=26162  d=4  |I|=4   |J|=4   a=17711 b=1685 -> 25 / 43  coin=True/True
+  beta=14188  d=5  |I|=11  |J|=8   a=4362 b=1685 -> 25 / 27  coin=True/True

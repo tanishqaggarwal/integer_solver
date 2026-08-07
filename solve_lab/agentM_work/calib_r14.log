@@ -1,0 +1,35 @@
+model: atoms 40727  eqs 39033  free 8365  seq 30383
+shared baseline: score 39008, 25 failing, 5 bad atoms
+
+=== G1: deliverable from its four handles ===
+  freed [642, 7068, 28730, 29854, 31864]
+  score 39026  fails [12231, 12270, 12350, 14584, 18673, 22044, 29125]  nbad 8  vars differing 0 of 38748   (0.00s)
+  G1 PASSED
+
+=== G2: the three CLI-agreeing points ===
+  deliverable                  -> 39026  expect 39026  OK
+  deliverable + x_4287=1       -> 39000  expect 39000  OK
+  deliverable + x_17378=1      -> 38961  expect 38961  OK
+  G2 PASSED
+
+=== G3: T calibration (12 cofactors zeroed) ===
+  score 39021 (expect 39021)  failing 12 (expect 12)  list match True
+  G3 PASSED
+
+=== G4: incremental == full engine3 forward ===
+  full 39000  incremental 39000  vars differing 0  atoms identical True
+  G4 PASSED
+
+=== G5: tune() recovers 39,026 from the shared baseline ===
+  base 39008 -> 39026  (0.01s, 25 rows, 5 knobs)
+  G5 PASSED
+
+=== G5b: tune() at nprobe=80 budget=180 (the p80 run granularity) ===
+  base 39008 -> 39026  (0.01s)
+  G5b PASSED
+
+=== G6: timing on GENERAL 4-subsets ===
+  40 general 4-subsets in 0.3s  = 0.006 s/site
+
+GATES: {'G1': 'PASS', 'G2': 'PASS', 'G3': 'PASS', 'G4': 'PASS', 'G5': 'PASS', 'G5b': 'PASS'}
+ALL PASSED

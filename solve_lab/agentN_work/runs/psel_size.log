@@ -1,0 +1,23 @@
+baseline_2081_24601      live=2    score=39026  |nz|=7     |R|=12    knobs=68    minblk=None  0.1s
+pair_same_block2_0       live=2    score=38854  |nz|=46    |R|=184   knobs=687   minblk=2     0.1s
+pair_same_block2_1       live=2    score=38802  |nz|=62    |R|=236   knobs=723   minblk=2     0.1s
+pair_same_block2_2       live=2    score=38836  |nz|=51    |R|=202   knobs=707   minblk=2     0.1s
+pair_same_block6         live=2    score=38828  |nz|=49    |R|=210   knobs=720   minblk=6     0.1s
+pair_same_side_far       live=2    score=38842  |nz|=51    |R|=196   knobs=719   minblk=62    0.1s
+pair_opposite_root       live=2    score=38825  |nz|=53    |R|=213   knobs=727   minblk=165   0.1s
+pair_in_24601_subtree    live=2    score=38919  |nz|=29    |R|=119   knobs=270   minblk=3     0.1s
+pair_foreign_subtree     live=2    score=38828  |nz|=49    |R|=210   knobs=720   minblk=6     0.1s
+pair_foreign_subtree2    live=2    score=38843  |nz|=54    |R|=195   knobs=717   minblk=10    0.1s
+only_2081                live=1    score=38874  |nz|=44    |R|=164   knobs=649   minblk=None  0.1s
+only_24601               live=1    score=38999  |nz|=12    |R|=39    knobs=104   minblk=None  0.1s
+none_live                live=0    score=38847  |nz|=49    |R|=191   knobs=677   minblk=None  0.1s
+block10_all_live         live=10   score=38771  |nz|=66    |R|=267   knobs=755   minblk=10    0.1s
+block10_half_live        live=5    score=38794  |nz|=56    |R|=244   knobs=754   minblk=10    0.1s
+block18_all_live         live=18   score=38772  |nz|=81    |R|=266   knobs=627   minblk=18    0.1s
+wit_plus_one             live=3    score=38987  |nz|=17    |R|=51    knobs=407   minblk=None  0.1s
+wit_plus_two             live=4    score=38957  |nz|=25    |R|=81    knobs=447   minblk=None  0.1s
+spread4                  live=4    score=38777  |nz|=66    |R|=261   knobs=807   minblk=253   0.1s
+spread8                  live=8    score=38707  |nz|=82    |R|=331   knobs=928   minblk=253   0.1s
+first16                  live=16   score=38579  |nz|=118   |R|=459   knobs=1112  minblk=253   0.1s
+all_live                 live=256  score=36792  |nz|=759   |R|=2246  knobs=2320  minblk=None  0.1s
+total 1.6s -> runs/psel_size.json

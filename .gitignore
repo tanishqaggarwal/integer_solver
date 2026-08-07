@@ -17,3 +17,6 @@ solve_lab/achieved4.json
 solve_lab/achieved5.json
 # regenerable parse/Jacobian caches (large binaries)
 *.pkl
+
+# agent X meet-in-the-middle tables: regenerable, multi-GB
+solve_lab/agentX_work/*.bin

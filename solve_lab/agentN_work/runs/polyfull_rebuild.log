@@ -1,0 +1,20 @@
+wide candidate free inputs: 68
+knobs that touch the region: 49 ; outside equations they disturb: 139
+region rows 12, outside rows 139, knobs 49
+exact polynomials built in 0.1s
+verification: 906 row-evaluations, 0 mismatches
+
+=== EXACT SYSTEM ===
+unknowns 49, equations 151 (12 region + 139 collateral), max total degree 2
+rows with a genuine degree>=2 part: 34 of 151
+distinct quadratic monomials: 290 cross-pairs + 28 squares
+knobs appearing in ANY quadratic monomial: 35 of 49 -> [950, 1329, 3629, 4432, 6947, 7075, 8731, 8976, 9118, 9413, 9629, 10422, 10903, 11099, 15120, 15324, 17325, 17499, 18253, 19964, 21279, 22665, 23642, 23754, 28599, 28730, 28961, 30108, 33168, 34600, 35531, 35619, 37254, 37413, 37720]
+knobs appearing only linearly: 14 -> [642, 1613, 2099, 6090, 7068, 10711, 21574, 22043, 23110, 27500, 29854, 31864, 32230, 32349]
+
+region rows : 12 of 12 quadratic; max coef bits const 2435 lin 3043 quad 28
+collateral  : 22 of 139 quadratic; max coef bits const 0 lin 3042 quad 6083
+
+=== is widen.py's finite-difference matrix the true linear part? ===
+(row,knob) entries where the step-1 secant differs from the true linear coefficient: 28
+
+wrote runs/polyfull.json and runs/polyfull.pkl

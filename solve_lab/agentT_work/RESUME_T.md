@@ -1110,3 +1110,91 @@ Checker-verified artifacts this pass: `close_T8pair` 39,018 · `close_T8w` 39,01
 `close_T32h` 39,005.
 Reproduce the headline: `cd solve_lab/agentT_work && python3 t_close2wj.py MY17 17` then
 `python3 ../checker.py close_MY17.json`.
+
+=============================================================================================
+# FOURTEENTH PASS — `|S| = 32` CLOSES; the mixed exact/divisibility solver   [after restart 2]
+
+## AW. ENVIRONMENT: second `*.pkl` wipe, and `t_rebuild.sh` was INCOMPLETE
+The restart wiped every `*.pkl` again.  **`t_rebuild.sh` does not rebuild the chain** — it omits
+`ortree2.py` and `handles.py`, which I had run by hand the first time, so `handles2` dies on
+`ortree2.pkl` and `buildall` on `handles.pkl`.  Replaced by **`t_rebuild3.sh`** (idempotent: it
+skips any stage whose pkl already exists).  Full chain:
+`circ4 → sched → global(ors) → ortree2 → handles → handles2 → buildall → calib2 → slopes`.
+Mirror verified **faithful, not merely runnable**: 383 OR nodes / 384 leaves / 256 live / 128 dead,
+254 selector nodes, 256 pins **0 bad**, calib orient hist `188 / 128 DEAD / 67`, slopes over
+**3,681** atoms with `slope/p` hist `[(1, 2747), (0, 7), + 4 c>1 singletons]` — L's published census
+exactly.  Deliverable re-verified: **39,026/39,033**, failing
+`[12231,12270,12350,14584,18673,22044,29125]`.  And `close_M32.json` reloads in the mirror to the
+**same 3 nonzero atoms** as before the restart.
+
+## AX. THE `|S| = 32` STALL WAS A DEAD BRANCH IN MY OWN SOLVER, NOT AN OBSTRUCTION  (`t_hl32.py`)
+Loaded the `|S|=32` end state and interrogated the surviving handle-less atom directly:
+```
+   (x3178-(x13720*x21170))   EXACT (handle-less)   residual % p == 0
+     syntactic shift wires 1, influencing 1: [x19965]
+     x19965: R(t) deg=1, Newton [-9843406673397, 11579208923731], UNIQUE integer root t = 850093191878
+     applying it -> atom = 0 (recomputed), global 3 -> 3, breaks exactly ONE atom:
+        ((x14047-x19324)-(3914361*x6389))   c = 3914361   wires = [x14047, x19965]   shares x19965: YES
+```
+So the tasking's premise is confirmed by measurement: **the exact condition and a `c>1` divisibility
+condition sit on the same wire `x19965`**, and the pair `(x14047, x19965)` is the object to solve.
+
+**The bug.**  `joint_pair`'s mixed path had three branches — exact pin on `t_w`, exact pin on both,
+exact pin on `t_v` — and only the **first** solved the divisibility conditions afterwards.  The
+`t_v` branch read
+```python
+   elif setv is not None:
+       for y in sorted(setv)[:4]:
+           cands.append((0, y))       # symmetric case; t_w left at 0
+```
+i.e. it offered **the bare exact pin, which is precisely the shift the global guard had already
+refused**, and never touched `t_w`.  Worse, it failed *silently*: the candidate is rejected in the
+per-atom verification loop before `cleared` is incremented, so no log line was emitted and the
+round looked like "the pair was tried and had no root".  **Fix: `transpose_cf()` swaps the roles of
+the two wires in the Newton coefficient table, and the same exhaustive `mod_tv_sets` machinery then
+solves `t_w`.**  Nine lines.  After it, the pair reports **200 verified candidates** where it had
+reported nothing.
+
+## AY. BUT A PAIR IS NOT ENOUGH — the forced-exact step, and why it is not a weakened guard
+With the fix, `(x14047, x19965)` produces 200 verified joint candidates and the global guard rejects
+**all** of them: every one breaks a *third* atom `((x2820-x17195)-(8271997*x17079))`, whose wires are
+disjoint from the pair.  Folding it in gives a 3-atom group on 3 wires — and **no pair covers three
+conditions whose wire supports form a chain**.  The structure is triangular, not bivariate:
+```
+   (x3178-(x13720*x21170))              EXACT   needs x19965      (unique root)
+   ((x14047-x19324)-(3914361*x6389))    c>1     needs x14047, x19965
+   ((x2820-x17195)-(8271997*x17079))    c>1     needs x2820, x14047
+```
+The right move is therefore not a wider pair search but to **use the uniqueness**:
+
+> A handle-less atom has no cofactor, so its condition is `R = 0` over ℤ; on its one admitted wire
+> `R(t)` is **linear**, so the root is **unique**.  That shift is **forced, not chosen** — refusing
+> it because the global count does not immediately drop is refusing the only value the wire may
+> take.  So apply it, verify `R = 0` by **direct recomputation**, then **freeze the wire** (remove
+> it from `SHIFT`, which every downstream pass filters on) and let the ordinary *guarded* passes
+> clear the collateral.
+
+`forced_exact_pass()` implements exactly that, as the **last** resort — it fires only after the
+single-wire, handle-less and joint two-wire passes have all stalled, so `|S|` = 8 and 17 take the
+identical path they took before.  It is the only pass permitted to raise the global count, and it
+is justified by **uniqueness**, not by improvement.  Freezing is what makes it safe: the repair
+machinery cannot move `x19965` back, so the exact atom cannot be re-broken.
+
+## AZ. **`|S| = 32` CLOSES.**  (`t_hl32c.py` → `close_T32f.json`)
+```
+   outer 0  global 3, handle-less 1   joint pair exhausted -> *** FORCED x19965 += p*850093191878, wire FROZEN
+   outer 1  global 3, c>1 violated 1  joint pair (x2820, x14047) *** global 3 -> 2
+   outer 2  global 2                  CLOSED
+```
+```
+   checker.py  ->  satisfied 39018/39033  (15 failing)
+   failing     [4573,7123,7469,9648,11854,16622,17726,21382,25539,28653,29437,31061,32894,32916,34517]
+   F's certified-faithful parse: exactly 2 nonzero atoms of 39,033 --
+        ((x24468-x13682)-(12354891*x34243))   and   ((x18956-x37892)-x32237)
+   equation footprint 15,  footprint == checker's failing set: TRUE
+```
+> **The integer lift closes at `|S| = 32`.  All 927 `c>1` conditions AND every handle-less
+> exact-over-ℤ condition discharged; the only atoms left nonzero anywhere in the instance are the
+> two target congruences, and the failing set is the identical 15 as `|S|` = 1,2,3,5,6,7,8,17.**
+> Ledger §4 item 1's replacement frontier — "the handle-less atoms are a solver-coverage gap, not a
+> demonstrated obstruction" — is **discharged in the direction I predicted**: it was the gap.

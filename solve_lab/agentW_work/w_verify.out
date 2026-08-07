@@ -1,0 +1,10 @@
+  block 0/383  0s  ok={'cong': 3} bad=0
+  block 50/383  7s  ok={'cong': 153} bad=0
+  block 100/383  14s  ok={'cong': 303} bad=0
+  block 150/383  20s  ok={'cong': 453} bad=0
+  block 200/383  26s  ok={'cong': 603} bad=0
+  block 250/383  33s  ok={'cong': 753} bad=0
+  block 300/383  41s  ok={'cong': 903} bad=0
+  block 350/383  47s  ok={'cong': 1053} bad=0
+DONE 52s
+congruence identities verified: {'cong': 1149} mismatches: 0

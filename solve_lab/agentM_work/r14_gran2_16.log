@@ -1,0 +1,32 @@
+CALIBRATION (identity order): 39008 -> 39026  PASSED
+sample: 794 witness-supersets (|W|<=8) + 400 uniform = 1193 distinct;  9 row orders each
+  [100/1193] 4s  moved 46  above 0  best 39026
+  [200/1193] 14s  moved 79  above 0  best 39026
+  [300/1193] 24s  moved 158  above 0  best 39026
+  [400/1193] 38s  moved 239  above 0  best 39026
+  [500/1193] 55s  moved 315  above 0  best 39026
+  [600/1193] 74s  moved 415  above 0  best 39026
+  [700/1193] 88s  moved 515  above 0  best 39026
+  [800/1193] 103s  moved 615  above 0  best 39026
+  [900/1193] 118s  moved 715  above 0  best 39026
+  [1000/1193] 134s  moved 810  above 0  best 39026
+  [1100/1193] 153s  moved 908  above 0  best 39026
+
+=== row-order granularity, 1193 subsets x 9 orders, 177s ===
+max-over-orders minus identity-order score:
+  delta +0: 192
+  delta +1: 300
+  delta +2: 54
+  delta +3: 196
+  delta +4: 10
+  delta +5: 38
+  delta +6: 40
+  delta +7: 151
+  delta +8: 82
+  delta +9: 90
+  delta +10: 21
+  delta +11: 2
+  delta +12: 17
+subsets whose score MOVED : 1,001
+subsets now above 39,026  : 0
+BEST 39026 at W=(642, 28730, 29854, 31864) (order index 0)

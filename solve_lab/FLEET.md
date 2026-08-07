@@ -5495,3 +5495,71 @@ assignment, the ordering of the 512 pin constants, anything reflecting a generat
 mathematics. **That direction was ruled out by user instruction at the start of the campaign and the
 fleet has respected it throughout.** It has now been flagged to the user three times without a
 ruling. **It remains closed unless and until the user opens it explicitly.**
+
+---
+
+## Check-in 94 — THE CLASSIFICATION CLOSES AT EXACTLY TWO (agent W)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified from cold.
+
+### The theorem
+
+Over ℤ with handles free, `d(N1,N2)/d(i5,i6) = [[A²,0],[B,A]]`, **`det = A³`**:
+
+> **`A ≡ 0` FORCES `B ≡ 0`** — the degeneracy, output free.
+> **`A ≢ 0` gives `λ = B/A` with the output UNIQUELY DETERMINED** — the chord.
+> **No third case. `A ≡ 0, B ≢ 0` is IMPOSSIBLE, not merely unreachable.**
+
+Machine-checked **exhaustively** over `p ∈ {5,7,11,13}`, every `Q`, every `(i1..i6)`:
+**THIRD FAMILY count = 0 at every p.**
+
+**The gate is not a third door either:** `L ≡ 0 mod P` makes the congruences vacuous, but **the
+off-pins force the output `≡ 0 mod P`**. Either the law holds or the output is zero.
+
+> **This settles the campaign's only open route to a full solve that was not the scalar recovery.
+> It was flagged as the one question whose answer could change what is achievable. The answer is no.**
+
+### W corrected the brief: five atoms per block, not three
+
+The **766 off-pins** `a'_j·(1−L)·i_j = c'_j·P·u'_j` **had never been recorded by anyone.** W verified
+**all 1,149 congruence atoms and all 766 off-pins by direct symbolic expansion** down to
+`{i1..i6, L, u, P, Q}` — **1,149/1,149 and 766/766 exact, zero mismatches.** Handles being private,
+the exact integer condition is `c·P | a·L·Z` — i.e. `P | L·Z` **plus a small-modulus side condition
+`c_k | a_k·L·Z_k` that is invisible mod P and only ever restricts.** Exhaustive over all 383 blocks:
+rank 2 mod P (every 2×2 minor nonzero, `max|minor| = 2.6e14 ≪ P`), gate/mux alignment 383/383,
+off-pins 766/766, liveness cone a pure boolean circuit over 256 boolean-pinned leaves.
+
+### REFUTED — a claim the coordinator had been carrying
+
+**"It pays 7 equations for a lie on a leaf" is WRONG.** **All 512 leaf pins hold exactly in the
+deliverable, as do all 1,149 congruence atoms.** The seven broken atoms are the **two off-pins of
+dead block E=7181** plus the **five `P·u` handle atoms of the four corrupted variables**. **The price
+splits 5 (injection) + 2 (handles).** A materially different account of what 39,026 is.
+
+### SCOPE — the sentence to keep loudest
+
+> **The classification is closed at ATOM level and OPEN at EQUATION level.** Everything above
+> classifies solutions of `atoms = 0`; **the checker requires equations to vanish**, congruence atoms
+> sit in **9–16 equations each (mean 12.28, never alone)**, and **equation-level cancellation is a
+> strictly larger solution set this theorem does not cover.** The deliverable does not use it at
+> gadget level.
+
+### The out-of-K target — the fleet's best live shot at the score
+
+Ranking blocks by the equations their off-pins touch, **the minimum is 9, attained by exactly five
+blocks.** One is **the deliverable's own E=7181**, whose nine equations are **five of the seven
+failures plus 6816, 8124, 9123, 9421 — four of the six essential rows W found last round.**
+**That derives frame-B's region K from pure structure, with no linear algebra** — a strong
+independent check that the structural and algebraic pictures are the same object.
+
+**The other four — E=3227, 4429, 30886, 31606 — are pairwise equation-disjoint, disjoint from the
+failing set, and entirely outside K**, which is exactly where W concluded any improvement must live
+and where O's Lemma constrains nothing. W is running the round-1 frame-B machinery at each (the
+equivalent test ran in 49 s). **If any injects for fewer than 5 broken equations, the score moves.**
+
+### Cross-checks and self-corrections
+
+**W independently reproduced that exactly 1 of 383 blocks is degenerate (E=33469)** — U's §6, from a
+route that **never touches the curve.** And W **corrected its own first liveness pass**, which had
+reported 153 non-boolean gates: a decorrelated abstraction of `OR = (a+b) − ab`. **True count 0.**
+Third time this session an agent has caught its own abstraction error before publishing.

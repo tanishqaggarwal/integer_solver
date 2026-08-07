@@ -216,6 +216,56 @@ def single_probe(vv, a, w, base, ZERO0, newatoms, log):
     return False
 
 
+FROZEN = set()
+
+def forced_exact_pass(vv, hl, log):
+    """T35 -- the last resort, and the only pass that is allowed to raise the global count.
+
+    A handle-less atom has no cofactor to absorb anything, so its condition is `R == 0` over Z.
+    On its admitted wires R(t) is LINEAR, so the root is UNIQUE: the shift is FORCED, not chosen,
+    and refusing it because the global nonzero count does not immediately drop is refusing the only
+    value the wire may take.  So: apply it, verify `R == 0` by direct recomputation, then FREEZE the
+    wire (remove it from SHIFT, which every downstream pass filters on) so nothing can move it back,
+    and let the ordinary guarded passes clear whatever it broke.  The global guard is untouched for
+    every other kind of step; this one is justified by uniqueness, not by improvement."""
+    for a in hl:
+        i = E.residx[a]
+        ws = sorted(set(x for x in vars_of(E.atoms[a]) if x in SHIFT) |
+                    set(x for x in atomvalvars[a] if x in SHIFT))
+        ws = [w for w in ws if influences(vv, a, w)]
+        if len(ws) != 1:
+            log('   forced-exact: %s has %d admitted wires -- not forced, skipped'
+                % (a[:44], len(ws)))
+            continue
+        w = ws[0]
+        ys = []
+        for t in range(6):
+            ow = vv[w]; vv[w] = ow + p*t; ys.append(E.run(vv)[i]); vv[w] = ow
+        d = [ys[:]]
+        for k in range(5):
+            d.append([d[k][j+1]-d[k][j] for j in range(len(d[k])-1)])
+        cf = [d[k][0] for k in range(6)]
+        top = max([k for k in range(6) if cf[k]], default=0)
+        rs = newton_int_roots(cf)
+        if top != 1 or not isinstance(rs, list) or len(rs) != 1:
+            log('   forced-exact: %s deg=%d roots=%s -- root not unique, skipped'
+                % (a[:44], top, rs))
+            continue
+        t = rs[0]
+        before = nzcount(vv)
+        vv[w] += p*t
+        if E.run(vv)[i] != 0:
+            vv[w] -= p*t
+            log('   forced-exact: direct recomputation REFUTED the fitted root -- skipped')
+            continue
+        after = nzcount(vv)
+        SHIFT.discard(w); FROZEN.add(w)
+        log('   *** FORCED exact step  x%d += p*%d  zeroes %s  (unique root, recomputed); '
+            'global %d -> %d; wire FROZEN' % (w, t, a[:44], before, after))
+        return True
+    return False
+
+
 def joint_pair(vv, a0, base, log):
     """clear atom a0 with a joint two-wire shift.  The group grows by folding in whatever the
     global guard says the candidate broke, and the wire set grows with it.  Mixed exact/mod."""
@@ -274,8 +324,24 @@ def joint_pair(vv, a0, base, log):
                             if y is not None:
                                 cands.append((x, y))
                 elif setv is not None:
+                    # T35: the SYMMETRIC case.  This branch used to leave t_w at 0, so the
+                    # divisibility conditions were never solved and the only candidate offered
+                    # was the bare exact pin -- exactly the shift the global guard had already
+                    # refused.  That is why |S|=32 stalled.  Transposing the coefficient table
+                    # swaps the roles of the two wires and reuses the same exhaustive machinery.
+                    CFT = {a: transpose_cf(CF[a]) for a in MOD}
                     for y in sorted(setv)[:4]:
-                        cands.append((0, y))       # symmetric case; t_w left at 0
+                        per = mod_tv_sets(CFT, MOD, y, D) if MOD else []
+                        if per is None:
+                            continue
+                        if not per:
+                            cands.append((0, y)); continue
+                        mods = [m for m, _ in per]; sets = [rs for _, rs in per]
+                        for _ in range(TRIES):
+                            x = crt_list([(rs[rnd.randrange(len(rs))], m)
+                                          for rs, m in zip(sets, mods)])
+                            if x is not None:
+                                cands.append((x, y))
                 else:
                     cands = []
             if not EX or not cands:
@@ -417,8 +483,19 @@ def close(S, tag, outer_max=16, logf=None):
     for outer in range(outer_max):
         base = nzcount(vv); r = E.run(vv); gen += 1
         viol = [a for a in SL if r[E.residx[a]] != 0 and SL[a] and r[E.residx[a]] % abs(SL[a]) != 0]
-        log('outer %d: global nonzero %d, violated c-conditions %d' % (outer, base, len(viol)))
-        if not viol:
+        hl0 = [a for a in E.res if r[E.residx[a]] and a not in SL]
+        log('outer %d: global nonzero %d, violated c-conditions %d, nonzero handle-less %d'
+            % (outer, base, len(viol), len(hl0)))
+        if not viol and not hl0:
+            break
+        if not viol:                       # only handle-less exact conditions left
+            if handleless_pass(vv, base, log):
+                continue
+            if any(joint_pair(vv, a, base, log) for a in hl0):
+                continue
+            if forced_exact_pass(vv, hl0, log):
+                continue
+            log('   handle-less atoms remain and nothing moves them -> stop')
             break
         wires = collections.defaultdict(list)
         for a in viol:
@@ -445,6 +522,8 @@ def close(S, tag, outer_max=16, logf=None):
         if not viol and not hl:
             log('   only the two TARGET congruences remain -- CLOSED'); break
         if not any(joint_pair(vv, a, base, log) for a in viol+hl):
+            if hl and forced_exact_pass(vv, hl, log):
+                gen += 1; continue
             log('   joint two-wire pass also stalled -> stop'); break
         gen += 1
     relift(vv); r = E.run(vv)
@@ -460,9 +539,10 @@ if __name__ == '__main__':
     else:
         n = int(spec); r7 = random.Random(7)
         S = [24601, 2081] if n == 2 else r7.sample(M['live'], n)
+    omax = int(sys.argv[3]) if len(sys.argv) > 3 else 16
     lf = open(os.path.join(T, 't_close2wj_%s.log' % tag), 'w')
     lf.write('S = %s\n' % S); print('S = %s' % S, flush=True)
-    t0 = time.time(); nz = close(S, tag, logf=lf); el = time.time()-t0
+    t0 = time.time(); nz = close(S, tag, outer_max=omax, logf=lf); el = time.time()-t0
     msg = ('|S|=%-3d %-6s  NONZERO ATOMS = %d of %d   WALL = %.1f s  -> close_%s.json'
            % (len(S), tag, len(nz), len(E.res), el, tag))
     print(msg, flush=True); lf.write(msg+'\n')

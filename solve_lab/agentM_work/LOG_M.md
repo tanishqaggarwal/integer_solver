@@ -1335,3 +1335,188 @@ rate under fleet contention. Sizes 7 and 8 are the bulk (11,440 and 12,870 of 65
 `ieng.py` remains interruptible and calibrated (G1-G6) for L's |S| = 3, 5, 8 closures.
 **No subset at any size has exceeded 39,026, so no assignment has been written and there has
 been nothing to verify with `checker.py`.**
+
+---
+
+# LOG_M ROUND 14 — post-restart rebuild, the enumerations re-run, and a SECOND granularity axis
+
+## 82. Rounds 14's predecessor was never logged. Recording it now.
+LOG_M ends at §81 (round 13), but the work done between §81 and the second container restart
+exists only in log files. For the record, before this round:
+
+    enumsub2.py     resumable rewrite of enumsub.py (real resume, per-size distributions,
+                    errors COUNTED not swallowed, granularity on the command line)
+    enum12_restart  2^12 COMPLETE, 4,096/4,096, 36 s, above 39,026 = 0
+    enum16_restart  2^16 COMPLETE, 65,536/65,536, 700 s, above 39,026 = 0, best 39,026 at the witness
+    verifysup16     the superset claim VERIFIED over 2^16: all 114 subsets at 39,026 contain
+                    the witness; 0 do not
+    granul          granularity study: raising nprobe/budget 10/30 -> 80/180 moved 773 of 1,784
+                    sampled subsets UP, by as much as +10, and 0 above 39,026
+    enum16_p80      2^16 at 80/180, COMPLETE through |W| = 8, killed at |W| = 9
+    enum18_restart  2^18 at 10/30, COMPLETE through |W| = 11, killed inside |W| = 12 (234k/262k)
+
+**The granularity finding is the load-bearing one**: the shipped 10/30 setting UNDERPRICES, so
+every "nothing above 39,026" at 10/30 is a lower-bound statement, and the claim has to be re-made
+at the finer setting. That is rule 9 applied to my own instrument, and it is why round 14 re-runs
+2^16 at BOTH granularities rather than trusting the completed 10/30 pass.
+
+## 83. Rebuild, and it reproduces the pre-restart model exactly
+`*.pkl` is gitignored repo-wide, so restart #2 wiped model3/dag/orient again (and T's, F's, L's).
+Rebuilt inside agentM_work from copies of E's `parse3.py`/`dag.py` (`_rb_parse3.py`, `_rb_dag.py`);
+`shim.py` + `harness_m.py` repoint `harness` at them. Reproduced numbers, all identical to before:
+atoms **40,727**, equations **39,033**, free **8,365**, SEQ **30,383**, baseline **39,008 / 25
+failing / 5 bad atoms**.
+
+Gates re-run (`calib_r14.py` -> `calib_r14.log`): **G1-G5b all PASSED**, G1 with **0 of 38,748
+variables differing** from the deliverable. `checker.py` on
+`solve_lab/best/new_instance_partial_39026.json` independently: **39,026/39,033, failing
+[12231, 12270, 12350, 14584, 18673, 22044, 29125]**.
+
+**Reproducibility beyond the gate:** the re-run enumerations reproduce the pre-restart per-support
+distributions *entry for entry* at every completed size, in both granularities. The rebuild is not
+merely calibrated at one point; it reproduces tens of thousands of independent measurements.
+
+## 84. A SECOND granularity axis, and it is bigger than the first (`gran2.py`)
+Rule 9 says a negative is a statement about the solver's granularity. Round 13's granularity
+study varied `nprobe`/`budget`. **That axis is now SATURATED, and I can say why rather than
+guess:** `tune()` probes `sols[j]` for `j` in an index set built from `nprobe`, but `len(sols)`
+is bounded by the number of target rows, `|FAILS_UNC| = 25`. At `nprobe = 80` the index set
+already covers **every** element of `sols`, so `nprobe > 80` cannot add a probe. `p10 -> p80`
+was a real refinement; `p80 -> p400` is a no-op.
+
+**The axis that was still open is the greedy ROW ORDER.** `tune()` extends a kept row set in a
+fixed index order, keeping row `i` iff the system stays solvable over Z. A different order
+reaches a different maximal solvable subset, hence different solutions, hence a different score.
+`gran2.py` re-prices with 8 random row orders plus the identity:
+
+    1,193 subsets (794 witness-supersets |W|<=8, 400 uniform) x 9 row orders, 177 s
+    max-over-orders minus identity-order score:
+      +0: 192   +1: 300   +2:  54   +3: 196   +4:  10   +5:  38
+      +6:  40   +7: 151   +8:  82   +9:  90  +10:  21  +11:   2  +12:  17
+    subsets whose score MOVED : 1,001 of 1,193   (84%)
+    subsets now above 39,026  : 0
+    BEST 39,026 at W = (642, 28730, 29854, 31864), attained at the IDENTITY order
+
+**Two consequences, and they point in opposite directions:**
+- **Against my own distributions:** every per-subset score I have reported is a LOWER BOUND. Row
+  order alone moves 84% of subsets up, by as much as **+12** — larger than the nprobe axis's +10.
+  The distributions are shape-correct but shifted down; they are not the true cost function.
+- **For the maximum claim:** across 1,193 subsets and 9 independent orders — 10,737 solves —
+  nothing reached 39,027, and the witness's own optimum is attained at the *first* order tried.
+  The maximum is the one number the granularity does not appear to be hiding.
+
+## 85. What the enumeration has been holding FIXED all along — the cofactors are not knobs
+Checked directly rather than assumed. For the witness:
+
+    site([642,28730,29854,31864]) -> freed [642, 7068, 28730, 29854, 31864]
+    affine knobs used by tune()   -> exactly those five
+    all 12 cofactors [105,1329,3387,5081,5676,9413,10903,11436,14393,14768,17325,22820]
+      are in H.FREE -> they are FREE INPUTS, never in any closure, never knobs
+
+So the whole 2^12 / 2^16 / 2^18 enumeration varies **which handle relations are broken** while
+holding the cofactors at their deliverable values. The campaign's own correction says the
+cofactor freedom is **4-dimensional** (`x1329 +3, x9413 +4, x10903 +3, x17325 +4`), and T's
+calibration shows moving them is not inert (all 12 zeroed: 39,021, 12 failing). **That is an
+orthogonal axis that no number I have reported has explored.** `enumcof.py` widens the knob set
+to closure(W) u cofactors and re-prices the same lattice; affinity of the added knobs is tested
+by second differences, not assumed, and the witness must still reach 39,026 or the run aborts.
+
+## 86. Round-14 re-runs of 2^16 (both granularities), and the reproducibility check
+`enumsub2.py 16` re-run from scratch after the rebuild, at both granularities.
+
+**p10/30 (the shipped setting).** Killed by me at index 40,000 once |W| = 0..8 were complete,
+to give the p80 run its core back; the pre-restart run of the same script had already priced
+all 65,536 with `complete=True`. **Every one of the nine completed per-size distributions
+matches the pre-restart run entry for entry** — not just the best, the whole histogram. That is
+the reproducibility evidence for the rebuild: tens of thousands of independent measurements,
+not a single calibration point.
+
+**p80/180.** Same agreement on every size it has completed.
+
+## 87. The cofactor axis, measured — the distribution moves a lot, the maximum does not
+`enumcof.py 16 ... 4` re-prices the same 2^16 lattice with knobs = closure(W) u
+{x1329, x9413, x10903, x17325}. Calibration first: the witness still reaches **39,026**, now
+with **9 affine knobs** instead of 5 (all four cofactors pass the second-difference affinity
+test, so none is dropped).
+
+    |W|  without cofactors (p80)                         with the 4 cofactors (p80)
+      1  best 39,010   39010:1 39009:3 39008:12          best 39,021  39021:1 39009:3 39008:12
+      2  best 39,022   39022:1 ... 39008:90              best 39,022  39022:3 39021:12 ... 39008:89
+      3  best 39,023   39023:1 39022:2 39021:8 ...       best 39,023  39023:3 39022:21 39021:81 ...
+      4  best 39,026   39026:1 39023:1 39022:9 39021:10  best 39,026  39026:1 39023:13 39022:90 39021:351
+
+**The cofactor freedom is real and large in the body of the distribution**: a SINGLE broken
+handle relation plus cofactor tuning reaches **39,021** where handles alone reach 39,010, and at
+|W| = 4 the count at 39,021 goes 10 -> 351 and at 39,022 goes 9 -> 90.
+
+**And the top does not move.** At |W| = 4, complete over all 1,820 subsets, the best is still
+**39,026 with count 1 — the witness, still the unique optimum at its support size**, now against
+a knob set that contains the entire 4-dimensional cofactor freedom rather than just the freed
+handles. That is a strictly stronger uniqueness statement than round 13's.
+
+## 88. Independent verification widened: 12 more points, at the granularity T did NOT check
+T verified 9 of the 4,096 2^12 subsets against `checker.py`, all at the shipped p10 granularity.
+Round 14 prices at p80 and (in `gran2`/`enumsub3`) over permuted row orders — a different path
+through `tune`, so T's 9 do not cover it. `xcheck14.py` materialises 12 subsets **chosen to span
+the range and the support sizes**, and `r14_runchecker.sh` runs `checker.py` on every one:
+
+    engine  checker  subset
+    39008   39008    (23642)                      singleton, non-witness
+    39008   39008    (1844, 37413)                pair DISJOINT from the witness
+    39008   39008    (1844,2892,9629,18253,23642) |W|=5 disjoint from the witness
+    39009   39009    (28730)
+    39010   39010    (642)
+    39013   39013    |W|=10
+    39013   39013    |W|=16, the full support
+    39021   39021    |W|=7 superset
+    39022   39022    (642, 28730)
+    39023   39023    (642, 28730, 29854)
+    39026   39026    (642, 28730, 29854, 31864)   the witness
+    39026   39026    (642, 23642, 28730, 29854, 31864)
+
+**AGREE 12 / DISAGREE 0.** Scope stated unrounded, as T did: **12 of 65,536 at p80**, plus T's
+**9 of 4,096 at p10**. Deliberately includes the region **disjoint from the witness**, which
+T's spread did not sample, and the two largest supports.
+
+## 89. The pricer is NOT monotone in the knob set — and that changes how the max must be taken
+At |W| = 5 over 2^16, complete both ways:
+
+    handle knobs only (p80) : 39026:12  39022:20  39021:149  39020:30  39019:152 ... 39008:2,956
+    + 4 cofactor knobs (p80): 39026:1   39024:3   39023:30   39022:283 39021:1,048 ... 39008:2,665
+
+**Eleven subsets that reach 39,026 with five knobs FAIL to reach it with nine.** Adding a knob
+cannot shrink the feasible set, so this is the *pricer*, not the geometry: with more columns more
+rows become individually solvable, so the greedy keeps a LARGER row set, and the solution to the
+larger system scores worse. `tune()` maximises over probes within one greedy chain, not over
+chains.
+
+> **Consequence, and it is a rule not a caveat: the maximum must be taken over KNOB SETS as well
+> as over granularities. A widened knob set is a different instrument, not a refinement of the
+> old one.** Every "best" I report from here is a max over both instruments.
+
+**And the widened instrument found a score that had never appeared:** `39024:3` at |W| = 5.
+Across every enumeration run in this campaign — 2^12, 2^16 and 2^18, both granularities — the
+observed spectrum near the top was {39026, 39023, 39022, ...}; **39,024 and 39,025 had never been
+attained by anything.** Three placements now reach **39,024**, two below the deliverable and one
+above the previous best non-witness placement (39,023). `find24.py` recovers which subsets they
+are and materialises them for `checker.py`.
+
+## 90. CORRECTION to §89 — 39,024 is NOT a new attainable score. I withdraw that half.
+`find24.py` recovered the three |W| = 5 subsets scoring 39,024 under the cofactor instrument:
+
+    39024  W = (642, 23754, 28730, 29854, 31864)
+    39024  W = (642, 28730, 29854, 31864, 35619)
+    39024  W = (642, 28730, 29854, 31864, 37720)
+
+**All three are the witness plus one extra handle** — and the handle-only instrument scores
+**every** |W| = 5 witness-superset at **39,026** (12 of 12; the 2^12 run says 8 of 8 at the same
+size). So these are not placements that newly reach 39,024; they are placements **already known
+to reach 39,026** that the widened instrument prices two points LOWER.
+
+> **What §89 called a new score is the same non-monotonicity seen from the other side. The
+> attainable set did not grow; the instrument got worse on those subsets. Withdrawn.**
+
+The non-monotonicity finding itself stands and is now doubly evidenced: the count at 39,026 falls
+12 -> 1 at |W| = 5, and the three subsets that fall are identified by name. It also confirms the
+rule: **max over instruments, never within one.** Under that rule those three subsets are 39,026,
+as they always were.

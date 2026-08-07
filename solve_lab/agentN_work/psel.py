@@ -70,9 +70,101 @@ def knobs_of(R):
     return sorted(y for y in cands if y in FREE)
 
 
+def by_size(sz):
+    return [b for b in BLOCKS if b['size'] == sz]
+
+
+def chain_of(s):
+    return sorted([b for b in BLOCKS if s in b['members']], key=lambda b: b['size'])
+
+
+def pair_at(sz):
+    """a live pair whose minimal common block has size exactly `sz` — a structural
+    'distance in the OR tree', not a numerical perturbation."""
+    for b in by_size(sz):
+        ms = b['members']
+        sub = sorted([c for c in BLOCKS if c['size'] < sz and set(c['members']) <= set(ms)],
+                     key=lambda c: -c['size'])
+        for c in sub:
+            rest = [x for x in ms if x not in set(c['members'])]
+            if rest:
+                cand = [c['members'][0], rest[0]]
+                if min_block(cand) and min_block(cand)['size'] == sz:
+                    return cand
+        if len(ms) >= 2:
+            cand = [ms[0], ms[-1]]
+            mb = min_block(cand)
+            if mb and mb['size'] == sz:
+                return cand
+    return None
+
+
 # ---------------------------------------------------------------- configuration generator
 def configs():
-    """Structural variations of the live set, NOT numerical perturbations."""
+    """Structural variations of the live set, NOT numerical perturbations.
+
+    The hierarchy splits the 256 selectors into 253 that meet at one root and THREE outliers
+    {2081, 4287, 13195} that never join it.  The deliverable's live set is one outlier (2081)
+    plus one leaf deep inside the tree (24601) — a mixed pair.  Every family below moves that
+    structure somewhere else."""
+    C = []
+    C.append(('baseline_2081_24601', WIT_ON))
+    OUT = [2081, 4287, 13195]
+    tree = [s for s in SEL if s not in OUT]
+
+    # --- FAMILY A: cardinality 2, sliding the pair's minimal common block from a sibling
+    #     pair right up to the root — i.e. how far apart in the tree the two live leaves are.
+    for sz in (2, 3, 4, 6, 10, 13, 18, 21, 40, 62, 90, 165, 253):
+        pr = pair_at(sz)
+        if pr:
+            C.append(('A_pair_block%d' % sz, pr))
+
+    # --- FAMILY B: the three outliers, which are their own component of the hierarchy
+    for s in OUT:
+        C.append(('B_only_%d' % s, [s]))
+    C.append(('B_outliers_all3', OUT))
+    C.append(('B_4287_24601', [4287, 24601]))
+    C.append(('B_13195_24601', [13195, 24601]))
+    C.append(('B_2081_4287', [2081, 4287]))
+
+    # --- FAMILY C: MORE LEAVES LIVE, drawn coherently — light up whole blocks along the
+    #     chain from 24601 up to the root, so the live set is always a subtree.
+    for b in chain_of(24601):
+        if b['size'] in (1, 2, 6, 10, 13, 18, 21, 40, 62, 90, 165, 253):
+            C.append(('C_subtree%d_of_24601' % b['size'], b['members']))
+
+    # --- FAMILY D: same cardinality, DIFFERENT SUBTREE.  Six disjoint size-6 blocks lit whole.
+    seen = []
+    for b in by_size(6):
+        ms = set(b['members'])
+        if any(ms & set(x) for x in seen):
+            continue
+        seen.append(b['members'])
+        C.append(('D_block6_%d' % b['members'][0], b['members']))
+        if len(seen) >= 6:
+            break
+
+    # --- FAMILY E: the witness pair perturbed structurally, one member at a time
+    ch = chain_of(24601)
+    sib2 = [s for s in ch[1]['members'] if s != 24601]
+    C.append(('E_swap24601_sibling', [2081] + sib2[:1]))
+    C.append(('E_swap24601_block6', [2081, [s for s in ch[2]['members'] if s != 24601][0]]))
+    C.append(('E_swap2081_4287', [4287, 24601]))
+    C.append(('E_drop2081', [24601]))
+    C.append(('E_drop24601', [2081]))
+    C.append(('E_wit_plus_sibling', WIT_ON + sib2[:1]))
+    C.append(('E_wit_plus_block6', sorted(set(WIT_ON) | set(ch[2]['members']))))
+
+    # --- FAMILY F: extremes
+    C.append(('F_none_live', []))
+    C.append(('F_all_tree253', tree))
+    C.append(('F_all_live', SEL))
+    C.append(('F_spread8', SEL[::32]))
+    C.append(('F_spread16', SEL[::16]))
+    return C
+
+
+def configs_old():
     C = []
     C.append(('baseline_2081_24601', WIT_ON))
     # --- axis 1: keep cardinality 2, move where the pair sits in the tree ---------------
@@ -133,7 +225,7 @@ def configs():
     return C
 
 
-def main():
+def sizeprobe():
     mode = sys.argv[1] if len(sys.argv) > 1 else 'size'
     out = []
     t0 = time.time()
@@ -157,4 +249,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    sizeprobe()
