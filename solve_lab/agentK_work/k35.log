@@ -1,0 +1,15 @@
+
+ON exponents [3, 10]
+   otherbools=zero     A match n/a    B match False
+   otherbools=one      A match n/a    B match False
+   otherbools=derive   A match n/a    B match False
+
+ON exponents [0, 3, 10]
+   otherbools=zero     A match True   B match False
+   otherbools=one      A match True   B match False
+   otherbools=derive   A match True   B match False
+
+ON exponents [0, 1, 3]
+   otherbools=zero     A match True   B match True 
+   otherbools=one      A match True   B match True 
+   otherbools=derive   A match True   B match True 

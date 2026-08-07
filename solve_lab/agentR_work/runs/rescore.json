@@ -1,0 +1,18 @@
+{
+ "deliverable": {
+  "checker_failing": 7,
+  "checker_score": 39026,
+  "E_failing": 13,
+  "E_score": 39020,
+  "E_overreport": 6,
+  "first_failing": [
+   12231,
+   12270,
+   12350,
+   14584,
+   18673,
+   22044,
+   29125
+  ]
+ }
+}

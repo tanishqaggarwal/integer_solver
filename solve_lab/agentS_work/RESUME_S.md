@@ -73,6 +73,15 @@ Scope, stated plainly: move set = 256 cluster booleans + both switches + 75 affi
 base = triple8_seed. This is the whole cone of the 5 rows, so no free variable outside it can
 affect them — but bfs2 did not converge, so this is *measured*, not proved.
 
+### 3b. `lat5.py` corroboration (independent of the BFS mod-p reading)
+`lat5.py` re-measures knobs, handles AND targets at each configuration and runs the full exact
+integer solve. Across every configuration it processed, **a20215 was in the bad set in 100% of
+them** — and it was never the *reported* blocking row, because it does have a handle (step p) and
+so is individually satisfiable; the infeasibility always surfaces at some other row first
+(commonest: rows 21548, 11789, 26960, 10187, or "core infeasible"). This is a second, independent
+route to the same conclusion as §3: a20215 nonzero is the invariant, not an artifact of reading
+the image mod p.
+
 ## 4. SATURATION — reproduced, and STRONGER than previously recorded
 `sat.py` measures the atom values directly (not bad-atom-dict deltas). At cfg0 the 219 moving
 booleans fall into 2 classes (178 / 41) on (a20215, a28647) mod p, and **every tested subset —
@@ -199,5 +208,8 @@ exceeds the largest signed subset difference. My corroboration is independent of
    deliverable's atom family; the untried question is whether a **different** residual family
    (there are many, one per basin) admits a weight-6 code. `basin2.py` generalises to any basin —
    feed it other seeds.
-5. a726 is the second unhandled atom and was never examined; check whether it is genuinely
-   forced or merely unhandled.
+5. ~~a726~~ **ANSWERED.** a726 (`x_24195 * x_19097`) is unhandled but **never bad**: across every
+   configuration `lat5.py` has processed it is nonzero in 0 of them while appearing in the
+   no-handle list. So it is not a forced-nonzero obstruction — it is a *satisfied but rigid* row:
+   it constrains the solve (must stay 0) and could not be repaired if broken. Treat it as a
+   side-condition on any repair, not as a target. a28647 is the only genuinely unhandled *bad* atom.

@@ -1233,3 +1233,40 @@ take the rank modulo each prime power dividing the `c`'s.
 P has been told that if it cannot reach the rank, the deliverable is a **complete and correct
 lift constructor plus a precise statement of what remains** — a located second stall is worth
 more than a partial rank nobody trusts.
+
+---
+
+## Coordinator note — the wrap-count hole in K's argument is closed
+
+P raised (check-in 10) that K's unreachability negative excludes only one wrap, `k = ±1`, and
+would be incomplete if several `k` were reachable. **Closed, by an elementary bound that does
+not use the construction premise P objected to.**
+
+Both inputs of a block are folds of subsets of the ladder, so each input's scalar is a subset
+sum of `{2^e : e ∈ 0..255}` with each exponent used at most once (Q and R independently verified
+`L_i = 2^i·G` for i = 0..255). Hence `|x − y| ≤ 2^256 − 1`. And
+
+    2N = 231584178474632390847141970017375815705675128558149808765210326283036322988674
+    2^256 − 1 = 115792089237316195423570985008687907853269984665640564039457584007913129639935
+    2N > 2^256 − 1,  slack ≈ 1.158e76
+
+so `x ≡ y (mod N)` forces `x − y ∈ {0, ±N}` — **no other multiple of N is reachable,
+unconditionally** — and `x − y = 0` with the subsets drawn from disjoint slot supports forces
+both empty. **K's walk covers the right cases**, and the wrap-count half of its argument can be
+restated without the withdrawn framing.
+
+**But the unconstrained condition is TRUE, so K's negative rests entirely on the partition.**
+`N` has 192 one-bits and 64 zero-bits, so some `j` has `bit_j(N) = 1`, `bit_{j+1}(N) = 0`,
+`j+1 ≤ 255`; rewriting `2^j = 2^{j+1} − 2^j` gives non-empty `A`, `B` over the full exponent set
+with `Σ_A − Σ_B = N`. K has been told to restate its theorem in the form it can actually prove —
+about the specific slot partitions, not about `N`'s representability — since the current phrasing
+reads as the stronger, false statement. Arithmetic is three lines; K was asked to redo it rather
+than take the coordinator's word.
+
+### The equal-inputs condition, in final form
+
+> There is a block β with slot exponent-supports `I_β`, `J_β` and non-empty `A ⊆ I_β`,
+> `B ⊆ J_β` with `Σ_{i∈A} 2^i − Σ_{j∈B} 2^j = ±N`.
+
+If it holds, β's two congruences vanish identically, β's output is unconstrained, and the root
+is reached by inverting the law in closed form — **a full solve with no scalar recovery.**

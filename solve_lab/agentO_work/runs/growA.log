@@ -1,3 +1,4 @@
 baseline: |E|=12 maxsat=5 COST=7  S=[2554, 6816, 8124, 9123, 9421]
   exact: 7 failing equations
 111 adjacent atoms
+  +a262: TIMEOUT P=7 |E|=27

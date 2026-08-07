@@ -37,3 +37,11 @@ base closed state score 39018 targets 1147
 900/1147  0.52s/carrier  eta 2.2 min  best=39017
 925/1147  0.52s/carrier  eta 1.9 min  best=39017
 950/1147  0.55s/carrier  eta 1.8 min  best=39017
+975/1147  0.55s/carrier  eta 1.6 min  best=39017
+1000/1147  0.55s/carrier  eta 1.4 min  best=39017
+1025/1147  0.56s/carrier  eta 1.1 min  best=39017
+1050/1147  0.56s/carrier  eta 0.9 min  best=39017
+1075/1147  0.56s/carrier  eta 0.7 min  best=39017
+1100/1147  0.56s/carrier  eta 0.4 min  best=39017
+1125/1147  0.55s/carrier  eta 0.2 min  best=39017
+DONE shard 0  best=39017  10.7 min

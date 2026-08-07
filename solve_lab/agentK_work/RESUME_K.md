@@ -100,15 +100,37 @@ readings before I caught it (A.x came back equal to the target's X, which is wha
 | `{0,1,2,3,5}` | A = 7G | **A exact**; B not reproduced |
 | `{4,6,7,10,12}` | A = 208G | **A exact**; B not reproduced |
 
-So the composition law is confirmed as the group sum on the **A half (178 leaves, depth 6) for
-1-, 2- and 3-leaf folds**, and on the **B half for single leaves**. Multi-leaf B-half folds are
-*not yet reproduced by the closure* (`bside.log`: for `{0,3,10}` the B value is a valid point on
-the cubic but not `8G+1024G`; for `{0,3,5}` and `{0,5,10}` it is off the cubic). Also, when one
-half has **no** live leaf the other half's value stops matching too. Both look like closure
-gaps on the 78-side wiring, not evidence against the law — the A half runs the identical stage
-law and matches exactly, and F verified the law on 72/72 stages independently. But it is
-**open**, and §1's uniqueness statement inherits that caveat until it is closed. **Fixing this
-is the first task for the next session** — see §7.
+So the composition law is confirmed as the composition sum on the **A half (178 leaves, depth 6)
+for 1-, 2- and 3-leaf folds**, and on the **B half for single leaves**. Multi-leaf B-half folds
+are *not reproduced by the closure* and this is **still open**. What I established about it this
+session, so nobody repeats it:
+
+* **The "backward flow" hypothesis is REFUTED.** `k29_trace.py` records, per variable, which
+  atom derived it. The back-cone of `x14853` is 5,119 variables, contains **no variable from
+  above the root**, and `x14853` is derived by its own forward slot pin. The B half *is* being
+  computed forward from its 78 selectors. The only seeded things in the cone are the 78
+  selectors and 662 handle factors (all of shape `xY - (xA*xB)`), which is correct behaviour.
+* **The value is not a near-miss.** `k31_whatisB.py`: for `ON={e3,e5}` the B value is not the
+  composition, not the difference either way, not the negation, not a coordinate-wise sum, not
+  `a·P1+b·P2` for any `|a|,|b| <= 4`, not any leaf, and **not on the cubic**. For `ON={e3,e10}`
+  it *is* on the cubic but is still none of those. So it is not a sign or shift bug.
+* **`k34_diverge.py` is not a usable diagnostic as written** — it compares every wire against a
+  predicted point, but most wires are chord-arithmetic intermediates (the shallowest "failing"
+  one, `x7340`, is defined as `x32101 + x12781`, a partial sum), so mismatches there mean
+  nothing. It also uses the *inflated* supports. Rewrite it to compare only slot wires, using
+  `k36_tight.py`'s corrected supports.
+* **The liveness-bit hypothesis is REFUTED too.** `k35_otherbools.py` drives the same ON-sets
+  with the 900 non-leaf free booleans seeded 0, seeded 1, and left for the closure to derive.
+  **All three give byte-identical verdicts** (`{0,1,3}`: A and B both match in all three;
+  `{0,3,10}` and `{3,10}`: B fails in all three). So the 900 are not the cause.
+
+So three hypotheses are dead — backward flow, sign/shift, and liveness-bit seeding — and the gap
+is still there. Whatever it is, it is specific to the 78-side wiring at ≥2 live leaves.
+
+None of this is evidence against the law — the A half runs the identical stage law and matches
+exactly, and F verified the law on 72/72 stages independently — but §1's uniqueness statement
+keeps its caveat until it closes. Note that §4's negative does **not** depend on it: §4d needs
+only `N > 2^256 - 2^129` and the root split, neither of which involves the B-half closure.
 
 The validation the handoff asked for **passes in the required direction**: the evaluator
 predicts `fold({24601,2081})`, and that value is **NOT** the target
@@ -196,34 +218,43 @@ the final carry.
   prune (`x - y = N, y >= 0` forces the "+" side's mask value `>= N`; 161 of 6007 supports
   qualify). **RESULT: the test FAILS — 262 pairs tested, many admit `x - y = N`.**
 
-### 4d. STATUS OF THE NEGATIVE: closed at the root, NOT closed for interior stages
+### 4d. CLOSED — and the carry walk turned out to be unnecessary
 
-I am flagging this rather than letting it stand.
+`k36_tight.py` fixed the support recovery: identify liveness/boolean variables by fixpoint, and
+in a gated term `(xA*xB)` take only the operand that is *not* one of them. Sanity gate passes —
+root comes back **A = 177, B = 78, disjoint** (the 178th is exponent 163, measured separately in
+K26). With supports no longer inflated, **0 of 5480 recovered supports can even serve as the
+"+" side**, and the reason exposes a far simpler and more robust closure than the carry walk:
 
-* **Root: closed.** The root's two halves partition `{0..255}` exactly (178/78), so the walk has
-  the 2-case form with no forbidden positions, and it fails in both directions. Robust: also
-  fails for all 256 single-exponent reassignments and for **0 of 2000 random 178/78
-  partitions**, so it does not depend on my split being exactly right.
-* **Interior stages: open.** The original argument was wrong (§4b). The repair is sound in
-  principle, but executing it needs *certified per-stage leaf supports*, and mine are
-  **over-approximations**: in a gated mux term `(xA*xB)` my descent could not tell selector from
-  value, so it unioned both cones — and a quadrant gate's selector is a liveness bit of the
-  *sibling* subtree, so sibling leaves leak in. The tell-tale is that supports of size 252–253
-  appear at all; those cannot be children of a root that splits 178/78. So K33's hits are very
-  likely spurious, **but "likely spurious" is not a closed negative** and I am not going to
-  record it as one.
+```
+2^256 - N = 432420386565659656852420866394968145599  <  2^129 = 680564733841876926926749214863536422912
+```
 
-`k36_tight.py` is the attempt to close it: identify liveness/boolean variables by fixpoint and
-take only the non-liveness operand of each gated term, with a **sanity gate — the root must come
-back 178/78 or the recovery is still wrong and its verdict must be discarded**. Result in
-`k36.log`. Until that gate passes *and* the pair test comes back empty, the correct statement is:
+So `sum_{e in J} 2^e >= N` requires `J` to omit **nothing** of value `>= 2^129` — i.e. `J` must
+contain **every** exponent in `129..255`. Then:
 
-> **the degeneracy route is closed at the root and open at interior stages.**
+1. `|x - y| <= max(maskval(J1), maskval(J2))` for any stage's two sides.
+2. A nonzero multiple of `N` needs `max(maskval) >= N`, hence needs one side `⊇ {129..255}`.
+3. The root's two halves are disjoint, and **each omits many exponents `>= 129`** — measured:
+   the B half owns 43 of them, the A half owns 84. So neither half contains `{129..255}`.
+4. Every interior stage's side is a subset of one root half, so it omits them too.
+5. Therefore `|x - y| < N` at **every** stage, so `x = y`; disjoint bit supports force
+   `x = y = 0`; both halves would have to be dead. **Impossible.**
 
-Practical note for whoever picks this up: the deliverable's own trick is a *root* degeneracy, so
-the closed half is the half that matters for reproducing 39,026 honestly. An interior degeneracy
-would still be exploitable (a degenerate stage's output is free and propagates up as a
-pass-through), so the open half is worth closing.
+`maskval(IA) >= N : False`, `maskval(IB) >= N : False`, verified directly.
+
+**Why this version is worth more than the walk.** It needs only two measured facts, both with
+enormous margin: `N > 2^256 - 2^129`, and *each root half omits at least one exponent >= 129*
+(43 and 84 witnesses respectively, where one would do). It does not depend on the tree shape, on
+my 178/78 split being exactly right, on which side exponent 163 sits, or on any carry
+bookkeeping. The earlier deterministic walk (`k22`, `k32`) and the 0-of-2000-random-partitions
+measurement agree with it and are kept as independent confirmations.
+
+**Audit trail, kept deliberately.** This negative was wrong twice before it was right:
+first the interior case (`|x-y| < 2^n`, false — §4b), then the tree-free test in `k33` which
+*failed to close* because my supports were over-approximations. Both were found by taking P's
+challenge seriously rather than defending the claim. If it is challenged again, the thing to
+attack is step 3 — the measured claim that each root half omits an exponent `>= 129`.
 
 ### 4c. Restated without any premise about how the instance was built
 
@@ -299,6 +330,23 @@ Anyone screening atoms by footprint (e.g. minimising equations-touched against w
 will land on exactly those twelve decoys first; that agreement is not corroboration, it is the
 same measurement. The open question is realizability, which footprint alone cannot see.
 
+**Independent corroboration, and its limit.** An independent decomposition of the same file
+(different directory, different parse) measures **1,158 atoms with footprint < 7, of which
+1,152 are idempotency atoms, 1,145 of them at footprint 1**. My twelve and that 1,152 are the
+same phenomenon seen through different atom decompositions — the counts differ because the
+decompositions differ, not because the instances differ. So "the sub-7 footprints are
+idempotency atoms" holds at ~100x the scale I measured it.
+
+**But decoy-ness is not the only way a light carrier dies, and my table only knows about
+decoy-ness.** That same independent work found a window where *every* atom is genuine law-block
+arithmetic — no decoys at all — and the light carrier there still failed, for a different
+reason: **downstream coupling** (the carrier's value is forced by what consumes it). My table
+cannot see that failure mode at all; it prices sites by equation footprint only. Treat the two
+explanations as complementary, neither subsuming the other: a candidate site must survive
+*both* "is it load-bearing?" and "is its value free once its consumers are accounted for?".
+If a realizable low-footprint carrier is ever exhibited, **this table is what gets revised**,
+not the counterexample.
+
 --------------------------------------------------------------------------------------------------
 ## 6. TOOLS BUILT (all run from cold in this directory)
 
@@ -325,12 +373,13 @@ else, so §2's validations were driven correctly either way. But it is a clean e
 failure mode worth naming: a knob set filtered by a regex that misses a spelling will be
 reported as a property of the instance. Re-run `k25_class.py` before using `varclass2.json`.
 
-**Consequence that is still open:** the fix exposes **900 free booleans that are not leaf
-selectors**. §1 asserts the only boolean inputs are the 256 selectors. `k30_decoys.py` tests
-that by forward cone (deliberately using the most generous, *undirected* notion of influence:
-if a knob cannot reach a leaf wire or a root variable even undirected, it is dead). Until that
-comes back clean, **§1's knob set is "256 selectors plus up to 900 unverified booleans"**, and
-§4's negative is stated over the 256 only.
+**Consequence, now SETTLED.** The fix exposed **900 free booleans that are not leaf selectors**,
+which would have meant §1's knob set was too small. `k35_otherbools.py` settles it behaviourally
+rather than structurally: driving the same ON-sets with those 900 seeded **0**, seeded **1**, and
+**left for the closure to derive** gives byte-identical results in all three modes, on every
+ON-set tried. They do not move the fold. So **§1's knob set stands: the 256 leaf selectors.**
+(`k30_decoys.py` is the structural version of the same test — forward cone under the most
+generous, *undirected* notion of influence — if you want a second line of evidence.)
 
 | `fold.py` | leaf points + target extraction, group composition | 5 s |
 | `k26_drive.py` | `drive(on_set)` -> full mod-p state; `rootpair(v)` -> the root's two input pairs | 3 s/run |
@@ -348,11 +397,12 @@ Key facts to re-derive cheaply if anything looks wrong:
 --------------------------------------------------------------------------------------------------
 ## 7. NEXT, IN ORDER (for whoever picks this up)
 
-0. **Close the B-half validation gap first** (§2). Diagnosis to start from: `drive()` already
-   forbids the two target-pin atoms; the remaining backward/undecoded paths are on the 78-side.
-   Instrument `CascadeP.close` to record, per derived variable, which atom derived it, then run
-   `drive({e3,e5})` and walk back from `x14853` to the first variable derived by an atom that is
-   not a forward mux/stage atom. Fix the `k25_class.py` idempotency regex at the same time.
+0. **Close the B-half validation gap** (§2) — it is the only thing still gating §1. The
+   instrumentation exists (`CascadeP.close` now records `trace`/`deps`), and the two obvious
+   hypotheses are already dead: it is **not** backward flow (K29) and **not** a sign/shift bug
+   (K31). Start from `k35.log`, then rewrite `k34_diverge.py` to compare **slot wires only**,
+   using `k36_tight.py`'s corrected supports rather than the inflated ones.
+   (`k25_class.py`'s regex bug is fixed; §6 has the before/after.)
 1. **What remains is one integer `k` with `k·G = T` under the chord composition on
    `Y^2 = X^3 + b (mod p)` — and finding it is the whole job, not a formality.** Do not read
    "one integer" as "nearly done": *given* `k` the rest is bookkeeping (set leaf selector `e` on
@@ -368,8 +418,30 @@ Key facts to re-derive cheaply if anything looks wrong:
    atom set whose image under the incidence matrix has weight ≤ 6 *and* is realizable. Use
    `k27_sites.py`'s footprint table as the starting point; the 12 sub-7 atoms are decoys, so
    any solution must cancel 7 rows of a load-bearing atom against something.
-4. Do **not** redo: the tree decode, the slot wiring, the leaf/target extraction, the
-   178/78 split, the stage-degeneracy question. All settled above.
+4. Do **not** redo: the tree decode, the leaf/target extraction, the 178/78 split, the constant
+   inventory, or the stage-degeneracy question (§4d — closed, and closed by a size bound with
+   43-and-84-witness margin, not by a fragile carry walk).
+   Do **not** trust: `k34_diverge.py` as written, `k33_allpairs.py`'s verdict (it uses the
+   inflated supports and its hits are artifacts — `k36_tight.py` supersedes it), or any support
+   set that does not pass K36's root-must-be-178/78 sanity gate.
+
+--------------------------------------------------------------------------------------------------
+## 9. THINGS I GOT WRONG THIS SESSION, KEPT ON PURPOSE
+
+Four, all caught here rather than downstream. The pattern is the same each time — a claim that
+looked finished until someone asked which case it had not enumerated.
+
+1. **Two fold "validations" that were reading the target back at me.** The cascade derived the
+   root inputs *from* the target pin. Symptom: `A.x` came back exactly equal to the target's X.
+   Fix: `k26_drive.FORBID`.
+2. **The interior-stage degeneracy argument** (`|x-y| < 2^n`). False — exponent sets are not
+   initial segments. Surfaced by a challenge from an independent parse (§4b).
+3. **The tree-free replacement for it** (`k33`) *failed to close*, and the reason was my own
+   support recovery inflating sets by unioning both operands of gated terms (§4d).
+4. **The classifier** missed two of three idempotency spellings, undercounting free booleans
+   369 vs 1156 and mis-typing 174 leaf selectors (§6).
+
+Only (4) was harmless. (1) would have produced a fake model, (2) and (3) a fake barrier.
 
 --------------------------------------------------------------------------------------------------
 ## 8. VERIFICATION RULE (fleet standing rule, respected here)

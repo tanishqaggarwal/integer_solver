@@ -35,5 +35,42 @@
     }
    }
   ]
+ },
+ "m8_free": {
+  "vars": 58272,
+  "clauses": 406016,
+  "blast_time": 21.62,
+  "runs": [
+   {
+    "solver": "cadical195",
+    "sat": true,
+    "time": 888.26,
+    "stats": {
+     "restarts": 42109,
+     "conflicts": 790410,
+     "decisions": 1751748,
+     "propagations": 142607570
+    }
+   },
+   {
+    "solver": "kissat",
+    "err": "NotImplementedError('Statistics are not exposed by Kissat in PySAT.')"
+   },
+   {
+    "solver": "cryptominisat",
+    "err": "AssertionError(\"Package 'pycryptosat' is unavailable. Check your installation.\")"
+   },
+   {
+    "solver": "glucose42",
+    "sat": true,
+    "time": 620.84,
+    "stats": {
+     "restarts": 3002,
+     "conflicts": 722420,
+     "decisions": 1492167,
+     "propagations": 232644843
+    }
+   }
+  ]
  }
 }

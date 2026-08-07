@@ -84,23 +84,65 @@ two target wires are pinned:**
 
 x13682 and x37892 are the root mux output wires.  So:
 
-> **The 39,033-equation system is satisfiable iff some non-empty subset S of the 256 live
-> leaves folds, through the calibrated tree, to the pair**
+> **MOD P**, the 39,033-equation system reduces to: some non-empty subset S of the 256 live
+> leaves folds, through the calibrated tree, to the pair
 >
 >     TARGET (root coord order) =
 >       ( 44859544763832475231923253825569092119321525945631045653619508440821028887,
 >         36200939269128454586076546451607958467047992891178506183612554289882454126226 )
 
-Everything else in the instance — every boolean, every pin, every guard, every stage check,
-every slot link, every handle — closes **exactly over Z** by construction, for any S.
+Everything else closes mod p for any S.  **Over Z there are 927 further conditions** (see the
+c > 1 bullet below); they are sparse but they are NOT discharged for free, so the criterion
+above is necessary, and sufficient only once those 927 are also solved.  Verified over Z end to
+end for |S| = 1 only: `assign_L1.json`, exact checker, 15 failing equations, all attributable to
+the two TARGET atoms.
 
 Supporting facts I measured with **my own knob set (all 8,747 free vars)**:
-* `handles2.py`: 3,681 handle-only free vars, 5,066 value vars, 0 unclassified, and **every
-  handle var appears in exactly ONE atom** — this is why mod-p suffices and the lift is free.
+* `handles2.py` / **`hcheck.py` — CORRECTED, agent P was right.**  My "appears in exactly one
+  atom" was measured on the **free cofactor u**, not on the P-multiple h.  Measured: my 3,681
+  "handle" vars are all FREE, appear in **0 residual atoms directly** and in **exactly 1
+  definition** — they are the cofactors.  Cofactor-appears-once is necessary for freedom but
+  **not sufficient**: the atom must also be solvable over Z, and `c*p | R` is strictly stronger
+  than `R == 0 mod p` when c > 1.  Splitting my 3,681 atoms by the measured multiplier c:
+  **c == 1 for 2,747** (condition collapses to the mod-p congruence) and **c > 1 for 927**
+  (real extra integer condition), 7 with zero slope.  **My 927 matches P's 927 exactly**, from
+  an independent decomposition.  **So the lift is NOT free, and S3 must be read mod p.**
   |Z| (wires == 0 mod p for every assignment) = 7,202.
+* **How binding are the 927?  (`repaircount.py`, my own measurement, which P does not have.)**
+  They are real but *sparsely* violated, and they grow with the ON-set:
+      |S| = 1  : 2 of 927 violated, 2 distinct atoms, greedy repair discharges ALL -> 0 left
+      |S| = 2  : 4 distinct atoms violated, greedy repair leaves 1 undischarged
+      |S| = 17 : 36 distinct atoms violated, greedy repair leaves 8 undischarged
+  Every violated atom is inside the c > 1 set (verified).  My repair is a greedy round-robin
+  that shifts one value wire by a multiple of p per atom; it cycles for larger |S| (hits the
+  60-round cap).  **What is needed is a simultaneous CRT solve over the ~766 shift parameters,
+  not a round-robin** — that is exactly P's rank question, and these numbers are the data for it.
 * `slopes.py`: every handle's slope is divisible by p (2,747 are exactly +-p, the rest +-M*p).
-* The **deliverable has exactly one leaf ON, x24601** — it is the trivial single-leaf
-  pass-through, and it pays its 7 equations for *not* firing the root stage.
+* **The deliverable's ON-set: TWO selector bits, ONE propagating leaf** (`onset_deliv.py`,
+  `rootcheck.py`, `delivsite.py`).  My earlier "one leaf ON" was read off a STALE partial model
+  and I retract it as stated.  Measured from the deliverable's own JSON — all 256 leaves are
+  free vars, so the file value IS the bit, no inference:
+  **exactly x2081 and x24601 are set to 1**, everything else 0.  M, K, P and R are right.
+  LCA(2081,24601) = the ROOT x9274; 24601 sits under the root's a-child (178-side), 2081 under
+  the b-child (78-side); root sel_ab = 1.  Root cause of my error: my stale sub-forest covered
+  only the 178-side, so it could not see 2081 — same root cause as my retracted 2^178.
+  **What the fleet was disagreeing about**: I was reading what *reaches* the root, which is one
+  leaf; M/K/P/R were reading the selector configuration, which is two.  Q's census settles it
+  the same way.  Both are true of different objects, and the distinction is the mechanism:
+
+**MEASURED MECHANISM OF THE DELIVERABLE (`rootcheck.py`, hard numbers):**
+    root va input = root vb input, EXACTLY, in both coordinates
+        = (37841415183514949237467304684128824427406379377151921996714091976892367869714,
+           82007976112976807461901870199198737303514020147647909878034348606308756230357)
+        = my model's value for leaf 24601 transported to the root frame
+    root vab wires x30213, x22162 = TARGET, EXACTLY, the pair I derived independently in S3.
+  So the 2081 branch is overwritten to carry 24601's value; the root then sees two equal inputs
+  and its own checks stop constraining its output; the output is set straight to TARGET and
+  everything above closes.  **The deliverable's independently-set root wires holding exactly my
+  independently-derived TARGET is the strongest single cross-check of S3 in this file.**
+  Cut site (`delivsite.py`): child node **x27994** (the node holding leaf 2081), parent
+  **x4971.va**.  Broken atoms: 2 guards on x27994's vab wires (x8731, x9118) + 2 slot links on
+  x4971's va wires (x4432, x7068) = 4 atoms = 7 equations.
 
 --------------------------------------------------------------------------------------------
 ## 4. WHY 39,026 IS NOT EASY TO BEAT (priced, not asserted)
@@ -152,6 +194,38 @@ reach.  12 of 383 nodes have live-leaf support > 24; 371 are <= 24.
    deliverable reaches 7 with FOUR nonzero atoms, i.e. by arranging *value* cancellation inside
    shared equations, not by minimising incidence.  Any attempt to beat 7 has to search
    cancellation, not support.
+
+--------------------------------------------------------------------------------------------
+## 6b. CANCELLATION SEARCH — instrument BUILT and CALIBRATED, family MIS-SPECIFIED (open)
+`cancel.py` / `cansearch.py`.
+
+**What works.**  An **exact in-memory scorer** now exists: `CK.load_equations()` once (~91-153 s)
+then ~1.1 s per candidate, so hundreds of placements can be priced exactly instead of by
+incidence.  Calibrated on two known points: **deliverable -> 7** and **my `assign_L1` -> 15**,
+both matching `checker.py` exactly.  This is the instrument the lab was missing, and it is the
+thing to reuse.  **Do not price with `E.score`** — it reports 13 for the deliverable where the
+truth is 7, so every incidence/F-model number in S4 and `cut.py` is inflated and only ordinally
+useful.
+
+**What does not work yet.**  My generalisation of the deliverable's cut — ON = {G, L}; overwrite
+the L branch at a chosen site with G's value so LCA(G,L) sees two equal inputs; then drive that
+node's vab wires to TARGET — **does not reproduce the deliverable even at the deliverable's own
+site**:
+    G=24601 L=2081 csite=27994 set_vab=True  -> 9 nonzero atoms, EXACT failing 49
+    G=24601 L=2081 csite=27994 set_vab=False -> 7 nonzero atoms, EXACT failing 47
+against the deliverable's 4 atoms / 7 equations.  So the family as I specified it is wrong: it
+breaks 5 extra atoms.  **The next step is diagnostic, not a sweep** — diff my 9 broken atoms
+against the deliverable's known 4
+    ((x7075*x8731)+x31864), ((5113045*(x7075*x9118))-x29854),
+    ((x4432-x19964)-x28730),  ((x7068-x2099)-(7376877*x642))
+and find which wires the deliverable leaves alone that I am overwriting.  Prime suspects: the
+top slot links x24468/x18956 -> x13682/x37892, which I pin to T1/T2 while also rewriting the
+root vab wires, and the un-converged divisibility repair (see the c>1 bullet).  Only once the
+constructor reproduces 7 at the known site is a sweep over sites meaningful.
+
+**Caveat inherited from the c > 1 finding:** any candidate whose greedy repair does not converge
+carries extra nonzero atoms that have nothing to do with the cut, which will masquerade as a bad
+placement.  Fix the repair (simultaneous CRT) before trusting a sweep.
 
 ## 7. FILES (all in `agentL_work/`)
 Code: `trace.py ortree.py ortree2.py census.py wire.py link.py crux.py onset.py fail7.py

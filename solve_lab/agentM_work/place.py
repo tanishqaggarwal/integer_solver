@@ -23,6 +23,7 @@ NEQ = len(H.eqt)
 vd = M.load_vec()
 BUDGET = float(sys.argv[1]) if len(sys.argv) > 1 else 2100
 MAXEXTRA = int(sys.argv[2]) if len(sys.argv) > 2 else 1
+MAXK = int(sys.argv[3]) if len(sys.argv) > 3 else 2
 
 cd = pickle.load(open('placecands.pkl', 'rb'))
 CANDS = cd['cands']
@@ -115,7 +116,9 @@ for extra in extras:
                     pass
     FS = set(eng.FREE)
     cand = sorted(f for f in cand if f in FS)
+    t1 = time.time()
     aff, cols = affine_cols(eng, v0, bad0, cand)
+    print(f'  extra={extra}: {len(cand)} cands -> {len(aff)} affine ({time.time()-t1:.0f}s)', flush=True)
 
     def row_for(e):
         cm, const = CM[e]
@@ -133,7 +136,7 @@ for extra in extras:
 
     ROWS = {e: row_for(e) for e in FAILS}
     localbest = (sc0, None)
-    for k in range(1, len(FAILS) + 1):
+    for k in range(1, min(MAXK, len(FAILS)) + 1):
         for S in itertools.combinations(FAILS, k):
             rows = [ROWS[e][0] for e in S]; rhs = [ROWS[e][1] for e in S]
             if any(not r for r in rows):

@@ -5,3 +5,5 @@ atoms carrying a c>1 integer condition: 927
           UNDISCHARGED integer conditions remaining: 0   nonzero atoms: 2
 |S|=2     c>1 conditions violated & repaired: 63 (over 60 rounds, 4 distinct atoms, all in the c>1 set: True)
           UNDISCHARGED integer conditions remaining: 1   nonzero atoms: 3
+|S|=17    c>1 conditions violated & repaired: 537 (over 60 rounds, 36 distinct atoms, all in the c>1 set: True)
+          UNDISCHARGED integer conditions remaining: 8   nonzero atoms: 10

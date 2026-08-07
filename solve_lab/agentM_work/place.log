@@ -1,0 +1,11 @@
+baseline score 39026, failing [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+10 demotable candidates: [11876, 11877, 11878, 11879, 20448, 20451, 20453, 23619, 23623, 36657]
+  extra=(): 36 cands -> 29 affine (1s)
+extra=() (new knobs [], 29 affine): best 39026 via None   [18s]
+  extra=(11876,): 37 cands -> 30 affine (1s)
+extra=(11876,) (new knobs [34600], 30 affine): best 39026 via None   [36s]
+  extra=(11877,): 37 cands -> 30 affine (1s)
+extra=(11877,) (new knobs [23642], 30 affine): best 39026 via None   [54s]
+  extra=(11878,): 37 cands -> 30 affine (1s)
+extra=(11878,) (new knobs [37413], 30 affine): best 39026 via None   [71s]
+  extra=(11879,): 37 cands -> 30 affine (1s)

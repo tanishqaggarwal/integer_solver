@@ -163,5 +163,20 @@
   "smt2_bytes": 46134,
   "encode_time": 1.05,
   "tmo": 300
+ },
+ "m12_int_free": {
+  "answer": "timeout",
+  "time": 300.3,
+  "stats": {},
+  "m": 12,
+  "logic": "int",
+  "pinned": false,
+  "n": 12,
+  "p": 3583,
+  "k": 599,
+  "constraints": 937,
+  "smt2_bytes": 45648,
+  "encode_time": 0.46,
+  "tmo": 300
  }
 }
