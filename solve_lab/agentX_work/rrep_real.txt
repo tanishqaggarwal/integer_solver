@@ -1,0 +1,6 @@
+DONE rot=0 range=[5,10) n=41107956 zero=0 44.9s
+DONE rot=0 range=[17,25) n=40623462 zero=0 45.7s
+DONE rot=0 range=[25,38) n=43591977 zero=0 46.6s
+DONE rot=0 range=[38,128) n=43949268 zero=0 50.1s
+DONE rot=0 range=[10,17) n=46798731 zero=0 50.1s
+DONE rot=0 range=[0,5) n=48495006 zero=0 51.1s

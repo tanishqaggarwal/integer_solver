@@ -93,3 +93,14 @@ outer 8: global nonzero 3, violated c-conditions 2, nonzero handle-less 1
      round 0: |group|=1 (1 exact) wires=1 new pairs=0
      folding in collateral: ['((x14047-x19324)-(3914361*x6389))']
      round 1: |group|=2 (1 exact) wires=2 new pairs=1
+     (x14047 ,x19965 ) |group|=2 200 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x2820-x17195)-(8271997*x17079))']
+     round 2: |group|=3 (1 exact) wires=3 new pairs=2
+     no addable collateral -- giving up on (x3178-(x13720*x21170))
+   *** FORCED exact step  x19965 += p*850093191878  zeroes (x3178-(x13720*x21170))  (unique root, recomputed); global 3 -> 3; wire FROZEN
+outer 9: global nonzero 3, violated c-conditions 3, nonzero handle-less 0
+   single-wire STALLED -> joint two-wire pass
+  atom ((x14047-x19324)-(3914361*x6389))  c=3914361
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x2820-x17195)-(8271997*x17079))']
+     round 1: |group|=2 (0 exact) wires=2 new pairs=1
