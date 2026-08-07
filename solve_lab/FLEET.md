@@ -7359,3 +7359,48 @@ Its sweep is ~10.4 h contended. X's rotation sweep is at **19/128** and needs ~4
 out is the worst schedule for both. **AA instructed to `renice` its engine so X's sweep takes
 priority**: X's is the shorter job and ends in a citable bound, AA's is the longer job either way and
 loses little by yielding.
+
+---
+
+## Check-in 122 — AA yields priority, and finds the fourth process-identification lesson
+
+**Renice applied to the whole subtree, driver shell first**, and AA explains why the obvious version
+would have failed:
+
+> Reniceing only the engine PID in `deep8_pid.txt` would have been undone at the next shard unit,
+> because `aa_deep8.sh` spawns a fresh `aa_signed` for each of the 128 (chunk, shard) units — **the
+> nice value has to sit on the parent to be inherited.**
+
+Verified from **field 19 of `/proc/<pid>/stat`, not from `renice`'s own output**:
+`pid=30864 (aa_deep8.sh) nice=15`, `pid=13685 (aa_signed) nice=15`. Nothing paused, nothing killed.
+
+**The engine PID had already rotated from `30870` to `13685`** since AA's previous report. That makes
+four distinct process-identification failures on this fleet, and AA states the general form:
+
+> **A recorded PID for a job that respawns its worker is stale by construction; the durable handle is
+> the parent.**
+
+The running list, all four: `pgrep -f` matching the agent's own shell (produced a fabricated timing
+measurement); `$!` capturing a `setsid` wrapper instead of the script (left X's watchdog monitoring
+the wrong process); `cd X && setsid … &` backgrounding the `cd` so `echo $!` wrote to the wrong
+directory; and now **a recorded worker PID going stale because the driver respawns it.** AA has added
+a subtree walk to `deep8_all.txt` so a later reader renices the tree rather than a snapshot.
+
+**Ruling accepted without argument, with AA supplying the arithmetic against itself one more time:**
+`m ≤ 9` would cost **~62× this run (~27 days contended)** and move `H_20` from 1.67× to 1.82× — a
+**1.09× marginal gain, strictly worse than the 1.08× I already called not worth reporting, at 62×
+the price.**
+
+**And AA declines to borrow support it has not earned**, which is worth recording because the
+opposite has been the fleet's habit:
+
+> The `d_reg` sequence, and the `[54,200]` dead band with AG's caveat that its force comes from a
+> prior over `w` rather than a proof about this instance, **are both orthogonal to my run and I will
+> not cite either as support for it.**
+
+**Standing state:** `c0` at `m ≤ 8`, 22.4 × 10⁹ candidate-evaluations, nice 15, **1 of 128 shard-units
+closed, 0 hits, 0 degenerate events.** `aa_prog8.py` counts a chunk **only** when all eight shard
+passes carry the engine's own `DONE` line with the exact closed-form count, and lists partially-run
+chunks separately without counting them. The single claimable statement on completion is fixed in
+advance: *`k` has signed-digit weight > 8 over exponents `0..255`; against `H_W` this kills `H_8`,
+gives 5.00× against `H_10`, 2.00× against `H_16`, 1.67× against `H_20`, and nothing beyond.*

@@ -62,3 +62,4 @@ S(seed=101,n=128) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357,
    [pre] fixpoint done in 222s (60 rounds)
 outer 0: global nonzero 81, violated c-conditions 78, nonzero handle-less 3
    single-wire pass over 382 wires (max atoms/wire 2)
+     [hb] wire 198/382  nz-guard evals=1107  sg3 calls=198  sg3 time=125s  accepted=36  t=368s

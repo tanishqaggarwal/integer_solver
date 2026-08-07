@@ -63,3 +63,4 @@ S(seed=101,n=255) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357,
 outer 0: global nonzero 155, violated c-conditions 149, nonzero handle-less 6
    single-wire pass over 697 wires (max atoms/wire 2)
      [hb] wire 158/697  nz-guard evals=647  sg3 calls=159  sg3 time=104s  accepted=34  t=698s
+     [hb] wire 275/697  nz-guard evals=2350  sg3 calls=275  sg3 time=281s  accepted=52  t=887s

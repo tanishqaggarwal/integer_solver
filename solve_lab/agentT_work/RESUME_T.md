@@ -1319,3 +1319,26 @@ leaves (510 = 254 + 256), `selmap` is one selector per OR node (254, not 256), a
 *prints* 3,707 (the probe count) while storing L's 3,681 census, a gap I had already reconciled
 myself as 3,707 − 33 + 7 = 3,681.  Rule 7 in the small: the numbers were wrong, the mirror was not.
 Current status: **22/22, 0 mismatches, exit 0.**
+
+## BG. PRE-REGISTERED: AF's prediction for `|S| = 192` and `250`, recorded BEFORE my runs landed
+> **AF's Theorem 5 predicts: `|S| = 192` and `|S| = 250` close at 39,018/39,033 with the same
+> 15-line footprint.**
+Recorded here, unread by my solver, before either run finished, so the comparison is a test and not
+a reading.  **Nothing in my pipeline is tuned toward it**: the ON-sets are fixed by seed at launch
+(`47` and `31`), the acceptance guards are unchanged (direct recomputation of every atom in the
+group, then a strict decrease in the global nonzero count), and the verdict is `checker.py` on the
+raw `EQUATIONS.txt` plus F's certified-faithful parse.  **If a run lands somewhere other than
+39,018 / 15 lines, that is the result and it gets reported as the result.**
+
+### BG1. Two operational repairs prompted by this
+* **Artefacts, not logs (`T38`).**  `close_T128.json` was **lost** when that process was killed
+  mid-round after 40 minutes — `close()` dumped only at the very end.  The closer now **dumps after
+  every outer round**, so any long run leaves a scorable `close_<tag>.json` whatever happens to it.
+  (`T250s31` and `T192s47f` were launched before this patch; they dump on normal termination.)
+* **The parser trap that caught U and AF does not reach this thread — checked, not assumed.**  My
+  closure code **peels no expression bodies**: the only `.split` calls are on a CLI argument and on
+  Python source at `if __name__`.  All atom structure comes from F's `circ4` parse (certified
+  faithful in audit T2) and L's engine, and the verdict is `checker.py` on the raw `EQUATIONS.txt`.
+  The failure signature AF describes — *254 of 383 gates collapsing to constant 0* — is also
+  directly asserted against by `t_verify_mirror.py` (383 model nodes, 254 internal OR nodes + 256
+  leaves, orient hist 188/67/128 DEAD, 256 pins / 0 bad); a collapse breaks four of those at once.

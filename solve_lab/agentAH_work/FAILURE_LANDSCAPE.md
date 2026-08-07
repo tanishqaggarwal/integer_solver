@@ -31,9 +31,11 @@ t_close2wj.close(S, ...)                 agentT_work/t_close2wj.py     (agent T,
 
 What I checked about it before trusting it:
 
-* **`M['live']` has exactly 256 members** and `M['dead']` 128.  A selector set `S ⊆ M['live']`
-  with `|S| = n` is the construction's stand-in for a weight-`n` key, so `|S|` and `w` are
-  the same axis.  `|S| = 255` and `|S| = 256` are both legal draws.
+* **`M['live']` has exactly 256 members** and `M['dead']` 128, and — checked against a source
+  outside T's model — the 256 values of agent X's `exp2sel` (exponent `i ∈ {0..255}` → selector
+  variable, in `agentX_work/xdata.json`, derived independently of `full_model.pkl`) are
+  **exactly** `M['live']`.  So `S ⊆ M['live']` with `|S| = n` is a weight-`n` key and
+  **`|S|` and `w` are the same axis.**  `|S| = 255` and `|S| = 256` are both legal draws.
 * **The guard is by direct recomputation, not by the fit.**  `nzcount` calls `relift` and a
   full `E.run`; `solve_group3` accepts a shift only if the *global* nonzero-atom count
   strictly decreases; `joint_pair` re-probes every atom in the group with `probe2` before

@@ -180,3 +180,11 @@ outer 8: global nonzero 13, violated c-conditions 9, nonzero handle-less 4
      *** (x8157 += p*855126917772 , x16384 += p*1482089796706) |group|=2  global 13 -> 12
 outer 9: global nonzero 12, violated c-conditions 8, nonzero handle-less 4
    handle-less pass: 4 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x10746*(x3494-2778267233628510002638332493989111029439  c=357055
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x50*x6702)-(6433193*x30378))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x3494  ,x6623  ) |group|=2 NO JOINT ROOT mod 71411 (sampled)
+     (x3494  ,x12821 ) |group|=2 NO JOINT ROOT mod 71411 (sampled)
+     (x3494  ,x25195 ) |group|=2 NO JOINT ROOT mod 71411 (sampled)

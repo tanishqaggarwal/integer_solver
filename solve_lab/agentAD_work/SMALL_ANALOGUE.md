@@ -29,9 +29,9 @@ Four findings, in the order of how much each one closes:
 2. **The congruence family does depend on `|S|`, but only through a per-live-block
    constant.** Live merge blocks number exactly `|S|−1` (closed form, checked against the
    count for every subset at every size: 0 mismatches). The closure rate behaves as
-   `ρ^{|S|−1}` with `ρ` a per-block constant, measured `0.66 … 1.00` (robust fit) across every
-   curve, size, tree shape, coefficient pool and draw tried — and **flat in `n`** over five
-   sizes, which is what §5 says it must be.
+   `ρ^{|S|−1}` with `ρ` a per-block constant, measured `0.55 … 1.00` (robust fit, 340 draws)
+   across every curve, size, tree shape, coefficient pool and draw tried — and **flat in `n`**
+   over five sizes, which is what §5 says it must be.
 
 3. **The ABSORBING-BLOCK THEOREM explains why, and caps how bad it can get.** If `A = i1−i2`
    is invertible modulo the block's small modulus `c`, the block's *own* output lifts can
@@ -47,10 +47,10 @@ Four findings, in the order of how much each one closes:
    closure-rate curve is **U-shaped, returning to 1.0000 at `|S| = n`.** Large `|S|` is the
    *easy* end.
 
-**Extrapolation to `n = 256`** (model validated first, see §6 — it predicts `Bmax` exactly in
-79 of 84 draws and to within 1 in all 84): taking the most constraining `ρ` seen anywhere and
-holding it fixed — which the size trend says is conservative — the implied bound is
-**`w ≤ 224`**. The free unconditional bound is `w ≤ 255` (AB §7). §8 needs `B ≲ 56` to beat
+**Extrapolation to `n = 256`** (model validated first, see §6 — over **340 draws** it predicts
+`Bmax` exactly in 74 % and to within 1 in 99.4 %): taking the most constraining `ρ` seen
+anywhere — including modulus pools chosen adversarially, four times more constraining than the
+real instance — and holding it fixed, the implied bound is **`w ≤ 205`**. The free unconditional bound is `w ≤ 255` (AB §7). §8 needs `B ≲ 56` to beat
 rho and `B ≲ 24` to be actionable. **It is short by ~170.**
 
 **What would have to be true instead** (§7): a bound `w ≤ 56` needs `ρ ≤ 0.093`, i.e. every
@@ -249,11 +249,37 @@ subset): `11,12,11,11,11,12` — **`n − Bmax ∈ {0,1}`.**
 
 At `n = 8` under stress, `Bmax ∈ {6,7,8}`, `n − Bmax ∈ {0,1,2}`.
 
-## 3.3 Tree shape and curve
+## 3.3 Adversarial modulus pools
+
+`ad_scale.py` was swept over pools chosen to make the discipline as tight as the family
+allows, all at `frac = 1.0`, `n = 8..14` exhaustive (`ad_scale_pools.log`):
+
+| pool | robust `ρ` (min over draws) | worst `n − Bmax` |
+|---|---|---|
+| `{2}` | 0.66 | 0–3 |
+| `{2,3}` | 0.67 | 0–3 |
+| `{4}` | 0.64 | 0–2 |
+| `{8}` | **0.55** | 4–5 |
+| `{2,4,8}` | 0.57 | 0–4 |
+| `{3,9}` | 0.55 | 1–3 |
+| `{2,3,5,7,11,13}` | 0.64 | 0–2 |
+
+**Concentrated small prime powers are the worst case; a wide pool is weaker,** because each
+condition draws only one modulus and a block is then rarely bound by all three. Nothing in the
+family reaches the `ρ ≤ 0.093` that §7 shows would be needed, and §5 says nothing can:
+`M = 2^k` binds only when `A` is even, so `ρ ≥ 1/2` however large `k` gets — which is exactly
+the 0.55 floor measured at `{8}`.
+
+## 3.4 Tree shape and curve
 
 Balanced vs skew-178:78 changes the individual numbers and nothing structural (both appear
 throughout §3.1–3.2; e.g. at `n = 8` stress, balanced `Bmax = 6..8`, skew `Bmax = 7..8`).
-Five curves per size at `n = 8,12,16`; the spread across curves is smaller than the spread
+
+**`j = 0` (CM by `√−3`, the real instance's class) makes no measurable difference**
+(`ad_report.py` §3): over 340 draws, `ρ` median **0.7881** on `j = 0` curves against **0.7980**
+on generic curves, with overlapping ranges. The real instance being `j = 0` is not what is
+holding §8 up.
+Five curves per size at `n = 8,12,16`, two at `n = 10,14`; the spread across curves is smaller than the spread
 across coefficient draws.
 
 ---
@@ -332,13 +358,14 @@ repair `A` (T3, `n = 12`, stress):
 independently per draw.)
 
 **Model validated on the measured points before being used** (`ad_report.py` §1): over
-**158 draws** spanning every configuration, curve, size and tree shape,
+**340 draws** spanning every configuration, curve, size, tree shape and modulus pool,
 
 ```
-model-Bmax - measured-Bmax = -1 :   3 draws ( 1.9%)
-model-Bmax - measured-Bmax =  0 : 144 draws (91.1%)
-model-Bmax - measured-Bmax = +1 :  11 draws ( 7.0%)
-|error| <= 1                    : 100% of 158 draws
+model-Bmax - measured-Bmax = -1 :  46 draws (13.5%)
+model-Bmax - measured-Bmax =  0 : 252 draws (74.1%)
+model-Bmax - measured-Bmax = +1 :  40 draws (11.8%)
+model-Bmax - measured-Bmax = +2 :   2 draws ( 0.6%)
+|error| <= 1                    : 99.4% of 340 draws
 ```
 
 That is the licence to extrapolate, and it is the only licence claimed.
@@ -351,14 +378,14 @@ outliers live.
 
 | `n` | draws | raw `ρ` min / med / max | **robust `ρ`** min / med / max | `n − Bmax` |
 |---|---|---|---|---|
-| 8 | 48 | 0.2657 / 0.7846 / 1.0612 | **0.6583** / 0.8163 / 1.0612 | 0–4 |
-| 10 | 16 | 0.9888 / 1.0196 / 1.0610 | **0.9748** / 1.0180 / 1.0610 | 0–0 |
-| 12 | 48 | 0.6853 / 0.7964 / 0.8858 | **0.7102** / 0.8173 / 0.8897 | 1–2 |
-| 14 | 16 | 0.6653 / 0.7711 / 0.8790 | **0.6653** / 0.8134 / 0.9072 | 1–3 |
-| 16 | 30 | 0.6688 / 0.7558 / 0.8877 | **0.6688** / 0.7838 / 0.9128 | 1–4 |
+| 8 | 93 | 0.2657 / 0.7756 / 1.0612 | **0.5450** / 0.8281 / 1.0612 | 0–4 |
+| 10 | 53 | 0.7797 / 0.9710 / 1.0610 | **0.7797** / 0.9378 / 1.0610 | 0–2 |
+| 12 | 100 | 0.6350 / 0.8024 / 1.0139 | **0.6493** / 0.8173 / 1.0139 | 0–3 |
+| 14 | 55 | 0.5494 / 0.7479 / 1.0180 | **0.5707** / 0.7723 / 1.0180 | 0–4 |
+| 16 | 39 | 0.6688 / 0.7980 / 1.0089 | **0.6688** / 0.8362 / 1.0089 | 0–4 |
 
-**`ρ` is flat in `n`** over five sizes — it is a per-block quantity, as §5 says it must be.
-`n − Bmax` stays in `0..4` while `n` doubles; it is not `c·n`, not `n/2`, not `n − c` with
+**`ρ` is flat in `n`** over five sizes and 340 draws — it is a per-block quantity, as §5 says
+it must be. `n − Bmax` stays in `0..4` while `n` doubles; it is not `c·n`, not `n/2`, not `n − c` with
 `c` growing, and nothing that reaches `n − 200`.
 
 **Extrapolation** (`ad_report.py` §4), taking the most constraining `ρ` observed *anywhere*
@@ -366,9 +393,9 @@ and holding it fixed — conservative, since the median is far higher:
 
 | `ρ` | implied bound at `n = 256` |
 |---|---|
-| **0.6583** (most constraining ROBUST fit anywhere) | **`w ≤ 224`** |
-| 0.6545 (5th percentile, raw) | `w ≤ 223` |
-| 0.7848 (median, raw) | `w ≤ 239` |
+| **0.5450** (most constraining ROBUST fit anywhere) | **`w ≤ 205`** |
+| 0.5762 (5th percentile, raw) | `w ≤ 211` |
+| 0.7980 (median, raw) | `w ≤ 241` |
 | ≈1.00 (typical at the real instance's `frac = 0.25`) | `w ≤ 256`, i.e. nothing |
 | *0.2657* (single raw outlier: one `n = 8` draw, 5-point fit, counts down to 1) | *`w ≤ 132`* |
 
@@ -378,8 +405,8 @@ and holding it fixed — conservative, since the median is far higher:
 still `2.4×` above the `w ≲ 56` needed for §8 to beat rho. Its robust re-fit is 0.66.
 
 The free unconditional bound is `w ≤ 255` (AB §7); the null puts `w ∈ [104,152]` with
-probability 0.998. **`w ≤ 224` is 12.0σ above the null mean: vacuous, and worse than agent Y's
-complement mechanism at `W = 32`.**
+probability 0.998. **`w ≤ 205` is 9.6σ above the null mean — it excludes a region of null mass ≈ `2^−100`,
+i.e. it is vacuous, and it is worse than agent Y's complement mechanism at `W = 50`.**
 
 > **How much three-to-five points can support — stated the way AB had to state `d_reg`.**
 > What is *measured* is: `ρ` is a per-live-block constant, flat over `n = 8..16`, and the
@@ -411,8 +438,11 @@ coefficient pool and draw — including settings **four times more constraining 
 instance** (`frac = 1.0` vs `927/3707 = 0.25`) — is **0.658** (robust fit; **0.266** for a
 single small-sample `n = 8` raw fit, which even taken at face value only reaches `w ≤ 132`);
 the sweep over adversarial modulus pools (`{4}`, `{8}`, `{2,4,8}`, `{3,9}`,
-`{2,3,5,7,11,13}`, all at `frac = 1.0`) pushes the robust minimum to about **0.55**, which
-implies `w ≤ 194` at `n = 256`.
+`{2,3,5,7,11,13}`, all at `frac = 1.0`) pushes the robust minimum to **0.545**, which implies
+`w ≤ 205` at `n = 256`.  Note which pools do it: **concentrated** small prime powers
+(`{8}`, `{3,9}`) are the worst case; a *wide* pool `{2,3,5,7,11,13}` is much weaker
+(`ρ ≈ 0.78–1.00`), because each condition then draws only one modulus and a block is rarely
+bound by all of them.
 
 **And there is a floor, from the theorem in §5.** A block is absorbing whenever `A` is
 invertible modulo its own modulus `M_b`, so
