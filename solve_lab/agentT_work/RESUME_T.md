@@ -738,3 +738,68 @@ coincidence:** `S` has **18 atom terms**, and M's enumeration exponent is also n
 ## AE. NEW FILES (eighth pass)
 `t_eq8680.py` (factorisation, affinity, derivatives, the modulus argument) ·
 `t_eq8680b.py` (18-term flatten; cross-check against F's parse; the x10422/x15120/x35531 link).
+
+=============================================================================================
+# NINTH PASS — agent N's detach exhaustion   [coordinator check-in 73]
+Auditing the largest **reported** row in my own ledger, per my own closing flag.
+
+## AF. N'S REDUCTION IS CONFIRMED — AND IT IS A PROOF, NOT AN ENUMERATION  (`t_detach.py`)
+N's claim: `make(D)` gives detached pool members their witness values; only 4 of the 65 pool
+variables have witness != gate, namely `{642, 28730, 29854, 31864}`; so detaching the other 61 is
+a no-op and the 2^65 lattice has exactly 16 states.  Checked in **F's certified-faithful parse**,
+not N's, via an identity N does not state:
+
+> a pool variable `v` is defined by an atom `(v - RHS)`, so
+> **`witness(v) != gate(v)` at the deliverable  <=>  that atom is NONZERO at the deliverable.**
+
+I already knew from audit T2 that F's parse has exactly **7** nonzero atoms there.  Measured:
+```
+   pool size 65; all 65 have an identifiable defining atom (xV - RHS)
+   defining atom NONZERO at the deliverable:  x642, x28730, x29854, x31864   -- exactly 4
+   equals N's witness set exactly?  TRUE
+```
+**The other 61 have their defining atom zero, so re-attaching them is a no-op at the witness state.**
+
+### AF1. The gap N's argument leaves, and it closes
+"No-op at the witness state" is *not* the same as "no-op at all 16 states": if a non-witness pool
+variable's RHS depended on a witness variable, its gate value would change when that witness
+variable is re-attached, and the lattice could exceed 16.  N does not address this.  Measured:
+```
+   of the 61, DIRECTLY referencing a witness variable                    : 0
+   of the 61, reaching one transitively WITHIN the pool                  : 0
+   of the 61, reaching one anywhere in the FULL definition DAG (30,001)  : 0
+```
+> **Zero, over the whole instance.**  The 61 gate values are independent of `D`, so `make(D)`
+> depends only on `D & {642,28730,29854,31864}`.  **The 2^65 detach lattice has exactly 16 states
+> by proof, and the 16 measured `(R,b)` signatures are complete by construction rather than by
+> having happened to be reached.**  N's conclusion — OPT = 5 for all 16, best 39,026, axis closed —
+> stands on a reduction that is now verified from an independent parse.
+The row is promoted in LEDGER.md from *reported* to *T verified independently*.
+
+## AG. THE 924/924 p-OBSTRUCTION IS **NOT** O'S LEMMA — and N got there first
+The coordinator's hypothesis was that N's `924/924 obstruction denominator divisible by p` might
+be measuring O's `S = 0`, making the two results one.  **It does not, and N had already
+established why** (RESUME_N, "O's Lemma confirmed, and it is a SECOND obstruction, not mine"):
+* `T = 0` already holds at the witness;
+* **eq8680 is exactly the one equation that detaching `x_28730` buys** — so O's Lemma *is* the
+  39,025 -> 39,026 step, which is a much sharper statement than "the same result twice";
+* the witness region **excludes 8680**, so the 924/924 p-obstruction is independent of it;
+* in the 13-row region, max rows zeroable subject to 8680 being zeroed is **0**, so the knobs
+  cannot reach `T = 0` at all and detaching `x_28730` is the only route.
+Nothing for me to correct.  Cross-link worth recording: `x_28730` is simultaneously one of N's 4
+witness variables, one of the h-wires in L's cancellation set, and the variable entering O's `S`
+at `dS/dx_28730 = -1`.  **Three threads are describing one wire.**
+
+### AG1. ONE ACTIONABLE ITEM FOR N
+N writes `eq_terms[8680] = (1, True, [(1, 37887)])` and "`optN.inner` returns the inner form,
+never its square, so my model already carried `T`".  Per my eighth pass the nesting is **two
+levels deep — the equation is `S^4`, not `S^2`** — so an `inner` that strips **one** level yields
+`S^2`, which I measured to be **non-affine in all 43 of its variables**, not the linear form.
+* If N only uses the zero locus, nothing changes: `S^2 = 0 <=> S = 0`, and N's conclusions hold.
+* If N **linearises** that row anywhere, it is linearising a quadratic.  **Strip twice.**
+This is the "wrong number, right result" pattern again — flagging it as a code note, not a defect
+in N's conclusion.
+
+## AH. NEW FILES (ninth pass)
+`t_detach.py` (65-pool witness/gate check in F's parse; full-DAG independence of the 61).
+Reproduce: `cd solve_lab/agentT_work && python3 t_detach.py`.

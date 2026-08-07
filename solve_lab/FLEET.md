@@ -4090,3 +4090,63 @@ including N's own.
 *T is auditing N's detach exhaustion concurrently — specifically the reduction that only 4 of 65
 pool variables differ from their gate values. Both are live, so a disagreement can be settled
 rather than left standing.*
+
+---
+
+## Check-in 75 — the first blocker is fixed, a second binds, and L names the pattern
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### The structural fix worked
+
+```
+structural influence map: 1901 wires, mean 1.4 c>1 atoms/wire, max 3
+```
+
+Built once from `vars_of`/`atomvalvars` with no probing. **The 130 s/wire cost is gone**, and the
+groups are tiny — **max 3 atoms on any wire** — so the grouping fix is as cheap as predicted.
+
+### But a second bottleneck binds, and the first fix multiplied it
+
+`rootset_pp` computes the **full** root set by enumerating `t` over `q^e`. For a large prime modulus
+(`c = 5930437`, `c = 6672769`) that is ~6M `peval` calls at 30–60 s each — and the fix calls it
+**once per atom per wire, including every `keep` atom.** **So fixing the first blocker multiplied
+the second rather than relieving it.** `close_*.json` is empty; **`|S| = 2` has not even completed.**
+
+**L's fix, and it is the right shape regardless of cost:** never enumerate a `keep` atom's root set.
+Enumerate the **violated** atom's only (one large-prime enumeration, unavoidable), then **test** each
+`keep` atom per candidate by evaluating its fitted polynomial — O(1) instead of O(q^e). Per-wire cost
+goes from `(#atoms × q^e)` to `(q^e + #candidates × #atoms)`. Also cache `fit(vv,i,w)` per
+(atom, wire), currently recomputed every outer round.
+
+### L names the pattern, and the next round is shaped around it
+
+> *"I have been estimating costs from the structure of the algorithm instead of measuring them
+> before launching."*
+
+Three rounds have ended in a performance problem rather than a result, **and the second was caused
+by L's own fix to the first.** L stated both plainly rather than explaining either away.
+
+**Next round: measure first, launch second.** Implement the fix; then run **`|S| = 2` alone,
+timed**, as the control — it must reproduce **T's 39,018 with exactly 2 nonzero atoms**, dumped and
+checked — and **report the wall-clock number before launching anything else.** Only if that number
+makes the rest affordable, run `|S| = 3, 5, 8`; **if not, report the measured cost and stop.** A
+measured *"this approach costs X per configuration and X is too large"* closes the line honestly; a
+fourth round of estimating does not. **Treated as the last round on this line unless the timing says
+otherwise.**
+
+### What is solid, and what L is explicit about not having
+
+**Solid, independent of the sweep:** the structural influence map, the component sizes `[1, 1]`, and
+the path-dependence of the residual pair — **which killed L's own bivariate claim and confirmed T's
+diagnosis.** S6h marked superseded in place.
+
+**Explicitly not established, in L's own words:** there is **no `|S| = 3/5/8` data**; *"does the
+integer lift close for small |S| only, or generally?"* is **unanswered**; `|S| = 2` remains the only
+ON-set beyond a single leaf verified closed over ℤ — **and that verification is T's, not L's.**
+Second time this session L has written down what its own work does not establish.
+
+> **Position: the placement side has closed** (M exhaustively priced 4,096 subsets, witness unique
+> at support 4), **O's Lemma survived audit and is precisely the 39,025 → 39,026 step**, and **N has
+> shown re-orientation *is* detachment**, so its detach closure already covered that axis.
+> **The integer lift is the last thing genuinely open.**

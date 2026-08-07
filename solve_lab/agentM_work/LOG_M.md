@@ -1271,3 +1271,52 @@ fleet; the wall-clock rate was roughly a fifth of that. `enumsub16.pkl` checkpoi
 `enumsub12.log`, `enumsub16.log`. `ieng.py` held interruptible for L's `solve_group`.
 **No subset anywhere exceeded 39,026, so no assignment was written and there was nothing to
 verify with `checker.py`.**
+
+## 79. A claim of mine, now PROVEN — and it was not quite what I said
+Round 13 asserted "the other 29 subsets scoring 39,026 are all supersets of the witness".
+The by-size counts were *consistent* with that but did not establish it, and at |W|=6 only 21
+of the 28 supersets reached 39,026, so the neighbouring claim "supersets win" was already
+false. `verifysup.py` records the actual winning subsets over the complete 2^12 space:
+
+    30 subsets score >= 39026
+      supersets of the witness : 30
+      NOT supersets            :  0
+    CLAIM VERIFIED
+
+    |W|=4:  1 winner  of  1 superset at that size   <- the witness, unique
+    |W|=5:  8 winners of  8 supersets                <- every superset wins
+    |W|=6: 21 winners of 28 supersets                <- SEVEN supersets LOSE
+
+So the exact statement is two-sided and only one side is monotone:
+
+> **Every subset that attains 39,026 contains the witness** (verified exhaustively over 2^12),
+> **but containing the witness does not guarantee 39,026** -- at support 6, seven of the
+> twenty-eight supersets fall below it. Breaking an extra relation is not free even when the
+> witness's four are among those broken.
+
+That is a stronger and more useful fact than "30 optima", and it is now proven rather than
+inferred from counts.
+
+## 80. 2^16 by support size — |W| = 0..6 COMPLETE
+Reporting per size as each completes, per instruction. `H16` = the p-handles incident to T's
+12-equation far side.
+
+    |W|   status     subsets      best    count@best
+      0   COMPLETE        1      39008        1
+      1   COMPLETE       16      39010        1
+      2   COMPLETE      120      39022        1
+      3   COMPLETE      560      39023        1
+      4   COMPLETE    1,820      39026        1     <- witness, UNIQUE at its size here too
+      5   COMPLETE    4,368      39026       12
+      6   COMPLETE    8,008      39026       56
+      7   partial    ~7,100/11,440           39026
+
+**Nothing above 39,026 anywhere.** The uniqueness at |W|=4 now holds over the wider 16-handle
+set, not just the 12: of 1,820 four-element supports, exactly one reaches 39,026.
+
+Throughput note, as asked, without projecting a finish: script rate ~62-107/s, wall-clock
+roughly a fifth of that under fleet contention (load ~10 on four shared cores). Sizes 7 and 8
+are the bulk (11,440 and 12,870). 2^18 not started, per instruction to finish 2^16 first.
+
+Naming: I use **|W|** for subset size throughout. O/T's `S` is the 18-term linear form whose
+fourth power is the eq8680 atom; my enumeration exponent is also 18. Different 18s.

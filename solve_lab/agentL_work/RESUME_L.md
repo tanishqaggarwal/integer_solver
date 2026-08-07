@@ -559,6 +559,34 @@ already in memory) instead of probing: wire -> [atoms mentioning it].  Probing i
 needed to confirm a nonzero derivative on the handful of surviving candidates.  With that change
 the |S| = 3, 5, 8, 17 sweep is minutes, not hours.
 
+--------------------------------------------------------------------------------------------
+## 6k. STRUCTURAL MAP FIXED THE FIRST BLOCKER; A SECOND ONE IS NOW THE BINDING COST (`closeS2.py`)
+The influence map is now built once, structurally, from `vars_of`/`atomvalvars` — no probing:
+
+    structural influence map: 1901 wires, mean 1.4 c>1 atoms/wire, **max 3**
+
+So the groups are tiny and the S6i fix is cheap, exactly as predicted.  **The 130 s/wire probing
+cost is gone.**
+
+**But the sweep still does not finish, and the reason is a DIFFERENT bottleneck: `rootset_pp`.**
+It computes the FULL root set by enumerating `t` over `q^e`.  For a large prime modulus
+(c = 5930437, c = 6672769) that is ~6M `peval` calls, ~30-60 s — and the S6i fix now calls it
+**once per atom per wire, including every `keep` atom**, so the cost multiplied rather than fell.
+
+**THE FIX, AND IT IS THE RIGHT SHAPE ANYWAY.**  Never enumerate a `keep` atom's root set — for
+those we only need to TEST a candidate, not enumerate.  So:
+    1. enumerate the root set of the VIOLATED atom only (one large-prime enumeration, unavoidable);
+    2. for each candidate t in it, TEST every `keep` atom by evaluating its fitted polynomial —
+       O(1) per test instead of O(q^e);
+    3. first t passing all tests wins; then the existing direct-recomputation guard.
+That turns the per-wire cost from (#atoms x q^e) into (q^e + #candidates x #atoms).  Also cache
+`fit(vv,i,w)` per (atom,wire) — it is recomputed many times across the outer rounds.
+
+**STATUS OF THE QUESTION THIS WAS MEANT TO ANSWER:** still open.  I have **no |S| = 3/5/8 data**,
+so "does the integer lift close for small |S| only, or generally?" is unanswered.  |S| = 2
+remains the only ON-set beyond a single leaf verified closed over Z (by T, `39018/39033`,
+2 nonzero atoms = the target congruences).
+
 ## 7. FILES (all in `agentL_work/`)
 Code: `trace.py ortree.py ortree2.py census.py wire.py link.py crux.py onset.py fail7.py
 handles.py handles2.py exp1.py model.py model2.py calib.py fold.py fold2.py global.py
