@@ -82,3 +82,31 @@ alpha0 + 7376877*alpha6 = x7068 - x2099 - 7376877*p*x17325, so
 At AG_39013 and mod9118_0 BOTH residues are exactly 0 -- because in the canonical frame
 x7068 = 7376877*x642 + x2099 and x28730 = p*x9413 are GATE IDENTITIES.  So C1/C2 are the
 price of the 39,026 frame, not an arithmetic obstruction of the instance.
+
+## Independent test of the ECDLP hypothesis (curve_test/ec_test/curve2/curve3/ladder/motif/kmeas)
+* 2,817 large literals, all distinct residues mod p.  Over ALL 2817^2 ordered pairs the
+  maximum multiplicity of b = Y^2 - X^3 is **1**.  Against specific curves: y^2=x^3+b1 has
+  exactly ONE literal pair (which is (x12186,x16742) itself); y^2=x^3+7 has ZERO; the
+  x-shifted versions (s = K, K/3, -K/3 from the measured addition offset) have ZERO.
+  => "the 512 conditional-pin constants lie on y^2 = x^3 + b" is NOT supported by the file.
+* The pinned point (x12186, x16742) lies on y^2 = x^3 + b1 with
+  b1 = 16469404786402603598127746642812631771238817117136746083575784224822817945026.
+  b1/7 is a square but NOT a cube mod p, so the curve is a CUBIC twist of secp256k1 and is
+  NOT isomorphic to it.  Its group order is
+  N' = 115792089237316195423570985008687907853031073199722524052490918277602762621571
+     = 109903 * 12977017 * 383229727 * 211853322379233867315890044223858703031485253961775684523
+  **COMPOSITE**, verified by m*G = O for exactly that one of the six j=0 orders.
+  So "prime group order" is refuted for the curve the instance's pinned point lives on.
+  (The 188-bit prime factor still leaves a DLP infeasible, so this is not an attack.)
+* No point chain: any evaluated state contains only 92-98 distinct residues above 2^200,
+  and the maximum b-multiplicity over their pairs is 2 (chance level).  A 256-step ladder
+  would need hundreds of distinct coordinates -- though a ladder with all selectors off
+  would also show nothing, so this is evidence, not proof.
+* Measured addition offset at AG_39013:
+  K = lam^2 - x1 - x2 - x3 = 9941218437270274411588837402253980960504855302801171729868401674372857777188.
+* My two congruences are NOT the ECDLP: C1 <=> (x7068-x2099) mod p, C2 <=> x28730 mod p,
+  and BOTH residues are exactly 0 at AG_39013 and mod9118_0 because in the canonical frame
+  x7068 = 7376877*x642 + x2099 and x28730 = p*x9413 are gate identities.  C1/C2 are the
+  price of detaching two gates in the 39,026 frame.
+* The lever is not selector-bit freedom: measured costs x6418 = 13 (moves alpha0 by exactly
+  -1), x7068 = 13, x28730 = 16, vs selector bits x4287 = 38 and x2081 = 109.

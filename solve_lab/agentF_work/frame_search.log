@@ -24,3 +24,6 @@ add A23331  rows=16 sat= 9 nfail= 7  t=41s  (x35619-(x24490*x33168))
 skip A23332 (too many rows)
 skip A35885 (too many rows)
 add A35886  rows=16 sat= 9 nfail= 7  t=39s  ((x1956*x23318)-(8235511*x29305))
+add A35887  rows=15 sat= 8 nfail= 7  t=32s  (x1844-(x19530*x21574))
+add A35888  rows=14 sat= 7 nfail= 7  t=18s  ((x1956*x17065)-x1844)
+best nfail 7

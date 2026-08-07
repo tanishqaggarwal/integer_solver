@@ -1,50 +1,54 @@
-# Agent A — RESUME (exact integer linear algebra / lattice angle)
+# Agent A — RESUME (exact integer linear algebra / lattice)   [FINAL]
 
-## Best verified score: 39,026  — file: solve_lab/agentA_work/A_best_39026.json
-(byte-identical to the lab baseline; re-verified with solve_lab/checker.py -> 39026/39033,
+## Best verified: 39,026 — solve_lab/agentA_work/A_best_39026.json
+Identical to the lab baseline; re-verified with solve_lab/checker.py (39026/39033,
 failing [12231,12270,12350,14584,18673,22044,29125]).  I did not beat it.
 
-## Re-entry
-```
-cd solve_lab/s9 && python3 atomize.py && python3 poly.py && python3 gates.py && python3 fwd.py   # caches are NOT in git
-cd ../agentA_work
-python3 enl.py            # enlargement table (the headline)
-python3 exhaust.py 6      # exhaustive code supports of the region  -> supports.json
-python3 exh6.py           # exact HNF over every <=6 violation set
-python3 gmax2.py 1 120 <state.json>   # generic regional max-satisfy for any state
-python3 regsolve2.py / zsolve.py / diag2.py / tgrow2.py   # region model, HNF, decompiler
-```
+## Re-entry (the s9/*.pkl caches are gitignored and were MISSING — rebuild first)
+cd solve_lab/s9 && python3 atomize.py && python3 poly.py && python3 gates.py && python3 fwd.py
+cd ../agentA_work && python3 enl.py ; python3 model31.py ; python3 full31.py 6
 
-## Established (my own computation, exact, no floating point)
-1. **The residual region is an exactly-affine model.** `regsolve2.py` picks knobs so every
-   region atom is affine in them (<=1 knob per monomial), so no equation is approximated.
-2. At the 39,026 witness: region 33 atoms / 39 eqs, +a37887,+a41906 -> 35/41, 22 knobs.
-   The whole affine system is **Q-CONSISTENT with rank = #knobs**, so it has a UNIQUE
-   rational solution W, and W is non-integral in exactly 5 coordinates with denominators
-   x642:2458959, x1329:p, x9413:p, x10903:p, x17325:p*2458959.
-   => the region's full-solve conditions are exactly
-   **7376877 | (x7068-x2099), p | x9118, p | x8731, p | x28730.**
-3. **Enlarging the movable variables does NOT weaken the bound** (the question I was set):
-   freeing x9118, x8731, x2099, x7068 (54 atoms / 20 knobs / 110 eqs) and the targeted
-   growth to 55 knobs / 514 eqs both keep rank == #knobs and the SAME five denominators.
-   In the enlarged region ISD (48k trials) finds **no code support of weight <= 6 at all**,
-   so every integer knob vector violates >= 7 rows there.  Enlargement makes it stronger.
-4. Exhaustive support enumeration of the 22-knob region (`exhaust.py`, information-set
-   argument, provably complete): min support 5; 11,628 weight-5 and 27,303 weight-6
-   supports, verified real over Q.  `exh6.py` tests all 193,971 admissible <=6 violation
-   sets by mod-p filter + exact HNF.  [see runs/exh6.log for the verdict]
-5. **New census**: 1,562 atoms carry a private variable, **326 with granularity 1** (fully
-   free atom value).  The lab's s10/handles.py saw only 1,249 (free inputs only, all
-   p-quantised).  None of the 326 lies in the twelve residual equations.
-6. **mod9118_0 (39,009) decompiled exactly**: its entire residual is
-   a21617 = c1*x14623 + c2*x27522 (mod p) and a29539 = 25692874*(x14853 - x1308) (mod p);
-   x14623 and x14853 are FREE INPUTS and neither is in the other's cone (`cone2.py`).
-   Shifting them zeroes both residues mod p but costs heavily downstream (38,975, exp1.py).
+## THEOREM (exhaustive, exact, no floating point)
+Region of the 39,026 residual = 35 atoms / 41 equations / 22 knobs, chosen so every atom is
+AFFINE in the knobs (regsolve2.pick_knobs: <=1 knob per monomial).  a37887 is a perfect
+square, a37887 = Q^2 with Q affine, so eq 8680 is one more affine row -> 31 nontrivial rows.
+  rank(N) = 22 = #knobs and the FULL 31-row system is Q-CONSISTENT: a UNIQUE rational
+  solution W, non-integral in exactly 5 coordinates (denominators 2458959, p, p, p,
+  p*2458959).  Hence every integer point's violated set must contain a code support.
+  Exhaustive information-set enumeration: minimum support = 6, 38,760 supports of weight 6,
+  none smaller.  All 38,760 admissible <=6 violation sets fail mod-p consistency.
+  ==> >= 7 violated for every integer knob vector; 7 attained.  39,026 EXACTLY OPTIMAL here.
+Enlarging the movable set does not weaken it: freeing x9118, x8731, x2099, x7068
+(54 atoms / 20 knobs / 110 eqs) and targeted growth to 55 knobs / 514 eqs keep
+rank == #knobs and the SAME five denominators; in the enlarged region ISD (48k trials)
+finds no support of weight <= 6 at all.
 
-## Highest-value next experiment
-Break C2 by moving x28730 off its residue mod p while holding a37887 = 0.  a37887 is a
-CHECK in ONE equation (8680), it is quadratic in the knobs, and EIGHT region variables
-(x950,x6947,x9629,x15120,x23754,x33168,x35619,x28730) have a37887 as their ONLY external
-atom.  My linear model deliberately drops eq 8680; solving the affine 39-row system jointly
-with the single quadratic a37887(delta) = 0 (Groebner/resultant in <=8 variables) is the one
-place in this region where the lockstep rank argument does not apply.
+## The obstruction, exactly
+Reachable alpha (the seven atom values) = { alpha1 = K2 (mod p) } and
+{ alpha0 + 7376877*alpha6 = C0 (mod p) }; 12 rows of rank 7 -> all 12 need alpha = 0 mod p.
+Breaking one congruence buys exactly 1 equation (39,027); breaking both gives 39,033.
+Sharpened:  C1 <=> (x7068 - x2099) mod p ;  C2 <=> x28730 mod p.
+Both are GATE IDENTITIES of the canonical frame (x7068 = 7376877*x642 + x2099,
+x28730 = p*x9413) and are exactly 0 at AG_39013/mod9118_0 — so they are the price of the
+39,026 frame, not an arithmetic obstruction of the instance.
+Full-solve conditions of the region: 7376877 | (x7068-x2099), p | x9118, p | x8731, p | x28730.
+Measured levers (frame-2 ripple): x6418 = 13 (moves alpha0 by exactly -1), x7068 = 13,
+x28730 = 16, x4287 = 38, x2081 = 109; nine zero-cost generators
+(x9118,x8731,x642,x29854,x31864,x1329,x10903,x9413,x17325).
+
+## Curve findings (independent)
+b1 = 16469404786402603598127746642812631771238817117136746083575784224822817945026 from the
+pinned point (x12186,x16742); b1/7 square but not cube -> cubic twist, NOT secp256k1;
+group order N' = 109903*12977017*383229727*211853322379233867315890044223858703031485253961775684523,
+COMPOSITE.  Over all 2817^2 literal pairs the max multiplicity of b = Y^2-X^3 is 1;
+zero literal pairs on y^2=x^3+7 or on x-shifted versions.  Measured addition offset
+K = 9941218437270274411588837402253980960504855302801171729868401674372857777188.
+
+## Single highest-value next experiment
+The 39,026 basin is closed.  Attack the CANONICAL basin with the same machinery: at
+mod9118_0 the whole residual is a21617 = c1*x14623 + c2*x27522 (mod p) and
+a29539 = 25692874*(x14853 - x1308) (mod p), with x14623 and x14853 FREE INPUTS and neither
+in the other's cone.  Run `full31`-style exhaustive coset decoding on THAT region
+(76 atoms / 65 knobs / 98 eqs, only two non-integral knobs x5040, x30163) instead of the
+39,026 region — it is the only region found whose obstruction is 2 congruences rather than
+2 congruences plus a rank-7 wall.

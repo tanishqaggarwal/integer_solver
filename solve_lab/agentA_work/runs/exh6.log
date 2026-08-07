@@ -1,2 +1,3 @@
 rows=30 knobs=22 code supports loaded=38931 (sizes [(5, 11628), (6, 27303)])
 candidate violation sets of size <=6: 193971
+DONE: 193971 candidates, 0 passed mod-p filter, 0 integral

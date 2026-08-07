@@ -5,3 +5,9 @@ bit x47     ninc=0 nzc=0 nres=9 oncurve=None AB=None D=None
 bit x91     ninc=0 nzc=0 nres=8 oncurve=None AB=None D=None
 bit x112    ninc=0 nzc=0 nres=9 oncurve=None AB=None D=None
 bit x438    ninc=0 nzc=0 nres=10 oncurve=None AB=None D=None
+bit x490    ninc=0 nzc=0 nres=12 oncurve=None AB=None D=None
+bit x542    ninc=0 nzc=0 nres=8 oncurve=None AB=None D=None
+bit x853    ninc=0 nzc=0 nres=8 oncurve=None AB=None D=None
+bit x1203   ninc=0 nzc=0 nres=8 oncurve=None AB=None D=None
+
+--- pair tests ---
