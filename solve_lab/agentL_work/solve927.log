@@ -11,3 +11,26 @@ atoms with exactly 1 handle: 3681 of 9032
   round 0: 8 stuck
      SOLVED c=15194385  deg=1 wire x16419  t=5518125    (1s, verified exactly)
      SOLVED c=3849267   deg=3 wire x36106  t=3476715    (0s, verified exactly)
+     SOLVED c=6672769   deg=3 wire x14853  t=3804150    (59s, verified exactly)
+     SOLVED c=10696593  deg=3 wire x23238  t=9491529    (16s, verified exactly)
+     SOLVED c=10353929  deg=3 wire x28246  t=2404745    (1s, verified exactly)
+     SOLVED c=2264251   deg=1 wire x21589  t=1795161    (0s, verified exactly)
+     SOLVED c=10937191  deg=1 wire x23238  t=4804020    (0s, verified exactly)
+     SOLVED c=13040669  deg=1 wire x10261  t=2640296    (0s, verified exactly)
+  round 1: 3 stuck
+     SOLVED c=10696593  deg=3 wire x23238  t=5892573    (15s, verified exactly)
+     SOLVED c=2264251   deg=3 wire x10261  t=541431     (0s, verified exactly)
+     SOLVED c=5930437   deg=1 wire x28246  t=3525692    (12s, verified exactly)
+  round 2: 3 stuck
+     SOLVED c=10353929  deg=2 wire x9776   t=1890710    (0s, verified exactly)
+     SOLVED c=10937191  deg=1 wire x23238  t=5044618    (0s, verified exactly)
+     SOLVED c=13040669  deg=1 wire x10261  t=12499238   (0s, verified exactly)
+  round 3: 3 stuck
+     SOLVED c=7942211   deg=1 wire x9776   t=6051501    (12s, verified exactly)
+     SOLVED c=10696593  deg=3 wire x23238  t=9217506    (12s, verified exactly)
+     SOLVED c=2264251   deg=3 wire x10261  t=178366     (0s, verified exactly)
+  round 4: 3 stuck
+     SOLVED c=10353929  deg=2 wire x9776   t=4302428    (1s, verified exactly)
+     SOLVED c=10937191  deg=1 wire x23238  t=1719685    (0s, verified exactly)
+     SOLVED c=13040669  deg=1 wire x10261  t=12862303   (0s, verified exactly)
+  round 5: 3 stuck

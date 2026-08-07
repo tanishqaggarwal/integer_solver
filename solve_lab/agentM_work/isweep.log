@@ -1,0 +1,3 @@
+pool 102, total 4-subsets 4,249,575
+calibration: 39008 -> 39026  PASSED
+reference: deliverable 39026 (7 failing) ; cofactors zeroed 39021 (12 failing)

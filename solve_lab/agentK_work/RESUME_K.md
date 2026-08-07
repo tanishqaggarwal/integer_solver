@@ -29,7 +29,7 @@ global-atom version and only covered the target pins.) Sweep of everything in th
 | support recovery (`k20` inflated → `k36` corrected) | no | **SAFE**, use `k36` |
 | variable classification (`k25`) | no | **SAFE** (regex bug separately fixed) |
 | equation-footprint / site-cost table (`k27`, §5) | no | **SAFE** — pure incidence |
-| §2 fold validation table (`k26`, `bside.log`) | **yes, unguarded** | **RE-RUN** → `k43.log` |
+| §2 fold validation table (`k26`, `bside.log`) | **yes, unguarded** | **STILL UNVALIDATED** — see the failed generalization below |
 | provenance back-cone (`k29`) | yes, partial | **INCOMPLETE** — my `ABOVE` set omitted `x608`/`x22978`, which is exactly the pass-through path that was doing the backward driving. The "no backward flow" conclusion was scoped too narrowly. |
 | "what is B" (`k31`) | yes, partial | **SUSPECT** — re-run before citing |
 | divergence localizer (`k34`) | yes | **UNUSABLE** as written (also uses inflated supports) |
@@ -39,6 +39,28 @@ global-atom version and only covered the target pins.) Sweep of everything in th
 | slot cost in equations (`k41`) | yes, partial | **RE-RUN** → `k44.log` §C |
 | TEST 1 / TEST 2 (`k37`) | yes, partial | **RETRACTED** — see below |
 | handles absorb over Z, 0 conflicts (`k9`) | **yes, unguarded** | **SUSPECT** — integer cascade, never re-run with a guard. Cited in §6 as a load-bearing fact; treat as unverified. |
+
+#### The global forward guard FAILED. Do not read `k43.log` / `k43b.log` as a result.
+
+I added a per-variable guard to `CascadeP.close` (`pin={var: atom}`, restricting a wire to its
+own pin) and built the pin map by regex over residual-shaped atoms — 1,278 wires pinned.
+**Guarded: 0 / 18 halves match. Unguarded: 6 / 18.** The guard made it strictly worse, and it
+broke `ON=[0]` — a *single leaf, pure pass-through*, which matched before. A guard that breaks
+the simplest case is a broken guard.
+
+Diagnosis, so the next attempt does not repeat it: in `((xW-xZ)-xH)` I assumed `W` is the slot
+and `Z` the mux source. That is true for the four root slots (which is why the **targeted**
+4-wire guard in `k42` worked and converted `ON={e0,e1}` to a match) but **not** in general —
+where the roles are reversed, pinning `W` blocks the wire's real source. Restricting pins to
+free variables changed nothing (all 1,278 were already free), so that was not the cause either.
+
+**The 0/18 says nothing about the instance.** The correct pin map has to come from the decoded
+slot→source direction (`MUX.source_of`), not from atom shape. Until then:
+
+> **The fold evaluator is NOT validated end to end.** The verified points remain: single leaves
+> on both halves, A-half 2- and 3-leaf folds, and `ON={e0,e1}` under the targeted root guard —
+> all with the *unguarded or partially guarded* closure, i.e. exactly the tool this audit says
+> to distrust. §4's premise is **unrefuted but not established**, and I could not upgrade it.
 
 **Rule I should have been applying, now stated: the score counts equations, so price in
 equations.** My TEST 2 failure was counting atoms; §5's table was already in equations and I

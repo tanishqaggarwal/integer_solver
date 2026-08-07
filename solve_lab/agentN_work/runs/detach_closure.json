@@ -1,0 +1,257 @@
+[
+ {
+  "D": [],
+  "R": 13,
+  "knobs": 8,
+  "rank": 8,
+  "z0": 0,
+  "opt": 5,
+  "outside": 0,
+  "failing": 8,
+  "score": 39025,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   642
+  ],
+  "R": 13,
+  "knobs": 8,
+  "rank": 8,
+  "z0": 0,
+  "opt": 5,
+  "outside": 0,
+  "failing": 8,
+  "score": 39025,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   28730
+  ],
+  "R": 12,
+  "knobs": 7,
+  "rank": 7,
+  "z0": 0,
+  "opt": 5,
+  "outside": 0,
+  "failing": 7,
+  "score": 39026,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   29854
+  ],
+  "R": 13,
+  "knobs": 8,
+  "rank": 8,
+  "z0": 0,
+  "opt": 5,
+  "outside": 0,
+  "failing": 8,
+  "score": 39025,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   31864
+  ],
+  "R": 13,
+  "knobs": 8,
+  "rank": 8,
+  "z0": 0,
+  "opt": 5,
+  "outside": 0,
+  "failing": 8,
+  "score": 39025,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   642,
+   28730
+  ],
+  "R": 12,
+  "knobs": 7,
+  "rank": 7,
+  "z0": 1,
+  "opt": 5,
+  "outside": 0,
+  "failing": 7,
+  "score": 39026,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   642,
+   29854
+  ],
+  "R": 13,
+  "knobs": 8,
+  "rank": 8,
+  "z0": 0,
+  "opt": 5,
+  "outside": 0,
+  "failing": 8,
+  "score": 39025,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   642,
+   31864
+  ],
+  "R": 13,
+  "knobs": 8,
+  "rank": 8,
+  "z0": 0,
+  "opt": 5,
+  "outside": 0,
+  "failing": 8,
+  "score": 39025,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   28730,
+   29854
+  ],
+  "R": 12,
+  "knobs": 7,
+  "rank": 7,
+  "z0": 0,
+  "opt": 5,
+  "outside": 0,
+  "failing": 7,
+  "score": 39026,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   28730,
+   31864
+  ],
+  "R": 12,
+  "knobs": 7,
+  "rank": 7,
+  "z0": 0,
+  "opt": 5,
+  "outside": 0,
+  "failing": 7,
+  "score": 39026,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   29854,
+   31864
+  ],
+  "R": 13,
+  "knobs": 8,
+  "rank": 8,
+  "z0": 0,
+  "opt": 5,
+  "outside": 0,
+  "failing": 8,
+  "score": 39025,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   642,
+   28730,
+   29854
+  ],
+  "R": 12,
+  "knobs": 7,
+  "rank": 7,
+  "z0": 1,
+  "opt": 5,
+  "outside": 0,
+  "failing": 7,
+  "score": 39026,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   642,
+   28730,
+   31864
+  ],
+  "R": 12,
+  "knobs": 7,
+  "rank": 7,
+  "z0": 2,
+  "opt": 5,
+  "outside": 0,
+  "failing": 7,
+  "score": 39026,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   642,
+   29854,
+   31864
+  ],
+  "R": 13,
+  "knobs": 8,
+  "rank": 8,
+  "z0": 1,
+  "opt": 5,
+  "outside": 0,
+  "failing": 8,
+  "score": 39025,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   28730,
+   29854,
+   31864
+  ],
+  "R": 12,
+  "knobs": 7,
+  "rank": 7,
+  "z0": 0,
+  "opt": 5,
+  "outside": 0,
+  "failing": 7,
+  "score": 39026,
+  "exh": true,
+  "lin": true
+ },
+ {
+  "D": [
+   642,
+   28730,
+   29854,
+   31864
+  ],
+  "R": 12,
+  "knobs": 7,
+  "rank": 7,
+  "z0": 5,
+  "opt": 5,
+  "outside": 0,
+  "failing": 7,
+  "score": 39026,
+  "exh": true,
+  "lin": true
+ }
+]

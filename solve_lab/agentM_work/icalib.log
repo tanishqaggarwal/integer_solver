@@ -1,0 +1,31 @@
+shared baseline: score 39008, 25 failing, 5 bad atoms
+
+=== G1: deliverable from its four handles ===
+  freed [642, 7068, 28730, 29854, 31864]
+  score 39026  fails [12231, 12270, 12350, 14584, 18673, 22044, 29125]  nbad 8  vars differing 0   (0.00s)
+  G1 PASSED
+
+=== G2: the three CLI-agreeing points ===
+  deliverable                  -> 39026  expect 39026  OK
+  deliverable + x_4287=1       -> 39000  expect 39000  OK
+  deliverable + x_17378=1      -> 38961  expect 38961  OK
+  G2 PASSED
+
+=== G3: T's calibration (12 cofactors zeroed) ===
+  score 39021 (expect 39021)  failing 12 (expect 12)  list match True
+  G3 PASSED
+
+=== G4: incremental == full engine3 forward ===
+  full 39000  incremental 39000  vars differing 0  atoms identical True
+  G4 PASSED
+
+=== G5: tune() recovers 39,026 from the shared baseline ===
+  base 39008 -> 39026  (0.02s, 25 rows, 5 knobs)
+  G5 PASSED
+
+=== G6: timing on GENERAL 4-subsets (the slow case) ===
+  25 general 4-subsets, mean 0.025s/site
+  old engine measured ~0.4s/site only for SHARED-demotion sites, and 1-2 orders slower for general ones
+  projected C(102,4)=4,251,930 sites: 29.8 core-hours, 7.4 h on 4 cores
+
+ALL GATES PASSED

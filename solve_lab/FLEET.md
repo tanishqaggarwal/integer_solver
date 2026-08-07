@@ -3271,3 +3271,96 @@ that does.**
 **M's standing price table:** deliverable 39,026 (7) · cofactors zeroed 39,021 (12) · 98 five-handle
 supersets best 39,026 (89 exactly equal) · 12-coordinate lattice raw/reduced 38,999 / 38,992 ·
 O's δ₀ best of 12 interpretations 38,998.
+
+---
+
+## Check-ins 58–60 — the eq8680 Lemma is unconditional; two bundling artifacts caught
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### CORRECTION, at agent S's explicit request
+
+Check-in 54 recorded S's `p·ℤ²` lattice and the 927 conditions as "the same obstruction seen from
+two sides." **S asked that this be under-claimed rather than inherited, and it is right.** S did not
+test the correspondence, its `p·ℤ²` result is **cfg0-local**, and it recorded the hand-off and the
+927 in its own file as *"reported to me and NOT verified by me"*. **The corrected form: S's lattice
+and the 927 are PLAUSIBLY the same obstruction; nobody has verified it.** If the two-sided reading
+is wanted, someone must verify it rather than inherit it. S's stated reason is worth keeping: it
+would rather its file under-claim than have its lattice result laundered into support for something
+it never measured.
+
+### O — `eq8680 = T²` is an unconditional lemma, and O refused the easy parse
+
+O was about to conclude "there is no other atom to compensate with" from H's parse, where `eq8680`
+has **exactly one term**. **It cross-checked against E's independent parser first and found the same
+equation as 20 terms with `issq = True`.** The one-term view was a **bundling artifact**; claiming
+the theorem from it would have rested on a parser's grouping choice.
+
+> **`eq8680 = T²`**, `T` a **linear form in 20 atoms** (coefficients `1, 6, 15, −21, −13, −13, 25,
+> 1, 25, 28, 1, −4, 23, −5, −5, 20, −27, 35, 17, −14` in E's numbering). **A square has a single
+> zero locus, so every satisfying assignment has `T = 0`.** Unconditional — no knob set, no frame,
+> no divisibility. `a23618 = x_4432 − x_19964 − x_28730` enters with coefficient **exactly +1**,
+> `dT/dx_4432 = +1`, `dT/dx_28730 = −1`, zero elsewhere, so **`T = 0` is `δx_4432 = δx_28730`** —
+> killing precisely the direction δ₀ needed.
+
+**The trade table is now a scoped theorem.** With `K` = (the 15 free inputs reaching any nonzero
+region atom) ∪ (the 26 carriers of `T`), `|K| = 34`: **every assignment agreeing with the witness
+outside `K` satisfies at most 39,026 equations.** 190 equations in scope, all 7 failures reachable,
+175 exactly-affine rows, zero-collateral nothing buyable at any size. **O closed a gap in its own
+test**: requiring every satisfied row to hold is not what a net gain needs, so it priced **pay 1 →
+no pair buyable; pay 2 → no triple or quadruple. The trade is exactly 1-for-1 and cannot be
+leveraged.**
+
+**Model exactness verified before trusting a negative from a linear model:** a 5-point probe
+(t = 1,2,3,5,7) finds precisely the same 7 non-affine checks as the 2-point probe, **none missed**;
+the 16 dropped rows all contain one of those checks and none currently fails, **so dropping them is
+permissive and the negative is strictly stronger.**
+
+**Scope, kept:** 34 of 8,751 free inputs, frame B's orientation, Test B budget-capped at k = 3–4
+against single extra payments. **The one door O left open, and its next task: a deliberately
+budgeted multi-atom compensation among `T`'s other 19 atoms**, named explicitly in the Lemma file.
+
+### Q — §15 ruled: partial restoration, and a new gate found while measuring it
+
+**The ruling, and the reasoning is sound.** The six programs are **negative** results of the form
+"no k in family F has kG = T". The implication they need runs assignment ⟹ scalar, and **every step
+of it — leaves, chord gadgets, quadrant muxes, the tree, the hand-off — is a point identity mod p**.
+The 927 sit on the **converse**, existence direction. **So the ℤ gap does not touch the negatives,
+and mod p is exactly the modulus they needed.**
+
+**But measuring it exposed an assumption Q had never checked**, and its own earlier "every atom in
+1 equation" figure was **an artefact of `gates.jsonl` being deduplicated**: **47,198 distinct atom
+terms across 39,033 equations**, mean **11.5 per equation**, **82.7% of atoms in ≥2 equations**,
+8,166 in exactly one. More columns than rows ⟹ null space dimension **≥ 8,165** in that
+decomposition. **So the six programs move from group-model-only to instance-level conditional on
+atom-forcing** — stronger than §15 left them, weaker than unconditional.
+
+**Cross-model fact routed to Q, which may close the new gate outright:** in **F's** decomposition the
+39,033 × 39,033 incidence matrix has **rank 39,033, ker = 0**, by three independent computations,
+**and T re-verified the certificate from cold and ran the faithfulness test nobody had** — exact
+list equality against `checker.evaluate_all` at 10 points. So in F's decomposition all-atoms-zero
+**is** an equivalence. Q's 47,198 is a finer, non-deduplicated decomposition, and T has separately
+shown the kernel is model-dependent across the lab's **five** atom counts (39,033 / 39,277 / 40,727 /
+40,885 / 42,267). **Q has been asked to reconcile against F's parse before treating atom-forcing as
+open** — if the terms deduplicate to F's atoms the gate is already closed; if they genuinely do not,
+that is a significant finding about F's model.
+
+**Q's cheap follow-up, now tasked:** the deliverable's 7 failing equations contain 20, 8, 24, 20, 3,
+2 and 15 atoms; **only eq 22044 contains singleton atoms**, and in the other six **every atom occurs
+in 6–15 equations**. A single nonzero atom there would generically break many equations, yet only 7
+break — so either the nonzero atoms are very few and concentrated, or **compensation between atoms
+is already happening in the lab's best assignment.** That bears directly on the scoring frame, which
+treats the atom as the unit of failure.
+
+**Two agents caught the same class of bundling artifact in the same round, independently, and both
+caught it before it propagated into a claim** — O against E's parser, Q against its own
+deduplicated file.
+
+### S — line closed and consolidated
+
+Final sweep: **28 of 48 image points analysed, 26 other-rows-infeasible, 2 solvable, both blocked,
+0 solved — 93% starvation, 2 independent test cases, unchanged from before the search.**
+`RESUME_S.md` (562 lines) now opens with a four-part header — what stands, what was retracted and
+why, the repeat-counting pattern named as S's own across all three instances with the rule stated
+(*check for repeats before reporting any rate — state what makes two data points independent before
+counting them*), and status with the reopening note. **All `dirsearch` workers stopped; cores freed.**
