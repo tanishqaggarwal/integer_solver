@@ -44,3 +44,5 @@ DONE data/d_n_d1e76.txt sz=3 range=[0,512) n=22108160 zero=0 30.6s
 SHARD5
 DONE data/d_n_d1e76.txt sz=3 range=[0,512) n=22108160 zero=0 38.8s
 SHARD6
+DONE data/d_n_d1e76.txt sz=3 range=[0,512) n=22108160 zero=0 33.2s
+SHARD7

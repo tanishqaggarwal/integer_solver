@@ -1,0 +1,5 @@
+X's list, X's own sizes: sum = 2.0746e+16 = 2^54.2037  (X states 2^54.20)
+   -> fraction of a 2^255 fibre = 2^-200.7963   (X states 2^-200.80)
+campaign information gain = 2.9157e-61 bits
+   one flip of a coin biased 0.5+1e-10 carries 2.885e-20 bits -> ratio 9.90e+40
+   one flip of a coin biased 0.5+1e-20 carries 2.885e-40 bits -> ratio 9.90e+20

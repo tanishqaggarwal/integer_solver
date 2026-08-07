@@ -6636,3 +6636,102 @@ with a reason.
 
 **Live: T, AA, AC, AD, AE, AF, AG, AH, AI.** Detached compute owned by AI: `rotall.sh` (3/128) and
 `d_reg(4)` PID 6881.
+
+---
+
+## Check-in 113 — AG breaks Theorem B; the barrier is **stronger**, not weaker
+
+AG was spawned with one job: break Theorem B or fail honestly. **Theorem B is false in its exact
+stated form and both headline numbers are wrong.** The qualitative claim survives in a corrected
+form that is *stronger* than AB's. Artefact: `agentAG_work/THEOREM_B_AUDIT.md`, 64 KB, no processes
+launched, no shared table touched.
+
+### Attack 1 — covering codes: **FAILS**, and AG bounds how much it could ever have bought
+
+This was my nominated gap and it is closed. AG priced **rectangles**, not balls:
+
+> Because the exponents are distinct powers of two, `k = k_H·2^128 + k_L` holds **over ℤ with no
+> carries**, so `wt(k) = wt(k_H) + wt(k_L)` exactly, and every MITM — ball, code, or design —
+> certifies exactly a combinatorial rectangle `A × B`. **Balls sharing an `A` merge for free, so the
+> model already contains the amortisation.**
+
+Floor by subadditivity: `total ≥ Σ√zᵢ ≥ √(Σzᵢ) ≥ √Z`, **indifferent to overlap or code structure**;
+re-derived independently from generic-query counting (ruling out `Z` scalars needs `m ≥ √(2Z)`) with
+no rectangles in it at all. **AB sits ≤ 2^2.66 above that floor across `B ∈ [120,251]`.** A perfect
+certifier moves break-even 148 → **136** and crossover 106 → **118**: the dead band narrows from
+`[107,147]` to `[119,135]` and **does not close.**
+
+Two structural reasons the coding intuition never transferred, both worth keeping: the `256!`
+coordinate symmetry of `{wt > B}` is **not an algorithmic symmetry** (the `2^i·G` are unrelated
+points), and HGJ/BCJ dies for a stronger reason than AB gave — even with `k₀ mod M` free, a
+**group-element filter is testable but not enumerable**.
+
+### Attack 2 — the quantifier: **SUCCEEDS**
+
+Not every search-based upper bound covers `{wt > B}`. **You can search `{wt ≤ B}` instead; a hit
+certifies `w ≤ B`.** AB's model **overprices that by up to 2^98** (at `B = 20`: AB 2^128 vs actual
+2^50.3). So AB's round-2 line *"the gap is ≤ 2^3 everywhere, nothing large is left on the table"* is
+**false outside `B ≥ 128` — the only range AB tabulated.** Kangaroo/interval methods are a second
+non-covering certifier, 2^63 below AB's curve at `t = 128` on the hit branch.
+
+**What rescues the conclusion is success probability, not cost** — a hypothesis ("zero-error,
+correct for every `w`") that appears **nowhere in AB's statement**. AG's repair is a **trichotomy**
+plus a unified law:
+
+> **cost of deciding `[w ≤ B]` = Θ(√min(|{w ≤ B}|, |{w > B}|))** — which matches Theorem D at *every*
+> `B`, not just at `B = 128`.
+
+**The one genuinely uncovered gap, named precisely:** a **non-generic algebraic certificate** is
+excluded by neither theorem — B prices coverings, D excludes the encoding. And **certificate *size*
+is never the barrier**, since `k₀` is itself a 256-bit certificate; only *finding* cost matters. That
+is exactly the `d_reg` question, which has been measured at `n = 2, 3` only — and whose `n = 4` value
+is running as PID 6881 under AI.
+
+### Attack 3 — memory: **SUCCEEDS. This is the number the campaign must change.**
+
+`B = 148` and `w = 106` come from **the unbounded-memory column AB itself struck through in round 3.**
+AB fixed the reach table and **never propagated the fix to the break-even.** In AB's own model (vOW,
+rho at 2^126.533):
+
+> **At 2^30 memory the break-even is `B = 201`, crossover 52, dead band `[53, 200]`.**
+
+**The barrier is far stronger than published.** AG attached the caution itself, unprompted: AB's
+struck round-1 break-even was 198, **numerically near 201 for unrelated reasons — coincidence, not
+vindication.** AB's §8 payoff table also still runs the retracted `C(256,B/2)` model.
+
+### Arithmetic audit — three further defects, all conservative in AB's favour
+
+- **`rep(W)` is exactly 2× too large for every odd `W`** — proved (the twin central binomials are
+  equal), 0 exceptions over `W = 1..255`, and `1/rep` cross-checked against 200k measured splits at
+  `n = 32`. Moves crossover 106 → 109 and break-even 148 → 145.
+- **The `W = 256` self-certificate cannot fail.** For any model of the form `rep·Vol₁₂₈(⌈W/2⌉)` with
+  `rep(256) = 1`, it returns 2^128 identically because `Vol₁₂₈(128) = 2^128`. **This is the vacuous-plant
+  failure mode, in the fleet's own flagship certificate** — the exact pattern I had warned AG about,
+  found in the place nobody thought to look.
+- **Zero-error proofs cost more than charged:** `rep` is the Las Vegas *expectation*; a deterministic
+  splitting system is required. The 128 cyclic windows work for every `W` (discrete IVT, verified
+  exhaustively at `n = 12, 14, 16`), so AB underprices by ≤ 2^3.7.
+- **`cover(B) = 2^128.000 exactly for all `B ≤ 148` — the curve is flat.** There is no cliff at 148;
+  the whole family costs within **2^1.47** of solving.
+- **Disk, measured rather than assumed:** **4.9×10³** random 4 KiB reads/s under `O_DIRECT`, against
+  AB's asserted 10²/s — **2^5.6 off**; honest slowdown 2^14.3–2^17.6, not 2^20. And free space is
+  **11.5 GB, not 30 GB** → 2^28.4 entries, **fewer than RAM**. Both numbers in AB's sentence are
+  wrong and **the conclusion hardens.**
+- Re-check of AB's S3 reach table: **all 35 cells match**, including `w ≤ 14` at 2^47/2^30 and
+  `w ≤ 52` at rho.
+
+### The four load-bearing hypotheses, ranked
+
+1. **Zero-error** — drop it and the theorem is **false**.
+2. **Unbounded memory** — drop it and the conclusion **strengthens** (`B = 201`).
+3. **"Ball covering"** — cosmetic; replaceable by rectangles at a profit.
+4. **Hamming-only / no coordinate-ring exploitation — the real uncovered gap.**
+
+**§8 remains rank 1 and is untouched by any of this.**
+
+### Routing
+
+`UPPER_BOUND_MAP.md` §S2 and §S3 are **superseded on these points** and must not be cited without
+`THEOREM_B_AUDIT.md` beside them. AB has been resumed to adjudicate — concede or rebut, item by item
+— because AG's findings are now themselves an unchallenged headline, and on this campaign that has
+been the reliable predictor of an error.

@@ -92,6 +92,7 @@ def run_kangaroo(tag, Q, R, threads=2, kpt=1024, dpbits=None, log2max=None,
             res['done'] = line
             for kv in line.split()[1:]:
                 k, v = kv.split('=')
+                if k == 'cands': k = 'ncands'
                 try: res[k] = float(v) if '.' in v else int(v)
                 except ValueError: res[k] = v
     if not quiet:

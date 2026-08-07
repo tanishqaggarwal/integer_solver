@@ -104,23 +104,39 @@ def is_const(n):
         return None if v is None else -v
     return None
 
+def chain_step(rhs):
+    """A written chain step is always `(const)*(ATOM)` (or a bare constant).
+    Anything else means we have reached the LEADING summand, which may itself be
+    a subtraction -- peeling into it is the over-decomposition bug (agent U, §7).
+    Returns (coef, atom) or None."""
+    k = is_const(rhs)
+    if k is not None:
+        return (k, ('c', 1))
+    if rhs[0] == '*':
+        k = is_const(rhs[1])
+        if k is not None:
+            return (k, rhs[2])
+        k = is_const(rhs[2])
+        if k is not None:
+            return (k, rhs[1])
+    if rhs[0] == 'neg':
+        s = chain_step(rhs[1])
+        if s is not None:
+            return (-s[0], s[1])
+    return None
+
 def peel_sum(node):
     """Return list of (coef:int, atomAST) reading the left-deep '+' chain.
-    A summand c*(X) contributes (c, X); a bare summand X contributes (1, X)."""
+    Peeling STOPS at the leading summand: only `(const)*(ATOM)` right operands
+    are chain steps."""
     out = []
     cur = node
     while cur[0] in ('+', '-'):
         sign = 1 if cur[0] == '+' else -1
-        rhs = cur[2]
-        k = is_const(rhs)
-        if k is not None:
-            out.append((sign * k, ('c', 1)))
-        elif rhs[0] == '*' and is_const(rhs[1]) is not None:
-            out.append((sign * is_const(rhs[1]), rhs[2]))
-        elif rhs[0] == 'neg':
-            out.append((-sign, rhs[1]))
-        else:
-            out.append((sign, rhs))
+        st = chain_step(cur[2])
+        if st is None:
+            break
+        out.append((sign * st[0], st[1]))
         cur = cur[1]
     k = is_const(cur)
     if k is not None:

@@ -1,0 +1,75 @@
+====================================================================================================
+0. STRUCTURE, re-verified here
+====================================================================================================
+p prime                                              True   
+N prime                                              True   => the ONLY subgroups are {O} and E(F_p); no small-index subgroup can exist
+p == 2^256-2^32-977                                  True   
+a == 0  (j-invariant 0, Aut = mu_6)                  True   
+G on curve                                           True   
+T on curve                                           True   
+N*G == O                                             True   
+N*T == O                                             True   
+T != O and T != G                                    True   
+b/7 is a 6th power mod p                             True   => F_p-isomorphic to secp256k1
+
+====================================================================================================
+1. SUBGROUP / ORDER TESTS
+====================================================================================================
+order(T) == N (forced: N prime, T != O)              True   
+T has no small-index subgroup to live in             True   N prime: index of <T> is 1
+b is a QR mod p (i.e. order-3 points exist)          False   must be False since 3 does not divide N
+
+====================================================================================================
+2. AUTOMORPHISM TESTS (Aut(E) = mu_6 since j = 0)
+====================================================================================================
+zeta_3^3 == 1, zeta_3 != 1                           True   
+T fixed by some NON-TRIVIAL automorphism             False   impossible unless x(T)=0 or y(T)=0
+x(T) == 0                                            False   
+y(T) == 0                                            False   
+found (beta, lambda) with [lambda]P == (beta x, y)   True   
+verified on 5 ladder points                          True   
+lambda^3 == 1 mod N                                  True   
+
+(section 3 -- the two 2^20 reachability sweeps -- is in ac_point2.py,
+ which uses inversion-free Jacobian arithmetic)
+
+====================================================================================================
+4. IS x(T) or y(T) A SPECIAL INTEGER?
+====================================================================================================
+x(T) bit length                                      255   (p is 256 bits)
+x(T) popcount                                        130   (uniform: 128 +- 8)
+x(T) NAF weight                                      87   (uniform: ~85.3)
+x(T) is a perfect square (over Z)                    False   
+x(T) is a perfect cube (over Z)                      False   
+  |x(T) - 0| < 2^40                                  False   distance = 2^254.06
+  |x(T) - p| < 2^40                                  False   distance = 2^255.57
+  |x(T) - 2^255| < 2^40                              False   distance = 2^253.94
+  |x(T) - 2^256| < 2^40                              False   distance = 2^255.57
+x(T) < 2^40 (i.e. a small integer)                   False   
+x(T) is a power of two                               False   
+y(T) bit length                                      245   (p is 256 bits)
+y(T) popcount                                        123   (uniform: 128 +- 8)
+y(T) NAF weight                                      92   (uniform: ~85.3)
+y(T) is a perfect square (over Z)                    False   
+y(T) is a perfect cube (over Z)                      False   
+  |y(T) - 0| < 2^40                                  False   distance = 2^244.67
+  |y(T) - p| < 2^40                                  False   distance = 2^256.00
+  |y(T) - 2^255| < 2^40                              False   distance = 2^255.00
+  |y(T) - 2^256| < 2^40                              False   distance = 2^256.00
+y(T) < 2^40 (i.e. a small integer)                   False   
+y(T) is a power of two                               False   
+
+====================================================================================================
+5. MISCELLANEOUS CHEAP DISTINGUISHERS
+====================================================================================================
+x(T) is a QR mod p                                   False   (50/50 under any model; recorded, not evidence)
+y(T) is a QR mod p                                   False   (50/50)
+y(T) is the even root (y < p/2)                      True   
+T == -G                                              False   
+T == G                                               False   
+gcd(x(T), p) != 1                                    False   
+x(T) == y(T)                                         False   
+
+====================================================================================================
+SUMMARY: number of tests that HIT (i.e. found structure):
+  structural hits: NONE

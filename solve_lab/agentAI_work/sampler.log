@@ -1,0 +1,4 @@
+21:28:43 availMB=9801 aaMB=11275 xMB=5853 rotdone=6 sharddone=36 rotall(30892)=alive dreg(6881)=alive load=15.60
+21:30:43 availMB=11208 aaMB=11275 xMB=4444 rotdone=7 sharddone=42 rotall(30892)=alive dreg(6881)=alive load=20.56
+21:32:44 availMB=11617 aaMB=11275 xMB=4041 rotdone=8 sharddone=48 rotall(30892)=alive dreg(6881)=alive load=17.25
+21:34:35 availMB=10490 aaMB=11275 xMB=5159 rot=8 shards=48 hits=0 A(30892)=alive B(6881)=alive dregRSSmb=2972 memAvailMB=11198 load=16.78

@@ -1,0 +1,16 @@
+jacobian engine == affine engine for c = 1..299   OK
+target x-set |{zeta^j x(T)}| = 3    |{zeta^j x(G)}| = 3
+(x-coordinate equality covers BOTH signs, since x(-P) = x(P))
+   ... cG vs T c=200000
+   ... cG vs T c=400000
+   ... cG vs T c=600000
+   ... cG vs T c=800000
+   ... cG vs T c=1000000
+T in { +- zeta^j (c G) : c <= 2^20 } : NO
+   ... mT vs G c=200000
+   ... mT vs G c=400000
+   ... mT vs G c=600000
+   ... mT vs G c=800000
+   ... mT vs G c=1000000
+G in { +- zeta^j (m T) : m <= 2^20 } : NO
+T in the 1536-point orbit { +- lambda^j 2^i G } : False

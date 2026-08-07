@@ -121,30 +121,7 @@ if lam is not None:
     rec("lambda^3 == 1 mod N", pow(lam, 3, N) == 1)
 
 print()
-print("=" * 100)
-print("3. IS T REACHABLE FROM G BY Aut x TINY SCALAR?")
-print("=" * 100)
-LIMIT = 1 << 20
-# the 6 automorphism images of T all have x in {Tx, beta*Tx, beta^2*Tx}
-xs_T = {Tx % p, beta * Tx % p, beta * beta % p * Tx % p}
-tbl = {}
-P = None
-hit = None
-for c in range(1, LIMIT + 1):
-    P = add(P, G)
-    if P is None: continue
-    if P[0] in xs_T:
-        hit = c
-        break
-rec("T in { +-zeta^j * (c G) : j<3, c <= 2^20 }", hit is not None,
-    "" if hit is None else "HIT at c=%d" % hit)
-rec("  (this subsumes T = +-G, +-lambda G, +-lambda^2 G)", True)
-# the 1536-point orbit +- lambda^j 2^i G
-orb = False
-for i in range(256):
-    Q = mul(2**i, G)
-    if Q[0] in xs_T: orb = True
-rec("T in the 1536-point orbit {+- lambda^j 2^i G}", orb)
+print("(section 3 -- the two 2^20 reachability sweeps -- is in ac_point2.py,\n which uses inversion-free Jacobian arithmetic)")
 
 print()
 print("=" * 100)
@@ -175,16 +152,6 @@ rec("T == G", T == G)
 # does x(T) divide or relate to p trivially?
 rec("gcd(x(T), p) != 1", math.gcd(Tx, p) != 1)
 rec("x(T) == y(T)", Tx == Ty)
-# small-scalar multiples of T equal to G ?  T = G/m  <=> m T = G
-hit2 = None
-Q = None
-for m in range(1, 1 << 20):
-    Q = add(Q, T)
-    if Q is not None and Q[0] == Gx:
-        hit2 = m; break
-rec("m*T == +-G for some m <= 2^20", hit2 is not None,
-    "" if hit2 is None else "HIT m=%d" % hit2)
-
 print()
 print("=" * 100)
 print("SUMMARY: number of tests that HIT (i.e. found structure):")
