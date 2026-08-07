@@ -27,7 +27,7 @@ Everything here is stated as integer / polynomial linear algebra over `EQUATIONS
 ## Score status
 - Deliverable re-verified by me with `solve_lab/checker.py`: **39,026 / 39,033**,
   failing `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`. CONFIRMED.
-- Nothing of mine beats it yet. No new best assignment written.
+- Nothing of mine beats it. No new best assignment written. FINAL.
 
 ## My independent model (do not redo)
 - `parse.py` -> `atoms.pkl` : 39,033 equations, **40,885 distinct atoms**. Each equation
@@ -226,19 +226,39 @@ python3 cancel.py         # the exact cancellation optimum for the deliverable's
 python3 beam.py           # support search (needs the faster solvability test, see below)
 ```
 
-## THE GAP — the reason this experiment matters
-"All atoms zero" is **sufficient** for all 39,033 equations but **not necessary**: every
-equation is an integer combination of 3-24 atoms, **1,853 atoms occur in exactly one
-equation**, and the deliverable itself carries 9 nonzero atoms. Every optimality
-argument this campaign has produced — mine included — is computed inside the
-all-atoms-zero branch. The cancellation formulation above is the probe of what is
-outside it.
+## THE GAP — CLOSED (see the top of this file)
+It said: "all atoms zero" is sufficient but not necessary, so every optimality argument
+here — mine included — lived inside one branch. **Agent F's `dim ker(M) = 0` closes it:
+the branch is the whole problem.** Kept here because the reasoning that raised it is what
+led to the computation that settled it.
 
-## Single highest-value next step
-`beam.py` is correct but too slow: `intsolve.solve_int` (column HNF) suffers coefficient
-blow-up on the 300-bit entries. Replace the solvability test with (i) a fraction-free
-Bareiss rank test over Q as a fast filter, then (ii) the Smith-normal-form integrality
-test only on the survivors, and test directly for "can we fail <= 6" by enumerating the
-**sacrificed** set of size <= 6 rather than searching from the top. Then run the support
-search over all atoms adjacent to `E(S)`, and in particular look for a compensator for
-**eq8680** whose own equations are already inside `E(S)`.
+## Reproduce
+```
+cd /home/user/integer_solver/solve_lab/agentI_work
+python3 parse.py && python3 poly.py && python3 dag.py   # caches, ~1 min
+python3 model.py ../best/new_instance_partial_39026.json # exact score, 0.1 s
+python3 prop.py            # Z propagation from empty: 5,624 forced, 0 conflicts
+python3 boolscore.py wit   # 1 s mod-p re-solve -> the 3 violated atoms
+python3 cancel.py          # exact cancellation optimum for the deliverable's support
+python3 exact.py           # exhaustive proofs that minfail >= 7 (6 supports)
+python3 cascade.py         # 1,817 atoms absorbed at zero equation cost, still 7 knobs
+python3 cascade_rand.py 8  # the closure is canonical: 8/8 seeds identical
+python3 eq8680.py          # complete knob-group census for eq8680
+python3 hunt.py 240        # prioritised eq8680 compensator hunt (singles then pairs)
+```
+`beam.py` is superseded by `search.py`/`hunt.py` and can be ignored.
+
+## Status: FINAL
+Best verified score reached by anyone here, re-verified by me with `solve_lab/checker.py`:
+**39,026 / 39,033**, failing `[12231,12270,12350,14584,18673,22044,29125]`. I produced
+nothing above it and wrote no new assignment. Given `dim ker(M) = 0`, a full solution
+requires all atoms exactly zero, which my propagation reduces to two explicit polynomial
+expressions having to vanish mod p under a 256-bit boolean selector choice — nothing in
+my measurements gives a handle on that choice.
+
+## If someone resumes this
+The one thing I could not cover: atom vectors realisable only through simultaneous moves
+of many circuit variables. My knob parameterisation is realisable by construction but
+local; my global re-solves reach that space but land at cost >= 13 equations. A method
+that is both global and exact — not greedy — over that space is the only unexplored
+direction I can name honestly.

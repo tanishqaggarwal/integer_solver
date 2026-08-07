@@ -251,3 +251,38 @@ residual, else we are back in the frozen situation.
 Using it leaves T = {a39032, a20409, a31575}, |R| ~ 19 => far worse than 7.
 
 VERDICT: no improvement.  39026 stands.  Nothing new written to best/.
+
+## CONFINED-KNOB CENSUS — the category is large, the route is still closed
+CORRECTION TO MY OWN LAST REPORT: "x_24453 is the only confined knob" was a
+scan-width artifact, not a structural fact.  I had scanned only the 60 cheapest pins.
+Widening (jpins2.py, restricted forward-AD per candidate -- releasing a pin is just
+seeding der[v]=1 and refusing to let v's definer overwrite it, so no DAG rebuild is
+needed) scans all 1946 defined movers:
+
+    CONFINED KNOBS IN THE WHOLE INSTANCE: 83.
+
+Verification discipline kept: that census is FIRST-ORDER, and a constraint with zero
+derivative can still move at second order (atoms are degree 2).  jpins3.py re-tests
+each candidate with actual finite perturbations (deltas 1, 2, 7 and two random GF(q)
+values, full re-propagation, all constraints evaluated).  40 of 40 cheapest survive
+exactly, so here the derivative census was sound -- but it was checked, not assumed.
+
+Cost structure: x_24453 (pin a39032) is uniquely cheap at 1 equation; the next
+cheapest confined pin costs 10.  They come in tight families -- a4795-a4799,
+a12151-a12154, a29698-a29702, a35445-a35449, a638-a641 -- but each family has |R|
+14-16 over only 4-5 members, i.e. |R|-|T| ~ 10-11 against the deliverable's 5.
+
+ACCOUNTING (jtriple2.py, after correcting jtriple.py, which had credited |T|<3 with
+degrees of freedom it does not have).  Let S be the residual constraints left violated
+and K the pins broken; zeroing the other 3-|S| consumes 3-|S| dof, so |K| >= 3-|S| and
+    weight >= max( alone(K u S),  |R(K u S)| - (|K| - (3 - |S|)) ).
+Exhaustive over S, beam over pin sets:
+    BEST = weight >= 12   (S empty, pins {a39032, a30272, a29220})  => score <= 39021.
+So the confined-pin route cannot reach 7, let alone beat it.
+
+ADJACENCY (the ranking requested): ZERO of the 83 confined pins shares even ONE
+equation with the deliverable's cluster.  Same separation already seen for the 900
+free-knob atoms.  The instance's equation blocks keep everything that carries freedom
+equation-disjoint from the cluster that carries the residual.
+
+VERDICT: no improvement.  39026 stands.  Nothing written to best/.
