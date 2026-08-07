@@ -1,0 +1,7 @@
+=== PLANT VALIDATION against a<=4 table ===
+scan data/p_c0.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/p_c0.txt sz=2 [0,512): 130560 cand zero=0 0.3s
+scan data/p_c0.txt sz=3 [0,512): 22108160 cand zero=0 20.4s
+OFFSET_DONE c0 hits=5595
+scan data/p_ones.txt sz=1 [0,512): 512 cand zero=0 0.1s
+scan data/p_ones.txt sz=2 [0,512): 130560 cand zero=0 0.3s
