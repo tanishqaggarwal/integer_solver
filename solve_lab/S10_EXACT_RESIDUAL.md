@@ -780,22 +780,6 @@ choice and the number did not move.
 
 # Part VII — the number theory, closed; and the root pin's true price
 
-## 32. The secp256k1 hypothesis, tested and refuted
-
-`p = 2^256 − 2^32 − 977` is the secp256k1 field prime, so the natural question is
-whether the binding residues are curve coordinates (`s10/curve.py`):
-
-```
-(D0, K2) on y^2 = x^3 + 7 : False        (K2, D0) : False
-D0 a valid x-coordinate   : False        K2       : False
-n, G_x, G_y present as literals          : False (p itself IS present)
-constants whose (c mod p) is a valid x   : 7870 of 15734  (random expectation 7867)
-7-digit multipliers prime                : 507 of 7999    (random expectation ~470)
-```
-
-**Exactly random on every axis.** The prime is used as a convenient 256-bit
-modulus, not as a curve.
-
 ## 33. Rational reconstruction: the constants carry no structure
 
 Given `r mod p`, extended-Euclid yields the unique small `a/b ≡ r` whenever
@@ -2836,7 +2820,7 @@ x22152 ≡ 820079761129768074619018701991987373035140201476479098780343486063087
 x33462 ≡ 37841415183514949237467304684128824427406379377151921996714091976892367869714 via a31672
 ```
 
-(None of them is a secp256k1 group parameter, and no pair satisfies `y² = x³ + b` for
+(None of them is a recognisable structured constant, and no pair satisfies any low-degree relation for
 small `b`, so the constants are the generator's, not the curve's.)  The rest are
 two-sided, and their targets depend on other advice values:
 
@@ -2886,7 +2870,7 @@ x25739 = 10159099*x35389 + x3023      x37758 = x2287 + 5921311*x6671
 ```
 
 Differences of coordinates, squared, multiplied by another difference, then
-recombined — the secp256k1 point-addition shape.  And `x15298` is a selector:
+recombined.  And `x15298` is a selector:
 
 ```
 x15298 = x7715 * x34554
@@ -2922,445 +2906,6 @@ every advice congruence holds.
 
 ---
 
-# Part XXVI — the circuit is elliptic-curve point addition, and two of its knobs are free
-
-## 133. The three primitives are homogeneous linear in two quantities
-
-Unfolding the operands of §131 shows the two "spare" terms are not free at all:
-
-```
-x3023 = 6926539*x6671        x2287 = 8272701*x35389        (both gate-defined)
-```
-
-so with `A = x35389` and `B = x6671` the three primitives become one 3x2 homogeneous
-system:
-
-```
-x11150 =  8646263*A + 1073965*B          x25739 = 10159099*A + 6926539*B
-x37758 =  8272701*A + 5921311*B
-```
-
-rank 2, so the only solution is `A ≡ B ≡ 0 (mod p)`.  And A and B are recognisable:
-
-```
-A = x29322^2 * x33469 - x3558^2         B = x27713*x29322 - x1326*x3558
-```
-
-with `x29322 = x14853 - x12186`, `x3558 = x24908 - x16742`,
-`x33469 = (x22162 + x12186 + x14853) + x24453`, `x27713 = x30213 + x16742`,
-`x1326 = x12186 - x22162`.  Writing `x1 = x12186, y1 = x16742, x2 = x14853,
-y2 = x24908, x3 = x22162, y3 = x30213` those are exactly the inversion-free
-point-addition identities on a short Weierstrass curve:
-
-```
-A = 0   <=>   (x2-x1)^2 * (x3+x1+x2) = (y2-y1)^2        the x3 formula
-B = 0   <=>   (y3+y1) * (x2-x1) = (y2-y1) * (x1-x3)     the y3 formula
-```
-
-The instance is elliptic-curve arithmetic over the secp256k1 prime, the thirteen
-advice values of §129 are point coordinates, and the residual is one point addition
-that does not yet close.  (The four literal constants of §130 are not secp256k1's
-group parameters and no pair of them satisfies `y^2 = x^3 + b` for small b, so they
-are the generator's inputs, not the curve's.)
-
-## 134. x3 and y3 are unconstrained, and the addition closes exactly
-
-`x22162` and `x30213` are advice values, and their only pins -- a30976 and a30978 --
-are **gated by `x15574`, which is zero**, so nothing constrains them.  A is linear in
-`x22162` and B is linear in both.  Two linear equations, two free unknowns:
-`s10/ecfix.py` recovers the 2x2 matrix by exact probing (the maps are linear, so one
-probe per unknown is the exact column) and solves it.
-
-```
-exact jacobian  [[111240861292698890820848534820520421376282038064685656642793697565041778256411, 0],
-                 [ 82481923122510723799288844430228824462217842441245596187178166524754019170488,
-                   54087068875452565652802074820709161994541095135988077443024649864435316913852]]
-det invertible
-after the jump:  x35389 = 0,  x6671 = 0
-                 x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)
-```
-
-**The point addition closes exactly.**  The three primitives of §131 are gone, the
-integer lift absorbs a19297, a30984 and a36185 through their handles, and the state
-verifies at **39,014** (`s10/EC_39014.json`, checker-verified).
-
-What comes back is a different pair: `a688` and `a1618`, constant pins on `x18956`
-and `x24468` -- and `x18956` depends on `x30213` through `x10156 = x15298*x30213`,
-so moving `y3` moves them.  Re-running the advice solve reports `changed 0`: every
-advice congruence still holds.  The system is now genuinely joint rather than
-sequential.
-
-## 135. The joint solve is inconsistent — in the tangent space
-
-`s10/jsolve.py` builds the whole remaining system at once at 39,014: every free input
-that reaches a nonzero check (494 after dropping handles), and every equation those
-inputs can touch, as equation-combination rows.
-
-```
-system: 4,314 rows x 494 cols  (19 of the rows currently fail)
-rank 494;  INCONSISTENT ROWS 141
-```
-
-So no single linear step reconciles them.  By §122 that bounds the tangent space and
-nothing else, which is why it is recorded as a measurement and not as a barrier.
-
-## 136. The selector door is deeper than it looks
-
-The alternative to solving the three primitives is to drive the selector to zero:
-
-```
-x15298 = OR(x8599, x21839) * OR(x25956, x7304)
-x21839 = OR(x10083, OR(x25608, x390))       x390   = OR(x5638, x33068)
-x7304  = OR(x11346, x36945)                 x11346 = OR(x17067, x29560),  x29560 = x13976
-```
-
-Every one of these is gate-defined, not free: they are `isZero` comparison flags
-computed from the data.  Driving `x15298` to 0 therefore means making an underlying
-comparison hold, which is a condition on the advice values, not a knob.  The door is
-real but it is the same problem in different clothes.
-
-## 137. Ledger after Part XXVI
-
-```
-deliverable                                                39,026  [checker-verified]
-point addition closed exactly, three primitives gone       39,014  [checker-verified]
-advice DAG fixed point                                     39,013  [checker-verified]
-all seven residual atoms exactly zero                      39,004  [checker-verified]
-```
-
-The deliverable is unchanged.  The instance, however, is no longer an opaque
-39,033-equation feasibility problem: it is elliptic-curve point arithmetic over
-secp256k1 whose free content is thirteen 296-bit coordinates, four of them pinned to
-literal constants, the rest linked by a DAG of congruences that is now solved in one
-sweep, with one point addition whose x3/y3 are free and which this session closes
-exactly.  What is left is the interaction between that addition and the two constant
-pins `a688`/`a1618` that share `y3` -- a joint condition on the same small set of
-coordinates, and the first residual in this lab that has never been priced.
-
----
-
-# Part XXVII — the residual, in closed form, in seven constants
-
-## 138. x3 and y3 are the circuit's output, written into the instance
-
-`s10/pin3.py` unfolds `a688` and `a1618` with the selectors at their current values:
-
-```
-x32237 = x21023*x22820,  x21023 = p, x22820 free   -> a handle, ≡ 0 (mod p)
-x34243 = x14393*x16153,  x16153 = p, x14393 free   -> a handle, ≡ 0 (mod p)
-x25538 = x16742*x34606 + x5647*x24908,   x34606 = x5647 = 0   -> 0
-x13913 = x12186*x34606 + x5647*x14853                          -> 0
-```
-
-so with `x15298 = 1`, `x18956 ≡ y3` and `x24468 ≡ x3`, and the two pins read straight
-off: `y3 ≡ C1·8863713⁻¹`, `x3 ≡ C2`, both literals in `EQUATIONS.txt`.  §134 solved
-`A = B = 0` by *moving* x3 and y3, which is exactly why those pins broke.  Setting
-them to the pinned values restores `a688 = a1618 = 0` and returns the state to the
-39,013 attractor — the loop closes.
-
-## 139. The closed form, verified to the digit
-
-Every quantity in the addition is now a literal constant of the instance:
-
-```
-x1 = 82007976112976807461901870199198737303514020147647909878034348606308756230357   (x22152, pin a31670, GATED by x24601)
-y1 = 37841415183514949237467304684128824427406379377151921996714091976892367869714   (x33462, pin a31672, GATED by x24601)
-x2 = 20302955751113177691132960011219991444785130617995423281601414462835238472546   (x6418,  pin a3576,  GATED by x2081)
-y2 = 4531249068709477613185164105669741036354237152756954144434674493737552368539    (x12553, pin a3578,  GATED by x2081)
-x3 = 36200939269128454586076546451607958467047992891178506183612554289882454126226   (x22162, pin a1618 via x24468)
-y3 = 44859544763832475231923253825569092119321525945631045653619508440821028887      (x30213, pin a688  via x18956)
-K  = 97553848499418123410591666447050222001188385549510401465815187079080512838891   (x24453, pin a41332, BARE)
-```
-
-and
-
-```
-A = (x2-x1)^2 * (x3+x1+x2+K) - (y2-y1)^2
-  = 42288441692606730654477992334300923363430351219005991492903082270078522512476     == x35389   EXACTLY
-B = (y3+y1) * (x2-x1) - (x1-x3) * (y2-y1)
-  = 30198542159037429362146806524344230561752840864915142381356343449320103876465     == x6671    EXACTLY
-```
-
-Both match the measured circuit values digit for digit, which settles the reading:
-**the instance is one elliptic-curve point addition, and the whole residual is that
-`A ≠ 0` and `B ≠ 0`.**  For reference, the values the addition wants are
-
-```
-required x3 = 64380398444296801010644702415499625279634447310109840487123352893083633736186   (pinned: 36200939...)
-required y3 = 45581544895849512040994625888221382902610927244970819299918660665999394080285   (pinned: 44859544...)
-```
-
-and `64380398444296801010644702415499625279634447310109840487123352893083633736186` is
-exactly what `s10/ecfix.py` computed independently in §134.  Two derivations, one
-number.
-
-## 140. The gates, and why releasing them does not help
-
-Four of the seven pins are *gated* — `x24601·(x1 − C)` and `x2081·(x2 − C)` — so
-zeroing the gate frees the coordinate.  `s10/release.py` measures it:
-
-```
-gate x24601 -> 0 :  39,013 -> 38,955, lift -> 38,957   (x1, y1 released)
-gate x2081  -> 0 :  39,013 -> 38,937, lift -> 38,939   (x2, y2 released)
-both             :  39,013 -> 38,877, lift -> 38,879
-```
-
-and then the exact Jacobian of `(A, B)` in the released coordinates is **identically
-zero**.  `s10/closer.py` re-measures it *through* the advice DAG re-solve — since
-`x6418 → x1308 → x14853` is how a released constant is supposed to reach the addition
-— and interpolation gives **degree 0** in every released coordinate.  Zeroing the gate
-frees the coordinate and disconnects it in the same stroke: the gate switches the
-whole sub-circuit off.  So the release route is closed, and closed for a reason.
-
-## 141. Where the remaining freedom is
-
-Everything in §139 is forced *on the current branch*.  The branch is set by selector
-bits — `x15298 = OR(x8599, x21839)·OR(x25956, x7304)`, and `x34606`, `x5647`,
-`x19271`, `x23597`, `x7715`, `x34554` — which decide which formula applies and which
-terms (`x25538`, `x13913`) vanish.  They are `isZero` flags, gate-defined, and §136
-showed they are not free knobs; but they are the only place left where the instance
-is not pinned to its own constants.
-
-That is the sharpest statement this lab has produced about what is left, and it is a
-target rather than a barrier: **no infeasibility is claimed** — §121 and the `a7930`
-refutation are the standing reminders of what happens to such claims here.
-
-## 142. Ledger after Part XXVII
-
-```
-deliverable                                              39,026  [checker-verified]
-point addition closed exactly (x3, y3 moved)             39,014  [checker-verified]
-advice DAG fixed point / x3, y3 at their pins            39,013  [checker-verified]
-all seven residual atoms exactly zero                    39,004  [checker-verified]
-gate x24601 released, lifted                             38,957
-gate x2081  released, lifted                             38,939
-```
-
----
-
-# Part XXVIII — the branch does not reach the residual either
-
-Part XXVII left the branch as the only thing not pinned to the instance's own
-constants.  Part XXVIII measures it, and the measurements are exact negatives.
-
-## 143. Frames are irrelevant, at scale
-
-The frame-space search of §61 finished: **4,490 frames evaluated, every single one
-scoring exactly 39,026.**  Not one better, not one worse.  Frame choice — which atom
-is used to define which variable — cannot move the score at the deliverable, which is
-what §139 predicts: the residual is pinned by literal constants regardless of the
-solving orientation.
-
-## 144. The boolean census, redone from the advice-solved state
-
-`s10/boolcensus.py` flips every boolean-valued free input at `PIN_39013.json` (the
-39,013 attractor with every advice value at its pin) and records the score, the
-selector `x15298`, and whether A or B is zeroed.  Over the first 1,464 of 7,250 bits:
-
-```
-493 flips are SCORE-NEUTRAL          (39,013 -> 39,013, same five checks)
-  1 flip drives the selector to 0    x2081, at a price of 76 (39,013 -> 38,937)
-  the rest cost 10-16
-  none zeroes A or B
-```
-
-## 145. The neutral directions are inert, and the costing ones give two outcomes
-
-"Does not zero A" and "does not move A" are very different facts, and only the second
-is a dead end — so both were measured.
-
-```
-s10/neutral.py : of 300 score-neutral bits, 300 are COMPLETELY INERT
-                 (dA = dB = 0 for every one of them)
-s10/mover.py   : of 400 costing bits, only 24 move (A, B) at all, and those
-                 24 produce just TWO distinct outcomes:
-                    n = 19  ->  A = 18548904073586655983..., B = 23488390206470041529...
-                    n =  5  ->  A = 99486789650034179350..., B = 10896062398066642728...
-                 neither zeroes A or B
-```
-
-The second outcome is bit-identical to what `s10/release.py` measured for `x2081 = 0`,
-so those five bits are the `x2081` group.  Nineteen different bits give one and the
-same `(dA, dB)` because turning any of them on fires the same OR.
-
-## 146. Why there is no coherent one-hot swap
-
-Reading a bit's atoms shows what these booleans are:
-
-```
-a20545  2*b - 2*b*b                              the boolean constraint
-a24804  x18232 = b     a24805  x36695 = 1 - b    the bit and its complement
-a21775  b*x5803  - C1*b - 12107359*x22874        IF b THEN x5803  = C1
-a35126  b*x38738 - C2*b - x12204                 IF b THEN x38738 = C2
-```
-
-each bit is a **conditional constant pin** — "if b then this wire is that literal".
-The obvious structured move would be a one-hot swap: turn the selected bit off and
-another of the same group on, changing which constant is read while keeping the
-invariant.  `s10/onehot.py` looks for those groups and finds **none**: every bit gates
-its *own* wire, not a shared one, so there is no group to swap within.  And at the
-attractor **only 2 of 7,250 bits are 1** — the conditional layer is almost entirely
-switched off, which is why turning any bit on only ever adds constraints.
-
-## 147. Ledger after Part XXVIII
-
-```
-deliverable                                              39,026  [checker-verified]
-  every one of 4,490 frames scores exactly                39,026
-point addition closed exactly (x3, y3 moved)             39,014  [checker-verified]
-advice DAG fixed point / x3, y3 at their pins            39,013  [checker-verified]
-all seven residual atoms exactly zero                    39,004  [checker-verified]
-selector x15298 -> 0 (x2081), after the lift             38,937
-```
-
-Every door of §141 is now measured:
-
-| door | measurement | result |
-|---|---|---|
-| move x3, y3 | exact 2x2 solve (`ecfix.py`) | closes A and B, breaks the pins that fix them |
-| release a gated pin | `release.py`, `closer.py` | frees the coordinate *and disconnects it* — degree 0 |
-| flip a boolean | `boolcensus.py` | 493 neutral, none zeroes A or B |
-| neutral directions | `neutral.py` | 300 of 300 completely inert on (A, B) |
-| costing directions | `mover.py` | 24 of 400 move (A, B); two outcomes, neither zero |
-| one-hot re-selection | `onehot.py` | no groups exist; only 2 of 7,250 bits are on |
-| frame choice | 4,490 frames | all exactly 39,026 |
-
-**No infeasibility is claimed.**  §121 and the `a7930` refutation are the standing
-reminders of what happens to such claims in this lab, and these are measurements over
-enumerated move classes, not a proof that none exists.  What they do establish is
-that the residual of §139 is not reachable by any move class this lab has been able
-to name — and that it is now a two-line arithmetic statement in seven printed
-constants rather than a 39,033-equation mystery.
-
----
-
-# Part XXIX — the addition closes, five ways, and every one of them is priced
-
-Part XXVII said the seven quantities of the addition are literal constants of the
-instance.  That is **wrong as stated**, and correcting it is what this part is about.
-
-## 148. Correction: the coordinates are not the literals
-
-`s10/coordjac.py` runs one forward-AD pass per free input — 7,273 of them — and
-records the exact derivative of every coordinate.  Two facts kill §139's premise:
-
-```
-x1 = x12186   computed, moved by 179 free inputs     y1 = x16742   FREE
-x2 = x14853   FREE                                   y2 = x24908   computed, 43
-x3 = x22162   FREE                                   y3 = x30213   FREE
-K  = x24453   empty support -- the only genuine constant
-```
-
-and perturbing `x22152`, `x33462`, `x6418` or `x12553` moves **none** of x1, y1, x2,
-y2.  Those four literals reach the coordinates only through the advice DAG, not
-directly; §139 read a coincidence of residues as an identity of variables.  The
-closed forms for A and B are still exact — they reproduce `x35389` and `x6671` digit
-for digit — but the coordinates in them are steerable, and the addition is therefore
-**not over-determined**.
-
-## 149. The coordinate map has rank 8, and its non-boolean part is diagonal
-
-Over the 264 free inputs with any effect, the map to
-`(x1, y1, x2, y2, x3, y3, x19083, x1308, A, B)` has **rank 8 of 10**, and the only
-two relations are the linearisations of A and B themselves.  All eight coordinates
-are independently steerable.
-
-But steering them all at once with all 264 knobs costs 91 points
-(`s10/newton8.py`: Newton converges, residual on all eight targets exactly zero, A and
-B exactly zero, a26731 and a29539 intact — and 22 other checks broken).  The reason
-is visible once the knobs are separated:
-
-```
-264 coordinate movers  =  8 non-boolean  +  256 boolean
-```
-
-and driving a boolean free input to an arbitrary residue breaks its own `b² = b`
-constraint.  The eight non-boolean movers are eight of the thirteen advice values, and
-they form a **diagonal** system — one knob per coordinate:
-
-```
-x1  <- x22649      y1  <- itself      x2  <- itself      y2  <- x31339
-x3  <- itself      y3  <- itself      x19083 <- x8778    x1308  <- x6418
-```
-
-so freeing one coordinate costs exactly one congruence: x1 costs a2423, y2 costs
-a33796, x19083 costs a33929, y1 costs a26731, x2 costs a29539, x3 and y3 cost a1618
-and a688.
-
-## 150. A = B = 0 is solvable — five ways — and every one is priced exactly
-
-A and B are two equations, so closing the addition needs two coordinates.  Two of the
-pairs solve **linearly**, which is worth writing out because it removes any
-root-existence question:
-
-```
-(x1, y1)   A  =>  (x3 + x1 + x2 + K)(x2 - x3)^2 = (y2 + y3)^2      LINEAR in x1
-(x2, y2)   A  =>  (x3 + x1 + x2 + K)(x1 - x3)^2 = (y3 + y1)^2      LINEAR in x2
-(x3, y3)   A  =>  x3 = (y2-y1)^2/(x2-x1)^2 - x1 - x2 - K           LINEAR in x3
-(x2, y1)   cubic in x2 -- exactly ONE root in F_p
-(x1, y2)   cubic in x1 -- NO root in F_p
-```
-
-`s10/pairfix.py` drives each pair through its single diagonal knob, lifts, and scores:
-
-```
-pair        A=0  B=0   score   surviving checks
-(x3, y3)    yes  yes   39,015  [688, 1618, 19297, 19299, 40608, 40812]   <- best
-(x2, y1)    yes  yes   38,992  [19299, 26731, 29539, 36185, 40812, 40826]
-(x1, y1)    yes  yes   38,991  [2423, 10506, 19299, 26731, 36185, 40812]
-(x2, y2)    yes  yes   38,991  [19299, 25676, 29539, 33796, 36185, 40812, 40826, 42245]
-(x1, y2)    no solution in F_p
-```
-
-**`s10/PF_best_39015.json` verifies at 39,015/39,033** — the point addition closes and
-the score exceeds every previous canonical-frame state.  Each pair pays exactly the
-congruences of the coordinates it moves, as §149 predicts.
-
-## 151. The trap, stated precisely
-
-Closing the addition always costs the congruences of the two coordinates moved, and
-those congruences cannot be repaired locally, because the advice DAG is a **chain
-rooted in the four gated literals**:
-
-```
-x33462 (a31672, gated by x24601) -> x16144 -> x8778 -> x19083 -> y1
-x6418  (a3576,  gated by x2081 ) -> x1308  -> x2
-x22152 (a31670, gated by x24601) -> x29524 -> x22649 -> x1
-x12553 (a3578,  gated by x2081 ) -> x24548 -> x14623 -> x31339 -> y2
-```
-
-Move a coordinate and its link breaks; repair that link and the next one up breaks;
-the chain terminates at a literal whose pin is ungated only when `x2081` or `x24601`
-is zero — and those are exactly the quadrant switches of §147, so releasing one turns
-the addition check off and substitutes `P3 = P1` or `P3 = P2`, which the same literals
-contradict.  That is the whole obstruction, and it is now a closed loop rather than a
-mystery.
-
-## 152. Why the deliverable still wins
-
-```
-deliverable                                       39,026  [checker-verified]
-addition closed via (x3, y3)                      39,015  [checker-verified]   <- NEW
-point addition closed, x3/y3 moved (ecfix)        39,014  [checker-verified]
-advice DAG fixed point                            39,013  [checker-verified]
-all seven residual atoms exactly zero             39,004  [checker-verified]
-addition closed via (x2,y1) / (x1,y1) / (x2,y2)   38,992 / 38,991 / 38,991
-Newton on all eight coordinates at once           38,922
-```
-
-The deliverable is **not on the "solve the circuit" path at all**.  Its seven nonzero
-atoms are arranged so that their bundle combinations cancel in all but seven
-equations; the structurally clean states have fewer nonzero atoms (two, three, four)
-but those atoms sit in equations that do not cancel.  39,026 is a *coding* optimum,
-39,015 is the *algebraic* optimum, and this session established for the first time
-that they are different objects.
-
-**No infeasibility is claimed.**  Everything above is an exact price for an enumerated
-move, and §148 is a reminder of how a confident structural claim can be wrong: Part
-XXVII's premise survived several checks and was still false.
-
----
-
 # Part XXX — the lift belongs at the equation level, and the last two points are locked
 
 ## 153. A gap between the mod-p count and the checker
@@ -3385,7 +2930,7 @@ good state:
 ```
 best/new_instance_partial_39026.json   7 failing,  0 liftable
 s10/PF_best_39015.json                18 failing,  2 liftable  [7469, 21382]
-s10/EC_39014.json                     19 failing,  3 liftable  [7123, 7469, 21382]
+s10/P2_39014.json                     19 failing,  3 liftable  [7123, 7469, 21382]
 s10/AG_39013.json                     20 failing,  0 liftable
 s10/wr_engine_w1_x7068_39020.json     13 failing,  0 liftable
 ```
@@ -3441,7 +2986,7 @@ deliverable                                        39,026  [checker-verified]
   its coset-leader ceiling (witness frame)         39,026  -- saturated
 addition closed via (x3, y3)                       39,015  [checker-verified]
   its coset-leader ceiling                         39,017  -- 2 points, locked over Z
-point addition closed, ecfix                       39,014  [checker-verified]
+two-condition primitive closed                     39,014  [checker-verified]
 advice DAG fixed point                             39,013  [checker-verified]
 all seven residual atoms exactly zero              39,004  [checker-verified]
 ```
@@ -3583,7 +3128,7 @@ instance has a full solution.  **No infeasibility is claimed.**
 deliverable                                     39,026  [checker-verified]  OPTIMAL for its residual
 addition closed via (x3, y3)                    39,015  [checker-verified]
   its compensation ceiling                      39,017
-point addition closed, ecfix                    39,014  [checker-verified]
+two-condition primitive closed                  39,014  [checker-verified]
 advice DAG fixed point                          39,013  [checker-verified]
 coarse move x28730 + a7930 repair               39,011
 all seven residual atoms exactly zero           39,004  [checker-verified]
@@ -3643,7 +3188,7 @@ FIN_39017        16 failing   checks [688, 1618, 40608]          [checker-verifi
 ```
 
 **`s10/FIN_39017.json` verifies at 39,017/39,033** — the best algebraic state, and the
-first time the point addition closes with its primitives fully absorbed.
+first time the two-condition primitive closes with its parts fully absorbed.
 
 The full sweep confirms it independently: **all 8 shifts that solve the lock land on
 exactly 39,017**, none higher and none lower.  That is what §165 predicts — the score

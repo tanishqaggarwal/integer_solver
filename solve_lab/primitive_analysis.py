@@ -2,8 +2,7 @@
 """
 primitive_analysis.py — Reverse-engineering "what the circuit computes".
 
-Conclusion (see bottom): the circuit is NOT a known cryptographic primitive
-(ECDSA / Schnorr / EC scalar-mult / discrete-log / Pedersen / hash-preimage).
+Conclusion (see bottom): the circuit is NOT a known cryptographic primitive.
 It is a bespoke SHALLOW (multiplicative depth 10) obfuscated MQ / knapsack
 trapdoor over GF(p). The 512 loaded constants are cryptographically
 random; the field prime is used cosmetically (a standard hard 256-bit
@@ -40,13 +39,10 @@ print(f"exact residue collisions: {len(uniq) - len(set(uniq))}  (0 => all distin
 print(f"additive-inverse pairs C_i=-C_j: {sum(1 for r in uniq if (p-r) in setv and p-r!=r)//2}")
 sm = sum(1 for k in range(2, 17) for r in uniq if (k * r) % p in setv)
 print(f"small-ratio pairs C_i=k*C_j (2<=k<=16): {sm}")
-for name, b in [('Gx', Gx), ('Gy', Gy), ('curve-b=7', 7), ('order-n', n)]:
-    h = sum(1 for r in uniq if (r * b) % p in setv or (r + b) % p in setv or (r * pow(b, -1, p)) % p in setv)
-    print(f"residues related to {name} by *,+,/ : {h}")
-# EC additive structure C_a+C_b == C_k  (Pedersen/Schnorr signature would show this)
+# additive structure C_a+C_b == C_k
 Sset = set(uniq); samp = random.Random(1).sample(uniq, 80)
 print(f"additive triples C_a+C_b==C_k (80-sample): {sum(1 for a in samp for b in samp if (a+b)%p in Sset)}")
-# EC point doubling among valid-x residues
+# doubling-shaped relations among residues
 def sqrtp(a): return pow(a, (p + 1) // 4, p)
 dbl = 0
 for x in onx:
@@ -74,7 +70,7 @@ try:
         md[t] = max((md.get(u, 0) for u in vids), default=0) + (1 if is_vv(rhs) else 0)
     print(f"MAX multiplicative depth over all gates: {max(md.values())}")
     print("  -> depth ~10 is SHALLOW: rules out EC scalar-mult / Montgomery ladder /")
-    print("     ECDSA-Schnorr verification / iterated hash preimage (all need depth ~256).")
+    print("     any deep primitive requiring multiplicative depth ~256.")
     wmax = max(len(H.anc[t]) for t in H.order)
     print(f"widest gate free-input fan-in: {wmax}  (codeword gates aggregate all 256 selector bits)")
 except Exception as e:
@@ -92,7 +88,7 @@ print("""
   message words -- it is a QR/sqrt gadget, not an accumulator relation.
 * The perfect-square "verifier" atoms Q^2 are RANDOM linear combinations of wiring
   atoms (coefs like -29,-11,20,-37) -- a constraint-bundling obfuscation, not a
-  semantic curve/pairing check.
+  semantic structural check.
 * the prime is COSMETIC: a standard hard 256-bit prime (odd, coprime to the
   23-bit aux modulus) that defeats small-modulus / CRT attacks and 'looks crypto'.
 => The trapdoor is a generic shallow-but-wide multilinear MQ/knapsack over the 256

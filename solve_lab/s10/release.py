@@ -1,6 +1,6 @@
 """S11 step 91: release a GATED constant pin, then re-solve everything behind it.
 
-§133-134 identified the circuit as one elliptic-curve point addition, and pin3.py
+§133-134 identified the circuit's residual as one two-condition primitive, and pin3.py
 confirmed the closed form exactly:
 
     A = (x2-x1)^2*(x3+x1+x2+K) - (y2-y1)^2      matches x35389 to the digit

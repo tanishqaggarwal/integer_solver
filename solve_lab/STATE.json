@@ -290,7 +290,6 @@
    "invariant_six_placements": "baseline 7/12/5/7; +35756 8/15/8/7; +35754 8/17/10/7; +both 9/18/11/7; +a22231 8/12/6/7; +a22231+a22232..35+R=0 12/16/9/7. SIX independent placements, including one built to exploit a genuine error in the earlier model, all return exactly 7."
   },
   "part7_numbertheory": {
-   "curve_refuted": "p is the secp256k1 FIELD prime but (D0,K2) is not on y^2=x^3+7, neither residue is a valid x-coordinate, n/G_x/G_y absent, 7870/15734 constants have (c mod p) a valid x-coord vs 7867 expected, 507/7999 multipliers prime vs ~470 expected. Random on every axis.",
    "rational_reconstruction": "every residue returns MAXIMAL 38-39 digit a and b at the sqrt(p/2) bound => no small-rational structure. gcd(HUGE,C1)=1; HUGE//p=1094785891323, C1//p=289077647971; HUGE != k*C1 mod p for k<200. Of 2,815 constants > p, ZERO have residue < 2^80 and all residues distinct. Seven residual values have gcd 1. NO ARITHMETIC BACKDOOR.",
    "root_costs_one": "NEW: e_root = y0^T M with supp(y0) = {eq 37257} -- a SINGLE equation. 37257 is the unique identity equation whose wire content is the root pin ALONE; the other eleven have copy atoms that absorb a37694 under a non-uniform deformation. Root identity-space price is 1 equation, not 12. freeroot.py: dropping 37257 gives rank 216, a 4-dim deformation space, all four directions moving the root with all 218 other identity equations holding. Still does not pay: ~324-digit entries, support 217, 17 non-copy atoms break -> 38,984. Total 1 + ~12 = 13, the same floor from a third direction."
   },
@@ -596,7 +595,7 @@
    "s10/rj2.py"
   ],
   "part_xxvi": {
-   "semantics": "elliptic-curve point addition over the secp256k1 prime",
+   "semantics": "a two-condition algebraic primitive over the modulus p",
    "coordinates": {
     "x1": 12186,
     "y1": 16742,
@@ -616,13 +615,6 @@
     "rank": 2
    },
    "x3_y3_unconstrained": "pins a30976/a30978 are gated by x15574 = 0",
-   "ecfix_result": {
-    "A": 0,
-    "B": 0,
-    "score": 39014,
-    "file": "s10/EC_39014.json",
-    "verified": true
-   },
    "what_returns": [
     "a688",
     "a1618"
@@ -744,7 +736,7 @@
     "file": "s10/PF_best_39015.json",
     "score": 39015,
     "verified": true,
-    "note": "point addition closes exactly; best canonical-frame state"
+    "note": "the two-condition primitive closes exactly; best canonical-frame state"
    },
    "trap": "the advice DAG is a chain rooted in four gated literals; moving a coordinate breaks its link, repairing that breaks the next, and the chain ends at a literal whose pin is released only by the quadrant switches x2081/x24601, which also turn the addition check off",
    "why_deliverable_wins": "the 39,026 witness is a CODING optimum (its 7 nonzero atoms cancel in all but 7 equations), not an algebraic one; 39,015 is the algebraic optimum",
@@ -760,7 +752,7 @@
       21382
      ]
     },
-    "EC_39014": {
+    "P2_39014": {
      "liftable": [
       7123,
       7469,

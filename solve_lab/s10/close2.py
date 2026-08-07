@@ -12,7 +12,7 @@ no cubic and no root-existence question:
     x1* = (y2+y3)^2/(x2-x3)^2 - x3 - x2 - K            y1* from B
 
 Two of the four pairs behave this way -- (x1,y1) and (x2,y2) -- while (x2,y1) needs a
-cubic and (x3,y3) is what ecfix already used.
+cubic and (x3,y3) is the pair already used.
 
 The reason this pair is the right one: y1 = x16742 is FREE, so y1* can just be
 written in, and its congruence a26731 (x16742 = x19083) is repaired in the same move,

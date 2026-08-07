@@ -19,7 +19,7 @@ costs exactly one congruence:
     y1t free  <=>  break a33929 (x8778  = x16144)      x3, y3 <=> break a1618/a688
 
 and A = B = 0 needs exactly TWO coordinates.  Two of the six pairs solve LINEARLY --
-(x1,y1) and (x2,y2) -- one needs a cubic, and (x3,y3) is ecfix.  So price every pair:
+(x1,y1) and (x2,y2) -- one needs a cubic, and (x3,y3) solves linearly.  So price every pair:
 free its two coordinates, set them to the exact solution, lift, and measure.
 
 Usage: pairfix.py [state.json]

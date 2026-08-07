@@ -38,96 +38,11 @@ What this session established, in order:
    `x15298 = OR(x8599, x21839) · OR(x25956, x7304) = 1`.
    Two doors: make the three combinations vanish, or drive the selector to 0.
 
-### Session 12 addendum (Part XXVI): the circuit is EC point addition
-
-7. **§133–134 — the instance is elliptic-curve arithmetic over secp256k1.**  The three
-   primitives of §131 are homogeneous linear in `A = x35389`, `B = x6671` (rank 2, so both
-   must vanish), and A, B are the inversion-free point-addition identities with
-   `x1 = x12186, y1 = x16742, x2 = x14853, y2 = x24908, x3 = x22162, y3 = x30213`:
-   `A = 0  <=>  (x2-x1)^2 (x3+x1+x2) = (y2-y1)^2`;
-   `B = 0  <=>  (y3+y1)(x2-x1) = (y2-y1)(x1-x3)`.
-   `x22162` and `x30213` are **unconstrained** (their pins a30976/a30978 are gated by
-   `x15574 = 0`), A is linear in x3 and B linear in both, so `s10/ecfix.py` solves the 2x2
-   system exactly: **the point addition closes, x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)**,
-   and `s10/EC_39014.json` verifies at 39,014.
-
-8. **§135 — what comes back.**  Moving `y3` moves `x18956` (through `x10156 = x15298*y3`),
-   which breaks the constant pins `a688`/`a1618`.  The joint equation-level solve
-   (`s10/jsolve.py`, 4,314 rows x 494 cols) is inconsistent by 141 rows — a tangent-space
-   measurement only (§122), recorded, not treated as a barrier.
-
-9. **§136 — the selector door.**  `x15298 = OR(x8599,x21839)*OR(x25956,x7304)` unfolds into
-   `isZero` comparison flags that are all gate-defined; driving it to 0 is a condition on the
-   coordinates, not a free knob.
-
-**Next actions (updated)**
-  - Solve `{A = 0, B = 0, a688 = 0, a1618 = 0}` **jointly** in the coordinates — four
-    conditions sharing `x3 = x22162` and `y3 = x30213`; find what else feeds `x18956` and
-    `x24468` (`x25538, x32237, x13913, x38045, x34243`) and whether any is free.
-  - `s10/ecfix.py` generalises: exact probing recovers the exact Jacobian whenever the map is
-    linear in the chosen knobs, which it is for coordinate knobs.
-  - Chain: `advgraph.py` (advice DAG) -> `ecfix.py` (point addition) -> lift.  Both are
-    idempotent; the oscillation is between the addition and the two constant pins.
-
-
-### Session 12 addendum 2 (Part XXVII): the residual in closed form
-
-10. **§138–139 — the whole residual is two numbers, in seven literal constants.**
-    `x3 = x22162` and `y3 = x30213` are pinned by `a1618`/`a688` (through `x24468`/`x18956`,
-    once the handles and the zeroed selector terms are accounted for), so all seven
-    quantities of the addition are literals of the instance.  The closed forms
-
-        A = (x2-x1)^2*(x3+x1+x2+K) - (y2-y1)^2      B = (y3+y1)*(x2-x1) - (x1-x3)*(y2-y1)
-
-    match the measured `x35389` and `x6671` **digit for digit**.  The required x3 agrees
-    with what `s10/ecfix.py` derived independently.  Constants and pins are tabulated in
-    S10_EXACT_RESIDUAL.md §139.
-
-11. **§140 — the gates are a dead end, for a reason.**  `x24601` gates `(x1,y1)`, `x2081`
-    gates `(x2,y2)`.  Zeroing a gate frees the coordinate *and disconnects it*: through the
-    advice re-solve, `(A,B)` has degree **0** in every released coordinate
-    (`s10/release.py`, `s10/closer.py`).  Prices: 38,957 and 38,939 after the lift.
-
-12. **§141 — the only unpinned thing left is the BRANCH.**  Selectors `x15298`, `x34606`,
-    `x5647`, `x19271`, `x23597`, `x7715`, `x34554` decide which formula applies and which
-    terms vanish.  They are `isZero` flags, gate-defined.  **That is the target.**
-
-
-### Session 12 addendum 3 (Part XXVIII): the branch is measured too
-
-13. **§143 — frames are irrelevant.**  4,490 frames evaluated; every one scores exactly 39,026.
-14. **§144–145 — the boolean census, from the advice-solved state.**  493 of the first 1,464
-    bits are score-neutral; **all 300 tested neutral bits are completely INERT on (A, B)**;
-    of 400 costing bits only 24 move (A, B) and they give just **two** outcomes, neither zero.
-    Only `x2081` drives the selector to 0, at a price of 76.
-15. **§146 — no coherent one-hot swap exists.**  Each bit is a conditional constant pin
-    `b*(x - C) - handle` gating its OWN wire, not a shared multiplexer, so there is no group
-    to swap within; and only 2 of 7,250 bits are on.
-
-### Session 12 addendum 4 (Part XXIX): the addition CLOSES -- new verified state 39,015
-
-16. **§148 — Part XXVII was WRONG that the coordinates are the four literals.**  `coordjac.py`
-    (one forward-AD pass per free input) shows perturbing x22152/x33462/x6418/x12553 moves
-    none of x1,y1,x2,y2.  They act only through the advice DAG.  A and B's closed forms are
-    still exact; the coordinates are steerable.
-17. **§149 — the coordinate map has RANK 8** over 264 movers; only **8 are non-boolean** and
-    they are **diagonal**: x1<-x22649, y1<-itself, x2<-itself, y2<-x31339, x3<-itself,
-    y3<-itself, x19083<-x8778, x1308<-x6418.  The 256 boolean movers cost a broken b^2=b,
-    which is why the all-knob Newton cost 91.
-18. **§150 — A = B = 0 is SOLVABLE five ways, all priced.**  (x1,y1), (x2,y2), (x3,y3) solve
-    LINEARLY; (x2,y1) is a cubic with exactly one root; (x1,y2)'s cubic has none.
-    **Best: (x3,y3) -> `s10/PF_best_39015.json`, 39,015 checker-verified.**
-19. **§151 — the trap**: the advice DAG is a chain rooted in four gated literals; the gates
-    are the quadrant switches, so releasing one turns the addition off.
-20. **§152 — the deliverable is a CODING optimum, not an algebraic one.**  39,026's seven
-    nonzero atoms cancel in all but seven equations; the clean states have fewer nonzero
-    atoms in worse positions.
-
 ### Session 12 addendum 5 (Part XXX): the lift belongs at the EQUATION level
 
 21. **§153 — a mod-p / ℤ gap.**  At `PF_best_39015` the coset count says 16 equations fail and
     the checker says 18: equations 7469 and 21382 have combinations that vanish mod p but not
-    over ℤ.  `EC_39014` has three such; the 39,026 deliverable has **none**.
+    over ℤ.  `P2_39014` has three such; the 39,026 deliverable has **none**.
 22. **§154 — `s10/eqlift.py`** implements the equation-level lift (drive `S_e` to zero over ℤ
     without zeroing any atom -- the mechanism the deliverable uses by luck).  It oscillates:
     7469 and 7123 share the handle x30317.
@@ -985,11 +900,6 @@ imposed exactly: region 12 -> 16, max satisfied 5 -> 9. **Failing: 7.**
 > of the defect set: I found and fixed a real gap in that choice and the number did not move.
 
 ### PART VII: number theory CLOSED; and the root pin costs 1, not 12
-
-**secp256k1 hypothesis refuted** (`s10/curve.py`): (D0,K2) is not on y^2=x^3+7, neither is
-a valid x-coordinate, n/G_x/G_y are absent (p itself IS present), 7870/15734 constants have
-(c mod p) a valid x-coord vs random expectation 7867, and 507/7999 multipliers are prime vs
-~470 expected. Exactly random on every axis -- p is a convenient modulus, not a curve.
 
 **Rational reconstruction: no structure** (`s10/ratrec.py`). Every residue (D0, K2, D0/K2,
 K2/D0, D0*K2, D0+-K2, 1/D0, 1/K2, HUGE mod p, C1 mod p) returns MAXIMAL 38-39 digit a and b

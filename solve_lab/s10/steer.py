@@ -1,7 +1,7 @@
 """S11 step 100: steer the two congruence targets to the cubic's solution.
 
 close.py sets x2 and y1 to the cubic's root and A and B become EXACTLY ZERO -- the
-point addition closes for the first time.  What it costs is the two advice
+the two-condition primitive closes for the first time.  What it costs is the two advice
 congruences whose left sides we just overwrote:
 
     a26731   x16742 = x19083        we set x16742 = y1*, so x19083 must follow

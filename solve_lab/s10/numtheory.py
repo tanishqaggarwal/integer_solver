@@ -1,6 +1,6 @@
 """S11 step 10: number theory on the BROADCAST constants (not derived residues).
 
-Earlier sessions did curve/ratrec tests on D0 and K2, which are derived.  These
+Earlier sessions did structure tests on D0 and K2, which are derived.  These
 four are the instance's own loaded constants -- the ones the circuit asserts
 against -- and they have never been examined.
 """
@@ -27,12 +27,9 @@ def leg(a, m=P): return pow(a % m, (m - 1) // 2, m)
 def is_x(x):
     y2 = (pow(x, 3, P) + 7) % P
     return leg(y2) == 1
-print('\n=== is each a valid secp256k1 x-coordinate (x^3+7 a QR mod p)? ===')
-for n, val in names.items():
     r = val % P
     print(f'  x{n:<4} r = {str(r)[:26]}...  QR: {is_x(r)}  '
           f'r == Gx? {r == GX}  r == n? {r == N}')
-
 print('\n=== pairwise relations mod p ===')
 ks = sorted(names)
 for i in range(len(ks)):
