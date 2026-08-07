@@ -1,39 +1,108 @@
-"""S10 step 5: try to close  x_7068 == x_2099  from either side, and see what pins it.
+"""S11 step 99: the addition HAS a solution -- eliminate y1, solve the cubic, set it.
 
-Direction A: move x_7068 down to x_2099 (x_7068 is atom 22229's canonical output).
-Direction B: move x_2099 up to x_7068 (via its definer x_2099 = x_37158 + x_25297).
-Report, for each, exactly which atoms break and in how many equations.
+coordjac.py destroys Part XXVII's premise.  Perturbing x22152, x33462, x6418 or
+x12553 moves none of x1, y1, x2, y2: those four literals are separate variables that
+merely carry the same residues at this state.  The coordinates that actually enter the
+addition are
+
+    x1 = x12186  computed (179 free inputs move it)      y1 = x16742  FREE
+    x2 = x14853  FREE                                    y2 = x24908  computed (43)
+    x3 = x22162  FREE                                    y3 = x30213  FREE
+    K  = x24453  the only genuine constant
+
+so with x1, y2, x3, y3, K held, A = 0 and B = 0 are two equations in the two FREE
+values y1 and x2.  Eliminate y1:
+
+    B  =>  w = y2 - y1 = (y2+y3)(x2-x1)/(x2-x3)
+    A  =>  (x3 + x1 + m + K)(m - x3)^2 = (y2+y3)^2      m = x2
+
+a CUBIC in m.  It has exactly one root in F_p:
+
+    x2* = 16923826268442975142014471089484050492795530131871084439458128176517372022747
+    y1* = 516432665673800566800661765887332652913826924065912564591822554577222065463
+
+and at those values A = 0 and B = 0 exactly.  **A solution to the addition exists.**
+x14853 and x16742 are free variables, so the values can simply be written in; what it
+costs is their own congruences a29539 (x14853 = x1308) and a26731 (x16742 = x19083),
+whose targets are themselves moved by 79 and 170 free inputs -- so the cost is a
+target to steer, not a wall.
+
+Usage: close.py [state.json]
 """
-import os, sys, json, collections
-HERE = os.path.dirname(os.path.abspath(__file__))
-LAB = os.path.dirname(HERE)
+import os, sys
+HERE = '/home/user/integer_solver/solve_lab/s10'
+LAB = '/home/user/integer_solver/solve_lab'
 sys.path.insert(0, os.path.join(LAB, 's9', 'eff'))
-import lib as L
+sys.path.insert(0, HERE)
+import lib as L, tools as T, ad
+from intad import jacZ
+import suppfree
+import fpoly as F
+P = ad.P
+src = sys.argv[1] if len(sys.argv) > 1 else 'PIN_39013.json'
+v = L.load(src if os.path.isabs(src) else os.path.join(HERE, src))
+ad.fwd(v, rounds=6)
 
-P = 2**256 - 2**32 - 977
-CLEAN = os.path.join(HERE, 'clean_state.json')
 
-def report(tag, seeds, block=()):
-    v = L.load(CLEAN)
-    changed, steps = L.ripple(v, dict(seeds), block=block)
+def report(v, tag):
     av = L.all_atom_values(v)
-    nz = [a for a in range(L.NA) if av[a]]
-    fail = L.failing_eqs(av)
-    print(f'\n--- {tag}: seeds={ {k:str(x)[:24] for k,x in seeds.items()} }')
-    print(f'    changed {len(changed)} vars; nonzero atoms {len(nz)}; '
-          f'failing {len(fail)} -> score {L.NEQ-len(fail)}')
-    for a in nz:
-        print(f'      a{a:<6} neq={len(L.atom2eq.get(a,{})):<3} {L.atom_src[a][:100]}')
-    return v, av, fail
+    s = L.NEQ - len(L.failing_eqs(av))
+    nz = [a for a in range(L.NA) if a not in L.atom_out and av[a]]
+    print('%-34s score %-6d A=%s B=%s checks %s'
+          % (tag, s, int(v[35389] % P == 0), int(v[6671] % P == 0), nz), flush=True)
+    return s, av, nz
 
-v0 = L.load(CLEAN)
-print('clean state: x_7068 =', v0[7068])
-print('             x_2099 =', v0[2099])
-print('             x_37158 =', v0[37158], ' x_25297 =', v0[25297])
-print('             x_642 =', v0[642], ' x_21279 =', v0[21279])
 
-# A: pull x_7068 down onto x_2099
-report('A  x_7068 := x_2099', {7068: v0[2099]})
-
-# B: push x_2099 up onto x_7068 by moving its input x_37158
-report('B  x_37158 += (x_7068-x_2099)', {37158: v0[37158] + (v0[7068] - v0[2099])})
+report(v, 'start')
+x1, y1, x2, y2 = v[12186] % P, v[16742] % P, v[14853] % P, v[24908] % P
+x3, y3, K = v[22162] % P, v[30213] % P, v[24453] % P
+S = (y2 + y3) % P
+cub = F.psub(F.pmul([(x3 + x1 + K) % P, 1],
+                    [x3 * x3 % P, (-2 * x3) % P, 1]), [S * S % P])
+rs = F.roots(cub)
+print('\ncubic in x2 has %d root(s) in F_p' % len(rs), flush=True)
+best = report(v, 'baseline')[0]
+for m in rs:
+    w = S * ((m - x1) % P) % P * pow((m - x3) % P, -1, P) % P
+    Y1 = (y2 - w) % P
+    print('\n  x2* = %d\n  y1* = %d' % (m, Y1), flush=True)
+    u = list(v)
+    u[14853] = (u[14853] // P) * P + m
+    u[16742] = (u[16742] // P) * P + Y1
+    ad.fwd(u, rounds=6)
+    s, av, nz = report(u, '  after setting x2 and y1')
+    print('     A = %d\n     B = %d' % (u[35389] % P, u[6671] % P), flush=True)
+    # integer lift
+    _, fl, SV = suppfree.build(u, modp=None)
+    for _ in range(25):
+        av = L.all_atom_values(u)
+        todo = [a for a in range(L.NA) if a not in L.atom_out and av[a]
+                and av[a] % P == 0]
+        cur = L.NEQ - len(L.failing_eqs(av))
+        moved = False
+        for c in todo:
+            mm = suppfree.atom_supp(c, u, SV, modp=None)
+            for i in range(len(fl)):
+                if not ((mm >> i) & 1):
+                    continue
+                t = fl[i]
+                g = jacZ(t, u, [c]).get(c, 0)
+                if not g or g % P or av[c] % g:
+                    continue
+                w2 = list(u)
+                w2[t] = w2[t] - av[c] // g
+                ad.fwd(w2, rounds=6)
+                a2 = L.all_atom_values(w2)
+                if a2[c] == 0 and L.NEQ - len(L.failing_eqs(a2)) >= cur:
+                    u, av, moved = w2, a2, True
+                    break
+            if moved:
+                break
+        if not moved:
+            break
+    s, av, nz = report(u, '  after the integer lift')
+    T.save(u, os.path.join(HERE, 'CLOSE_%d.json' % s))
+    print('  saved CLOSE_%d.json' % s, flush=True)
+    if s > best:
+        best = s
+print('\nbest %d' % best)

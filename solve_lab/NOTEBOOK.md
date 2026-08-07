@@ -1751,3 +1751,34 @@ the p-quantised handles absorb exactly — a clean two-stage route to a full sol
 - Scope: exactly conserved at the message where it was derived (14/14 knobs annihilated) -- so
   the checkpoint's message provably cannot be completed.  Only 12/14 at a sibling, so across
   messages it is a screen and not a proof.
+## Session 11 — the residual is one trade, and here is its ledger
+
+Deliverable unchanged at **39,026 / 39,033** (re-verified with `checker.py`). What
+changed is the explanation, and the canonical frame moved 38,996 → 39,016.
+
+- `s10/cone.py`, `s10/conedump.py` — the binding residues' ancestor cone is **29
+  variables**. `x_2099` is a 3-way MUX over the free inputs `x_6418/x_9118/x_31861`;
+  `x_7068 = x_2099 + 7376877·p·k`. `D0` was never a pinned constant.
+- `s10/branch4.py` — `x_7075 = 1 − x_2081·x_4287`, so the never-tried branch `(1,1)`
+  sets `x_7075 = 0` and evaporates `p | x_9118` and `p | x_8731`. Part X's branch
+  verdict was a *witness-frame* measurement, i.e. unrepaired.
+- `s10/repair2.py` — two-level handle repair; closes `a7930` (+5), the "weak link".
+- `s10/newton.py`, `s10/crt.py` — mod-p Newton moves plus CRT on the free `k·p`.
+  Closes `a35759` at zero cost. 38,996 → 39,009.
+- `s10/beam.py` — beam over the enriched moves: **39,016**.
+- `s10/shadow.py` — `a37662 = 10·a21617`, `a40826 = 2·a29539` exactly. The
+  1-equation "hardening" checks carry no independent information.
+- `s10/family.py` — **192** gadgets `c·(A−B) − C`, each asserting `A ≡ B (mod p)`;
+  185 have gradient support 1 and all hold; two coupled clusters; the residual is
+  entirely inside `{7930, 21617, 29539, 33796}`.
+- `s10/fwdad.py`, `s10/closure2.py`, `s10/sacrifice.py` — forward-mode AD makes the
+  true closure affordable: **579 × 142, full column rank, one obstruction**.
+- `s10/frame2.py`, `s10/construct.py`, `s10/repair3.py` — the delivered witness's own
+  orientation, built explicitly; it is on-manifold there. All seven residual checks
+  are zeroable exactly and simultaneously; the cost then lands on the cluster.
+- `s10/engine.py` — the potential must be *(equations, −#nonzero atoms)*; equations
+  alone is a plateau.
+
+**Ledger.** Satisfy the p-group → the cluster costs 24 (17 after the beam).
+Satisfy the cluster → the p-group costs 7. The deliverable takes the cheaper side.
+That is why 7 is invariant across placements.

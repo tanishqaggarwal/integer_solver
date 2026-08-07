@@ -1,3 +1,427 @@
+# RESUME — read this first
+
+## Session 12 (Parts XXIV–XXV): the barrier arguments are withdrawn; the instance is thirteen numbers
+
+**Deliverable unchanged: 39,026 / 39,033, checker-verified** (`best/new_instance_partial_39026.json`,
+failing lines `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`).
+
+What this session established, in order:
+
+1. **§121 — the infeasibility claim of step 66 is REFUTED.**  `s10/exactlin.py` found the
+   exactly-linear subsystem inconsistent; `s10/exactlin2.py` shows all 7 inconsistent rows
+   came from rows whose columns were missing.  Closed to 171 rows the system has rank 77
+   and is consistent.  **No infeasibility claim is made anywhere in this lab.**
+   `s10/suppfree.py` computes the free-input support of every atom (mod-p, integer, or
+   structural) so closure claims can be checked rather than assumed.
+
+2. **§122 — the 47% large-move misprediction rate is second-order content, not integrality.**
+   Every gate output coefficient is ±1 (30,418 of +1, 1,057 of −1); no gate ever breaks under
+   any move (`s10/fidelity.py`).  Forward evaluation divides by nothing, so the map free
+   inputs → atom values is an honest polynomial.  **Every ceiling in Parts X–XXIII bounds only
+   the tangent space and does not bound the instance.**
+
+3. **§123–124 — the residual decompiles to two congruences, and the problem splits.**
+   Handles enter their checks with coefficient `d·p`, so they are invisible to every mod-p
+   Jacobian in this lab; `s10/intad.py` (forward AD over ℤ) is the first tool that sees them.
+   The instance = a mod-p phase (all the difficulty) + a free integer lift.
+
+4. **§128 — the "seven conserved residuals" are not conserved.**  `s10/build7.py` writes all
+   seven to exactly zero constructively (39,004, verified).  The obstruction relocates.
+
+5. **§129–130 — the free content of the instance is THIRTEEN 296-bit numbers**, only their
+   residues mod p matter, four are pinned to literal constants in the instance, and the
+   dependency graph of the rest is a **DAG**.  One Gauss–Seidel sweep (`s10/advgraph.py`)
+   solves every advice congruence: **39,013, an attractor reached from two different starts.**
+
+6. **§131 — what is left.**  Three products behind a boolean selector:
+   `x15298 · {x11150, x25739, x37758} ≡ 0 (mod p)`, where
+   `x15298 = OR(x8599, x21839) · OR(x25956, x7304) = 1`.
+   Two doors: make the three combinations vanish, or drive the selector to 0.
+
+### Session 12 addendum (Part XXVI): the circuit is EC point addition
+
+7. **§133–134 — the instance is elliptic-curve arithmetic over secp256k1.**  The three
+   primitives of §131 are homogeneous linear in `A = x35389`, `B = x6671` (rank 2, so both
+   must vanish), and A, B are the inversion-free point-addition identities with
+   `x1 = x12186, y1 = x16742, x2 = x14853, y2 = x24908, x3 = x22162, y3 = x30213`:
+   `A = 0  <=>  (x2-x1)^2 (x3+x1+x2) = (y2-y1)^2`;
+   `B = 0  <=>  (y3+y1)(x2-x1) = (y2-y1)(x1-x3)`.
+   `x22162` and `x30213` are **unconstrained** (their pins a30976/a30978 are gated by
+   `x15574 = 0`), A is linear in x3 and B linear in both, so `s10/ecfix.py` solves the 2x2
+   system exactly: **the point addition closes, x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)**,
+   and `s10/EC_39014.json` verifies at 39,014.
+
+8. **§135 — what comes back.**  Moving `y3` moves `x18956` (through `x10156 = x15298*y3`),
+   which breaks the constant pins `a688`/`a1618`.  The joint equation-level solve
+   (`s10/jsolve.py`, 4,314 rows x 494 cols) is inconsistent by 141 rows — a tangent-space
+   measurement only (§122), recorded, not treated as a barrier.
+
+9. **§136 — the selector door.**  `x15298 = OR(x8599,x21839)*OR(x25956,x7304)` unfolds into
+   `isZero` comparison flags that are all gate-defined; driving it to 0 is a condition on the
+   coordinates, not a free knob.
+
+**Next actions (updated)**
+  - Solve `{A = 0, B = 0, a688 = 0, a1618 = 0}` **jointly** in the coordinates — four
+    conditions sharing `x3 = x22162` and `y3 = x30213`; find what else feeds `x18956` and
+    `x24468` (`x25538, x32237, x13913, x38045, x34243`) and whether any is free.
+  - `s10/ecfix.py` generalises: exact probing recovers the exact Jacobian whenever the map is
+    linear in the chosen knobs, which it is for coordinate knobs.
+  - Chain: `advgraph.py` (advice DAG) -> `ecfix.py` (point addition) -> lift.  Both are
+    idempotent; the oscillation is between the addition and the two constant pins.
+
+
+### Session 12 addendum 2 (Part XXVII): the residual in closed form
+
+10. **§138–139 — the whole residual is two numbers, in seven literal constants.**
+    `x3 = x22162` and `y3 = x30213` are pinned by `a1618`/`a688` (through `x24468`/`x18956`,
+    once the handles and the zeroed selector terms are accounted for), so all seven
+    quantities of the addition are literals of the instance.  The closed forms
+
+        A = (x2-x1)^2*(x3+x1+x2+K) - (y2-y1)^2      B = (y3+y1)*(x2-x1) - (x1-x3)*(y2-y1)
+
+    match the measured `x35389` and `x6671` **digit for digit**.  The required x3 agrees
+    with what `s10/ecfix.py` derived independently.  Constants and pins are tabulated in
+    S10_EXACT_RESIDUAL.md §139.
+
+11. **§140 — the gates are a dead end, for a reason.**  `x24601` gates `(x1,y1)`, `x2081`
+    gates `(x2,y2)`.  Zeroing a gate frees the coordinate *and disconnects it*: through the
+    advice re-solve, `(A,B)` has degree **0** in every released coordinate
+    (`s10/release.py`, `s10/closer.py`).  Prices: 38,957 and 38,939 after the lift.
+
+12. **§141 — the only unpinned thing left is the BRANCH.**  Selectors `x15298`, `x34606`,
+    `x5647`, `x19271`, `x23597`, `x7715`, `x34554` decide which formula applies and which
+    terms vanish.  They are `isZero` flags, gate-defined.  **That is the target.**
+
+
+### Session 12 addendum 3 (Part XXVIII): the branch is measured too
+
+13. **§143 — frames are irrelevant.**  4,490 frames evaluated; every one scores exactly 39,026.
+14. **§144–145 — the boolean census, from the advice-solved state.**  493 of the first 1,464
+    bits are score-neutral; **all 300 tested neutral bits are completely INERT on (A, B)**;
+    of 400 costing bits only 24 move (A, B) and they give just **two** outcomes, neither zero.
+    Only `x2081` drives the selector to 0, at a price of 76.
+15. **§146 — no coherent one-hot swap exists.**  Each bit is a conditional constant pin
+    `b*(x - C) - handle` gating its OWN wire, not a shared multiplexer, so there is no group
+    to swap within; and only 2 of 7,250 bits are on.
+
+### Session 12 addendum 4 (Part XXIX): the addition CLOSES -- new verified state 39,015
+
+16. **§148 — Part XXVII was WRONG that the coordinates are the four literals.**  `coordjac.py`
+    (one forward-AD pass per free input) shows perturbing x22152/x33462/x6418/x12553 moves
+    none of x1,y1,x2,y2.  They act only through the advice DAG.  A and B's closed forms are
+    still exact; the coordinates are steerable.
+17. **§149 — the coordinate map has RANK 8** over 264 movers; only **8 are non-boolean** and
+    they are **diagonal**: x1<-x22649, y1<-itself, x2<-itself, y2<-x31339, x3<-itself,
+    y3<-itself, x19083<-x8778, x1308<-x6418.  The 256 boolean movers cost a broken b^2=b,
+    which is why the all-knob Newton cost 91.
+18. **§150 — A = B = 0 is SOLVABLE five ways, all priced.**  (x1,y1), (x2,y2), (x3,y3) solve
+    LINEARLY; (x2,y1) is a cubic with exactly one root; (x1,y2)'s cubic has none.
+    **Best: (x3,y3) -> `s10/PF_best_39015.json`, 39,015 checker-verified.**
+19. **§151 — the trap**: the advice DAG is a chain rooted in four gated literals; the gates
+    are the quadrant switches, so releasing one turns the addition off.
+20. **§152 — the deliverable is a CODING optimum, not an algebraic one.**  39,026's seven
+    nonzero atoms cancel in all but seven equations; the clean states have fewer nonzero
+    atoms in worse positions.
+
+### Session 12 addendum 5 (Part XXX): the lift belongs at the EQUATION level
+
+21. **§153 — a mod-p / ℤ gap.**  At `PF_best_39015` the coset count says 16 equations fail and
+    the checker says 18: equations 7469 and 21382 have combinations that vanish mod p but not
+    over ℤ.  `EC_39014` has three such; the 39,026 deliverable has **none**.
+22. **§154 — `s10/eqlift.py`** implements the equation-level lift (drive `S_e` to zero over ℤ
+    without zeroing any atom -- the mechanism the deliverable uses by luck).  It oscillates:
+    7469 and 7123 share the handle x30317.
+23. **§155 — `s10/eqdio.py`** solves the pair as a linear Diophantine system over 238 knobs:
+    **0 of ~28,000 pairs are integral.**  Those two points are locked by INTEGRALITY, the
+    first genuinely-over-ℤ obstruction found in this investigation.
+
+### Session 12 addendum 6 (Part XXXI): 39,026 is OPTIMAL for its residual -- exactly
+
+24. **§157 — the twelve equations are HOMOGENEOUS** linear forms in the seven residual atom
+    values, rank 7.  `eq 29125 = {a22230}` alone, so it demands `a1 = 0` exactly.
+25. **§158 — `s10/genscan.py` enumerates ALL fifteen free inputs reaching the seven atoms** and
+    MEASURES each cost: exactly **9 are free** (x642, x29854, x31864, x1329, x10903, x9413,
+    x17325, **x9118**, **x8731** -- the last two look expensive by atom count and are not),
+    generating a rank-7 lattice in which a2,a3,a4,a5 are free, a1 moves only in multiples of p
+    and a0 only in multiples of 7376877.
+26. **§159 — `s10/lattice7.py`**: for every subset of the twelve rows, the linear Diophantine
+    system over that lattice.  **No subset larger than 5 is integrally reachable**, though all
+    924 six-subsets and 792 seven-subsets are solvable over ℚ.  Pure integrality.
+27. **§160 — the coarse generators cost >= 11.**  x28730 breaks exactly the a7930 congruence
+    (16 eqs, 11 after the exact repair); x7068 breaks exactly a29539 (13 eqs).
+28. **§161 — therefore `score = 39033 - (12-k) - c` with `c = 0 => k <= 5 => <= 39,026`
+    (attained) and `c >= 11 => <= 39,022`.  39,026 IS OPTIMAL for this residual structure.**
+    Conditional on the measured coarse cost and on this frame; no infeasibility is claimed.
+
+### Session 12 addendum 7 (Part XXXII): algebraic side pushed to 39,017, then closed
+
+29. **§163–164 — NEW VERIFIED STATE `s10/FIN_39017.json` at 39,017.**  With A ≡ B ≡ 0 (mod p)
+    the three primitives are `8646263A+1073965B`, `10159099A+6926539B`, `8272701A+5921311B`;
+    two absorb immediately, and a19299 needs `6672769 | (10159099a+6926539b)`.  The k·p freedom
+    in x22162/x30213 steps that target by 1963712 and 3063958 mod 6672769 (gcd 1 -> always
+    solvable).  Crucial trap: the greedy absorber uses x22162/x30213 THEMSELVES (coefficients
+    1 and 8863713), undoing A = 0 -- restrict absorption to genuine handles.
+30. **§165 — 39,017 is exact there.**  Ten of the sixteen failing equations hold both a688 and
+    a1618, but **0 of 16** pass the mod-p ratio test, so no handle choice saves any.
+31. **§166 — and 16 is minimal.**  No single coordinate closes A and B (x3's two values differ,
+    y3 is absent from A, y1 needs a non-residue square root), and the pairwise union table puts
+    (x3,y3) at 16 with the next best at 23.
+32. **§167 — algebraic optimum 39,017 < coding optimum 39,026, both now exact.**
+
+**Next actions (Part XXV)**
+  - Door A: drive `x15298 → 0` from `s10/AG_39013.json` (never tried with all advice solved).
+  - Door B: solve `x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)` — three linear conditions in
+    `x35389, x6671, x3023, x2287`, all EC-shaped combinations of the advice values.
+  - Re-run `s10/advgraph.py` after any construction; it is idempotent and always lands on the
+    advice fixed point.
+  - `s10/gadget.py STATE` reads any state's failing checks as gadgets; `s10/decomp2.py` unfolds
+    them; `s10/advice.py` prints the thirteen and their constraints.
+
+# RESUME — read me first
+
+## STATUS (session 11): best verified **39,026 / 39,033** — unchanged, but now EXPLAINED
+Deliverable: `best/new_instance_partial_39026.json`
+Verify: `python3 checker.py best/new_instance_partial_39026.json` -> `satisfied 39026/39033 (7 failing)`
+Failing lines: `[12231, 12270, 12350, 14584, 18673, 22044, 29125]`.
+**Read `S10_EXACT_RESIDUAL.md` Part XI first** — it supersedes Parts I–X where they conflict.
+
+### The one-paragraph version
+The instance is **192 independent modular-equality assertions** `A ≡ B (mod p)`, each
+with a free quotient handle absorbing `(A−B)/p`. **185 of them have gradient support 1**
+— hard-wired to a single free input — and all 185 hold. Only two coupled clusters exist,
+and the entire residual lives in one: **`{a7930, a21617, a29539, a33796}`**. The
+instance offers exactly one trade:
+
+| choose | cost |
+|---|---|
+| satisfy the p-quantisation group, give up the gadget cluster | 24 equations (17 after beam) |
+| satisfy the gadget cluster, give up the p-group | **7 — the deliverable** |
+
+> **That is why 7 is invariant across placements** — not six coincidences, but the
+> cheaper side of a single forced trade.
+
+### What is genuinely new in session 11 (and what it overturns)
+1. **The binding residues' ancestor cone is 29 variables** (`s10/cone.py`). `x_2099` is a
+   **3-way MUX over free inputs** `x_6418/x_9118/x_31861`; `x_7068 = x_2099 + 7376877·p·k`.
+   Upstream both binding atoms are trivially satisfiable — session 9's "pinned constant
+   `D0`" was the shadow of a MUX.
+2. **A fourth branch exists.** `x_7075 = 1 − x_2081·x_4287`, so `(x_2081,x_4287)=(1,1)`
+   makes `x_7075 = 0`, killing the multiplier in `a35759`/`a35761` and evaporating the
+   congruences `p | x_9118`, `p | x_8731`. Part X's "boolean branches closed, ≥ 7" was
+   measured **in the witness frame** (flip applied, nothing re-solved). Re-solved it
+   reaches 38,994 — the door was real.
+3. **Two move classes nothing before possessed.**
+   - *Two-level handle repair* — solve an atom for any of its variables, then realise
+     that target through a free input of **that variable's own definer**. `lib.ripple`
+     cannot see this. It closes **`a7930`**, the atom RESUME called the weak link.
+   - ***mod-p Newton*** — a p-quantised check needs a **residue**, not a value. Shift a
+     free input by `δ = −a·(∂a/∂u)⁻¹ (mod p)`; the handle then absorbs `a/p` over ℤ.
+     Shifting `u` zeroes no atom by itself, so every zero-this-atom generator ever run
+     was structurally blind to it. It closes `a35759` at zero cost. `δ` is pinned only
+     mod `p`, so `δ + k·p` lets a second divisibility be met by **CRT**.
+   Canonical frame **38,996 → 39,009 → 39,016** (beam).
+4. **The 1-equation "hardening" checks are not constraints**: `a37662 = 10·a21617` and
+   `a40826 = 2·a29539`, exact integer multiples (`s10/shadow.py`).
+5. **Forward-mode AD** (`s10/fwdad.py`) costs one DAG pass per *free input* instead of one
+   per *check*, so the full Jacobian is 15 s, not intractable. The honest closure is
+   **579 × 142, full column rank, one obstruction** (witnesses `33796, 40562, 41400,
+   41507, 41827, 42245`). No single row and no cheap pair restores consistency.
+6. **The delivered witness's own frame, built explicitly** (`s10/frame2.py`): detach
+   `x_7068, x_28730, x_29854, x_31864, x_642` and it is **on-manifold** there (`fwd`
+   reproduces 39,026). Running `fwd` on it in the canonical frame snaps it to 38,996 —
+   which is why no forward-based repair had ever been able to touch it.
+7. **All seven residual checks are zeroable exactly and simultaneously**
+   (`s10/construct.py`, verified over ℤ) — the cost simply moves to the cluster.
+
+### Session 11 addendum — every alternative is now priced above 7
+* **Full closure**: 1,655 rows x 707 cols, rank 707, **kernel dimension 0**, inconsistent
+  (`s10/closure3.py`). Every free input the residual can reach is completely pinned.
+  This supersedes both the 128x79 of session 10 and the 579x142 of Part XI §55 — both
+  were sub-closures (they grew columns only from the *witness* rows).
+* **Price of insisting on the cluster**: force the failing rows to be pivots and the
+  cost-ordered elimination hands back a 16-row witness set spanning **52 equations**
+  (`s10/closure5.py`) — score <= 38,981. The cluster is unaffordable by a factor of 7.
+* **Branch-independent**: all four MUX branches, each run to a fixed point of the
+  enriched engine, land on the same two cluster gadgets — 39,009 / 38,994 / 39,002 /
+  38,986 for (1,0) / (1,1) / (0,1) / (0,0). `x_2081 = 0` does unpin `x_6418` (making
+  `a3576` trivial), the exact rigidity that blocked the `a29539` Newton move, and it
+  still does not pay.
+
+### Session 11 (part 2) — 39,026 PROVED optimal for its placement, and the real gap named
+* **The achievable atom set, exactly.** In the delivered witness's own frame, `x_9118`
+  and `x_8731` cost **nothing** (perturbing them breaks no atom outside the seven), so
+  **A2, A3, A4, A5 are completely free**. What binds is only
+  `A0 + 7376877·A6 ≡ C₀ (mod p)` and `A1 ≡ A1₀ ≠ 0 (mod p)`.
+* **Why exactly 5 of 12.** `eq 29125` is `A1` alone (needs `A1 = 0` — impossible);
+  `eq 2554` is `A0 + 13·A1` (satisfiable); the other ten are ten conditions on the four
+  free values, so four fall. **1 + 4 = 5 satisfied, 7 failing — derived, not searched.**
+* **The sixth equation costs 11 and is worth 1.** The combinatorial optimum ignoring the
+  congruences is 6, reachable only via `A1 = 0`; that requires `a7930`'s congruence to be
+  met by something other than `x_28730`, and its whole gradient support is six inputs
+  priced {x_24548: 11, x_12553: 14, x_4287: 44, x_13195: 63, x_2081: 109}.
+* **`a7930` has a second, free repair path** — through `x_7927`'s handle `x_11052`, zero
+  collateral, available whenever its congruence holds. Every earlier session closed it
+  only through `x_24548`, the expensive route.
+* **The instance is degenerate and every Jacobian was measured on that degeneracy.**
+  7,252 of 7,273 free inputs are zero; **95.7% of quadratic monomials are dead**. 115 free
+  inputs reach the cluster with derivative zero. "Full column rank, kernel 0" describes a
+  switched-off stratum, not the instance.
+* **Linearity, measured**: the cluster residues are exactly linear mod p in every
+  non-boolean free input; the collateral checks are NOT (656/1376 large-move predictions
+  wrong); the absorbable rows are 90.6% linear.
+
+### Session 11 (part 3) — equation-space compensation, opened and priced
+The proof in part 2 assumed the residual must be carried by the seven atoms. It need
+not: the 12x7 coefficient matrix has rank 7, so `A = 0` is forced — but an **eighth**
+atom sharing those equations changes the rank.
+* **`a22231 = x_4432 − x_19964 − x_28730` is a free compensator**: it appears in 10 of
+  the 12 equations and has **zero** equations outside them. With it the optimum rises to
+  **7 of 12 satisfiable → 5 fail + `a37887` = 6 → 39,027**.
+* **Frame 3** (`s10/frame3.py`, detach `x_4432` as well) severs `x_28730 → a7930`, so
+  `x_28730` costs exactly **one** equation and `A1` becomes free.
+* **`a37887` depends only on `x_4432` and `(x_19964 + x_28730)`** — exactly like
+  `a22231`. So the **compensating pair** `x_28730 += d, x_19964 −= d` holds
+  `a22230 = a22231 = a37887 = a7930 = 0` **simultaneously**, four checks never before
+  held at once. It is blocked only by the driver: `x_19964`'s ancestor cone is 17
+  variables with three live drivers — `x_12553` (15 eqs, it is the load pin `a3578`),
+  `x_4287` (30), `x_2081` (110). **The pair move costs 14 and buys 1.**
+* **Why `x_8731` measured free**: `a1459 = x_19892 − x_8731·x_21279` and `x_21279 = 0`,
+  so its path to `x_19964` is switched off. In branch `(1,1)` it is live with derivative
+  exactly 1 — the free driver the pair move wants — but that branch activates
+  `a19088, a22233, a22235` and tops out at 39,014.
+
+Every lever is now priced against the 7 the deliverable pays: `A1 = 0` buys 1 for 1 but
+leaves only 6 of 12; the seventh equation needs a compatibility condition on
+`K = x_4432 − x_19964 (mod p)`; moving `K` costs 14; moving `C₀` costs 13; unpinning
+`A1` through `a7930` costs 11; the cluster whole costs >= 30.
+
+### Session 11 (part 4) — the balance law: why 7 is exactly the floor
+* **`a37887` is a perfect square.** Solved as a *quadratic* in each variable
+  (`s10/quadfix.py` — a move class no search had, since `solve_lin` returns None on
+  degree 2), every variable has a **double root**. So `a37887 = Q²`, and `Q = 0` pins
+  `x_28730` **exactly**, not merely mod p. Its Hessian gives
+  `Q = a22231 − 3x_18253 − 9x_23754 − 34x_35619 − 13523972·x_9629 + …` — `a22231` plus
+  exactly the compensator-family variables.
+* **The balance law.** With `n` atoms allowed nonzero, `c` congruences among them and
+  `E` the equations they touch, a k-subset is satisfiable when its kernel has dimension
+  ≥ c, so `k = n − c` and **failing = |E| − n + c**:
+
+  | atom set | n | c | \|E\| | failing |
+  |---|---|---|---|---|
+  | the seven | 7 | 2 | 12 | **7** — the deliverable |
+  | + `a22231` | 8 | 2 | 12 | 6, **+1 for `a37887`** = 7 |
+  | + `a22232, a22233` | 10 | 3 | 15 | 8 |
+  | + `a22234, a22235` | 12 | 4 | 17 | 9 |
+
+  Adding a compensator changes the count by `out − 1 + Δc`. `a22231` is the **only** one
+  with `out = 0, Δc = 0`, and its −1 is spent exactly on `a37887` — whose `Q` is built
+  from `a22231` itself. **The instance is balanced so that its one free compensator pays
+  for precisely the one check that blocks it.**
+
+### The one direction still open (measured, session 11)
+Single activation of a dead free input provably cannot reach the cluster — a dead `u`
+only multiplies a `w` that is `0`. The **second-order** version works: find the blocking
+`w`, find a free input `z` that makes `w` nonzero, test the pair. `s10/second.py`:
+**6 of 6 tested pairs grew the cluster's gradient support**, +1 to +2 new knobs each, at
+6–13 broken atoms. The live stratum genuinely has knobs ours does not; the measured
+exchange rate is 1–2 knobs per 6–13 broken atoms. That is the only door left, and it is
+a second-order search, not a linear one.
+
+### Session 11 (part 5) — the law verified exact, both congruences priced
+* **The kernel dimensions are generic.** Computing the *dimension* of every subset of the
+  twelve, not just testing for a nonzero kernel (`s10/kdim.py`): sizes 12–7 give dim 0,
+  size 6 gives dim 1, size 5 gives dim 2 — the first to reach `c = 2`. No dependent
+  subset exists to exploit, so **`failing = |E| − n + c` is tight, not an estimate**. The
+  size-5 optimum is `{2554, 6816, 8124, 9123, 9421}` — *exactly* the delivered witness's
+  satisfied set.
+* **Congruence 1 costs 20.** `A0 + 7376877·A6 ≡ C₀` needs `x_7068` to move mod p; only
+  `a29539` breaks. Pricing all 79 inputs in its gradient support: cheapest genuine repair
+  is `x_14853` at 20 equations. (The `x_7068 → 0` hit is an artefact — the Newton
+  correction returns `x_7068` to its own residue, leaving `C₀ mod p` unchanged.)
+* **Congruence 2 costs exactly the 1 it gains** — `a37887 = Q²` with `Q` built from
+  `a22231`.
+* **Bulk activation does not create freedom.** Activating N dead inputs: closure goes
+  1655×707 → 1715×741 → 1786×788, and **rank always equals the column count** — kernel
+  stays 0 while inconsistent rows go 11 → 73 → 113. Rows and columns grow in lockstep;
+  activation buys knobs and constraints at the same rate.
+
+### Session 11 (part 6) — THE OBSTRUCTION IS NOT COMBINATORIAL
+This overturns the framing of parts 2–5. They priced everything in terms of atoms
+*allowed* nonzero. The prior question — is there **any** atom vector satisfying all
+39,033 equations with the residual nonzero? — has answer **yes**.
+* **3,234 equations contain exactly one atom**, forcing that atom to zero. None of the
+  seven residual atoms is among them. The other 35,798 equations are combinations of
+  3–24 atoms, so atoms in them can cancel.
+* **Compensation closure** (`s10/closure_atom.py`, `s10/kerseed.py`): propagating "an
+  atom forced nonzero can be paid for by another atom in the same equation" reaches a
+  fixed point of **500 equations × 529 atoms, rank 500, kernel dimension 29 — and 24 of
+  the 29 basis vectors touch the seed.** No single-atom equation blocks any active atom.
+* **Restricted to settable atoms** (only 22 of 529 aren't): kernel still dimension 8, all
+  touching the seed; the sparsest is **69 atoms touching only 68 equations**, every one
+  settable (47 with a free variable, 22 via a p-handle), rational kernel dimension 1.
+  Realising it would satisfy the **entire instance**.
+* **Why it fails, and not for the reason expected**: the 69 atoms have only 48 setting
+  variables → 21 collisions. In the canonical frame all 21 violate `z_a·d_b = z_b·d_a`.
+  But each pair's shared variable is defined by an atom *already in the support*, so
+  detaching costs nothing and breaks the collision — and then the 42 detached variables
+  touch 39 atoms outside the support, putting **110 equations** at risk. Closing over
+  BOTH relations (equation-sharing for compensation, variable-sharing for realisability)
+  blows up: 46 → 2,417 → **12,367 atoms / 13,746 equations**, ratio negative, still growing.
+* **Consequence**: the instance is not hard because its equations cannot be satisfied
+  with a nonzero residual — they can. It is hard because the **atom map's image** misses
+  every kernel vector, and the coupling enforcing that closes over the whole instance.
+  Every price in parts 2–5 is a price for *one frame*, which is why no frame beat another.
+
+### Session 11 (part 7) — eight parallel investigations, all closed
+Nothing beat 39,026. Every route now has a constructive price, and several of my own
+earlier claims were corrected by them.
+
+| route | verdict |
+|---|---|
+| global placement | break census over all 38,748 variables, 33,969 supports: **min 7 anywhere** |
+| adversarial audit | could not refute; found 7 defects in my statements (see Part XVII) |
+| cluster algebra | cones are boolean **MUX networks**; residual is **conserved**, 24 in / 24 out |
+| p-wire | `w = 1` frees everything — only **2 of 42,267 atoms** nonzero — for **13** |
+| activation | kernel never opens; closure column set is **closed**; canonical ceiling **39,018** |
+| boolean branches | all 900 neutral flips at once leave the seven **bit-identical** |
+| boolean carriers | killed by **non-negativity**: `x(x−1) ≥ 0`, free cone provably trivial |
+| joint pin moves | **`A = 0` realised at 39,017** — corrects my "≥ 24" to **16 measured** |
+
+**The two headline states, both checker-verified:**
+* `s10/jm_azero00_39017.json` — **39,017**, all seven residual atoms exactly zero, all
+  twelve gadget equations satisfied, **only three atoms nonzero instance-wide**.
+* `s10/wr_engine_w1_x7068_39020.json` — **39,020**, wire at `w = 1`, **only two atoms
+  nonzero instance-wide**.
+
+**Frame ceilings** (minimum-equation-cost coset leader, by information-set decoding):
+canonical **39,018**, witness **39,026**. *The deliverable saturates its own frame's
+linear ceiling exactly.*
+
+**Methodological warnings that cost me real time:**
+* The mod-p veto is wrong in **both** directions at large moves — it predicted a
+  4-equation floor where construction measured 20, breaking a disjoint set of atoms.
+  Only construction settles a price.
+* The 39,026 partial is **off-manifold**; a plain `ad.fwd` "repairs" its deliberately
+  nonzero gate atoms and drops to 38,996. Use `frame2`/`frame3` or an equivalent
+  block-preserving forward.
+* Cost must count equations whose atom **combination** is nonzero, not equations the
+  atoms touch — the latter reports the witness frame as 39,021 instead of 39,026.
+
+### Next actions
+1. The cluster must be solved **whole** — members cost 10–15 equations each, so no
+   partial fix competes with 7. Attack the single obstruction functional of the
+   579 × 142 closure directly.
+2. The closure is over free inputs in one orientation. Two spaces it does **not** cover:
+   non-canonical orientations of the *cluster* variables (frame 2 did this for the
+   p-group and it worked), and the 40 inert cyclic-SCC parameters.
+3. Branch `(1,1)` removes two congruences but activates `a19088, a22233, a22235`
+   (`x_21279 = 1`). Those three were never attacked with the new move classes.
+4. Do NOT redo: local repair with `lib.ripple`, single-move hill climbing (the potential
+   must be *(equations, −#nonzero atoms)*, not equations alone — see `s10/engine.py`),
+   the message space, the sacrifice route in the canonical frame.
+
+---
+
 # RESUME — read me first
 
 ## STATUS: deliverable **39,026 / 39,033** (re-verified with `checker.py` this session)
@@ -33,6 +457,27 @@ Second branch, independently verified: `s11/data/finish3_named.json` -> **39,018
 6. **That wall is channel-specific.**  In the x5647 channel (`s11/data/finish3_named.json`,
    score 39,018) `x15298 = 0` and all three wall checks are vacuous.  That branch's own defect
    is three atoms / fifteen equations needing `8640431*p | x12000`, `p | x12926`, `p | x21364`.
+
+### MERGE NOTE — two independent lines, and how their claims reconcile
+
+The sections below come from a parallel branch that worked the instance in the mod-p layer.  It
+reached, independently, the same three congruences the session-12 work above reaches:
+`x11150 ≡ x25739 ≡ x37758 ≡ 0 (mod p)` (Part XIII there, §133-134 here).  That convergence from
+two unrelated directions is the strongest evidence in this lab that those three are the real
+content of the residual.
+
+**Where the two lines disagree, session 12 above is right and the branch's wording was too
+strong.**  Part XVIII of the branch says the checkpoint's message "provably cannot be completed".
+That is a statement about the *affine model* — the certificates annihilate the measured
+first-order response — and §122 above shows exactly why such statements bound only the tangent
+space: the map from free inputs to atom values is an honest polynomial, and a linear certificate
+does not bound it.  Read every "proof" in `S11_PART5_MODP.md` / `S11_PART6_BITS.md` as
+**tangent-space only**, consistent with the rule that no infeasibility claim is made in this lab.
+
+Two things there survive that scoping intact, because they are exhaustive rather than tangential:
+the 2^18 enumeration of invariant 5 (232 distinct values, never zero) and the exhaustive weight-2
+message scan (minimum 4 failing checks, three optimal messages).  Both are computations over a
+finite set, not linearisations.
 
 ### NEWEST OF ALL: the obstruction is CONSERVED QUANTITIES of the message — `S11_PART6_BITS.md`
 Each obstruction certificate y gives `INV_y = sum_a y_a * r_a`, constant under every continuous

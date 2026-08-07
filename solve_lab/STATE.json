@@ -7,7 +7,7 @@
  "n_eqs_satisfied_by_partial": 39026,
  "best_score": 39026,
  "best_partial": "solve_lab/best/new_instance_partial_39026.json",
- "active_method": "s11 parts XVII-XVIII: obstruction certificates are CONSERVED QUANTITIES of the message, computable in 3.9ms. inv5 depends on only 18 bits; all 2^18 enumerated -> 232 distinct values, never zero. Exactly conserved at the checkpoint message (proof it cannot be completed); only approximately at siblings (screen, not proof).",
+ "active_method": "39,026/39,033 (7 failing) -- PROVED optimal for this defect placement (s10/lattice3.py, exhaustive over all 2^12 subsets with exact integer solvability, not a search). Residual = 7 nonzero atoms [22229,22230,35758,35759,35760,35761,35762] in exactly 12 equations, rank 7. Achievable atom-vector set = {A1+7376877*A7 == D (mod p, after the free k*p shift of x_7068); A2 == K2 (mod p); A3..A6 free}. Each binding congruence costs exactly one equation: 2 -> 39,026, 1 -> 39,027, 0 -> 39,033 (full solve). No partial credit in between.",
  "structure": {
   "kind": "obfuscated arithmetic circuit; each eq = random linear combo (or square) of shared atoms",
   "n_distinct_atoms": 46275,
@@ -41,9 +41,11 @@
   "local_repair_55vars": "UNSAT (z3): freeing all 55 failing-eq vars + constraining the 5357 equations touching them, rest fixed, is UNSAT -> near-solution is NOT locally extendable; the 256-bit core must be re-solved globally"
  },
  "next_actions": [
-  "Reach a state where the failing equation values are 0 mod p -> obstruction collapses to the 7-digit 2458959, attackable by the quad3.py CRT method",
-  "IP certificates already established: channel optimum 15, global lower bound 2, checkpoint rigid for allow<=2",
-  "Do NOT redo: ip1-ip11 (min-cost placement, lower bound, coset IP, checkpoint IP, invariant factor)"
+  "Deliverable: solve_lab/best/new_instance_partial_39026.json (7 failing), verified.",
+  "39,026 is optimal under the balance law failing = |E| - n + c: the seven give 7, the only improving compensator a22231 gains 1 and loses exactly 1 to a37887 = Q^2, and every other lever is priced 11/13/14/30/52 against a gain of 1.",
+  "The ONLY space left unmeasured is the live stratum: 95.7% of quadratic monomials are dead at our witness, and single activations provably cannot reach the cluster (s10/activate.py) -- it needs simultaneous pairs, a second-order search.",
+  "Reusable machinery added this session: s10/repair2.py (two-level handle repair), s10/newton_modp.py + s10/crt.py (mod-p Newton + CRT), s10/fwdad.py (forward-mode AD closures), s10/frame2.py and s10/frame3.py (non-canonical frames), s10/cascade.py, s10/engine.py (lexicographic potential), s10/quadfix.py (quadratic repair).",
+  "Do NOT redo: single-move hill climbing, boolean scans, the sacrifice enumerations, curve/ratrec number theory, single dead-path activation, the compensator enumeration."
  ],
  "blocked": [
   "Part 1's two mod-p congruences are rigid ONLY because all handles are p-quantised, and part 2 shows that rests on a wire with a 3-dimensional free deformation space. The live obstruction is now the 13 multi-wire monomials plus the bare root pin a37694 (12 equations)."
@@ -67,13 +69,9 @@
   "session9_writeup": "solve_lab/S9_STRUCTURE.md",
   "reduced_problem": "solve_lab/REDUCED_PROBLEM.md",
   "session10_doc": "solve_lab/S10_EXACT_RESIDUAL.md",
-  "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt",
-  "s11_semantics": "solve_lab/S11_SEMANTICS.md",
-  "s11_scripts": "solve_lab/s11/",
-  "s11_theta": "solve_lab/s11/theta_solveB.json",
-  "s11_part2": "solve_lab/S11_PART2.md"
+  "verification_log_39026": "solve_lab/best/VERIFICATION_LOG_39026.txt"
  },
- "updated_unix": 1786033552,
+ "updated_unix": 1786036874,
  "session4": {
   "fast_dag_eval": "0.14s but alternate fixpoints (baseline 20 vs 4), cannot validate witness",
   "witness_global": "dense 76-bit -> 320 viol; seeded Rule-A no cascade -> witness is a simultaneous global set",
@@ -315,107 +313,682 @@
    "sacrifice_closed": "budget6fast.py: 10,917,019 within-budget sets tested, NONE restore consistency. Minimum sacrifice 3 rows {a3578,a26731,a35759} cost 37; sizes 1,2 impossible."
   }
  },
- "s11": {
-  "best_verified_this_session": 39018,
-  "best_artifact": "solve_lab/s11/data/finish3_named.json",
-  "deliverable": 39026,
-  "deficit": 2,
-  "deficit_mechanism": "two topological control collisions: a14445+a34580 share only x_33129; a27139+a33796 share only x_37088",
-  "best_branch": "U=0,V=1 with bits (490,91)",
-  "absorbing_cost_in_branch": 15,
-  "deficit_proof": "bipartite matching: 14 constraints, max matching 12, deficit 2; Hall violator 9 constraints vs 8 controls (s11/hall.py)",
-  "bits_boolean": "proved: a1430 = x_490^2 - x_490, one per each of the 256 message bits",
-  "integer_program": {
-   "channel_optimum": 15,
-   "global_lower_bound_equations": 2,
-   "checkpoint_allow_0_1_2": "all infeasible",
-   "obstruction": "single divisibility by 2458959*p (3*819653*p); consistent over Q; support = the 7 x_2099 ladder vars",
-   "next_target": "reach a state with failing equation values = 0 mod p; obstruction then collapses to 2458959"
-  }
- },
- "notes_session11_partX": {
-  "checkpoint_local_optimum": 7,
-  "obstruction_congruences": [
-   "p | x9118",
-   "p | x8731",
-   "p | x28730"
-  ],
-  "cleared_by": [
-   "s11/fix2.py",
-   "s11/sw6.py"
-  ],
-  "wall_atoms": [
-   19297,
-   19299,
-   30984
-  ],
-  "wall_reason": "no free variable; content is the live MUX channel x15298 = U*V",
-  "wall_vacuous_in_channel": "x5647 (x15298 = 0), see s11/data/finish3_named.json score 39018"
- },
- "notes_session11_modp": {
-  "failing_checks_modp": [
-   7930,
-   29539,
-   35759,
-   35760,
-   40826,
-   41512
-  ],
-  "freely_cleared": {
-   "a35759": "x9118",
-   "a35760": "x8731"
+ "session11": {
+  "headline": "39,026 unchanged, but the residual is now EXPLAINED: the instance is 192 modular-equality assertions A==B (mod p); 185 have gradient support 1 and hold; the whole residual is ONE 4-gadget cluster {7930,21617,29539,33796}. The instance offers a single trade: give up the p-quantisation group (7 eqs) or the cluster (24, 17 after beam). 7 is the cheaper side -- that is why it is invariant.",
+  "new_machinery": {
+   "two_level_handle_repair": "solve an atom for ANY of its variables, then realise that target through a free input of that variable's own definer; lib.ripple cannot see this. Closes a7930 (+5), the atom RESUME called the weak link. s10/repair2.py",
+   "mod_p_newton": "a p-quantised check needs a RESIDUE not a value: shift free input u by delta = -a*(da/du)^-1 mod p, then the solo handle absorbs a/p over Z. Zeroes no atom by itself, so every zero-this-atom generator was blind to it. Closes a35759 at zero cost. s10/newton.py",
+   "crt_correction": "delta is pinned only mod p, so delta + k*p satisfies a second divisibility simultaneously. s10/crt.py",
+   "forward_mode_ad": "one DAG pass per FREE INPUT instead of one per CHECK -> full check x free-input Jacobian mod p in 15s (134 cols). s10/fwdad.py",
+   "frame2": "detach x_7068,x_28730,x_29854,x_31864,x_642 -> the delivered witness is ON-manifold (fwd reproduces 39,026). In the canonical frame fwd snaps it to 38,996, which is why no forward repair could touch it. s10/frame2.py",
+   "potential_function": "hill climbing must rank (equations, -#nonzero atoms); equations alone is a plateau. s10/engine.py"
   },
-  "barrier": [
-   7930,
-   29539,
-   40826,
-   41512
+  "corrections_to_earlier_sessions": [
+   "Part X's 'boolean branches closed exhaustively, >= 7' was measured in the WITNESS FRAME (flip applied, nothing re-solved). A fourth branch (x_2081,x_4287)=(1,1) sets x_7075 = 0 and evaporates the congruences p|x_9118 and p|x_8731; re-solved it reaches 38,994.",
+   "D0 was never a pinned constant: x_2099 is a 3-way MUX over the FREE inputs x_6418/x_9118/x_31861, and x_7068 = x_2099 + 7376877*p*k. The ancestor cone is only 29 variables.",
+   "The 1-equation 'hardening' checks are not independent constraints: a37662 = 10*a21617 and a40826 = 2*a29539 exactly."
   ],
-  "continuous_knobs": 1726,
-  "gate_knobs_tested": 725,
-  "real_bits": 256,
-  "inert_bits": 900,
-  "forward_eval_seconds": 0.08,
-  "channels": {
-   "UV": "checkpoint, 4 failing",
-   "(1-U)V": "39018 state, 3 failing",
-   "U(1-V)": "turn x2081 off, unexplored"
-  }
- },
- "notes_session11_bits": {
-  "real_bits": 256,
-  "inert_free_booleans": 900,
-  "trees": {
-   "A": 88,
-   "B": 90,
-   "C": 37,
-   "D": 41
+  "closure": {
+   "rows": 579,
+   "cols": 142,
+   "rank": 142,
+   "note": "full COLUMN rank -- free inputs locally rigid, no kernel; inconsistent by exactly one functional",
+   "witnesses": [
+    33796,
+    40562,
+    41400,
+    41507,
+    41827,
+    42245
+   ],
+   "min_sacrifice": "no single row, no pair within budget"
   },
-  "pins_per_bit": 2,
-  "loaded_vars_private": 512,
-  "min_weight": 1,
-  "weight2_minimum_failing_checks": 4,
-  "weight2_optimal_messages": [
-   [
-    24601,
-    2081
-   ],
-   [
-    24601,
-    4287
-   ],
-   [
-    24601,
-    13195
+  "scores": {
+   "delivered": 39026,
+   "canonical_frame_new_moves": 39009,
+   "canonical_beam": 39016,
+   "frame2_pgroup_zeroed_then_repaired": 39009,
+   "branch_1_1_resolved": 38994
+  },
+  "verified": "python3 checker.py best/new_instance_partial_39026.json -> satisfied 39026/39033 (7 failing)",
+  "full_closure": {
+   "rows": 1655,
+   "cols": 707,
+   "rank": 707,
+   "kernel_dim": 0,
+   "inconsistent": true,
+   "note": "supersedes the 128x79 (session 10) and 579x142 (Part XI \u00a755) sub-closures; those grew columns only from the witness rows, not from every row",
+   "witnesses": [
+    33929,
+    40068,
+    40390,
+    40969,
+    41400,
+    41507,
+    41827,
+    41842,
+    42117,
+    42226
    ]
-  ],
-  "inv5_active_bits": 18,
-  "inv5_enumeration": {
-   "subsets": 262144,
-   "distinct": 232,
-   "zeros": 0
   },
-  "cert_conserved_at_derivation_message": true,
-  "cert_conserved_at_sibling": "12 of 14 knobs"
+  "price_of_the_cluster": {
+   "method": "steer the elimination: force the failing rows to be pivots, order the rest by decreasing cost (s10/closure5.py)",
+   "witness_rows": 16,
+   "equations": 52,
+   "score_ceiling": 38981
+  },
+  "branches": {
+   "(1,0)": 39009,
+   "(1,1)": 38994,
+   "(0,1)": 39002,
+   "(0,0)": 38986,
+   "note": "all four converge to the SAME two cluster gadgets; the obstruction is branch-independent"
+  },
+  "derivation": {
+   "achievable_atom_set": "A2,A3,A4,A5 COMPLETELY FREE (x_9118 and x_8731 cost nothing in frame 2); A0 + 7376877*A6 == C0 (mod p); A1 == A1_0 != 0 (mod p) pinned by a7930's congruence",
+   "why_5_of_12": "eq29125 = A1 alone (needs A1=0, impossible); eq2554 = A0+13A1 (satisfiable); the other ten are ten conditions on the four free values A2..A5 -> four fall. 1+4 = 5 satisfied, 7 failing.",
+   "combinatorial_optimum": 6,
+   "price_of_the_sixth": "A1 = 0 requires a7930's congruence met by something other than x_28730; its whole gradient support is {2081:109, 4287:44, 12553:14, 13195:63, 24548:11} equations. Cheapest 11, worth 1.",
+   "degeneracy": "7,252 of 7,273 free inputs are ZERO; 95.7% of quadratic monomials are dead. Every Jacobian so far was taken at that degenerate point.",
+   "linearity": "cluster residues exactly linear mod p in every non-boolean free input; collateral checks NOT (656/1376 large-move predictions wrong); absorbable rows 90.6% linear",
+   "new_repair_path": "a7930 also closes through x_7927's handle x_11052 at ZERO collateral whenever its congruence holds"
+  },
+  "compensation": {
+   "idea": "the 12x7 matrix has rank 7 so A=0 is forced; an eighth atom sharing those equations changes the rank",
+   "free_compensator": "a22231 = x_4432 - x_19964 - x_28730 appears in 10 of the 12 and has ZERO equations outside them",
+   "optimum_with_it": "7 of 12 satisfiable -> 5 fail + a37887 = 6 -> 39,027, but the kernel is 1-dimensional while there are 2 congruences, needing a compatibility condition on K = x_4432 - x_19964 (mod p)",
+   "frame3": "detaching x_4432 severs x_28730 -> a7930: then x_28730 costs ONE equation (a37887) and A1 is free",
+   "a37887_structure": "depends only on x_4432 and on (x_19964 + x_28730), exactly like a22231",
+   "compensating_pair": "x_28730 += d, x_19964 -= d holds a22230=0, a22231=0, a37887=0 AND a7930=0 simultaneously -- four checks never before held at once -- but x_19964's only live drivers are x_12553 (15 eqs), x_4287 (30), x_2081 (110)",
+   "x_8731_degeneracy": "a1459 = x_19892 - x_8731*x_21279 with x_21279 = 0, so x_8731's path to x_19964 is switched off; in branch (1,1) it is live with derivative exactly 1",
+   "branch11_frame3": 39014
+  },
+  "balance_law": {
+   "law": "failing = |E| - n + c, with n atoms allowed nonzero, c mod-p congruences among them, E the equations they touch",
+   "table": {
+    "seven": "n=7 c=2 |E|=12 -> 7 (the deliverable)",
+    "+a22231": "n=8 c=2 |E|=12 -> 6, +1 for a37887 = 7",
+    "+a22232,a22233": "n=10 c=3 |E|=15 -> 8",
+    "+a22234,a22235": "n=12 c=4 |E|=17 -> 9"
+   },
+   "a37887_is_a_perfect_square": "every variable has a DOUBLE root, so a37887 = Q^2 and Q = 0 pins x_28730 exactly, not just mod p; Q = a22231 - 3x_18253 - 9x_23754 - 34x_35619 - 13523972x_9629 + ... i.e. a22231 plus exactly the compensator variables",
+   "conclusion": "adding a compensator changes the count by out - 1 + dc; a22231 is the ONLY one with out=0,dc=0, and its -1 is spent exactly on a37887. The instance is balanced so its one free compensator pays for the one check that blocks it."
+  },
+  "second_order_activation": {
+   "single": "no single activation reaches the cluster (s10/activate.py) -- by construction, a dead u only multiplies a w that is 0",
+   "second_order": "s10/second.py: 6 of 6 tested pairs GREW the cluster gradient support, +1 to +2 new knobs each, at 6-13 broken atoms",
+   "verdict": "the live stratum genuinely has knobs ours does not; exchange rate 1-2 knobs per 6-13 broken atoms. This is the only door left and it is a second-order search."
+  },
+  "final_ledger": {
+   "kdim_check": "every subset of the twelve has exactly the GENERIC kernel dimension (s10/kdim.py) -- no dependent subsets exist, so failing = |E| - n + c is tight; the size-5 optimum {2554,6816,8124,9123,9421} is exactly the delivered witness's satisfied set",
+   "congruence_1": "A0 + 7376877*A6 == C0 (mod p): needs x_7068 to move mod p, only a29539 breaks; cheapest genuine repair x_14853 at 20 equations (the x_7068 'zero cost' hit is an artefact -- the Newton correction returns it to its own residue)",
+   "congruence_2": "A1 == A1_0 (mod p): removed by detaching x_4432, price a37887 = 1 equation, cancelling the gain exactly since a37887 = Q^2 with Q built from a22231",
+   "bulk_activation": "N=0/10/30 dead inputs activated -> closure 1655x707 / 1715x741 / 1786x788, rank ALWAYS equal to the column count, kernel always 0, inconsistent rows 11/73/113. Rows and columns grow in lockstep; activation buys knobs and constraints at the same rate."
+  },
+  "atom_level_finding": {
+   "headline": "the combinatorial obstruction does not exist at the atom level -- the barrier is the atom map's image",
+   "single_atom_equations": "3,234 equations contain exactly one atom, forcing it to zero; NONE of the seven residual atoms is among them",
+   "compensation_closure": "500 equations x 529 atoms, rank 500, kernel dimension 29, and 24 of the 29 basis vectors touch the seed",
+   "settable_restriction": "only 22 of 529 atoms are unsettable; intersecting the kernel with z=0 there still leaves dimension 8, all touching the seed; sparsest vector has support 69 atoms touching only 68 equations, all settable (47 direct, 22 p-handle), rational kernel dimension 1",
+   "why_not_realisable": "69 atoms have only 48 setting variables -> 21 collisions; in the canonical frame all 21 fail z_a*d_b == z_b*d_a; in the fully detached frame the collisions break but the 42 detached variables touch 39 outside atoms putting 110 equations at risk, and closing over BOTH relations (equation-sharing and variable-sharing) blows up to 12,367 atoms / 13,746 equations with a negative ratio",
+   "consequence": "every price in Parts XII-XV is a price for ONE frame; the coupling that blocks realisation closes over the whole instance"
+  },
+  "agents": {
+   "placement_search": "whole-instance break census over all 38,748 variables, 33,969 distinct supports: min failing = 7, nothing below it anywhere. Reachable equation-direction space in Q^12 has rank 7 and -r0 is in it. a22231 is provably the unique 8th atom whose equations all lie inside the twelve. Footprint-1 atoms are BUNDLES, not carriers.",
+   "adversarial_audit": "could not refute; found 7 real defects (the balance law is bookkeeping not a law; removing both congruences is worth 7 not 2; congruence 1 costs 13 not 20; driver prices 30/38/109 not 15/30/110; lattice11.py is heuristic). Named weakest step: multi-parameter joint moves.",
+   "cluster_algebra": "cones are boolean MUX networks, not one-way. Two zero-net swaps found; both together close the cluster EXACTLY at 39,009. Obstruction functional's gradient over all 7,273 free inputs is exactly {x_2081, x_4287}. Its C3 != K1 infeasibility claim was REFUTED (the a7930 link is frame-dependent).",
+   "wire": "w = 1 frees the entire residual -- only TWO of 42,267 atoms nonzero, 39,020 verified -- for a price of 13. Exactly two regimes, no third; price irreducible (196,624 three-knob systems bottom out at 11).",
+   "activation": "second.py's 6-of-6 result was a CONTROL FAILURE. All 17,766 pairs enumerated twice: 0 genuinely second-order at value 1. Kernel never opens because the closure's column set is closed. Canonical-frame coset-leader ceiling 39,018. Record frame admits no move: 14,541 single moves, none improving.",
+   "boolean_branches": "load pins are b*(x-K)-c*z (three monomials); only two reach C0. Flipping all 900 neutral booleans at once leaves the seven residual values BIT-IDENTICAL. Branch table in Part XV was frame-dependent.",
+   "boolean_carriers": "closed by NON-NEGATIVITY: x(x-1) >= 0, and an exact rational Phase-1 simplex proves the free-variable cone is trivial, so every free boolean really is confined to {0,1}. Zero boolean atoms appear in any of the 7 failing equations.",
+   "joint_moves": "A = 0 realised constructively: all seven residual atoms zero, all twelve gadget equations satisfied, only THREE atoms nonzero instance-wide, at 39,017. Corrects the >= 24 ledger entry to 16 MEASURED. The mod-p veto is wrong in both directions."
+  },
+  "frame_ceilings": {
+   "canonical": 39018,
+   "witness": 39026,
+   "note": "the deliverable saturates its own frame's linear ceiling exactly"
+  }
+ },
+ "session12": {
+  "deliverable": {
+   "score": 39026,
+   "file": "best/new_instance_partial_39026.json",
+   "failing": [
+    12231,
+    12270,
+    12350,
+    14584,
+    18673,
+    22044,
+    29125
+   ],
+   "verified": true
+  },
+  "withdrawn_claims": {
+   "exactlin_infeasibility": "REFUTED by s10/exactlin2.py -- 162 missing columns; closed system is consistent",
+   "integrality_explanation": "WRONG CAUSE -- s10/fidelity.py: no gate ever breaks, every pivot is +-1",
+   "linear_ceilings_39018_39026": "tangent-space only; the map is a genuine polynomial"
+  },
+  "structure": {
+   "gate_output_coefficients": {
+    "+1": 30418,
+    "-1": 1057
+   },
+   "free_inputs": 7273,
+   "free_inputs_zero": 7252,
+   "advice_values": [
+    6418,
+    8778,
+    12553,
+    14623,
+    14853,
+    16742,
+    22152,
+    22162,
+    22649,
+    24548,
+    30213,
+    31339,
+    33462
+   ],
+   "advice_bits": 296,
+   "advice_k_shared": {
+    "839192594282": [
+     8778,
+     14623,
+     16742,
+     24548,
+     31339,
+     33462
+    ],
+    "1094785891323": [
+     14853,
+     22152,
+     22649
+    ]
+   },
+   "k_is_irrelevant": "every k scores identically (s10/advfix.py); only residues mod p matter",
+   "constant_pins": {
+    "x6418": "a3576",
+    "x12553": "a3578",
+    "x22152": "a31670",
+    "x33462": "a31672"
+   },
+   "advice_graph": {
+    "edges": {
+     "8778": 33462,
+     "14623": 24548,
+     "14853": 6418,
+     "16742": 8778,
+     "22649": 22152,
+     "24548": 12553,
+     "31339": 14623
+    },
+    "is_dag": true,
+    "gauss_seidel_fixed_point": 39013
+   }
+  },
+  "kernels": {
+   "atoms_canonical": {
+    "rows": 475,
+    "cols": 197,
+    "rank": 154,
+    "kernel": 43,
+    "note": "kernel = the handle columns, which move nothing mod p"
+   },
+   "equations_canonical": {
+    "rows": 3324,
+    "cols": 415,
+    "rank": 415,
+    "kernel": 0
+   },
+   "equations_frame2_at_deliverable": {
+    "rows": 139,
+    "cols": 11,
+    "rank": 11,
+    "kernel": 0
+   }
+  },
+  "exact_univariate": {
+   "degree_bound_verified": 9,
+   "degfail": 0,
+   "single_coordinate_safe_jumps": 0,
+   "note": "gcd of holding checks has degree 1 along every direction measured"
+  },
+  "new_states": {
+   "s10/B7_39004.json": "all seven residual atoms exactly zero, 39004 verified",
+   "s10/AG_39013.json": "advice fixed point, 39013 verified",
+   "s10/GC_39006.json": "gadget-close loop best, 39006"
+  },
+  "remaining": {
+   "primitives": [
+    "x15298*x11150 = 0 mod p",
+    "x15298*x25739 = 0 mod p",
+    "x15298*x37758 = 0 mod p"
+   ],
+   "selector": "x15298 = OR(x8599,x21839)*OR(x25956,x7304) = 1",
+   "doors": [
+    "drive x15298 to 0",
+    "zero the three combinations mod p"
+   ]
+  },
+  "new_tools": [
+   "s10/suppfree.py",
+   "s10/intad.py",
+   "s10/fpoly.py",
+   "s10/unipoly.py",
+   "s10/kerpoly.py",
+   "s10/eqker.py",
+   "s10/eqker2.py",
+   "s10/f2uni.py",
+   "s10/build7.py",
+   "s10/gclose.py",
+   "s10/advice.py",
+   "s10/advfix.py",
+   "s10/advgraph.py",
+   "s10/gadget.py",
+   "s10/decompile.py",
+   "s10/decomp2.py",
+   "s10/fidelity.py",
+   "s10/exactlin2.py",
+   "s10/comp7.py",
+   "s10/rjump.py",
+   "s10/rj2.py"
+  ],
+  "part_xxvi": {
+   "semantics": "elliptic-curve point addition over the secp256k1 prime",
+   "coordinates": {
+    "x1": 12186,
+    "y1": 16742,
+    "x2": 14853,
+    "y2": 24908,
+    "x3": 22162,
+    "y3": 30213
+   },
+   "identities": {
+    "A_x35389": "(x2-x1)^2*(x3+x1+x2) = (y2-y1)^2",
+    "B_x6671": "(y3+y1)*(x2-x1) = (y2-y1)*(x1-x3)"
+   },
+   "three_primitives_are_linear_in_A_B": {
+    "x11150": "8646263*A+1073965*B",
+    "x25739": "10159099*A+6926539*B",
+    "x37758": "8272701*A+5921311*B",
+    "rank": 2
+   },
+   "x3_y3_unconstrained": "pins a30976/a30978 are gated by x15574 = 0",
+   "ecfix_result": {
+    "A": 0,
+    "B": 0,
+    "score": 39014,
+    "file": "s10/EC_39014.json",
+    "verified": true
+   },
+   "what_returns": [
+    "a688",
+    "a1618"
+   ],
+   "why": "x18956 depends on y3 through x10156 = x15298*y3",
+   "joint_solve": {
+    "rows": 4314,
+    "cols": 494,
+    "rank": 494,
+    "inconsistent": 141,
+    "note": "tangent-space measurement only; the map is a genuine polynomial"
+   },
+   "selector": "x15298 unfolds into isZero flags, all gate-defined -- not a free knob"
+  },
+  "part_xxvii": {
+   "closed_form": {
+    "A": "(x2-x1)^2*(x3+x1+x2+K)-(y2-y1)^2",
+    "B": "(y3+y1)*(x2-x1)-(x1-x3)*(y2-y1)",
+    "matches_measured_exactly": true
+   },
+   "constants": {
+    "x1_x22152": 82007976112976807461901870199198737303514020147647909878034348606308756230357,
+    "y1_x33462": 37841415183514949237467304684128824427406379377151921996714091976892367869714,
+    "x2_x6418": 20302955751113177691132960011219991444785130617995423281601414462835238472546,
+    "y2_x12553": 4531249068709477613185164105669741036354237152756954144434674493737552368539,
+    "x3_x22162": 36200939269128454586076546451607958467047992891178506183612554289882454126226,
+    "y3_x30213": 44859544763832475231923253825569092119321525945631045653619508440821028887,
+    "K_x24453": 97553848499418123410591666447050222001188385549510401465815187079080512838891
+   },
+   "pins": {
+    "x22152": "a31670 gated by x24601",
+    "x33462": "a31672 gated by x24601",
+    "x6418": "a3576 gated by x2081",
+    "x12553": "a3578 gated by x2081",
+    "x22162": "a1618 via x24468",
+    "x30213": "a688 via x18956",
+    "x24453": "a41332 bare"
+   },
+   "required": {
+    "x3": 64380398444296801010644702415499625279634447310109840487123352893083633736186,
+    "y3": 45581544895849512040994625888221382902610927244970819299918660665999394080285
+   },
+   "release_prices": {
+    "x24601_zero": 38957,
+    "x2081_zero": 38939,
+    "both": 38879
+   },
+   "release_is_a_dead_end": "degree 0 -- zeroing a gate frees the coordinate and disconnects it",
+   "remaining_freedom": "the BRANCH: selectors x15298, x34606, x5647, x19271, x23597, x7715, x34554",
+   "no_infeasibility_claimed": true
+  },
+  "part_xxviii": {
+   "frames": {
+    "evaluated": 4490,
+    "all_score": 39026,
+    "conclusion": "frame choice is irrelevant"
+   },
+   "bool_census": {
+    "bits": 7250,
+    "measured": 1464,
+    "score_neutral": 493,
+    "selector_to_zero": {
+     "x2081": 38937
+    },
+    "none_zero_A_or_B": true
+   },
+   "neutral_bits": {
+    "tested": 300,
+    "inert_on_A_B": 300
+   },
+   "costing_bits": {
+    "tested": 400,
+    "move_A_or_B": 24,
+    "distinct_outcomes": 2,
+    "neither_zeroes": true
+   },
+   "bit_semantics": "conditional constant pin: b*(x - C) - handle, one wire per bit",
+   "onehot": {
+    "groups": 0,
+    "bits_currently_on": 2,
+    "conclusion": "no shared-wire multiplexer, so no coherent swap exists"
+   },
+   "no_infeasibility_claimed": true
+  },
+  "part_xxix": {
+   "correction_to_part_xxvii": "the coordinates are NOT the four literals; perturbing x22152/x33462/x6418/x12553 moves none of x1,y1,x2,y2. They reach the coordinates only through the advice DAG.",
+   "coordinate_map": {
+    "movers": 264,
+    "rank": 8,
+    "of": 10,
+    "relations": "only the linearisations of A and B",
+    "non_boolean_movers": 8,
+    "boolean_movers": 256,
+    "diagonal": {
+     "x1": 22649,
+     "y1": 16742,
+     "x2": 14853,
+     "y2": 31339,
+     "x3": 22162,
+     "y3": 30213,
+     "x19083": 8778,
+     "x1308": 6418
+    }
+   },
+   "pair_prices": {
+    "(x3,y3)": 39015,
+    "(x2,y1)": 38992,
+    "(x1,y1)": 38991,
+    "(x2,y2)": 38991,
+    "(x1,y2)": "cubic has no root in F_p",
+    "all_eight_at_once": 38922
+   },
+   "linear_pairs": [
+    "(x1,y1)",
+    "(x2,y2)",
+    "(x3,y3)"
+   ],
+   "new_state": {
+    "file": "s10/PF_best_39015.json",
+    "score": 39015,
+    "verified": true,
+    "note": "point addition closes exactly; best canonical-frame state"
+   },
+   "trap": "the advice DAG is a chain rooted in four gated literals; moving a coordinate breaks its link, repairing that breaks the next, and the chain ends at a literal whose pin is released only by the quadrant switches x2081/x24601, which also turn the addition check off",
+   "why_deliverable_wins": "the 39,026 witness is a CODING optimum (its 7 nonzero atoms cancel in all but 7 equations), not an algebraic one; 39,015 is the algebraic optimum",
+   "no_infeasibility_claimed": true
+  },
+  "part_xxx": {
+   "modp_vs_Z_gap": {
+    "PF_best_39015": {
+     "modp_cost": 16,
+     "checker": 18,
+     "liftable_equations": [
+      7469,
+      21382
+     ]
+    },
+    "EC_39014": {
+     "liftable": [
+      7123,
+      7469,
+      21382
+     ]
+    },
+    "deliverable_39026": {
+     "liftable": 0
+    }
+   },
+   "equation_level_lift": "dS_e/du = sum_a c_a*(da/du)_Z; u -= S_e/that. Drives an equation combination to zero over Z without zeroing any atom -- the mechanism the 39,026 deliverable uses.",
+   "oscillation": "eq 7469 and eq 7123 share the handle x30317; each fix breaks the other; no strictly-improving single move exists",
+   "diophantine_pair_solve": {
+    "knobs": 238,
+    "integral_pairs": 0,
+    "conclusion": "the two points are locked by INTEGRALITY, not by the mod-p algebra"
+   },
+   "ceiling_at_39015": 39017,
+   "tools": [
+    "s10/ceil15.py",
+    "s10/eqlift.py",
+    "s10/eqdio.py"
+   ]
+  },
+  "part_xxxi": {
+   "twelve_rows": "homogeneous linear forms in the seven residual atom values, rank 7; eq 29125 = {a22230} alone forces a1 = 0",
+   "zero_cost_generators": {
+    "count": 9,
+    "of_candidates": 15,
+    "list": {
+     "x642": "a0-7376877,a6+1",
+     "x29854": "a2+1,a3-1",
+     "x31864": "a4+1,a5+1",
+     "x1329": "a2-p",
+     "x10903": "a4-p",
+     "x9413": "a1-p",
+     "x17325": "a6-p",
+     "x9118": "a3+5113045",
+     "x8731": "a5+1"
+    },
+    "correction": "x9118 and x8731 look expensive by atom count and are FREE"
+   },
+   "coarse_generators": {
+    "x7068": {
+     "effect": "a0+1",
+     "cost": 13
+    },
+    "x28730": {
+     "effect": "a1+1",
+     "cost": 16,
+     "after_repair": 11
+    }
+   },
+   "diophantine": {
+    "subsets_of_size_6_to_12_integrally_solvable": 0,
+    "solvable_over_Q": "all 924 six-subsets and all 792 seven-subsets",
+    "obstruction": "pure integrality in the two coarse directions"
+   },
+   "optimality": {
+    "formula": "score = 39033 - (12-k) - c",
+    "c_zero_implies_k_at_most_5": true,
+    "bound_at_c_zero": 39026,
+    "bound_at_c_ge_11": 39022,
+    "conclusion": "39,026 is OPTIMAL for this residual structure",
+    "caveats": [
+     "the coarse cost 11 is measured on single moves, not proved",
+     "the argument is about this frame and its seven atoms only",
+     "no infeasibility is claimed"
+    ]
+   },
+   "tools": [
+    "s10/genscan.py",
+    "s10/lattice7.py",
+    "s10/repaircost.py",
+    "s10/coarse.py",
+    "s10/sixsub.py",
+    "s10/compens.py",
+    "s10/ceil15.py"
+   ]
+  },
+  "part_xxxii": {
+   "improvement": {
+    "from": 39015,
+    "to": 39017,
+    "file": "s10/FIN_39017.json",
+    "verified": true,
+    "residual": [
+     688,
+     1618,
+     40608
+    ]
+   },
+   "divisibility_lock": {
+    "condition": "6672769 | (10159099*a + 6926539*b), A = p*a, B = p*b",
+    "steps_per_k": {
+     "x22162": 1963712,
+     "x30213": 3063958
+    },
+    "modulus": 6672769,
+    "gcd_with_modulus": 1,
+    "always_solvable": true,
+    "solution_used": {
+     "k1": -12,
+     "k2": 5812259
+    }
+   },
+   "absorber_trap": "x22162 absorbs a1618 with coefficient 1 and x30213 absorbs a688 with 8863713 -- the coordinates themselves; a greedy absorber undoes A = 0.  Restrict to handles (coefficient a multiple of p).",
+   "ratio_test": {
+    "failing": 16,
+    "both_atoms_in": 10,
+    "pass_mod_p": 0,
+    "conclusion": "39,017 is exact at that state"
+   },
+   "single_coordinate_impossible": [
+    "x3 from A and from B differ",
+    "y3 appears only in B",
+    "A = 0 in y1 needs a square root of a non-residue"
+   ],
+   "pair_cost_table": {
+    "(x3,y3)": 16,
+    "(y3,x1)": 23,
+    "(x1,x2)": 24,
+    "(x1,y2)": 25,
+    "(y3,x2)": 25,
+    "worst": 31
+   },
+   "conclusion": "algebraic optimum 39,017 < coding optimum 39,026; both now exact",
+   "tools": [
+    "s10/handzero.py",
+    "s10/habsorb.py",
+    "s10/divlock.py",
+    "s10/finish.py",
+    "s10/ratio.py",
+    "s10/algside.py"
+   ],
+   "lock_solutions_swept": {
+    "shifts_tried": 8,
+    "all_scored": 39017,
+    "note": "independent confirmation that the residues, not the k*p part, fix the score"
+   }
+  }
+ },
+ "session11_modp_branch": {
+  "summary": "s11 parts XVII-XVIII: obstruction certificates are CONSERVED QUANTITIES of the message, computable in 3.9ms. inv5 depends on only 18 bits; all 2^18 enumerated -> 232 distinct values, never zero. Exactly conserved at the checkpoint message (proof it cannot be completed); only approximately at siblings (screen, not proof).",
+  "notes_session11_partX": {
+   "checkpoint_local_optimum": 7,
+   "obstruction_congruences": [
+    "p | x9118",
+    "p | x8731",
+    "p | x28730"
+   ],
+   "cleared_by": [
+    "s11/fix2.py",
+    "s11/sw6.py"
+   ],
+   "wall_atoms": [
+    19297,
+    19299,
+    30984
+   ],
+   "wall_reason": "no free variable; content is the live MUX channel x15298 = U*V",
+   "wall_vacuous_in_channel": "x5647 (x15298 = 0), see s11/data/finish3_named.json score 39018"
+  },
+  "notes_session11_modp": {
+   "failing_checks_modp": [
+    7930,
+    29539,
+    35759,
+    35760,
+    40826,
+    41512
+   ],
+   "freely_cleared": {
+    "a35759": "x9118",
+    "a35760": "x8731"
+   },
+   "barrier": [
+    7930,
+    29539,
+    40826,
+    41512
+   ],
+   "continuous_knobs": 1726,
+   "gate_knobs_tested": 725,
+   "real_bits": 256,
+   "inert_bits": 900,
+   "forward_eval_seconds": 0.08,
+   "channels": {
+    "UV": "checkpoint, 4 failing",
+    "(1-U)V": "39018 state, 3 failing",
+    "U(1-V)": "turn x2081 off, unexplored"
+   }
+  },
+  "notes_session11_bits": {
+   "real_bits": 256,
+   "inert_free_booleans": 900,
+   "trees": {
+    "A": 88,
+    "B": 90,
+    "C": 37,
+    "D": 41
+   },
+   "pins_per_bit": 2,
+   "loaded_vars_private": 512,
+   "min_weight": 1,
+   "weight2_minimum_failing_checks": 4,
+   "weight2_optimal_messages": [
+    [
+     24601,
+     2081
+    ],
+    [
+     24601,
+     4287
+    ],
+    [
+     24601,
+     13195
+    ]
+   ],
+   "inv5_active_bits": 18,
+   "inv5_enumeration": {
+    "subsets": 262144,
+    "distinct": 232,
+    "zeros": 0
+   },
+   "cert_conserved_at_derivation_message": true,
+   "cert_conserved_at_sibling": "12 of 14 knobs"
+  }
  }
 }
