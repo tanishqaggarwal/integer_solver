@@ -264,3 +264,68 @@ solvability from any of this, and my own results point the other way** — the d
 ## 18. Best verified score — unchanged, and I did not beat it
 **39,026 / 39,033.** I produced no new assignment this check-in. The carrier I predicted does
 not exist, and I am reporting that as plainly as I would have reported a win.
+
+---
+# CHECK-IN 11 — the lift is NOT free. L's property is false in my parse.
+
+## 19. Item 1, tested directly. **0 of 3,707 handle variables appear in exactly one atom.**
+Handle = a variable defined by an atom of the form `h − (P-alias)·u`. My parse finds **3,707**
+of them. Occurrence count, exhaustive, no exceptions:
+
+| variable | count | atoms it appears in |
+|---|---|---|
+| handle `h` (the P-multiple) | **3,707** | **exactly 2 — every single one** |
+| cofactor `u` (the free multiplier) | 3,707 | **exactly 1 — every single one** |
+
+So L's load-bearing property **is false of the handles** and **true of the cofactors**. Given
+L reports 3,681 against my 3,707 — a decomposition difference, not a disagreement about the
+file — I think the likeliest reading is that **L counted `u` and concluded about `h`.**
+
+## 20. Why "appears in exactly one atom" does not imply free
+The two atoms a handle sits in are
+```
+  h − u·P = 0        (definition)      ⇒  P | h
+  R − c·h = 0        (congruence)      ⇒  h = R/c
+```
+`u` does appear exactly once, and that is necessary for freedom but **not sufficient**: you
+must also be able to *solve that atom over ℤ* for the variable, and `h − u·P = 0` is solvable
+for `u` only when `P | h`. Composing the pair gives exactly the condition I have been
+flagging, **`c·P | R`**, which is strictly stronger than the mod-P statement `R ≡ 0 (mod P)`
+whenever `c > 1`.
+
+## 21. How much is actually free — measured
+Splitting all 3,707 handles by the multiplier `c` on `h` in the congruence atom
+(the def-side coefficient is `±1` for all 3,707, so it contributes nothing):
+
+* **2,780 handles have `c = 1`.** For these the integer condition collapses to `P | R`, which
+  *is* the mod-P congruence. **These are genuinely free — L is right about 75% of them.**
+* **927 handles have `c > 1`.** For these `c·P | R` is a real extra integer condition that
+  mod-P reasoning does not deliver.
+
+**So the reduction is about three-quarters closed and one-quarter open. It is not
+unconditional, and per your "if and only if" I am not stating it in unconditional form.**
+
+## 22. Empirical corroboration that the def atom is a real constraint, not an absorber
+All four variables the 39,026 deliverable corrupts — `x642, x28730, x29854, x31864` — **are
+handle variables**, and they are **exactly the four (of 3,707) for which `P` does not divide
+the value**; the other 3,703 all satisfy `P | h`. Its entire 7-equation deficit is the two
+atoms of a handle failing to be simultaneously satisfiable. If handles absorbed freely, that
+deficit would not exist. Note the scope: this shows the pair is a *joint* constraint; it does
+**not** show an honest configuration must fail it — the deliverable broke those handles on
+purpose, to plant the degeneracy.
+
+## 23. What would actually close it, and the number that worries me
+Not an argument — a construction. Build the integer lift for **one** configuration and verify.
+The available freedom is the integer lift of each free coordinate variable (`r + kP`), which
+moves `R/P` and so can tune `R/P mod c`. The count to check first:
+**~766 lift parameters (2 per law-block) against 927 conditions with `c > 1`.** Fewer knobs
+than conditions is not fatal — the conditions are moduli of ~7 bits and one parameter can
+serve several by CRT if the coefficients are invertible — but **nobody has counted the rank**,
+and that rank is the whole question. The one encouraging data point: the deliverable satisfies
+all 927 of them at its own configuration, so a lift exists for at least one configuration.
+
+## 24. Status of my standing caveat: **unchanged, now quantified**
+Everything I have reported remains mod P. "Solve the residual ⇒ full solution" is **still a
+conjecture**, and I now know precisely which part is unproved: the 927 `c > 1` divisibilities.
+Knob set unchanged (the 256 selectors, liveness derived). Best verified score unchanged at
+**39,026 / 39,033**; I produced no new assignment.

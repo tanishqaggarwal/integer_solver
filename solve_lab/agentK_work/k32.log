@@ -1,0 +1,22 @@
+N > 2^255 : True    2N > 2^256 : True   (so k in {0,+1,-1} only)
+sum_{e<=254} 2^e = 2^255-1 < N : True  => a degenerate side must own exponent 255
+
+nested supports containing exponent 255 (ancestor chain), sizes: [2, 4, 6, 11, 21, 40, 88, 90, 175, 176, 253, 253, 256]
+leaves never assigned by the descent: []
+
+level  |J1|     |J2|      x-y=N   y-x=N
+0      2        2         no
+1      4        2         no
+2      6        5         no
+3      11       10        no
+4      21       19        no
+5      40       48        no
+6      88       2         no
+7      90       87        no
+8      175      2         no
+9      176      77        no
+10     253      2         no
+11     253      3         no
+
+stages admitting a degeneracy: NONE
+stages that cannot own exponent 255 are excluded by the size bound above, exactly.

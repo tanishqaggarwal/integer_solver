@@ -209,7 +209,13 @@ annihilate. This ignores integer/mod-p realizability, so it is an *optimistic ce
 | pair {24601, 2081} | 6 | 28 | 17 | 11 | **≤ 39,022** |
 | deliverable's own placement (from `NOTEBOOK.md` §Session 10) | 7 | 12 | 5 | 7 | **39,026** |
 
-**Even optimistically, the configurations reachable by `gs2`'s repair cannot beat 39,026.**
+**SCOPE — this bounds `gs2`'s SUPPORT, not the configuration and not the instance.** `price.py`
+fixes the nonzero-atom support to whatever `gs2.solve` lands in and optimises only the *values* on
+that support. Which atoms are nonzero is itself a free choice of the repair — the deliverable
+deliberately violates GATE atoms to move its defect into a cheap 12-equation footprint. So the
+rows above say: *at `gs2`'s support*, single-bit and pair configurations cannot beat 39,026. They
+say nothing about supports a placement optimiser could reach. Quoting these numbers as a property
+of the configuration, or of the instance, would be wrong.
 Knob set: `gs2.solve`'s knob set (every free input reaching a nonzero residual atom) minus the
 frozen set {x22162, x30213, x24468, x18956, the selected selector bits, the tree partner flags};
 selector configuration: exactly the bits named in each row, all other selectors 0. This prices

@@ -460,3 +460,17 @@ the off-pins of a single gate, which is F/K's decode to make, not mine.
     every subset of the 7 (127 of them) .... best 39023
     all 7 simultaneously ................... 38989
 No candidate file above 39,026 was produced (`ls M_sub_*.json` -> none).
+
+## 29. Superseded jobs, stopped
+`eqsolve2.py`'s greedy row-selection and `rfenum2.py`'s trailing `simsolve` pass were still
+grinding when round 3 finished. Both are **superseded and were stopped**:
+- `eqsolve2`'s greedy answers the window question badly (it *is* the overdetermined window);
+  `eqsub.py` answers it window-free and completely.
+- `rfenum2`'s `simsolve` tail is capped at ~39,008 by the instrument limitation of §14/§18.
+Their partial logs (`eqsolve2.log`, `rfenum2.log`) are kept; the raw block-lattice table in
+`rfenum2.log` (§18) is complete and unaffected.
+
+## 30. Round-3 files
+`eq29125.py` (single-row gcd test, 3 knob sets) · `eqsub.py` -> `eqsub.pkl`, `eqsub.log`
+(127-subset window-free sweep). Nothing above 39,026 produced. No other agent's directory was
+touched; no git commands were run.

@@ -52,8 +52,14 @@ Re-derived here from agent F's decode artifacts (read-only), every step checked:
 - **Configuration dependence**: single-bit configurations give 3 nonzero atoms / 20 equations
   (uniform over 45 bits tested), pairs 6/28, triples 9/48; the deliverable's *placement*
   (7 atoms / 12 equations, 5 cancelling) is worth ~21 equations more than `gs2`'s repair of the
-  same configuration. Optimistic linear-algebra ceilings: single bit **≤ 39,020**, pair
-  **≤ 39,022** — both below 39,026.
+  same configuration.
+  **SCOPED CEILING — read the scope before quoting the number.** `price.py` fixes the nonzero-atom
+  *support* to the one `gs2.solve` happens to land in and then optimises only over the *values* on
+  that support. Under that fixed support the ceilings are single bit **≤ 39,020** and pair
+  **≤ 39,022**. **This is a statement about `gs2`'s support, not about the configuration and not
+  about the instance.** A repair that relocates the defect to a different support is not bounded by
+  it — and relocating the defect is exactly what the deliverable does. The ceiling therefore does
+  **not** kill the §4 experiment.
 
 ## 3. Confirmed / refuted
 - CONFIRMED: F's tree decode, its law, its invertibility, and its ON-set prediction.
@@ -61,8 +67,10 @@ Re-derived here from agent F's decode artifacts (read-only), every step checked:
   shape is irrelevant and the leaves form a single doubling ladder over a 256-bit prime order.
 - REFUTED: that the reduced problem is 96 coupled stage constraints — it is one scalar equation.
 - REFUTED: that "encode the reduced problem in SAT/SMT/CP" is a live attack. Measured, not assumed.
-- REFUTED: that a different selector configuration cheaply beats 39,026 (for the placements
-  `gs2` reaches; see the knob-set statement in LOG.md §9).
+- NOT REFUTED, and previously mis-stated by me: whether a different selector configuration can
+  beat 39,026. What is measured is only that **`gs2.solve`'s support** for single-bit and pair
+  configurations is capped at 39,020 / 39,022. Support is a free choice of the repair, so this
+  bounds my repair, not the configuration and not the instance. See §4.
 
 ## 4. Highest-EV next experiment
 Run the deliverable's own placement optimiser (`solve_lab/s10/lattice3.py` machinery: integer

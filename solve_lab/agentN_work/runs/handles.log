@@ -1,3 +1,6 @@
 base closed state score 39018 targets 1147
 25/1147  1.03s/carrier  eta 19.2 min  best=39017
 50/1147  0.79s/carrier  eta 14.4 min  best=39017
+75/1147  0.73s/carrier  eta 13.1 min  best=39017
+100/1147  0.69s/carrier  eta 12.0 min  best=39017
+125/1147  0.65s/carrier  eta 11.1 min  best=39017
