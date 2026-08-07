@@ -3,3 +3,4 @@
 sorted 2796416  194.8s
 weight<=3 hits: []
   scanned 0/2796416  202s  found=0
+  scanned 1048576/2796416  270s  found=0

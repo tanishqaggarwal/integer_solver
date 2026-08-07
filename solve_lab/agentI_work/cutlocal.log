@@ -27,3 +27,5 @@ targeted candidates: 421
   partial a20071 nconf=0 und=10059 eqs=14 X29322 - (X14853 - X12186)
   partial a20074 nconf=2 und=10047 eqs=14 X6240 - (X22162 + X12186)
   280/421 t=735s
+  partial a20494 nconf=2 und=10047 eqs=15 X15298 * X25739 - 6672769 * X29804
+  300/421 t=778s
