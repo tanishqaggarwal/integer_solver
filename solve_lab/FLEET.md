@@ -1973,3 +1973,105 @@ fully determined by the selectors" has been **measured or assumed**.
 after 1,353 s under load ~20; ~2–3 h remaining). No new search tickets built. Q rewrote its §13 to
 record S's retraction as S's own, and took no credit for it — its §11 was measured on its own
 merits and never depended on the withdrawn result.
+
+---
+
+## Check-in 29–30 — composition holds at one pair; a hard filter for placements (agents P, M)
+
+Deliverable unchanged: **39,026 / 39,033**. No score attempted by either.
+
+### P (final) — composition holds at `cands[0]`, jointly VERIFIED
+
+Hoist applied (9,164 per-variable lift steps and 382 per-block condition triples computed once
+instead of re-scanning 39,277 atoms in the loop).
+
+```
+cands[0] : parent block 193 <- child block 2 ,  |S| = 3 ,  2 live blocks
+child  conditions : 1 non-vacuous, c = 11·23·43·647
+parent conditions : 1 non-vacuous, c = 59·27103
+child  solvable with the child's own parameters   : True
+parent solvable with the copy-edge lifts ALONE    : True
+parent solvable with all six parent parameters    : True
+JOINT (both CRT shifts applied at once, recomputed from the shifted integers) : True
+parent shift touches only a copy edge -> child variables untouched : True
+```
+
+**Individual and simultaneous lifting both hold at this pair — the first data point that
+distinguishes them, and it is favourable.**
+
+**Why the joint check was run, and it is the lesson:** P's first verdict line was a logical AND of
+two separate searches — **an inference from parameter disjointness**, which is exactly the shape
+its second guard exists to catch. So it CRT'd each block's per-prime root vectors coordinate-wise,
+applied **both** shifts at once, and recomputed everything from the shifted integers. It passed;
+had it not, the disjointness reasoning would have been wrong and P would have reported the
+opposite.
+
+**P's check-in-25 hypothesis: CONFIRMED AT ONE PAIR. Not established.** The mechanism is the one it
+guessed and refused to claim — the parent's input is joined to the child's output by a mod-P copy
+congruence carrying its own free lift, so the parent's condition is discharged by a copy-edge lift
+that never touches the child. Now **observed**, child verified untouched. **Cite it as "confirmed
+at `cands[0]`", nothing broader.**
+
+**Scope:** one pair, `|S| = 3`, two live merges, and only **2 of the 6** conditions here are
+non-vacuous — so this settles **2 of the 927**. Deeper chains, sibling merges feeding one parent,
+and every `|S| > 3` are untested. **Nothing says the copy-edge lift is always available or always
+independent.**
+
+**Reduction status — unchanged for the sixth consecutive check-in: 2,780 of 3,707 free at `c = 1`;
+927 carrying `c·P | R`; satisfiability OPEN.** Two favourable conditions at one pair is not 927.
+
+**P's thread is complete and handed over** — no further resumption. Durable: `plift5.py` (lift
+constructor), `prank.py` (6-parameter rank, verified at block 2), `pcompose2.py` (hoisted,
+runnable, reproduces the above end to end). **Two standing guards, both learned by being bitten:
+never brute-force over `lcm(c_k)`; never trust a symbolic expansion *or a disjointness argument*
+without direct recomputation** — the second caught a sign bug at check-in 24 and is what turned
+this result from inferred into verified. **Next for whoever picks it up:** `cands[1..3]` (all
+support 3) to see whether copy-edge independence repeats, then the first three-deep chain.
+
+### M — the pricer, and a hard filter that redirects the whole search
+
+**Calibrated from `[642, 28730, 29854, 31864]` alone.** Input is handle variables only; the
+collateral demotion is **derived, not supplied** — `closure(handles, depth=1)` recovers
+`[642, 7068, 28730, 29854, 31864]`, **exactly engine2's PIN**, with the fifth demotion derived from
+the four handles. `price_given` → **39,026**, the deliverable's exact 7 failures, 8 bad atoms,
+**0 variables differing**. `tune` with no values supplied → 39,008 → **39,026**.
+
+**M caught its own tuner failing calibration and withheld the numbers.** It returned 39,008 at the
+deliverable's own site, so all 12 candidates read 39,008 — reporting those would have looked like a
+clean sweep of negatives and been worthless. The diagnosis **refuted M's own written hypothesis**:
+it had assumed fixing required accepting new breaks, and in fact **the deliverable fixes 18
+baseline failures and breaks zero** — no trade at all — with the affine model predicting exactly at
+**12/12** agreement. Model sound, solver wrong: a ~40-knob set let a sparse solver pick degenerate
+solutions satisfying targeted rows while wrecking others; restricting knobs to the freed handles
+fixed it in 4 s.
+
+**THE FILTER:**
+
+| | rows_target | tuned |
+|---|---|---|
+| deliverable's site | **25 of 25** | **39,026** |
+| all 11 other sites | **0** | 39,008 |
+
+> **A site can help only if its corrupted atoms appear in the equations that fail at the
+> uncorrupted baseline.**
+
+The 25: `2554, 5324, 6816, 8124, 8680, 9041, 9123, 9421, 11226, 12231, 12270, 12350, 14584, 15558,
+18673, 21000, 22044, 22534, 22997, 28929, 29125, 29330, 32026, 35512, 38051`.
+
+The eleven 39,008 readings are **not "found nothing"** — those sites cannot fix *any* failing
+equation, so their only possible effect is to add failures. **L's incidence is not this quantity:
+its top 12 by incidence are all 0-incident.** Anything with `rows_target = 0` is discardable
+without pricing.
+
+**Throughput:** `price_given` 0.53 s (~6,700/hour); `tune` 1–4 s (~900–2,700/hour single-core,
+4 cores). **List size is not the constraint.** 6- and 8-handle two-site variants are in range.
+
+**Relayed to L** with instructions to re-filter its 378 before emitting anything further — and if
+the incident set is thin, that is itself the sharpest available statement of why 39,026 has held.
+
+**M re-tasked on the filter's own caveat**, which is the one thing that could undermine it: the 25
+are relative to **M's** baseline (E's orientation from the deliverable's free inputs). M is
+recomputing them against **the deliverable's own baseline**. Agreement makes the filter
+baseline-independent; disagreement makes it a property of the orientation — and that must be known
+**before** L discards hundreds of candidates on it. **L has been told to use the intersection and
+flag any difference rather than silently picking one.**

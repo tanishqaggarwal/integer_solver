@@ -29,6 +29,8 @@ Work from `solve_lab/agentS_work/`. Symlinks to E's `orient.pkl`, `users.pkl`,
 | `reach.py` | is the BFS closure local or global? (ANSWER: local) |
 | `reach2.py` | can affine knobs move a20215 mod p? (ANSWER: yes, by +-1) |
 | `reach3.py` | joint solve at random configs — INCONCLUSIVE, see sec 8.3 |
+| `kernel.py` | sec 8.3: displace along the affine kernel, re-measure the obstruction |
+| `kernel2.py` | sec 8.3 complement: obstruction at each BFS image point (moves the mod-p class) |
 | `degen2.py` | degeneracy discriminator: zero AND unresponsive |
 | `selcouple.py`,`selcouple2.py` | selector-coupling census + classification |
 

@@ -18,3 +18,24 @@ BFS image points available: 48 ; testing 14
   [img0 done 52s] running: blocked=1 solved=0 other-rows-infeasible=0
 [img1(|on|=1)] knobs=55 other-rows=49 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=6 (0s)
   [img1 done 36s] running: blocked=1 solved=0 other-rows-infeasible=1
+[img2(|on|=1)] knobs=55 other-rows=51 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=7 (7s)
+  [img2 done 43s] running: blocked=1 solved=0 other-rows-infeasible=2
+[img3(|on|=1)] knobs=54 other-rows=54 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (0s)
+  [img3 done 46s] running: blocked=1 solved=0 other-rows-infeasible=3
+[img4(|on|=1)] knobs=62 other-rows=54 target-rows=[20215, 28647]: FEASIBLE kernel-dim=8 (0s)
+   residual at particular solution: ['-3355125359403730745..5726bits', '-9618379276430017905..568bits']
+   7 nonzero lattice generators on [20215, 28647]
+      gen: ['p', '0']
+      gen: ['p', '0']
+      gen: ['0', 'p']
+      gen: ['0', '-12354891*p']
+      gen: ['p', '0']
+      gen: ['0', '-9648771*p']
+      gen: ['0', 'p']
+   MEMBERSHIP of -residual in reachable lattice: NO
+   HNF of generator matrix (reachable lattice basis):
+      ['p', 'p', '0', '0', 'p', '0']
+      ['0', '0', 'p', '-12354891*p', '0', '-9648771*p']
+   row a20215: residual mod p = 84623865150894944922022514250283073331537809300837942433997946904552394898251
+   row a28647: residual mod p = 47440525290535544708674620248717482764057423781520898897748888929433376949781
+  [img4 done 36s] running: blocked=2 solved=0 other-rows-infeasible=3
