@@ -1,0 +1,40 @@
+=== v1_parse.py
+     256  ((V*(V-C))-(C*V))
+     192  ((C*(V-V))-V)
+     192  ((V-V)-V)
+     191  ((V-V)-(C*V))
+       1  ((C*(V-C))-V)
+       1  ((V-C)-V)
+=== v3_defs.py
+DEFS vars 25489  multi-def vars 0
+COPY 3749 CONST 3556 LEAFPIN 512
+OTHER shapes [('((V*V)-V)', 1679), ('((C*(V*V))-V)', 734), ('((V*V)-(C*V))', 480), ('((C*(V-V))-V)', 192), ('((V-V)-V)', 192), ('((V-V)-(C*V))', 191), ('((C*(V-C))-V)', 1), ('((V-C)-V)', 1)]
+distinct sel vars in leaf pins: 256 counts Counter({2: 256})
+distinct w wires 512
+distinct big constants 512 bitlens [287, 288, 289, 290, 291] .. [294, 295, 296]
+=== v5_chain.py
+doublings landing inside the leaf set: 255/256
+leaves that are nobody's double: 1 leaves with no double in set: 1
+chain length 256 max exponent 255
+N*G == O : True
+leaf(e) == 2^e*G for all e : True
+base selector x2779
+=== v8b_supp.py
+forward-read constraint atoms: {'((V*V)-(C*V))': 480, '((V*V)-V)': 478, '((C*(V*V))-V)': 734, '((V-V)-(C*V))': 191, '((C*(V-V))-V)': 192, '((V-V)-V)': 192}
+propagation steps 19865  distinct nonempty supports: 511
+by size: [(1, 256), (2, 102), (3, 42), (4, 34), (5, 5), (6, 14), (7, 9), (8, 6), (9, 1), (10, 6), (11, 6), (12, 3), (13, 1), (14, 3), (16, 1), (18, 1), (19, 2), (21, 2), (22, 2), (23, 2), (24, 1), (28, 1), (37, 1), (40, 1), (41, 1), (43, 1), (45, 1), (50, 1), (78, 1), (88, 1), (90, 1), (178, 1), (256, 1)]
+=== v9b_theorem.py
+   size  40  maskval/N = 0.751472473  contains {129..255}? False  missing>=129: 113
+   size  21  maskval/N = 0.750495911  contains {129..255}? False  missing>=129: 118
+   size  11  maskval/N = 0.750000000  contains {129..255}? False  missing>=129: 123
+gadgets where either slot could reach +-N (maskval>=N): 0
+supports S with maskval(S) >= N (needed for sum_S = N): 0
+any support containing supp(N)? False
+=== w1_zfactors.py
+z with a product definition: 512
+pins where BOTH factors are free : 507
+pins where AT LEAST ONE factor is free : 512
+pins where NEITHER factor is free : 0
+factor classification: [('FREE', 1019), ('const=115792089237316195423570985008687907853269984665640564039457584007908834671663', 5)]
+free factors, atom-occurrence counts (lowest 8): [(1, 105, 24601), (1, 168, 12134), (1, 206, 17711), (1, 450, 12095), (1, 463, 33824), (1, 525, 38055), (1, 746, 14644), (1, 768, 28005)]
+=== w2_wire.py

@@ -1,0 +1,44 @@
+=== circ4
+free (never defined) vars 8747
+eq len hist [(1, 1), (2, 1), (3, 1762), (4, 1781), (5, 1697), (6, 1824)]
+t 16.536637544631958
+=== sched
+scheduled defs 30001 known vars 38748 redundant-def-as-constraint 4621
+blocked (cyclic) defs 0
+unknown vars after schedule 0
+=== global(ors)
+total OR nodes in circuit: 383
+OR roots (not a child of any OR): [9274]
+  root x9274: 384 leaves, depth 9, 256 free / 128 dead
+=== handles2
+Traceback (most recent call last):
+  File "/home/user/integer_solver/solve_lab/agentT_work/mirror/L/handles2.py", line 62, in <module>
+    D=pickle.load(open('ortree2.pkl','rb')); tree=D['tree']
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'ortree2.pkl'
+free vars 8747  |  handle-only 3681  |  value 5066  |  unused 0
+handle -> #atoms hist [(1, 3681)]
+value  -> #atoms hist [(1, 2816), (2, 4), (4, 260), (5, 1220), (6, 510), (52, 8), (57, 26), (59, 8), (62, 44), (64, 54), (69, 116)]
+=== buildall
+Traceback (most recent call last):
+  File "/home/user/integer_solver/solve_lab/agentT_work/mirror/L/buildall.py", line 11, in <module>
+    H=pickle.load(open('handles.pkl','rb')); appearP=H['appearP']
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'handles.pkl'
+=== calib2
+Traceback (most recent call last):
+  File "/home/user/integer_solver/solve_lab/agentT_work/mirror/L/calib2.py", line 8, in <module>
+    M=pickle.load(open('full_model.pkl','rb'))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'full_model.pkl'
+=== slopes
+Traceback (most recent call last):
+  File "/home/user/integer_solver/solve_lab/agentT_work/mirror/L/slopes.py", line 3, in <module>
+    exec(src)
+  File "<string>", line 3, in <module>
+  File "<string>", line 8, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'full_model.pkl'
+=== REBUILD DONE
+-rw-r--r-- 1 root root 18553965 Aug  7 17:44 /home/user/integer_solver/solve_lab/agentT_work/mirror/F/circ4.pkl
+-rw-r--r-- 1 root root  1000374 Aug  7 17:44 /home/user/integer_solver/solve_lab/agentT_work/mirror/F/sched.pkl
+-rw-r--r-- 1 root root     4215 Aug  7 17:44 /home/user/integer_solver/solve_lab/agentT_work/mirror/L/ors.pkl

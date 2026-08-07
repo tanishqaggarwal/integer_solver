@@ -1,0 +1,7 @@
+defs 35004 of 40727
+vars defined 30383
+hist [(1, 25762), (2, 4621)]
+vars appearing in atoms: 38748
+free (never defined): 8365
+cycle hits: 0 []
+BUILD_OK

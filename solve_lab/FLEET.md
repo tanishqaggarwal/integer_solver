@@ -5392,3 +5392,58 @@ zero was found.**
 rank deficiency mod p that no reachable move changes*. **If any setting drops it to 0, that
 configuration is the target** and everything else becomes secondary to constructing an assignment
 there.
+
+---
+
+## Second container restart, 17:42 UTC — fleet relaunched, roster changed
+
+The container was reclaimed and restarted a second time. **All six agents killed**, all background
+jobs stopped. Working tree clean at check-in 93; **deliverable re-verified from cold at 39,026/39,033**
+with the same seven failing lines; agent work directories intact (T's 17 logs, W's 37 files, U's
+two-file mirror).
+
+**Every `*.pkl` was wiped again**, including the copies in `agentM_work/` that agent U had used last
+time to avoid a rebuild. **This is now a recurring, predictable cost**: the global `*.pkl` line in
+`.gitignore` means no pickled state is ever committed, so **every restart forces every agent to
+rebuild its chain before it can measure anything.** All relaunch briefs carry the rebuild instruction
+and a faithfulness check (not merely a runnability check) as step one.
+
+### Roster change
+
+| agent | status |
+|---|---|
+| **T** | relaunched — large ON-set closure, `\|S\| = 32 → 64 → 128`, extending the joint solver to mix exact-integer (handle-less) conditions with divisibility ones |
+| **N** | relaunched — hunt a **selector setting** whose region response is not rank-deficient mod p; the one input held fixed in all 16 detach states |
+| **U** | relaunched — price the coincidence at each of the 383 slots; must re-achieve its 37-entry seed calibration (0 of 38,748 vars differing) before any number |
+| **W** | relaunched — is the classification of solution families complete? |
+| **M** | relaunched — finish the 2¹⁶ enumeration in increasing support size, reporting the distribution |
+| **V** | **dropped** — T's `\|S\| = 32` work now covers the handle-less population it was characterising |
+| **X** | **NEW** — low-weight meet-in-the-middle |
+
+### Agent X — the one angle whose hit is a complete solve
+
+Every other thread is fighting over the seventh equation. **X either ends the problem or returns a
+bound.** The reduction gives `k = Σ_{i∈S} 2^i` with `k·G = T`, so **|S| is exactly the Hamming weight
+of k** — and since T has closed the integer lift at `|S| = 2,3,5,6,7,8,17`, **a hit converts directly
+into 39,033/39,033.**
+
+Costs computed rather than estimated, splitting by **weight** (table = all weight-`a` subsets, scan =
+all weight-`b`, covering `w ≤ a+b`):
+
+| coverage | table | scan | status |
+|---|---|---|---|
+| w ≤ 6 | 2,763,520 (0.1 GB) | 2,763,520 | **done** (Q, 108 s) |
+| w ≤ 7 | 2,763,520 (0.1 GB) | 174,792,640 | **33.7% done** (Q, stopped) |
+| w ≤ 8 | 174,792,640 (5.6 GB) | 174,792,640 | minutes |
+| **w ≤ 9** | 174,792,640 (5.6 GB) | 8,809,549,056 | **~1 h — the realistic target** |
+| w ≤ 10 | 174,792,640 (5.6 GB) | 368,532,802,176 | ~1 day |
+| w ≤ 10 balanced | 8,809,549,056 (**282 GB**) | 8,809,549,056 | memory-infeasible |
+
+**COORDINATOR CORRECTION:** an earlier estimate of "w ≤ 10 at ~2²⁹ operations and a few hours" was
+**wrong** — it split positionally rather than by weight. The corrected figures are above; **w ≤ 9,
+not 10, is what this window reaches.**
+
+**The prior is stated honestly and X is told not to oversell a negative:** for a uniformly random
+256-bit scalar, `P(weight ≤ 9) ≈ 2⁻²⁰³`. This is a cheap lottery ticket, worth buying because a hit
+is total rather than incremental — **not** because it is likely. X must also **verify its machinery
+finds a planted answer before reporting any negative.**
