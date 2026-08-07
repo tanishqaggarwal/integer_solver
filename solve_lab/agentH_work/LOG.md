@@ -157,3 +157,48 @@ another agent localised from the equation side.
 **Scope of the claim:** this is exact for the witness placement, for single-direction augmentation
 of the lattice, and for collateral measured at deltas {+-1, +-p}.  It is NOT a proof that no frame
 anywhere admits 39,027; it is a proof that this region's knob image admits nothing better.
+
+## Step 11 — PER-PLACEMENT SWEEP OF THE WHOLE CASCADE
+`chain.py` extracts the cascade's pin chain from a one-selector closure: **20 pin atoms**, each with
+its repairing free input.  `sweep.py` then puts the defect at each pin in turn (close everything
+EXCEPT that atom) and prices the placement with the five-stage pipeline:
+region R, inside-atoms S, balance deficit |R|-|S|, zero-collateral knob count, RANK of the
+realizable knob image on the region rows, exact integer optimum (rows zeroable), failing, score.
+
+carrier    nz  |R|  |S|  deficit  knobs  rank  zeroable  failing  score
+WITNESS     7   12    8      4       9     7       5        7    39026   <-- rank > deficit
+a688        4   15    6      9       2     2       0       15    39018
+a23824      4   15    6      9       2     2       0       15    39018
+a23826      4   15    6      9       2     2       0       15    39018
+a14061      4   15    6      9       2     2       0       15    39018
+a14063      4   15    6      9       2     2       0       15    39018
+a12599      4   15    6      9       2     2       0       15    39018
+a15100      4   15    6      9       2     2       0       15    39018
+a9193       4   15    6      9       2     2       0       15    39018
+a9195       4   15    6      9       2     2       0       15    39018
+a6285       4   15    6      9       2     2       0       15    39018
+a31928      4   15    6      9       2     2       0       15    39018
+a26729      5   28   12     16       8     5      13       15    39018
+a26731      5   28   14     14       9     6      13       15    39018
+a1618       4   22   11     11       5     5       0       22    39011
+a35267      5   26    7     19       3     3       0       26    39007
+a31930      5   27    7     20       3     3       0       27    39006
+a6283       5   28   11     17       3     3       0       28    39005
+a21853      5   30    8     22       3     3       0       30    39003
+a37733      5   30    7     23       3     3       0       30    39003
+a37735      5   30    7     23       3     3       0       30    39003
+
+**RESULT: the witness placement is the ONLY one in the entire cascade with knob-image rank
+exceeding its balance deficit (7 > 4).  Every one of the 20 cascade pins has rank <= 6 against a
+deficit of 9-23, and none scores above 39,018.  By my own criterion, 7 is the floor for the whole
+cascade, not merely for one region.**
+
+Structural reading: the cascade pins all sit in regions of 15-30 equations with only 2-3
+zero-collateral knobs, because a pin's free input is consumed closing the pin itself.  The witness
+placement is special because it sits where NINE free inputs act with zero collateral - the tail of
+the tree, where the handles accumulate - and that is the only place in the instance where the
+realizable image is wide enough to out-run the region it lives in.
+
+**Scope:** exact for defect placement at a single cascade pin, single-selector closure, deltas
+{+-1, +-p}, subset enumeration capped at min(knobs, rank, 6).  Not a proof that no frame anywhere
+admits 39,027.

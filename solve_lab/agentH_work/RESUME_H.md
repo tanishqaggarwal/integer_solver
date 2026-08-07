@@ -58,10 +58,23 @@ directions and best failing 7.  a37887 lives in exactly ONE equation, eq 8680; o
 inputs that move it, only x_28730 moves nothing else outside the region, and it also moves a22231.
 **No direction moves a22231 without moving a37887 -> a22231 buys 1 row and costs eq 8680, exactly.**
 
+## 8. PER-PLACEMENT SWEEP OF THE CASCADE - the whole cascade is now priced (LOG.md Step 11)
+20 pin atoms extracted by `chain.py`; each made the defect carrier by `sweep.py` and priced with
+the five-stage pipeline.  Full table in LOG.md.  Headline:
+
+    WITNESS  |R|=12 |S|= 8 deficit= 4 knobs=9 rank=7 zeroable=5 failing= 7  score=39026  rank > deficit
+    best cascade pin (a26731) |R|=28 |S|=14 deficit=14 knobs=9 rank=6 zeroable=13 failing=15  score=39018
+    11 pins tie at 39,018; the rest fall to 39,003-39,011.
+
+**The witness placement is the ONLY placement in the cascade whose knob-image rank exceeds its
+balance deficit.  By the criterion I derived, 7 is the floor for the whole cascade, not just for
+one region.**  Cascade pins have only 2-3 zero-collateral knobs because a pin's free input is
+consumed closing the pin itself; the witness sits at the one place where NINE free inputs act with
+zero collateral.
+
 ## Single next experiment
-Everything reachable from THIS placement is now priced and saturates at 7.  The only untested
-direction left is a different frame: re-run `backreg.py`'s region census with the defect placed on
-a DIFFERENT pin of the cascade (my `place.py` tried four placements around the two congruences;
-the cascade has ~30 pin atoms, each a candidate carrier).  For each, run the same five-stage
-pipeline and read off the rank of its realizable knob image.  If any placement has knob-image rank
-> |R| - |S| + 2 - 7, it beats 7; otherwise 7 is the floor for the whole cascade, not just this region.
+The sweep covers carriers that are cascade PINS.  The one carrier class left unpriced is a defect
+placed on a HANDLE rather than a pin - the p-quantised quotient variables (x_7497, x_11436,
+x_22820, x_14393 and their ~1,240 siblings).  A handle carries the defect in multiples of p rather
+than in a residue, so its region and its knob image are different objects from anything in the
+table above.  Run `sweep.py` with the carrier set replaced by the handle atoms.

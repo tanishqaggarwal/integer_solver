@@ -142,3 +142,49 @@ Consequences, stated plainly:
   construction, keep only subsets `T` with `M_T v0 = 0 (mod p)`, then solve over the p-lattice.
   That equals 7 on the deliverable by construction.  It costs one construction per cluster, so it
   must be aimed at a few dozen candidates, not scanned over 3,349.
+
+## Step 9. RESIDUE-AWARE PRICER — built, calibrated, applied (agentC_work/pricer.py, price2.py)
+`price(E,S,v0)`: achievable atom values are `v0 + p*Z^S` (every handle is `p*(free)`), so equation e
+can vanish only if `M_e . v0 = 0 (mod p)`; among those, a subset T vanishes simultaneously iff
+`M_T w = -(M_T v0)/p` has an integer solution (Hermite elimination).  `price = |E| - max|T|`.
+
+**CALIBRATION PASSES EXACTLY: price = 7 on the 39,026 deliverable, = its observed failing count.**
+The structural relaxation could only reach 5.  Per-equation breakdown of that cluster:
+```
+eq2554  6816  8124  9123  9421   residue = 0  -> satisfied   (5)
+eq12231 12270 12350 14584 18673 22044 29125   residue != 0 -> FAIL (7)
+```
+The residue-blocked set and the failing set are **identical**: the mod-p condition is the whole
+obstruction, and the integer solve succeeds on exactly the residue-clear rows.  There is no slack.
+
+**A bug I caught by calibration, recorded because it invalidated a first result.**  My first pass
+read `v0` from the cluster after closure had repaired it, i.e. from the zero vector, so every
+candidate priced 0 while its measured state scored 38,99x.  The contradiction between price 0 and
+the observed ~35 failures is what exposed it.  Those `PRICED_0_*.json` files were deleted; the
+corrected pricer reads `v0` from the ACTUAL defect support and gates on `price == observed failing`
+(if they differ the defect leaks outside E and the number is not a cluster price at all).
+
+**Applied result.**  Only `x_10513` completed inside the compute budget: |E| = 45, |S| = 20,
+residue-blocked 25, price 25, observed failing 45 -> gate says **NOT closed (leaks)**.  So it prices
+at >= 25, an order away from 7, independently confirming Step 6's refutation.  **Nothing priced
+below 7; nothing was written to disk.**
+
+## Step 10. Where the deliverable's cluster meets the fleet's eq8680 localisation
+From my own pricing table (no imported reasoning): **eq8680 is NOT in the deliverable's cluster and
+a37887 is NOT in its atom set, but a22231 IS** — it appears in 8 of the 12 equations, including
+`eq29125 = a22230 + 31*a22231`.  So eq29125 is not a single-atom row after all: a22231 is a genuine
+compensator for it.  That makes a22231 the only lever on a residue-blocked row inside this cluster,
+and its own equation lies outside the cluster — so using it exports the defect rather than removing
+it.  This is a third, independent route to the same 1-for-1 trade the fleet localised; I did not test
+whether any cluster's congruence structure routes around eq8680, and that is the open question.
+
+## Step 11. HONEST BOUNDARY on "no cluster beats 12/7"
+* **Scanned:** all distinct single-atom clusters with 1 <= |E| <= 15 and |inside| <= 9, under the
+  structural min-weight relaxation (a sound lower bound, calibrated loose: 5 against a true 7).
+* **Scanned residue-aware:** the deliverable's cluster (price 7, exact) and x_10513 (>= 25).
+* **NOT scanned:** the pair-union clusters.  ~57k handle-definition pairs sharing an equation were
+  enumerated; the run was time-capped after the single-atom phase and produced no pair results.
+  The deliverable's own cluster is a 7-atom union, so unions are exactly the shape most likely to
+  matter, and they are the gap.
+* **Therefore:** "no cluster beats 12/7" is supported for single-atom clusters under a loose bound
+  and for two clusters exactly.  It is **NOT established** for unions.  I am leaving that open.

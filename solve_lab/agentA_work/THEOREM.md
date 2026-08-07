@@ -104,10 +104,16 @@ subsystem on `Z` already determines a unique rational solution, which must be `W
 solves it and `δ` is integral while `W` is not — contradiction. So `rank(N_Z) < |K_L|`,
 i.e. some nonzero `u` lies in `ker(N_Z)`, and `supp(N·u) ⊆ D(δ)`. ∎
 
-Both hypotheses hold at every level measured: `rank(N) = |K_L|` and `ℚ-inconsistent = 0`
-in the table above, and `W` is non-integral (at `L=0` its non-integral coordinates are
-`x642` with denominator 2458959, `x1329`, `x9413`, `x10903` with denominator `p`, and
-`x17325` with denominator `p·2458959`, where `p = 2^256 − 2^32 − 977`).
+All three hypotheses are verified at every level, including `L = 16` (`eqwin2.py`,
+`verify16.py`, `wcheck.py`):
+
+* `rank(N) = |K_L|` and `ℚ-inconsistent = 0` — the table in §1.1;
+* `W ∉ ℤ^{K_L}` — confirmed by the cheaper and stronger fact that the **full row system is
+  already inconsistent mod `p`** at every level (7 bad rows at `L = 0, 2, 4, 6`; 13 at
+  `L = 16`), so it has no integer solution at all. At `L = 0` the non-integral coordinates
+  of `W` can also be exhibited directly: `x642` with denominator 2458959, `x1329`, `x9413`,
+  `x10903` with denominator `p`, and `x17325` with denominator `p·2458959`, where
+  `p = 2^256 − 2^32 − 977`.
 
 The lemma converts "how few equations can fail?" into "what is the lightest support of `C`
 that is also **realizable over ℤ**?" — and gives two independent necessary conditions.
@@ -132,7 +138,7 @@ handles — which is why the filter is so strong.
 
 | L | knobs | vanishing mod p | rank_p | w | exhaustive: no `|D| ≤ k` | Prange trials / solvable | lightest weight seen | P(a weight-≤6 point exists and was missed) |
 |---|---|---|---|---|---|---|---|---|
-| 2 | 32 | 17 | 15 | 53 | **k = 4** (866,847 subsets) | 3,000 / 2,025 | 7 | **≤ 9.5e-208** |
+| 2 | 32 | 17 | 15 | 53 | **k = 5** (11,290,975 subsets) | 3,000 / 2,025 | 7 | **≤ 9.5e-208** |
 | 6 | 109 | 56 | 53 | 110 | **k = 3** (721,927 subsets) | 4,000 / 1,538 | 7 | **≤ 6.7e-64** |
 | 16 | 334 | 172 | 162 | 324 | k = 2 (118,341 subsets) | 250 / 97 | 7 | ≤ 1.6e-4 |
 
@@ -166,14 +172,30 @@ usable trials.
 
 ## 5. The theorem, and why it is 7
 
-> **Theorem.** Let `L ∈ {0, 2, 4, 6, 16}`. For every integer assignment `x` that agrees with
-> `S` on all variables outside `K_L`, at least **7** of the 39,033 equations of
-> `EQUATIONS.txt` fail. The value 7 is attained, by `S`.
+Throughout, "assignment in scope at level `L`" means an integer assignment agreeing with `S`
+on every variable outside `K_L`. Such an assignment changes no equation outside `R_L`, so
+its total number of failing equations equals the number of violated rows of `R_L`.
 
-*Proof sketch.* Such an `x` differs from `S` only in the knobs, so it changes no equation
-outside `R_L` and is described by some `δ ∈ ℤ^{K_L}`. By the Lemma its violated set contains
-a support of `C`, and it must also be mod-`p` consistent on the retained rows. Sections 3
-and 4 show no set of size ≤ 6 satisfies both. ∎
+> **Theorem A (unconditional within scope).** Every assignment in scope fails at least
+>
+> * **6** equations at `L = 2`,
+> * **4** equations at `L = 6`,
+> * **3** equations at `L = 16`.
+>
+> *Proof.* By the Lemma the violated set `D` contains a support of `C`, and the retained
+> rows must be consistent mod `p`. Section 3 exhausts **every** subset `D` up to the stated
+> size — 11,290,975 of them at `L=2`, 721,927 at `L=6`, 118,341 at `L=16` — and none is
+> mod-`p` consistent. ∎
+
+> **Theorem B (with a quantified miss probability).** Every assignment in scope fails at
+> least **7** equations, and 7 is attained by `S`. The only gap is the possibility that a
+> mod-`p`-consistent `D` of weight 6 exists and was missed by randomised search; that
+> probability is bounded by **9.5e-208** at `L=2`, **6.7e-64** at `L=6`, and **1.6e-4** at
+> `L=16` (§3, Prange with the exact per-trial detection probability).
+
+The two statements are deliberately separate. Theorem A is a finite exhaustive computation
+with no probabilistic content. Theorem B is the number the campaign cares about, and its
+residual uncertainty is stated rather than absorbed.
 
 ### Tightness — the part that explains rather than bounds
 
@@ -222,8 +244,11 @@ observed ~20 atoms/level. **The affine ceiling arrives roughly four times too ea
 Continuing past `L = 344` would require approximating equations, forfeiting the one
 property that makes this a proof. The conditionality is structural, not a compute budget.
 
-**6.2 Exhaustiveness is partial above the stated sizes.** The rigorous floors, taking the better of the two
-conditions at each depth, are `≥ 5` (`L=2`), `≥ 4` (`L=6`), `≥ 3` (`L=16`). Between those floors and 7 the evidence is the
+**6.2 Exhaustiveness is partial above the stated sizes.** The rigorous floors, taking the
+better of the two conditions at each depth, are **`≥ 6` at `L=2`** — every one of the
+11,290,975 subsets of size ≤ 5 fails mod-`p` consistency — then `≥ 4` at `L=6` and `≥ 3` at
+`L=16`. Closing the last step at `L=2` rigorously would need all C(68,6) = 119,877,472
+size-6 subsets, about 9.5 hours at the measured 3,500 subsets/second; it was not run. Between those floors and 7 the evidence is the
 Prange miss probabilities of §3 and the constructive enumeration of §5 — overwhelming at
 `L=2` and `L=6` (1e-208, 1e-64), weaker at `L=16` (1.6e-4, with a larger campaign running).
 
@@ -261,6 +286,18 @@ between a nontrivial kernel and my windows would be that kernel vectors are not 
 of the knob→atom map, i.e. that realizability rather than cancellation is the binding
 ingredient; F's result makes that unconditional by removing the kernel entirely.
 
+Two notes for a reader reconciling the two computations.
+
+* **Dimensions.** In my parse the equation–atom incidence matrix is 39,033 × **42,267**
+  (equations × atoms), not square. Full row rank there would leave a kernel of dimension
+  42,267 − 39,033 = 3,234, so anyone checking F's `dim ker(M) = 0` against my numbers
+  should first confirm which atom set F used — plausibly a reduced or square restriction.
+  I flag the mismatch rather than paper over it; it does not affect anything below.
+* **The two results are complementary, not in tension.** F gives `min ‖M·β‖₀ ≥ 1` over
+  nonzero integer atom vectors (no kernel). §6.3 gives `min ‖M·β‖₀ ≤ 1` (3,235 atoms occur
+  in exactly one equation). Together the minimum is **exactly 1** — which is simultaneously
+  why the raw relaxation can bound nothing and why all-atoms-zero is an equivalence.
+
 ---
 
 ## 8. Reproduction
@@ -281,5 +318,22 @@ The `s9/*.pkl` caches are gitignored and must be rebuilt first:
     python3 cancel.py                    # single-equation-atom census      (§6.3)
     python3 full31.py 6                  # the original atom-closure model of the residual
 
+    python3 wcheck.py 0 2 4 6 16         # Lemma hypothesis: W non-integral (§2)
+    python3 verify16.py 16               # rank / Q-consistency at the deepest window
+
 where `<state>` is `solve_lab/best/new_instance_partial_39026.json`.
 Raw logs for every number quoted are in `agentA_work/runs/`.
+
+## 9. Searches left running at the end of the session
+
+These would only tighten numbers already stated; none can weaken the theorem, since a
+positive find would have been written to disk as `A_*.json` with its checker-verified score
+and none was.
+
+* `runs/eqmd2.log` — condition (b) dependent-column search at `L=2`, size 5
+  (sizes ≤ 4 exhausted, floor `≥ 5`).
+* `runs/eqb16b.log` — a 3,000-trial Prange campaign at `L=16`, to drive the
+  `≤ 1.6e-4` miss probability down; at the measured rate it needs hours.
+
+Nothing at any depth ever admitted a weight below 7, and no assignment beating 39,026 was
+produced at any point in this work.

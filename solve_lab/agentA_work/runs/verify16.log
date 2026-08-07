@@ -1,0 +1,10 @@
+L=16: atoms=611 eqs=582 nontrivial rows=486 knobs=334
+   rank(N) = 334  (== #knobs ? True)
+   rows inconsistent over Q: 0  (Q-consistent ? True)
+   exact rank over Q = 334 ; free coords = 0
+   unique solution W is integral ? False ; non-integral coords = 5
+        x642     denominator = 2458959
+        x1329    denominator = p
+        x9413    denominator = p
+        x10903   denominator = p
+        x17325   denominator = p*2458959

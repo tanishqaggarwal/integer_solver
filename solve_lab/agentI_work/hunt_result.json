@@ -392,5 +392,352 @@
   "knobs": 11,
   "minfail": null,
   "forced": 0
+ },
+ {
+  "tag": "X4432+X6947",
+  "add": [
+   2427,
+   22331,
+   23435,
+   33706
+  ],
+  "nE": 41,
+  "new": 28,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X4432+X33168",
+  "add": [
+   2427,
+   22331,
+   23437,
+   33706
+  ],
+  "nE": 43,
+  "new": 30,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X4432+X10422",
+  "add": [
+   2427,
+   11772,
+   22331,
+   33706
+  ],
+  "nE": 49,
+  "new": 36,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X4432+X11099",
+  "add": [
+   2427,
+   11774,
+   22331,
+   33706
+  ],
+  "nE": 51,
+  "new": 38,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X4432+X22526",
+  "add": [
+   2427,
+   11776,
+   22331,
+   33706
+  ],
+  "nE": 52,
+  "new": 39,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X4432+X34868",
+  "add": [
+   2427,
+   11778,
+   22331,
+   33706
+  ],
+  "nE": 54,
+  "new": 41,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X4432+X950",
+  "add": [
+   2427,
+   20290,
+   22331,
+   33706
+  ],
+  "nE": 45,
+  "new": 32,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X4432+X15120",
+  "add": [
+   2427,
+   20292,
+   22331,
+   33706
+  ],
+  "nE": 47,
+  "new": 34,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X4432+X35531",
+  "add": [
+   2427,
+   20294,
+   22331,
+   33706
+  ],
+  "nE": 48,
+  "new": 35,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X4432+X18253",
+  "add": [
+   2427,
+   20292,
+   20293,
+   22331,
+   33706
+  ],
+  "nE": 48,
+  "new": 35,
+  "knobs": 11,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X6947+X33168",
+  "add": [
+   23435,
+   23437
+  ],
+  "nE": 16,
+  "new": 3,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X6947+X10422",
+  "add": [
+   11772,
+   23435
+  ],
+  "nE": 22,
+  "new": 9,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X6947+X11099",
+  "add": [
+   11774,
+   23435
+  ],
+  "nE": 24,
+  "new": 11,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X6947+X22526",
+  "add": [
+   11776,
+   23435
+  ],
+  "nE": 25,
+  "new": 12,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X6947+X34868",
+  "add": [
+   11778,
+   23435
+  ],
+  "nE": 27,
+  "new": 14,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X6947+X950",
+  "add": [
+   20290,
+   23435
+  ],
+  "nE": 18,
+  "new": 5,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X6947+X15120",
+  "add": [
+   20292,
+   23435
+  ],
+  "nE": 20,
+  "new": 7,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X6947+X35531",
+  "add": [
+   20294,
+   23435
+  ],
+  "nE": 21,
+  "new": 8,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X6947+X18253",
+  "add": [
+   20292,
+   20293,
+   23435
+  ],
+  "nE": 21,
+  "new": 8,
+  "knobs": 11,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X33168+X10422",
+  "add": [
+   11772,
+   23437
+  ],
+  "nE": 23,
+  "new": 10,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X33168+X11099",
+  "add": [
+   11774,
+   23437
+  ],
+  "nE": 25,
+  "new": 12,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X33168+X22526",
+  "add": [
+   11776,
+   23437
+  ],
+  "nE": 26,
+  "new": 13,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X33168+X34868",
+  "add": [
+   11778,
+   23437
+  ],
+  "nE": 28,
+  "new": 15,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X33168+X950",
+  "add": [
+   20290,
+   23437
+  ],
+  "nE": 18,
+  "new": 5,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X33168+X15120",
+  "add": [
+   20292,
+   23437
+  ],
+  "nE": 20,
+  "new": 7,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X33168+X35531",
+  "add": [
+   20294,
+   23437
+  ],
+  "nE": 22,
+  "new": 9,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X33168+X18253",
+  "add": [
+   20292,
+   20293,
+   23437
+  ],
+  "nE": 21,
+  "new": 8,
+  "knobs": 11,
+  "minfail": null,
+  "forced": 0
  }
 ]

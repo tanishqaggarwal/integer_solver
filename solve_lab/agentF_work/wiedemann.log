@@ -11,3 +11,6 @@
    krylov 20000 262s
    krylov 40000 495s
    krylov 60000 681s
+  sequence done 898s
+  BM done 607s  minpoly degree L=39033
+  q=2147483629  deg=39033 (n=39033)  trailing coeff C[L]=11716781  =>  M NONSINGULAR over GF(q)

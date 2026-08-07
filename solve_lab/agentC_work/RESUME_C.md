@@ -31,8 +31,17 @@ DAG) -> `close4.py` (frame DETACHMENT: drop a defining atom so its variable beco
   residue class mod p, and a rational kernel direction is generally not realisable.
   **=> No purely structural classifier can reproduce 7.**  The missing 2 is not a property of the
   incidence matrix; it depends on which literal constants land in the residue vector.
+  (Superseded by the residue-aware pricer above, which does calibrate.)
   Consequence: defect placement is **not closed** — but the bound is also very loose (4 against a
   true >= 11 on x_10513), so ranking clusters structurally has low predictive value.
+
+## Residue-aware pricer: BUILT AND CALIBRATED (agentC_work/pricer.py, price2.py)
+`price = |E| - max|T|` over `v in v0 + p*Z^S`, gated on `price == observed failing`.
+**Returns exactly 7 on the deliverable** (the calibration the structural bound failed at 5), and the
+residue-blocked rows there are IDENTICALLY the failing rows -- the mod-p condition is the whole
+obstruction.  Applied: x_10513 prices >= 25 and leaks.  Nothing priced below 7.
+Note `eq29125 = a22230 + 31*a22231`, so a22231 is a real compensator on a blocked row; its own
+equation is outside the cluster, so using it exports the defect.
 
 ## Highest-value next experiment (for whoever takes this on)
 Make the pricing residue-aware instead of structural: for a candidate cluster compute the residue

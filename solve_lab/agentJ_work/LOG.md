@@ -286,3 +286,35 @@ free-knob atoms.  The instance's equation blocks keep everything that carries fr
 equation-disjoint from the cluster that carries the residual.
 
 VERDICT: no improvement.  39026 stands.  Nothing written to best/.
+
+## THE a23328 BRIDGE — tested, and it does not close.  It is EXACTLY self-cancelling.
+a23328 = ((x_4432)-(x_19964))-(x_28730) is the definer of x_4432, and the only atom in
+the instance not equation-disjoint from the deliverable's cluster: 10 of its 11
+equations lie inside the cluster's 12, and it brings exactly one new row, eq8680.
+
+jbridge.py -- what breaking it disturbs, measured exactly (release the definers of the
+cluster AND of a23328, perturb x_4432, re-propagate, evaluate all 39033 atoms):
+    delta = 1, 2, 1000003  ->  in every case EXACTLY ONE constraint outside the
+    cluster is disturbed: a8583.
+So the bridge has a single side effect, not a cascade.  Two ways to take it:
+
+(a) keep a8583 zero by compensation.  Support T' = cluster u {a23328}: |T|=8, |R|=13,
+    alone=1, generic bound 6 -- the first support in this whole campaign that could
+    beat 7.  jopt.py: 18 knobs, kernel 10, 10 generators verified over Z, then the
+    exhaustive Hermite-normal-form search over all subsets of the 13 rows:
+        k = 6 rows zeroable  =>  weight 13 - 6 = 7  =>  score 39026.
+    The bridge buys exactly one more cancellable row (5 -> 6) and costs exactly one
+    more equation (12 -> 13).  Weight is INVARIANT.
+(b) let a8583 break too.  Support becomes 9 atoms with |R|=29 and alone=17, so
+    weight >= 17 by the un-cancellable-row bound alone.  Far worse.
+
+Extending the bridge repeats the pattern: cluster u {a23328, a23329} gives |R|=14 and
+k=7, weight 7 again, score 39026.
+
+This SHARPENS agent I's enumeration rather than contradicting it.  I showed no knob
+group can pay for eq8680 within the support; my experiment covers the space its
+parameterisation does not -- paying via repairs OUTSIDE the support -- and finds that
+the repair is available but arrives at exactly the price of the row it buys.  eq29125
+is cancelled and eq8680 appears in its place, for the same weight.
+
+VERDICT: no improvement.  39026 stands.  Nothing written to best/.

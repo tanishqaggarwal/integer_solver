@@ -95,6 +95,23 @@ my solver independently reproduces the optimum 7 AND the optimal sacrificed set
 `[12231,12270,12350,14584,18673,22044,29125]` — the deliverable's own failing lines,
 recovered from scratch by integer linear algebra.
 
+## 7c. Probe of the off-branch structure — negative
+`1,853` atoms occur in exactly one equation: **926 pairs plus one**. Each of 926
+equations carries exactly two of them, always a product/difference atom `P` and a
+bare-variable atom `X`. Hypothesis: `X` is free slack that cancels `P` at zero cost.
+**Refuted by direct computation**: every one of those 926 variables occurs in exactly 3
+atoms (the bare atom, a definition `X - Y*Z`, and the pairing atom `P + X`), so the
+trade is local and self-cancelling. Equations with a genuinely free absorber (bare
+variable, unit coefficient, variable in no other atom): **0**.
+
+## 7d. Cascade (two-level) closure
+`cascade.py`. A variable with one atom outside the support is usable if that atom is
+held at zero by re-solving it for another variable whose atoms are all inside; such
+atoms cost NO equations. Fixed-point closure from the deliverable's support absorbs
+**1,817 atoms** as repairable, and the knob count stays at **exactly 7** — the closure
+consumes one dependent variable for every knob it frees. minfail >= 7 re-proved
+exhaustively with those knobs. The ripple / two-level move class buys nothing.
+
 ## 7e. The eq8680 hunt (`eq8680.py`, `hunt.py`, `cascade_rand.py`)
 eq8680 is the one row that pins the knob `d28730` to zero and so costs the deliverable
 its seventh equation.
@@ -124,31 +141,22 @@ the DFS spent its sacrifice budget on trivially keepable rows before reaching th
 ones. Reversing it gave ~20x: 300 s timeouts became 2-36 s exact answers. That, not
 instance hardness, is why the first run appeared to hang.
 
-## 7d. Cascade (two-level) closure
-`cascade.py`. A variable with one atom outside the support is usable if that atom is
-held at zero by re-solving it for another variable whose atoms are all inside; such
-atoms cost NO equations. Fixed-point closure from the deliverable's support absorbs
-**1,817 atoms** as repairable, and the knob count stays at **exactly 7** — the closure
-consumes one dependent variable for every knob it frees. minfail >= 7 re-proved
-exhaustively with those knobs. The ripple / two-level move class buys nothing.
+## 8. Final status
+Best verified anywhere, re-verified by me with `solve_lab/checker.py`: **39,026 / 39,033**,
+failing `[12231,12270,12350,14584,18673,22044,29125]`. I produced nothing above it and
+wrote no new assignment.
 
-## 7c. Probe of the off-branch structure — negative
-`1,853` atoms occur in exactly one equation: **926 pairs plus one**. Each of 926
-equations carries exactly two of them, always a product/difference atom `P` and a
-bare-variable atom `X`. Hypothesis: `X` is free slack that cancels `P` at zero cost.
-**Refuted by direct computation**: every one of those 926 variables occurs in exactly 3
-atoms (the bare atom, a definition `X - Y*Z`, and the pairing atom `P + X`), so the
-trade is local and self-cancelling. Equations with a genuinely free absorber (bare
-variable, unit coefficient, variable in no other atom): **0**.
+Every realisable move class I could parameterise exactly — one-level knobs, cascade
+knobs, supports extended by up to 3 adjacent atoms, and the complete knob-group census
+for eq8680 — gives min failing = 7, with exhaustive proofs on six supports and on every
+eq8680 candidate. Combined with `dim ker(M) = 0` (section 0), a full solution requires
+all atoms exactly zero, which reduces to two explicit polynomials vanishing mod p under
+a 256-bit boolean selector choice; nothing I measured gives a handle on that choice.
 
-## 8. Open
-Every realisable move class I can parameterise exactly (one-level knobs, cascade knobs,
-supports extended by up to 3 adjacent atoms) gives min failing = 7, proved exhaustively
-on six supports. What is NOT covered: supports that share no equation with the
-deliverable's residual, and atom vectors realisable only through simultaneous moves of
-many circuit variables (my global re-solves reach those but cost >= 13 equations).
-The concrete open target is still a compensator for **eq8680** whose own equations lie
-inside E(S); none of the 26 adjacent atoms qualifies.
+Not covered, stated plainly: atom vectors realisable only through simultaneous moves of
+many circuit variables. My knob parameterisation is realisable by construction but
+local; my global re-solves reach that space but land at cost >= 13 equations. A method
+that is both global and exact over it is the only unexplored direction I can name.
 
 ## 9. Framing note
 An earlier version of this log carried a geometric reading of items 4-6. It has been

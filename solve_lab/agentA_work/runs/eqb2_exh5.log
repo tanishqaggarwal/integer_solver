@@ -4,3 +4,8 @@ mod p: rank=15 of 32 knobs (17 knob columns vanish), syndrome dim w=53, g nonzer
   mod-p exhaustive |D|=2: 2278 subsets, consistent: NONE [0s]
   mod-p exhaustive |D|=3: 50116 subsets, consistent: NONE [7s]
   mod-p exhaustive |D|=4: 814385 subsets, consistent: NONE [189s]
+  mod-p exhaustive |D|=5: 10424128 subsets, consistent: NONE [2996s]
+  RIGOROUS: no |D| <= 5 is mod-p consistent -> every integer point violates >= 6
+  Prange trial 0: weight 9 [0s]
+  Prange: 1 trials, 1 solvable, lightest weight SEEN = 9 (an upper bound)
+  P(a weight-<=6 mod-p-consistent D exists and was missed) <= 0.79

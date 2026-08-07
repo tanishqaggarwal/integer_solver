@@ -25,11 +25,26 @@ for a in E.order:
     k,v,rhs=E.cls[a]; defrhs[v]=rhs
 inv=lambda a: pow(a%p,p-2,p)
 
-def build(on_bits,verbose=False):
+def build(on_bits,verbose=False,rounds=4):
     v=[0]*NV
     for b in on_bits: v[b]=1
     E.run(v)
     val={w:v[w]%p for w in BCONESET}
+    ZERO=set(w for w in BCONESET if val[w]==0)
+    for rd in range(rounds):
+        res=_pass(val,ZERO,verbose)
+        newZ=set(ZERO)
+        rel=res['rel']; CONST=res['CONST']
+        for w in range(NV):
+            r,a,b=rel(w)
+            if r in CONST and (a*CONST[r]+b)%p==0: newZ.add(w)
+        if verbose: print('   round %d: |ZERO| %d -> %d, links %d/%d, conflicts %d'%(rd,len(ZERO),len(newZ),res['nl'],res['nr'],res['conflicts']),flush=True)
+        if newZ==ZERO: break
+        ZERO=newZ
+    res['ZERO']=ZERO
+    return res
+
+def _pass(val,ZERO,verbose=False):
     par=list(range(NV)); A=[1]*NV; B=[0]*NV
     CONST={}
     def find(x):
@@ -73,6 +88,7 @@ def build(on_bits,verbose=False):
         o=n[0]
         if o=='v':
             w=n[1]
+            if w in ZERO: return ({},0)
             if w in BCONESET: return ({},val[w])
             return ({w:1},0)
         if o=='c': return ({},n[1]%p)
@@ -113,6 +129,20 @@ def build(on_bits,verbose=False):
             u,w=ks
             union(u,(-d[w])%p*inv(d[u])%p,w,(-c)%p*inv(d[u])%p); return 1
         return 0
+    # close ZERO through the definition DAG (products with a zero factor, sums of zeros)
+    def isZ(n):
+        o=n[0]
+        if o=='c': return n[1]%p==0
+        if o=='v': return n[1] in ZERO or (n[1] in BCONESET and val[n[1]]==0)
+        if o=='neg': return isZ(n[1])
+        if o=='*': return isZ(n[1]) or isZ(n[2])
+        return isZ(n[1]) and isZ(n[2])
+    ch=True
+    while ch:
+        ch=False
+        for w,rhs in defrhs.items():
+            if w in ZERO: continue
+            if isZ(rhs): ZERO.add(w); ch=True
     nl=0
     # definitions
     for w,rhs in defrhs.items():

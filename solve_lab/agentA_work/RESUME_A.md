@@ -1,3 +1,16 @@
+# Agent A — RESUME
+
+## THE DELIVERABLE OF THIS WORK IS `agentA_work/THEOREM.md`
+Self-contained, checkable by a reader who knows nothing about this campaign: statement,
+scope, lemma, the code definition, both necessary conditions with exhaustion sizes and miss
+probabilities per depth, the tightness argument, and an explicit list of what is NOT proved.
+
+Best verified score: **39,026** — `agentA_work/A_best_39026.json`
+(`python3 solve_lab/checker.py ...` -> 39026/39033, failing
+[12231,12270,12350,14584,18673,22044,29125]).  Nothing ever beat it.
+
+---
+
 # Agent A — RESUME (exact integer linear algebra / lattice)   [FINAL]
 
 ## Best verified: 39,026 — solve_lab/agentA_work/A_best_39026.json
