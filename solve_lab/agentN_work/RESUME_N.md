@@ -353,3 +353,15 @@ SINGLE process, `python3 pselrank.py pselrank_seq.jsonl`, resumable by tag.
 37% CPU long after I had moved on. Killed. Identified by `/proc/<pid>/cwd` pointing at my own
 directory, **not** by command-line matching. *Check for your own orphans before blaming the load
 on the fleet.*
+
+## An optimisation I implemented, verified, and then did NOT adopt (recorded as a negative)
+`int_kernel_flint` computes the saturated integer kernel through flint's HNF transform
+(`U * A^T = H`; the rows of `U` over the zero rows of `H` are a basis of `ker_Z(A)`).
+**Verified lattice-equal to `ikc.int_kernel_columns` on 300 random matrices** including 100-bit
+entries, with every returned vector checked to be in the kernel. **But on the real collateral
+shape (n ~ 350 columns x ~7,600 rows of 100+-digit entries) it had not finished in 3 CPU-minutes,
+where the hand-rolled column reduction does the whole configuration in ~90 s** — HNF coefficient
+growth on a wide matrix. **Not adopted.** The function stays in the file, unused, with this note.
+The real fix, if anyone needs the big configurations: `ker_Z(C)` depends only on `ker_Q(C)`, so
+any maximal Q-independent subset of the collateral rows gives the IDENTICAL kernel — reduce
+7,600 rows to <= n before calling the kernel routine. Not implemented here.

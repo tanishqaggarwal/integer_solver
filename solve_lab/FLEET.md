@@ -5839,3 +5839,69 @@ enumerated, the grid not); >2 ON leaves; pin lies (measured worse — 46/50/88, 
 ~1,200 redone evaluations against ~390 remaining, so it finished them and has been single-process
 since. Explaining the arithmetic rather than obeying wastefully is the right response to that
 instruction.*
+
+---
+
+## Check-in 99 — `s = 4` exhaustive, gain 0; `j ≤ 5` now exhaustive on K+ (agent W)
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### Compute discipline complied with
+
+Killed **9543** (the 3-information-set window run — W had just shown more information sets do not
+fix the window) and **28998** (the `s = 4..6` monolith), keeping the `s`-at-a-time granularity. **One
+process now**: `s = 5`, PID 26066. **Load down from ~21 to 7.2** — the whole fleet's benefit. The
+`s = 4`-only job had already completed cleanly before the others were killed, so nothing was lost —
+which is precisely why that granularity was worth insisting on.
+
+### `s = 4` exhaustive, and where the 4× discrepancy went
+
+| | exact `s ≤ 3` | **exact `s ≤ 4`** |
+|---|---|---|
+| candidate supports | 3,184 | **28,657** |
+| subset-minimal | 60 | **169** |
+| by size | `{1:6, 2:2, 3:2, 4:3, 5:7, 6:40}` | **`{1:6, 2:2, 3:2, 4:3, 5:7, 6:149}`** |
+| rank-dropping over ℚ | 60 (0 artefacts) | **169 (0 artefacts)** |
+| union closure ≤ 6 | 510 | **619** |
+| exact integer solves | 4,318 | **4,427 in 23 s** |
+| **BEST GAIN** | **0** | **0** |
+
+**All 109 new cocircuits have size exactly 6.** The profile at sizes 1–5 is **unchanged** — the six
+essential rows, both size-2 cocircuits, and the size 3/4/5 members were already complete at `s ≤ 3`.
+**The level that looked most likely to hide surviving structure hid only size-6 cocircuits, and none
+of them buys anything.** `s = 4` contributed **65,619 positive-dimensional nodes**, every one of
+which round 1's window would have discarded as degenerate.
+
+### Exhaustiveness stated at the level, not rounded up
+
+Since a minimal cocircuit satisfies `1 ≤ s = |C ∩ I| ≤ |C|`:
+
+> **Cocircuits of size ≤ 4 are COMPLETE on `K+`, so the `j ≤ 5` row of the frame-B budget is
+> EXHAUSTIVE on the corrected knob set. `j = 6, 7` remain BUDGET until `s = 5` and `s = 6` land** —
+> only sizes 5 and 6 can still gain members.
+
+Strictly stronger than round 1, and W said why without softening it: round 1's `j = 4..7` was budget
+on a knob set now shown incomplete, and its `j = 3` exhaustiveness rested on a window that found
+under a quarter of the `s ≤ 4` supports.
+
+### The three-way convergence on the same five equations
+
+W's synthesis, now confirmed from a third direction by U's slot pricing (check-in 98):
+
+- **W (lattice side):** essential rows `{2554, 6816, 8124, 9123, 9421, S}`, with `eq8680` the square.
+- **U (route side):** the cross-half route costs a **structural 12 at every slot**; exactly one
+  configuration buys a **5-equation discount**, and the five are **`{2554, 6816, 8124, 8680, 9421}`**.
+- **N (rank side):** `gap_p = 1` invariant across all 16 detach states, same region.
+
+**Route pricing and lattice pricing are measuring the same five equations from opposite ends**, and
+U's finding that **the discount dies entirely without the injection seed** independently confirms
+W's injection-not-degeneracy retraction.
+
+> **W's framing, recorded: the neighbourhood of 39,026 has no descent direction of any width ≤ 6, so
+> the objective is locally flat AND 39,026 sits ABOVE the plateau rather than on it.** W's out-of-K
+> sweep says the same from the other side — all four alternative injection sites cost more, none
+> less.
+
+**Continuing:** `s = 5`, then `s = 6`, one process, each reported as its own result. If both add only
+size-6 members the way `s = 4` did, **a shape that repeats is itself evidence about where the
+remaining structure can live.**

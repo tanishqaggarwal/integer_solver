@@ -156,3 +156,31 @@ outer 6: global nonzero 5, violated c-conditions 3, nonzero handle-less 2
      (x14047 ,x15237 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
      (x14047 ,x19965 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
      (x14047 ,x22362 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x14047 ,x23437 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x14047 ,x36590 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x15237 ,x19965 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x15237 ,x22362 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x15237 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x15237 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x19965 ,x22362 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x19965 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x19965 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x22362 ,x23437 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x22362 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     (x23437 ,x36590 ) |group|=3 NO JOINT ROOT mod 71 (exhaustive)
+     no addable collateral -- giving up on ((x2820-x17195)-(8271997*x17079))
+  atom (x23514-(x6677*x23504))  EXACT (handle-less)
+     round 0: |group|=1 (1 exact) wires=1 new pairs=0
+     folding in collateral: ['((x35247*x4)-(3624927*x12726))']
+     round 1: |group|=2 (1 exact) wires=6 new pairs=15
+     *** (x15140 += p*2871102 , x34218 += p*322948684674) |group|=2  global 5 -> 4
+outer 7: global nonzero 4, violated c-conditions 3, nonzero handle-less 1
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x2820-x17195)-(8271997*x17079))  c=8271997
+     round 0: |group|=1 (0 exact) wires=2 new pairs=1
+     (x2820  ,x14047 ) |group|=1 194 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x5794*x19670)-(8567205*x2062))', '((x14047-x19324)-(3914361*x6389))']
+     round 1: |group|=3 (0 exact) wires=8 new pairs=27
+     (x2820  ,x13880 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
+     (x2820  ,x15237 ) |group|=3 NO JOINT ROOT mod 116507 (sampled)
