@@ -565,3 +565,53 @@ extra dimensions are visible over Q and invisible to the obstruction. Also note 
 rank-14 lattice: **7 of the 14 available directions already do not move the region at all**, so the
 region is not dimension-starved — it is p-starved. Measured at |W| ∈ {0,1} (231 exact reductions
 plus 15 rank-raising cases); an indicator for |W| >= 2, not a proof.
+
+## Step 18 — post-restart integrity check, then the rank-gap experiment
+
+### The wiped-pickle notice: checked, not assumed
+`*.pkl` is globally gitignored, so **`fwd2.pkl` AND `model.pkl` were both gone** (both now dated
+13:42, i.e. rebuilt inside this session). My chain **hard-failed** on the missing pickle
+(`FileNotFoundError` from `ev.py`) on the very first script I ran, *before* any measurement — it did
+not silently degrade. Rebuilt from `EQUATIONS.txt` and re-verified to the standard T set, faithful
+rather than merely runnable:
+
+| check | value | matches published |
+|---|---|---|
+| `model.get()` | 42,267 atoms / 39,033 equations | yes |
+| `fwd2.py` | 30,001 defs / 12,266 checks / 8,747 free | yes |
+| `frameB.py` known state | score **39,026**, nz atoms `[22229,22230,35758,35759,35760,35761,35762]`, failing `[12231,12270,12350,14584,18673,22044,29125]`, **0 vars differing from the witness** | yes |
+| `optN.py` calibration | `|R|=12 |S|=8 knobs=7 rank=7 z0=5 OPT=5 outside=0 failing=7 score=39026 exhaustive=True lin=True` | yes |
+
+I do not consume F's or L's chain, so T's `t_rebuild*.sh` were not needed; my chain is self-contained
+on `EQUATIONS.txt` + `pool.json`.
+
+### Rule 9 applied to my own pipeline — and it caught a real error
+First run of `pgap.py` reported the 8 detach states **without** `x_28730` at `OPT = 5, score
+39,025`. That is the *pre-correction* number, and `gap_Q = 1` claimed those regions are inconsistent
+**over Q** — which contradicts everything measured. Cause: my `price()` built each region row from
+its constant and linear parts and **discarded the quadratic part**, so at `|R| = 13` eq 8680 (a
+square) was truncated instead of rooted — exactly the defect T caught in `optN.inner`, reintroduced
+by me in new code. Fixed: a row that is a single top-level square atom is replaced by that atom's
+**base** (`sqaudit.square_base`), since the equation is a power of the base and `row = 0` iff
+`base = 0`. **Not reported before it was checked.**
+
+### RESULT: the mod-p gap is an invariant of the whole detach lattice
+
+All **16** detach states — the entire `2^65` lattice by T-verified proof — priced exactly, complete
+knob set (exact syntactic support), exact saturation loop, one rank computation each:
+
+| detach state class | \|R\| | knobs | lattice | rk_Q(M) | gap_Q | rk_p(M) | **gap_p** | OPT | score |
+|---|---|---|---|---|---|---|---|---|---|
+| the 8 states **with** `28730` | 12 | 68 | 14 | 7 | **0** | 3 | **1** | 5 | **39,026** |
+| the 8 states **without** `28730` | 13 | 76 | 15 | 8 | **0** | 4 | **1** | 6 | **39,026** |
+
+- **`gap_Q = 0` in all 16** — every region is solvable over Q; the barrier is purely integral.
+- **`gap_p = 1` in all 16** — the mod-p inconsistency gap never closes and never widens.
+- Reproduces my corrected step-16 table exactly (OPT 6 at `|R|=13`, all 16 states at **39,026**),
+  which is the cross-check that the rooted model is right.
+
+Combined with `pgrow.py` (gap stays 1 across all 15 lattice-enlarging `|W|=1` drops), the gap is now
+**invariant across the entire detach axis and across collateral budget 1**. Scope stated: frame
+`Frame(POOL)`, selectors from `best/new_instance_partial_39026.json`, knob set = every free input
+syntactically supporting the region, `p` = the 78-digit modulus. **This is a stronger statement than
+any exhaustion: the optimum is 39,026 because a rank gap of 1 mod p does not move.**

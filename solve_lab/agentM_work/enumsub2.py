@@ -32,6 +32,13 @@ import ieng, fscore                                            # noqa: E402
 
 WHICH = sys.argv[1] if len(sys.argv) > 1 else '16'
 BUDGET = float(sys.argv[2]) if len(sys.argv) > 2 else 1e9
+# solver granularity (rule 9).  The default 10/30 demonstrably UNDERPRICES: on a 1,784-subset
+# sample, 773 subsets scored strictly higher at 80/180, by up to +10 (granul.log).  tune()
+# takes a max over probes, so raising these can only raise a subset's score -- the enumeration
+# at a given granularity is a per-subset LOWER BOUND, and the max claim has to be re-run.
+NPROBE = int(sys.argv[3]) if len(sys.argv) > 3 else 10
+TBUD = float(sys.argv[4]) if len(sys.argv) > 4 else 30.0
+SUF = '' if (NPROBE, TBUD) == (10, 30.0) else f'_p{NPROBE}'
 
 PF = json.load(open('pfamily.json'))
 SETS = {k: sorted({v['h'] for v in PF[f'incident_{k2}'].values()})
@@ -39,12 +46,12 @@ SETS = {k: sorted({v['h'] for v in PF[f'incident_{k2}'].values()})
 HL = SETS[WHICH]
 NTOT = 2 ** len(HL)
 D4 = [642, 28730, 29854, 31864]
-CKPT = f'enumsub{WHICH}.pkl'
+CKPT = f'enumsub{WHICH}{SUF}.pkl'
 
 print(f'H{WHICH} = {HL}', flush=True)
-print(f'  witness {D4} inside: {set(D4) <= set(HL)}   total 2^{len(HL)} = {NTOT:,}', flush=True)
+print(f'  witness {D4} inside: {set(D4) <= set(HL)}   total 2^{len(HL)} = {NTOT:,}   granularity nprobe={NPROBE} budget={TBUD}', flush=True)
 
-cal = ieng.tune(D4)
+cal = ieng.tune(D4, nprobe=NPROBE, budget=TBUD)
 print(f'CALIBRATION on the witness: {cal["base_score"]} -> {cal["score"]}  '
       f'{"PASSED" if cal["score"] >= 39026 else "FAILED"}', flush=True)
 if cal['score'] < 39026:
@@ -96,7 +103,7 @@ while st['i'] < NTOT:
         report_size(prev_size)
         prev_size = len(W)
     try:
-        r = ieng.tune(list(W)) if W else {'ok': True, 'score': BASE}
+        r = ieng.tune(list(W), nprobe=NPROBE, budget=TBUD) if W else {'ok': True, 'score': BASE}
         if not r.get('ok'):
             st['errors'].append((W, r.get('why', 'not ok')))
         else:
@@ -106,10 +113,10 @@ while st['i'] < NTOT:
                 st['best'] = (sc, W)
             if sc > 39026:
                 st['above'].append((W, sc))
-                r2 = ieng.tune(list(W), want=True)
+                r2 = ieng.tune(list(W), nprobe=NPROBE, budget=TBUD, want=True)
                 if r2.get('changes'):
                     bad, v = ieng.resid(ieng.V_UNC, ieng.BAD_UNC, r2['changes'], r2['pin'])
-                    fn = f'M_sub{WHICH}_{sc}_{"_".join(map(str, W))}.json'[:120]
+                    fn = f'M_sub{WHICH}{SUF}_{sc}_{"_".join(map(str, W))}.json'[:120]
                     json.dump({f"x_{k}": int(v[k]) for k in range(ieng.NV) if v[k] != 0},
                               open(fn, 'w'))
                     print(f'  *** ABOVE 39026: {sc} at W={W} -> {fn} ***', flush=True)

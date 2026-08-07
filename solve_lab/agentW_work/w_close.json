@@ -1,0 +1,641 @@
+{
+ "nminimal": 70,
+ "nBs": 520,
+ "res": {
+  "[12231]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[14584]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 14584]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 14584]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 14584]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[14584, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[14584, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[14584, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 14584]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 14584]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 14584, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 14584, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 14584, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 14584]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 14584, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 14584, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 14584, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 14584, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 14584, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 14584, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[14584, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[14584, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[14584, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 14584]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 14584, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 14584, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 14584, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 14584, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 14584, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 14584, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 14584, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 14584, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 14584, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 14584, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 14584, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 14584, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 14584, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 14584, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 14584, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 14584, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 14584, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 14584, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[14584, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 14584, 18673]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 14584, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 14584, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 14584, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 14584, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 14584, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 14584, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 14584, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 14584, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 14584, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 14584, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 14584, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 14584, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 14584, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12350, 14584, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 14584, 18673, 22044]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 14584, 18673, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 14584, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 14584, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12350, 14584, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12270, 12350, 14584, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  },
+  "[12231, 12270, 12350, 14584, 18673, 22044, 29125]": {
+   "minbreak_lt_k": null,
+   "B": null,
+   "gain": null
+  }
+ }
+}

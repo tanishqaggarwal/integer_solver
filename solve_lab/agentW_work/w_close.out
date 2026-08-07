@@ -1,0 +1,142 @@
+cocircuit-containing sets enumerated: 5419 ; MINIMAL ones: 70
+  minimal by size: {1: 6, 2: 1, 3: 2, 4: 5, 5: 14, 6: 42}
+   size 1 : ['2554']
+   size 1 : ['6816']
+   size 1 : ['8124']
+   size 1 : ['9123']
+   size 1 : ['9421']
+   size 1 : ['S']
+   size 2 : ['22563', '8687']
+
+candidate break-sets (unions of minimal cocircuits, size <= 6): 520
+  by size: {0: 1, 1: 6, 2: 16, 3: 28, 4: 48, 5: 110, 6: 311}
+  buy [12231]                                  : any break-set of size < 1 feasible? NO
+  buy [12270]                                  : any break-set of size < 1 feasible? NO
+  buy [12350]                                  : any break-set of size < 1 feasible? NO
+  buy [14584]                                  : any break-set of size < 1 feasible? NO
+  buy [18673]                                  : any break-set of size < 1 feasible? NO
+  buy [22044]                                  : any break-set of size < 1 feasible? NO
+  buy [29125]                                  : any break-set of size < 1 feasible? NO
+  buy [12231, 12270]                           : any break-set of size < 2 feasible? NO
+  buy [12231, 12350]                           : any break-set of size < 2 feasible? NO
+  buy [12231, 14584]                           : any break-set of size < 2 feasible? NO
+  buy [12231, 18673]                           : any break-set of size < 2 feasible? NO
+  buy [12231, 22044]                           : any break-set of size < 2 feasible? NO
+  buy [12231, 29125]                           : any break-set of size < 2 feasible? NO
+  buy [12270, 12350]                           : any break-set of size < 2 feasible? NO
+  buy [12270, 14584]                           : any break-set of size < 2 feasible? NO
+  buy [12270, 18673]                           : any break-set of size < 2 feasible? NO
+  buy [12270, 22044]                           : any break-set of size < 2 feasible? NO
+  buy [12270, 29125]                           : any break-set of size < 2 feasible? NO
+  buy [12350, 14584]                           : any break-set of size < 2 feasible? NO
+  buy [12350, 18673]                           : any break-set of size < 2 feasible? NO
+  buy [12350, 22044]                           : any break-set of size < 2 feasible? NO
+  buy [12350, 29125]                           : any break-set of size < 2 feasible? NO
+  buy [14584, 18673]                           : any break-set of size < 2 feasible? NO
+  buy [14584, 22044]                           : any break-set of size < 2 feasible? NO
+  buy [14584, 29125]                           : any break-set of size < 2 feasible? NO
+  buy [18673, 22044]                           : any break-set of size < 2 feasible? NO
+  buy [18673, 29125]                           : any break-set of size < 2 feasible? NO
+  buy [22044, 29125]                           : any break-set of size < 2 feasible? NO
+  buy [12231, 12270, 12350]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 12270, 14584]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 12270, 18673]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 12270, 22044]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 12270, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 12350, 14584]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 12350, 18673]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 12350, 22044]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 12350, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 14584, 18673]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 14584, 22044]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 14584, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 18673, 22044]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 18673, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 22044, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12270, 12350, 14584]                    : any break-set of size < 3 feasible? NO
+  buy [12270, 12350, 18673]                    : any break-set of size < 3 feasible? NO
+  buy [12270, 12350, 22044]                    : any break-set of size < 3 feasible? NO
+  buy [12270, 12350, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12270, 14584, 18673]                    : any break-set of size < 3 feasible? NO
+  buy [12270, 14584, 22044]                    : any break-set of size < 3 feasible? NO
+  buy [12270, 14584, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12270, 18673, 22044]                    : any break-set of size < 3 feasible? NO
+  buy [12270, 18673, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12270, 22044, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12350, 14584, 18673]                    : any break-set of size < 3 feasible? NO
+  buy [12350, 14584, 22044]                    : any break-set of size < 3 feasible? NO
+  buy [12350, 14584, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12350, 18673, 22044]                    : any break-set of size < 3 feasible? NO
+  buy [12350, 18673, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12350, 22044, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [14584, 18673, 22044]                    : any break-set of size < 3 feasible? NO
+  buy [14584, 18673, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [14584, 22044, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [18673, 22044, 29125]                    : any break-set of size < 3 feasible? NO
+  buy [12231, 12270, 12350, 14584]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12270, 12350, 18673]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12270, 12350, 22044]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12270, 12350, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12270, 14584, 18673]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12270, 14584, 22044]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12270, 14584, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12270, 18673, 22044]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12270, 18673, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12270, 22044, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12350, 14584, 18673]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12350, 14584, 22044]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12350, 14584, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12350, 18673, 22044]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12350, 18673, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12350, 22044, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12231, 14584, 18673, 22044]             : any break-set of size < 4 feasible? NO
+  buy [12231, 14584, 18673, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12231, 14584, 22044, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12231, 18673, 22044, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12270, 12350, 14584, 18673]             : any break-set of size < 4 feasible? NO
+  buy [12270, 12350, 14584, 22044]             : any break-set of size < 4 feasible? NO
+  buy [12270, 12350, 14584, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12270, 12350, 18673, 22044]             : any break-set of size < 4 feasible? NO
+  buy [12270, 12350, 18673, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12270, 12350, 22044, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12270, 14584, 18673, 22044]             : any break-set of size < 4 feasible? NO
+  buy [12270, 14584, 18673, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12270, 14584, 22044, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12270, 18673, 22044, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12350, 14584, 18673, 22044]             : any break-set of size < 4 feasible? NO
+  buy [12350, 14584, 18673, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12350, 14584, 22044, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12350, 18673, 22044, 29125]             : any break-set of size < 4 feasible? NO
+  buy [14584, 18673, 22044, 29125]             : any break-set of size < 4 feasible? NO
+  buy [12231, 12270, 12350, 14584, 18673]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12270, 12350, 14584, 22044]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12270, 12350, 14584, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12270, 12350, 18673, 22044]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12270, 12350, 18673, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12270, 12350, 22044, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12270, 14584, 18673, 22044]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12270, 14584, 18673, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12270, 14584, 22044, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12270, 18673, 22044, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12350, 14584, 18673, 22044]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12350, 14584, 18673, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12350, 14584, 22044, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12350, 18673, 22044, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12231, 14584, 18673, 22044, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12270, 12350, 14584, 18673, 22044]      : any break-set of size < 5 feasible? NO
+  buy [12270, 12350, 14584, 18673, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12270, 12350, 14584, 22044, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12270, 12350, 18673, 22044, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12270, 14584, 18673, 22044, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12350, 14584, 18673, 22044, 29125]      : any break-set of size < 5 feasible? NO
+  buy [12231, 12270, 12350, 14584, 18673, 22044] : any break-set of size < 6 feasible? NO
+  buy [12231, 12270, 12350, 14584, 18673, 29125] : any break-set of size < 6 feasible? NO
+  buy [12231, 12270, 12350, 14584, 22044, 29125] : any break-set of size < 6 feasible? NO
+  buy [12231, 12270, 12350, 18673, 22044, 29125] : any break-set of size < 6 feasible? NO
+  buy [12231, 12270, 14584, 18673, 22044, 29125] : any break-set of size < 6 feasible? NO
+  buy [12231, 12350, 14584, 18673, 22044, 29125] : any break-set of size < 6 feasible? NO
+  buy [12270, 12350, 14584, 18673, 22044, 29125] : any break-set of size < 6 feasible? NO
+  buy [12231, 12270, 12350, 14584, 18673, 22044, 29125] : any break-set of size < 7 feasible? NO
+
+6806 integer solves in 49s
+BEST GAIN over every bought-set and every rank-dropping break-set of size <= 6: (0, None, None)

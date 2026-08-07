@@ -123,3 +123,72 @@ only **t = 2** disjoint rank-20 subsets out of the 162 redundant rows, and the c
 shows functionals supported on as few as **2** rows — so small cocircuits *do* live inside the
 redundant rows and deleting 2..6 of them CAN enlarge the lattice.  (Only rank-dropping
 deletions matter; that part stands.)  Hence the cocircuit enumeration in (g).
+
+### (g) Cocircuit enumeration — how far the closure actually reaches (`w_cocirc.py`, `w_close.py`)
+The code `c -> (row_e . c)_e` has rank 26 and length 168.  Fix an information set `I` (26 rows,
+identity block).  Any break-set `T = N(x)` with `|T| <= 6` is a **union of minimal cocircuits**
+(proof in `w_close.py`'s docstring: if `T` properly contained the union `T'` of the minimal
+cocircuits inside it, the two kernels would coincide and `x` would satisfy `T \ T'`).
+
+- `s = |T ∩ I| = 1` and `s = 2` are enumerated **EXACTLY** (no window, no degeneracy: `s=1` is
+  the basis codeword itself; `s=2` is the most-frequent-ratio over all 142 outside columns).
+  A cocircuit of size <= 2 has `|T ∩ I| <= 2`, so **all cocircuits of size <= 2 are complete.**
+- `s = 3..6` uses an adaptive column window and is a **bounded search, not exhaustion**:
+  3,070,206 subsets were skipped as degenerate.
+
+Result: 5,419 candidate supports, **70 minimal** — sizes `{1:6, 2:1, 3:2, 4:5, 5:14, 6:42}`.
+The size-1s are the 6 essential rows.  The **only** minimal cocircuit of size 2 is
+**`{22563, 8687}`**, which contains no essential row — this is the concrete witness that (f)'s
+correction was necessary.  Union closure to size <= 6: **520 candidate break-sets**.
+
+## SCOPE, stated as budget not exhaustion
+| claim | status |
+|---|---|
+| j=1, b=0 | **exhaustive** (O, reconfirmed) |
+| j=2, b<=1 | **exhaustive** — every break-set of size <= 1 that drops rank is an essential row, and all 6 were tested |
+| **j=3, b<=2, all 35 triples** | **exhaustive** — all cocircuits of size <= 2 are enumerated exactly, so every rank-dropping break-set of size <= 2 was tested.  This supersedes O's 14 triples *and* my brute-force 21 |
+| j=3, b<=2 by O's own brute force | O: 14 triples; **W: the remaining 21** (`w_j3.log`), independent agreement |
+| j=1..7, breaks restricted to the 6 essential rows | **exhaustive**: minbreak(P) = \|P\| exactly, gain 0 (`w_exhaust.py`) |
+| j=4..7, b<=6, general breaks | **budget, not exhaustion**: 520 union-of-minimal-cocircuit break-sets tested (`w_close.py`); the size-3..6 cocircuit search skipped 3.07M degenerate subsets |
+| everything above | scope: **34 of 8,751 free inputs, frame B, agent H's model** |
+
+## Do not redo
+- The ℚ relaxation of the frame-B system.  All 175 rows are simultaneously ℚ-satisfiable, so
+  every ℚ feasibility test is vacuously YES and no ℚ/LP relaxation can ever prune anything here.
+- Brute-forcing break-sets that do not drop `rank_Q`.  162 of the 168 satisfied rows are
+  individually redundant; deleting them changes `ker_Z` not at all.  O's C(168,2)=14,028 inner
+  loop per triple is doing ~14,000 solves where **16** distinct lattices exist.
+- Reading a greedy net-zero as a negative (O's warning, still correct).
+
+### (h) RESULT of the closing test (`w_close.py`, `w_close.json`)
+520 candidate break-sets (all unions of minimal cocircuits, size <= 6) x all 127 bought-sets,
+exact integer oracle, **6,806 solves in 49 s**:
+
+> **BEST GAIN = 0.**  For every bought-set P and every rank-dropping break-set B of size < |P|
+> tested, `(SAT \ B) + P` is integer-infeasible.  Nothing beats 39,026.
+
+Combined with (e): `minbreak(P) = |P|` exactly at every size 1..6, and the full seven is not
+buyable at any b <= 6.  **The frame-B region is a perfect k-for-k trade at every k.**
+
+## Re-entry
+```
+cd solve_lab/agentW_work
+python3 w_K.py          # TASK 2: |K| = 34 in frame B                          (~10 s)
+python3 w_setup.py      # O's setup reproduced: 34/175/168/7/16                (~5 s)
+python3 w_audit.py      # the 32-way 1-for-1 trade, priced exactly             (~2 min)
+python3 w_essential.py  # the 6 essential rows                                 (~3 min)
+python3 w_exhaust.py    # exhaustive over essential breaks, all j              (~30 s)
+python3 w_cocirc.py     # cocircuit enumeration                                (~4 min)
+python3 w_close.py      # the closing test                                     (~1 min)
+python3 w_j3.py         # the 21 triples O never reached, O's own method       (~30 min)
+```
+Artifacts: `w_trade_12231_break2554.json` (checker-verified 39,026, a *new* point, 27 vars from
+the witness), `w_K.json`, `w_struct.json`, `w_essential.json`, `w_exhaust.json`,
+`w_cocirc_raw.json`, `w_close.json`, `w_audit.json`.
+
+## What is left, honestly
+1. The `s = 3..6` cocircuit search skipped 3.07M degenerate window subsets.  Closing that —
+   e.g. multiple information sets and randomised windows, or a proper minimum-weight-codeword
+   routine on a rank-26 length-168 code — would upgrade j=4..7 from budget to exhaustive.
+2. Everything here is **inside K**.  Per O's §9 and confirmed by (d), any improvement must come
+   from the other **8,717** free inputs.  O's Lemma constrains none of them.

@@ -1,4 +1,11 @@
-# RESUME_V — agent V.  The multi-wire joint solve at |S| = 17.
+# RESUME_V — agent V.
+
+**Two tasks.** §0–§5 are the first: the multi-wire joint solve at `|S| = 17`, which agent T closed
+while I was working on it (my contribution there is the independent checker verification of T's
+artifacts, an independent reproduction of the residue, and the component/cost structure nobody had
+computed). §6 onward is the second, assigned after that redirect: **the structural census of the
+handle-less atom population**, which is where the integer side now lives.
+
 
 **Baseline re-verified by me from cold, first thing:**
 `python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json`
