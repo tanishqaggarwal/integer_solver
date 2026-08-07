@@ -1,0 +1,33 @@
+stage1 pair (24601,2081): fails=20 score=39013 bad=[20649, 20652, 32148]
+    rnd0: cand=275 knobs+=21 tot=21 0s
+    rnd1: cand=465 knobs+=211 tot=232 2s
+    rnd2: cand=831 knobs+=577 tot=809 4s
+    rnd3: cand=1385 knobs+=1131 tot=1940 6s
+    rnd4: cand=1290 knobs+=1050 tot=2990 4s
+    rnd5: cand=663 knobs+=467 tot=3457 1s
+    rnd6: cand=187 knobs+=88 tot=3545 0s
+knobs 3545
+row 20649: "x_15298 * x_11150" reach=6 lin=2 rhs_bits=1745
+    x_22162: (353d) p|c=False
+    x_30213: (179d) p|c=False
+row 20652: "x_15298 * x_25739 - 6672769 * x_29804" reach=7 lin=3 rhs_bits=1746
+    x_5146: (84d) p|c=True
+    x_22162: (353d) p|c=False
+    x_30213: (180d) p|c=False
+row 32148: "537773 * (x_15298 * x_37758) - x_35605" reach=7 lin=3 rhs_bits=1764
+    x_2936: (78d) p|c=True
+    x_22162: (359d) p|c=False
+    x_30213: (186d) p|c=False
+  closure: 3545 knobs, 2541 reachable rows, bad0=[20649, 20652, 32148]
+  it0: |A|=3 moved=5 -> fails=60 score=38973 nbad=6 bad=[4872, 10187, 20649, 20652, 28647, 32148] (1s)
+  it1: |A|=6 moved=8 -> fails=48 score=38985 nbad=7 bad=[7389, 20649, 20652, 20874, 32148, 33231, 40419] (1s)
+  it2: |A|=10 moved=8 -> fails=62 score=38971 nbad=7 bad=[20212, 20215, 20649, 20652, 28647, 30787, 32148] (1s)
+  it3: |A|=13 moved=11 -> fails=45 score=38988 nbad=5 bad=[4877, 20649, 20652, 32148, 36187] (1s)
+  it4: |A|=15 moved=14 -> fails=47 score=38986 nbad=6 bad=[660, 2721, 20649, 20652, 32148, 40564] (1s)
+  it5: |A|=18 moved=16 -> fails=72 score=38961 nbad=10 bad=[4877, 17429, 20649, 20652, 28046, 32148, 32877, 39443, 40078, 40564] (1s)
+  it6: |A|=23 moved=15 -> fails=59 score=38974 nbad=7 bad=[8148, 10187, 20649, 20652, 26958, 32148, 40306] (1s)
+  it7: |A|=26 moved=16 -> fails=57 score=38976 nbad=6 bad=[8148, 20649, 20652, 32148, 35065, 35416] (2s)
+  it8: |A|=28 moved=17 -> fails=45 score=38988 nbad=6 bad=[20649, 20652, 32148, 34120, 38405, 40617] (2s)
+  it9: |A|=31 moved=20 -> fails=57 score=38976 nbad=7 bad=[3939, 6572, 20649, 20652, 32148, 32878, 40617] (4s)
+  it10: |A|=34 UNSAT core infeasible (9s)
+stage2 BEST fails=20 score=39013 bad=[20649, 20652, 32148] (37s)

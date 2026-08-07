@@ -1,0 +1,3 @@
+L=0 atoms=24 eqs=30 vars=56 knobs=24
+rows violated at S: 7
+jacobian 30 x 24 built in 0s

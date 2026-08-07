@@ -1,0 +1,11 @@
+base score 39026, failing [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+round-0 candidates: 44
+  round 0: probed 44, affine 35, total knobs 35 (0s)
+  round 1: probed 312, affine 45, total knobs 80 (9s)
+  round 2: probed 95, affine 82, total knobs 162 (1s)
+
+162 affine knobs total
+110 touched atoms, 999 equations
+failing eqs with NO knob dependence: 0 []
+solving 999 rows...
+full solve: none (core infeasible)

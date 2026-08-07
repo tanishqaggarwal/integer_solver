@@ -1,0 +1,19 @@
+bad0 [20215, 28647] x_15298 0 x_7715 0 x_34554 1
+    rnd0: cand=279 knobs+=23 tot=23 0s
+    rnd1: cand=455 knobs+=199 tot=222 1s
+    rnd2: cand=762 knobs+=506 tot=728 2s
+    rnd3: cand=1017 knobs+=761 tot=1489 2s
+    rnd4: cand=1204 knobs+=964 tot=2453 3s
+    rnd5: cand=953 knobs+=741 tot=3194 2s
+    rnd6: cand=447 knobs+=317 tot=3511 1s
+knobs 3511
+row 20215: "x_24530 - x_5647 * x_24908" reach=3 lin=3 rhs_bits=5470
+   x_18956: coef(1d) p|c=False c=1
+   x_22820: coef(78d) p|c=True c=-1157920892373161954235709850086879078532699846656
+   x_31339: coef(1d) p|c=False c=-1
+row 28647: "x_36433 - (x_36990 + x_19239)" reach=3 lin=2 rhs_bits=4898
+   x_6083: coef(1d) p|c=False c=-1
+   x_14853: coef(1d) p|c=False c=1
+  elim: 0 singletons, 2 pivots, core 0x0, 0.0s
+2-row solve: ok sol
+EXACT fails 28 score 39005 bad [747, 7389]

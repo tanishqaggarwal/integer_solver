@@ -411,3 +411,107 @@ M is continuing on its own highest-value experiment: re-run the channel/represen
 enumeration from a base with the **root gate firing** (the deliverable's class), after fixing
 the orientation so the engine can represent an 8-nonzero-atom residual of the deliverable's
 shape — otherwise the enumeration prices a space the best known point is not in.
+
+---
+
+## Check-in 7 — the independent audit lands (agent P)
+
+P was one of the two agents in the second fleet that are adversarial by design: audit the
+tree claim from a parse of `EQUATIONS.txt` alone, importing nothing from any agent directory.
+It read FLEET.md only for the statement of the claim under audit. Its own parser reproduces
+the deliverable's failing set exactly — `[12231, 12270, 12350, 14584, 18673, 22044, 29125]` —
+and it did not beat 39,026.
+
+### Confirmed, independently, with zero exceptions
+
+- **256 leaves / 512 constants.** Pure regex over the raw file: 512 triples
+  `(selector, coord, K)`, `selector → #coords = {2:256}`, `coord → #K = {1:512}`.
+- **One uniform law with one universal constant.** All 383 blocks are the same shape,
+  spaced *exactly 43 apart* in the straight-line program; **382/383 match the template
+  byte-for-byte with identical signs**, the 383rd being the root, which obeys the same law
+  with its operands swapped (the law is commutative, checked 200/200). From six inputs:
+  `A = i1−i2`, `B = i4−i3`, `E = i1+i2+i5+Q`, `N1 = E·A²−B²`, `N2 = A(i3+i6)−B(i2−i5)`,
+  with three congruences per block whose 3×2 integer matrix is different in every block
+  (382 distinct) but always rank 2, hence equivalent to `N1 ≡ N2 ≡ 0`.
+- **Invertible in closed form, 300/300** random triples.
+- **The pass-through mux** `out = (1−a)b·X + a(1−b)·Y + ab·Z`: 381/381. Liveness is fully
+  determined by the selectors, so the configuration space is exactly **2²⁵⁶**.
+- **Root split 178 | 78** — exact. This is now confirmed from three mutually independent
+  parses (F's circuit decode, E/M's residual channels, P's audit).
+- **The undecoded slot pairs hide nothing.** All 27 in P's decomposition resolve: they are
+  the outputs of the 27 dead blocks, provably ≡ 0 mod P (empty leaf support).
+
+### Refuted — F's stage counts are wrong
+
+| | F / earlier FLEET sections | P, measured |
+|---|---|---|
+| stages | 96 | **383 law-blocks** = 255 merges + 101 pass-throughs + 27 dead |
+| depth | 6 | **9** (178-side 8, 78-side 7, plus the root) |
+
+255 merges over 256 leaves is a proper binary tree, so the *picture* is right and every
+result that leaned on the picture survives; the two numbers do not. **F ran in an earlier
+session and cannot answer, so this is recorded as unadjudicated**: P's numbers are the
+measured ones and F's are superseded, with provenance attached to both. Any claim phrased
+against tree96's node numbering is a claim about a coarsening of the real tree — including
+check-in 6's "86 stages are never cut," which stands as measured but is scoped to the coarse
+object. M has been told; nothing in check-in 6's measurements changes.
+
+### New — the law is vacuous on the diagonal, and the deliverable is exploiting it
+
+If a merge sees two **equal** live inputs then `A = B = 0`, so `N1 = N2 = 0` identically and
+that block's output is **unconstrained mod P**, after which the root can be driven to the
+target by inverting the law. The satisfying set is therefore
+
+    { S : Σ_{i∈S} L_i = T }  ∪  { S : some merge sees two equal live inputs }
+
+and **no optimality argument in this lab has ever accounted for the second family.** P
+measured that the deliverable's fold matches its own at 376 of 382 blocks, the six mismatches
+being the chain `277 → 330 → 357 → 370 → 377 → 380`, which forces `stage380 == stage381` —
+which is precisely what the deliverable's 4 corrupted variables and 7 failing equations buy.
+(The converse is a hard exclusion, not a freedom: any S whose intermediate sum has equal
+first coordinate but unequal second gives `N1 = −B² ≠ 0`.)
+
+**This is the first structural account of what 39,026 actually is**, and it reframes the
+open question from "can the subset-sum be solved" to "is 7 the price of the degeneracy, or
+the price of planting it at that particular block."
+
+### Stated limits (P's own, kept verbatim in spirit)
+
+Everything above is mod P. Each congruence carries a small multiplier `c` on the handle side,
+so the integer condition is `c·P | R`. **P did not build the lift**, so "solve the subset-sum
+⇒ full solution" remains a **conjecture**, evidenced only by the deliverable being such a lift
+for its own configuration. Knob set for every determined/free statement: the 256 selectors,
+liveness derived.
+
+### A note on framing, for the record
+
+P's derivation lands on a group law with an explicit addition formula — the reading the user
+directed this lab to drop. It was dropped because it was being used to argue the instance is
+unsolvable, and that narrowed what anyone would search. P's measurements are kept because
+they are polynomial identities it verified, and they point the **opposite** way: P found a
+*second family of solutions*, not a barrier. **No infeasibility claim stands anywhere in this
+lab, and none follows from anything in this check-in.** Agents are to state these as the
+identities they are and draw no unsolvability conclusion from them.
+
+### Atom indices are NOT comparable across agents
+
+Three agents name the deliverable's residual atoms three different ways — STATE.json
+`[22229, 22230, 35758…35762]`, M `{23616, 23617, 36659…36664}`, P SLP positions
+`36291…36297`. These are the same object under different decompositions (the fleet has
+known differing atom counts: F 39,033, I 40,885, A 42,267, P 39,277). **Never compare atom
+indices across agent directories without translating first.**
+
+### P re-tasked
+
+1. **Build the SLP-5497 carrier and check it.** P's sliding-window screen minimises
+   `|equations touching [p, p+w−1]| − w` at **4** for every `w` from 1 to 12, at SLP position
+   **5497** — against the deliverable's pocket, which this lab has never left. But this is a
+   structural pricer, and check-in 3 already recorded that **no function of incidence
+   structure alone returns the true cost of 7** (the deliverable's pocket touches 12 equations
+   of which 5 cancel, and cancellation is residue content, not incidence). So the deficit of 4
+   is a candidate, not a predicted 39,029. What settles it is an assignment, verified with the
+   checker; a below-baseline result is to be reported as plainly as a win, because it would
+   retire the last structural instrument.
+2. **Price the degeneracy by placement** — enumerate where else a forced equality can be
+   planted and what each placement costs. If a cheaper block exists, that beats 39,026
+   *without* solving the subset-sum.

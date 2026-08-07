@@ -1,0 +1,13 @@
+hit configurations: 28
+
+=== bfs2_hit_18.json : ONLY a20215 nonzero mod p (= 44859544763832475231923253825569092119321525945631045653619508440821028887) ===
+   bad=[20215, 21548, 21549, 28033, 28035, 28037, 30787, 40530]  affine knobs=56  atoms=54  no-handle=[726, 21548, 21549, 28647, 40530] (73s)
+   a20215 handle step: p
+   other rows INFEASIBLE (kernel dim 6)
+
+=== bfs_hit_16.json : ONLY a20215 nonzero mod p (= 44859544763832475231923253825569092119321525945631045653619508440821028887) ===
+   bad=[20215, 21548, 21549, 28033, 28035, 28037, 30787, 40530]  affine knobs=56  atoms=54  no-handle=[726, 21548, 21549, 28647, 40530] (64s)
+   a20215 handle step: p
+   other rows INFEASIBLE (kernel dim 6)
+
+checked 2 configurations

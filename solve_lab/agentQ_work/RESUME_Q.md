@@ -47,6 +47,15 @@ the only atoms in the file with a >=60-digit constant of their shape:
 > **EQUATIONS.txt is satisfiable iff `k*G = T` for some k in [1, 2^256-1], and the leaf ON-set of
 > a solution is exactly the binary expansion of k.**
 
+## 2b. THE LADDER IS CONFIRMED AGAINST THE RAW FILE (`check3.py`)
+The three exponents 41, 51, 176 were *inferred* (F extracted only one constant for their pins).
+Predicting their coordinates from `2^i G` and searching the file's own pin constants:
+all three predicted x-coordinates **match a literal constant present in the instance**
+(exp 41 -> pin selector x33434 wire x28109; exp 51 -> x18184/x32297; exp 176 -> x22579/x24773).
+So the ladder `L_i = 2^i G, i = 0..255` is verified against raw instance data, not just inferred.
+The deliverable's ON-set {2081, 24601} = ladder exponents **{72, 235}**, i.e. it evaluates
+`k = 2^235 + 2^72`, and `kG != T` — which is exactly why it must break 7 atoms.
+
 ## 3. FEASIBILITY (positive result, replaces every "coding optimum" reading)
 Subset sums of `{2^i G}_{i=0..255}` realise `kG` for **every** k in [1, 2^256-1].  N < 2^256, so
 every group element is hit — **including T**.  A satisfying assignment therefore EXISTS.  The
@@ -71,6 +80,14 @@ group sum of those two leaves is NOT T, which is exactly why the 7 atoms must ab
 7 atoms are chosen so that their contributions **cancel** in all but 7 rows: the 7-atom set touches
 12 equation rows and zeroes 5 of them.  A pure forward evaluation of the same free inputs leaves 4
 nonzero residual atoms touching 13 rows => 39,020.  `rows4.py` prints both restricted row systems.
+
+## 5b. WHAT THE DELIVERABLE ACTUALLY DOES (measured, mod p, over all 38,748 wires)
+Counting wires whose value mod p equals each candidate, in `new_instance_partial_39026.json`:
+`L_72 = 2^72 G` x-coordinate on **92** wires, `L_235` on **5**, the group sum `L_72+L_235` on **0**,
+the target x-coordinate C1 on **4** (the top).  So the deliverable does **not** fold at all: it
+passes a *single* leaf (2^72 G) up the whole tree as a chain of one-live-input pass-throughs, cuts
+the second leaf off after 5 wires, and then **overwrites the value with the target near the root**,
+paying 7 broken atoms for the overwrite.  That is the entire content of the 39,026 partial.
 
 ## 6. WHAT I RAN
 | file | result |
@@ -106,3 +123,32 @@ nonzero residual atoms touching 13 rows => 39,020.  `rows4.py` prints both restr
   neither used nor needed any named-object framing, and I did no generator forensics.
 - Verification used `checker.py` on the 39,026 file only (it parses fine); nothing I produced
   needed `verifyE.py`.
+
+## 9. LOTTERY-TICKET SWEEPS ON k  (each would have fully solved the instance)
+All use `fastg.py` (Jacobian + gmpy2 + Montgomery batch inversion, ~40k group ops/s/core).
+
+| sweep | family of k covered | result |
+|---|---|---|
+| `dlp_bsgs.py` | k < 2^44 and N-k < 2^44 | **none** (275 s) |
+| `lowwt.py` | Hamming weight(k) <= 6 | **none** (127 s) |
+| `wt7.py` | Hamming weight(k) <= 7 | see `wt7.log` |
+| `window.py` | all ON-bits inside a 34-bit window (k = a*2^s, a < 2^34) | see `window.log` |
+| `smallmul.py` | m*T on the ladder for m <= 10^7, i.e. k = 2^i/m mod N | see `smallmul.log` |
+| `lam.py` | (1) k = +-lambda^j * 2^i ; (2) k = a + b*lambda, \|a\|,\|b\| < 2^21 | (1) none; (2) see `lam.log` |
+
+`lam.py` also **confirms the endomorphism**: with beta a cube root of 1 mod p, phi(X,Y) = (beta X, Y)
+equals multiplication by a cube root lambda of 1 mod N.  It gives at best a sqrt(3) speedup, so it
+does not change the 2^128 figure.
+
+## 10. HONEST BOTTOM LINE
+The instance is **feasible** and the remaining work is **exactly one 256-bit discrete logarithm in a
+prime-order group with no exploitable structure** (prime order, non-anomalous, no small embedding
+degree, only the sqrt(3) CM endomorphism).  Generic cost ~2^128 group operations.  Every structured
+short-cut I could construct has been tried and missed.  Nothing about the circuit — the 96 stages,
+the 56 undecoded slot pairs, the leaf-support profile, the mux quadrants — reduces that number,
+because the fold is a group homomorphism from the selector vector.
+
+The 39,026 deliverable is therefore best understood not as a near-miss on a combinatorial search but
+as *the cheapest known way to fake the root value while breaking as few equation rows as possible*.
+Improving it is a pure coding problem over the atom incidence matrix (agent A's formulation) and is
+independent of the discrete log.

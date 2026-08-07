@@ -1,0 +1,5 @@
+ON [3, 5] A ok ('A=', 60739, 0)  B ok False  Bcurve False  B==single3 False  B==single5 False
+ON [0, 3, 5] A ok True  B ok False  Bcurve False  B==single3 False  B==single5 False
+ON [0, 3, 10] A ok True  B ok False  Bcurve True  B==single3 False  B==single5 False
+ON [0, 5, 10] A ok True  B ok False  Bcurve False  B==single3 False  B==single5 False
+ON [0, 1, 2, 4] A ok False  B ok ('B=', 60739, 0)  Bcurve False  B==single3 False  B==single5 False

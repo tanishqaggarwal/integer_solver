@@ -1,0 +1,15 @@
+m= 8 pin=True  OPTIMAL          0.2s  conflicts=0 branches=0
+m= 8 pin=False OPTIMAL          0.7s  conflicts=79 branches=379
+m=10 pin=True  OPTIMAL          0.0s  conflicts=0 branches=0
+m=10 pin=False OPTIMAL          4.6s  conflicts=578 branches=2644
+m=12 pin=True  OPTIMAL          0.0s  conflicts=0 branches=0
+m=12 pin=False UNKNOWN        300.1s  conflicts=19334 branches=74176
+m=14 pin=True  OPTIMAL          0.0s  conflicts=0 branches=0
+m=14 pin=False UNKNOWN        300.0s  conflicts=10741 branches=173239
+m=16 pin=True  OPTIMAL          0.1s  conflicts=0 branches=0
+m=16 pin=False UNKNOWN        300.1s  conflicts=13779 branches=192009
+m=20 pin=True  OPTIMAL          0.0s  conflicts=0 branches=0
+m=20 pin=False UNKNOWN        300.1s  conflicts=12496 branches=79940
+m=24 pin=True  OPTIMAL          0.1s  conflicts=0 branches=0
+m=24 pin=False UNKNOWN        300.0s  conflicts=3356 branches=21095
+m=28 pin=True  OPTIMAL          0.1s  conflicts=0 branches=0

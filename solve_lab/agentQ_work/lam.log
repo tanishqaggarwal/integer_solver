@@ -1,0 +1,4 @@
+endomorphism phi(X,Y)=(beta X, Y) acts as multiplication by lambda: True
+(1) T is not +-lambda^j * 2^i * G
+side aG built 82s
+(2) no k = a + b*lambda with |a|,|b| < 2^21.  258s

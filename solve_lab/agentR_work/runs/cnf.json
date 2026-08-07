@@ -1,0 +1,39 @@
+{
+ "m8_pin": {
+  "vars": 57299,
+  "clauses": 388439,
+  "blast_time": 13.36,
+  "runs": [
+   {
+    "solver": "cadical195",
+    "sat": true,
+    "time": 107.6,
+    "stats": {
+     "restarts": 11425,
+     "conflicts": 165725,
+     "decisions": 354424,
+     "propagations": 34556815
+    }
+   },
+   {
+    "solver": "kissat",
+    "err": "NotImplementedError('Statistics are not exposed by Kissat in PySAT.')"
+   },
+   {
+    "solver": "cryptominisat",
+    "err": "AssertionError(\"Package 'pycryptosat' is unavailable. Check your installation.\")"
+   },
+   {
+    "solver": "glucose42",
+    "sat": true,
+    "time": 276.73,
+    "stats": {
+     "restarts": 2251,
+     "conflicts": 353100,
+     "decisions": 535750,
+     "propagations": 122898960
+    }
+   }
+  ]
+ }
+}

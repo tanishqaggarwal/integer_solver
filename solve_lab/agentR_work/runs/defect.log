@@ -1,0 +1,6 @@
+[24601, 2081]      score 39005  atoms 6  eqs touched 28  failing 28  sat-in-footprint 0
+[24601]            score 39013  atoms 3  eqs touched 20  failing 20  sat-in-footprint 0
+[2081]             score 39013  atoms 3  eqs touched 20  failing 20  sat-in-footprint 0
+[47]               score 39013  atoms 3  eqs touched 20  failing 20  sat-in-footprint 0
+[91]               score 39013  atoms 3  eqs touched 20  failing 20  sat-in-footprint 0
+[24601, 2081, 47]  score 38985  atoms 9  eqs touched 48  failing 48  sat-in-footprint 0

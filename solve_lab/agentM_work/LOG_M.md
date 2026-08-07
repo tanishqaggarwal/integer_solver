@@ -161,3 +161,141 @@ matter**, and the "more live channels is always worse" conclusion is a statement
 with absolute paths, read-only copy) · `pairscan.py` -> `pairscan.pkl` · `scan_single.py` ·
 `cfg0_M.json`, `deliv_seed.json`, `orient.pkl` (identical to E's).
 E's and F's directories were not modified. No git commands were run.
+
+---
+---
+
+# LOG_M ROUND 2 — fix the representation, then price root-firing configurations
+
+## 11. The gate (step 1): E's engine could not represent the deliverable. Now it can.
+
+### 11.1 Diagnosis — structural, not numeric
+I expected a quadratic two-root branch ambiguity (`_solvevar` sets `v[u]=0` when
+`len(rts)!=1`). **That hypothesis was wrong.** `diag1.py`: all 23 differing vars are
+`kind=lin`, `nroots=1`. Zero are quad-defined.
+
+The real mechanism (`diag2.py`). `harness._bootstrap` gives each derived var `u` a *definer
+atom* `i`; `forward` then solves that atom **to zero** to get `v[u]`. Therefore **every definer
+atom is identically zero in every state E's engine can reach.** Five of the deliverable's eight
+nonzero atoms are definers:
+
+    atom 23616 -> defines x_7068     atom 36663 -> defines x_31864
+    atom 23617 -> defines x_28730    atom 36664 -> defines x_642
+    atom 36659 -> defines x_29854
+
+    value at the deliverable          value at E's forward
+      23616  -155122693640347919...     0
+      23617  1193251489541137844...     0
+      36659  2793021083152746734...     0
+      36663  -265159771897697970...     0
+      36664  4033004069730628753...     0
+
+`atoms[36663]` is the expression `x_31864` — a one-variable atom, so E's orientation literally
+defines that variable as "= 0" while the deliverable sets it to -2651597718976...
+
+The remaining 18 differing vars are downstream contamination: all 18 satisfy `delivIsRoot=True`
+(their defining atom, evaluated at the deliverable's own vector, returns the deliverable's
+value), so fixing the 5 roots fixes them by propagation. It did.
+
+### 11.2 The fix and the gate
+`engine2.py` demotes those 5 atoms from definer role -> their 5 vars become free inputs.
+`|FREE| 8365->8370`, `|SEQ| 30383->30378`. Seed grows from 32 to 37 nonzero free inputs.
+
+    PIN = [642, 7068, 28730, 29854, 31864]
+    GATE 1  vars differing from deliverable : 0
+    GATE 2  satisfied 39026/39033, failing [12231,12270,12350,14584,18673,22044,29125]
+    GATE 3  nonzero atoms == {23616,23617,36659,36660,36661,36662,36663,36664}
+    GATE PASSED
+
+### 11.3 Guarding against an overfitted fix
+A fix validated only on the deliverable proves nothing. Two independent non-deliverable points,
+predicted by `engine2` then checked with the real `checker.py`:
+
+    deliverable + leaf 4287 ON  : engine2 39000  ->  checker.py  satisfied 39000/39033
+    deliverable + leaf 17378 ON : engine2 38961  ->  checker.py  satisfied 38961/39033
+
+`fast2.resid_delta` also verified equal to a full `engine2.forward` + `badatoms` recomputation.
+
+### 11.4 What the fix unlocks
+The 5 promoted vars drive 7 of the 8 residual atoms affinely (`av[36663] = x_31864` exactly,
+`av[36664] = x_642 - x_28599*x_17325`, etc.). In E's engine they were derived and therefore
+invisible to every solver. They are now free knobs.
+
+## 12. Speed: `fscore.py`
+`E2.eqfails` rescans all 39,033 equations per candidate. Only equations touching a nonzero atom
+can differ from the constant-only baseline. `fscore` scores in O(#touched eqs): **0.322s -> 0.000s,
+2331x**, output verified identical on base and perturbed points. All scans below use it.
+
+## 13. Step 2 — root-firing configurations priced
+
+Deliverable ON-leaves **24601 (A-side / block 178)** and **2081 (B-side / block 21)**: one per
+root slot. cfg0's `{1530,1603}` are both B-side (confirmed against `blocks8.json`).
+
+`enum2.py`, from the deliverable base:
+
+    turn OFF 2081                : 38872        turn OFF 24601 : 38909
+    turn OFF both                : 38776
+    turn ON each of 254 leaves   : best 39000 (leaf 4287), histogram 38961..39000, NONE above baseline
+    turn ON best-40 pairs (780)  : best 38975,  NONE above baseline
+    simsolve at the base         : 39008
+
+**The deliverable is a strict local maximum: adding and removing both cost.**
+
+## 14. The methodological finding — atom count is the wrong objective
+`simsolve` zeroes every bad atom and *loses* 18 points. The deliverable's 8 nonzero atoms produce
+only **7 failing equations** because they **cancel inside the equations**. So I solved in
+**equation space** (`eqsolve.py`) — choose knob deltas making each equation total zero, allowing
+nonzero atoms. Nobody had run this.
+
+    19 knobs, 86 equations; all 5 PIN knobs affine; every equation knob-dependent; 0 unfixable
+    exact full solve : FAILS, divisibility on equation 29125  (rhs % -P != 0)
+    greedy           : keeps 79/86 -> score 39026
+
+i.e. **the deliverable already is the equation-space optimum over this knob set**, and its 7
+failures are structurally forced. Widening to 162 affine knobs / 999 equations (`eqsolve2.py`):
+full solve **core infeasible**. The 39,026 barrier is an arithmetic obstruction, not a search
+failure — the sharpest characterisation of it so far.
+
+## 15. RETRACTION of my own §9
+Last round I wrote *"the root gate never fires at cfg0 or at any configuration E enumerated from
+it."* **That is false.** `agentE_work/runs/chanenum.log`: E's 178-channel representatives are
+`47` and `112`, both A-side; with `1530`/`1603` B-side already ON, every `mask(1,·,·)` row puts
+leaves on both root slots. E enumerated **12 root-firing configurations** (scores 38872-38987).
+
+Corrected reading of E's monotonicity:
+- E's own data shows removing leaves also hurts: cfg0 39005 -> cfg5 38917 -> cfg7 38849.
+  So the claim is really *"adding channels to a tuned base costs"*, which **does** hold at the
+  deliverable base too (best add 39000 < 39026). **Instance property, not a 78-side artifact.**
+- The real limitation is the **instrument**: `simsolve` overwrites the tuned handle values, so it
+  cannot express a tuned-handle optimum, and tops out near 39005-39008 from *any* base. 39,026 was
+  produced by tuned handles. My "78-side artifact" framing was wrong; the coordinator should
+  correct FLEET.md.
+
+## 16. Secondary — the slot oracle for F is a NEGATIVE result
+`orefine.py`: 136 bases (one saturating each tree stage), corrected engine, signature = delta of
+each base's own bad-atom set, ON-corrected pairing rule. Common refinement **32 blocks**
+(142,36,16,9,8,8,4,3,2x6,1x18) vs the old 8 — four times finer, **and not valid**:
+
+    partition            crossings vs tree96      vs F's decoded slot pairs
+    old 8-block                0                  3 consistent, 0 cut across
+    new 32-block              10                  3 consistent, 2 CUT ACROSS
+
+Disagreements: **stage 27596** (F 10|12, oracle 20|2) and **stage 27257** (F 8|3, oracle 9|2).
+Stages the oracle splits that are missing from `mux_wiring.json`: `10136`, `15431`, `21279` —
+all trivial 1|1 splits of 2-leaf stages, i.e. no new information for the 56 undecoded pairs.
+
+**Conclusion: the residual oracle does not help F's inversion attack.** `blocks8.json` (0
+crossings, 3/3 consistent) remains the trustworthy artifact; `oracle_for_F.json` carries both
+partitions with validity flags and caveats, `xslot_report.json` the per-stage comparison.
+
+My first crossing test was itself buggy: it flagged a block *containing* a whole stage as a
+violation, which is fine for a laminar family. Corrected criterion — a crossing is an overlap that
+is neither containment nor reverse containment — gives the numbers above (the buggy test said 78).
+
+## 17. Score attempts this round, all below 39,026
+    single-leaf from deliverable base ....... 39000
+    leaf pairs (top-40, 780 configs) ........ 38975
+    simsolve at deliverable base ............ 39008
+    equation-space solve, 19 knobs .......... 39026 (equals baseline, does not exceed)
+    equation-space solve, 162 knobs ......... core infeasible
+    turning base leaves off ................. 38776-38909

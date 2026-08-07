@@ -1,0 +1,12 @@
+=== lazy bits=[] maxr=6 maxv=8000
+  closure: 3511 knobs, 2531 reachable rows, bad0=[20215, 28647]
+  it0: |A|=2 moved=2 -> fails=28 score=39005 nbad=2 bad=[747, 7389] (0s)
+  it1: |A|=4 moved=4 -> fails=28 score=39005 nbad=2 bad=[10187, 20212] (0s)
+  it2: |A|=6 moved=6 -> fails=49 score=38984 nbad=6 bad=[722, 724, 726, 10187, 26958, 40306] (0s)
+  it3: |A|=11 moved=14 -> fails=49 score=38984 nbad=6 bad=[392, 722, 724, 726, 11789, 40354] (1s)
+  it4: |A|=14 moved=17 -> fails=74 score=38959 nbad=8 bad=[722, 724, 726, 16020, 19692, 24540, 33209, 40354] (1s)
+  it5: |A|=18 moved=16 -> fails=46 score=38987 nbad=5 bad=[722, 724, 726, 31548, 33099] (2s)
+  it6: |A|=20 moved=25 -> fails=72 score=38961 nbad=7 bad=[722, 724, 726, 9822, 27585, 28647, 30787] (4s)
+  it7: |A|=23 moved=25 -> fails=78 score=38955 nbad=8 bad=[722, 724, 726, 9823, 11151, 24540, 33208, 40354] (4s)
+  it8: |A|=26 UNSAT core infeasible (0s)
+  BEST fails=28 score=39005 bad=[20215, 28647] (22s)

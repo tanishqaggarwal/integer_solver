@@ -1,0 +1,182 @@
+{
+ "15298": {
+  "nleaves": 256,
+  "slotA": 178,
+  "slotB": 78,
+  "my_parts": [
+   142,
+   36,
+   16,
+   9,
+   8,
+   8,
+   4,
+   3,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "verdict": "CONSISTENT with slot pair"
+ },
+ "30973": {
+  "nleaves": 88,
+  "slotA": 88,
+  "slotB": 64,
+  "my_parts": [
+   84,
+   2,
+   2
+  ],
+  "verdict": "slot supports unusable (|A|=88,|B|=64,|A&B|=64,cover=88/88)"
+ },
+ "24533": {
+  "nleaves": 50,
+  "slotA": 50,
+  "slotB": 50,
+  "my_parts": [
+   45,
+   2,
+   2,
+   1
+  ],
+  "verdict": "slot supports unusable (|A|=50,|B|=50,|A&B|=50,cover=50/50)"
+ },
+ "27596": {
+  "nleaves": 22,
+  "slotA": 10,
+  "slotB": 12,
+  "my_parts": [
+   20,
+   2
+  ],
+  "verdict": "CUTS ACROSS the slot pair"
+ },
+ "21408": {
+  "nleaves": 21,
+  "slotA": 21,
+  "slotB": 21,
+  "my_parts": [
+   8,
+   4,
+   3,
+   2,
+   1,
+   1,
+   1,
+   1
+  ],
+  "verdict": "slot supports unusable (|A|=21,|B|=21,|A&B|=21,cover=21/21)"
+ },
+ "18237": {
+  "nleaves": 21,
+  "slotA": 11,
+  "slotB": 10,
+  "my_parts": [
+   9,
+   8,
+   1,
+   1,
+   1,
+   1
+  ],
+  "verdict": "CONSISTENT with slot pair"
+ },
+ "27257": {
+  "nleaves": 11,
+  "slotA": 8,
+  "slotB": 3,
+  "my_parts": [
+   9,
+   2
+  ],
+  "verdict": "CUTS ACROSS the slot pair"
+ },
+ "4529": {
+  "nleaves": 8,
+  "slotA": 3,
+  "slotB": 5,
+  "my_parts": [
+   2,
+   2,
+   1,
+   1,
+   1,
+   1
+  ],
+  "verdict": "CONSISTENT with slot pair"
+ },
+ "10284": {
+  "nleaves": 6,
+  "slotA": 6,
+  "slotB": 6,
+  "my_parts": [
+   3,
+   1,
+   1,
+   1
+  ],
+  "verdict": "slot supports unusable (|A|=6,|B|=6,|A&B|=6,cover=6/6)"
+ },
+ "34562": {
+  "nleaves": 3,
+  "slotA": 3,
+  "slotB": 3,
+  "my_parts": [
+   1,
+   1,
+   1
+  ],
+  "verdict": "slot supports unusable (|A|=3,|B|=3,|A&B|=3,cover=3/3)"
+ },
+ "17686": {
+  "nleaves": 3,
+  "slotA": 3,
+  "slotB": 3,
+  "my_parts": [
+   2,
+   1
+  ],
+  "verdict": "slot supports unusable (|A|=3,|B|=3,|A&B|=3,cover=3/3)"
+ },
+ "7952": {
+  "nleaves": 3,
+  "slotA": 3,
+  "slotB": 3,
+  "my_parts": [
+   2,
+   1
+  ],
+  "verdict": "slot supports unusable (|A|=3,|B|=3,|A&B|=3,cover=3/3)"
+ },
+ "18212": {
+  "nleaves": 2,
+  "slotA": 2,
+  "slotB": 2,
+  "my_parts": [
+   1,
+   1
+  ],
+  "verdict": "slot supports unusable (|A|=2,|B|=2,|A&B|=2,cover=2/2)"
+ }
+}

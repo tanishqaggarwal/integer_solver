@@ -1,0 +1,3 @@
+n=  8 distinct-axiom=False -> sat       0.01s
+n=  8 distinct-axiom=True  -> unknown  64.02s
+n= 16 distinct-axiom=False -> sat       0.03s

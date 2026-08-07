@@ -40,11 +40,15 @@ class CascadeP:
         self.g['v'] = v
         return eval(self.code[i], self.g)
 
-    def close(self, seed, order):
+    def close(self, seed, order, forbid=()):
+        """forbid: atom indices that may NOT be used to derive a variable.  Needed to stop
+        the closure running the target pin BACKWARDS into the tree instead of folding
+        the leaves forward."""
         v = [0] * NV
         known = bytearray(NV)
         nunk = [len(vs) for vs in self.avars]
         done = bytearray(self.n)
+        for i in forbid: done[i] = 1
         q = collections.deque(i for i in range(self.n) if nunk[i] == 1)
         derived = 0
 

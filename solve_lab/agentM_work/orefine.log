@@ -1,0 +1,38 @@
+136 bases, 256 leaves
+  [0/136] 3s  (38 coords)
+  [10/136] 34s  (37 coords)
+  [20/136] 63s  (39 coords)
+  [30/136] 90s  (39 coords)
+  [40/136] 116s  (38 coords)
+  [50/136] 153s  (39 coords)
+  [60/136] 190s  (39 coords)
+  [70/136] 224s  (39 coords)
+  [80/136] 257s  (39 coords)
+  [90/136] 292s  (40 coords)
+  [100/136] 324s  (39 coords)
+  [110/136] 359s  (39 coords)
+  [120/136] 393s  (37 coords)
+  [130/136] 426s  (46 coords)
+
+COMMON REFINEMENT: 32 blocks, sizes [142, 36, 16, 9, 8, 8, 4, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+previous (E engine, 297 cfgs): 8 blocks, sizes [178, 41, 21, 6, 3, 3, 3, 1]
+
+tree96 stages SPLIT by the refinement: 17
+  stage 15298: |gsup∩leaves|=256 -> parts [142, 36, 16, 9, 8, 8, 4, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+  stage 30973: |gsup∩leaves|=88 -> parts [84, 2, 2]
+  stage 24533: |gsup∩leaves|=50 -> parts [45, 2, 2, 1]
+  stage 27596: |gsup∩leaves|=22 -> parts [20, 2]
+  stage 21408: |gsup∩leaves|=21 -> parts [8, 4, 3, 2, 1, 1, 1, 1]
+  stage 18237: |gsup∩leaves|=21 -> parts [9, 8, 1, 1, 1, 1]
+  stage 27257: |gsup∩leaves|=11 -> parts [9, 2]
+  stage 4529: |gsup∩leaves|=8 -> parts [2, 2, 1, 1, 1, 1]
+  stage 10284: |gsup∩leaves|=6 -> parts [3, 1, 1, 1]
+  stage 34562: |gsup∩leaves|=3 -> parts [1, 1, 1]
+  stage 17686: |gsup∩leaves|=3 -> parts [1, 2]
+  stage 7952: |gsup∩leaves|=3 -> parts [1, 2]
+  stage 26625: |gsup∩leaves|=2 -> parts [1, 1]
+  stage 10136: |gsup∩leaves|=2 -> parts [1, 1]
+  stage 15431: |gsup∩leaves|=2 -> parts [1, 1]
+  stage 18212: |gsup∩leaves|=2 -> parts [1, 1]
+  stage 21279: |gsup∩leaves|=2 -> parts [1, 1]
+done

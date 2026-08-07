@@ -18,8 +18,9 @@ rs = json.load(open(K + '/rootsupport.json'))
 ch = json.load(open(K + '/chain.json'))
 sel2exp = {}
 for i in range(256): sel2exp[ch['sel'][str(i)]] = ch['exp'][str(i)]
-IA = set(sel2exp[s] for s in rs['A.x']) | set(sel2exp[s] for s in rs['A.y'])
+IA = set(sel2exp[s] for s in rs['A.x']) | set(sel2exp[s] for s in rs['A.y']) | {163}
 IB = set(sel2exp[s] for s in rs['B.x']) | set(sel2exp[s] for s in rs['B.y'])
+# exponent 163 measured A-side in K26 by driving the real equations with ON={x28785,x2081}
 print('|IA| =', len(IA), '|IB| =', len(IB), 'overlap', len(IA & IB), 'union', len(IA | IB))
 assert not (IA & IB) and len(IA | IB) == 256
 
