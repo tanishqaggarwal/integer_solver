@@ -1115,3 +1115,66 @@ about **15 minutes**.
 stated prefix with its last site named. This is deliberate: the campaign may need this frame
 as a **verifier** for agent L's nonlinear fit-and-solve at short notice, and that takes
 priority over any sweep in progress.
+
+---
+
+# LOG_M ROUND 12 — the p-handle family re-filtered. T's 18 confirmed; the number you price against is 16.
+
+## 72. The family: 3,707, reproduced exactly — after fixing my own scan
+First pass gave **1,256**, not 3,707. My bug: I scanned only **definer** atoms. A p-handle
+atom need not be the definer of its own `h` -- `x_23642`'s definer in my orientation is the
+**bare** atom `x_23642`, while its p-handle atom `x_23642 - x_8173*x_10422` is a separate
+*check* atom. Scanning all 40,727 atoms for the algebraic form:
+
+    all atoms of form  x_h - x_i * x_j                       : 13,092
+    of these, p-handles (one operand == p, other free)       : 3,707   <- matches T exactly
+    of those, the atom is also the DEFINER of x_h            : 1,256   <- my first pass
+
+So T's family is confirmed independently, and the miss was mine, of exactly the shape T
+warned about: **a family delimited by the wrong structural predicate** (definer-ness here,
+guard-shape in L's census) when the defining property is `h = p*u`.
+
+## 73. Incidence — and it depends on which far side you price against
+Computed EXACTLY (atom `a` is in equation `e` iff `a` appears in `eqt[e]`'s terms), not via
+the cofactor-marker shortcut:
+
+    against my 25-equation uncorrupted baseline : 18 atoms   <- T's 18, confirmed
+    against T's 12-equation far side            : 16 atoms
+    against the deliverable's own 7 failures    : 12 atoms
+
+T's three newly-found handles are all present and incident: `u=x10422 (a11875)`,
+`u=x15120 (a20450)`, `u=x35531 (a20452)`.
+
+> **You told me to price against 7 -> 12. Against that far side the incident set is 16, so
+> the space is 2^16 = 65,536, not 2^18 = 262,144.** The two atoms in the 18 but not the 16 are
+> `a11880 (h=x23822)` and `a11882 (h=x7945)`, and both are incident **only to eq8680** --
+> precisely O's `S = 0` constraint equation, which holds at the witness and is not in the
+> 12-equation far side. Against the deliverable's own 7 the set is 12, i.e. 2^12 = 4,096.
+
+All three are trivially affordable at the incremental engine's 0.015-0.025 s/site:
+2^16 is about 22 minutes, 2^18 about 90.
+
+## 74. T's criterion is SAFE but not exact — 919 systematic off-by-one violations
+Verifying `eqs(u) == eqs(atom_u)` over all 3,707:
+
+    checked 3,707, violations 919
+    EVERY violation has the same shape: |eqs(u) \ eqs(atom)| = 1 and |eqs(atom) \ eqs(u)| = 0
+
+The variable appears in exactly one equation more than its atom does -- almost certainly its
+own guard equation, which the atom-level decomposition attributes elsewhere. Among the 18
+incident atoms, **2 violate**: `a6348 (h=x34113)` and `a6350 (h=x28355)` -- the two
+*linearly*-defined ones, the same pair that fell outside my product-form scan earlier.
+
+**Direction matters and it is favourable: the error is always a FALSE POSITIVE, never a false
+negative.** Using `eqs(u)` can only add equations, so it can inflate the incident pool but can
+never miss a candidate. T's filter is therefore sound for discarding, which is the use it is
+being put to. My counts above avoid the issue entirely by testing incidence directly.
+
+## 75. Q's point, carried forward as a lever
+Q settled that the atom is not the unit of failure: an atom can be nonzero inside an equation
+that still sums to zero, and the deliverable is exactly that case -- its atoms occur in 6-15
+equations each yet only 7 break. **So a placement's cost is NOT bounded below by its atoms'
+incidence**, and the incidence filter is a filter on *reachability*, not on cost. My pricing
+already measures cost by re-propagation rather than by incidence, so nothing in the tuner
+changes; but it means a 16-atom incident set can still contain placements far cheaper than
+their incidence suggests, which is an argument for pricing all 65,536 rather than ranking.

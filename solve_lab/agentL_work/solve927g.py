@@ -49,6 +49,7 @@ def solve_group(vv,atoms,wire):
 def influences(vv,a,w):
     i=E.residx[a]
     return probe(vv,i,[w],[1])!=probe(vv,i,[w],[0])
+#MAINSTART
 if __name__=='__main__':
     import random
     rnd=random.Random(7)

@@ -3672,3 +3672,69 @@ and it is the campaign's live edge.
 
 *Process note, flagged by L as a repeat: its `pkill` matched its own shell twice this session
 (exit 144). No data lost either time; the rule is now in `RESUME_L.md`.*
+
+---
+
+## Check-in 68 — the incremental engine works; the placement space is affordable (agent M)
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### The engine — six gates, all passed
+
+Two observations removed the per-site cost entirely: **the baseline vector is the same for every
+site** (so it, `badatoms(v_unc)`, the baseline failing set and the equation coefficient maps are
+computed once), and **no engine object is needed** — a site is just its pinned set, propagated in
+the global `H.SEQ` order skipping pinned vars.
+
+| gate | result |
+|---|---|
+| G1 deliverable from its four handles | 39,026, exactly the 7, 8 atoms, **0 vars differing** |
+| G2 the three CLI-agreeing points | 39,026 / 39,000 / 38,961 — all exact |
+| G3 T's calibration (12 cofactors zeroed) | 39,021 / 12 / list matches |
+| **G4 incremental == full engine3** | **same score, same atoms, 0 vars differing** |
+| G5 `tune()` from shared baseline | 39,008 → 39,026 in **0.02 s** |
+| G6 general 4-subsets | **0.025 s/site** (mean 0.015, max 0.09) |
+
+**G4 is the one that matters: the incremental result is *identical* to the full engine, not an
+approximation.** `C(102,4) = 4.25M` projects to 29.8 core-hours — **7.4 h on 4 cores.**
+
+### The filter re-run — M caught its own bug, same failure mode T had named
+
+M's first pass gave **1,256**, having scanned only **definer** atoms — but a p-handle atom need not
+define its own `h` (`x_23642`'s definer is the bare atom, while its p-handle atom is a separate
+check). Scanning all 40,727: atoms of form `x_h − x_i·x_j` = **13,092**, of these p-handles =
+**3,707, matching T exactly**, of those also definers = 1,256. **The same failure mode T described
+and L committed — a family delimited by the wrong structural predicate when the defining property is
+`h = p·u` — committed independently by M and reported as such.**
+
+### Incidence: the number to price against is 16, not 18
+
+| far side | incident atoms | space |
+|---|---|---|
+| M's 25-equation uncorrupted baseline | **18** — T's count confirmed | 2¹⁸ = 262,144 |
+| **T's 12-equation far side (the one being priced against)** | **16** | **2¹⁶ = 65,536** |
+| the deliverable's own 7 failures | **12** | 2¹² = 4,096 |
+
+T's three new handles all confirmed incident. **The two atoms in the 18 but not the 16 —
+`a11880 (h=x23822)` and `a11882 (h=x7945)` — are incident only to eq8680**, which is **O's `S = 0`
+equation**, holds at the witness, and is not in the 12-equation far side. **A real reduction of the
+space, derived rather than assumed, and it links the enumeration to O's Lemma.**
+
+**All three sizes affordable: 2¹⁶ ≈ 22 min, 2¹⁸ ≈ 90 min.** The space did not grow beyond reach.
+**M is now running all three in increasing order**, reporting the **distribution** rather than the
+maximum, with no ranking or truncation — since Q's result means **incidence filters reachability,
+not cost**, so a placement's cost is not bounded below by its atoms' incidence.
+
+### T's criterion is SAFE but not exact — and the error direction is favourable
+
+Verifying `eqs(u) == eqs(atom_u)` across all 3,707: **919 violations**, every one with the identical
+shape `|eqs(u) \ eqs(atom)| = 1` and `|eqs(atom) \ eqs(u)| = 0` — the variable appears in exactly one
+more equation than its atom, almost certainly its own guard. Among the 18 incident, 2 violate
+(`x34113`, `x28355` — the two **linearly** defined ones).
+
+> **The error is always a false positive, never a false negative**, so the criterion can inflate the
+> pool but **can never discard a real candidate.** Sound for the use it is put to. M's own counts
+> avoid it by testing incidence directly against `eqt`.
+
+M's engine is held **interruptible** for L's `solve_group`, whose result would need pricing in the
+one frame that provably reproduces the deliverable.

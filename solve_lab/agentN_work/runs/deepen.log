@@ -1,0 +1,6 @@
+depth 2: pool=65    frame free=8812  score=39026  |R|=12  nonzero atoms=7   knobs wide=49  narrow=7    OPT wide=12  narrow=5    failing=7  (2s)
+depth 3: pool=81    frame free=8828  score=39026  |R|=12  nonzero atoms=7   knobs wide=49  narrow=7    OPT wide=12  narrow=5    failing=7  (2s)
+depth 4: pool=95    frame free=8842  score=39026  |R|=12  nonzero atoms=7   knobs wide=49  narrow=7    OPT wide=12  narrow=5    failing=7  (2s)
+depth 5: pool=111   frame free=8858  score=39026  |R|=12  nonzero atoms=7   knobs wide=49  narrow=7    OPT wide=12  narrow=5    failing=7  (2s)
+depth 6: pool=114   frame free=8861  score=39026  |R|=12  nonzero atoms=7   knobs wide=49  narrow=7    OPT wide=12  narrow=5    failing=7  (2s)
+depth 7: pool=116   frame free=8863  score=39026  |R|=12  nonzero atoms=7   knobs wide=49  narrow=7    OPT wide=12  narrow=5    failing=7  (3s)
