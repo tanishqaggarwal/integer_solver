@@ -5,3 +5,4 @@ extra=[23436, 23437] |E|=16 knobs=8  PROVED minfail >= 7 (all C(n,<=6) subsets u
 extra=[23437, 23438] |E|=16 knobs=8  PROVED minfail >= 7 (all C(n,<=6) subsets unsolvable)  (102.5s)
 extra=[23436, 23438] |E|=16 knobs=7  PROVED minfail >= 7 (all C(n,<=6) subsets unsolvable)  (78.5s)
 extra=[23434, 36224, 36223] |E|=16 knobs=10  PROVED minfail >= 7 (all C(n,<=6) subsets unsolvable)  (153.0s)
+extra=[23434, 23435] |E|=14 knobs=9  PROVED minfail >= 7 (all C(n,<=6) subsets unsolvable)  (47.7s)

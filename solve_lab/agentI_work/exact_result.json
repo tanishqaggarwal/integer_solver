@@ -73,5 +73,16 @@
   "minfail_le6": null,
   "proved_ge7": true,
   "secs": 153.0
+ },
+ {
+  "extra": [
+   23434,
+   23435
+  ],
+  "nE": 14,
+  "knobs": 9,
+  "minfail_le6": null,
+  "proved_ge7": true,
+  "secs": 47.7
  }
 ]
