@@ -95,15 +95,30 @@ each covers — this is the exact coverage argument, not a sketch:
 scan point equal to `±` a ladder point, or the identity, would show up — are trapped and reported,
 not silently skipped: **0 occurred** at every completed size.
 
-| weight | candidates | status | time |
+| weight | scan candidates | status | time |
 |---|---|---|---|
-| \|S\| = 0, 1 | 257 | **exhausted, no solution** | — |
-| \|S\| ≤ 6 | — | **exhausted, no solution** (re-done, subsumed) | — |
-| \|S\| ≤ 7 | — | **exhausted, no solution** (Q's 33.7% partial now CLOSED) | — |
-| \|S\| ≤ 8 | scan sizes 2+3+4 = 177,588,800 | **exhausted, no solution** | 219 s |
-| \|S\| ≤ 9 | scan size 5 = 8,809,549,056 | **RUNNING** | est. ~3 h |
+| \|S\| = 0, 1 | 257 (direct) | **exhausted, no solution** | — |
+| \|S\| ≤ 4 | via the `β = ∅` table probe | **exhausted, no solution** | — |
+| \|S\| ≤ 6 | — | **exhausted, no solution** (re-done from cold; subsumes Q's 108 s result) | — |
+| \|S\| ≤ 7 | — | **exhausted, no solution** — **Q's 33.7% partial is now CLOSED** | — |
+| \|S\| ≤ 8 | 32,640 + 2,763,520 + 174,792,640 = 177,588,800 | **exhausted, no solution** | 219 s |
+| **\|S\| ≤ 9** | **8,809,549,056** | **EXHAUSTED, NO SOLUTION** | 1,785 s wall / ~3,900 CPU-s |
 
-Zero-events 0, hits 0 at every completed size.
+The six size-5 range totals sum to **exactly `C(256,5) = 8,809,549,056`** — checked, not assumed:
+
+```
+DONE size=5 range=[ 0, 10) n=1602932562 zero=0 1784.6s
+DONE size=5 range=[10, 20) n=1360622262 zero=0 1593.8s
+DONE size=5 range=[20, 33) n=1453252593 zero=0 1686.5s
+DONE size=5 range=[33, 51) n=1520332848 zero=0 1750.0s
+DONE size=5 range=[51, 77) n=1424918131 zero=0 1710.4s
+DONE size=5 range=[77,256) n=1447490660 zero=0 1704.2s
+```
+
+**Hits: 0. Degenerate (`dx = 0`) events: 0.** At every size, at every range.
+
+> **UNSIGNED HAMMING WEIGHT ≤ 9 IS EXHAUSTED. There is no satisfying assignment whose leaf ON-set
+> has 9 or fewer selectors ON.**
 
 ## 5. FILES
 

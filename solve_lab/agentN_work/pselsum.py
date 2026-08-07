@@ -4,7 +4,7 @@ from collections import Counter, defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REG = sys.argv[1] if len(sys.argv) > 1 else 'pinned'
-pat = 'pselrankC_*.jsonl' if REG == 'consistent' else 'pselrank_*.jsonl'
+pat = 'LATC_*.jsonl' if REG == 'consistent' else 'LAT_*.jsonl'
 print('=== REGIME: %s   (%s) ===' % (REG, pat))
 rows = []
 for f in sorted(glob.glob(os.path.join(HERE, 'runs', pat))):

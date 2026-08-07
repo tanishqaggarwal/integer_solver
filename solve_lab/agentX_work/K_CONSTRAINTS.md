@@ -33,8 +33,8 @@ lands on a curve whose hardness is the most-studied in the world.
 
 | # | constraint on `k` | who | model | exhaustive? | verified by X | what would falsify it |
 |---|---|---|---|---|---|---|
-| 1 | **weight(`k`) ≥ 9** | X | group, mod `p` | **exhaustive** for weight ≤ 8: table = all 177,589,056 subsets of size ≤ 4, scan = all 177,588,800 of size ≤ 4, plus \|S\| ∈ {0,1} direct | **re-run from cold, mine** | a wrong ladder (`L_i ≠ 2^i·G`), a wrong `T`, or a truncation collision missed — excluded: 64-bit keys, expected false-positive count 0.085 over the whole sweep, and every planted target was found |
-| 1b | **weight(`k`) ≥ 10** | X | group, mod `p` | scan of all 8,809,549,056 size-5 subsets against the same size-≤4 table — **in progress** | in progress | as above |
+| 1 | **unsigned Hamming weight(`k`) ≥ 10** | X | group, mod `p` | **EXHAUSTIVE for weight ≤ 9.** Table = all 177,589,056 subsets of size ≤ 4; scan = all of size 2,3,4 (177,588,800) and 5 (8,809,549,056); `\|S\| ≤ 4` via the empty-scan table probe; `\|S\| ∈ {0,1}` direct. Range totals sum to exactly `C(256,5)`. **0 hits, 0 degenerate events** | **re-run from cold, mine** | a wrong ladder (`L_i ≠ 2^i·G`), a wrong `T`, or a missed truncation collision — excluded: 64-bit keys, expected false-positive count 0.085 over the whole sweep, and **every planted target was recovered exactly** |
+| 1b | **signed-digit weight(`k`) ≥ 7** | X | group, mod `p` | `k = Σ ε_j 2^{e_j}`, `ε_j ∈ {±1}`. **EXHAUSTIVE for `m ≤ 6`**; `m ≤ 7` in progress. Table = all signed `a ≤ 3` combinations with the leading sign fixed (11,119,616 — WLOG because `x(P) = x(−P)`); scan = all signed `b ≤ 4` (2,818,921,472) | **mine**; planted `m = 3` and `m = 5` signed targets recovered **exactly**, and a planted **run-length** target `2¹⁰⁰ − 2³⁰` (unsigned weight 70) found | sign bookkeeping — tested directly by the planted signed targets, which the unsigned test could not have caught |
 | 2 | `k > 2^44` and `N − k > 2^44` | Q | group, mod `p` | exhaustive, BSGS 2²² baby × 2²² giant, both signs | **code-audited**; superseded by row 3 | a bug in Q's `jadd`/`batch_affine_x` |
 | 3 | **`k > 2^52` and `N − k > 2^52`** | **X** | group, mod `p` | exhaustive, BSGS 2²⁶ baby × 2²⁶ giant, both signs, C engine | **re-run from cold, mine**; planted `k₀ = 5·2²⁶+1234567` recovered at exactly `i = 5` | as row 1 |
 | 4 | ON-bits are **not confined to any 34-bit window** | Q | group, mod `p` | exhaustive over `k = a·2^s`, `a < 2³⁴`, `s ≤ 222`; 2,865 s | **code-audited only, not re-executed** — the enumeration and the `sa == sb` join are correct on inspection | a bug in the shift bookkeeping; re-running costs ~1 min with X's C engine |
@@ -174,3 +174,52 @@ fold is a homomorphism of the selector vector.
 **Be blunt about what the sweep is.** For a uniformly random 256-bit scalar, `P(weight ≤ 9) ≈ 2^-203`.
 It is a lottery ticket. It is worth buying only because it is cheap and because a hit is a complete
 solve. A miss is *"weight ≤ w exhausted, no solution"* — a real, citable bound — and **nothing more**.
+
+---
+
+## 5. THE SIGNED-DIGIT CLASS — a strictly larger class, reported separately
+
+Every bound in §1 rows 4–7, and every previous search in this campaign, constrains `k` by **unsigned**
+Hamming weight. The signed-digit class `k = Σ_{j=1..m} ε_j·2^{e_j}` with `ε_j ∈ {+1, −1}`:
+
+* **contains** the unsigned class (a weight-`w` `k` is signed-digit with `m = w`), and
+* **also contains low RUN-LENGTH `k`**, which this campaign had never tested. A run of ones from bit
+  `b` to bit `a` is `2^{a+1} − 2^b`: **two signed terms**. `k = 0xFFFF…F000…0` has unsigned weight
+  ~128 and signed-digit weight 2.
+
+**These are different bounds and must not be merged.** "unsigned weight ≤ 9 exhausted" and
+"signed-digit weight ≤ m exhausted" are separate citable statements — neither implies the other for
+the same numeric bound (signed ≤ m is *stronger* as a class; unsigned ≤ 9 reaches a *higher* index).
+
+**Engine** (`xsigned.c`): signed ladder index `s ∈ [0,512)` with position `m = s>>1` and sign
+`(s&1) ? −1 : +1`; exponents strictly increase, so after `s` the next index is `((s>>1)+1)<<1`.
+Negation is free on the curve, so a sign flip costs nothing beyond the enumeration. **The table is
+halved for free** by `x(P) = x(−P)`: fixing the sign of the lowest-exponent table term picks exactly
+one representative per `±` pair, and a match on `x` recovers both.
+
+**Validation — the new failure mode is sign bookkeeping, and it was tested directly:**
+
+| planted `k` | `m` | unsigned weight | scan run | result |
+|---|---|---|---|---|
+| `+2¹⁷ − 2⁸⁸ + 2²⁰¹` | 3 | **114** | full `b = 2` | **recovered exactly** |
+| `+2³ − 2⁴⁰ + 2⁹⁷ − 2¹⁵⁰ + 2²⁰⁰` | 5 | **108** | full `b = 3` | **recovered exactly** |
+| `2¹⁰⁰ − 2³⁰` (a run of ones) | 2 | **70** | `b = 1` | **found** |
+
+Note the unsigned weights: **none of these three is reachable by the weight sweep at any bound this
+box could run.** Table generation was separately checked against Python: `a = 1` block 256/256 exact,
+`a = 2` block 65,280/65,280 exact, `a = 3` 400 random samples with 0 mismatches.
+
+**Result so far:** `m ≤ 6` **exhausted, no solution** (b = 0 probe + scans b = 1,2,3, all with 0 hits
+and 0 degenerate events). `m ≤ 7` running (2,796,682,240 candidates).
+
+**Where the wall is, and why.** Costs are `table = C(256,a)·2^{a−1}`, `scan = C(256,b)·2^b`:
+
+| bound | split | table entries | scan | feasible here? |
+|---|---|---|---|---|
+| `m ≤ 6` | 3 + 3 | 11,119,616 (89 MB) | 22,108,160 | done, 14 s |
+| `m ≤ 7` | 3 + 4 | 11,119,616 (89 MB) | 2,796,682,240 | **yes, ~15 min** |
+| `m ≤ 8` | 4 + 4 | 1,398,341,120 (**11.2 GB**) | 2,796,682,240 | **no — memory** |
+| `m ≤ 8` | 3 + 5 | 11,119,616 | 281,905,569,792 | **no — ~21 h at this box's contended rate** |
+
+So `m ≤ 7` is the natural stopping point on 4 cores and 15 GB shared with the rest of the fleet.
+`m ≤ 8` needs either ~12 GB of headroom (then it is ~15 min) or a full day of cores.

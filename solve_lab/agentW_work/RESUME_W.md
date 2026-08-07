@@ -379,6 +379,52 @@ atom means no cancellation is possible, so equation-level and atom-level coincid
 gap in §5 lives entirely in the other 188 rows, which carry 3–24 atoms each (the six essential
 rows carry 16, 24, 14, 16, 17 and **1**).
 
+### 7i.  CHASING `9123` — it IS reachable by an assignment; the open half is knob sets, not existence
+
+`w_9123.py`, `w_9123b.py`, artifact **`w_pay9123_39026.json`**.
+
+**The decisive fact, checker-verified:** solving `(SAT \ {9123}) + buy 12231` on `K+` and
+dumping the full 38,748-variable assignment gives
+
+```
+solve_lab/checker.py w_pay9123_39026.json
+  satisfied 39026/39033  (7 failing)
+  failing [9123, 12270, 12350, 14584, 18673, 22044, 29125]
+```
+
+**5 knobs changed** — `[8731, 9118, 17325, 29854, 31864]`, i.e. block 7181's two output slots
+plus three handles.  So **`9123` is not unreachable in any absolute sense**: an assignment
+exists that pays with it, scores the same 39,026, and passes the real checker.
+
+> **Therefore the two readings the coordinator posed are decided as far as my side can decide
+> them.**  The route *does not* face an object that cannot be reached — it faces a different
+> knob set.  My knobs are frame-B free inputs (slot/handle variables); U's are the 256 leaf
+> selectors.  **Whether a SELECTOR configuration can pay with `9123` is a question about U's
+> knob set and only U can answer it** — "a count from one parse is a fact about that parse".
+> What I can now say: **existence is settled affirmatively, so if U's route cannot reach it,
+> that is a genuine blind spot in route pricing and not a property of the equation.**
+
+**A negative result about my own first attempt, recorded so nobody repeats it.**  I first
+extracted, for each essential row `e`, a direction in `ker(A_SAT \ {e})` breaking only `e`, and
+found all six had the *same* 5-knob support `{642, 1329, 8731, 9118, 9413}`.  **That is a basis
+artefact, not a fact** — the direction is only defined modulo `ker(A_SAT)` (dim 8), so its
+support depends on the nullspace basis and carries no structural information.  The
+checker-verified witness above is what actually settles the question; the support table does
+not.  Note the witness in fact uses a *different* knob set (`8731, 9118, 17325, 29854, 31864`),
+which is the concrete demonstration that the first support was meaningless.
+
+**What does distinguish `9123` is set membership, not algebra:**
+
+| | in block-7181's 9 off-pin equations | in U's five |
+|---|---|---|
+| `6816, 8124, 9421` | yes | yes |
+| **`9123`** | **yes** | **no** |
+| `2554`, `8680` (= my `S`) | no | yes |
+
+So the six essential rows split cleanly: three shared, one off-pin-only (`9123`), two
+U-only (`2554`, `8680`).  The two U-only ones are exactly the two that are **not** part of the
+7181 injection site — consistent with §6a, where the site and the degeneracy are independent.
+
 ### 7g.  Compute discipline
 Running **one** process at a time from here (coordinator's instruction; the box is 4 cores
 across six agents).  `9543` (3-information-set window) and `28998` (`s = 4..6` monolith) were
@@ -407,7 +453,9 @@ WSMIN=1 WSMAX=3 python3 w_cocirc3.py   # EXACT cocircuits, no window, no skips
 WSMIN=4 WSMAX=4 python3 w_cocirc3.py   # one level at a time; checkpoints per level
 WFILES=w_cocirc3_raw_s1_3.json,w_cocirc3_raw_s4_4.json WOUT=w_close3_s14.json python3 w_close3.py
 ```
-Artifacts: `w_blocks*.json`, `w_verify.json`, `w_class.json`, `w_deliv.json`, `w_price.json`.
+Artifacts: `w_blocks*.json`, `w_verify.json`, `w_class.json`, `w_deliv.json`, `w_price.json`,
+`w_outk.json`, `w_exhaust2.json`, `w_close3_s13.json`, `w_close3_s14.json`,
+**`w_pay9123_39026.json`** (checker-verified 39,026 failing `9123`).
 
 ---
 ---

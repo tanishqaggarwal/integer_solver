@@ -5960,3 +5960,48 @@ until someone checks it.
 adding only size-6 members** — a shape repeating twice constrains where remaining structure can live.
 **If `s = 5` adds members below size 6, that is the more interesting outcome and is to be said
 loudly.** Then `s = 6`.
+
+---
+
+## Fleet refocused — ten agents on bounding `w` FROM ABOVE
+
+User instruction: press hard on upper-bounding the solution's Hamming weight `w = |S|`, from the
+number theory. **Every search in this campaign has bounded `w` from below** (exhaust small `w`, miss,
+conclude `w` is larger), which under a uniform-`k` null (`w ~ Binomial(256, ½)`, mean 128, sd 8) is
+nearly vacuous. **No upper bound of any kind exists yet.**
+
+### The mechanism that makes an upper bound possible at all
+
+Because the leaves are exactly `2^i·G` for `i = 0..255`:
+
+> **`fold(S) + fold(S̄) = (2²⁵⁶ − 1)·G`**
+>
+> So if `S` solves `k·G = T`, then `S̄` solves `k'·G = T'` with **`T' = (2²⁵⁶−1)·G − T`** and
+> **`w(S̄) = 256 − w(S)`**. **Exhausting weight `≤ W` against `T'` with no hit proves `w' > W`,
+> hence `w < 256 − W`** — a genuine upper bound from exactly the machinery that has only ever
+> produced lower bounds. **And a hit on the complement is a full solve.**
+
+Weak at reachable budgets (`W = 10` gives only `w ≤ 245`) but it is the first upper bound of any
+kind and it scales with budget. **Nobody had run it.**
+
+### New agents
+
+| Agent | Angle |
+|---|---|
+| **Y** | **The complement identity.** Compute and verify `T'` two ways, run low-weight MITM against it, report `w < 256 − W`, then the two-sided bracket with X's forward bound. Then the 6 endomorphism-orbit targets `±T, ±λ⁻¹T, ±λ⁻²T` and their complements. |
+| **Z** | **Direct instance constraints on `\|S\|`** — no search at all. P measured **0** atoms touching ≥2 selectors; S measured **48**, calling 47 "bundled, each selector in its own additive term" — **which is exactly the shape of a linear constraint on the selector vector, and nobody asked what those 47 equate to.** Z reconciles the parses and answers the decisive question: does any equation constrain the **count** rather than the individual selectors? Cheap, and decisive either way. |
+| **AA** | **Shifted-basis families.** `k·G = T ⟺ (k−c)·G = T − cG`, so each structured offset `c` is a new target costing one scalar multiplication. Builds the offset list with rationale, proves the **containment lattice** (which hypotheses subsume which, so the fleet stops testing a class twice), costs the offsets × depth grid, and picks the frontier deliberately. |
+| **AB** | **Theory: can `w` be bounded above at all?** Enumerates every mechanism — complement, bit security / hidden number problem, lattice on the density-1 modular subset-sum (**and the deeper obstruction that `k₀` is unknown, only `k₀·G`**), 2-adic valuation, the endomorphism, character sums, uniqueness, instance-side constraints, CM structure — and settles each **DEAD (with reason)** or **LIVE (with cost and recipe)**. Deliverable: `agentAB_work/UPPER_BOUND_MAP.md`. Told to be adversarial about its own DEAD verdicts, since five barriers here have been retracted. |
+
+**X** continues the forward low-weight and signed-digit searches (signed-digit contains low Hamming
+weight, low run-length, and short addition-subtraction chains at comparable cost).
+
+**Hard requirement on all four: validate against a PLANTED answer before reporting any negative.**
+Sign bookkeeping and offset bookkeeping are new failure modes a plain-weight test would not catch.
+
+**M, N, T, U, W** continue on the optimality question and are converted to `w`-bounding angles as
+they report — U and T are both near terminal results and their in-flight compute is not worth
+discarding.
+
+**Compute discipline: one process per agent.** The box is 4 cores; load reached 26 earlier today
+before caps and is now 6–7.

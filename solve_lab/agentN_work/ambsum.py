@@ -20,7 +20,7 @@ from collections import Counter
 HERE = os.path.dirname(os.path.abspath(__file__))
 rows = {}
 for f in sorted(glob.glob(os.path.join(HERE, 'runs', sys.argv[1] if len(sys.argv) > 1
-                                       else 'XXamb_pinned.jsonl'))):
+                                       else 'pselrank_amb.jsonl'))):
     for ln in open(f):
         try:
             r = json.loads(ln)

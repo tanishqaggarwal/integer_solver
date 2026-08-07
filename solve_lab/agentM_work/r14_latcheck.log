@@ -1,0 +1,6 @@
+== M_lat_39023_buy12350.json
+[checker] satisfied 39023/39033  (10 failing)  eval=0.7s
+[checker] first 10 failing line indices: [6816, 8124, 9123, 9421, 12231, 12270, 14584, 18673, 22044, 29125]
+== M_lat_39023_buy18673.json
+[checker] satisfied 39023/39033  (10 failing)  eval=0.6s
+[checker] first 10 failing line indices: [6816, 8124, 9123, 9421, 12231, 12270, 12350, 14584, 22044, 29125]
