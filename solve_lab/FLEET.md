@@ -913,3 +913,77 @@ independently converged on — cancellation, not support.
   root meet-in-the-middle 2⁷⁸).
 - Incidence-only / structural pricing (three independent demonstrations: C, L, P).
 - **SAT / SMT / CP encodings of the reduced problem (R, this check-in).**
+
+---
+
+## Check-in 12 — the lift is three-quarters free, not free (agent P)
+
+Deliverable unchanged: **39,026 / 39,033**; P produced no new assignment.
+
+### L's property is false as stated, and the diagnosis is specific
+
+P tested check-in 9's load-bearing claim — that every handle variable appears in exactly one
+atom, so mod-p suffices and the integer lift is free — against its own parse. Exhaustive
+occurrence count, no exceptions, where a handle is a variable defined by an atom `h − (P-alias)·u`:
+
+| variable | count | atoms it appears in |
+|---|---|---|
+| handle `h` (the P-multiple) | 3,707 | **exactly 2 — every one** |
+| cofactor `u` (the free multiplier) | 3,707 | **exactly 1 — every one** |
+
+**Zero handles appear in exactly one atom.** The property is false of the handles and true of
+the cofactors, and L's 3,681 against P's 3,707 is a decomposition difference rather than a
+disagreement about the file — so **the likeliest reading is that L counted `u` and concluded
+about `h`.** L has been asked to re-run its count distinguishing the two and to say which it
+measured.
+
+**Why "appears in exactly one atom" is not sufficient even where it holds.** The handle sits in
+the pair `h − u·P = 0` (⇒ `P | h`) and `R − c·h = 0` (⇒ `h = R/c`). The cofactor does appear
+once — necessary for freedom — but the atom must also be **solvable over ℤ**, and `h − u·P = 0`
+is solvable for `u` only when `P | h`. Composing gives exactly **`c·P | R`**, strictly stronger
+than `R ≡ 0 (mod P)` whenever `c > 1`.
+
+### How much is actually free — measured
+
+Splitting all 3,707 by the multiplier `c` (the def-side coefficient is ±1 for all 3,707, so it
+contributes nothing):
+
+- **2,780 have `c = 1`** — the integer condition collapses to `P | R`, which *is* the mod-P
+  congruence. **Genuinely free. L is right about 75%.**
+- **927 have `c > 1`** — `c·P | R` is a real extra integer condition that mod-p reasoning does
+  not deliver.
+
+**The reduction is ~three-quarters closed and one-quarter open. It is not unconditional**, and
+P declined to state it in unconditional form. L's reduction is over-claimed, but by 927
+conditions rather than wholesale.
+
+### Corroboration, scoped as carefully as it was found
+
+All four variables the deliverable corrupts — `x642, x28730, x29854, x31864` — **are handle
+variables**, and they are **exactly the four of 3,707 for which `P` does not divide the value**;
+the other 3,703 all satisfy `P | h`. The deliverable's entire 7-equation deficit is a handle's
+two atoms failing to be simultaneously satisfiable. If handles absorbed freely, that deficit
+would not exist.
+
+P's own scope note, kept: this shows the pair is a **joint constraint**, not that an honest
+configuration must fail it. The deliverable broke those handles *on purpose*, to plant the
+degeneracy — and the same assignment satisfies all 927 `c > 1` conditions elsewhere, **so a
+lift demonstrably exists for at least one configuration.**
+
+### The one number that decides it — P re-tasked
+
+The freedom is the integer lift of each free coordinate (`r + kP`), which moves `R/P` and can
+tune `R/P mod c`. **~766 lift parameters (2 per law-block) against 927 conditions with `c > 1`.**
+Fewer knobs than conditions is not fatal — the moduli are ~7 bits and one parameter can serve
+several by CRT when the coefficients are invertible — but **nobody has counted the rank, and
+that rank is the whole question.** P flagged it rather than asserting either way, and is now
+counting it, then building the lift for one configuration and verifying.
+
+This is the **last conditional link** between this lab and an unconditional statement of what
+the instance reduces to. Everything else in the reduction is measured.
+
+### Standing caveats, now quantified rather than removed
+
+"Solve the residual ⇒ full solution" **remains a conjecture**, and the unproved part is now
+identified exactly: the **927 `c > 1` divisibilities**. Everything remains mod P. Knob set
+unchanged (256 selectors, liveness derived).

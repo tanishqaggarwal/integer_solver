@@ -91,9 +91,19 @@ Setting x_31864 = 0 and x_10903 = 0 zeroes a36661 and a36663 with **provably** n
 (occ = 2 and occ = 1) — and makes the score **worse: 11 fails / 39,022**. Depth-4 exact cascade
 repair (`cascade.py`) found nothing better than 39,026.
 
-**Objective note that matters for everyone:** 769 atoms have equation-footprint exactly 1, and
-they cover 769 *distinct* equations — so any state whose only nonzero atoms are ≤6 footprint-1
-atoms scores ≥39,027. But at cfg0 the minimum footprint of any atom in play is **10**, and the
+**Objective note — CORRECTED, read the correction before using this.** 769 atoms have
+equation-footprint exactly 1 and cover 769 *distinct* equations, so a state whose only nonzero
+atoms are ≤6 footprint-1 atoms fails ≤6 equations and scores ≥39,027. That arithmetic is sound,
+but I checked what those equations actually contain and it is **incidence structure only, not a
+realisability claim** (exactly the caution in FLEET check-in 3):
+- **0 of the 769 equations contain only one atom.** 768 contain exactly 2 atoms, 1 contains 11.
+- So no footprint-1 atom owns its equation outright — each shares it with a partner atom.
+- Cuts both ways, and the second way is the interesting one: because these are 2-atom equations,
+  **cancellation is available there too**, so a nonzero footprint-1 atom can cost *zero*
+  equations if its partner cancels it. That makes the target more attainable, not less — but
+  nothing here shows any such state is reachable, and I did not reach one.
+
+At cfg0 the minimum footprint of any atom in play is **10**, and the
 trade graph does not reach a footprint-1 atom: the only knob linking the cluster to one
 (x_11559 → a40306, nf 1) is a switch, not a continuous trade (`route.py`).
 
@@ -103,6 +113,73 @@ trade graph does not reach a footprint-1 atom: the only knob linking the cluster
 (E-forward of its free vars: bad = a23618, a34120, a36660, a36661, a36662; 25 fails) the best
 over all 1-, 2-, 3- and 4-atom drops is **39,019** (bad = a3939, a3940 — footprints 13 and 14
 overlapping in 13 equations). Not competitive with the code's 7.
+
+## 6b. DEGENERACY (P's family) — tested directly in my own parse, `degen2.py`
+P's degenerate family = a merge sees two equal live inputs, A = B = 0, both congruences vanish
+*identically*. The observable signature is NOT "the row is zero" (that is just the congruence
+being satisfied) but **"the row is zero AND has stopped responding to every knob in its cone"** —
+an identically-vanishing constraint cannot be moved. Measured over all 48 converged BFS
+configurations x 333 cone knobs:
+
+| row | zero & frozen (DEGENERATE) | zero & responsive | nonzero & responsive | nonzero & frozen |
+|---|---|---|---|---|
+| a7389 | **0** | 8 | 40 | 0 |
+| a10187 | **0** | 8 | 40 | 0 |
+| a20212 | **0** | 24 | 24 | 0 |
+| a20215 | **0** | 0 | 48 | 0 |
+| a28647 | **0** | 12 | 36 | 0 |
+
+**Zero degenerate cases.** Every row is responsive at every configuration (responsiveness never
+falls below 2, though it collapses from 222 to 3–4 — that collapse is the saturation of §4, not
+degeneracy). a20215 is additionally the only row never *exactly* zero (0 of 48; the others hit
+exact zero 8/8/24/12 times).
+
+## 6c. SELECTOR COUPLING — P's one-line test, run on my parse (`selcouple.py`, `selcouple2.py`)
+**Translation first.** My selector set = the 256 boolean free vars of the cluster cone. My
+atom-local occurrence count per selector is **min 5, max 9, mean 5.89** (distribution
+5:93, 6:112, 7:40, 8:8, 9:3). P reports "each of the 256 selectors appears in only 5–6 atoms."
+That independent statistic matching is what licenses comparing the two — the objects are the same.
+
+**Result, literal:** P reports *zero* atoms touching ≥2 distinct selectors. My parse finds **48**.
+**Result, after classification (`selcouple2.py`):** of those 48 — **1** is a booleanity
+certificate (a31143, a weighted sum of `2*x*(1-x)` and `x*x - x` terms over 6 selectors, which
+constrains each selector separately and restricts no subset), and **47** are *bundled*: each
+selector sits in its own additive term (`... + 19*(x_1058 - x_24365) + -31*(x_11540 - x_16586) + ...`).
+**No atom anywhere multiplies two distinct selectors** (60 selector self-products, all booleanity).
+
+So there is **no genuine cross-selector coupling in my parse either** — no cardinality atom, no
+one-hot tie. The count differs from P's only because my decomposition is coarser and packs
+independent per-selector load constraints into one additive atom; this is the same
+decomposition-difference P noted for its 1,158 vs K's 12. **P's conclusion stands on my data.**
+I am NOT reporting a conflict here.
+
+## 6d. Reconciling "one-hot" (mine) with "free independent subset selection" (P's)
+They describe **opposite ends of the same map**, and both are right.
+- P's statement is about the **domain**: the 256 selectors are freely and independently
+  choosable, 2^256 configurations, no atom couples them. §6c confirms this in my parse.
+- My statement is about the **image**: the map from that free domain to the residual
+  (a7389, a10187, a20212, a20215, a28647) is massively non-injective. `bfs.py` closed the image
+  at **48 points**, and `sat.py` shows every subset — within-class and cross-class — reproduces
+  the delta of a single member.
+
+The two are compatible, and the compatibility is the load-bearing point: **a free independent
+subset domain does not make the residual a subset-SUM.** If it were a sum, 2^256 inputs would
+give ~2^256 residues and LLL on the bit vector would be the right tool. It gives 48. So my §4
+refutation of "the residual is a subset-sum" is a claim about the *map*, not about the domain,
+and it does not contradict P. Knob set and configuration for my version, as always: 256 cluster
+booleans + both switches, base = triple8_seed, non-boolean affine knobs justified by §2.
+
+## 6e. K's unreachability claim — consistency with my data
+Consistent, and my data is independent positive evidence for it, with one honest limit.
+§6b measured exactly K's predicted observable and found **0 degenerate cases in 48x333 probes**:
+no row ever froze, so no stage was ever made degenerate by any configuration I reached. a20215's
+never being exactly zero in 48 of 48 is the sharpest instance. But my evidence is *empirical
+non-observation over a reached space*, not a proof over all 2^256 — my BFS converged on the
+**image** (48 points) rather than enumerating the domain, so a degenerate configuration that is
+isolated in the domain but never adjacent to cfg0 under single flips would be invisible to me.
+So I corroborate K, I do not close it — and I specifically do NOT rely on K's carry-walk argument,
+which P reports covers only one wrap (k = +-1) and is complete only if the governing modulus
+exceeds the largest signed subset difference. My corroboration is independent of that step.
 
 ## 7. Scores
 - Best verified: **39,026** — the existing deliverable, re-verified by me with `checker.py`.

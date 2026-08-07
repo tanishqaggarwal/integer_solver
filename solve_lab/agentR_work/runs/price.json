@@ -1,16 +1,4 @@
 {
- "24601,2081": {
-  "bits": [
-   24601,
-   2081
-  ],
-  "score": 39005,
-  "atoms": 6,
-  "eqs": 28,
-  "max_killable": 17,
-  "floor_failing": 11,
-  "implied_score": 39022
- },
  "24601": {
   "bits": [
    24601
@@ -54,5 +42,17 @@
   "max_killable": 7,
   "floor_failing": 13,
   "implied_score": 39020
+ },
+ "24601,2081": {
+  "bits": [
+   24601,
+   2081
+  ],
+  "score": 39005,
+  "atoms": 6,
+  "eqs": 28,
+  "max_killable": 17,
+  "floor_failing": 11,
+  "implied_score": 39022
  }
 }

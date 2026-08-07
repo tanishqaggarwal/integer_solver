@@ -1,0 +1,27 @@
+
+=== ON = exponents [3, 5] ===
+B = (85493019580071421237261030595561404457652556624342041247576519769287756493517, 3640388279865858715069076117624615838114176492038737082232998574552945576497)
+  on cubic: False
+  == coordwise sum (shifted coords): False   (raw x, minus one shift): False
+  == P1+P2: False   == P1-P2: False   == P2-P1: False   == -(P1+P2): False
+  == P1: False   == P2: False   == 2P1: False   == 2P2: False
+  small combo a*P1+b*P2 ==B : None
+  B is leaf exponent: None
+
+=== ON = exponents [3, 10] ===
+B = (114559468709640420595641962120426396292950109454965734535312146723121627413263, 5916145443718487347188959379472909446826711267368281030101357361579203611075)
+  on cubic: True
+  == coordwise sum (shifted coords): False   (raw x, minus one shift): False
+  == P1+P2: False   == P1-P2: False   == P2-P1: False   == -(P1+P2): False
+  == P1: False   == P2: False   == 2P1: False   == 2P2: False
+  small combo a*P1+b*P2 ==B : (-1, 0)
+  B is leaf exponent: None
+
+=== ON = exponents [5, 10] ===
+B = (85493019580071421237261030595561404457652556624342041247576519769287756493517, 89880572239738177810629861149792008185511892101215998079096940385194403494767)
+  on cubic: False
+  == coordwise sum (shifted coords): False   (raw x, minus one shift): False
+  == P1+P2: False   == P1-P2: False   == P2-P1: False   == -(P1+P2): False
+  == P1: False   == P2: False   == 2P1: False   == 2P2: False
+  small combo a*P1+b*P2 ==B : None
+  B is leaf exponent: None

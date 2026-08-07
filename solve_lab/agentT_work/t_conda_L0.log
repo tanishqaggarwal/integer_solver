@@ -1,0 +1,7 @@
+L=0 rows=30 knobs=24 rank_p(N)=12  left-kernel dim w=18
+syndrome g == 0 ? False  (if 0, ALL rows are already mod-p consistent)
+  weight 0: none admissible (1 nodes, 0s)
+  weight 1: none admissible (31 nodes, 0s)
+  weight 2: none admissible (465 nodes, 0s)
+  weight 3: none admissible (4495 nodes, 1s)
+  weight 4: none admissible (31465 nodes, 6s)
