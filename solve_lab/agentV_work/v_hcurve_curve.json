@@ -63,6 +63,70 @@
    "handleless_nz": 0,
    "viol": 2,
    "which": []
+  },
+  {
+   "n": 4,
+   "seed": 7,
+   "global_nz": 10,
+   "handleless_nz": 0,
+   "viol": 5,
+   "which": []
+  },
+  {
+   "n": 4,
+   "seed": 101,
+   "global_nz": 10,
+   "handleless_nz": 0,
+   "viol": 5,
+   "which": []
+  },
+  {
+   "n": 4,
+   "seed": 202,
+   "global_nz": 10,
+   "handleless_nz": 0,
+   "viol": 4,
+   "which": []
+  },
+  {
+   "n": 4,
+   "seed": 303,
+   "global_nz": 10,
+   "handleless_nz": 0,
+   "viol": 5,
+   "which": []
+  },
+  {
+   "n": 8,
+   "seed": 7,
+   "global_nz": 18,
+   "handleless_nz": 0,
+   "viol": 7,
+   "which": []
+  },
+  {
+   "n": 8,
+   "seed": 101,
+   "global_nz": 14,
+   "handleless_nz": 0,
+   "viol": 7,
+   "which": []
+  },
+  {
+   "n": 8,
+   "seed": 202,
+   "global_nz": 14,
+   "handleless_nz": 0,
+   "viol": 6,
+   "which": []
+  },
+  {
+   "n": 8,
+   "seed": 303,
+   "global_nz": 14,
+   "handleless_nz": 0,
+   "viol": 6,
+   "which": []
   }
  ],
  "seen": {}

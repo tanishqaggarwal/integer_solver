@@ -34,6 +34,9 @@ while frontier:
                 Bs.add(u); nxt.add(u)
     frontier = nxt
 Bs = sorted(Bs, key=lambda b: (len(b), sorted(map(str, b))))
+CAP = int(os.environ.get('WCLOSECAP', '400000'))
+if len(Bs) > CAP:
+    print('!! union closure capped at %d of %d' % (CAP, len(Bs))); Bs = Bs[:CAP]
 print('\ncandidate break-sets (unions of minimal cocircuits, size <= 6): %d' % len(Bs))
 from collections import Counter
 print('  by size:', dict(sorted(Counter(len(b) for b in Bs).items())))
