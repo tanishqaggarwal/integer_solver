@@ -738,3 +738,81 @@ tried, from both directions.
 `basecmp.py` -> `baseline_sets.json`, `basecmp.log` · `incid.py` -> `incident_pool.json`,
 `incid.log`. No candidate generator built. Nothing above 39,026. No other agent's directory
 touched; no git commands run.
+
+---
+
+# LOG_M ROUND 7 — baseline gap explained; my 32-pool corrected to 103; the lead priced
+
+## 47. THE BASELINE DISCREPANCY — explained, and it is ONE atom (`lcrit.py`)
+My baseline fails 25; L's fails 13, a strict subset. Constructing L's baseline in my own frame
+(the deliverable with its 16 tuned handle/cofactor variables zeroed):
+
+    L-style baseline (16 zeroed) : score 39020, 13 failures, bad atoms [23616, 23618, 36660, 36662]
+    my baseline (un-corrupt)     : score 39008, 25 failures, bad atoms [23618, 34120, 36660, 36661, 36662]
+    L-style is a strict subset of mine; in mine not L's = 12, in L's not mine = 0
+
+**Every one of the extra 12 fails for exactly one reason: atom 34120.** Checked per equation --
+in my baseline each of the 12 has 34120 as its only nonzero atom; in L's, none of them has any.
+
+    eq 5324, 9041, 11226, 15558, 21000, 22534, 22997, 28929, 29330, 32026, 35512, 38051
+      -> nonzero atoms in MY baseline: [34120]   in L-style: []
+
+Atom 34120 is one of the two atoms `x_7068` touches (the other is 23616; measured at
+check-in 30). **My un-corruption puts `x_7068` back on its definition
+`x_2099 + 7376877*x_642` -- a 735-digit value -- which makes 34120 nonzero. L's zeroing leaves
+`x_7068` at the deliverable's own 90-digit value, where 34120 is zero.**
+
+> **Answer to the question asked: un-corruption propagates further than zeroing.** The extra 12
+> are NOT an artifact of my method and L's zeroing is not leaving something wrongly satisfied.
+> In the honest uncorrupted machine `x_642` is large and `x_7068` follows its definition, so
+> atom 34120 genuinely is nonzero and those 12 genuinely do fail. **L's decision to filter on
+> the union (25) was right, and is now justified rather than merely cautious**: a site that can
+> only fix one of those 12 would be wrongly discarded by the 13-set.
+
+### Corollary — the deliverable's 18 fixes decompose exactly
+    the 18 it fixes = the 12 above (all killed by zeroing atom 34120 via x_7068)
+                    + 6 more [2554, 6816, 8124, 8680, 9123, 9421] (via the handle corruptions)
+That is why the deliverable holds `x_7068` at a small value instead of its definition: **12 of
+its 18 fixes are bought with that one variable.** It also explains why `x_7068` was the single
+collateral demotion -- it is not incidental, it is doing most of the work.
+
+## 48. CORRECTION TO MY OWN 32-POOL: the real pool is 103, not 32
+My "32 incident handles of 11,307 (0.28%)" restricted the population to **product/bare-defined**
+variables -- the identical blind spot I diagnosed for `x_7068` at check-in 18, now at scale.
+Recomputed over **all definer forms**, and counting both routes by which a handle reaches a
+target equation (its definer atom being in one, or an atom containing it being in one):
+
+    CORRECTED POOL: 103 incident handles of 30,383 definer variables (0.34%)
+    all 32 of my old pool survive; 71 handles were MISSING from it
+    deliverable's four: all present     stage checks 23754/35619/9629: all present
+
+Exact-by-definer-atom counts, for the record: 59 incident handles against the 25-equation
+baseline, 22 against L's 13-equation baseline (the 13-set is a subset of the 25-set). All six
+handles the coordinator relayed from L appear in my 25-set derivation, independently obtained.
+
+**The consequence for the enumeration I proposed: C(32,4) was the wrong space.** It was a
+shape-restricted subset, not an upper bound as I claimed. I withdraw the "0.28%" figure.
+
+## 49. Fast tuner (`sweep.py`) -- validated, ~10x faster
+Scoring a greedy prefix used a full forward + badatoms; only the freed variables move, so an
+incremental `resid_delta` gives the same bad-atom dict. The definer-level user map is built once
+globally instead of per site. Validated: calibration `39008 -> 39026` in **0.4 s**, and a full
+re-propagation of the same seed returns **39026**, so incremental scoring is exact.
+
+## 50. THE LEAD, PRICED: all 98 five-handle supersets -- nothing above 39,026
+Deliverable's four plus one handle from the pool, stage checks first in the ordered prefix:
+
+    +x23754  rt 20  rows 25  -> 39026     <-- stage check
+    +x35619  rt 17  rows 25  -> 39026     <-- stage check
+    +x9629   rt 16  rows 25  -> 39026     <-- stage check
+
+    DISTRIBUTION over 98 priced five-handle sites
+      39026: 89      39012: 1      39011: 8
+      above 39026: 0        priced out at 0 rows once tuned: 0 of 98
+
+**The three stage checks come back exactly at baseline.** That is consistent with L's correction
+that they are vacuous at the deliverable's configuration (`sel_ab(x27994)=0`): a vacuous atom
+supplies a free additive term, and the tuner already reaches 39,026 without it, so it adds
+nothing. Adding freedom is score-neutral at best (89 cases) and sometimes worse (9 cases,
+39,011-39,012) where the extra demotion perturbs the greedy path. **Zero sites priced out at 0
+rows** -- every handle in the pool is genuinely incident, so the pool is not padded.

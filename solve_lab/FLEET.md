@@ -2356,3 +2356,96 @@ Q's frame, not to take.
 
 **`wt7` stopped** — by Q's own §(f) it is a group-model measurement, and it was consuming cores on a
 contended box for a result whose standing Q had just withdrawn.
+
+---
+
+## Check-in 38–39 — two exact targets, both unrealised
+
+Deliverable unchanged: **39,026 / 39,033**. **Nothing above it is verified. Both results below are
+targets and floors, not scores.**
+
+### O — the rate is 2⁻⁷⁶⁷, so O inverted instead of sampling
+
+**O computed the hit rate before spending the cores, and did not run the scan.** Admissible boundary
+changes form a coset `δ₀ + Λ₀`; measured period in each direction with an exact solvability oracle
+is **p** for three of them and, for `const(a23616)`, larger than every modulus tested (to 2458959·p).
+So `[ℤ⁴ : Λ₀] ≥ 2⁷⁶⁸`, **hit rate ≈ 2⁻⁷⁶⁷**, expected hits in 2,800 configurations ≈ 10⁻²²⁷.
+
+**The second kill is sharper.** The four quantities the scan would have varied —
+`K1 = x_7068 − x_2099`, `L = x_4432 − x_19964`, `K2 = 5113045·x_9118`, `J = x_7075·x_8731` — are
+**identically 0 across all 35 configurations tested** (empty, 12 a-bits, 12 b-bits, 10 pairs): one
+distinct value out of 35, each. **The scan would have measured one point 2,800 times.** They are
+**assignment knobs, not configuration knobs** — the witness has `J ≠ 0` because it *assigns* free
+variables, not because of its selector pair.
+
+**O corrected its own previous report while there: five blocking coordinates, not four.**
+Denominators `2458959, p, p, p, 2458959·p` — four conditions mod p and **two mod 2458959**
+(= 3 × 819653; the literal 7376877 = 3 × 2458959 appears in atom 23616). The "278-bit modulus" had
+conflated two conditions.
+
+**The inversion.** Putting the boundary shift into the unknown vector and solving `A z + B δ = b₀`
+over ℤ: **0 of 9** single supports, **0 of 36** pairs, **0 of 84** triples, **12 of 126 quadruples**
+— including exactly `{a23616, a23618, a36660, a36662}`, the four constants that are **not**
+p-multipliers. **Applying δ₀ makes all 13 region equations hold, verified end to end.** Shifts of
+2440 / 2419 / 2428 / 2429 bits, in `agentO_work/target.json`. Why H's 70,008 moves missed it: **δ₀
+is an exact 2,429-bit lattice target — the difference between sampling and inverting.**
+
+**Two of four carriers are free** (`x_8731` carries a36662, `x_9118` carries a36660 — zero-collateral
+knobs). **The two open ones are the deliverable's own handles**, a connection neither agent could see
+from its own directory: `K1 = x_7068 − x_2099` is the defining expression of handle **`x642`**
+(`(x7068 − x2099) − 7376877·x642`), and `L = x_4432 − x_19964` is that of handle **`x28730`**
+(`(x4432 − x19964) − x28730`). Both are among the four handles the deliverable corrupts **and** among
+L's 15 provably-incident atoms.
+
+**O is explicit that it is not claiming a solution** — only that *if* those two shifts are realizable
+at zero collateral, all 39,033 follow. Its model cannot evaluate that (it holds non-private variables
+fixed and cannot express re-derivation, which is why it sees 8 knobs where H sees 9). **O is
+realizing them in frame B and emitting δ₀ for M**, whose solve → apply → **re-propagate** → score
+primitive is exactly the missing capability. **This is M's top priority, ahead of the 32,768
+enumeration.**
+
+**eq29125 reconciled, and recorded as O stated it:** M asks whether the row is satisfiable **alone**
+over its full affine knob set — yes, gcd 1. O asks where the **simultaneous** elimination of all 13
+fails over ≤10 region-private variables. **A row can be individually satisfiable and jointly
+infeasible**; the factor p appears only *after* the other twelve are eliminated, because
+`x_17499 = p` exactly. O's inversion **supports** M's direction: the obstruction is in the
+elimination, not the row, so changing the right-hand side clears it.
+
+### R — floor 39,029, degree 8 at the real prime, and a self-falsified barrier
+
+**Lookup fixed:** `pins.json` stores each pin as **(y, x)**, so `ladder = LX[(val₂ + S) mod P]`.
+Validated against the four-agent-confirmed ON-set (x24601 → 72, x2081 → 235).
+
+**A better floor R's earlier scan missed** — `relax.py` had ranked only the 25 cheapest and a regex
+bug dropped atom 7887. Exhaustive over all **253** placed selector-boolean atoms:
+**x24267(8) + x33095(132), 4-equation union, floor 39,029.** Four pairs beat 39,026; four tie.
+
+**R priced its own obstruction and then falsified it.** The first model said degree doubles at each
+stage *between* the relaxed indices, giving a monotone curve (gap ≤32 → ties only, ≤59 → 39,027,
+≤128 → 39,029) and pricing every beating pair out at ≥2⁵⁹. **Wrong, by R's own experiment: the 2^gap
+figure assumes the intervening selectors are arbitrary, and R chooses them.** Set every selector
+between and after the pair to 0 and the mux becomes the **identity** — the accumulator does not move,
+no chord is applied, the degree does not grow. Confirmed on siblings (gaps 1–14): **10/15 solvable,
+with gap 1 sometimes failing and gap 14 succeeding** — the signature of a low-degree elimination, not
+an exponential wall. The superseded table is kept in `LOG.md` §16.3 because the error is the
+instructive part.
+
+**The solve, at the real 256-bit prime**, by interpolation and `gcd(t^P − t, f)`: elimination degree
+**8** (not 2¹²⁴) for all four beating pairs — 8+132 (floor 39,029), 73+132, 8+73, 132+218 — **roots
+exist in every case.**
+
+**Status: NOT a score.** No materialised 38,748-wire assignment, no `checker.py` run. Two gates, and
+**R names the first as the load-bearing risk itself**: `solve2.py` assumes R's **ladder-chain** model
+with the accumulator seeded at `L_0`, while the real circuit is a **tree** — if its accumulator base
+or gating differs, `A` is wrong and the roots do not transfer. Second: materialising needs a forward
+evaluator that accepts **non-boolean selectors**, which `gs2` cannot do (it restores booleanness,
+which is why `realize.py` hung).
+
+**R re-tasked, and the risk has evidence against it.** T and Q have both now measured that **routing
+is a constraint, not a propagation** — R's chain-with-accumulator picture is the same class of
+assumption that cost Q six search programs. **Step 1: validate `A` against the actual gadget wiring**
+(Q's census: 89 leaf-adjacent gadgets consuming 178 leaves, 78 pass-throughs consuming 78 — a tree),
+**and test it on a known point** — R's own validated ON-set — since a model that cannot reproduce a
+verified point cannot be trusted to produce a new one. **Step 2, only if `A` survives:** hand the two
+atoms and solved values to M for materialisation, since relaxing a selector off {0,1} **is** demoting
+its boolean-ness atom, which is M's native operation.

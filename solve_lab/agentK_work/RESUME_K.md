@@ -197,6 +197,79 @@ The load-bearing facts are therefore **measured partition facts**, not propertie
 root's two halves each omit many exponents `>= 129` (43 and 84 witnesses), and every interior
 stage's support is a subset of one root half. Attack those, not the arithmetic.
 
+### 4.0b THE CIRCULARITY, AND THE INDUCTION THAT REMOVES IT — added after Q's 383/383 result
+
+Q's measurement (a gadget fed two coinciding inputs has **vacuous** residuals — its output is
+unconstrained, verified at every gadget, even with the output set to a random wrong value)
+confirms the consequence half of the mechanism. But it also creates a circularity in my
+argument that I had not written down, and it has to be handled explicitly:
+
+> the theorem's premise is "each slot carries the composition of the live leaves in its
+> support". That premise is **only valid in assignments where no gadget below is degenerate** —
+> because a degenerate gadget's output is free, and everything above it then carries that free
+> value, not a composition. So I cannot use the premise to rule out degeneracy without
+> assuming what I am proving.
+
+**The repair is induction on depth, and it is sound:**
+
+1. Suppose some satisfying assignment has a degenerate gadget. Take `g` = one of **minimal
+   depth above the leaves** among the degenerate gadgets.
+2. Every gadget strictly inside `g`'s two subtrees is then non-degenerate, so by induction from
+   the leaves upward each of them carries the composition of its live leaves — the premise is
+   available *below `g`* without assuming anything about `g` itself.
+3. So `g`'s two inputs are `Σ_{S1} 2^e · G` and `Σ_{S2} 2^f · G` over `g`'s two supports.
+4. `g` degenerate means those are equal; §4d's partition bound forbids it. Contradiction.
+
+So the theorem is: *no minimal-depth degenerate gadget exists, hence none exists at all.*
+Without step 1 the argument is circular. **This is now the form to check.**
+
+### 4.0c WHAT STEP 2 STILL ASSUMES — the open premise, stated plainly
+
+Step 2 assumes that a **non-degenerate** gadget's output is *forced* by its inputs, and that
+the routing puts the right subtree's value on the right slot. Agents Q and T have measured,
+from independent parses, that **routing is a constraint rather than a propagation** — setting a
+selector ON does not by itself place that leaf's coordinate on any wire — and Q has withdrawn
+results that assumed forward evaluation from selectors.
+
+That bears directly on step 2. My own evidence cuts both ways and I am not going to paper over
+the tension:
+
+* **For**: driving the real equations with `ON={2081,24601}` returns the root halves equal to
+  `leaf(24601)` and `leaf(2081)` **exactly** — a 256-bit agreement twice over, which is not
+  coincidence — and A-half compositions match exactly at 2 and 3 live leaves (§2).
+* **Against**: multi-leaf **B-half** values do not match anything (§2), which is exactly what
+  "routing does not propagate" would look like on that half.
+
+`k37_premise.py` tested the premise directly. **Both tests came back against me.**
+
+**TEST 1 — the composition is on NO wire.** For `ON={e0,e1}` (both on the A half, 2 live
+leaves, prediction `3G`), I scanned **all 38,748 variables** for the predicted X (shifted and
+raw) and Y. **Nothing holds it.** Same for `{e3,e10}` and `{e3,e5}`. So it is not that I named
+the wrong wire — with only one root half live, the composition is not computed anywhere in the
+circuit. Note this is *the same A half* that matched exactly at 2 and 3 live leaves — the
+difference is that those runs also had a live leaf on the **other** half. So the agreement I
+reported in §2 is conditional on the root gate being on, and does **not** demonstrate that
+subtrees compute compositions internally.
+
+**TEST 2 — the root slots are barely constrained.** Seeding each root slot to a **random wrong
+value** before closing (so the closure cannot derive it): the random value is **kept** in every
+case, and the system still closes with 5–6 nonzero atoms against a baseline of 4 — i.e. forcing
+a completely wrong 256-bit value onto a root slot costs only **1–2 extra nonzero atoms**. That
+is not the behaviour of a wire pinned by routing.
+
+**CONSEQUENCE: step 2 is not established, and on this evidence it looks false as I stated it.**
+Q and T's "routing is a constraint, not a propagation" is corroborated by my own measurements,
+against my earlier reading. Therefore:
+
+> **The partition theorem (§4d) must be treated as CONDITIONAL on a premise that my own
+> measurements now undercut. It is not a barrier. Do not rely on it.**
+
+I am not withdrawing the arithmetic — §4a's wrap bound and §4d's size bound are unconditional
+facts about `N` and the measured supports. What is withdrawn is the claim that they *apply*:
+they constrain compositions of live leaves, and the circuit does not appear to force slots to
+carry those compositions. The honest status of the degeneracy route is **OPEN**, and the
+right next move is to attack it as reachable, not to defend it as closed.
+
 My earlier phrasing did not make this explicit and could be read as the stronger, false claim
 that no disjoint pair represents `N`. That reading is wrong and I am correcting it here.
 

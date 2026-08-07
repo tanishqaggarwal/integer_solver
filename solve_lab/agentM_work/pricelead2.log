@@ -2,3 +2,5 @@ pool 98 handles (excluding the deliverable's four)
 calibration: 39008 -> 39026  PASSED
 4753 pairs; 288 contain a stage check
   [0/4753] 0s  best 39026
+  [200/4753] 80s  best 39026
+  [400/4753] 170s  best 39026

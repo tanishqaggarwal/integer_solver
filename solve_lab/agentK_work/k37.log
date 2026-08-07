@@ -1,0 +1,22 @@
+======================================================================
+TEST 1 - is the predicted composition anywhere on any wire?
+ON exps [3, 10]  composition = (303682103..., 44744355...)
+   wires holding X-shift : NONE
+   wires holding X raw   : NONE
+   wires holding Y       : NONE
+ON exps [3, 5]   composition = (944078379..., 809922982...)
+   wires holding X-shift : NONE
+   wires holding X raw   : NONE
+   wires holding Y       : NONE
+ON exps [0, 1]   composition = (127950974..., 826779032...)
+   wires holding X-shift : NONE
+   wires holding X raw   : NONE
+   wires holding Y       : NONE
+
+======================================================================
+TEST 2 - are the root slot wires FORCED, or free?
+baseline ON={e0,e1,e3}: nonzero atoms mod p = 4
+  x12186  root A.x  seeded to a random value: kept=True  nonzero atoms=6  pinned / rejected
+  x16742  root A.y  seeded to a random value: kept=True  nonzero atoms=5  pinned / rejected
+  x14853  root B.x  seeded to a random value: kept=True  nonzero atoms=5  pinned / rejected
+  x24908  root B.y  seeded to a random value: kept=True  nonzero atoms=5  pinned / rejected

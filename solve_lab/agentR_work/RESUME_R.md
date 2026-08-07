@@ -111,7 +111,30 @@ E's model: 9,032 atoms / 39,033 equations / 121,261 incidences. Footprint cost
   ~15 min/call - it repairs forward and cannot back-solve two parameters against the root.
   **39,027 is a floor with no construction. Not a score. Do not quote it as one.**
 
-## 4c. THE NEXT MEASUREMENT, and it is cheap
+## 4c. DEPTH PROFILE, AND AN OBSTRUCTION I FALSIFIED MYSELF (LOG.md 16)
+Lookup fixed: `pins.json` stores each pin as (y, x), not (x, y) -> `ladder = LX[(val2+S) mod P]`.
+Validated: x24601 -> 72, x2081 -> 235 (both OK).
+Positions: x24267 -> 8, x19326 -> 73, x33095 -> 132, x28825 -> 218, x4362 -> 243.
+
+**Better floor found (my earlier scan had a regex bug and only ranked 25):** exhaustive over all
+253 placed selector-boolean atoms -> **x24267(8) + x33095(132), union 4 equations, floor 39,029.**
+
+**I priced an obstruction, then falsified it.** Gap between the relaxed indices drives the
+elimination degree (~2^gap) only if the intervening selectors are arbitrary. **They are not - I
+choose them.** Set them to 0 and the mux is the identity, the accumulator does not move, the
+degree does not grow, and the gap is irrelevant. Confirmed on siblings (`collapse.py`, m=8..16):
+solutions exist at every gap, 10/15 cases, gap 1 sometimes failing and gap 14 succeeding.
+
+**The solve at the REAL 256-bit prime (`solve2.py`): elimination degree 8, not 2^124, and
+`gcd(t^P-t,f)` has degree >=1 for ALL FOUR beating pairs -> ROOTS EXIST**, including 8+132/39,029.
+
+**STILL NOT A SCORE.** No 38,748-wire assignment, no `checker.py` run. Two unverified things gate
+it: (1) `solve2.py` assumes my ladder-chain model with accumulator seeded at `L_0`; the real
+circuit is a tree, and if its base or gating differs, `A` is wrong and the roots do not transfer -
+**this is the load-bearing assumption**; (2) filling the other wires needs a forward evaluator that
+accepts non-boolean selectors (`gs2` restores booleanness and cannot).
+
+## 4d. Superseded next-measurement note
 Realizing 39,027 needs a *backward* solve: fix 254 boolean selectors, treat `t1,t2` as unknowns,
 push `acc' = acc + t*(S-acc)` symbolically to the root, solve 2x2 against the target. Price the
 obstruction FIRST: every stage after a relaxed selector applies the chord law to an off-curve

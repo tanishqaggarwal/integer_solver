@@ -1,0 +1,40 @@
+frameB imported 8s
+frame built 2s  free=8751 checks=12270
+witness state built 0s
+score = 39026   failing = [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+variables differing from the witness: 0  []
+frame B reproduces the witness bit-for-bit
+
+  a23616 -> H atom 22229   check: True
+  a23617 -> H atom 22230   check: True
+  a23618 -> H atom 22231   check: True
+  a36659 -> H atom 35758   check: True
+  a36660 -> H atom 35759   check: True
+  a36661 -> H atom 35760   check: True
+  a36662 -> H atom None   check: -
+  a36663 -> H atom None   check: -
+  a36664 -> H atom 35762   check: True
+
+--- zero-collateral census in frame B (reproduce H's nine)
+  free inputs whose checks lie entirely inside the region: [642, 1329, 9413, 10903, 17325, 29854]
+
+--- who can move the two open carriers?
+  a23616 (H atom 22229): 7 free inputs support it
+      x_642    outside-checks    0  outside-equations     0   <<< ZERO COLLATERAL
+      x_9118   outside-checks    8  outside-equations    19 
+      x_7068   outside-checks   10  outside-equations    27 
+      x_6418   outside-checks   10  outside-equations    36 
+      x_31861  outside-checks   11  outside-equations    36 
+      x_2081   outside-checks   92  outside-equations   246 
+      x_4287   outside-checks   92  outside-equations   246 
+      minimum outside-equation count: 0
+  a23618 (H atom 22231): 7 free inputs support it
+      x_28730  outside-checks    1  outside-equations     1 
+      x_8731   outside-checks    9  outside-equations    22 
+      x_4432   outside-checks   11  outside-equations    28 
+      x_14865  outside-checks   11  outside-equations    36 
+      x_12553  outside-checks   10  outside-equations    37 
+      x_2081   outside-checks   92  outside-equations   246 
+      x_4287   outside-checks   92  outside-equations   246 
+      minimum outside-equation count: 1
+DONE

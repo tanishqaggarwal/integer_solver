@@ -407,3 +407,90 @@ selector applies the chord law to an off-curve point, so the composite degree gr
 of stages after it. **If x33095 / x19326 / x28825 sit near the root the system is small and this is
 straightforward; near the leaves it is hopeless. Nobody has checked which. That is the single next
 measurement and it is one cheap lookup.**
+
+## 16. Depth profile, an obstruction I priced — and then falsified myself
+
+### 16.1 The lookup, fixed and validated (`depth.py`)
+`agentF_work/pins.json` stores each pin as `[[wire, val], [wire, val]]` where the **second** entry
+is the x-coordinate in the unshifted frame — the pair is (y, x), not (x, y). So
+`ladder index = LX[(val_second + S) mod P]`. Validated against the four-agent-confirmed ON-set:
+**x24601 -> 72 OK, x2081 -> 235 OK.**
+
+Positions of the cheap relaxable selectors:
+
+| atom | var | cost | ladder index | stages downstream |
+|---|---|---|---|---|
+| 7887 | x24267 | 4 | **8** | 247 |
+| 8509 | x33095 | 3 | **132** | 123 |
+| 7889 | x19326 | 6 | **73** | 182 |
+| 8510 | x28825 | 6 | **218** | 37 |
+| 8511 | x4362 | 7 | **243** | 12 |
+
+### 16.2 A better floor my earlier scan missed
+`relax.py` only ranked the 25 cheapest selector-boolean atoms and a regex bug dropped atom 7887.
+The exhaustive scan over all **253** placed selector-boolean atoms (`obstruct.py`) finds
+
+> **x24267 (ladder 8) + x33095 (ladder 132): union of only 4 equations -> floor 39,029.**
+
+Four pairs beat 39,026 (floors 39,029, 39,027 x3); four more tie.
+
+### 16.3 The obstruction I computed (`tradeoff.py`) …
+What drives the backward solve is the **gap** between the two relaxed ladder indices, not depth
+from the root: stages after the deeper selector are boolean and invertible (walk the root back to
+a concrete required point, no degree growth), but each stage *between* the two relaxed selectors
+applies the chord law to an off-curve accumulator and roughly doubles the degree in `t1`, so the
+elimination is degree ~2^gap. Best floor reachable at each gap budget:
+
+| gap ≤ | best floor |
+|---|---|
+| 1, 2 | 39,019 |
+| 4–16 | 39,021 |
+| 24 | 39,024 |
+| 32–48 | 39,026 (ties, never beats) |
+| **59** | **39,027 — first beat** |
+| 128 | **39,029** |
+
+Monotone, no cheap corner: every pair that beats 39,026 needs gap ≥ **59**, i.e. elimination
+degree ≥ 2^59. On that reading the lever is priced out.
+
+### 16.4 … and why that obstruction is WRONG (`collapse.py`)
+**The 2^gap figure assumes the selectors between the two relaxed ones are arbitrary. They are not
+— I choose them.** Set every selector strictly between (and after) the relaxed pair to **0** and
+the mux `acc' = acc + b·(S − acc)` becomes the **identity**: the accumulator does not move, no
+chord is applied to it, and the degree does not grow at all. The gap becomes irrelevant.
+
+Tested on scaled siblings of identical shape, brute-forcing `t1` over the small field
+(`collapse.py`, m = 8…16, gaps 1…14): **solutions exist independently of gap** — 10 of 15 cases
+had a `(t1, t2)` reaching the target, with gap 1 sometimes failing and gap 14 succeeding. The hit
+rate is what a low-degree elimination with O(1) expected roots predicts, not a 2^gap wall.
+
+**I priced an obstruction and then falsified it with my own experiment. §16.3's table is
+superseded; it is retained because the reasoning error in it is the instructive part.**
+
+### 16.5 The solve, at the REAL 256-bit prime (`solve2.py`)
+With base accumulator `A` and relaxed leaves `i < j`, everything else off:
+`acc = A + t1·(chord(A,L_i) − A)` (degree 1), and `T` must lie on the line through `acc` and
+`chord(acc,L_j)`. Interpolating that residual and root-finding by `gcd(t^P − t, f)`:
+
+| relaxed leaves | floor | elimination degree | deg gcd(t^P−t, f) | |
+|---|---|---|---|---|
+| **8 + 132** | **39,029** | **8** | 1 | **roots exist** |
+| 73 + 132 | 39,027 | 8 | 3 | roots exist |
+| 8 + 73 | 39,027 | 8 | 1 | roots exist |
+| 132 + 218 | 39,027 | 8 | 2 | roots exist |
+
+**Degree 8, not 2^124.** The two-parameter system is solvable at the real prime for all four
+beating pairs.
+
+### 16.6 Status — still NOT a score
+What exists: a floor of 39,029, and a field solution `(t1, t2)` for the parameters. What does
+**not** exist: a materialised 38,748-wire assignment, and any `checker.py` verification.
+Two things must be checked before this is worth anything:
+1. `solve2.py` uses my **ladder-chain model with the accumulator seeded at `L_0`**. The real
+   circuit is a *tree*; if its accumulator base or gating differs, `A` is wrong and the roots do
+   not transfer. **This is the load-bearing assumption and it is unverified.**
+2. Even with correct `(t1, t2)`, every other wire must be filled consistently. `gs2` cannot do it
+   (it repairs forward and restores booleanness); a forward evaluator that accepts non-boolean
+   selectors is needed.
+
+**Nothing above 39,026 is verified. 39,029 is a floor plus a parameter solve, not a score.**
