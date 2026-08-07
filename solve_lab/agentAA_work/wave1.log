@@ -143,3 +143,67 @@ scan data/d_lam.txt sz=3 [0,512): 22108160 cand zero=0 27.3s
 OFFSET_DONE lam hits=0
 scan data/d_drep.txt sz=1 [0,512): 512 cand zero=0 0.0s
 scan data/d_drep.txt sz=2 [0,512): 130560 cand zero=0 0.4s
+scan data/d_drep.txt sz=3 [0,512): 22108160 cand zero=0 292.6s
+OFFSET_DONE drep hits=0
+scan data/d_d1e76.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_d1e76.txt sz=2 [0,512): 130560 cand zero=0 0.5s
+scan data/d_d1e76.txt sz=3 [0,512): 22108160 cand zero=0 15.3s
+OFFSET_DONE d1e76 hits=0
+scan data/d_a11.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_a11.txt sz=2 [0,512): 130560 cand zero=0 0.5s
+scan data/d_a11.txt sz=3 [0,512): 22108160 cand zero=0 14.7s
+OFFSET_DONE a11 hits=0
+scan data/d_a0F.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_a0F.txt sz=2 [0,512): 130560 cand zero=0 0.5s
+scan data/d_a0F.txt sz=3 [0,512): 22108160 cand zero=0 14.8s
+OFFSET_DONE a0F hits=0
+scan data/d_a05.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_a05.txt sz=2 [0,512): 130560 cand zero=0 0.6s
+scan data/d_a05.txt sz=3 [0,512): 22108160 cand zero=0 15.4s
+OFFSET_DONE a05 hits=0
+scan data/d_a03.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_a03.txt sz=2 [0,512): 130560 cand zero=0 0.5s
+scan data/d_a03.txt sz=3 [0,512): 22108160 cand zero=0 15.6s
+OFFSET_DONE a03 hits=0
+scan data/d_ones.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_ones.txt sz=2 [0,512): 130560 cand zero=0 0.5s
+scan data/d_ones.txt sz=3 [0,512): 22108160 cand zero=0 19.0s
+OFFSET_DONE ones hits=0
+scan data/d_halfN.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_halfN.txt sz=2 [0,512): 130560 cand zero=0 0.5s
+scan data/d_halfN.txt sz=3 [0,512): 22108160 cand zero=0 16.9s
+OFFSET_DONE halfN hits=0
+scan data/d_inv2.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_inv2.txt sz=2 [0,512): 130560 cand zero=0 0.6s
+scan data/d_inv2.txt sz=3 [0,512): 22108160 cand zero=0 19.8s
+OFFSET_DONE inv2 hits=0
+scan data/d_pmodN.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_pmodN.txt sz=2 [0,512): 130560 cand zero=0 0.6s
+scan data/d_pmodN.txt sz=3 [0,512): 22108160 cand zero=0 16.6s
+OFFSET_DONE pmodN hits=0
+scan data/d_2p256.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_2p256.txt sz=2 [0,512): 130560 cand zero=0 0.6s
+scan data/d_2p256.txt sz=3 [0,512): 22108160 cand zero=0 16.2s
+OFFSET_DONE 2p256 hits=0
+scan data/d_n2p256.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_n2p256.txt sz=2 [0,512): 130560 cand zero=0 0.6s
+scan data/d_n2p256.txt sz=3 [0,512): 22108160 cand zero=0 46.0s
+OFFSET_DONE n2p256 hits=0
+scan data/d_n2p256m1.txt sz=1 [0,512): 512 cand zero=0 0.1s
+scan data/d_n2p256m1.txt sz=2 [0,512): 130560 cand zero=0 2.3s
+scan data/d_n2p256m1.txt sz=3 [0,512): 22108160 cand zero=0 24.4s
+OFFSET_DONE n2p256m1 hits=0
+scan data/d_p2p256p1.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_p2p256p1.txt sz=2 [0,512): 130560 cand zero=0 0.5s
+scan data/d_p2p256p1.txt sz=3 [0,512): 22108160 cand zero=0 23.3s
+OFFSET_DONE p2p256p1 hits=0
+scan data/d_d1e38.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_d1e38.txt sz=2 [0,512): 130560 cand zero=0 0.8s
+scan data/d_d1e38.txt sz=3 [0,512): 22108160 cand zero=0 20.8s
+OFFSET_DONE d1e38 hits=0
+scan data/d_a01.txt sz=1 [0,512): 512 cand zero=0 0.0s
+scan data/d_a01.txt sz=2 [0,512): 130560 cand zero=0 0.7s
+scan data/d_a01.txt sz=3 [0,512): 22108160 cand zero=0 18.6s
+OFFSET_DONE a01 hits=0
+scan data/d_aFF00.txt sz=1 [0,512): 512 cand zero=0 0.1s
+scan data/d_aFF00.txt sz=2 [0,512): 130560 cand zero=0 0.9s

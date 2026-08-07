@@ -317,3 +317,68 @@ room left in the algorithm; class size is the whole story.**
 > **The qualitative conclusion is unharmed: there is no generic shortcut for the weight predicate,
 > and deciding costs the same as solving to within the same `√6`.** Only the strict phrasing is
 > withdrawn — from this file, from `FLEET.md`, and from the report to the user.
+
+---
+
+# SECOND AMENDMENT (check-in 106) — the crossover correction is WITHDRAWN
+
+Agent AB, auditing its own round-2 correction, withdrew it. **Two self-retractions in three rounds,
+both found by re-checking a model before leaning on it further.**
+
+> ## ⚠ WITHDRAWN: ~~"the crossover moves `w ≈ 56 → 104`, doubling §8's payoff band"~~
+>
+> **An unbounded-memory artefact. Memory enters as a CUBE ROOT** — `2^30 → 2^60` moves the crossover
+> by only 12 — **so the realistic crossover is `w ≈ 52–64`. The campaign's ORIGINAL `w ≈ 56` stands,
+> and §8's payoff band is NOT doubled.**
+
+**The reconciliation is the part worth keeping:** *the original table's time model was pessimistic
+and it ignored memory, and the two errors cancelled.* **This box's reach is `w ≤ 14` — exactly what
+this document said before any of the corrections.** A number derived twice from opposite errors is
+worth more than one never challenged.
+
+## The reference table is now memory-aware (vOW golden collision)
+
+`T = rep·c·L^1.5/√M`, so reach `L ≤ (T²M/(rep·c)²)^{1/3}`. vOW dominates chunked rescanning for all
+`M < L`.
+
+| time \ memory | **2^30 (this box)** | 2^40 | 2^50 | unbounded |
+|---|---|---|---|---|
+| 2^47 | **14** | 16 | 18 | ~~18~~ |
+| 2^58 | 18 | 20 | 22 | ~~24~~ |
+| 2^80 | 26 | 30 | 32 | ~~40~~ |
+| 2^126.5 | **52** | 56 | 60 | ~~106~~ |
+
+**The unbounded-memory column is unreachable and is struck.** **Disk is not a way out:** random
+access costs ~2^20 slowdown for 2^1 of memory.
+
+## The `W = 256` certificate now passes exactly
+
+`√W` was an asymptotic standing in for the exact hypergeometric reciprocal
+
+    rep(W) = C(256,128) / ( C(W,⌈W/2⌉) · C(256−W, 128−⌈W/2⌉) )
+
+which tends to `√(πW/2)` for small `W` (`rep(10) = 3.98` vs 3.96) but is **`rep(256) = 1.0000`
+exactly**, since at full radius every split is already balanced. With floor→ceil fixed and
+monotonicity repaired by a **suffix minimum** — principled, since a radius-`W` ball is searchable by
+any `W' ≥ W` procedure — the certificate is **re-certified at 2^128.0000**. Crossover **106**
+(matches Z); break-even **148** (Z: 149, a rounding difference).
+
+## `d_reg` — the WEAK form, which is what the measurement supports
+
+Measured by Macaulay/XL over `GF(q)` in python-flint: **`n=2 → 4`, `n=3 → 5`, `n=4 > 4`** (unfinished).
+**Two points cannot support extrapolation to `n = 256`, and AB said so rather than quoting its
+≈258.** What they establish: **`d_reg` increases with `n` at all — which was the only way §9.12
+could have been wrong.** The verdict hardens on that basis alone.
+
+**Two model fixes AB needed first, either of which alone would have produced a confident wrong
+verdict:** the initial model was **leaky** (when `R_j = P_j` the slope is unconstrained, giving a
+spurious positive-dimensional component — why it reported max-GB-degree 2 and failed to pin
+selectors), and **reduced-GB degree is the wrong statistic**, being 1 for any unique-solution ideal;
+the right one is **solving degree**.
+
+## Tooling correction — the coordinator's error
+
+**Singular is NOT installed.** No binary on the filesystem, nothing in dpkg. **Only `sympy 1.14.0`
+and `python-flint 0.9.0` are present; no Sage, no msolve, no Macaulay2, no Magma, no PARI/gp.**
+The earlier inventory naming "Singular 4.3.2" came from one agent and **was broadcast by the
+coordinator without verification.** AB worked around it by building Macaulay/XL itself.

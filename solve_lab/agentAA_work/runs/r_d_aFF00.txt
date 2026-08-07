@@ -1,0 +1,2 @@
+DONE data/d_aFF00.txt sz=1 range=[0,512) n=512 zero=0 0.1s
+DONE data/d_aFF00.txt sz=2 range=[0,512) n=130560 zero=0 0.9s

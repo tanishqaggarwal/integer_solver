@@ -18,6 +18,14 @@ re-derivation, except where explicitly attributed as *their measurement*.
 > lab's documented failure mode (a number computed under one configuration reported as a property),
 > committed by me, and the coordinator has already circulated the wrong figure. **§13.0 is the
 > retraction; §13.1–13.2 are the new barrier that replaces it.**
+>
+> **ROUND 3 (§14): the round-2 fix was itself defective and two more claims are struck.** My
+> `W = 256` certificate returned **2^132.0 where 2^128.0 was required — I printed the miss and moved
+> on**, the same failure mode I had just retracted. Fixed, now exact. **Theorem D's headline
+> (`2^127.5` vs `2^126.5`) is STRUCK** — it crossed models and read as "deciding is harder than
+> solving", which is impossible. In one model it is **2^125.7 ≤ 2^126.5**. And **the rho-crossover
+> shift `56 → 104` does NOT survive memory-awareness**: the realistic crossover is `w ≈ 52–64`.
+> §8's payoff band is *not* doubled. **§14 supersedes §13 wherever they differ.**
 
 ---
 
@@ -705,3 +713,174 @@ infeasibility claim about the instance. Theorem D is a generic-model, average-ca
 encoding knob explicitly excluded; Theorem B (corrected) prices ball-covering MITM with unbounded
 memory; Theorem C covers affine maps, which is all the generic model can realise. `w` remains
 unknown, no non-vacuous upper bound is established, and §8 is open.
+
+
+---
+
+# ROUND 3 — Z's audit, the fixes, and the memory-aware costing
+
+Script: `ab_mem.py`. Z re-derived my corrected model independently; both survive, neither unamended.
+
+## 14.0 The `W = 256` certificate failed — the same failure mode, one round later
+
+I certified round 2's fix with "at `W = 256` one ball is the whole key space, so the cost must be
+2^128." **My model returned 2^132.0. I printed it and moved on.** Two defects:
+
+* **`√W` is wrong at the boundary.** The partition-repetition factor is the reciprocal of the exact
+  hypergeometric probability that a random 128/128 split cuts a fixed `W`-set evenly:
+  `rep(W) = C(256,128) / (C(W,⌈W/2⌉)·C(256−W,128−⌈W/2⌉))`. It tends to `√(πW/2)` for small `W`
+  (`rep(10) = 3.98` vs `√(π·10/2) = 3.96` ✔) but **`rep(256) = 1.0000` exactly** — at full radius
+  every split is already balanced. The `√W` form charges 16× there.
+* **Floor/ceil (Z's item 3).** An odd flip set splits `(⌈W/2⌉, ⌊W/2⌋)`; cost is set by the larger
+  half. My scans stepped even `W` only, which hid it. Odd radii were underpriced by up to **4.6
+  bits** (`W = 9`: 2^25.4 vs 2^30.0). Fixed in place so the next agent does not rediscover it.
+* **Monotonicity (Z's item 1)** — a third disqualifier for the round-1 model I had not stated:
+  `C(256,W/2)` is not monotone in `W`, and a ball cost must be. My own fixed raw cost is also
+  non-monotone at the very top (`rep(255) = 2`), repaired principledly by a **suffix minimum**: a
+  radius-`W` ball can always be searched by any `W' ≥ W` procedure.
+
+**Re-certified: fixed model returns 2^128.0000, an exact match, not "to within `√W`."**
+
+**Recomputed with the fixed cost:** largest affordable complement radius **`W = 106`**, rho crossover
+**`w = 106`**, break-even **`B = 148`**. Z gets 106 / 149. *My RESUME's "104" and my script's "107"
+were different quantities (budget-table reach vs largest radius) — my sloppiness, not a
+disagreement.* **Quote the range: crossover `w ≈ 106`, break-even ceiling `B ≈ 148–149`.**
+
+## 14.1 STRUCK — Theorem D's headline crossed models
+
+> ~~"`m ≥ 2^127.5`; solving costs 2^126.5; deciding the weight predicate is as hard as solving."~~
+
+**Read literally those numbers say deciding is *harder* than solving, which is impossible — any
+solver decides.** `2^127.5` excluded the automorphisms; `2^126.5` included them. Two amendments:
+
+* **Constant (Z is right).** `Adv ≤ C(m,2)(1/|D₀| + 1/|D₁|) ≤ (m²/2)(2/min) = m²/min`, so
+  `m ≥ √(ε·min)`. My `m²/(2·min)` dropped the second side, was a factor 2 tighter than the argument
+  supports, and **erred in the direction that overstates the barrier** by 0.5 bits.
+* **Encoding knob belongs in the statement, not the footnote.** The single-root argument survives
+  the automorphism group (`λ` and negation are multiplication by fixed scalars, so held elements
+  stay `σ(α′+β′k)`), **but not the encoding**: under `x`-coordinate + GLV the order-6 orbit
+  collapses, giving `AUT = 6` equations per pair and degrading the bound by `√6 = 1.29` bits.
+
+Recomputed over the true universe `[0,N)` by exact digit-DP (self-check `#{0≤k≤N} = N+1` ✔;
+`popcount(N) = 192 > 128` so `N` itself is not in `D₀` and the counts are exact):
+`min = 2^254.93`, `√min = 2^127.46`.
+
+> **THEOREM D, CORRECTED AND IN ONE MODEL. Deciding `w ≤ 128` requires `m ≥ 2^125.7` generic group
+> operations; solving costs 2^126.5 in the same model. The inequality points the right way, with a
+> gap of 2^0.8.**
+>
+> **The qualitative claim is untouched: the weight predicate has no generic shortcut, and deciding
+> it costs the same as solving to within the very `√6` the solver itself uses.** What is withdrawn
+> is only the strict "as hard as", which was an artefact of mixing models.
+
+**Also confirmed by Z, in my favour:** `(Vol₁₂₈(w/2))² ≤ Vol₂₅₆(w)` by restricted Vandermonde, exact
+for every even `w` — so **MITM never dips below the generic floor and is optimal to within
+`rep(W) ≤ 2^4`**; my "within 2^1 at `B = 20`" is exact at **1.50**. **There is no room left in the
+algorithm. Class size is the whole story.**
+
+## 14.2 MEMORY-AWARE COSTING — and the withdrawal of my "crossover moves to 104"
+
+Time-only figures assume memory equals the half-list. That is the assumption that fails.
+
+**The right low-memory algorithm is not chunked rescanning.** With `M < L`:
+`chunked passes: T = rep·L²/M` versus **`vOW golden-collision search: T = rep·c·L^{1.5}/√M`,
+`c ≈ 2.5`**. Ratio `= c·√(M/L) < 1` for all `M < L`, so **van Oorschot–Wiener dominates**, giving
+reach `L ≤ (T²M / (rep·c)²)^{1/3}`.
+
+**Achievable `w` as a function of (time, memory)** — the table the fleet should plan against:
+
+| time \ memory | 2^30 (this box, 12 GB) | 2^35 | 2^40 | 2^50 | unbounded |
+|---|---|---|---|---|---|
+| 2^40 | 12 | 12 | 14 | 14 | 14 |
+| **2^47** | **14** | 16 | 16 | 18 | 18 |
+| 2^58 | 18 | 20 | 20 | 22 | 24 |
+| 2^70 | 22 | 24 | 24 | 26 | 32 |
+| 2^80 | 26 | 28 | 30 | 32 | 40 |
+| 2^90 | 32 | 32 | 34 | 36 | 48 |
+| 2^126.5 | 52 | 54 | 56 | 60 | 106 |
+
+**This box (2^47 time, 2^30 memory): `w ≤ 14`.** My round-2 "`w ≤ 18`" was fiction — the half-list at
+`w = 18` is 2^44.2 entries, **2^14.2 times this box's memory**. *Note: `w ≤ 14` is exactly what
+`MINIMUM_COST_SEARCH.md` already said.*
+
+**Memory-aware rho crossover** (rho needs `O(1)` memory, so this is the real question):
+
+| memory | MITM beats rho only for |
+|---|---|
+| 2^30 | `w ≤ 52` |
+| 2^40 | `w ≤ 56` |
+| 2^60 | `w ≤ 64` |
+| unbounded | `w ≤ 106` |
+
+> **WITHDRAWN: "the rho crossover moves from `w ≈ 56` to `w ≈ 104`, nearly doubling §8's payoff
+> band."** That holds only with unbounded memory. **Memory enters as a cube root** — 30 binary orders
+> of magnitude (2^30 → 2^60) move the crossover by 12 — so the realistic crossover is **`w ≈ 52–64`**.
+> **§8's payoff band is NOT doubled. The campaign's original `w ≈ 56` stands.**
+
+**And the reconciliation is worth stating plainly: the campaign's original figure was nearly right
+for the wrong reason.** Its time model (`C(256,w/2)`) was pessimistic and it ignored memory
+entirely; the two errors happened to cancel. Correcting both leaves the planning number where it
+started.
+
+**Disk is not a way out.** ~30 GB free ≈ 2^31 entries, and vOW's access pattern is random, so
+disk-backed tables run at seek rate (~10²/s) rather than memory rate (~10⁸/s): a ~2^20 slowdown
+bought with a 2^1 memory gain. Reach on this box stays `w ≤ 14`.
+
+## 14.3 `d_reg` — measured, partially
+
+**Singular is not installed in this container** (no binary anywhere on the filesystem; the brief said
+otherwise). Measured instead with my own Macaulay/XL implementation over `GF(q)` using python-flint
+(`ab_dreg.py`, `ab_dreg2.py`, `dreg_partial.log`).
+
+**Two modelling corrections were needed first, and the first one invalidated my initial run:**
+
+1. **The first model was leaky.** With only the chord equations, whenever an intermediate point `R_j`
+   coincides with the added point `P_j`, `λ_j` is unconstrained — a **spurious positive-dimensional
+   component**. That is why the first run reported max-GB-degree 2 and failed to pin the selectors.
+   Saturated away (Rabinowitsch): `u(x−a) − s = 0`, `(1−s)u = 0`.
+2. **Max degree of the reduced GB is the wrong statistic** — for a zero-dimensional ideal with a
+   unique solution it is 1 for every `n`. The quantity in my complexity claim is the **solving
+   degree**: the least `d` at which the degree-`d` Macaulay row space already contains `(v − c_v)`.
+3. **And the sibling had to be the curve/ladder system, not the boolean modular subset-sum.** The
+   subset-sum version is trivial once `k₀` is known (§3's finding), so it would have reported a
+   misleadingly low `d_reg`.
+
+**Measured solving degree** (tight model, `s`-part multilinear, rref over `GF(10007)`):
+
+| `n` | vars | generators | **solving degree** |
+|---|---|---|---|
+| 2 | 8 | 11 | **4** |
+| 3 | 13 | 17 | **5** |
+| 4 | 18 | 23 | **> 4** (unfinished — `d = 5` is 28 443 columns; killed to free the core when the coordinator reversed my task order) |
+
+**`d_reg` grows by +1 per selector bit over the range measured** — `d_reg ≈ n + 2`. Extrapolated to
+`n = 256` that is ≈ **258**, against my estimate of **≈23** and my affordability threshold of
+**≲11**. **The verdict hardens by a very large margin, in the direction I predicted.**
+
+**Stated honestly: two data points at `n = 2, 3` cannot support extrapolation to `n = 256`.** What
+they establish is the thing actually in doubt — that **`d_reg` increases with `n` at all**, rather
+than saturating at a small constant. A flat `d_reg` was the only way §9.12 could have been wrong,
+and it is not flat. **To finish: run `ab_dreg2.py 6` on an idle core** (`n = 4` needs a ~28 k-column
+rref; `n = 5` ~2^17 columns and is probably out of reach in Python — it wants the Singular that is
+not installed, or a sparse F4).
+
+## 14.4 Ledger after round 3
+
+| claim | status |
+|---|---|
+| §10 Theorem B round-1 numbers | RETRACTED (round 2) |
+| round-2 `√W · Vol₁₂₈(W//2)` cost | **superseded** — boundary + floor/ceil + monotonicity fixed (§14.0) |
+| `W = 256` certificate | **now exact at 2^128.0000** |
+| crossover / break-even | **`w = 106` / `B = 148`** (Z: 106 / 149) — quote the range |
+| Theorem D "as hard as solving", 2^127.5 | **STRUCK** — crossed models |
+| Theorem D in one model | **`m ≥ 2^125.7` vs solving 2^126.5** — holds, right direction |
+| "crossover moves 56 → 104, doubling §8's band" | **WITHDRAWN** — unbounded-memory artefact; real crossover `w ≈ 52–64` |
+| this box's reach | **`w ≤ 14`**, matching `MINIMUM_COST_SEARCH.md` |
+| MITM optimality | **confirmed by Z's proof** — optimal to within `rep(W) ≤ 2^4`; exactly 1.50 at `B = 20` |
+| §9.12 Gröbner DEAD | **hardened** — `d_reg` measured at 4, 5 for `n = 2, 3`, growing +1/bit |
+| §8 instance-side | **unchanged: LIVE, UNSETTLED, rank 1** — but its payoff band is the original one, not doubled |
+
+**Standing caveat.** No infeasibility claim about the instance follows from any of this. Theorem D is
+a generic-model, average-case bound **with the encoding knob now inside the statement**; Theorem B
+prices ball-covering MITM; §14.2 assumes vOW golden-collision search with random access. `w` remains
+unknown, no non-vacuous upper bound exists, and §8 is open.
