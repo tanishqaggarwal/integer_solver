@@ -7,3 +7,4 @@ weight<=3 hits: []
   scanned 2097152/2796416  333s  found=0
 weight<=6 hits: []   total 373.1s
   size<=2 built 32896  1.6s
+  size<=3 built 2796416 subsets  127.0s
