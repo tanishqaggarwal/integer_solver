@@ -24,3 +24,6 @@ solve_lab/agentX_work/*.bin
 # agent MITM table directories: regenerable, volatile
 solve_lab/agent*_work/tbl/
 solve_lab/agent*_work/*.bin
+
+# transient job-control PID files
+*.pid
