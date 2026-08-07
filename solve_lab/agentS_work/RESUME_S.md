@@ -26,6 +26,11 @@ Work from `solve_lab/agentS_work/`. Symlinks to E's `orient.pkl`, `users.pkl`,
 | `lattice.py`,`lat2.py`,`lat3.py`,`lat5.py` | the exact integer lattice solve |
 | `basin2.py`,`basin3.py`,`sacrifice.py` | minimum-equation-cost sacrifice-set search |
 | `final.py` | configuration-dependence re-check of the a20215 step |
+| `reach.py` | is the BFS closure local or global? (ANSWER: local) |
+| `reach2.py` | can affine knobs move a20215 mod p? (ANSWER: yes, by +-1) |
+| `reach3.py` | joint solve at random configs — INCONCLUSIVE, see sec 8.3 |
+| `degen2.py` | degeneracy discriminator: zero AND unresponsive |
+| `selcouple.py`,`selcouple2.py` | selector-coupling census + classification |
 
 ## 2. MAIN RESULT — the endgame condition, derived exactly (not a filtered barrier)
 **1,815 free variables are pure handles**: each moves exactly one atom, affinely, by exactly
@@ -242,11 +247,18 @@ exceeds the largest signed subset difference. My corroboration is independent of
    matters is the *joint lattice condition*, which `lat2.system` + `sparse.solve_sparse` tests
    directly at any configuration in ~40 s. Sample configurations, don't walk them.
 3. **The single live question is whether the joint p·Z² obstruction is configuration-independent.**
-   `reach3.py` runs the full exact solve at random configurations *outside* the BFS closure; it
-   was still running when I stopped (heavy CPU contention). This is the experiment that decides
-   whether §2 says anything about the instance or only about cfg0. If any random configuration
-   comes back FEASIBLE, §2 is cfg0-local too and the entire barrier story collapses in Q's favour.
-   Run `reach3.py` first, on an idle box.
+   **`reach3.py` was my attempt and it FAILED to test it — do not cite it as corroboration.**
+   It ran the full exact solve at 4 random configurations outside the BFS closure; all 4 came
+   back infeasible, but that result is worthless for this question:
+   - those configurations have **66 / 168 / 316 / 467 bad atoms** (cfg0 has 2), so they are
+     wrecked states, nowhere near a solution;
+   - the blocking rows were **4956, 1050, 364, 364** — nothing to do with the 5-row cluster.
+   All it showed is that random selector settings break the instance everywhere, which was never
+   in doubt. A real test needs configurations that are *outside cfg0's BFS closure but still
+   near-solutions* (a handful of bad atoms). Constructing those is the open problem: start from a
+   known-good state and move by the affine kernel directions (`lat3.py` gives kernel dim 7 at
+   cfg0) rather than by scrambling selectors, since kernel moves preserve the other rows by
+   construction. That is the experiment I would run next and did not get to.
 4. The cancellation code is where the score actually lives. 7 is the code's optimum for the
    deliverable's atom family; the untried question is whether a **different** residual family
    (there are many, one per basin) admits a weight-6 code. `basin2.py` generalises to any basin —

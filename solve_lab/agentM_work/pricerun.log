@@ -1,0 +1,10 @@
+=== CALIBRATION, path 1: values supplied (the deliverable's own) ===
+  handles [642, 28730, 29854, 31864] -> freed [642, 7068, 28730, 29854, 31864] (5th DERIVED), demote [23616, 23617, 36659, 36663, 36664]
+  score 39026, fails [12231, 12270, 12350, 14584, 18673, 22044, 29125], nbad 8, vars differing 0
+  CALIBRATION(given) PASSED
+
+=== all candidates, path 2: handle values TUNED by greedy equation-space solve ===
+  c=27994 parent 4971.va   CALIBRATION (deliverable)
+     handles [642, 28730, 29854, 31864] freed 5 knobs 40 | L-incid 13 | base(untuned) 39008 -> TUNED 39008  (5s)
+  c=27634 parent 23762.va
+     handles [10509, 20157, 32245, 33044] freed 5 knobs 44 | L-incid 14 | base(untuned) 39008 -> TUNED 39008  (5s)
