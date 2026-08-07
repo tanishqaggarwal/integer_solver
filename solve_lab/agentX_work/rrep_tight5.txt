@@ -1,0 +1,7 @@
+DONE rot=5 range=[10,17) n=46798731 zero=0 83.8s
+DONE rot=5 range=[17,25) n=40623462 zero=0 102.7s
+DONE rot=5 range=[5,10) n=41107956 zero=0 138.2s
+HIT 547582999675 127 5906913778226523708
+DONE rot=5 range=[38,128) n=43949268 zero=0 141.9s
+DONE rot=5 range=[25,38) n=43591977 zero=0 142.1s
+DONE rot=5 range=[0,5) n=48495006 zero=0 144.3s

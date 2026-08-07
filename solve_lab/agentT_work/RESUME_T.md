@@ -1238,3 +1238,32 @@ NOT grow with `|S|`: 2, 3, 3.**  Cost is dominated by outer round 0's single-wir
 `O(conditions x wires x CRT combinations)` with a full 9,032-atom recomputation inside the guard,
 so it grows superlinearly; every later round is cheap.  **That is the curve to plan a sweep on:
 budget ~2x CPU per doubling of `|S|` plus a fixed tail.**
+
+=============================================================================================
+# FIFTEENTH PASS — HIGH `|S|` ON **INDEPENDENT** SEEDS   [coordinator priority, after AB's Thm B]
+
+## BC. THE TWO THINGS THAT WERE WRONG WITH MY OWN `|S|` EVIDENCE, both now fixed
+1. **The 32 / 64 / 128 ON-sets were NESTED PREFIXES of one `random.Random(7)` chain** — one
+   correlated sample presented as three points.  `t_close2wj.py` now takes a **4th argument, the
+   ON-set seed**, so ON-sets can be drawn independently; every run below names its seed.
+2. **My `|S| = 128` stall was a SAMPLED negative.**  The log line is
+   `NO JOINT ROOT mod 116507 (sampled)`.  `joint_rootsets` is exhaustive only up to `EXCAP =
+   60,000`; above it, it **samples `t_w` (400 draws) and root-finds `t_v`** — an asymmetric search
+   that collapses completely on the degenerate shape where the residue does **not depend on `t_v`
+   mod q**: then roughly 1 value of `t_w` in `q` works and 400 random draws find it with
+   probability `400/116507 ≈ 0.3 %`.  **Rule 9, in my own solver, again.**
+   **Fix (`T36`): when the first orientation comes back empty, TRANSPOSE the Newton table and scan
+   the other way** — which turns exactly that degenerate case into a direct univariate root-find.
+   A sampled empty result now means "empty in **both** orientations".
+
+## BD. **`|S| = 128` CLOSES on an INDEPENDENT seed.**  (`close_T128s59.json`, seed 59)
+```
+   |S|=128 seed 59   NONZERO ATOMS = 2 of 9,032   WALL 1,173 s
+   checker.py -> satisfied 39018/39033 (15 failing)
+   failing [4573,7123,7469,9648,11854,16622,17726,21382,25539,28653,29437,31061,32894,32916,34517]
+   F's certified-faithful parse -> exactly 2 nonzero atoms (the two target congruences),
+   equation footprint 15, footprint == checker's failing set: TRUE
+```
+Start state at that seed: **66 nonzero atoms, 62 violated `c>1` conditions, 4 handle-less** — an
+independent draw, not a prefix.  Two handle-less atoms cleared by the *guarded* pass, the rest by
+joint pairs; **no forced step was needed at this seed**.

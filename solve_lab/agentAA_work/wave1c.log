@@ -1,0 +1,2 @@
+scan data/d_c0.txt sz=1 [0,512): 512 cand zero=0 0.7s
+scan data/d_c0.txt sz=2 [0,512): 130560 cand zero=0 91.8s

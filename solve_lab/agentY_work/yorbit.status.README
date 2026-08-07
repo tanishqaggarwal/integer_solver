@@ -1,0 +1,3 @@
+# THIS FILE IS UNRELIABLE - superseded by yorbit.status.UNRELIABLE + rep_orbit_*.txt
+# The generating loop echoed 'done' without checking exit status; the last six lines are FALSE.
+# Ground truth is rep_orbit_<name>.txt (DONE lines with exact candidate counts).

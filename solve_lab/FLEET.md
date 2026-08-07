@@ -6428,3 +6428,75 @@ table or ~21 h), as X itself judged.
 **X's closing framing, kept verbatim in spirit:** `P(weight ≤ 9) = 2^-202.6`; this was a lottery
 ticket bought because it was cheap; the result is *"unsigned weight ≤ 9 and signed weight ≤ 7
 exhausted, no solution"* — **a real citable bound and nothing more.**
+
+---
+
+## Check-in 110 — agent Y closes: a status file that lied, and a coordination error that was mine
+
+### The failure Y found by checking instead of recording
+
+Y's endomorphism-orbit sweep (ten targets: `negT`, `lamT`, `neglamT`, `lam2T`, and six more) ended
+with `yorbit.status` marking **all ten `done`, seven of them stamped the same second (`21:03:05`)**.
+
+> **Seven real 177 M-candidate scans cannot finish in one second, so I checked instead of recording
+> it. Six of the ten produced empty logs and no report file at all.**
+
+Y's own contributing bug, stated plainly by Y:
+
+> **The bug that let it into writing was mine: `yorbit_run.sh` echoed `"$NM done"` after the inner
+> loop without testing any exit code.**
+
+Fixed; the false file is quarantined as `yorbit.status.UNRELIABLE` with a README beside it.
+
+### The cause was a coordinator instruction, not an agent's mistake
+
+The six scans died at exit 139. `agentX_work/tbl4s.bin` and `bm4.bin` were removed at ~21:04, and
+`mmap` on a missing file returns `MAP_FAILED`, which the scanner dereferenced unchecked.
+
+**X deleted those tables because I told X to free disk.** I issued "free what you no longer need"
+without checking who else read them — after Z's audit had already reported them shared and AA's an
+identical multiset. Stated to X verbatim: *"I gave you an instruction that broke another agent's
+running work, and the fault is mine, not yours."* Y's §6.1 has been corrected the same way, so a
+successor reading the crash trace does not blame X.
+
+**New standing rule, effective now:** shared tables are fleet property. `tbl*.bin`, `bm*.bin`, and
+any file another agent's data path names may not be deleted or renamed without coordinator approval,
+regardless of any earlier instruction to free space.
+
+### Blast radius: none on the headline
+
+Timeline, from file mtimes and log stamps: table validated 19:58 → plants found their answers
+through it 19:59–20:03 → complement sweep 20:04:16–20:44:48 (`DONE size=5 n=8809549056 zero=0
+2432.2s`) → four orbit targets through 21:03 → deletion ~21:04. Two structural facts close the gap
+that mtimes leave: a missing or truncated table **cannot** emit a `DONE` line carrying an exact
+binomial count — it crashes; and `unlink` cannot truncate a live mapping.
+
+**`10 ≤ w ≤ 246` is untouched.** Orbit ground truth: 4 targets exhausted at `|S| ≤ 8` with
+`hits=0`, 6 explicitly never run.
+
+### Rebuild: DECIDED — do not
+
+Disk is the binding resource (11 GB free, AA at 12 GB). The orbit sweep is a hedge with ~zero prior.
+**4 of 10 exhausted with 6 explicitly never-run is a better record than 10 of 10 bought by spending
+4 GB on a hedge.** Y has marked this settled in `RESUME_Y.md` rather than leaving it pending.
+
+### What Y leaves
+
+The centre unification (signed-digit MITM against `T − fold(D)` at `m ≤ M` proves
+`hamming_distance(S, D) > M` at identical cost for **every** centre `D`; the machinery is
+centre-agnostic and the missing input is a prior for `D`); **three** independent uniqueness proofs
+for the complement mask, the third of which explains *why* rather than *that* — **the two extremes
+are exactly the centres where the signed problem degenerates to the unsigned one**; the earned
+bracket; the five-point completion-evidence checklist; the all-splits plant design at 6/6; and
+§3.4's conditional form with fractions recomputed. Y's §0.3 caveat stands and is load-bearing: the
+engine is unsigned, so for a general centre it certifies only one-sided balls.
+
+### The transferable lesson, in Y's words
+
+> **A status marker is a claim; a candidate count checked against `C(256,b)` is evidence — and the
+> two should never be the same field.**
+
+`yorbit_report.py` refused to emit a row without a number only a real run can produce. That is the
+only reason the lie stayed out of the record.
+
+**Thread closed.** Live: M, N, T, U, W, X, Z, AA, AB.

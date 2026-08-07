@@ -1,0 +1,3 @@
+DONE data/d_c0.txt sz=1 range=[0,512) n=512 zero=0 0.0s
+DONE data/d_c0.txt sz=2 range=[0,512) n=130560 zero=0 0.2s
+DONE data/d_c0.txt sz=3 range=[0,512) n=22108160 zero=0 8.0s

@@ -1,0 +1,20 @@
+DONE data/d_c0.txt sz=1 range=[0,512) n=512 zero=0 0.4s
+SHARD0
+DONE data/d_c0.txt sz=1 range=[0,512) n=512 zero=0 0.1s
+SHARD1
+DONE data/d_c0.txt sz=1 range=[0,512) n=512 zero=0 0.0s
+SHARD2
+DONE data/d_c0.txt sz=1 range=[0,512) n=512 zero=0 0.0s
+SHARD3
+DONE data/d_c0.txt sz=1 range=[0,512) n=512 zero=0 0.1s
+SHARD4
+DONE data/d_c0.txt sz=1 range=[0,512) n=512 zero=0 0.0s
+SHARD5
+DONE data/d_c0.txt sz=1 range=[0,512) n=512 zero=0 0.0s
+SHARD6
+DONE data/d_c0.txt sz=1 range=[0,512) n=512 zero=0 0.0s
+SHARD7
+DONE data/d_c0.txt sz=2 range=[0,512) n=130560 zero=0 0.4s
+SHARD0
+DONE data/d_c0.txt sz=2 range=[0,512) n=130560 zero=0 0.7s
+SHARD1

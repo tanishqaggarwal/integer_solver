@@ -234,4 +234,79 @@ any plain-weight search ever run in this campaign, which is the coverage gain ma
 
 ## 6. Results
 
-*(filled in below as the sweep completes)*
+### 6.1 Validation — **PASS for all 23 planted classes, at both splits**
+
+`aa_check_plant.py` against the production `a ≤ 4` table:
+
+> 23 offset classes × 2 splits = **46 predictions, 46 lines present, 46 decodes verified on the
+> curve.** Planted `k` unsigned Hamming weights: **40 to 188.**
+
+Classes validated: `c0, ones, a55, a01, inv3, lam, 2p256, d1e76, n2p256, n2p256m1, p2p256p1,
+p2p257, n2p257, n_a55, n_lam, n_a0001, halfN, a0F, aFFFF, drep, a64_1, p2_128, p2_255_1` — i.e. at
+least one member of **every structural family in `C`**, including both sign branches, both
+exponent-256 branches, and both redundant-control families.
+
+### 6.2 The sweep
+
+**Every negative below is a negative of a search shown to find what it is looking for.**
+
+| | offsets | exact scan candidates | hits |
+|---|---|---|---|
+| **exhausted at `m ≤ 6`** | **51 of 51** | complete | **0** |
+| **exhausted at `m ≤ 7`** | **32 of 51** (see 6.3) | complete | **0** |
+| plant runs (validation) | 23 | complete | as predicted |
+
+Per offset the exhausted scan sizes are exactly `b = 1: 512`, `b = 2: 130,560`,
+`b = 3: 22,108,160` — checked against `C(256,b)·2^b`, not assumed. **Degenerate `dx = 0` events: 0
+at every offset, every size.** Expected false positives over the whole sweep: **0.054**, so a single
+`HIT` line would have been essentially certain to be real. There were none.
+
+### 6.3 The measured cost model broke, and why — a real finding, not an excuse
+
+The `a ≤ 4` table's 90× advantage is **contingent on it staying in page cache**. Thirty-two offsets
+ran at 15–30 s each while the fleet left ~12 GB of cache free. Then the box's load went to 26 and
+the resident cache fell below the table's 11.3 GB. Measured on the running process (`/proc/<pid>`,
+PID obtained by walking the process tree from the recorded wrapper PID, never by command matching):
+
+```
+state=R  utime=2113  stime=34946  majflt=690755  (+6,000 major faults per 3 s)
+```
+
+**94 % of the time in the kernel servicing major page faults** — every table probe had become a disk
+read, turning a 20 s scan into a projected 50 min one.
+
+Response: the remaining 19 offsets were completed at `m ≤ 6` against the **89 MB `a ≤ 3` table**,
+which is permanently resident and immune to the pressure — 19 offsets, 422,545,408 candidates,
+**0 hits, ~3 minutes.** The `m ≤ 7` upgrade for those 19 was then re-queued in **descending
+priority** (`c0` first, then the high-reach negations, the low-reach stragglers last), so that
+whatever the budget buys is the most valuable part of it.
+
+> **Recorded as a rule for the fleet: a MITM table larger than the residual page cache is not a
+> faster table, it is a disk-bound one. The break-even is memory residency, not disk capacity.**
+
+### 6.4 Negatives, one line per offset — and each is weak on its own
+
+For every offset `c` in the list, the statement earned is exactly:
+
+> **`k − c` has signed-digit weight `> m`** (with `m = 7` for the 32 offsets in the first sweep,
+> `m = 6` for the remaining 19), where the digits are `±2^e` with `0 ≤ e ≤ 255`.
+
+Individually each of these is nearly worthless: `|S(c,7)| ≈ 2^50.6` against a `2^256` keyspace, and
+`Pr[hit] ≈ 2^−205` under a uniform `k`. **The value is the union of classes covered, and even that
+union is `2^−200.3` of the keyspace.** What the sweep actually buys is the elimination of an entire
+*shape* of designer hypothesis — "the key is a well-known constant, give or take a handful of bits" —
+across 34 structurally distinct constants at once, rather than one more level on the single
+hypothesis the fleet has been testing all along.
+
+Specifically now excluded (all with `≥ 6` signed terms of slack):
+
+- `k` is **not** any repunit-type constant `(2^256−1)/{3,5,15,17,51,85,255,257,65535,65537,2^32±1,2^64−1}`
+  or its complement/negation, plus up to 6–7 signed corrections;
+- `k` is **not** `1/2, 1/3, 1/5, 1/7, 1/10 mod N`, `(N±1)/2`, `λ`, `λ²`, `N−λ`, `p mod N`, the
+  instance's `b` or `c_shift` read as scalars, `10^38`, `10^76`, or the 77-digit decimal repunit,
+  plus corrections;
+- `k` is **not** `±2^256`, `±(2^256−1)`, `2^256+1`, `±2^257` plus corrections — **the region the
+  256-point ladder structurally cannot represent at all**, and the reason that region needed offsets
+  rather than a deeper plain search;
+- and by (L1), **not** `2^e ± 2^f` plus 5 corrections for any `e, f ≤ 255`, which the two
+  redundant-control offsets confirmed empirically as well as by proof.
