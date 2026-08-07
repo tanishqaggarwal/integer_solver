@@ -4244,3 +4244,74 @@ T's 18-term linear form — **the two 18s are being actively kept apart rather t
 **T's remaining audit question is now the whole audit: is M's engine exact, checked outside M's
 parse?** Its "incremental == full engine3, 0 vars differing" gate is M checking M, and an exhaustive
 enumeration is worth exactly what its scorer is worth.
+
+---
+
+## Check-in 78 — L retracts a false measurement; cost is affordable; the control fails
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### The retraction — and it prevented a viable line being closed on a fabricated number
+
+L had reported the control run as *"exceeded 13 minutes and did not finish"* and written a
+measured-stop conclusion on it. **It had finished in 186.2 seconds.**
+
+```
+|S| = 2   NONZERO ATOMS = 8 of 9032   WALL CLOCK = 186.2 s
+```
+
+**Cause: `pgrep -f closeS3` matched L's own shell's command line** — the **third** occurrence of a
+process-matching pattern self-matching, and **the first to produce a wrong empirical claim rather
+than just a dead shell.** L had already written the rule down and still hit it, **because it wrote
+it for `pkill` and it recurred as `pgrep`.** The record is corrected in place with the retraction
+visible.
+
+> **So the line is NOT blocked on cost: 186 s per configuration, |S| = 3/5/8 ≈ ten minutes.** The
+> coordinator had a measured-stop conclusion in hand and would have accepted it. **L's retraction is
+> what prevented a viable line being shut on a false number.**
+
+**Process rule generalised, since a rule scoped to a command name will keep failing on the next
+command that takes a pattern: record the PID at launch and check that, rather than matching a
+command line at all.**
+
+### The control fails — the real result, with a named cause and a one-line fix
+
+It must reproduce T's **2** nonzero atoms and gives **8**. The six extras:
+
+```
+((x24908-x17601)+x5201)             slot link
+((6788513*(x16742-x19083))-x9254)   root slot link
+((x12186-x23927)-x25758)            root slot link
+((537773*(x15298*x37758))-x35605)   ROOT stage check
+((x15298*x11150)+x4007)             ROOT stage check
+((x18956-x37892)-x32237)            target congruence
+```
+
+`x15298` is the root `sel_ab`, so **the root's stage checks are breaking and the root slot links with
+them.**
+
+**Diagnosis:** `W2A` was built over `CGT2` — **the 927 `c > 1` atoms only** — so every `c == 1` atom a
+wire touches was **invisible to the keep-guard**. Forcing `t ≡ 0 mod c_keep` preserves the keep
+atom's divisibility, **but the wire still moves by `p·t`**, and for a wire feeding the root mux that
+changes a value the stage checks pin.
+
+**Fix, one line: build `W2A` over all 3,681 handle-carrying atoms rather than just the 927.** The
+recomputation guard then rejects any `t` that breaks a `c == 1` atom — exactly what leaked.
+
+### The call, made by the coordinator at L's request
+
+L asked for the continue/stop decision to be made rather than assumed, **having just filed a false
+measurement**. **Granted: one more round.** The timing genuinely says otherwise and is now measured;
+the regression has a named cause and a one-line fix; and four attempts ending in blockers is a
+different position from one with a measured cost and a diagnosed defect.
+
+**Order: fix the `W2A` scope → run `|S| = 2` alone as the control (must give exactly 2 nonzero atoms
+and reproduce T's 39,018, dumped and checked; if not, stop and report) → only then `|S| = 3, 5, 8`,
+each dumped and checked, reporting nonzero atoms of 9,032.**
+
+**And if the control fails again that is a finding, not a blocker** — it would mean the keep-guard
+cannot preserve the `c == 1` atoms by scope alone and the interaction between the shift and the root
+mux is structural.
+
+**Status: no |S| = 3/5/8 data after four attempts. "Does the integer lift close for small |S| only,
+or generally?" remains the campaign's last open question.**

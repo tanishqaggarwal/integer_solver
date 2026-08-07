@@ -1,0 +1,101 @@
+[
+ {
+  "D": [],
+  "strip_depth": 1,
+  "affine": true,
+  "opt_old": 5,
+  "opt_new": 6,
+  "failing": 7,
+  "score": 39026,
+  "exh": "True"
+ },
+ {
+  "D": [
+   642
+  ],
+  "strip_depth": 1,
+  "affine": true,
+  "opt_old": 5,
+  "opt_new": 6,
+  "failing": 7,
+  "score": 39026,
+  "exh": "True"
+ },
+ {
+  "D": [
+   29854
+  ],
+  "strip_depth": 1,
+  "affine": true,
+  "opt_old": 5,
+  "opt_new": 6,
+  "failing": 7,
+  "score": 39026,
+  "exh": "True"
+ },
+ {
+  "D": [
+   31864
+  ],
+  "strip_depth": 1,
+  "affine": true,
+  "opt_old": 5,
+  "opt_new": 6,
+  "failing": 7,
+  "score": 39026,
+  "exh": "True"
+ },
+ {
+  "D": [
+   642,
+   29854
+  ],
+  "strip_depth": 1,
+  "affine": true,
+  "opt_old": 5,
+  "opt_new": 6,
+  "failing": 7,
+  "score": 39026,
+  "exh": "True"
+ },
+ {
+  "D": [
+   642,
+   31864
+  ],
+  "strip_depth": 1,
+  "affine": true,
+  "opt_old": 5,
+  "opt_new": 6,
+  "failing": 7,
+  "score": 39026,
+  "exh": "True"
+ },
+ {
+  "D": [
+   29854,
+   31864
+  ],
+  "strip_depth": 1,
+  "affine": true,
+  "opt_old": 5,
+  "opt_new": 6,
+  "failing": 7,
+  "score": 39026,
+  "exh": "True"
+ },
+ {
+  "D": [
+   642,
+   29854,
+   31864
+  ],
+  "strip_depth": 1,
+  "affine": true,
+  "opt_old": 5,
+  "opt_new": 6,
+  "failing": 7,
+  "score": 39026,
+  "exh": "True"
+ }
+]

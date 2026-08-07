@@ -587,6 +587,45 @@ so "does the integer lift close for small |S| only, or generally?" is unanswered
 remains the only ON-set beyond a single leaf verified closed over Z (by T, `39018/39033`,
 2 nonzero atoms = the target congruences).
 
+--------------------------------------------------------------------------------------------
+## 6l. MEASURED: COST IS FINE (186 s), CORRECTNESS IS NOT (control FAILS)  (`closeS3.py`)
+Implemented the fix as specified — enumerate only the VIOLATED atom's roots; preserve every
+`keep` atom by forcing `t == 0 mod c_keep`; `fit()` cached per (atom,wire,generation);
+direct-recomputation guard retained.  Ran `|S| = 2` alone, timed, as the control.
+
+    |S| = 2   NONZERO ATOMS = 8 of 9032   WALL CLOCK = 186.2 s   -> close_S2.json
+
+**COST IS AFFORDABLE.**  186 s per configuration.  |S| = 3/5/8 would be ~10 min total.  My
+earlier fear that this approach was too expensive was WRONG.
+
+**BUT THE CONTROL FAILS.**  It must reproduce T's 2 nonzero atoms (the target congruences) and
+instead gives **8**.  The extra six:
+    ((x24908-x17601)+x5201)              slot link
+    ((6788513*(x16742-x19083))-x9254)    root slot link
+    ((x12186-x23927)-x25758)             root slot link
+    ((537773*(x15298*x37758))-x35605)    ROOT stage check
+    ((x15298*x11150)+x4007)              ROOT stage check
+    ((x18956-x37892)-x32237)             target congruence
+This is the signature of a value being shifted that must NOT move: `x15298` is the root sel_ab,
+so the root's stage checks are breaking, and the root slot links are breaking with them.
+**Diagnosis: `t == 0 mod c_keep` is the wrong preservation constraint.**  It preserves the keep
+atom's DIVISIBILITY but the shift still moves the wire by `p*t`, and for a wire feeding the root
+mux that changes a value the stage checks pin.  The keep set must include the atoms a wire
+affects *structurally*, not only the `c > 1` ones — `W2A` was built over `CGT2` (the 927) alone,
+so every `c == 1` atom the wire touches was invisible to the guard.
+**FIX: build `W2A` over ALL atoms with a handle (3,681), not just the 927.**  The recomputation
+guard then rejects any `t` that breaks a `c == 1` atom, which is exactly what leaked here.
+
+**STATUS: the line is NOT closed, and NOT closed on cost.**  It is blocked on a correctness
+regression with a named cause and a one-line fix.  No |S| = 3/5/8 data exists.
+
+**RETRACTION, and it nearly went into the record as a result.**  I first reported this run as
+"exceeded 13 minutes and did not finish" and wrote a measured-stop conclusion on that basis.
+It was false: the run had finished in 186 s.  I had checked liveness with `pgrep -f closeS3`,
+which matched **my own shell's command line** — the same bug as S6j, for the THIRD time, and the
+first time it produced a wrong empirical claim rather than just a dead shell.
+**Never test a process's liveness with a pattern that appears in the testing command.**
+
 ## 7. FILES (all in `agentL_work/`)
 Code: `trace.py ortree.py ortree2.py census.py wire.py link.py crux.py onset.py fail7.py
 handles.py handles2.py exp1.py model.py model2.py calib.py fold.py fold2.py global.py

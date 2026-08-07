@@ -1,0 +1,75 @@
+computing legal unit targets for 42267 atoms ...
+  3s
+variables that are a legal unit target of some atom: 33513 ; never targetable: 5235
+
+=== rule first      defs=30970  checks=11297  free=7778   score=38996  (build 0s eval 4s)
+   failing equations: 37 [697, 1985, 4134, 5225, 6816, 7276, 9123, 9421, 10815, 12231, 12270, 12350]
+   nonzero CHECK atoms anywhere: 6
+   of the 9 region atoms: 6 are definitions [22229, 22230, 35758, 35761, 35762, 22231]
+   region atoms still CHECKS: [35759, 35760, 37887]
+   region atoms NONZERO here: [35759, 35760]
+
+=== rule last       defs=23170  checks=19097  free=15578  score=39006  (build 0s eval 0s)
+   failing equations: 27 [2554, 3996, 6816, 7052, 8124, 9123, 9421, 10670, 12231, 12270, 12350, 12618]
+   nonzero CHECK atoms anywhere: 4
+   of the 9 region atoms: 5 are definitions [22229, 35758, 35761, 35762, 22231]
+   region atoms still CHECKS: [22230, 35759, 35760, 37887]
+   region atoms NONZERO here: [22230, 35759, 35760]
+
+=== rule lowvar     defs=25863  checks=16404  free=12885  score=39005  (build 0s eval 0s)
+   failing equations: 28 [2554, 3996, 6816, 7052, 8124, 8680, 9123, 9421, 10670, 12231, 12270, 12350]
+   nonzero CHECK atoms anywhere: 5
+   of the 9 region atoms: 5 are definitions [22229, 22230, 35758, 35760, 35762]
+   region atoms still CHECKS: [35759, 35761, 22231, 37887]
+   region atoms NONZERO here: [35759, 35761, 22231, 37887]
+
+=== rule highvar    defs=25878  checks=16389  free=12870  score=38999  (build 0s eval 0s)
+   failing equations: 34 [2554, 5324, 6816, 8124, 9041, 9123, 9421, 9763, 9911, 11226, 12231, 12270]
+   nonzero CHECK atoms anywhere: 7
+   of the 9 region atoms: 5 are definitions [22229, 35759, 35761, 35762, 22231]
+   region atoms still CHECKS: [22230, 35758, 35760, 37887]
+   region atoms NONZERO here: [22230, 35758, 35760]
+
+=== rule random/1   defs=25384  checks=16883  free=13364  score=38984  (build 0s eval 0s)
+   failing equations: 49 [181, 2384, 2554, 3708, 3731, 5324, 6816, 7287, 8124, 9041, 9123, 9421]
+   nonzero CHECK atoms anywhere: 12
+   of the 9 region atoms: 5 are definitions [22229, 35759, 35760, 35762, 22231]
+   region atoms still CHECKS: [22230, 35758, 35761, 37887]
+   region atoms NONZERO here: [22230, 35758, 35761]
+
+=== rule random/2   defs=25103  checks=17164  free=13645  score=39005  (build 0s eval 0s)
+   failing equations: 28 [2554, 3996, 6816, 7052, 8124, 8680, 9123, 9421, 10670, 12231, 12270, 12350]
+   nonzero CHECK atoms anywhere: 5
+   of the 9 region atoms: 5 are definitions [22229, 22230, 35759, 35761, 35762]
+   region atoms still CHECKS: [35758, 35760, 22231, 37887]
+   region atoms NONZERO here: [35758, 35760, 22231, 37887]
+
+=== rule random/3   defs=25136  checks=17131  free=13612  score=38955  (build 0s eval 0s)
+   failing equations: 78 [122, 181, 996, 1985, 2043, 2554, 3996, 4096, 5225, 5324, 5916, 6494]
+   nonzero CHECK atoms anywhere: 16
+   of the 9 region atoms: 6 are definitions [22229, 22230, 35758, 35761, 35762, 22231]
+   region atoms still CHECKS: [35759, 35760, 37887]
+   region atoms NONZERO here: [35759, 35760, 37887]
+
+=== rule random/4   defs=25265  checks=17002  free=13483  score=39006  (build 0s eval 0s)
+   failing equations: 27 [2554, 3996, 6816, 7052, 8124, 9123, 9421, 10670, 12231, 12270, 12350, 12618]
+   nonzero CHECK atoms anywhere: 4
+   of the 9 region atoms: 5 are definitions [22229, 35758, 35760, 35762, 22231]
+   region atoms still CHECKS: [22230, 35759, 35761, 37887]
+   region atoms NONZERO here: [22230, 35759, 35761]
+
+=== rule random/5   defs=25351  checks=16916  free=13397  score=39005  (build 0s eval 0s)
+   failing equations: 28 [2554, 3996, 6816, 7052, 8124, 8680, 9123, 9421, 10670, 12231, 12270, 12350]
+   nonzero CHECK atoms anywhere: 5
+   of the 9 region atoms: 5 are definitions [22229, 22230, 35759, 35761, 35762]
+   region atoms still CHECKS: [35758, 35760, 22231, 37887]
+   region atoms NONZERO here: [35758, 35760, 22231, 37887]
+
+=== rule prefer     defs=30965  checks=11302  free=7783   score=39020  (build 0s eval 0s)
+   failing equations: 13 [2554, 6816, 8124, 8680, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044]
+   nonzero CHECK atoms anywhere: 5
+   of the 9 region atoms: 4 are definitions [22230, 35758, 35761, 35762]
+   region atoms still CHECKS: [22229, 35759, 35760, 22231, 37887]
+   region atoms NONZERO here: [22229, 35759, 35760, 22231, 37887]
+
+best forward score over the orientations tried: 39020
