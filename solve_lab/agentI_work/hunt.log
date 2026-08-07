@@ -20,3 +20,10 @@ base support [23432, 23433, 36225, 36226, 36227, 36228, 36229, 37537, 37538, 234
   X35619   add=(23437, 23438, 35830)        |E|= 17 (+ 4 new) knobs=10 forced=0 active=17 nodes=  1691   10s  minfail > 6  (cannot beat 39,026)
   X23642   add=(11772, 11773, 34814)        |E|= 23 (+10 new) knobs=10 forced=0 active=23 nodes=  5518   41s  minfail > 6  (cannot beat 39,026)
   X30108   add=(11773, 34813, 36618)        |E|= 37 (+24 new) knobs= 9 forced=0 active=37 nodes=  6641   41s  minfail > 6  (cannot beat 39,026)
+  X15324   add=(11775, 22331, 33707)        |E|= 44 (+31 new) knobs= 9 forced=0 active=39 nodes=  7587   46s  minfail > 6  (cannot beat 39,026)
+
+pairs of the cheapest groups:
+  X19964+X4432 add=(1631, 2427, 22331, 33706)   |E|= 54 (+41 new) knobs=10 forced=0 active=54 nodes=  6790   57s  minfail > 6  (cannot beat 39,026)
+  X19964+X6947 add=(1631, 23435)                |E|= 28 (+15 new) knobs=10 forced=0 active=28 nodes=  2068   11s  minfail > 6  (cannot beat 39,026)
+  X19964+X33168 add=(1631, 23437)                |E|= 30 (+17 new) knobs=10 forced=0 active=30 nodes=  2068   12s  minfail > 6  (cannot beat 39,026)
+  X19964+X10422 add=(1631, 11772)                |E|= 36 (+23 new) knobs=10 forced=0 active=36 nodes=  8685   92s  minfail > 6  (cannot beat 39,026)

@@ -124,3 +124,59 @@ detached. Model: **6,614 linear + 161 nonlinear equations in 6,122 unknowns** ov
   multiplicities [1x15, 11, 13, 13, 16] and rank 13 (cost-free kernel still 4), so every
   violated-set of size <= 6 is a subset of the 15 multiplicity-1 directions — 9,948 cases,
   enumerated exhaustively (`g66_exhaust17.py`).
+
+## Exp G67–G74 — WIDENING THE SUPPORT, and a complete optimality argument
+
+### eq8680, derived from my own model (`g67_eq8680.py`, `g68_widen.py`)
+In my equation-level model eq8680 is NOT linear: it is a **binary quadratic form in
+exactly two unknowns**, x3629 and x8976,
+    eq8680 = 784*x3629^2 + C1*x3629*x8976 + C2*x8976^2 ,
+and its discriminant is **exactly 0 mod p**, so
+    eq8680 = 784*(x3629 - r*x8976)^2 ,
+    r = 99250362203413881791632272864589635302802843999120483462392214863921859717787.
+It is a perfect square: it pins the single linear relation x3629 = r*x8976 and costs
+exactly ONE equation to violate.
+eq29125 is linear in three unknowns: `x28730 + C*x3629 + 259857806*x8976 = 0`.
+Neither x3629 nor x8976 was in the closed 17-unknown support (their footprints are 15 and
+13 equations, both reaching outside the region), which is why the first optimality
+statement did not cover them.
+
+### Correction to my own objective (important)
+`g64`/`g66` asked "can ALL higher-degree equations be zeroed with <= 6 affine violations".
+That is the wrong objective: a failing higher-degree equation costs +1, it is not fatal.
+The right objective is
+    total(T) = |T| + min over the freed subspace of #{higher-degree equations nonzero}.
+`g70_total.py` implements it. Baseline T = {} costs 0 + 20 = 20; the deliverable costs
+7 + 0 = 7; the best DECIDED total over the 17-support was 17 (T = {133, 8073}), with 299
+cases left undecided by root-finding alone.
+
+### The sharp argument that removes every undecided case (`g74_span.py`)
+The 20 higher-degree equations that fail at x0 span, restricted to the support, a space of
+dimension **4** over 12 monomials — and **removing ANY 5 of them leaves the span at 4**.
+Therefore vanishing of any 15 of the 20 forces all 20 to vanish, so
+    #failing is either 0 or >= 6.
+* `#failing = 0` requires |T| >= 7: exhaustively established at budget 6 over the closed
+  support (`g66`, 4,874 admissible relaxations, **every one decided**, 0 undecided).
+* `#failing >= 6` gives total >= |T| + 6 >= 7 for any |T| >= 1, and |T| = 0 gives 20.
+=> **total >= 7**, attained by the deliverable. No undecided cases remain.
+Both the span dimension 4 and the "removing any 5 keeps it 4" property hold on the
+17-unknown closed support AND on the 22-unknown widened support.
+
+### Tier report (as requested)
+| support | unknowns | affine rows | distinct directions | mult<=6 directions | candidate relaxations at budget 6 | exhaustive? |
+|---|---|---|---|---|---|---|
+| closed region | 17 | 68 | 19 (mult 1x15, 11, 13, 13, 16) | 15 | 9,948 | yes — 4,874 admissible, all decided |
+| + x3629, x6418, x8976, x27500, x32230 | 22 | 105 | 36 (mult 1x27, 2, 2, 3, 5, 11, 13, 13, 13, 16) | 31 | 443,068 | yes — running |
+The multiplicity-<=6 direction count is what controls the enumeration: 15 -> 31 took the
+candidate count from 9.9e3 to 4.4e5. `g73_lb.py` / `g69_tier.py` print the count and
+refuse to run above 3e6-4e6, so the enumeration never silently degrades into sampling.
+
+### Reconciliation with the "rank 7" observation, from the equation side
+On the equation side the same phenomenon reads: only **1,475 of the 6,122 unknowns occur
+in any linear equation and the linear rank is exactly 1,475** — full column rank, so the
+linear system pins every occurring unknown uniquely and there is no kernel to exploit.
+Inside the region, the affine rows have rank 11 of 15 unknowns, leaving a 4-dimensional
+cost-free kernel, but the higher-degree equations are CONSTANT on that kernel — the free
+directions are exactly the ones that cannot move the residual. So every dimension used to
+reach the codimension-4 variety {all 20 higher-degree equations vanish} has to be paid
+for in equations, and exhaustively the cheapest payment is 7.

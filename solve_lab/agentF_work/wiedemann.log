@@ -8,3 +8,4 @@
   q=2147483647  deg=39033 (n=39033)  trailing coeff C[L]=268435456  =>  M NONSINGULAR over GF(q)
 === q = 2147483629
    krylov 0 0s
+   krylov 20000 262s

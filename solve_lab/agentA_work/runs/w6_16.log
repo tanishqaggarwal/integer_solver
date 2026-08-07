@@ -4,3 +4,67 @@ smallest single-knob column supports: [(1329, 6), (21574, 7), (29854, 7), (1613,
   greedy-ISD trial 1: weight 13
   greedy-ISD trial 1: weight 11
   greedy-ISD trial 1: weight 6
+greedy-ISD 19 trials, lightest weight seen = 6, candidate supports <= 6 : 62
+  |D|=6 eqs=[8124, 9123, 12231, 14584, 18673, 22044]  modp=False  integral=False
+  |D|=6 eqs=[2554, 9421, 12350, 14584, 18673, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 12231, 12270, 14584, 18673, 22044]  modp=False  integral=False
+  |D|=6 eqs=[2554, 8124, 12231, 14584, 18673, 22044]  modp=False  integral=False
+  |D|=6 eqs=[2554, 9421, 14584, 18673, 22044, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9421, 12231, 12270, 14584, 18673]  modp=False  integral=False
+  |D|=6 eqs=[2554, 8124, 9421, 12231, 14584, 18673]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9123, 12231, 12350, 22044, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9421, 12231, 12270, 18673, 22044]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9123, 12231, 18673, 22044, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 8124, 9421, 12231, 18673, 22044]  modp=False  integral=False
+  |D|=6 eqs=[6816, 8124, 12231, 14584, 18673, 22044]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9123, 9421, 12231, 12270, 18673]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 8124, 9123, 9421, 14584]  modp=False  integral=False
+  |D|=6 eqs=[2554, 8124, 9123, 9421, 12231, 18673]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 12231, 12270, 14584]  modp=False  integral=False
+  |D|=6 eqs=[6816, 9123, 9421, 12270, 12350, 14584]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 9421, 12350, 14584]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 12350, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[6816, 9123, 12270, 12350, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 9421, 12231, 14584, 18673, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9421, 12231, 12350, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[6816, 8124, 9123, 12231, 22044, 29125]  modp=False  integral=False
+  |D|=6 eqs=[6816, 9123, 12231, 12350, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 9421, 14584, 18673]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 12270, 14584, 22044]  modp=False  integral=False
+  |D|=6 eqs=[6816, 9123, 9421, 12350, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 8124, 9123, 12231, 22044, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9123, 12231, 12270, 22044, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 12270, 12350, 14584]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 9421, 14584, 22044]  modp=False  integral=False
+  |D|=6 eqs=[8124, 12231, 12350, 14584, 22044, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9421, 12231, 12270, 18673, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 8124, 9421, 12231, 18673, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9123, 12231, 12350, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 12231, 12350, 14584, 18673, 22044]  modp=False  integral=False
+  |D|=6 eqs=[2554, 9123, 9421, 14584, 18673, 29125]  modp=False  integral=False
+  |D|=6 eqs=[6816, 8124, 9421, 12231, 12270, 18673]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 8124, 9421, 12231, 18673]  modp=False  integral=False
+  |D|=6 eqs=[2554, 9421, 12270, 14584, 18673, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 12231, 12350, 14584, 18673, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 8124, 9123, 12270, 14584]  modp=False  integral=False
+  |D|=6 eqs=[2554, 8124, 9421, 12231, 12270, 18673]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 12270, 14584, 18673]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9421, 12231, 12270, 12350, 18673]  modp=False  integral=False
+  |D|=6 eqs=[6816, 8124, 9123, 12350, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 8124, 9421, 12231, 12350, 18673]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9421, 14584, 18673, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 12270, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 9421, 12270, 14584]  modp=False  integral=False
+  |D|=6 eqs=[8124, 12231, 12270, 12350, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 8124, 12231, 12350, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 8124, 9421, 14584, 18673, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9421, 12231, 14584, 18673, 22044]  modp=False  integral=False
+  |D|=6 eqs=[6816, 8124, 12231, 12350, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9123, 9421, 12231, 22044, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 12231, 14584, 18673, 22044, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 9421, 12231, 14584]  modp=False  integral=False
+  |D|=6 eqs=[6816, 9123, 12350, 14584, 18673, 29125]  modp=False  integral=False
+  |D|=6 eqs=[2554, 6816, 9123, 9421, 14584, 29125]  modp=False  integral=False
+  |D|=6 eqs=[6816, 9123, 12350, 14584, 22044, 29125]  modp=False  integral=False
+  |D|=6 eqs=[8124, 9123, 12231, 14584, 22044, 29125]  modp=False  integral=False
+best from this window = 39026

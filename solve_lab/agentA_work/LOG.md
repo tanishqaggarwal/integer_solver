@@ -356,3 +356,11 @@ difference rather than assuming it.  `soundness.py`, `soundness2.py`.
 
 This is the same mechanism as the ker(M) reconciliation: realizability, not cancellation,
 is the binding ingredient, and it enters my construction through the knobs.
+
+## CONSTRUCTIVE CHECK AT THE DEEPEST WINDOW (L=16) — complete
+`w6test.py` at L=16 (611 atoms / 582 equations / 486 rows / 334 knobs):
+greedy information sets enumerated **62 distinct code supports of weight <= 6**;
+**all 62 fail mod-p consistency and none is integral.**  Best from the window: 39,026.
+Same structure as L=6 (582 supports, all killed).  At both depths the equation-level code
+admits weight-6 supports and the mod-p filter admits none of them, so the binding number
+is 7 — attained by the deliverable.

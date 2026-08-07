@@ -1,0 +1,6 @@
+start bad [722, 724, 726, 20212, 20215]
+candidate knobs: 329
+affine knobs: 56 of 329  (9s)
+atoms in the affine system: 46 [468, 477, 480, 722, 724, 726, 891, 893, 4872, 4877, 6744, 7389, 8004, 8007, 8013, 8016, 10187, 11160, 13537, 15610, 16471, 20212, 20215, 22330, 23021, 23200, 23654, 24282, 24984, 24986]
+  elim: 38 singletons, 5 pivots, core 3x7, 0.0s
+AFFINE SYSTEM -> core infeasible

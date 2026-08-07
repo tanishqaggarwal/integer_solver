@@ -225,3 +225,10 @@ For every one of the 256 conditional-pin booleans: turn it on (with a fixed part
 repair the chains, and compare the resulting selected wire pair with that boolean's two pin constants
 mod p.  Runs ~65 s per boolean and checkpoints after each; every boolean completed so far matches.
 Resume by re-running the script -- it skips booleans already recorded.
+
+### Wiedemann result (independent confirmation)
+    q = 2147483647 (2^31-1):  sequence 853 s, Berlekamp-Massey 690 s
+    minimal-polynomial degree L = 39033 = n,  trailing coefficient = 268435456 != 0
+    =>  M NONSINGULAR over GF(2^31-1),  rank = 39033,  dim ker = 0
+Two independent methods (characteristic-free peeling certificate, and Wiedemann over a word prime) agree.
+A second prime q = 2147483629 is running for redundancy (`wiedemann.log`).

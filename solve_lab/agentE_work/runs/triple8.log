@@ -1,0 +1,3 @@
+  elim: 38 singletons, 3 pivots, core 3x4, 0.0s
+44-row affine solve -> ok
+EXACT: fails=28 score=39005 bad=[20215, 28647]

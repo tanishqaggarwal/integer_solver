@@ -134,7 +134,10 @@ compensator of all — `X19964`, whose group is just `{a1631, a23434}`, ONE new 
 effect exactly −1 on eq8680, the perfect counterweight to `d28730` — was missed by my
 earlier adjacency search because `a1631`'s own equations do not touch E(S) at all.
 
-**Result so far: every candidate gives minfail > 6.**
+**Result: ALL 22 single knob-groups give minfail > 6 — zero hits, zero timeouts.**
+(66 PAIRS of groups running in the background -> `hunt.log`; every one completed so far
+is also > 6. Re-check with `grep -E 'BEATS|minfail = ' hunt.log` — an empty result means
+no pair beats 39,026 either.)
 ```
 X19964 add=(1631,)              |E|=27 (+14)  knobs=9   minfail > 6
 X4432  add=(2427,22331,33706)   |E|=40 (+27)  knobs=9   minfail > 6
@@ -147,6 +150,15 @@ X34868 add=(11778,)             |E|=27 (+14)  knobs=9   minfail > 6
 X950   add=(20290,)             |E|=18 (+ 5)  knobs=9   minfail > 6
 X15120 add=(20292,)             |E|=20 (+ 7)  knobs=9   minfail > 6
 X35531 add=(20294,)             |E|=21 (+ 8)  knobs=9   minfail > 6
+X18253 add=(20292,20293)        |E|=21 (+ 8)  knobs=10  minfail > 6
+X37720 add=(20294,20295)        |E|=22 (+ 9)  knobs=10  minfail > 6
+X23822 add=(11776,11777)        |E|=26 (+13)  knobs=10  minfail > 6
+X7945  add=(11778,11779)        |E|=28 (+15)  knobs=10  minfail > 6
+X9629  add=(20290,20291)        |E|=19 (+ 6)  knobs=10  minfail > 6
+X37413 add=(11774,11775)        |E|=25 (+12)  knobs=10  minfail > 6
+X37254 add=(11775,11917)        |E|=42 (+29)  knobs=9   minfail > 6
+X35619 add=(23437,23438,35830)  |E|=17 (+ 4)  knobs=10  minfail > 6
+X23642 / X30108 / X15324 / X4432 ...  all minfail > 6
 ```
 The reason is uniform and visible in the numbers: every knob that moves eq8680 moves an
 atom that lives in 11-16 equations, and the imported equations all sit at base 0 and are

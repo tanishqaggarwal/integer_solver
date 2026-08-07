@@ -7,6 +7,10 @@ forces that atom to 0 -- starts from the unique degree-1 row and **forces all 39
 The elimination order is stored as a checkable certificate (`peel_order.npy`) and re-verified by an
 independent pass (`peel_cert.py` -> `certificate verified: True`).  Holds over Z and over every field of
 characteristic > 80.
+Independently confirmed by **Wiedemann over GF(2^31-1)**: minimal-polynomial degree = 39,033 = n with
+trailing coefficient 268435456 != 0, so M is nonsingular (implementation validated first on 4 nonsingular
+and 3 rank-deficient controls).  The pivots of the peeling cascade are all +-1 or +-2, none divisible by
+any odd prime tested, and three randomized peeling orders all force 39,033/39,033 atoms.
 **Consequence: any assignment satisfying all 39,033 equations must make all 39,033 atoms exactly zero.**
 The all-atoms-zero model is therefore not a restriction but an equivalence; the "cancelling nonzero
 residual" route to a full solution does not exist, and every frame-optimality result in this lab that was

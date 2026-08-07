@@ -140,3 +140,33 @@ Z^|A|, while ker(M) has dimension |A| - rank(M) which is far larger.  Realizabil
 cancellation, is what is missing.  Independent support: `cancel.py` shows 3,235 atoms occur
 in exactly one equation and NONE carries a private handle, so the atoms a kernel vector
 would need to move most freely are exactly the ones that cannot be moved independently.
+
+## ============ SOUNDNESS OF THE EQUATION-LEVEL BOUND ============
+Checked, not assumed (`soundness.py`, `soundness2.py`, `cancel.py`, `w6test.py`):
+1. My code support ranges over **knob directions**, not atom vectors:
+   C = {N u : u in Q^K}, K actual variables, N[e][j] = d(eq e)/d(knob j).  The knob->atom
+   map has image a rank-<=|K| sublattice of Z^|A| — at L=6, 109 of 235 atoms are movable
+   and 126 are FROZEN at 0; at L=16, 334 of 611 movable, 277 frozen.
+2. The RAW relaxation over arbitrary atom vectors IS vacuous, confirmed independently in
+   my parse: 3,235 atoms occur in exactly one equation, so min ||M a||_0 = 1.
+3. A weight-1 support is not excluded by fiat, but does not occur: ZERO single-equation
+   atoms lie in any of my windows, and globally NONE of the 3,235 single-equation atoms
+   carries a private variable, so none is independently settable anywhere.  Rigorously the
+   minimum support is >= 4 at L=6 (no 2- or 3-column dependency, 721,764 subsets) and 6 as
+   observed.  The witness a39032 occurs in EIGHT equations in my parse and has no private
+   variable.
+4. Honest nuance: low-occupancy atoms DO drive my minimum support down — the observed 6 is
+   exactly a35758's equation set (6 equations).  They do not drive it to 1.  All 582
+   weight-6 supports fail the mod-p filter, which is what leaves 7.
+Conclusion: the bound stands.  Realizability enters through the knob construction, which
+is also the ker(M) reconciliation.
+
+## Condition (b), final numbers
+L=2 (68 rows, 32 knobs, H = 36x68): RIGOROUS no dependent column subset of size <= 4
+  (814,385 exhausted) => minimum support >= 5; size-5 search running.
+L=6 (163 rows, 109 knobs, H = 54x163): RIGOROUS no size <= 3 (721,764 exhausted) => >= 4;
+  greedy information sets give 258/258 usable trials (vs 0/3,300 uniform), lightest
+  support = 6, 582 weight-<=6 supports enumerated, ALL fail mod-p, none integral.
+L=16 (486 rows, 334 knobs): EXHAUSTIVE mod-p no |D| <= 2 (117,855) => >= 3; Prange 250
+  trials, lightest weight 7, P(missed) <= 1.6e-4; deeper campaigns in runs/eqb16b.log and
+  runs/w6_16.log.
