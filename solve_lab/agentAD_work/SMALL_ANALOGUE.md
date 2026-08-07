@@ -506,6 +506,11 @@ No correlation, and no constraint: §4. The active-condition count runs the othe
   above classifies solutions of `atoms = 0`, and the real checker requires *equations* — sums
   of ~12 atoms — to vanish, a strictly larger solution set. Larger again means more closure,
   again in the direction of the negative verdict.
+* Sizes reached: `n = 8, 10, 12, 14, 16`, all **exhaustive over every one of the `2^n`
+  subsets**. `n = 18` and `n = 20` were set up (`ad_curves2.py`, `ad_measure.py n20`) but the
+  point-counting search for 18-bit prime-order curves had not returned on this loaded box and
+  was stopped; the five sizes in hand already double `n` twice with `ρ` flat, which is the
+  quantity the extrapolation rests on.
 * Nothing here is an infeasibility claim about the real instance, and nothing here bounds `w`.
   It says only that **this particular mechanism cannot bound `w`**.
 

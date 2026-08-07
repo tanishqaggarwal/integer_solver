@@ -85,3 +85,6 @@ outer 2: global nonzero 11, violated c-conditions 10, nonzero handle-less 1
      (x14052 ,x24221 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
      (x14052 ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
      (x14052 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x14052 ,x36128 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x24221 ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x24221 ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)

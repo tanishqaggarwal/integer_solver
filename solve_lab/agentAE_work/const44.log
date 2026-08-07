@@ -28,3 +28,4 @@ tier const: 37 families
   c_pow2_160             R=44 jumps=33554432     dps=261349   dp/cf=0.997  34.4s OK miss
   c_pow2_192             R=44 jumps=33554432     dps=262475   dp/cf=1.0013  35.6s OK miss
   c_pow2_224             R=44 jumps=33554432     dps=262475   dp/cf=1.0013  26.3s OK miss
+  c_pow2_250             R=44 jumps=33554432     dps=262766   dp/cf=1.0024  28.3s OK miss
