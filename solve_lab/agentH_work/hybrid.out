@@ -1,3 +1,5 @@
 baby table 2^22 built 224s
 F1 (2^i + s<2^22) done 0s hits=[]
 F2 (2^i+2^j+s) 32640 lookups 19s hits=[]
+F3 (run + s) 32896 lookups 41s hits=[]
+HYBRID TOTAL HITS: []
