@@ -55,9 +55,11 @@ HNF proving no integer solution.  O's negatives rest on a sound oracle.
 
 ## TASK 1 — RESULTS
 
-### (a) The 21 unreached triples at j=3, b<=2 — same method as O (`w_j3.py`, `w_j3.log`)
-Running / complete; see `w_j3.log`.  Exact integer `solve_sparse`, ~14,198 solves per triple,
-b=0 then all 168 b=1 then all C(168,2)=14,028 b=2.  **No improvement in any triple reached.**
+### (a) The 21 unreached triples at j=3, b<=2 — COMPLETE, same method as O (`w_j3.py`, `w_j3.log`)
+**All 21 enumerated completely: `b<=2 exhausted, none` in every one.  298,158 exact integer
+solves, 2,065 s, improvement: False.**  With O's 14, **all 35 triples are now done by brute
+force**, and independently by the structural route in (h).  Per triple: b=0, then all 168 at
+b=1, then all C(168,2)=14,028 at b=2 — 14,198 solves each, exactly O's protocol.
 
 ### (b) The linear model's pricing is EXACT, verified OUTSIDE the model
 `w_dump.py` dumps the "buy eq12231, break eq2554" solution as a full 38,748-variable

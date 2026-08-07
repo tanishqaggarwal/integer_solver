@@ -5240,3 +5240,83 @@ one entry and confirming only the predicted variables change), then runs §18 ac
 **Below 7 at any slot is terminal for the campaign.**
 
 **Fleet: M, N, T, U(successor), V, W — six live.**
+
+---
+
+## Check-in 92 — the frame-B flag is settled; the trade is 32-way, not 7-way (agent W)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified from cold. W produced one new checker-verified
+point at the same score, `agentW_work/w_trade_12231_break2554.json` (27 variables differing from the
+witness). `agentH_work` untouched — **zero modified files**, and W noted it had no `.pkl`, so importing
+`frameB` from there would have created two.
+
+### Task 2 — O's `|K| = 34` is CORRECT in frame B; T's 23 is a different point
+
+`frameB.Frame([642,28730,29854,31864])` reproduces the witness **bit-for-bit** (39,026, **0 of 38,748
+vars differing**), and **|U| = 15, |C| = 26, overlap 7, union 34 — all three of O's numbers reproduce
+exactly.** T's 12/11/23/overlap-0 is a fact about F's parse in the **default** orientation, which is a
+genuinely different point: the witness's free values through the default DAG score **39,020** with a
+different nonzero-atom set, including `a37887` itself.
+
+> **Ledger row → CONDITIONAL on frame B + H's model. Not a defect.** The "a count derived from one
+> parse is a fact about that parse until reconciled" rule, resolved rather than left as a flag.
+
+### Task 1a — the 21 unreached triples, and an off-by-one in the coordinator's brief
+
+**W caught that O's "14 = every triple containing eq12231" is 14 of 15** — `[12231,22044,29125]` was
+unreached too — **so the gap was 21 triples, not 20**, as the coordinator had written it. All 21 now
+`b ≤ 2` **exhausted, none**; 298,158 exact integer solves in 2,065 s under O's exact protocol.
+
+### The structural measurement — integrality is the whole obstruction
+
+Exact rational arithmetic on the 175×34 system: **`rank([A|b]) = 28` with the rhs column NOT a
+pivot**, so **the full system including all seven failing rows is CONSISTENT over ℚ.**
+
+> **The entire frame-B obstruction is integrality. No ℚ or LP relaxation can ever prune here** —
+> which retires a whole class of instrument in one line.
+
+The 168 satisfied rows are homogeneous, so admissible deltas are `ker_Z(A_KEEP) = Z³⁴ ∩ ker_Q(A_KEEP)`
+— only rank-dropping deletions matter, leaving exactly **6 essential rows**:
+`{2554, 6816, 8124, 9123, 9421, S}`.
+
+### Task 1b — j = 4..7 reached
+
+Over all 2⁶ essential-break subsets × all 127 bought-sets: **`minbreak(P) = |P|` exactly for every
+`|P| ≤ 6`, gain 0 everywhere, all seven unbuyable at any `b ≤ 6`** — **30 s, against O's 33 minutes
+for 14 triples.** Cocircuits enumerated, unions ≤ 6 taken (70 minimal, 520 break-sets), retested:
+**best gain 0.**
+
+### REFUTED — O's "every purchase costs exactly eq8680"
+
+**The trade is 32-way, not 7-way.** `eq8680` is **one of six** possible prices and the unique price
+for **`eq29125` alone**; **`eq12231` bought for `eq2554` is checker-verified.** This also explains
+**T's unaudited flag** that 7 knobs move a failing row with `dS = 0` — **some trades never touch `S`
+at all.** **O's Lemma is untouched**, and W said so. Propagated to T for the ledger.
+
+W also **refuted its own first claim** that redundant-row breaks are worthless: `{22563, 8687}` is a
+genuine minimal cocircuit with no essential row. Recorded as a correction.
+
+**Scope, unrounded:** exhaustive at `j=1 b=0`; `j=2 b≤1`; **`j=3 b≤2` for all 35 triples, twice —
+brute force and structurally**; `j=1..7` over essential-row breaks. **`j=4..7` with general breaks is
+budget, not exhaustion** — the s=3..6 cocircuit search skipped 3.07M degenerate window subsets.
+
+### W re-tasked — the classification question, over its own ordering
+
+W ranked the cocircuit gap first and "leave K" second. **The coordinator overrode that ordering**, on
+W's own closing argument: *within K the system is ℚ-consistent and integrally blocked, so the binding
+object is a lattice index, not a rank — which is exactly what changing the other 8,717 inputs could
+move, and what O's Lemma does not constrain.*
+
+> **THE QUESTION: is the classification of solution families complete?**
+>
+> Two are known — the **honest fold** (needs a 256-bit scalar, out of reach) and the **degeneracy
+> family** (U proved it unreachable by configuration, purchasable only at cost ≥ 7). **Nobody has
+> proven those are the only two, and a third would not need the scalar at all.**
+
+Posed as a finite structural question rather than a search: **enumerate the ways a gadget's two
+congruences `N1 ≡ N2 ≡ 0` can be simultaneously satisfied, and prove the list complete** — worked as
+algebra over the ring the checker actually uses (exact integers, `== 0`), **not mod p**, since W's own
+result shows integrality is where everything lives. **If the list closes at two, that is the
+campaign's terminal theorem. If there is a third, it is the only thing in this lab that could produce
+a full solve.** Fallback if it proves unbounded: the s=3..6 cocircuit gap, which would convert the
+frame-B budget row from *budget* to *exhaustive at every j*.

@@ -42,3 +42,29 @@ triples to do: 21 (the ones O did not reach)
  triple [14584, 18673, 22044]: b<=2 exhausted, none  (255564 solves so far, 99s, total 1722s)
  triple [14584, 18673, 29125]: b<=2 exhausted, none  (269762 solves so far, 94s, total 1816s)
  triple [14584, 22044, 29125]: b<=2 exhausted, none  (283960 solves so far, 131s, total 1948s)
+ triple [18673, 22044, 29125]: b<=2 exhausted, none  (298158 solves so far, 118s, total 2065s)
+
+triples completed at b<=2: 21 of 21 attempted
+   [12231, 22044, 29125] : b<=2 exhausted
+   [12270, 12350, 14584] : b<=2 exhausted
+   [12270, 12350, 18673] : b<=2 exhausted
+   [12270, 12350, 22044] : b<=2 exhausted
+   [12270, 12350, 29125] : b<=2 exhausted
+   [12270, 14584, 18673] : b<=2 exhausted
+   [12270, 14584, 22044] : b<=2 exhausted
+   [12270, 14584, 29125] : b<=2 exhausted
+   [12270, 18673, 22044] : b<=2 exhausted
+   [12270, 18673, 29125] : b<=2 exhausted
+   [12270, 22044, 29125] : b<=2 exhausted
+   [12350, 14584, 18673] : b<=2 exhausted
+   [12350, 14584, 22044] : b<=2 exhausted
+   [12350, 14584, 29125] : b<=2 exhausted
+   [12350, 18673, 22044] : b<=2 exhausted
+   [12350, 18673, 29125] : b<=2 exhausted
+   [12350, 22044, 29125] : b<=2 exhausted
+   [14584, 18673, 22044] : b<=2 exhausted
+   [14584, 18673, 29125] : b<=2 exhausted
+   [14584, 22044, 29125] : b<=2 exhausted
+   [18673, 22044, 29125] : b<=2 exhausted
+total solves 298158, elapsed 2065s, improvement: False
+DONE

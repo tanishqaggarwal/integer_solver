@@ -1,0 +1,4 @@
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032
+pid 21635 ; |S|=64
+greedy fixpoint: handle-less nonzero 3, global nonzero 34
