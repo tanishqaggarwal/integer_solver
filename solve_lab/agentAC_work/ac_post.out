@@ -1,0 +1,79 @@
+====================================================================================
+1. EXACT PRIOR  (k uniform on [0,N))
+====================================================================================
+two independent digit-DPs agree elementwise : True
+sum_b cnt[b] == N exactly                   : True
+first b where #{k<N: pc=b} != C(256,b)      : b = 128  (gap = 1 )
+=> for ALL b <= 127 the truncation effect is EXACTLY ZERO, not merely 2^-128-small
+2^256 - N = 432420386565659656852420866394968145599 = 2^128.3457
+total deficit (2^256-N)/2^256               = 2^-127.6543
+worst per-class relative deficit in [10,246]: b=246, 2^-10.16
+mode of the exact prior                     : b = 128
+P(w=128) = 2^-4.3272 ; mean=128 ; sd=8 exactly (untruncated)
+
+====================================================================================
+2. POSTERIOR  |  conditioning events
+====================================================================================
+A  w >= 10   (X: unsigned weight <= 9 exhausted, 0 hits)  -> kills b in [0,9]
+B  w <= 246  (Y: complement weight <= 9 exhausted)        -> kills b in [247,256]
+   A and B are DISJOINT restrictions of the support: not nested, nothing multiplied.
+
+P_prior(w<=9)    = 2^-202.6212
+P_prior(w>=247)  = 2^-202.6239   (not equal to the above: [0,N) is not symmetric)
+P_prior(excluded)= 2^-201.6226   <-- THIS IS TV(prior, posterior)
+information gained by the entire campaign about w:
+   -log2(1 - P_excl) = P_excl/ln2 = 2^-201.0938 bits = 2.916e-61 bits
+   KL(post||prior)   = same to leading order = 2^-201.0938 bits
+
+cross-check against agent X's per-bit figure < 2^-200.8:
+   unsigned weight<=9 (X)         11711713815280289    2^53.38
+   complement weight<=9 (Y)       11711713815280289    2^53.38
+   BSGS both ends 2*2^52 (X)      9007199254740992     2^53.00
+   NAF weight<=7, as a SET (X)    733018571531264      2^49.38
+   a+b*lambda box (Q)             17592186044416       2^44.00
+   34-bit window (Q)              1915555414016        2^40.80
+   small multiple m<=1e7 (Q)      2560000000           2^31.25
+   endomorphism orbit (Q/X)       1536                 2^10.58
+   UNION (upper bound)            33183155758292802    2^54.88
+   X's list as X had it (pre-Y, signed size overcounted): 2^54.32 -> 2^-200.6826 of a 2^255 fibre
+   with Y's complement family added                     : 2^54.88 -> 2^-200.1187 of a 2^255 fibre
+
+====================================================================================
+3. QUANTILES  (exact rationals; B printed, coverage verified)
+====================================================================================
+PRIOR   (uniform on [0,N))
+   eps      one-sided B   P(w<=B)        two-sided [L,U]   P(L<=w<=U)
+   1e-1     B = 138      1-2^-3.40    [115, 141]      1-2^-3.45
+   1e-2     B = 147      1-2^-7.10    [107, 149]      1-2^-7.14
+   1e-3     B = 153      1-2^-10.49    [102, 154]      1-2^-10.14
+   1e-6     B = 166      1-2^-20.62    [ 89, 167]      1-2^-20.56
+   2^-20    B = 166      1-2^-20.62    [ 89, 167]      1-2^-20.56
+   2^-40    B = 183      1-2^-40.04    [ 72, 184]      1-2^-40.42
+   2^-80    B = 207      1-2^-81.37    [ 49, 207]      1-2^-80.37
+
+POSTERIOR (10 <= w <= 246)
+   eps      one-sided B   P(w<=B)        two-sided [L,U]   P(L<=w<=U)
+   1e-1     B = 138      1-2^-3.40    [115, 141]      1-2^-3.45
+   1e-2     B = 147      1-2^-7.10    [107, 149]      1-2^-7.14
+   1e-3     B = 153      1-2^-10.49    [102, 154]      1-2^-10.14
+   1e-6     B = 166      1-2^-20.62    [ 89, 167]      1-2^-20.56
+   2^-20    B = 166      1-2^-20.62    [ 89, 167]      1-2^-20.56
+   2^-40    B = 183      1-2^-40.04    [ 72, 184]      1-2^-40.42
+   2^-80    B = 207      1-2^-81.37    [ 49, 207]      1-2^-80.37
+
+====================================================================================
+4. THE HEADLINE TAILS vs AB's COST BANDS
+====================================================================================
+ B    P_prior(w<=B)   P_post(w<=B)   rigorous posterior bracket incl. families C-H
+  14  2^-180.7801    2^-180.7801    [2^-180.7801 , 2^-180.7801]
+  24  2^-144.4870    2^-144.4870    [2^-144.4870 , 2^-144.4870]
+  56  2^-65.5704     2^-65.5704     [2^-65.5704 , 2^-65.5704]
+
+verification of each exponent by a second route:
+  B= 14  exact sum 2^-180.7801 | single-term lower C(256,B)/2^256 = 2^-180.8653 | geometric-ratio upper = 2^-180.7797 | entropy(Chernoff) upper = 2^-177.6679 | brackets ok: True
+  B= 24  exact sum 2^-144.4870 | single-term lower C(256,B)/2^256 = 2^-144.6430 | geometric-ratio upper = 2^-144.4861 | entropy(Chernoff) upper = 2^-141.0907 | brackets ok: True
+  B= 56  exact sum 2^-65.5704 | single-term lower C(256,B)/2^256 = 2^-66.0367 | geometric-ratio upper = 2^-65.5656 | entropy(Chernoff) upper = 2^-61.9831 | brackets ok: True
+
+P(w <=  14 | 10<=w<=246) = 2^-180.7801 = 3.799763e-55  = 1 in 2^180.78
+P(w <=  24 | 10<=w<=246) = 2^-144.4870 = 3.199475e-44  = 1 in 2^144.49
+P(w <=  56 | 10<=w<=246) = 2^-65.5704 = 1.825395e-20  = 1 in 2^65.57

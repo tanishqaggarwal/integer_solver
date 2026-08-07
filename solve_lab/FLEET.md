@@ -6620,3 +6620,19 @@ weak form already holds on `n = 2, 3`.
 
 **Two detached jobs now have no owner:** X's `rotall.sh` (PID 30892, 3/128) and AB's PID 6881. Agent
 AI below is spawned to own them.
+
+### Two slots refilled — AH and AI
+
+| agent | angle |
+|---|---|
+| **AH** | **the failure landscape as a function of `|S|`, measured with `checker.py`.** T probes, AD simulates, AF derives — AH **measures**. Score out of 39,033 and the **exact failing set** at `|S|` ∈ {1,2,4,8,16,24,32,48,64,96,128,160,192,224,240,248,252,255}, several **genuinely independent** seeds each. Two things nobody has done: plot the ceiling against `|S|` at all, and **distinguish a construction that stalls at high `|S|` from a constraint at high `|S|`** — the fleet's current evidence for §8 cannot tell those apart, and the one `|S| = 128` data point is a stall |
+| **AI** | **custodian.** Owns the two orphaned jobs — X's `rotall.sh` (PID 30892) and AB's `d_reg(4)` rank (PID 6881) — with AB's read-off applied exactly as AB wrote it in advance. Also: independently re-checks X's restored-table md5s and key count; tracks free disk and warns **before** it is an emergency; and audits every agent directory read-only for the two known false-record patterns (markers written without an exit-code test; output masked so a failure reads as success). **Recommends, never deletes** |
+
+**AH's decision rule is fixed in advance**, so no outcome can be rationalised after the fact: a flat
+ceiling with an unchanged footprint is evidence **against** §8; degradation above some `|S| = B` must
+be re-tested under a different construction before it is reported, and checked against every known
+closure; and everything-stalls-above-`B` is **not** evidence for §8 and must be reported as a stall
+with a reason.
+
+**Live: T, AA, AC, AD, AE, AF, AG, AH, AI.** Detached compute owned by AI: `rotall.sh` (3/128) and
+`d_reg(4)` PID 6881.

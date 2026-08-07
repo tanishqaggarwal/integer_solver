@@ -22,3 +22,9 @@ DONE rot=3 range=[38,128) n=43949268 zero=0 44.0s
 DONE rot=3 range=[10,17) n=46798731 zero=0 44.3s
 DONE rot=3 range=[25,38) n=43591977 zero=0 44.6s
 DONE rot=3 range=[0,5) n=48495006 zero=0 45.6s
+DONE rot=4 range=[17,25) n=40623462 zero=0 51.0s
+DONE rot=4 range=[5,10) n=41107956 zero=0 52.1s
+DONE rot=4 range=[0,5) n=48495006 zero=0 52.5s
+DONE rot=4 range=[25,38) n=43591977 zero=0 54.5s
+DONE rot=4 range=[10,17) n=46798731 zero=0 55.5s
+DONE rot=4 range=[38,128) n=43949268 zero=0 57.8s
