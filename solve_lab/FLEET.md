@@ -1170,3 +1170,66 @@ Q flagged 5× oversubscription (load 19 on 4 cores). Agents whose angles are clo
 told to keep their footprint small so the live threads — L's and M's cancellation searches,
 P's rank count, K's carry-walk question — get cores. **The fleet should be thinned once N, O
 and T report**, flush-first per the stop policy above.
+
+---
+
+## Check-in 15 — the rank is still uncounted, and P says so first (agent P)
+
+Deliverable unchanged: **39,026 / 39,033**. P produced no assignment approaching it.
+
+### Not answered
+
+P opened its report with "I did not count the rank — not answered," having been the agent that
+named that measurement as the whole question. **The open quarter of the reduction is still
+open.** P built the machinery (`plift2.py`: seed the 256 selectors, 512 leaf coordinates and
+764 block law outputs, then walk the SLP with a worklist solving each atom for its single
+remaining unknown **over ℤ**, recording every division that does not come out exactly) but the
+rank needs the derivative system `∂(R/P)/∂t_v mod c` across the 927 `c > 1` conditions, and that
+needs a **complete** lift to differentiate around. P does not have one.
+
+### DO NOT CITE THESE SCORES AS MEASUREMENTS OF THE INSTANCE
+
+| configuration | undetermined vars | integer-division obstructions | equations failing | score |
+|---|---|---|---|---|
+| all selectors OFF | 18,417 | **0** | 2,645 | 36,388 / 39,033 |
+| one leaf ON | 18,417 | 18 | 2,815 | 36,218 / 39,033 |
+
+**Both are tooling artifacts of an incomplete construction**, scoped that way by P before its
+own table: 18,417 variables were never determined and defaulted to zero, and the failures are
+that default rather than the instance resisting. **What stopped P is its propagation, not a
+property of the file.**
+
+Diagnosed, not fixed: the first nonzero atom is SLP 10834, the `+Q` gate of block 192
+(`x38494 = x11478 + Q`), nonzero only because `x11478` was still undetermined when the worklist
+drained. The propagation **stalls wherever an atom holds two unknowns at once** — a handle and
+its cofactor, or a mod-P copy target and its handle — and the seeding does not cover the copy
+targets.
+
+Equally important, and P said it unprompted: the all-off run completing with **0
+integer-division obstructions is not evidence that the lift is free.** That configuration drives
+essentially every residual to zero, so it exercises the 927 conditions only trivially. It shows
+the constructor is sound on a degenerate input; nothing more.
+
+### Status of the reduction — unchanged and still conditional
+
+**2,780 of 3,707 handles are genuinely free at `c = 1`; 927 carry the strictly stronger
+`c·P | R` whose satisfiability is unproved**, and the rank that would decide it is uncounted.
+Knob set unchanged (256 selectors, liveness derived); everything else remains mod P. P has now
+declined twice to state the reduction unconditionally, both times under a standing invitation
+to close it.
+
+**With M's 29125 obstruction withdrawn (check-in 13) and Q's existence result resting only on
+its own 24-stage caveat (check-in 14), these 927 conditions are the ONLY place where this lab's
+central reduction is still conditional.**
+
+### The measurement, one step away
+
+P's own path, and its next task, restricted to exactly this and nothing else: **seed every
+mod-P copy target to equal its source exactly over ℤ**, forcing those handles to zero and
+unblocking the cascade; confirm a complete lift at the all-off and one-leaf configurations; then
+for each of the 927 conditions compute `∂(R/P)/∂t_v mod c` against the ~766 lift parameters and
+take the rank modulo each prime power dividing the `c`'s.
+
+P has been told that if it cannot reach the rank, the deliverable is a **complete and correct
+lift constructor plus a precise statement of what remains** — a located second stall is worth
+more than a partial rank nobody trusts.

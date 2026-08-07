@@ -474,3 +474,48 @@ Their partial logs (`eqsolve2.log`, `rfenum2.log`) are kept; the raw block-latti
 `eq29125.py` (single-row gcd test, 3 knob sets) · `eqsub.py` -> `eqsub.pkl`, `eqsub.log`
 (127-subset window-free sweep). Nothing above 39,026 produced. No other agent's directory was
 touched; no git commands were run.
+
+---
+
+# LOG_M ROUND 4 — x_7068 identified; alternative placements priced
+
+## 31. x_7068 is a definer that is NOT a handle — collateral, not a fifth corruption
+Agent P reports the deliverable corrupts four handle variables `x642, x28730, x29854, x31864`,
+exactly the four of 3,707 handles for which `P` does not divide the value. Those are four of my
+five freed definer variables. **`x_7068` is the odd one out.** Four independent lines say it is
+*collateral damage from `x_642`*, not an independent corruption:
+
+**(a) Definer FORM differs.** The four corrupted handles are defined by a product, or bare:
+
+    x_642    <- x_642   - x_28599 * x_17325       x_29854  <- x_29854 - x_22665 * x_1329
+    x_28730  <- x_28730 - x_17499 * x_9413        x_31864  <- x_31864          (bare)
+    x_7068   <- x_7068  - x_2099 - 7376877 * x_642        <-- LINEAR COMBINATION
+
+`x_7068` is the only one defined by a linear combination, and that combination **references the
+corrupted handle `x_642`**.
+
+**(b) MAGNITUDE is normal.** `x_7068` is **90 digits**, the same scale as `x_2099` (89 digits),
+the other term of its own definer. The large corrupted handles are 723-724 digits.
+
+**(c) Its atom is dominated entirely by the x_642 term.**
+
+    atom 23616                                  : 730 digits
+    the x_642 term alone, -7376877 * x_642      : 730 digits
+    atom 23616 + 7376877*x_642  ( = x_7068 - x_2099 ) :  89 digits
+
+So atom 23616 is nonzero **because `x_642` is corrupted**, not because `x_7068` is.
+
+**(d) The deliverable did not move x_7068 to compensate.** For atom 23616 to be satisfied given
+the corrupted `x_642`, `x_7068` would have to be **730 digits**. It is **90**. The deliverable
+left `x_7068` at its natural value and let the atom carry the corruption.
+
+**Conclusion: the deliverable corrupts exactly FOUR handles.** My five freed variables are those
+four plus one collateral combiner. `P` does not divide `x_7068` either — but that is automatic for
+any linear combination containing a corrupted term, and `x_7068` is not product-defined, so it
+would not sit in a handle population built from product definers. That P found exactly four
+failures among 3,707 handles is **consistent with `x_7068` not being in that population at all**,
+which is what its definer form independently says. Two decompositions sharing no data agree on the
+same four variables, and the fifth is explained.
+
+(Stated as structure I can verify in my own frame; I cannot read P's handle list and am not
+asserting how P's population was built.)

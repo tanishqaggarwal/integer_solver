@@ -5,3 +5,4 @@ k=4 sets=338520 done=0 todo=338520 audit_rate=0.002
 8000/338520  0.0350s/set  eta 193.0 min  signatures=7 audits=15/0 bad  best=39026
 10000/338520  0.0337s/set  eta 184.7 min  signatures=7 audits=17/0 bad  best=39026
 12000/338520  0.0329s/set  eta 179.2 min  signatures=7 audits=20/0 bad  best=39026
+14000/338520  0.0340s/set  eta 183.9 min  signatures=7 audits=24/0 bad  best=39026
