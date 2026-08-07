@@ -217,3 +217,61 @@ one property.
 
 **Limits at check-in 3:** 4 cores, load 17.3, 10 GB memory free, 29 GB disk, solve_lab 511 MB.
 No limit near. Framing purge audited clean across all ten agent directories.
+
+---
+
+## THE INSTANCE, DECODED — read this before anything else
+
+Agent F (`agentF_work/tree96.json`, `stage_law2.py`): **`EQUATIONS.txt` is a 96-stage binary
+combination tree of depth 6 over 256 leaf constants.** A gate fires only when *both* its inputs
+are live; with one live input the value passes straight through. Of the 72 stages with a full
+six-tuple of free inputs, **all 72 obey the same degree-3 law with the same universal offset
+constant — zero exceptions**, verified across every role partition and coordinate ordering with
+two independent random draws required to agree. The remaining 24 are leaf-adjacent (one input
+is a literal). One stage was decoded explicitly and its demanded output matched digit for digit.
+
+**The task is: choose a subset of the 256 leaves whose fold through the fixed tree hits the
+target at the root.** The space is exponential, not quadratic.
+
+### The reversal that produced this
+
+The campaign had converged on a floor of 7 from six directions with an infeasibility result
+forming. F then **withdrew its own infeasibility argument**: its rigidity engine derived no
+contradiction on same-tree selector pairs: instead an adder stopped being forced. That is an
+accumulator, not a conflict. Had F defended the claim, this lab would have closed on a false
+result and nobody would have looked for the tree.
+
+**The standing caveat (agent E, written into `agentE_work/RESUME_E.md`)** — three independent
+sightings in three frames: **the mod-p content of a row is not a property of the row; it is a
+property of which selectors are on.** Coefficients, coprimality *and* the target residues all
+move with configuration. Therefore **every mod-p rigidity / pinning / "coefficient divisible by
+p" argument in this lab is conditional on a selector configuration that was not stated when the
+argument was made**, and must be re-quoted with its configuration or it is not a claim about
+the instance. This applies to results throughout `NOTEBOOK.md` and to several in this file.
+
+### What still stands unconditionally
+
+- **ker(M) = 0** — rank 39,033 on the 39,033 × 39,033 incidence matrix, by three independent
+  computations (peeling certificate over ℤ, re-verifiable from M on disk; Wiedemann at two
+  distinct word primes). So all-atoms-zero is an *equivalence*: any full solution must make
+  every atom vanish. Note agents' matrices differ in atom count (F 39,033, I 40,885, A 42,267)
+  — compare decompositions before comparing kernel dimensions.
+- **The deliverable: 39,026 / 39,033**, `best/new_instance_partial_39026.json`.
+- **No infeasibility claim stands anywhere in this lab.**
+
+### Verification rule
+
+Some states carry values above Python's 4,300-digit cap, at which point **`checker.py` cannot
+parse them and raises ValueError** — a bare "checker.py says" would be false. Use
+`agentE_work/verifyE.py`, which raises only the digit cap and calls checker's own
+`load_equations` / `load_assignment` / `evaluate_all` unmodified. Verified by the coordinator.
+
+### Live tasking
+
+| Agent | Task |
+|-------|------|
+| F | Fold evaluator over `tree96.json`; **test whether the stage law inverts** — that single fact decides whether meet-in-the-middle makes the tree attackable |
+| E | Find a second independent residue class reaching (a28647, a20215) — the 41 dual-reaching knobs form exactly *one* class, and one class cannot satisfy two independent congruences |
+| H | Enumerate detach sets (1-, 2-, 3-subsets) — the last unvaried axis; carrier class, selector count, region shape and knob budget are all priced and closed |
+| G | Carry the span argument outward |
+| I | Finish the 66-pair sweep |

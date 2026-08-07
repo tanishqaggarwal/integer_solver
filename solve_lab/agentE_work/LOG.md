@@ -314,3 +314,42 @@ of them were mod-p trivial.
 — including my own LOG 14 — is conditional on a selector configuration that was not stated
 when the argument was made.**  Any such claim must be re-quoted with its configuration, or it
 is not a claim about the instance.
+
+## 19. a28647 attacked directly, across selector configurations (`a28647.py`, `runs/a28647.log`)
+Union cone of a28647 and a20215: 279 free vars (23 non-boolean).  Every knob probed the right
+way — affine knobs at +1, boolean knobs by actual re-propagation 0<->1 — at eight configurations.
+
+| configuration | knobs coprime to p on a28647 | on a20215 | **on BOTH** | R(28647) mod p | R(20215) mod p |
+|---|---|---|---|---|---|
+| cfg0 baseline (x_1530,x_1603) | 44 (3 non-bool) | 221 (2) | **41** | 4415967963901914655798... | 2298162469059132414378... |
+| cfg1 +x_490 (b) | 44 | 221 | **41** | same | same |
+| cfg2 +x_2081 (b) | 44 | 221 | **41** | same | same |
+| cfg3 +x_47 (a) | 44 | **3** | **0** | same | 4485954476383247523192... |
+| cfg4 +x_22106 (a) | 44 | **3** | **0** | same | 4485954476383247523192... |
+| cfg5 only x_1603 | 45 | 222 | **42** | same | 2298162469059132414378... |
+| cfg6 only x_1530 | 45 | 222 | **42** | same | 2298162469059132414378... |
+| cfg7 no selectors | 39 | 38 | **37** | 3620093926912845458607... | 4485954476383247523192... |
+
+**a28647 is NOT mod-p sealed at any configuration** (44-45 coprime knobs everywhere), and at
+five of eight configurations 41-42 knobs reach BOTH blocking rows with content coprime to p.
+Activating an a-tree bit collapses a20215's reachability 221 -> 3 and the joint set to zero;
+activating a b-tree bit changes nothing.  **Both the knobs and the TARGETS move with
+configuration**: R(20215) mod p takes two different values and R(28647) mod p two, depending
+only on which selectors are on.
+
+## 20. Why the 41 dual knobs still cannot close it — a RANK statement, not a size one
+All 41 dual-reaching knobs are boolean, and their residue pairs `(delta mod p on a28647,
+delta mod p on a20215)` fall into **exactly ONE class** — 41 knobs, one pair
+`(1078333488674255034516604480774434..., 9285532409148870375501409861999762...)`.
+So a subset of size n shifts the pair by `(n*A, n*B) mod p`, and closing both rows needs
+  n = 3923821068680909952233357189280324237932747920431559916116782926888214598395  (mod p)
+  n = 101108319720394122322776115727804160327749809720865796405265564477795935003136 (mod p)
+simultaneously.  **These are unequal.**  This is not "n is too large": ONE residue class cannot
+satisfy TWO independent congruences however many members it has.  Closing the pair requires at
+least two independent residue classes reaching it; at every configuration measured there is
+exactly one.  Stated with its configuration, per LOG 18.
+
+The single-class structure is itself informative: 41 distinct boolean leaves all entering the
+two rows with the *same* residue pair is the signature of a whole subtree contributing through
+one channel — consistent with a28647 sitting at a stage boundary rather than being an
+arbitrary row.  (Not verified against a six-tuple gate decomposition; that is the open thread.)

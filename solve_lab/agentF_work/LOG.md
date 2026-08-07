@@ -344,3 +344,31 @@ DAG, and the handles absorb every quotient (sections 5, 6, 11, 15).
 **The task is therefore: choose a subset S of the 256 leaves so that folding the fixed tree gives the
 target.  The reachable set is exponential in |S|.  Every enumeration in this campaign, mine included,
 covered only depth-0 configurations.**
+
+## 26. **THE LAW IS INVERTIBLE — YES.**  Meet-in-the-middle is available.
+200/200 random triples, both directions, exact:
+    given (input A, output O) -> input B :  l = (o_y + a_y)/(a_x - o_x);  b_x = l^2 - a_x - o_x - K;
+                                            b_y = a_y + l*(b_x - a_x)
+    given (input B, output O) -> input A :  l = (o_y + b_y)/(b_x - o_x);  a_x = l^2 - b_x - o_x - K;
+                                            a_y = b_y + l*(a_x - b_x)
+Each inversion is O(1) (one modular inverse).  So the target can be pushed DOWN the tree from the root as
+easily as leaf values are pushed up, and a meet-in-the-middle over the root's two input slots replaces a
+flat search: enumerate ON-subsets of one slot's leaf support forward, invert the target through the other
+slot, and match in a hash table.  Because the inversion is exact and O(1) at EVERY stage, the same trick
+applies at internal nodes, so the meeting point can be pushed deeper than the root.
+**This single fact is what makes the tree attackable rather than merely understood.**
+
+## 27. The 24 leaf-adjacent stages
+17 have a six-tuple of 4 free inputs and 7 have only 2, with boolean support 0.  Their missing inputs are
+hard-wired literals inside the circuit (the checked wires unfold to `(C1*u + C2*v)` forms over constants),
+so those stages take one or two constant inputs rather than a live subtree.  They must be resolved before
+the fold evaluator is complete; the unfolding is mechanical from the definition DAG.
+
+## 28. What is NOT done (state honestly)
+The **fold evaluator is not built and therefore not validated**, and no subset search was run.  What exists
+is: the 96-stage tree (`tree96.json`), the uniform law and its universal constant, exact invertibility,
+and the per-stage role assignments (`stage_roles.json`, produced by `stage_law2.py`).  The missing piece is
+the WIRING: each stage input is a gated multiplexer (a sum of selector*value terms, as in
+`x11317 := x11532 + x14681`), so the map "which stage output feeds which stage input slot" still has to be
+read off the definition DAG.  Until that is done and the evaluator reproduces a known state, **no search
+result from it should be believed.**

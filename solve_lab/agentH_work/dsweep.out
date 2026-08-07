@@ -1837,3 +1837,1077 @@ CAL score=39026 deficit=4 rank=7
    40/65 695s
   *** WIN D=[28961, 28969] deficit=4 rank=8 score=39020
   *** WIN D=[28961, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[28961, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[28969, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[29084, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[29155, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[29854, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[30095, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[30108, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[30754, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[30763, 37720] deficit=4 rank=8 score=39020
+   50/65 739s
+  *** WIN D=[31731, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[31731, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[31864, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[33347, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[33347, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[33347, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[33347, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[33347, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[33347, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[33347, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[33347, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[33347, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[33347, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[33347, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[33989, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[33989, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[33989, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[33989, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[33989, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[33989, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[33989, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[33989, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[33989, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[33989, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[34660, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[34660, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[34660, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[34660, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[34660, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[34660, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[34660, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[34660, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[34660, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[34952, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[34952, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[34952, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[34952, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[34952, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[34952, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[34952, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[34952, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[35619, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[35619, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[35619, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[35619, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[35619, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[35619, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[35619, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[36136, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[36136, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[36136, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[36136, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[36136, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[36136, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[36473, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[36473, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[36473, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[36473, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[36473, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[37158, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[37158, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[37158, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[37158, 37720] deficit=4 rank=8 score=39020
+   60/65 760s
+  *** WIN D=[37254, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[37254, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[37254, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[37280, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[37280, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[37413, 37720] deficit=4 rank=8 score=39020
+  pairs done 761s
+--- PRUNED triples: extensions of the best 40 pairs by (deficit-rank), plus all 3-subsets of the witness set ---
+  triples to test: 1744 of C(65,3)=43680  (4.0% coverage)
+  *** WIN D=[642, 986, 2099] deficit=4 rank=8 score=39020
+   0/1744 761s
+  *** WIN D=[642, 986, 2239] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 3177] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 4339] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 5282] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 5370] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 6247] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 7075] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 7945] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 8173] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 9062] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 986, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 2239] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 3177] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 4339] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 5282] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 5370] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 6247] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 7075] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 7945] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 8173] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 9062] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2099, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 3177] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 4339] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 5282] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 5370] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 6247] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 7075] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 7945] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 8173] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 9062] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 2239, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 4339] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 5282] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 5370] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 6247] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 7075] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 7945] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 8173] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 9062] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 3177, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 5282] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 5370] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 6247] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 7075] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 7945] deficit=4 rank=8 score=39020
+   250/1744 827s
+  *** WIN D=[642, 4339, 8173] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 9062] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 4339, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 5370] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 6247] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 7075] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 7945] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 8173] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 9062] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5282, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 6247] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 7075] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 7945] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 8173] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 9062] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 5370, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 7075] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 7945] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 8173] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 9062] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 6247, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 7945] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 8173] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 9062] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 23822] deficit=4 rank=8 score=39020
+   500/1744 907s
+  *** WIN D=[642, 7075, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7075, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 8173] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 9062] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 7945, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 9062] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 8173, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 9106] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9062, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 9325] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9106, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 9629] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 18822] deficit=4 rank=8 score=39020
+   750/1744 974s
+  *** WIN D=[642, 9325, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 33347] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 33989] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 34660] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 34952] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 35619] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 36136] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 36473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 37158] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 37254] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 37280] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 37413] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9325, 37720] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 11985] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 13502] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 14466] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 15963] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 16495] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 16543] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 17499] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 18253] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 18822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 19892] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 19964] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 20434] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 20473] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 20492] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 21279] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 22665] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 23642] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 23754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 23822] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 24425] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 24490] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 25297] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 26064] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 26874] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 28599] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 28961] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 28969] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 29084] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 29155] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 29854] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 30095] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 30108] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 30754] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 30763] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 31731] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 31864] deficit=4 rank=8 score=39020
+  *** WIN D=[642, 9629, 33347] deficit=4 rank=8 score=39020

@@ -159,3 +159,22 @@ a28647 (`x_36433 - (x_36990 + x_19239)`) is the single invariant blocker across 
 composition tried.  Attack it alone: enumerate ALL knobs reaching it — affine AND boolean, at
 several selector configurations, since 17 shows the answer is configuration-dependent — and
 ask for one whose delta is coprime to p at a configuration where a20215 is also reachable.
+
+## a28647: ATTACKED (LOG 19-20).  Not mod-p sealed; blocked by RANK, not by size.
+44-45 knobs reach a28647 with delta coprime to p at EVERY configuration tried, and 41-42 reach
+both a28647 and a20215 at five of eight.  So "a28647 is mod-p sealed" would be false.
+What blocks: all 41 dual knobs are boolean and share **exactly one** residue pair mod p, so a
+subset of size n shifts both rows by (n*A, n*B) and the two required n's are unequal mod p.
+One residue class cannot meet two independent congruences at any size.
+**Also measured: the TARGETS move with configuration too** — R(20215) mod p takes two distinct
+values and R(28647) mod p two, depending only on which selectors are on.  Reinforces the
+standing caveat: no mod-p statement here is meaningful without its selector configuration.
+
+## NEXT (single highest value)
+Find a SECOND independent residue class reaching (a28647, a20215).  Candidates: configurations
+not yet swept (a-tree collapses a20215 to 3 knobs, so sweep *pairs* of b-tree selectors, and
+deeper selector sets); and the 23 non-boolean knobs in the union cone, of which only 2-3 are
+coprime — check whether any becomes coprime under a different configuration.  A second class
+turns the two congruences into a solvable 2x2 system.
+Structural thread not yet run: test whether a28647's variables form a gate six-tuple, i.e.
+whether the 41 same-residue leaves are one subtree entering through one channel.

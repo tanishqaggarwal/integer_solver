@@ -23,6 +23,7 @@ for a in E.res:
     m = re.match(r'^\(\(x(\d+)\*x(\d+)\)-\((\d+)\*x(\d+)\)\)$', a)
     if m: gates[int(m.group(1))].append(int(m.group(2))); continue
 stages = {g: v for g, v in gates.items() if len(v) >= 3}
+ROLES = {}
 
 
 def probe(ws, assign):
@@ -78,7 +79,11 @@ def analyse(g, rnd, trials=2):
                 per_trial.append(found)
             if not ok or not per_trial: continue
             common = set.intersection(*per_trial) if len(per_trial) > 1 else per_trial[0]
-            for tup in common: hits[tup[4]] += 1
+            for tup in common:
+                hits[tup[4]] += 1
+                ROLES.setdefault(g, []).append(dict(out=[six[i] for i in out], inA=[six[i] for i in inA],
+                                                    inB=[six[i] for i in inB], oswap=tup[0], asw=tup[1],
+                                                    bsw=tup[2], a_first=bool(tup[3]), K=str(tup[4])))
     return ('ok', hits)
 
 
@@ -100,4 +105,6 @@ if __name__ == '__main__':
     print('  offset different from K               : %d  %s' % (sum(other.values()), [str(k)[:30] for k in other][:4]))
     print('  no consistent law found               : %d  %s' % (len(none), none[:10]))
     print('stages skipped (fewer than 6 free ins)  : %d' % len(skipped))
+    json.dump({str(k): v for k, v in ROLES.items()}, open(os.path.join(HERE, 'stage_roles.json'), 'w'))
+    print('wrote stage_roles.json for %d stages' % len(ROLES))
     print('elapsed %.0fs' % (time.time() - t0))
