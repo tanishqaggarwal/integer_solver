@@ -993,3 +993,120 @@ all**, checker-verified 39,026 with the identical failing set.  **Two routes to 
 * My `S^4` code note turned out to be load-bearing, not cosmetic: `optN.inner` did return `S^2`.
   N measured the blast radius before reporting — exactly two non-affine rows in any model, zero
   after stripping — which is now **rule 8** in LEDGER.md.
+
+=============================================================================================
+# THIRTEENTH PASS — the two-wire shift, and it CLEARS   [coordinator check-in 86]
+
+## AR. ENVIRONMENT: the restart wiped every `*.pkl`, and I rebuilt them INSIDE my own directory
+`.gitignore` has a global `*.pkl`, so the fresh checkout has **no** `agentF_work/circ4.pkl`,
+`sched.pkl`, or any of L's `handles/full_model/calib2/slopes/ors/ortree2`.  Nothing in the L or F
+chain runs.  Rather than write into another agent's directory I copied `agentF_work` and
+`agentL_work` to `agentT_work/mirror/{F,L}`, rewrote the hardcoded absolute paths, and regenerated
+the chain there (`t_rebuild.sh`, `t_rebuild2.sh`):
+`circ4 -> sched -> global(ors) -> ortree2 -> handles2 -> buildall -> calib2 -> slopes`.
+**The mirror reproduces L's own published census exactly** — 3,681 handle atoms of 9,032, slope/p
+histogram `2,747 with c==1 + 7 zero-slope` (= my §N reconciliation), 383 OR nodes, 384 leaves /
+256 live / 128 dead, 254 selector nodes, 256 pins with 0 bad — and it reloads `close_T8.json` to
+**the same 3 nonzero atoms, checker-verified 39,002 / 31 failing**, matching my eleventh pass.
+So the mirror is faithful and nothing outside `agentT_work/` was written.
+
+## AS. **A PAIR CLEARS IT.  `|S| = 8` CLOSES.**  (`t_pair.py`, `t_close2w.py`, `t_pairb.py`)
+Exhaustive over all 15 pairs of the 6 wires `influences()` admits.  For each pair: an exact 2-D
+Newton forward-difference fit of `R(t_w,t_v)/p` on a 6x6 grid, **validated against direct
+recomputation at 5 random points before use (15/15 pairs OK, 0 mismatches)**, then **exhaustive**
+root enumeration mod each prime of `c = 3*7*19*83*463`.
+```
+   5 of 15 pairs : NO bivariate root  (empty mod 3, or mod 7)
+  10 of 15 pairs : roots exist, 8.7e6 - 1.6e7 solutions mod c
+  first verified candidate on the first pair (x2498, x7421):  global nonzero 3 -> 2, ZERO collateral
+```
+`close_T8pair.json` -> **`checker.py`: satisfied 39018/39033**, failing
+`[4573,7123,7469,9648,11854,16622,17726,21382,25539,28653,29437,31061,32894,32916,34517]` —
+**the identical 15-equation set as `|S|` = 1, 2, 3, 5, 6, 7.**
+In F's certified-faithful parse: **exactly 2 nonzero atoms**, the two target congruences, and their
+**equation footprint == checker's failing set exactly** (nothing unexplained).
+Reproduced **end to end from cold** by `t_close2w.py` (closeS4 + a two-wire pass that fires when
+the single-wire pass stalls) on the same nested chain, **66 s**, same 39,018.
+
+> **`|S| = 8` is not a boundary.  My eleventh-pass headline — "closure is a small-`|S|` phenomenon,
+> the boundary lies between 5 and 8" — is WITHDRAWN.**  The failure was a granularity artifact of
+> `closeS4`, which only ever moves one wire.  My own §AK1 caveat ("it is *this solver did not close
+> it*, not *it cannot be closed*") is what turned out to be load-bearing.
+The winning pair carries a genuine `t_w*t_v` cross term, so the residue really was of **L's
+bivariate shape** — the prediction in §AO was right and the mechanism is confirmed, not just the
+outcome.
+
+## AT. **AND `|S| = 17` CLOSES TOO** — the campaign's decisive open case, answered
+(`t_block17.py`, `t_joint17.py`, `t_close2wj.py`)
+Two-wire alone was **not** enough at 17: it ends at 3 nonzero atoms, residue
+`((x10261-x8912)-(13040669*x27539))`, `c = 19*199*3449`.  That atom admits only **2** wires, so it
+has **exactly one pair** — the two-wire space is **exhausted, not sampled**.  Interrogating it:
+```
+   398 of 400 sampled bivariate roots CLEAR it by direct recomputation
+   every single one breaks the SAME two atoms  ->  global 3 -> 4, one collateral pattern only
+      ((x30973*x25513)-(1707229*x4242))     c = 43*39703
+      ((x38170*x15286)-(2264251*x9216))     c = 11*43*4787
+```
+**That is the shared-wire simultaneity, and the collateral is now named.**  (Note the contrast with
+`|S|=8`, where the first verified root cleared with zero collateral — §AO's "two phenomena, not
+one" survives, sharpened.)  So solve the **three conditions jointly on that one pair**, exhaustively
+per prime power (`t_w` swept over all of `[0, q^e)`, `t_v` root-found, sets intersected):
+```
+   mod 11 : 33   mod 19 : 19   mod 43 : 3   mod 199 : 199
+   mod 3449 : 3449   mod 4787 : 14361   mod 39703 : 39703      -> 7.4e17 joint solutions
+   first CRT combination tested:  verified on all three atoms, global 3 -> 2
+```
+`close_T17j.json` -> **`checker.py`: satisfied 39018/39033**, **the identical 15-equation failing
+set**; F's parse: **exactly the 2 target congruences**, footprint == failing set.
+Generalised into a method (`t_close2wj.py`: when a two-wire root is rejected by the global guard,
+fold the atoms it broke into the group and re-solve the pair) it **rediscovers the collateral by
+itself and closes `|S|=17` from cold in 134 s** — `close_T17g.json`, checker-verified 39,018.
+
+> **The integer lift closes at `|S| = 17`.  All 927 `c>1` conditions discharged, verified at
+> instance level.  "The decisive experiment remains `|S| = 17`" (my §Z) is answered: YES.**
+> L's bivariate residue — ledger §4 item 1, the campaign's last named open obstruction on this
+> line — **is discharged.**
+
+## AU. `|S| = 32`: the 927 still close, and a **different** class of obstruction appears
+`t_close2wj.py` at `|S|=32` (`t_resid32.py`, `t_handleless.py`).  Two joint two-wire solves (groups
+of size 2 and 3) discharge every `c>1` condition.  What survives is **not a divisibility condition
+at all**:
+```
+   (x23514-(x6677*x23504))     NO handle   residual % p == 0   1 admitted wire (x34218)
+   (x3178-(x13720*x21170))     NO handle   residual % p == 0   1 admitted wire (x19965)
+```
+Atoms with **no handle** cannot absorb anything and must be **exactly zero over Z**; `closeS4`'s
+whole condition machinery is indexed by `SL` (i.e. by handle), so it **never sees them**.  They are
+nonzero **from the constructor**, before any shifting — at `|S|` = 8 and 17 there were none.
+Measured: on its single wire each has `R(t)` **linear** with an **exact integer root**, verified by
+direct recomputation (`R = 0` exactly, e.g. `x34218 += p*322948684674`).  With a handle-less pass
+added, one is zeroed and the other's root is refused by the global guard — it needs the same joint
+treatment, now mixing an exact-integer condition with divisibility conditions.
+```
+   close_T32g.json  4 nonzero atoms  checker 38,996 / 37 failing
+   close_T32h.json  3 nonzero atoms  checker 39,005 / 28 failing   (footprint == failing, both)
+```
+> **At `|S|=32` the 927 integer conditions still close.  What is left is one handle-less atom — a
+> solver-coverage gap, not a demonstrated obstruction.**  This is the new frontier and it should be
+> described in exactly those terms.
+
+### AU1. Correction to my own §AN/§AO write-up
+I reported the `|S|=8` state as carrying one surviving condition.  The state carries **three**
+violated `c`-conditions; two of them are the intended **target** congruences on `x24468` / `x18956`,
+which are nonzero in every closing run as well.  `t_leaf.py` did loop over all three, so the
+measurement was right and the conclusion is untouched — the prose named only one.
+
+## AV. NEW FILES (thirteenth pass)
+`mirror/` (private rebuilt F+L caches) + `t_rebuild.sh` `t_rebuild2.sh` `t_rebuild*.log` ·
+`t_poly.py` (modular root-finding, 300/300 self-test vs brute force) ·
+`t_pair.py` + `t_pair.log` + `t_pair_roots.json` (**the 15-pair exhaustive root census**) ·
+`t_pairb.py` (F-parse verification of any dumped state) ·
+`t_close2w.py` (closeS4 + two-wire pass) -> `close_T8w.json`, `close_T17w.json` ·
+`t_block17.py` (names the `|S|=17` collateral) · `t_joint17.py` (**the joint solve**) ->
+`close_T17j.json` · `t_close2wj.py` (the general closer: joint two-wire + handle-less pass) ->
+`close_T17g.json`, `close_T32g.json`, `close_T32h.json` · `t_resid32.py`, `t_handleless.py`.
+Checker-verified artifacts this pass: `close_T8pair` 39,018 · `close_T8w` 39,018 ·
+`close_T17w` 39,003 · `close_T17j` 39,018 · `close_T17g` 39,018 · `close_T32g` 38,996 ·
+`close_T32h` 39,005.
+Reproduce the headline: `cd solve_lab/agentT_work && python3 t_close2wj.py MY17 17` then
+`python3 ../checker.py close_MY17.json`.

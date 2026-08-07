@@ -4911,3 +4911,77 @@ equations, not atoms; dump the assignment and run the checker; and **never ident
 command-line matching** — that has caused three failures here, one of them a fabricated measurement.
 
 **Live: M, N, T, U, V, W. Closed: P, R, S, K, Q, L, O.**
+
+---
+
+## Check-in 87 — THE PARTITION THEOREM HOLDS, exhaustively (agent U)
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified by U at the start and end of its session.
+
+### The result
+
+**`maskval(S) < N` for all 510 proper slot supports**, the largest being **0.798718631·N**. Since
+`Σ_A ≤ maskval(I)`, **`±N` is unreachable at every gadget, both signs, over every `A ⊆ I` and
+`B ⊆ J`.** **No search — exhaustive.** Independently checked by a **14,052,776-pair brute force** on
+the 240 sibling pairs with `|I|+|J| ≤ 22`, aimed at **the bound argument itself** rather than the
+conclusion.
+
+> **The degeneracy is unreachable by configuration. The "two equal live inputs ⇒ unconstrained
+> output ⇒ trivial full solve" route is CLOSED**, and closed exhaustively rather than by search.
+
+**The tree-free form is what makes it durable:** *no proper support has `maskval ≥ N`* — independent
+of U's tree recovery, so it survives any later dispute about node structure.
+
+### An independent decode, and two agreements that cost nothing to check
+
+U built a complete decode from `EQUATIONS.txt` with **its own recursive-descent parser** — 37,936
+maximal atoms in 20 shapes, 512 leaf pins over exactly 256 selectors, `p` from `x26064` — and
+**recovered the curve algebraically rather than taking it**: fitting `y² = (x+s)³ + b` returns
+`3·shift mod p` **without reading anyone's constant**. 256/256 leaves on the cubic, 255/256 doublings
+closing the chain, `N·G = O`, `leaf(e) = 2^e·G` for all 256.
+
+**U's `sel2exp` is byte-identical to Q's** — two parsers sharing no code agreeing bit-for-bit on the
+leaf-to-exponent map. Selector-support closure over all 38,748 wires gives **exactly 511 distinct
+supports, 0 laminarity violations, 255 binary internal nodes, root split 178/78**, with the A-half
+omitting **43** exponents ≥129 and the B-half **84** — **K's two measured partition facts,
+reproduced by a parser sharing no code or file with K.** Those were precisely the facts K flagged as
+the thing to attack. L's 383-node model maps to a **set-equal** family; the 383-vs-255 gap is exactly
+**128 pass-through nodes with one empty slot**.
+
+### K sharpened, not merely confirmed
+
+K's "neither slot contains all of `{129..255}`" is **sound but NOT tight** —
+`maskval({129..255}) = 0.9978·N < N`, so containment is **necessary, not sufficient**. And the
+identity-fold hole closes more cleanly than K had it: **`Σ_S = N` over distinct powers of two forces
+`S = supp(N)` exactly**, and no proper support contains it.
+
+### U's own bug, and K's promised sweep
+
+**U caught a bug in its own parser** — nested `−` nodes read as copy identities, union-finding
+`ua`/`ub`/`u3` together — **found by cross-checking against Q when 0/383 slot pairs came back
+disjoint**, and **measured the blast radius before reporting**: the corrected parse gives the same
+511-set family and the same 178/78 split.
+
+**K's promised sweep is completed.** `k13_root.py`, `k17_validate.py`, `k24_allon.py` and
+`k7_order.py` run unguarded closures and are **absent from K's audit table** — including
+`k24_allon.py`, the script that settles the side of leaf exponent 163 and therefore **makes** the
+178/78 split K's own table calls safe. **Blast radius measured: zero** — U's split comes from the
+definition DAG with no closure at all, and L agrees. U did not rebuild K's B-half guard, per K's
+explicit header and because Q settled it closure-free; recorded as a decision, not an omission.
+
+### End-to-end validation — and the axis nobody has priced
+
+Driving U's decode on the deliverable: **exactly 1 of 383 stages has non-zero inputs, its two inputs
+coincide, and the value is `2^72·G`.** **Both ON leaves carry their honest pin constants** — so
+**the deliverable's 7-equation lie is a cross-half ROUTE, not a leaf-pin violation.**
+
+> **M's placement enumeration is indexed by handle subsets, not by slot. Nobody has priced this
+> axis.**
+
+**U re-tasked:** enumerate all 383 slots and price, **in equations with an exact scorer and
+re-propagation — never incidence**, the cheapest assignment forcing each slot's two inputs to
+coincide. **Interior slots have far smaller supports than the root and have never been priced this
+way.** Below 7 at any slot is **terminal for the campaign**; at or above 7 everywhere, **the
+deliverable's 7 stops being an exhaustion and becomes a mechanism** — the first time that number
+would have an explanation rather than a measurement behind it. Price per slot to be reported, not
+just the minimum, with exact and bounded slots distinguished.
