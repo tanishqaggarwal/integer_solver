@@ -2,3 +2,7 @@ support 17 unknowns ; affine rows 68 ; higher-degree 22
 distinct directions 19 ; multiplicity histogram {1: 15, 16: 1, 11: 1, 13: 2}
 directions with multiplicity <= 6 : 15
 baseline (T = {}): total 0 + 20
+
+admissible relaxations tested: 3605 (decided 3306, undecided 299) in 120s
+BEST TOTAL over this support: 17  with T = [133, 8073]
+undecided (>=3 effective parameters): 299, e.g. [56, 133, 2554, 6816, 8073]

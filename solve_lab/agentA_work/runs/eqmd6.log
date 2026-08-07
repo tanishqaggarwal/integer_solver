@@ -6,3 +6,4 @@ zero columns of H (weight-1 codewords): 0
   RIGOROUS: no <= 3 dependent columns -> minimum support weight >= 4
   greedy-ISD trial 1: support weight 13 [0s]
   greedy-ISD trial 1: support weight 7 [1s]
+  greedy-ISD trial 4: support weight 6 [4s]
