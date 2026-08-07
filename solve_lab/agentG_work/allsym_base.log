@@ -1,0 +1,6 @@
+frame [] score 39013
+non-boolean free inputs: 6117
+   sym pass 0.5s skipped_nonlinear_gates=0
+symbolic checks 2029  nonzero-const 0  skipped gates 0  4.2s
+deg hist {1: 1883, 2: 141, 3: 5}
+nzc: []

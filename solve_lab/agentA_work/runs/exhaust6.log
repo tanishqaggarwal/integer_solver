@@ -1,0 +1,10 @@
+rows=30 knobs=22 currently violated=7 [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+information set size 22, OUT size 8
+  j=1 done (22 J-sets) supports so far=18 [0s]
+  j=2 done (231 J-sets) supports so far=663 [2s]
+  j=3 done (1540 J-sets) supports so far=6343 [22s]
+  j=4 done (7315 J-sets) supports so far=22663 [86s]
+  j=5 done (26334 J-sets) supports so far=37111 [156s]
+  j=6 done (74613 J-sets) supports so far=38931 [185s]
+EXHAUSTIVE: 38931 supports of size <= 6
+   size histogram: [(5, 11628), (6, 27303)]

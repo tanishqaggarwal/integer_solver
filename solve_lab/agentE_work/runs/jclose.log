@@ -1,0 +1,20 @@
+base bad [6668, 12606, 34497, 34498]
+round 0: adding 6 free vars
+  probe 0/6 2s
+  affected now 8 atoms; nonlin 0
+round 1: adding 55 free vars
+  probe 0/55 2s
+  probe 25/55 59s
+  probe 50/55 108s
+  affected now 94 atoms; nonlin 47
+round 2: adding 281 free vars
+  probe 0/281 2s
+  probe 25/281 35s
+  probe 50/281 65s
+  probe 75/281 102s
+  probe 100/281 134s
+  probe 125/281 173s
+  probe 150/281 213s
+  probe 175/281 257s
+  probe 200/281 299s
+  probe 225/281 337s

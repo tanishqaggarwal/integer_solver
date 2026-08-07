@@ -1,0 +1,17 @@
+boolean vars: 3484 blacklist: 17
+[loop_wit] status=conflict bad=23433 known=30574/38748 decisions=3870 t=42s
+   atom: X28730 - X17499 * X9413
+   cone=6 decisions_in_cone=1: [28730]
+[0] conflict a23433 decs=1 new=1 known=30574
+[loop_wit] status=conflict bad=36225 known=30977/38748 decisions=3983 t=46s
+   atom: X29854 - X22665 * X1329
+   cone=16 decisions_in_cone=5: [2081, 4287, 17925, 26777, 38672]
+[1] conflict a36225 decs=5 new=3 known=30977
+[loop_wit] status=conflict bad=36225 known=31799/38748 decisions=4231 t=44s
+   atom: X29854 - X22665 * X1329
+   cone=14 decisions_in_cone=4: [2081, 4287, 23316, 32010]
+[2] conflict a36225 decs=4 new=2 known=31799
+[loop_wit] status=conflict bad=23433 known=32124/38748 decisions=4329 t=49s
+   atom: X28730 - X17499 * X9413
+   cone=20 decisions_in_cone=5: [2081, 4287, 10250, 15324, 20492]
+[3] conflict a23433 decs=5 new=2 known=32124

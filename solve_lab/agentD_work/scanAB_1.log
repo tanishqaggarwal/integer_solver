@@ -1,0 +1,61 @@
+base score 39013 nz [19297, 19299, 30984, 36185, 40812]
+A = 42288441692606730654477992334300923363430351219005991492903082270078522512476
+B = 30198542159037429362146806524344230561752840864915142381356343449320103876465
+  0/7273  0s  interesting=1
+  500/7273  0s  interesting=315
+  1000/7273  1s  interesting=628
+  1500/7273  1s  interesting=942
+  2000/7273  1s  interesting=1244
+  2500/7273  2s  interesting=1569
+  3000/7273  2s  interesting=1909
+  3500/7273  3s  interesting=2222
+  4000/7273  3s  interesting=2536
+  4500/7273  4s  interesting=2861
+  5000/7273  4s  interesting=3177
+  5500/7273  4s  interesting=3501
+  6000/7273  5s  interesting=3802
+  6500/7273  5s  interesting=4108
+  7000/7273  6s  interesting=4422
+scan done 6s
+MOVES THAT CHANGE (A,B) AT NO COST: 0
+top movers of (A,B) by score:
+    (22162, 1, 39011, True, True)
+    (30213, 1, 39009, False, True)
+    (22152, 1, 39003, True, True)
+    (33462, 1, 39002, True, True)
+    (6418, 1, 39000, True, True)
+    (12553, 1, 38999, True, True)
+    (4279, 1, 38990, True, True)
+    (8319, 1, 38990, True, True)
+    (5148, 1, 38989, True, True)
+    (14039, 1, 38989, True, True)
+    (33824, 1, 38989, True, True)
+    (38459, 1, 38989, True, True)
+    (4940, 1, 38988, True, True)
+    (5090, 1, 38988, True, True)
+    (18184, 1, 38988, True, True)
+    (20325, 1, 38988, True, True)
+    (32092, 1, 38988, True, True)
+    (10591, 1, 38987, True, True)
+    (13526, 1, 38987, True, True)
+    (19326, 1, 38987, True, True)
+    (21392, 1, 38987, True, True)
+    (31767, 1, 38987, True, True)
+    (36293, 1, 38987, True, True)
+    (38055, 1, 38987, True, True)
+    (1695, 1, 38986, True, True)
+    (2143, 1, 38986, True, True)
+    (2527, 1, 38986, True, True)
+    (3216, 1, 38986, True, True)
+    (6825, 1, 38986, True, True)
+    (7029, 1, 38986, True, True)
+    (10513, 1, 38986, True, True)
+    (11170, 1, 38986, True, True)
+    (14928, 1, 38986, True, True)
+    (15730, 1, 38986, True, True)
+    (16411, 1, 38986, True, True)
+    (17711, 1, 38986, True, True)
+    (17899, 1, 38986, True, True)
+    (18732, 1, 38986, True, True)
+    (20356, 1, 38986, True, True)
+    (22106, 1, 38986, True, True)

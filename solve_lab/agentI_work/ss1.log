@@ -1,0 +1,11 @@
+selectors: 256
+86/172 sel X12422 nconf=0 A=None t=5s
+96/172 sel X14644 nconf=0 A=None t=46s
+106/172 sel X16586 nconf=0 A=None t=85s
+116/172 sel X17711 nconf=0 A=None t=134s
+126/172 sel X19326 nconf=0 A=None t=195s
+136/172 sel X20622 nconf=0 A=None t=255s
+146/172 sel X22106 nconf=0 A=None t=316s
+156/172 sel X22790 nconf=0 A=None t=382s
+166/172 sel X24517 nconf=0 A=None t=446s
+done 475.9418201446533

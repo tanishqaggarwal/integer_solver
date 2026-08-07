@@ -1,0 +1,9 @@
+wr_engine_w1_x7068_39020.json ecl=1 score=39020 fail=13 | atoms=70 knobs=0 eqs=80 skipped=0 rows=0 deadviol=13 inregion-viol=0
+   degenerate
+wr_engine_wr_rep1_1_39011_39021.json ecl=1 score=39021 fail=12 | atoms=70 knobs=18 eqs=77 skipped=0 rows=51 deadviol=0 inregion-viol=12
+   trials=59045 supports<=11=8244 sizes=[(6, 860), (7, 4181), (8, 2862), (10, 11), (11, 330)]
+   no improvement
+beam_39016.json ecl=1 score=39016 fail=17 | atoms=45 knobs=40 eqs=55 skipped=0 rows=48 deadviol=0 inregion-viol=17
+   trials=1230 supports<=16=0 sizes=[]
+   no improvement
+AG_39013.json ecl=1 score=39013 fail=20 | atoms=50 knobs=41 eqs=59 skipped=0 rows=57 deadviol=0 inregion-viol=20

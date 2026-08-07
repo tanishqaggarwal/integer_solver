@@ -1,0 +1,7 @@
+rows=31 knobs=22 currently violated=7 [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+rank(N)=22  inconsistent rows over Q: 0
+information set 22, OUT 9
+  j=1 supports=0 [0s]
+  j=2 supports=120 [7s]
+  j=3 supports=2360 [59s]
+  j=4 supports=13280 [206s]

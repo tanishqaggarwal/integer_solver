@@ -1,6 +1,6 @@
 """Agent B model v5: exact gate decomposition using paren-group boundaries."""
 import pickle, time, collections, sys
-from bparse3 import parse_line, poly, ast_key, strip_g, flat_pack
+from bparse3 import parse_line, poly, ast_key, strip_g, flat_pack, flat_top
 
 def flat_prod(a):
     """Recursively flatten a product (through 'g' wrappers).
@@ -67,7 +67,7 @@ class Model:
             self.eqs.append((num, [], 'const')); return
         if True:
             parts = []
-            for sg, t in flat_pack(a2):
+            for sg, t in flat_top(a2):
                 c, fs = flat_prod(t)
                 parts.append((sg*c, tuple(sorted(ast_key(f) for f in fs)), fs))
             ks = set(k for _, k, _ in parts)

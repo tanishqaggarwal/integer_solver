@@ -11,3 +11,49 @@
   free inputs -> 1,249, all p-quantised. My census is a strict superset. None in E.
 - Found four knobs the prior generator list missed: x1613, x1844, x21574, x29305
   (all with 0 atoms outside the 33-atom region).
+
+## Exact region model (the main result so far)
+Built `regsolve2.py` (strictly-linear knob selection: at most one knob per monomial, so
+the model is EXACTLY affine and no equation is dropped) + `agrow.py`/`amk_model.py`.
+
+At the 39,026 witness, region = 33 atoms / 39 eqs / 11 knobs; enlarged with a37887+a41906
+-> 35 atoms / 41 eqs / 22 knobs.  Results:
+* The full 40-row affine system is CONSISTENT over Q with rank 22 = #knobs, i.e. a UNIQUE
+  rational solution W.  W is NOT integral: exactly 5 coordinates have denominators
+  x642:2458959, x1329:p, x9413:p, x10903:p, x17325:p*2458959.
+  => full-solve of the region <=> 7376877 | (x7068-x2099), p | x9118, p | x8731, p | x28730.
+* ENLARGING the movable set does NOT help: +29426,+41972,+29090,+36085 and the targeted
+  growth (9 -> 55 knobs, 24 -> 154 atoms, 27 -> 514 eqs) all keep rank == #knobs and the
+  SAME 5 denominators.  Rows and columns grow in lockstep.  (Independently confirms the
+  prior lab's part-5 claim, by a different method.)
+* Max-satisfy: 10 of the 40 rows are identically zero in the knobs; the other 30 rows form
+  a rank-22 code.  ISD over that code (`gmax.py`) enumerated many supports of size 5 and 6;
+  EVERY size-5 and size-6 support is NOT integrally solvable (exact HNF).  So within this
+  region 7 violated equations stands. 39,026 optimal here.
+
+## Other states (regsolve2/zsolve)
+* mod9118_0 (39,009): region 76 atoms / 65 knobs / 98 eqs, rank 65, Q-consistent, only
+  TWO non-integral knobs x5040(p), x30163(p).  Decompiled: the entire residual there is
+  a21617 = c1*x14623 + c2*x27522 (mod p) and a29539 = 25692874*(x14853-x1308) (mod p),
+  with x14623 and x14853 FREE INPUTS whose cones do NOT contain x27522/x1308.
+* exp1.py: shifting those two free inputs zeroes both residues mod p but the collateral
+  is large (58 nonzero atoms, 38,975).  Handle re-solve not yet applied.
+* beam_39016 / AG_39013 / PF_39015 / wr_w1_39020: exact HNF says NO integer solution of
+  the region at level 0.
+
+## Exhaustive region optimality (the headline computation)
+`exhaust.py` — with a fixed information set, any codeword of weight <= W has >= |I|-W
+zeros inside I, so enumerating J = supp(c_I) with |J| <= W and the forced-zero subsets of
+OUT is EXHAUSTIVE.  On the 39,026 region (30 nontrivial rows, 22 knobs):
+  minimum support = 5;  11,628 supports of weight 5 and 27,303 of weight 6 (all verified
+  real over Q by `verify_sup.py`, 25/25 sampled, 0 false positives).
+Since rank(N) = 22 = #knobs and the FULL row system is Q-consistent with a unique
+non-integral solution W, an integer point violating a set D exists only if D contains a
+code support.  `exh6.py` therefore enumerates every admissible D with |D| <= 6
+(38,931 supports + 11,628*25 one-row extensions), filters by mod-p consistency and
+tests each survivor with exact HNF.  [running]
+
+## Enlarged region (54 atoms / 20 knobs / 110 eqs; x9118,x8731,x2099,x7068 all freed)
+`gmax_enl.py`: 48,068 ISD trials found **no code support of weight <= 6 at all**, so in
+the enlarged region every integer knob vector violates >= 7 rows.  The current point
+attains exactly 7.  Enlarging the movable set makes the bound STRONGER, not weaker.

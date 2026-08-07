@@ -1,30 +1,36 @@
-# Agent C — RESUME (automated reasoning angle)
+# Agent C — RESUME (automated reasoning angle).  Updated after the decompilation.
 
-## Verified baseline
-`python3 checker.py best/new_instance_partial_39026.json` -> 39026/39033. CONFIRMED.
+## Verified baseline: best/new_instance_partial_39026.json = 39026/39033 (CONFIRMED by checker).
 Installed (were absent): z3-solver, python-sat, cvc5, python-flint, ortools, sympy, numpy.
 Rebuild caches first: `cd solve_lab/s9 && python3 atomize.py && python3 poly.py && python3 gates.py && python3 fwd.py`
 
-## My independent re-derivation (much simpler than prior sessions' narrative)
-Scripts in `solve_lab/agentC_work/`: supp2.py (SCC), supp3.py (support/DAG), lib2.py (fast fwd eval,
-24 ms), ort.py (OR-tree leaf extractor), cone.py/trace.py/var.py (inspectors), try1.py (constructions).
-* All 900 nontrivial SCCs are size-2 duplicate equalities -> circuit IS a DAG, **8,173 free inputs**.
-* Forward-evaluating from **free inputs all zero** gives 0 broken gates and only **6 nonzero checks**
-  (score 39,005).  The 6 reduce to 3 independent conditions:
-  - A: `x_18956 = K1 (mod p)`  (a688; x_14257 = p*x_7497, x_7497 free & solo)
-  - B: `x_24468 = K2 (mod p)`  (a1618; x_32989 = p*x_11436)
-  - C: `OR(x_7715, x_34554) = 1` (a23000). s1=x_7715=OR of 256 free/pinned leaves, s2=x_34554=OR of 128.
-* `x_18956 = MUX(s1,s2)[x_16742, x_24908, x_30213] (mod p)`, `x_24468 = MUX(s1,s2)[x_12186,x_14853,x_22162]`.
-* **x_16742, x_30213, x_22162, x_14853 are FREE inputs.**  Branch (s1,s2)=(1,1) selects (x_22162,x_30213),
-  both free -> set x_22162=K2, x_30213=K1.
-* CONSTRUCTED (try1.py): seeds {x_542:1, x_91:1, x_22162:K2, x_30213:K1} -> **A and B both TRUE**,
-  score 38,999, only 6 nonzero checks left, and all six are the *conditional pins* of the two bits:
-  `b*(X-C) - m*h`.  The X's (x_13153, x_20386, x_35344, x_23210) are FREE inputs -> set them to C.
+## THE INSTANCE, DECOMPILED (my main contribution; all in solve_lab/agentC_work/)
+1. Break the 900 duplicate-equality 2-SCCs -> the circuit is a pure DAG with **8,173 free inputs**.
+   Forward-evaluating from free inputs = 0: **0 broken gates, only 6 nonzero checks, score 39,005.**
+2. Those 6 = three conditions: `x_18956 = K1 (mod p)`, `x_24468 = K2 (mod p)`, `OR(s1,s2)=1`.
+   s1 = x_7715 = OR of 256 leaves, s2 = x_34554 = OR of 128 leaves.  In branch (1,1) the outputs are
+   the FREE inputs x_22162, x_30213 -> set them to K2, K1.
+3. `curve2.py/curve3.py/order.py`: the residual is exactly EC point addition,
+   `y^2 = x^3 + a2 x^2 + a4 x + a6` (constants in agentC_work/curve.json), j = 0, short form A=0,
+   **group order = the secp256k1 prime order n** ([n]G = O verified).  All 256 free leaf bits carry a
+   pinned curve point and (`chain.py`) they are a **DOUBLING CHAIN P_i = 2^i G**.  The tree sums the
+   selected leaf points; the root addition check binds `P1 + P2 = (x_22162,x_30213)`.
+4. Two exits: (a) `P1+P2 = Q` = ECDLP on secp256k1 — dead; instance literals tested as the dlog
+   (`consts.py`, 2,800 candidates) — no hit.  (b) **P1 = P2** makes A,B vanish identically and frees
+   the root output.  P1=P2 needs kA = kB (mod n) with disjoint bit supports (178 on s1, 78 on s2),
+   forcing kA-kB = +-n; both carry chains overflow (`carry2.py`) => **exactly impossible for free.**
+5. `best_analyze.py`: the 39,026 deliverable FAKES P1 = P2 by overriding leaf-point pins; its residue
+   sits on 7 handle-definition atoms {22229,22230,35758..35762} in 12 equations, 5 of which cancel.
+6. `pairsweep.py` reproduces that construction for ANY of the 178x78 = 13,884 bit pairs
+   (force P_u = P_w by overriding one leaf's pinned coordinate free-vars).  Pair (24601,2081) with
+   closure2 gives 39,001; the gap to 39,026 is that closure2 cannot repair through a p-handle.
+   `close3.py` adds that (solve for a gate output, then REALIZE it down the definer DAG).
 
-## NEXT EXPERIMENT (running now)
-Set those 4 free vars to their pin constants on top of the above.  If the handles land at 0 this is a
-FULL SOLVE. If not, repeat the "activate bit -> satisfy its 2 pins" closure until fixpoint.
+## NEXT EXPERIMENT
+Sweep `pairsweep.py sweep <shard> <n>` with closure3 over the 13,884 bit pairs (~2 s each).
+Prior sessions only ever used one pair; the bit pair changes which handle atoms carry the residue and
+therefore the equation count.  Also: choose the coordinate representative `C_w + p*t` with t making the
+pin's small multiplier divide, which zeroes the pin atom and moves the residue purely onto the handle.
 
-## Artifacts
-Best so far is still `best/new_instance_partial_39026.json` (not mine). Anything >=39,026 of mine goes to
-`agentC_work/BEST_<score>.json` immediately.
+## Artifacts:  agentC_work/c3_*.json, PS_*.json, close_out.json (39,013), LOG.md
+Best of mine so far: 39,013.  Anything >= 39,026 -> agentC_work/BEST_<score>.json immediately.

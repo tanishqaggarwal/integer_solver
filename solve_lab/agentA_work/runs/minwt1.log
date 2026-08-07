@@ -1,0 +1,2 @@
+nontrivial rows=30  all-zero rows=10 (const nonzero: [])
+currently violated: [12231, 12270, 12350, 14584, 18673, 22044, 29125] (7)

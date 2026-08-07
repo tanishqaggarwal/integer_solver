@@ -1,0 +1,6 @@
+start nfail 7
+it 1539 cur 85 best 7 t 60.3
+it 2333 cur 273 best 7 t 121.1
+it 2714 cur 300 best 7 t 181.1
+it 2898 cur 282 best 7 t 241.4
+it 3045 cur 317 best 7 t 301.8

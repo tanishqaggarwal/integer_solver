@@ -1,0 +1,3 @@
+seed |S| = 376
+  it0 |S|=376 sym=432 maxdeg=3 terms=667 new=2019 (5.6s)
+  it1 |S|=2395 sym=1539 maxdeg=3 terms=2597 new=1914 (149.9s)

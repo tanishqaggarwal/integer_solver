@@ -1,0 +1,8 @@
+  dec=1500 known=16590 t=9s
+  dec=2000 known=20256 t=23s
+  dec=2500 known=23705 t=31s
+  dec=3000 known=26894 t=39s
+  dec=3500 known=29218 t=46s
+[wit_1] status=conflict bad=23433 known=30574/38748 decisions=3870 t=50s
+   atom: X28730 - X17499 * X9413
+   cone=6 decisions_in_cone=1: [28730]

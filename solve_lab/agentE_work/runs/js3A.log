@@ -1,0 +1,5 @@
+[round<=1] vars=61 atoms=94 linear_rows=86
+   rank(A)=59 rank([A|b])=59 (0s) rational-feasible=True
+   HNF 1s integer-feasible=False kernel=2
+[round<=2] vars=342 atoms=363 linear_rows=335
+   rank(A)=297 rank([A|b])=297 (2s) rational-feasible=True

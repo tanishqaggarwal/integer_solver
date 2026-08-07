@@ -1,0 +1,13 @@
+[<= 1] vars=61 atoms=94 linrows=86
+  unit-elim: 25 pivots, core 61 rows, 0.0s
+  core vars 36
+  core HNF 0.6s feasible=False
+  -> core infeasible (0.6s)
+[<= 2] vars=342 atoms=363 linrows=335
+  unit-elim: 106 pivots, core 229 rows, 0.0s
+  core vars 200
+  core HNF 436.5s feasible=False
+  -> core infeasible (436.5s)
+[<= 3] vars=975 atoms=1054 linrows=985
+  unit-elim: 254 pivots, core 731 rows, 0.2s
+  core vars 625

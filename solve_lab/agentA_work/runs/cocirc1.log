@@ -1,0 +1,6 @@
+rows=40 knobs=22 currently violated [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+sampled 117343, distinct cocircuits 2, sizes [(5, 1), (7, 1)]
+cocircuits of size <=8: 2
+   |D|=5  violate [2554, 9123, 14584, 18673, 35561]  -> no
+   |D|=7  violate [483, 6816, 8985, 20876, 24373, 29125, 36489]  -> no
+best satisfied 33 of 40 (baseline 33)

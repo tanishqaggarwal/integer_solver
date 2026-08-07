@@ -14,7 +14,8 @@ infl = dict(_infl)
 
 
 class St:
-    def __init__(self, v):
+    def __init__(self, v, block=()):
+        self.block = set(block)
         self.v = list(v)
         self.av = L.all_atom_values(self.v)
         self.fail = set(L.failing_eqs(self.av))
@@ -26,6 +27,7 @@ class St:
         s.av = list(self.av)
         s.fail = set(self.fail)
         s.score = self.score
+        s.block = set(self.block)
         return s
 
     def apply(self, seeds):
@@ -46,6 +48,8 @@ class St:
             _, t = heapq.heappop(pq)
             dirty.discard(t)
             a = L.definer[t]
+            if a in self.block:
+                continue
             nv = L.solve_for(a, t, self.v)
             if nv is None or nv == self.v[t]:
                 continue

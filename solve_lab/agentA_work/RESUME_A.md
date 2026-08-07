@@ -1,37 +1,50 @@
 # Agent A — RESUME (exact integer linear algebra / lattice angle)
 
-## Best verified score: 39,026 (baseline, re-verified myself)
-`python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json` -> 39026/39033,
-failing [12231,12270,12350,14584,18673,22044,29125].  No improvement of my own yet.
+## Best verified score: 39,026  — file: solve_lab/agentA_work/A_best_39026.json
+(byte-identical to the lab baseline; re-verified with solve_lab/checker.py -> 39026/39033,
+failing [12231,12270,12350,14584,18673,22044,29125]).  I did not beat it.
 
-## Setup needed to re-enter (caches were MISSING from the repo)
+## Re-entry
 ```
-cd solve_lab/s9 && python3 atomize.py && python3 poly.py && python3 gates.py && python3 fwd.py
-cd ../agentA_work && python3 probe5.py     # dumps the 33 region atoms
+cd solve_lab/s9 && python3 atomize.py && python3 poly.py && python3 gates.py && python3 fwd.py   # caches are NOT in git
+cd ../agentA_work
+python3 enl.py            # enlargement table (the headline)
+python3 exhaust.py 6      # exhaustive code supports of the region  -> supports.json
+python3 exh6.py           # exact HNF over every <=6 violation set
+python3 gmax2.py 1 120 <state.json>   # generic regional max-satisfy for any state
+python3 regsolve2.py / zsolve.py / diag2.py / tgrow2.py   # region model, HNF, decompiler
 ```
 
-## What I established (re-derived from the file, not inherited)
-1. The residual region is EXACTLY 33 atoms in 39 equations (12 = E, 27 outside, all
-   currently satisfied). `region.py` computes the closure levels:
-   L0 33 atoms/11 knobs/39 eqs; L1 471/341/1105; L2 5807/4045/14225.
-2. The 33 atoms are five parallel CHAINS of the shape (p-handle atom, check atom):
-   5766-5772 | 10935-10938 | 19087-19092 | 22229-22235 | 35754-35762  (see probe5.py output).
-3. **NEW knobs prior work did not use**: `region.py` says 11 variables have ZERO atoms
-   outside the 33 (prior generator list had 9, and only over the seven):
-   642, 1329, **1613**, **1844**, 9413, 10903, 17325, **21574**, **29305**, 29854, 31864.
-   A further ~13 vars have exactly ONE outside atom, and for eight of them that atom is
-   a37887 which lives in exactly ONE equation (8680): 950, 6947, 9629, 15120, 23754,
-   28730, 33168, 35619.  x2892/x6090/x28355 -> a41906 only.
-4. `ahandles.py`: 1,562 atoms carry a private variable (occurs in no other atom);
-   **326 have granularity 1** (fully free atom values).  s10/handles.py counted only
-   FREE INPUTS and so reported 1,249/all-p-quantised — my census is strictly larger.
-   None of the 326 is in E, so this does not by itself break the residual.
-5. Exact restatement of the obstruction: reachable alpha (7 atom values) =
-   {alpha1 = 0 mod p fixed residue K2} and {alpha0 + 7376877*alpha6 = C0 mod p}.
-   12 rows, rank 7 -> all 12 need alpha = 0 mod p -> impossible while C0,K2 != 0.
-   Breaking ONE congruence buys exactly 1 equation (39,027); breaking BOTH gives 39,033.
+## Established (my own computation, exact, no floating point)
+1. **The residual region is an exactly-affine model.** `regsolve2.py` picks knobs so every
+   region atom is affine in them (<=1 knob per monomial), so no equation is approximated.
+2. At the 39,026 witness: region 33 atoms / 39 eqs, +a37887,+a41906 -> 35/41, 22 knobs.
+   The whole affine system is **Q-CONSISTENT with rank = #knobs**, so it has a UNIQUE
+   rational solution W, and W is non-integral in exactly 5 coordinates with denominators
+   x642:2458959, x1329:p, x9413:p, x10903:p, x17325:p*2458959.
+   => the region's full-solve conditions are exactly
+   **7376877 | (x7068-x2099), p | x9118, p | x8731, p | x28730.**
+3. **Enlarging the movable variables does NOT weaken the bound** (the question I was set):
+   freeing x9118, x8731, x2099, x7068 (54 atoms / 20 knobs / 110 eqs) and the targeted
+   growth to 55 knobs / 514 eqs both keep rank == #knobs and the SAME five denominators.
+   In the enlarged region ISD (48k trials) finds **no code support of weight <= 6 at all**,
+   so every integer knob vector violates >= 7 rows there.  Enlargement makes it stronger.
+4. Exhaustive support enumeration of the 22-knob region (`exhaust.py`, information-set
+   argument, provably complete): min support 5; 11,628 weight-5 and 27,303 weight-6
+   supports, verified real over Q.  `exh6.py` tests all 193,971 admissible <=6 violation
+   sets by mod-p filter + exact HNF.  [see runs/exh6.log for the verdict]
+5. **New census**: 1,562 atoms carry a private variable, **326 with granularity 1** (fully
+   free atom value).  The lab's s10/handles.py saw only 1,249 (free inputs only, all
+   p-quantised).  None of the 326 lies in the twelve residual equations.
+6. **mod9118_0 (39,009) decompiled exactly**: its entire residual is
+   a21617 = c1*x14623 + c2*x27522 (mod p) and a29539 = 25692874*(x14853 - x1308) (mod p);
+   x14623 and x14853 are FREE INPUTS and neither is in the other's cone (`cone2.py`).
+   Shifting them zeroes both residues mod p but costs heavily downstream (38,975, exp1.py).
 
-## Next experiment (in progress)
-Exact max-satisfy integer program on the L0 region ENLARGED by a37887/a41906:
-40 equations x 33 atom values, knob lattice from the 19-24 knobs above; enumerate
-dropped-subsets of size <= 6 and test integer solvability by HNF.  Script: `maxsat.py`.
+## Highest-value next experiment
+Break C2 by moving x28730 off its residue mod p while holding a37887 = 0.  a37887 is a
+CHECK in ONE equation (8680), it is quadratic in the knobs, and EIGHT region variables
+(x950,x6947,x9629,x15120,x23754,x33168,x35619,x28730) have a37887 as their ONLY external
+atom.  My linear model deliberately drops eq 8680; solving the affine 39-row system jointly
+with the single quadratic a37887(delta) = 0 (Groebner/resultant in <=8 variables) is the one
+place in this region where the lockstep rank argument does not apply.

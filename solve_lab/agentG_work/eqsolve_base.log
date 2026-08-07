@@ -1,0 +1,7 @@
+non-trivial equations: 6774  (9s)
+linear 6613 nonlinear/const 161
+linear rank 1470 free 4647 inconsistent 0 (9s)
+EQUATION-LEVEL residual after linear solve: 20 equations (9s)
+  nonzero constants: 20 ; symbolic: 0
+  vars in residual: []
+  sample: [(2071, 'C'), (4573, 'C'), (7123, 'C'), (7469, 'C'), (11854, 'C'), (13660, 'C'), (15299, 'C'), (16622, 'C'), (17726, 'C'), (21382, 'C'), (22093, 'C'), (25480, 'C'), (25539, 'C'), (28653, 'C'), (29437, 'C'), (31061, 'C'), (32894, 'C'), (32916, 'C'), (34517, 'C'), (34892, 'C')]

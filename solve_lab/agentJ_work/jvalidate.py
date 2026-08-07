@@ -35,7 +35,7 @@ with open(EQ) as f:
         for c, aid in e['terms']:
             s += c * aval[aid]
         s %= Q
-        rec = (s * s) % Q if e['kind'] == 'sq' else s
+        rec = pow(s, e['kind'], Q)
         rec = (rec * e['mult']) % Q
         if rec != raw:
             bad += 1

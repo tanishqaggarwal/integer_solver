@@ -1,0 +1,7 @@
+start nfail 11
+it 2 NEW BEST nfail 10 score 39023 t 0.1
+it 680 cur 135 best 10 t 60.1
+it 794 cur 162 best 10 t 121.4
+it 849 cur 170 best 10 t 185.6
+it 877 cur 160 best 10 t 251.7
+it 892 cur 175 best 10 t 314.1

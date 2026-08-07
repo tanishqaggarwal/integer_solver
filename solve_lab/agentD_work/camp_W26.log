@@ -1,0 +1,9 @@
+[W26] start ../best/new_instance_partial_39026.json score=39026 nz=[22229, 22230, 35758, 35759, 35760, 35761, 35762]
+[W26] it200 score=39023 best=39026 T=1.69 t=53s
+[W26] it400 score=39010 best=39026 T=2.13 t=87s
+[W26] it600 score=39010 best=39026 T=1.86 t=156s
+[W26] it800 score=39008 best=39026 T=2.39 t=213s
+[W26] it1000 score=39008 best=39026 T=1.98 t=252s
+[W26] it1200 score=39008 best=39026 T=2.44 t=290s
+[W26] it1400 score=39008 best=39026 T=3.01 t=328s
+[W26] it1600 score=39003 best=39026 T=2.52 t=584s

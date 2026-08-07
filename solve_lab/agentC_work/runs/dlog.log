@@ -1,0 +1,5 @@
+chain[i]=2^i G verified for i=1
+chain[255]==2^255 G ? True
+Q is leaf? None
+building baby table of size 2097152
+   baby 1048576 349.8139822483063

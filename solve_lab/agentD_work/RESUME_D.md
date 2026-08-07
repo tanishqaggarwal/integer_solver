@@ -1,9 +1,11 @@
 # Agent D — resume brief
 
 ## Best verified so far
-`solve_lab/best/new_instance_partial_39026.json` = **39,026** (re-verified by me with
-`python3 solve_lab/checker.py solve_lab/best/new_instance_partial_39026.json`).
-No improvement of my own yet. My own states so far: `agentD_work/D_state1.json` (39,002).
+Global best is still `solve_lab/best/new_instance_partial_39026.json` = **39,026** (re-verified).
+MY best own state: `agentD_work/D_39017.json` = **39,017**, checker-verified,
+failing [56,133,2071,8073,13660,15299,16622,17726,19066,22093,25480,28653,31061,32894,34517,34892].
+Its residual is only THREE atoms {a688, a1618, a40608} = the two mod-p pins on (x3,y3).
+Pipeline that produced it: D_state1 -> adv3.sweep -> 39,013 (D_adv.json) -> ecsolve2.py -> handles -> 39,017.
 
 ## Pipeline (all inside agentD_work/, independent of s9/s10 caches)
 ```
@@ -36,3 +38,20 @@ Solve A=B=0 in closed form: pick x1,x2 free, s = sqrt(x1+x2+x3) mod p,
 y1 = s(x1-x3) - y3, y2 = y1 + s(x2-x1) — then re-solve the advice equality DAG and measure.
 The advice checks are `K*(u - w) - p*handle` with u a free input, so each is closable by
 u := w; the question is whether the DAG fixed point is compatible with the EC solution.
+
+## Structure, fully decompiled (mine, measured)
+* 256 free boolean bits; each pins EXACTLY 2 variables to 2 296-bit constants (condpins.py).
+  178 gate the OR-tree x_7715 ("P1 selected"), 78 gate x_34554 ("P2 selected").
+  bitswap.py: turning bit i on (and setting its 2 pinned vars) makes (x1,y1) = that bit's pair.
+* Selectors are mutually exclusive: x_15298 = f1*f2, x_34606 = f1*(1-f2), x_5647 = f2*(1-f1),
+  x_15574 = 1-x_15298.  With x_15298=1 the two public pins read  x3 ≡ C_C,  y3 ≡ C_B (mod p).
+* Whole instance is satisfied iff (at the advice fixed point) A = x_35389 ≡ 0 and B = x_6671 ≡ 0 (mod p),
+  A = (x1+x2+x3+C_A)(x2-x1)^2 - (y2-y1)^2,  B = (y3+y1)(x2-x1) - (y2-y1)(x1-x3).
+* A,B are EXACTLY affine over Z in (δx3, δy3); solving them costs breaking the two pins = 16 equations.
+* banks.py: exhaustive over 178x78x4 orderings — NO bit pair makes A or B vanish. Table constants
+  are NOT secp256k1 points. Two bits on in a bank gives x1 = 0 (tree MUX, not a subset sum).
+
+## Next experiment
+Rank ALL knob pairs (u1,u2) that span (dA,dB) mod p by the number of equations their broken
+atoms occupy, and run the ecsolve2 CRT construction with the cheapest pair. Currently
+(x3,y3) costs 16; a pair costing <= 6 would beat 39,026.

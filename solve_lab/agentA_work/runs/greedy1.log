@@ -1,0 +1,401 @@
+step0   atoms=33    knobs=11   eqs=39    quadrows=0   rank=11   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [0s]
+   -> freeing x950 by adding atoms [37887] (+1 eqs)
+step1   atoms=34    knobs=19   eqs=40    quadrows=1   rank=19   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [0s]
+   -> freeing x2892 by adding atoms [41906] (+1 eqs)
+step2   atoms=35    knobs=22   eqs=41    quadrows=1   rank=22   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [0s]
+   -> freeing x10422 by adding atoms [29426] (+1 eqs)
+step3   atoms=36    knobs=27   eqs=42    quadrows=1   rank=27   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [0s]
+   -> freeing x11099 by adding atoms [41421] (+1 eqs)
+step4   atoms=37    knobs=29   eqs=43    quadrows=1   rank=29   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [0s]
+   -> freeing x22526 by adding atoms [10939] (+1 eqs)
+step5   atoms=38    knobs=30   eqs=44    quadrows=1   rank=30   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [0s]
+   -> freeing x23110 by adding atoms [41972] (+1 eqs)
+step6   atoms=39    knobs=33   eqs=45    quadrows=1   rank=33   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [1s]
+   -> freeing x10711 by adding atoms [5765] (+1 eqs)
+step7   atoms=40    knobs=35   eqs=46    quadrows=1   rank=35   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [1s]
+   -> freeing x23822 by adding atoms [10940] (+1 eqs)
+step8   atoms=41    knobs=36   eqs=47    quadrows=1   rank=36   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [1s]
+   -> freeing x34868 by adding atoms [10941] (+1 eqs)
+step9   atoms=42    knobs=37   eqs=48    quadrows=1   rank=37   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [1s]
+   -> freeing x7945 by adding atoms [10942] (+1 eqs)
+step10  atoms=43    knobs=38   eqs=49    quadrows=1   rank=38   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [1s]
+   -> freeing x13845 by adding atoms [10943] (+1 eqs)
+step11  atoms=44    knobs=39   eqs=50    quadrows=1   rank=39   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [1s]
+   -> freeing x4727 by adding atoms [10944] (+1 eqs)
+step12  atoms=45    knobs=40   eqs=51    quadrows=1   rank=40   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [2s]
+   -> freeing x23786 by adding atoms [10945, 40100] (+1 eqs)
+step13  atoms=47    knobs=41   eqs=52    quadrows=1   rank=41   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [2s]
+   -> freeing x8215 by adding atoms [10946, 35031] (+1 eqs)
+step14  atoms=49    knobs=42   eqs=53    quadrows=1   rank=42   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [2s]
+   -> freeing x22824 by adding atoms [10947] (+1 eqs)
+step15  atoms=50    knobs=43   eqs=54    quadrows=1   rank=43   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [2s]
+   -> freeing x32465 by adding atoms [23775] (+1 eqs)
+step16  atoms=51    knobs=44   eqs=55    quadrows=1   rank=44   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [3s]
+   -> freeing x10963 by adding atoms [23776] (+1 eqs)
+step17  atoms=52    knobs=45   eqs=56    quadrows=1   rank=45   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [3s]
+   -> freeing x32223 by adding atoms [23777] (+1 eqs)
+step18  atoms=53    knobs=46   eqs=57    quadrows=1   rank=46   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [3s]
+   -> freeing x1081 by adding atoms [23778] (+1 eqs)
+step19  atoms=54    knobs=47   eqs=58    quadrows=1   rank=47   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [4s]
+   -> freeing x22208 by adding atoms [23779] (+1 eqs)
+step20  atoms=55    knobs=48   eqs=59    quadrows=1   rank=48   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [4s]
+   -> freeing x4018 by adding atoms [5763, 23020, 40588] (+2 eqs)
+step21  atoms=58    knobs=49   eqs=61    quadrows=1   rank=49   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [4s]
+   -> freeing x13838 by adding atoms [5764] (+0 eqs)
+step22  atoms=59    knobs=50   eqs=61    quadrows=1   rank=50   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [5s]
+   -> freeing x17392 by adding atoms [5761] (+3 eqs)
+step23  atoms=60    knobs=51   eqs=64    quadrows=1   rank=51   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [5s]
+   -> freeing x3457 by adding atoms [5762] (+0 eqs)
+step24  atoms=61    knobs=52   eqs=64    quadrows=1   rank=52   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [5s]
+   -> freeing x7476 by adding atoms [5759] (+3 eqs)
+step25  atoms=62    knobs=53   eqs=67    quadrows=1   rank=53   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [6s]
+   -> freeing x37267 by adding atoms [5760] (+0 eqs)
+step26  atoms=63    knobs=54   eqs=67    quadrows=1   rank=54   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [6s]
+   -> freeing x3342 by adding atoms [7095] (+2 eqs)
+step27  atoms=64    knobs=55   eqs=69    quadrows=1   rank=55   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [7s]
+   -> freeing x10494 by adding atoms [5758] (+0 eqs)
+step28  atoms=65    knobs=56   eqs=69    quadrows=1   rank=56   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [7s]
+   -> freeing x26320 by adding atoms [7093] (+0 eqs)
+step29  atoms=66    knobs=57   eqs=69    quadrows=1   rank=57   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [8s]
+   -> freeing x21739 by adding atoms [7094] (+0 eqs)
+step30  atoms=67    knobs=58   eqs=69    quadrows=1   rank=58   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [9s]
+   -> freeing x34303 by adding atoms [7089] (+1 eqs)
+step31  atoms=68    knobs=59   eqs=70    quadrows=1   rank=59   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [9s]
+   -> freeing x14740 by adding atoms [7091] (+1 eqs)
+step32  atoms=69    knobs=60   eqs=71    quadrows=1   rank=60   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [10s]
+   -> freeing x24848 by adding atoms [7092] (+0 eqs)
+step33  atoms=70    knobs=61   eqs=71    quadrows=1   rank=61   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [11s]
+   -> freeing x30439 by adding atoms [7090] (+0 eqs)
+step34  atoms=71    knobs=62   eqs=71    quadrows=1   rank=62   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [12s]
+   -> freeing x6729 by adding atoms [7087, 7088] (+4 eqs)
+step35  atoms=73    knobs=64   eqs=75    quadrows=1   rank=64   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [13s]
+   -> freeing x25244 by adding atoms [37911] (+10 eqs)
+step36  atoms=74    knobs=65   eqs=85    quadrows=1   rank=65   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [14s]
+   -> freeing x17772 by adding atoms [39347] (+5 eqs)
+step37  atoms=75    knobs=66   eqs=90    quadrows=1   rank=66   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [15s]
+   -> freeing x37663 by adding atoms [39346] (+0 eqs)
+step38  atoms=76    knobs=67   eqs=90    quadrows=1   rank=67   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [16s]
+   -> freeing x2476 by adding atoms [37912] (+0 eqs)
+step39  atoms=77    knobs=68   eqs=90    quadrows=1   rank=68   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [17s]
+   -> freeing x34272 by adding atoms [37913] (+0 eqs)
+step40  atoms=78    knobs=69   eqs=90    quadrows=1   rank=69   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [19s]
+   -> freeing x37844 by adding atoms [39345] (+0 eqs)
+step41  atoms=79    knobs=70   eqs=90    quadrows=1   rank=70   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [20s]
+   -> freeing x26152 by adding atoms [37910, 39767, 42180] (+2 eqs)
+step42  atoms=82    knobs=71   eqs=92    quadrows=1   rank=71   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [21s]
+   -> freeing x35529 by adding atoms [37909] (+1 eqs)
+step43  atoms=83    knobs=72   eqs=93    quadrows=1   rank=72   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [22s]
+   -> freeing x38580 by adding atoms [37908, 39348] (+1 eqs)
+step44  atoms=85    knobs=73   eqs=94    quadrows=1   rank=73   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [24s]
+   -> freeing x5182 by adding atoms [39769] (+2 eqs)
+step45  atoms=86    knobs=75   eqs=96    quadrows=1   rank=75   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [25s]
+   -> freeing x8428 by adding atoms [39770] (+1 eqs)
+step46  atoms=87    knobs=77   eqs=97    quadrows=1   rank=77   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [26s]
+   -> freeing x33479 by adding atoms [39768] (+0 eqs)
+step47  atoms=88    knobs=78   eqs=97    quadrows=1   rank=78   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [27s]
+   -> freeing x38197 by adding atoms [37907] (+2 eqs)
+step48  atoms=89    knobs=79   eqs=99    quadrows=1   rank=79   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [28s]
+   -> freeing x4072 by adding atoms [29174] (+2 eqs)
+step49  atoms=90    knobs=80   eqs=101   quadrows=1   rank=80   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [29s]
+   -> freeing x26491 by adding atoms [5497, 39229, 41927] (+7 eqs)
+step50  atoms=93    knobs=81   eqs=108   quadrows=1   rank=81   free=0   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [30s]
+   -> freeing x28535 by adding atoms [5496] (+0 eqs)
+step51  atoms=94    knobs=82   eqs=108   quadrows=15  rank=81   free=1   incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [31s]
+   -> freeing x19726 by adding atoms [5495] (+0 eqs)
+step52  atoms=95    knobs=83   eqs=108   quadrows=15  rank=81   free=2   incons=0   nonint=6   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959'), (19726, '3')]  [32s]
+   -> freeing x7923 by adding atoms [5494] (+0 eqs)
+step53  atoms=96    knobs=84   eqs=108   quadrows=15  rank=81   free=3   incons=0   nonint=6   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959'), (19726, '3')]  [33s]
+   -> freeing x11372 by adding atoms [5499] (+2 eqs)
+step54  atoms=97    knobs=85   eqs=110   quadrows=15  rank=82   free=3   incons=0   nonint=6   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959'), (19726, '3')]  [35s]
+   -> freeing x30243 by adding atoms [5498] (+0 eqs)
+step55  atoms=98    knobs=86   eqs=110   quadrows=15  rank=83   free=3   incons=0   nonint=6   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959'), (19726, '3')]  [36s]
+   -> freeing x30099 by adding atoms [5500] (+1 eqs)
+step56  atoms=99    knobs=87   eqs=111   quadrows=32  rank=75   free=12  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [36s]
+   -> freeing x2133 by adding atoms [5501] (+1 eqs)
+step57  atoms=100   knobs=88   eqs=112   quadrows=32  rank=75   free=13  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [37s]
+   -> freeing x29841 by adding atoms [39771] (+0 eqs)
+step58  atoms=101   knobs=89   eqs=112   quadrows=37  rank=71   free=18  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [38s]
+   -> freeing x30360 by adding atoms [5502] (+1 eqs)
+step59  atoms=102   knobs=90   eqs=113   quadrows=45  rank=66   free=24  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [38s]
+   -> freeing x18124 by adding atoms [5503] (+1 eqs)
+step60  atoms=103   knobs=91   eqs=114   quadrows=45  rank=66   free=25  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [39s]
+   -> freeing x4856 by adding atoms [39772] (+0 eqs)
+step61  atoms=104   knobs=92   eqs=114   quadrows=47  rank=65   free=27  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [39s]
+   -> freeing x9991 by adding atoms [5504] (+1 eqs)
+step62  atoms=105   knobs=94   eqs=115   quadrows=47  rank=66   free=28  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [40s]
+   -> freeing x1974 by adding atoms [5507] (+3 eqs)
+step63  atoms=106   knobs=95   eqs=118   quadrows=52  rank=62   free=33  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [41s]
+   -> freeing x24585 by adding atoms [5505] (+0 eqs)
+step64  atoms=107   knobs=96   eqs=118   quadrows=52  rank=63   free=33  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [41s]
+   -> freeing x34437 by adding atoms [5506] (+0 eqs)
+step65  atoms=108   knobs=97   eqs=118   quadrows=52  rank=64   free=33  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [42s]
+   -> freeing x36137 by adding atoms [5510] (+3 eqs)
+step66  atoms=109   knobs=98   eqs=121   quadrows=54  rank=63   free=35  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [42s]
+   -> freeing x21765 by adding atoms [5509] (+0 eqs)
+step67  atoms=110   knobs=99   eqs=121   quadrows=54  rank=64   free=35  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [43s]
+   -> freeing x34337 by adding atoms [5508] (+0 eqs)
+step68  atoms=111   knobs=100  eqs=121   quadrows=54  rank=65   free=35  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [43s]
+   -> freeing x32413 by adding atoms [5511] (+1 eqs)
+step69  atoms=112   knobs=101  eqs=122   quadrows=54  rank=66   free=35  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [44s]
+   -> freeing x30738 by adding atoms [8380] (+1 eqs)
+step70  atoms=113   knobs=102  eqs=123   quadrows=54  rank=67   free=35  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [44s]
+   -> freeing x4331 by adding atoms [8381] (+1 eqs)
+step71  atoms=114   knobs=105  eqs=124   quadrows=56  rank=66   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [45s]
+   -> freeing x16583 by adding atoms [18040] (+10 eqs)
+step72  atoms=115   knobs=106  eqs=134   quadrows=56  rank=67   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [46s]
+   -> freeing x4264 by adding atoms [18045] (+5 eqs)
+step73  atoms=116   knobs=107  eqs=139   quadrows=56  rank=68   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [47s]
+   -> freeing x7477 by adding atoms [18043] (+0 eqs)
+step74  atoms=117   knobs=108  eqs=139   quadrows=56  rank=69   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [47s]
+   -> freeing x31112 by adding atoms [18044] (+0 eqs)
+step75  atoms=118   knobs=109  eqs=139   quadrows=56  rank=70   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [48s]
+   -> freeing x9182 by adding atoms [18042] (+0 eqs)
+step76  atoms=119   knobs=110  eqs=139   quadrows=56  rank=71   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [49s]
+   -> freeing x21766 by adding atoms [18041] (+0 eqs)
+step77  atoms=120   knobs=111  eqs=139   quadrows=56  rank=72   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [50s]
+   -> freeing x6251 by adding atoms [18037, 18046] (+1 eqs)
+step78  atoms=122   knobs=112  eqs=140   quadrows=56  rank=73   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [50s]
+   -> freeing x25545 by adding atoms [18036] (+0 eqs)
+step79  atoms=123   knobs=113  eqs=140   quadrows=56  rank=74   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [51s]
+   -> freeing x6880 by adding atoms [18039, 32435] (+1 eqs)
+step80  atoms=125   knobs=114  eqs=141   quadrows=56  rank=75   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [52s]
+   -> freeing x6585 by adding atoms [18038] (+0 eqs)
+step81  atoms=126   knobs=115  eqs=141   quadrows=56  rank=76   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [53s]
+   -> freeing x1956 by adding atoms [31361, 35681, 40217] (+1 eqs)
+step82  atoms=129   knobs=116  eqs=142   quadrows=56  rank=77   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [54s]
+   -> freeing x7210 by adding atoms [38723] (+1 eqs)
+step83  atoms=130   knobs=118  eqs=143   quadrows=56  rank=79   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [55s]
+   -> freeing x12143 by adding atoms [38724] (+1 eqs)
+step84  atoms=131   knobs=121  eqs=144   quadrows=56  rank=82   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [56s]
+   -> freeing x22561 by adding atoms [20874, 20875] (+5 eqs)
+step85  atoms=133   knobs=122  eqs=149   quadrows=56  rank=83   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [57s]
+   -> freeing x14565 by adding atoms [20876] (+1 eqs)
+step86  atoms=134   knobs=123  eqs=150   quadrows=56  rank=84   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [58s]
+   -> freeing x27049 by adding atoms [33153] (+1 eqs)
+step87  atoms=135   knobs=124  eqs=151   quadrows=56  rank=85   free=39  incons=0   nonint=5   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (17325, 'p*2458959')]  [59s]
+   -> freeing x16765 by adding atoms [20873] (+0 eqs)
+step88  atoms=136   knobs=125  eqs=151   quadrows=68  rank=81   free=44  incons=0   nonint=7   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (14565, '90'), (17325, 'p*2458959'), (22561, '90')]  [60s]
+   -> freeing x37502 by adding atoms [33155, 42182] (+2 eqs)
+step89  atoms=138   knobs=126  eqs=153   quadrows=68  rank=82   free=44  incons=0   nonint=7   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (14565, '90'), (17325, 'p*2458959'), (22561, '90')]  [62s]
+   -> freeing x9910 by adding atoms [33154] (+0 eqs)
+step90  atoms=139   knobs=127  eqs=153   quadrows=68  rank=83   free=44  incons=0   nonint=7   [(642, '2458959'), (1329, 'p'), (9413, 'p'), (10903, 'p'), (14565, '90'), (17325, 'p*2458959'), (22561, '90')]  [63s]
+   -> freeing x32230 by adding atoms [33156] (+1 eqs)
+step91  atoms=140   knobs=128  eqs=154   quadrows=79  rank=73   free=55  incons=0   nonint=31  [(642, '54601184595'), (1329, 'p*4441'), (1613, 'p*36573904351'), (1844, '22205'), (1974, '5666314816024093787'), (2892, '4441'), (4264, '4441'), (6090, 'p*22205')]  [65s]
+   -> freeing x35458 by adding atoms [33157] (+1 eqs)
+step92  atoms=141   knobs=129  eqs=155   quadrows=79  rank=73   free=56  incons=0   nonint=31  [(642, '54601184595'), (1329, 'p*4441'), (1613, 'p*36573904351'), (1844, '22205'), (1974, '5666314816024093787'), (2892, '4441'), (4264, '4441'), (6090, 'p*22205')]  [66s]
+   -> freeing x29308 by adding atoms [38725] (+0 eqs)
+step93  atoms=142   knobs=130  eqs=155   quadrows=84  rank=69   free=61  incons=0   nonint=30  [(642, '54601184595'), (1329, 'p*4441'), (1613, 'p*36573904351'), (1844, '22205'), (1974, '5666314816024093787'), (2892, '4441'), (4264, '4441'), (6090, 'p*22205')]  [67s]
+   -> freeing x16763 by adding atoms [33158] (+1 eqs)
+step94  atoms=143   knobs=131  eqs=156   quadrows=91  rank=63   free=68  incons=0   nonint=21  [(642, '54601184595'), (1329, 'p*4441'), (1613, 'p*36573904351'), (1844, '22205'), (2892, '4441'), (4264, '4441'), (6090, 'p*22205'), (6251, '139456')]  [67s]
+   -> freeing x17463 by adding atoms [18058, 33159] (+1 eqs)
+step95  atoms=145   knobs=132  eqs=157   quadrows=91  rank=63   free=69  incons=0   nonint=21  [(642, '54601184595'), (1329, 'p*4441'), (1613, 'p*36573904351'), (1844, '22205'), (2892, '4441'), (4264, '4441'), (6090, 'p*22205'), (6251, '139456')]  [68s]
+   -> freeing x5045 by adding atoms [33152] (+0 eqs)
+step96  atoms=146   knobs=133  eqs=157   quadrows=93  rank=62   free=71  incons=0   nonint=21  [(642, '54601184595'), (1329, 'p*4441'), (1613, 'p*36573904351'), (1844, '22205'), (2892, '4441'), (4264, '4441'), (6090, 'p*22205'), (6251, '139456')]  [69s]
+   -> freeing x4562 by adding atoms [33160] (+1 eqs)
+step97  atoms=147   knobs=135  eqs=158   quadrows=93  rank=63   free=72  incons=0   nonint=21  [(642, '54601184595'), (1329, 'p*4441'), (1613, 'p*36573904351'), (1844, '22205'), (2892, '4441'), (4264, '4441'), (6090, 'p*22205'), (6251, '139456')]  [69s]
+   -> freeing x14199 by adding atoms [33870] (+3 eqs)
+step98  atoms=148   knobs=136  eqs=161   quadrows=99  rank=58   free=78  incons=0   nonint=15  [(642, '54601184595'), (1329, 'p*4441'), (1613, 'p*36573904351'), (1844, '22205'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824')]  [70s]
+   -> freeing x7980 by adding atoms [33162] (+0 eqs)
+step99  atoms=149   knobs=137  eqs=161   quadrows=99  rank=59   free=78  incons=0   nonint=15  [(642, '54601184595'), (1329, 'p*4441'), (1613, 'p*36573904351'), (1844, '22205'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824')]  [70s]
+   -> freeing x37276 by adding atoms [33161] (+0 eqs)
+step100 atoms=150   knobs=138  eqs=161   quadrows=99  rank=60   free=78  incons=0   nonint=15  [(642, '54601184595'), (1329, 'p*4441'), (1613, 'p*36573904351'), (1844, '22205'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824')]  [71s]
+   -> freeing x23318 by adding atoms [33873] (+3 eqs)
+step101 atoms=151   knobs=139  eqs=164   quadrows=101 rank=59   free=80  incons=0   nonint=13  [(642, '54601184595'), (1329, 'p*4441'), (1844, '22205'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441')]  [71s]
+   -> freeing x4507 by adding atoms [33872] (+0 eqs)
+step102 atoms=152   knobs=140  eqs=164   quadrows=101 rank=60   free=80  incons=0   nonint=13  [(642, '54601184595'), (1329, 'p*4441'), (1844, '22205'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441')]  [72s]
+   -> freeing x12904 by adding atoms [33871] (+0 eqs)
+step103 atoms=153   knobs=141  eqs=164   quadrows=101 rank=61   free=80  incons=0   nonint=13  [(642, '54601184595'), (1329, 'p*4441'), (1844, '22205'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441')]  [72s]
+   -> freeing x13626 by adding atoms [33874] (+1 eqs)
+step104 atoms=154   knobs=142  eqs=165   quadrows=101 rank=62   free=80  incons=0   nonint=13  [(642, '54601184595'), (1329, 'p*4441'), (1844, '22205'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441')]  [73s]
+   -> freeing x20908 by adding atoms [33875] (+1 eqs)
+step105 atoms=155   knobs=143  eqs=166   quadrows=101 rank=63   free=80  incons=0   nonint=13  [(642, '54601184595'), (1329, 'p*4441'), (1844, '22205'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441')]  [73s]
+   -> freeing x103 by adding atoms [33876] (+1 eqs)
+step106 atoms=156   knobs=146  eqs=167   quadrows=103 rank=62   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [74s]
+   -> freeing x13986 by adding atoms [33877, 33879] (+3 eqs)
+step107 atoms=158   knobs=147  eqs=170   quadrows=103 rank=63   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [74s]
+   -> freeing x36641 by adding atoms [33878] (+0 eqs)
+step108 atoms=159   knobs=148  eqs=170   quadrows=103 rank=64   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [75s]
+   -> freeing x27994 by adding atoms [33880] (+1 eqs)
+step109 atoms=160   knobs=149  eqs=171   quadrows=103 rank=65   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [75s]
+   -> freeing x5814 by adding atoms [33882, 33883] (+3 eqs)
+step110 atoms=162   knobs=150  eqs=174   quadrows=103 rank=66   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [76s]
+   -> freeing x7075 by adding atoms [36085] (+3 eqs)
+step111 atoms=163   knobs=151  eqs=177   quadrows=103 rank=67   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [76s]
+   -> freeing x2099 by adding atoms [29090] (+5 eqs)
+step112 atoms=164   knobs=152  eqs=182   quadrows=103 rank=68   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [77s]
+   -> freeing x25297 by adding atoms [36088] (+0 eqs)
+step113 atoms=165   knobs=153  eqs=182   quadrows=103 rank=69   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [77s]
+   -> freeing x37158 by adding atoms [29089] (+0 eqs)
+step114 atoms=166   knobs=154  eqs=182   quadrows=103 rank=70   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [78s]
+   -> freeing x10878 by adding atoms [36086] (+0 eqs)
+step115 atoms=167   knobs=155  eqs=182   quadrows=103 rank=71   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [79s]
+   -> freeing x22542 by adding atoms [36087] (+0 eqs)
+step116 atoms=168   knobs=156  eqs=182   quadrows=103 rank=72   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [79s]
+   -> freeing x6788 by adding atoms [1457] (+1 eqs)
+step117 atoms=169   knobs=157  eqs=183   quadrows=103 rank=73   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [80s]
+   -> freeing x31033 by adding atoms [1458, 33971] (+1 eqs)
+step118 atoms=171   knobs=158  eqs=184   quadrows=103 rank=74   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [81s]
+   -> freeing x31822 by adding atoms [33970] (+0 eqs)
+step119 atoms=172   knobs=159  eqs=184   quadrows=103 rank=75   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [82s]
+   -> freeing x21279 by adding atoms [1459, 33881, 40005] (+1 eqs)
+step120 atoms=175   knobs=160  eqs=185   quadrows=103 rank=76   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [82s]
+   -> freeing x16738 by adding atoms [1460] (+1 eqs)
+step121 atoms=176   knobs=162  eqs=186   quadrows=103 rank=78   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [83s]
+   -> freeing x19892 by adding atoms [1461] (+1 eqs)
+step122 atoms=177   knobs=165  eqs=187   quadrows=103 rank=81   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [86s]
+   -> freeing x32010 by adding atoms [1465, 1466] (+5 eqs)
+step123 atoms=179   knobs=166  eqs=192   quadrows=103 rank=82   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [91s]
+   -> freeing x38672 by adding atoms [1467] (+1 eqs)
+step124 atoms=180   knobs=167  eqs=193   quadrows=103 rank=83   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [95s]
+   -> freeing x7181 by adding atoms [1468] (+1 eqs)
+step125 atoms=181   knobs=168  eqs=194   quadrows=103 rank=84   free=84  incons=0   nonint=11  [(642, '54601184595'), (1329, 'p*4441'), (6251, '139456'), (6585, '139456'), (6880, '17432'), (9182, '557824'), (9413, 'p*4441'), (10903, 'p*22205')]  [99s]
+   -> freeing x7010 by adding atoms [1464] (+0 eqs)
+step126 atoms=182   knobs=169  eqs=194   quadrows=120 rank=72   free=97  incons=0   nonint=26  [(103, '1000777809559214620689446122'), (642, '1089100752562498921029'), (2099, '147637103419577'), (4507, '2967217295833415846542'), (4562, '47036557049283087172403967734'), (5814, '147637103419577'), (6251, '139456'), (6585, '139456')]  [102s]
+   -> freeing x21671 by adding atoms [29091] (+2 eqs)
+step127 atoms=183   knobs=170  eqs=196   quadrows=120 rank=73   free=97  incons=0   nonint=26  [(103, '1000777809559214620689446122'), (642, '1089100752562498921029'), (2099, '147637103419577'), (4507, '2967217295833415846542'), (4562, '47036557049283087172403967734'), (5814, '147637103419577'), (6251, '139456'), (6585, '139456')]  [104s]
+   -> freeing x37530 by adding atoms [1469] (+0 eqs)
+step128 atoms=184   knobs=171  eqs=196   quadrows=120 rank=74   free=97  incons=0   nonint=26  [(103, '1000777809559214620689446122'), (642, '1089100752562498921029'), (2099, '147637103419577'), (4507, '2967217295833415846542'), (4562, '47036557049283087172403967734'), (5814, '147637103419577'), (6251, '139456'), (6585, '139456')]  [106s]
+   -> freeing x8731 by adding atoms [8261] (+1 eqs)
+step129 atoms=185   knobs=172  eqs=197   quadrows=130 rank=65   free=107 incons=0   nonint=19  [(103, '1342763876'), (4507, '8927929739174701530412'), (4562, '2231982434793675382603'), (5814, '671381938'), (6251, '139456'), (6585, '139456'), (6788, '671381938'), (6880, '17432')]  [107s]
+   -> freeing x3349 by adding atoms [8262] (+1 eqs)
+step130 atoms=186   knobs=173  eqs=198   quadrows=130 rank=66   free=107 incons=0   nonint=19  [(103, '1342763876'), (4507, '8927929739174701530412'), (4562, '2231982434793675382603'), (5814, '671381938'), (6251, '139456'), (6585, '139456'), (6788, '671381938'), (6880, '17432')]  [108s]
+   -> freeing x17925 by adding atoms [1462] (+0 eqs)
+step131 atoms=187   knobs=174  eqs=198   quadrows=134 rank=62   free=112 incons=0   nonint=19  [(103, '1342763876'), (4507, '8927929739174701530412'), (4562, '2231982434793675382603'), (5814, '671381938'), (6251, '139456'), (6585, '139456'), (6788, '671381938'), (6880, '17432')]  [109s]
+   -> freeing x9118 by adding atoms [8263, 40121] (+1 eqs)
+step132 atoms=189   knobs=175  eqs=199   quadrows=140 rank=57   free=118 incons=0   nonint=13  [(103, '48415'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415'), (6880, '17432')]  [109s]
+   -> freeing x34310 by adding atoms [8264] (+1 eqs)
+step133 atoms=190   knobs=176  eqs=200   quadrows=140 rank=58   free=118 incons=0   nonint=13  [(103, '48415'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415'), (6880, '17432')]  [110s]
+   -> freeing x27019 by adding atoms [1463] (+0 eqs)
+step134 atoms=191   knobs=177  eqs=200   quadrows=142 rank=56   free=121 incons=0   nonint=13  [(103, '48415'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415'), (6880, '17432')]  [110s]
+   -> freeing x25490 by adding atoms [8265] (+1 eqs)
+step135 atoms=192   knobs=179  eqs=201   quadrows=142 rank=57   free=122 incons=0   nonint=13  [(103, '48415'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415'), (6880, '17432')]  [111s]
+   -> freeing x2239 by adding atoms [8268, 37488] (+3 eqs)
+step136 atoms=194   knobs=180  eqs=204   quadrows=146 rank=54   free=126 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [112s]
+   -> freeing x3177 by adding atoms [8267] (+0 eqs)
+step137 atoms=195   knobs=181  eqs=204   quadrows=146 rank=55   free=126 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [112s]
+   -> freeing x15963 by adding atoms [8266] (+0 eqs)
+step138 atoms=196   knobs=182  eqs=204   quadrows=146 rank=56   free=126 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [113s]
+   -> freeing x31731 by adding atoms [6951] (+3 eqs)
+step139 atoms=197   knobs=183  eqs=207   quadrows=148 rank=55   free=128 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [113s]
+   -> freeing x20473 by adding atoms [6950] (+0 eqs)
+step140 atoms=198   knobs=184  eqs=207   quadrows=148 rank=56   free=128 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [114s]
+   -> freeing x24425 by adding atoms [6949] (+0 eqs)
+step141 atoms=199   knobs=185  eqs=207   quadrows=148 rank=57   free=128 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [114s]
+   -> freeing x27177 by adding atoms [6952] (+1 eqs)
+step142 atoms=200   knobs=186  eqs=208   quadrows=148 rank=58   free=128 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [115s]
+   -> freeing x4306 by adding atoms [6953] (+1 eqs)
+step143 atoms=201   knobs=187  eqs=209   quadrows=148 rank=59   free=128 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [115s]
+   -> freeing x9106 by adding atoms [6954, 39041] (+1 eqs)
+step144 atoms=203   knobs=190  eqs=210   quadrows=151 rank=57   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [115s]
+   -> freeing x13719 by adding atoms [6956, 6957] (+3 eqs)
+step145 atoms=205   knobs=191  eqs=213   quadrows=151 rank=58   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [115s]
+   -> freeing x15341 by adding atoms [6955] (+0 eqs)
+step146 atoms=206   knobs=192  eqs=213   quadrows=151 rank=59   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [116s]
+   -> freeing x14803 by adding atoms [6958] (+1 eqs)
+step147 atoms=207   knobs=193  eqs=214   quadrows=151 rank=60   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [116s]
+   -> freeing x36474 by adding atoms [6960, 6961] (+3 eqs)
+step148 atoms=209   knobs=194  eqs=217   quadrows=151 rank=61   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [117s]
+   -> freeing x9959 by adding atoms [29945, 29946] (+2 eqs)
+step149 atoms=211   knobs=195  eqs=219   quadrows=151 rank=62   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [117s]
+   -> freeing x13502 by adding atoms [29947] (+1 eqs)
+step150 atoms=212   knobs=196  eqs=220   quadrows=151 rank=63   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [118s]
+   -> freeing x10625 by adding atoms [29948, 36217] (+4 eqs)
+step151 atoms=214   knobs=197  eqs=224   quadrows=151 rank=64   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [118s]
+   -> freeing x10308 by adding atoms [29949] (+0 eqs)
+step152 atoms=215   knobs=198  eqs=224   quadrows=151 rank=65   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [119s]
+   -> freeing x30108 by adding atoms [36218] (+1 eqs)
+step153 atoms=216   knobs=200  eqs=225   quadrows=151 rank=67   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [119s]
+   -> freeing x29155 by adding atoms [29950] (+0 eqs)
+step154 atoms=217   knobs=201  eqs=225   quadrows=151 rank=68   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [120s]
+   -> freeing x28665 by adding atoms [36219] (+1 eqs)
+step155 atoms=218   knobs=202  eqs=226   quadrows=151 rank=69   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [120s]
+   -> freeing x11417 by adding atoms [31760] (+1 eqs)
+step156 atoms=219   knobs=203  eqs=227   quadrows=151 rank=70   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [121s]
+   -> freeing x16495 by adding atoms [6959, 11052] (+1 eqs)
+step157 atoms=221   knobs=204  eqs=228   quadrows=151 rank=71   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [122s]
+   -> freeing x9047 by adding atoms [11053] (+1 eqs)
+step158 atoms=222   knobs=206  eqs=229   quadrows=151 rank=73   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [123s]
+   -> freeing x33989 by adding atoms [11054] (+1 eqs)
+step159 atoms=223   knobs=209  eqs=230   quadrows=151 rank=76   free=133 incons=0   nonint=13  [(103, '48415'), (642, '177045049'), (4507, '9683'), (4562, '48415'), (5814, '48415'), (6251, '139456'), (6585, '139456'), (6788, '48415')]  [124s]
+   -> freeing x8976 by adding atoms [11064, 41627] (+10 eqs)
+step160 atoms=225   knobs=210  eqs=240   quadrows=169 rank=60   free=150 incons=0   nonint=25  [(103, '48415'), (642, '177045049'), (2239, '166529782639653531710202207'), (3177, '166529782639653531710202207'), (4306, '166529782639653531710202207'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [124s]
+   -> freeing x12463 by adding atoms [11061, 11063] (+0 eqs)
+step161 atoms=227   knobs=211  eqs=240   quadrows=169 rank=61   free=150 incons=0   nonint=25  [(103, '48415'), (642, '177045049'), (2239, '166529782639653531710202207'), (3177, '166529782639653531710202207'), (4306, '166529782639653531710202207'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [124s]
+   -> freeing x3122 by adding atoms [11057] (+0 eqs)
+step162 atoms=228   knobs=212  eqs=240   quadrows=169 rank=62   free=150 incons=0   nonint=25  [(103, '48415'), (642, '177045049'), (2239, '166529782639653531710202207'), (3177, '166529782639653531710202207'), (4306, '166529782639653531710202207'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [125s]
+   -> freeing x13955 by adding atoms [11060] (+0 eqs)
+step163 atoms=229   knobs=213  eqs=240   quadrows=178 rank=59   free=154 incons=0   nonint=24  [(103, '48415'), (642, '177045049'), (2239, '638330845344493394376'), (3177, '79791355668061674297'), (4306, '638330845344493394376'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [126s]
+   -> freeing x14417 by adding atoms [11059] (+0 eqs)
+step164 atoms=230   knobs=214  eqs=240   quadrows=178 rank=59   free=155 incons=0   nonint=24  [(103, '48415'), (642, '177045049'), (2239, '638330845344493394376'), (3177, '79791355668061674297'), (4306, '638330845344493394376'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [126s]
+   -> freeing x19408 by adding atoms [11058] (+0 eqs)
+step165 atoms=231   knobs=215  eqs=240   quadrows=178 rank=59   free=156 incons=0   nonint=24  [(103, '48415'), (642, '177045049'), (2239, '638330845344493394376'), (3177, '79791355668061674297'), (4306, '638330845344493394376'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [127s]
+   -> freeing x29074 by adding atoms [11062] (+0 eqs)
+step166 atoms=232   knobs=216  eqs=240   quadrows=178 rank=60   free=156 incons=0   nonint=24  [(103, '48415'), (642, '177045049'), (2239, '638330845344493394376'), (3177, '79791355668061674297'), (4306, '638330845344493394376'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [127s]
+   -> freeing x35202 by adding atoms [11065] (+1 eqs)
+step167 atoms=233   knobs=217  eqs=241   quadrows=178 rank=60   free=157 incons=0   nonint=24  [(103, '48415'), (642, '177045049'), (2239, '638330845344493394376'), (3177, '79791355668061674297'), (4306, '638330845344493394376'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [127s]
+   -> freeing x31008 by adding atoms [11055] (+0 eqs)
+step168 atoms=234   knobs=218  eqs=241   quadrows=182 rank=57   free=161 incons=0   nonint=24  [(103, '48415'), (642, '177045049'), (2239, '638330845344493394376'), (3177, '79791355668061674297'), (4306, '638330845344493394376'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [128s]
+   -> freeing x3629 by adding atoms [12624] (+1 eqs)
+step169 atoms=235   knobs=219  eqs=242   quadrows=187 rank=53   free=166 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [128s]
+   -> freeing x16919 by adding atoms [12625] (+1 eqs)
+step170 atoms=236   knobs=220  eqs=243   quadrows=187 rank=53   free=167 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [129s]
+   -> freeing x15356 by adding atoms [11056] (+0 eqs)
+step171 atoms=237   knobs=221  eqs=243   quadrows=189 rank=52   free=169 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [129s]
+   -> freeing x10621 by adding atoms [12626] (+1 eqs)
+step172 atoms=238   knobs=223  eqs=244   quadrows=189 rank=53   free=170 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [130s]
+   -> freeing x6247 by adding atoms [38751] (+3 eqs)
+step173 atoms=239   knobs=224  eqs=247   quadrows=195 rank=48   free=176 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [130s]
+   -> freeing x5282 by adding atoms [38749] (+0 eqs)
+step174 atoms=240   knobs=225  eqs=247   quadrows=195 rank=49   free=176 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [130s]
+   -> freeing x33347 by adding atoms [38750] (+0 eqs)
+step175 atoms=241   knobs=226  eqs=247   quadrows=195 rank=50   free=176 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [131s]
+   -> freeing x1504 by adding atoms [12880] (+3 eqs)
+step176 atoms=242   knobs=227  eqs=250   quadrows=197 rank=49   free=178 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [131s]
+   -> freeing x17074 by adding atoms [38753] (+0 eqs)
+step177 atoms=243   knobs=228  eqs=250   quadrows=197 rank=50   free=178 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [131s]
+   -> freeing x35199 by adding atoms [38752] (+0 eqs)
+step178 atoms=244   knobs=229  eqs=250   quadrows=197 rank=51   free=178 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [132s]
+   -> freeing x15165 by adding atoms [12881] (+1 eqs)
+step179 atoms=245   knobs=230  eqs=251   quadrows=197 rank=52   free=178 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [132s]
+   -> freeing x20477 by adding atoms [12882] (+1 eqs)
+step180 atoms=246   knobs=231  eqs=252   quadrows=197 rank=53   free=178 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [133s]
+   -> freeing x24927 by adding atoms [12883] (+1 eqs)
+step181 atoms=247   knobs=234  eqs=253   quadrows=199 rank=52   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [133s]
+   -> freeing x15762 by adding atoms [12893, 39339] (+6 eqs)
+step182 atoms=249   knobs=235  eqs=259   quadrows=199 rank=53   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [134s]
+   -> freeing x24828 by adding atoms [12891, 12892] (+1 eqs)
+step183 atoms=251   knobs=236  eqs=260   quadrows=199 rank=54   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [134s]
+   -> freeing x38330 by adding atoms [12886, 12887] (+2 eqs)
+step184 atoms=253   knobs=237  eqs=262   quadrows=199 rank=55   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [135s]
+   -> freeing x14482 by adding atoms [12884] (+0 eqs)
+step185 atoms=254   knobs=238  eqs=262   quadrows=199 rank=56   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [135s]
+   -> freeing x27228 by adding atoms [12885] (+0 eqs)
+step186 atoms=255   knobs=239  eqs=262   quadrows=199 rank=57   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [136s]
+   -> freeing x38628 by adding atoms [12889, 12890, 39590] (+1 eqs)
+step187 atoms=258   knobs=240  eqs=263   quadrows=199 rank=58   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [136s]
+   -> freeing x12372 by adding atoms [12742, 12894, 41027] (+5 eqs)
+step188 atoms=261   knobs=241  eqs=268   quadrows=199 rank=59   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [137s]
+   -> freeing x15865 by adding atoms [12741, 22467] (+1 eqs)
+step189 atoms=263   knobs=242  eqs=269   quadrows=199 rank=60   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [137s]
+   -> freeing x20799 by adding atoms [12896] (+0 eqs)
+step190 atoms=264   knobs=243  eqs=269   quadrows=199 rank=61   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [138s]
+   -> freeing x28413 by adding atoms [12897] (+0 eqs)
+step191 atoms=265   knobs=245  eqs=269   quadrows=199 rank=63   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [138s]
+   -> freeing x16453 by adding atoms [12895] (+0 eqs)
+step192 atoms=266   knobs=246  eqs=269   quadrows=199 rank=64   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [139s]
+   -> freeing x10185 by adding atoms [12743] (+1 eqs)
+step193 atoms=267   knobs=247  eqs=270   quadrows=199 rank=65   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [140s]
+   -> freeing x5957 by adding atoms [12745] (+2 eqs)
+step194 atoms=268   knobs=249  eqs=272   quadrows=199 rank=67   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [140s]
+   -> freeing x20091 by adding atoms [12746] (+1 eqs)
+step195 atoms=269   knobs=251  eqs=273   quadrows=199 rank=69   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [141s]
+   -> freeing x36930 by adding atoms [12744] (+0 eqs)
+step196 atoms=270   knobs=252  eqs=273   quadrows=199 rank=70   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [142s]
+   -> freeing x25019 by adding atoms [12750, 37243] (+5 eqs)
+step197 atoms=272   knobs=253  eqs=278   quadrows=199 rank=71   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [143s]
+   -> freeing x30685 by adding atoms [32075] (+1 eqs)
+step198 atoms=273   knobs=254  eqs=279   quadrows=199 rank=72   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [144s]
+   -> freeing x14969 by adding atoms [32076] (+1 eqs)
+step199 atoms=274   knobs=255  eqs=280   quadrows=199 rank=73   free=182 incons=0   nonint=20  [(103, '48415'), (642, '177045049'), (2239, '959765732532'), (3177, '959765732532'), (4306, '3136489322'), (4507, '9683'), (4562, '48415'), (5814, '48415')]  [145s]
+   -> freeing x21951 by adding atoms [12749] (+0 eqs)
+

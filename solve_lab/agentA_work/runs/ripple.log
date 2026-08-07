@@ -1,0 +1,5 @@
+witness in its own frame after fwd: score 39026 (failing 7)
+var      cost     score    delta on the seven
+x9118    0        39023    a35759+5113045
+x8731    0        39022    a35761+1
+x642     0        39021    a22229-7376877, a35762+1

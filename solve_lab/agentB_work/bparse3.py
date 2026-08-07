@@ -120,3 +120,22 @@ def flat_pack(a):
         out.append((sg, E))
     rec(a[1] if a[0] == 'g' else a, 1)
     return out
+
+def flat_top(a):
+    """Split the EQUATION ROOT sum into signed top-level terms.
+    Same as flat_pack but also splits when the left child is not a group
+    (e.g.  (c1)*(S) + (c2)*(S) )."""
+    out = []
+    def rec(E, sg):
+        if E[0] in ('+','-'):
+            L = E[1][0]; R = E[1][1]
+            sg2 = sg if E[0] == '+' else -sg
+            if L[0] == 'g':
+                X = L[1]
+                if X[0] in ('+','-'):
+                    rec(X, sg); out.append((sg2, R)); return
+                out.append((sg, L)); out.append((sg2, R)); return
+            rec(L, sg); out.append((sg2, R)); return
+        out.append((sg, E))
+    rec(a[1] if a[0] == 'g' else a, 1)
+    return out

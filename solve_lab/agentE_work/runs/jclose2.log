@@ -1,0 +1,15 @@
+base bad [6668, 12606, 34497, 34498]
+round 0: +6 vars (total 6)
+  affected atoms so far 8, nonlin 0, 0s
+round 1: +55 vars (total 61)
+  affected atoms so far 94, nonlin 47, 0s
+round 2: +281 vars (total 342)
+  affected atoms so far 363, nonlin 175, 0s
+round 3: +633 vars (total 975)
+  affected atoms so far 1054, nonlin 670, 1s
+round 4: +1094 vars (total 2069)
+  affected atoms so far 1780, nonlin 1047, 2s
+round 5: +590 vars (total 2659)
+  affected atoms so far 2122, nonlin 1206, 3s
+  var cap hit
+FINAL: vars 2659 atoms 2122 nonlin 1206 3s

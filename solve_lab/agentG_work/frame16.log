@@ -1,0 +1,16 @@
+(base)                           CONST-RESIDUAL(5)
+2081                             INCONSISTENT-LINEAR(5) [(31670, 10), (33929, 11), (40068, 1), (40969, 1), (42117, 1)]
+24601                            INCONSISTENT-LINEAR(4) [(25676, 1), (29539, 12), (33796, 12), (40826, 1)]
+4287                             PINNED-THEN-FAILS(5) vars=[14853, 31339]
+13195                            PINNED-THEN-FAILS(5) vars=[14853, 31339]
+2081,24601                       UNREACHABLE-CONST(6) [(688, 11), (1618, 14), (23000, 10), (39067, 1), (40608, 1)]
+2081,4287                        CONST-RESIDUAL(5)
+2081,13195                       CONST-RESIDUAL(5)
+24601,4287                       CONST-RESIDUAL(4)
+24601,13195                      CONST-RESIDUAL(4)
+4287,13195                       UNDERDETERMINED rank 2 of 4 vars [8731, 9118, 14853, 31339] : 13 polys
+2081,24601,4287                  INCONSISTENT-LINEAR(4) [(25676, 1), (29539, 12), (33796, 12), (40826, 1)]
+2081,24601,13195                 INCONSISTENT-LINEAR(4) [(25676, 1), (29539, 12), (33796, 12), (40826, 1)]
+2081,4287,13195                  PINNED-THEN-FAILS(5) vars=[14853, 31339]
+24601,4287,13195                 PINNED-THEN-FAILS(4) vars=[8731, 9118]
+2081,24601,4287,13195            CONST-RESIDUAL(4)

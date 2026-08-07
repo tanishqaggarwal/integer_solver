@@ -103,9 +103,21 @@ def as_int_mult(s):
     return None
 
 
+def peel_mults(s):
+    """peel all leading '(int)*(...)' wrappers -> (mult, inner)."""
+    m = 1
+    s = strip_parens(s)
+    while True:
+        im = as_int_mult(s)
+        if im is None:
+            return m, s
+        m *= im[0]
+        s = strip_parens(im[1])
+
+
 def outer(s, depth=0):
     """LHS -> (kind, mult, core_text)."""
-    s = strip_parens(s)
+    m0, s = peel_mults(s)
     parts = split_top(s)
     # (C1)*(S)+(C2)*(S)
     if len(parts) == 2:
@@ -114,24 +126,21 @@ def outer(s, depth=0):
         if a and b:
             ca = strip_parens(a[1]); cb = strip_parens(b[1])
             if ca == cb:
-                return 'lin', parts[0][0] * a[0] + parts[1][0] * b[0], ca
-        return 'lin', 1, s
-    # (C)*(REST)
-    im = as_int_mult(s)
-    if im is not None:
-        k, m, c = outer(im[1], depth + 1)
-        return k, m * im[0], c
+                k, m, c = outer(ca, depth + 1)
+                return k, m0 * (parts[0][0] * a[0] + parts[1][0] * b[0]) * m, c
+        return 1, m0, s
     # (S)*(S)
     if s.startswith('('):
-        m = match_fwd(s, 0)
-        head = s[1:m]
-        rest = s[m + 1:]
+        j = match_fwd(s, 0)
+        head = s[1:j]
+        rest = s[j + 1:]
         if rest.startswith('*(') and match_fwd(rest, 1) == len(rest) - 1:
             th = strip_parens(rest[1:])
             hh = strip_parens(head)
             if hh == th:
-                return 'sq', 1, hh
-    return 'lin', 1, s
+                k, m, c = outer(hh, depth + 1)
+                return 2 * k, m0 * m * m, c
+    return 1, m0, s
 
 
 def main():
