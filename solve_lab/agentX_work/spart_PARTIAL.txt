@@ -1,0 +1,6 @@
+DEAD PARTIAL -- NOT A RESULT, NOT IN FLIGHT.
+The six signed sz=4 (m<=7) processes were killed mid-run; no DONE line was ever written to
+srep_real.txt, which is the only place a completed range is recorded.
+Reached 89/512 s0 values = 33.37% of C(256,4)*2^4 = 2796682240 candidates.  CLAIMED: NOTHING.
+The standing signed bound is m <= 6 (exhausted).  To resume, re-run the s0 values with no
+"s0=N done" line in spart*.log, or simply re-run all six ranges from scratch (~15 min).

@@ -1,3 +1,10 @@
+*** THIS FILE IS NOT EVIDENCE OF ANYTHING. ***
+*** Agent Z's audit: this was a 1-term plant (k = 2^100 - 2^30). With a table of all
+*** signed a<=3 combinations, k plus ANY single signed term is a genuine 3-term table
+*** entry, so all 512 scan indices hit REGARDLESS of whether sign handling is correct.
+*** The test could not fail and exercised nothing.  Superseded by xstest.py, which
+*** plants m=5 with (a) lowest digit negative (b) all digits negative (c) all positive
+*** and requires the EXACT set of C(5,2)=10 splits (agent Y's criterion).  All 3 PASS.
 HIT 1 0 - 17238033963587306011
 HIT 1 1 - 6552029576778792377
 HIT 1 2 - 5299932240327528500

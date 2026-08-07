@@ -201,3 +201,69 @@ lines land in `partN.log`, so `prog.py` reports exact fractional coverage and a 
 to re-run the `i0` values with no `i0=N done` line. **A HIT prints `HIT <size> <code> <m> <key>` to
 `rep_real.txt` and is decoded by `xdecode.py tbl4.bin "<line>"`** — which needs `tbl4.bin`
 (build-order table) regenerated first: `./xmitm table data_real.txt 4 tbl4.bin` (50 s).
+
+---
+
+## 8. AGENT Z'S AUDIT — three findings, all accepted, all addressed
+
+**Z confirmed the unsigned sweep is validated and quotable**, and that my ladder, agent Y's ladder and
+Z's own leaves in exponent order are **identical**, with my `T` matching Y's and AA's. The three
+search agents are searching the same object, so the bounds combine.
+
+### 8.1 My signed plant test was vacuous — Z was right, and it is replaced
+`srep_c.txt` recorded `HIT 1 <s>` for **all 512** scan indices. That is not a strong result, it is a
+**test that could not fail**: the plant `k = 2¹⁰⁰ − 2³⁰` has one signed term, so with a table of all
+signed `a ≤ 3` combinations, `k` plus *any* single signed term is a genuine 3-term entry. It exercised
+**nothing** about sign bookkeeping, which was the only reason the signed class needed its own test.
+Kept and loudly marked as `srep_c_VACUOUS_NOT_EVIDENCE.txt`.
+
+**Replaced by `xstest.py`** (Z's design, Y's pass criterion — exact splits, not "a hit appeared"):
+
+| plant (`m = 5`) | unsigned wt of `k mod N` | HIT lines | exact splits | verdict |
+|---|---|---|---|---|
+| lowest digit negative | 55 | 10 (want 10) | **10 / 10** | **PASS** |
+| all digits negative | 191 | 10 | **10 / 10** | **PASS** |
+| all positive (control) | 5 | 10 | **10 / 10** | **PASS** |
+
+**And the reason the table's leading-sign restriction is lossless is now written down, not assumed**
+(two agents nearly tripped over it): the table keeps only sums whose lowest-exponent digit is `+1` —
+half of all signed sums — but it stores only the **low 64 bits of `x`**, and every leading-negative
+sum is `−(a leading-positive sum)` with `x(−P) = x(P)`, so the two key sets coincide.
+**Verified on 200 random signed 3-term sums, 0 mismatches.**
+
+### 8.2 A dead partial that read like progress — marked
+The six signed `sz = 4` processes were killed with **no `DONE` line**, so the run survived only as
+in-flight-looking `spart*.log`. Renamed **`DEAD_spart*.log`** with **`spart_PARTIAL.txt`** recording
+`89/512 s0 = 33.37 %` and the words **CLAIMED: NOTHING**. (The standing signed bound stayed `m ≤ 6`
+throughout; I never claimed the partial.) The run has since been restarted from scratch.
+
+### 8.3 The exponent-256 coverage gap — confirmed, quantified, and left to AA
+`xsigned.c` reads `for (i = 0; i < 256; i++)`, so its alphabet is `±2^e` for `e ∈ [0,255]` and
+**`2²⁵⁶` is absent**. Since `k` is fixed only **mod `N`** and `2²⁵⁶ > N`, that matters:
+**I reproduce AA's `reach = 42`** — `(2²⁵⁶ − 1) mod N` is a 129-bit number, unsigned weight 64,
+**NAF weight 42**, versus `m = 2` if a `±2²⁵⁶` digit were available. So the near-all-ones family is
+outside the signed sweep at any affordable depth.
+
+**This does not touch the unsigned `|S| ≤ 9` result**, where the ON-set *is* a subset of the 256
+leaves by construction and `e ≤ 255` is the complete object.
+
+**AA's `±2²⁵⁶` offsets are the right fix and are AA's to run.** My engine needs **no code change** —
+the scan's base point is the first line of the data file, so `T ± 2²⁵⁶·G` is a one-line substitution
+and `stbls.bin` / `sbm.bin` are reused unchanged. I am deliberately **not** running it, to avoid
+duplicating AA.
+
+### 8.4 Depth continued after the audit — signed `m ≤ 7` EXHAUSTED
+Re-run from scratch after the fixes. The six `b = 4` ranges sum to **exactly
+`C(256,4)·2⁴ = 2,796,682,240`**, 474 s wall, **0 hits, 0 degenerate events**:
+
+```
+DONE signed sz=4 range=[  0, 23) n=472198672 zero=0 436.4s
+DONE signed sz=4 range=[ 23, 50) n=475134528 zero=0 432.0s
+DONE signed sz=4 range=[ 50, 81) n=451197160 zero=0 414.7s
+DONE signed sz=4 range=[ 81,123) n=473184712 zero=0 425.4s
+DONE signed sz=4 range=[123,184) n=460151152 zero=0 474.0s
+DONE signed sz=4 range=[184,512) n=464816016 zero=0 411.5s
+```
+
+> **SIGNED-DIGIT WEIGHT `m ≤ 7` IS EXHAUSTED**, subject to the §8.3 alphabet caveat
+> (digits `±2^e`, `e ≤ 255`; the near-all-ones family needs AA's `±2²⁵⁶` offsets).

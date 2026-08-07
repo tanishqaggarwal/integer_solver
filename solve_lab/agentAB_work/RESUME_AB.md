@@ -3,7 +3,9 @@
 **Mandate:** enumerate every mechanism that could bound the solution's Hamming weight `w` FROM
 ABOVE, settle each DEAD or LIVE. Theory, not search. Deliverable: `UPPER_BOUND_MAP.md` (this dir).
 
-**Status: COMPLETE (round 3). ROUND-1 THEOREM B NUMBERS RETRACTED; ROUND-2 COST FIX SUPERSEDED; THEOREM D'S HEADLINE STRUCK. §14 of UPPER_BOUND_MAP.md is authoritative.** No compute process launched, no long job running, nothing to resume mid-flight.
+**Status: COMPLETE (round 4 = final pass). Read `UPPER_BOUND_MAP.md` §AUTHORITATIVE SUMMARY first — it supersedes §0–14 wherever they differ.**
+
+**Status: (round 3 history). ROUND-1 THEOREM B NUMBERS RETRACTED; ROUND-2 COST FIX SUPERSEDED; THEOREM D'S HEADLINE STRUCK. §14 of UPPER_BOUND_MAP.md is authoritative.** No compute process launched, no long job running, nothing to resume mid-flight.
 Everything below is reproducible from cold in < 3 minutes.
 
 ## Files in this directory
@@ -17,7 +19,8 @@ Everything below is reproducible from cold in < 3 minutes.
 | `ab_costfix.py` | **round 2** — the retraction: corrected ball cost `√W·Vol₁₂₈(W/2)`, corrected Theorem B, corrected budget→weight table | ~15 s |
 | `ab_soft.py` | **round 2** — §6 upgraded to a structural argument; §9.12 costed by degree of regularity | ~5 s |
 | `ab_mem.py` | **round 3** — fixed ball cost (exact `rep(W)`, ceil, suffix-min), Theorem D in one model, **memory-aware (time,memory)→w table** | ~10 s |
-| `ab_dreg2.py`, `dreg_partial.log` | **round 3** — measured XL solving degree of the boolean-selector ECDLP ladder (Singular is NOT installed here) | mins–hours |
+| `ab_dreg2.py`, `dreg_partial.log` | **round 3** — model + first measurement of the XL solving degree (**Singular is NOT installed in this container**) | mins–hours |
+| `ab_dreg3.py`, `dreg3.log`, `dreg3.pid` | **round 4** — same model, two exact optimisations (column-support restriction; one augmented rank instead of `n`). `n=2→4`, `n=3→5` reproduced in 82 s; `n=4` at `d=5` is a 21057×17091 rank, ~1 h | ~1 h |
 
 Reproduce: `cd solve_lab/agentAB_work && PYTHONDONTWRITEBYTECODE=1 python3 ab_facts.py && python3 ab_cost.py && python3 ab_rank.py`.
 Only external file read: `../agentX_work/xdata.json` (read-only, for `G`, `T`, ladder). Nothing

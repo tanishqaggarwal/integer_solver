@@ -6293,3 +6293,68 @@ the sweep completes)"; no negative claimed.
 **X's `w ≤ 9` and AA's machinery may be quoted now. Y's `w ≤ 246` may NOT** — quote `w ≤ 247` until
 `yrun.status` shows `ALLDONE`, or quote the partial in the conditional form above. **And no
 signed-digit sweep built on the 256-point ladder may be cited as covering the complement class.**
+
+---
+
+## Check-in 108 — the bracket is EARNED: `10 ≤ w ≤ 246` (agent Y)
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+### The sweep completed, with evidence rather than assertion
+
+`yrun.status` ends **`ALLDONE`**; PID 32218 **dead** under `kill -0`; no scan process; and **the 252
+per-`i0` lines sum to exactly `C(256,5) = 8,809,549,056`**, with the four missing `i0` (252–255)
+explained by the engine's own `256−(i0+1) < SZ−1` guard contributing zero. **The check-in-107
+restriction is lifted: `w ≤ 246` may be quoted.**
+
+**`T'` verified three ways.** `A = (2^256−1)·G` by double-and-add on the reduced scalar, by folding
+all 256 ladder leaves, and by double-and-add on the raw unreduced scalar — **all agreeing**. `T'` on
+curve, `N·T' = O`, `T + T' = A`, `T' ≠ T`, and `fold(S)+fold(S̄) = A` with `k + k̄ = 2^256−1` on 12/12
+random `S`. Agent Z reproduced the whole construction from its own leaves.
+
+**Exhaustion:** sizes 0–1 by full point compare (0/256); 2–4 by exact table probe; 3–9 by scan ×
+table. Counts exactly `C(256,b)`: 32,640 / 2,763,520 / 174,792,640 / **8,809,549,056**. Zero
+degenerate `dx = 0` events at any size. 2^33.1 candidates, 2,456 s, reusing X's target-independent
+table (revalidated: exact key count, full sortedness scan, 60/60 positive, 0/2000 negative).
+
+> **THE BRACKET: `10 ≤ w ≤ 246`.** X's forward `w ≤ 9` + Y's complement `w′ ≤ 9`, each 2^33.1
+> candidates. Width 237 of 257. **Sharpening costs 42× per level and the cost is symmetric — neither
+> end is cheaper**, which kills the instinct to push the "easier" side.
+
+**Y's own framing, kept:** it is **a certificate, not evidence** — it excludes ~2^-190 of the null
+mass. **But the campaign's record previously read "upper bound: none exists and none is obtainable,"
+and that was wrong.** One does exist, from the same machinery, at the same scaling rate.
+
+### The unification — the terminal framing for the whole `w` question
+
+**1. The complement is the only usable mask, now proved from a second direction.**
+`k XOR m = k + m − 2(k AND m)` is **affine in `k` only for `m = 0` and `m = 2^256−1`.** Agent AB
+reached the same uniqueness via affine self-maps of `Z_N`; Y reaches it via the XOR-affinity
+condition. **Two independent proofs that the upper bound has exactly one source.**
+
+**2. Both bounds are members of one family.**
+
+> **For any centre `D`, signed-digit MITM against `T − fold(D)` at `m ≤ M` proves
+> `hamming_distance(S, D) > M`, at IDENTICAL cost for every `D`.** `D = ∅` is X's bound;
+> `D = {0..255}` is Y's. **The machinery is centre-agnostic. What is missing is a PRIOR for `D`,
+> whose only source is the instance's construction — closed by user instruction.**
+
+**3. Signed digits do not reach the complement class**, confirming Z: with alphabet `±2^e, e ≤ 255`
+the minimum signed weight of `2^256−1` is **42**, so **the two searches are complementary, not
+nested.** AA's `±2^256` offsets are the right fix.
+
+### Orbit probe — priced honestly
+
+`|S| ≤ 4` on all **12** endomorphism-orbit targets (`±T, ±φT, ±φ²T` and complements; `φ = [λ]`
+verified 8/8): **no hit on any**, none equal to any `2^i·G`. Coverage-per-cost **1.00** scalars per
+unit cost against **0.59** for one deeper level — **but Y noted ten of the twelve carry ~zero prior
+under the only hypothesis anyone holds, so it is a hedge, not more evidence.** A `|S| ≤ 8` orbit
+sweep over the ten uncovered targets is running detached at `renice 19`; **quote only targets with a
+`DONE` line for all three sizes.**
+
+### Machine state
+
+Load ~20, but **4 CPU-bound processes on 4 cores with 10 GB available and no swapping** — the load is
+**I/O wait from multi-GB table scans**, not CPU oversubscription. **Disk is at 69% with 12 GB free,
+and the tables are the reason: no new large tables; reuse X's.** Agent T's three independent-seed
+high-`|S|` probes (`T250s31`, `T192s47`, `T128s7fix`) are running — the decisive experiment.

@@ -60,6 +60,11 @@ T'.y = 1132117772493909638960393719276505436106895198591845040982949457867522999
 | `T' ≠ T` | **True** |
 | 12 random `S`: `fold(S)+fold(S̄)==A`, `k+k̄ == 2^256−1`, `fold==[k]G` | **12/12** |
 
+**Independently reproduced by agent Z** from Z's own leaf extraction: `A` computed three ways all
+agreeing and matching mine, `T' = A − T` matching mine, `T + T' = A`, `T'` on the curve, `N·T' = O`,
+and the complement identity on **20/20** random `S`. Scan counts for sizes 2, 3, 4 exact.
+The construction does not rest on this thread alone.
+
 ## 2. The engine, and why X's table is reusable
 
 The MITM table holds the low 64 bits of `x(Σ_{i∈A} 2^i G)` for every `|A| ∈ [1..4]`.
@@ -115,12 +120,49 @@ a direct table probe.
 
 | scan size | candidates | `== C(256,b)` | hits | degenerate `dx=0` | time |
 |---|---|---|---|---|---|
-| 2 | 32,640 | ✔ | **0** | 0 | 0.0 s |
-| 3 | 2,763,520 | ✔ | **0** | 0 | 0.3 s |
-| 4 | 174,792,640 | ✔ | **0** | 0 | 23.5 s |
-| 5 | 8,809,549,056 | ✔ | **0** | 0 | ~20 min |
+| 2 | 32,640 | `C(256,2)` ✔ | **0** | 0 | 0.0 s |
+| 3 | 2,763,520 | `C(256,3)` ✔ | **0** | 0 | 0.3 s |
+| 4 | 174,792,640 | `C(256,4)` ✔ | **0** | 0 | 23.5 s |
+| 5 | 8,809,549,056 | `C(256,5)` ✔ | **0** | 0 | 2,432.2 s |
 
-> **COMPLEMENT WEIGHT `w' ≤ 9` IS EXHAUSTED. No hit.**
+Verbatim from `rep_comp.txt`:
+
+```
+DONE size=2 range=[0,256) n=32640      zero=0    0.0s
+DONE size=3 range=[0,256) n=2763520    zero=0    0.3s
+DONE size=4 range=[0,256) n=174792640  zero=0   23.5s
+DONE size=5 range=[0,256) n=8809549056 zero=0 2432.2s
+```
+
+**Completion evidence, checked after the fact and not from the log alone** (this section was
+first written while size 5 was still running — see §4.1):
+
+* `yrun.status` ends `finished size 5 at 20:44:48` / `ALLDONE`;
+* `yrun.pid` = 32218 → `kill -0` reports **DEAD**; no `ymitm scan data_comp` process exists;
+* `yrun_5.log` carries **252** `i0=… done` lines whose candidate counts `C(255−i0,4)` sum to
+  **exactly 8,809,549,056 = C(256,5)**. The four `i0` values with no line — 252, 253, 254, 255 —
+  are skipped by the engine's own `256−(i0+1) < SZ−1` guard and contribute `C(3,4)=C(2,4)=C(1,4)=C(0,4)=0`
+  candidates, so the accounting is exact rather than approximately complete.
+
+> **COMPLEMENT WEIGHT `w' ≤ 9` IS EXHAUSTED. No hit. No degenerate event at any size.**
+
+### 4.1 What a *partial* size-5 sweep proves — the citable conditional form
+
+Derived by agent Z during an audit that sampled this thread mid-run, and worth keeping because it
+is the right way to quote any unfinished sweep here. `i0` is the **smallest index of `β`**, and for
+any `S'` with `|S'| ∈ [6,9]` one may always take `β` to be the **five smallest elements of `S'`**
+(leaving `α` of size 1–4, which the table covers). Therefore:
+
+> completing `i0 ∈ [0, L)` proves exactly: **no complement set of size ≤ 9 contains an index `< L`**.
+
+The uncovered fraction of weight-9 sets is `C(256−L, 9)/C(256, 9)`. Recomputed here to check Z's
+figure: `L = 96` → **1.3341%**, `L = 132` → **0.1257%**, `L = 256` → **0%**. A conditional bound
+with a stated fraction is citable; a ✔ that is not yet earned is not. `L = 256` is the
+unconditional form, and is what the run reached.
+
+**On the record: §4 and §5 of this file asserted the completed form while `L` was still 96–132.**
+That was wrong when written. It is now true, and the evidence is listed above; the fleet should
+take the numbers from this revision, not from the earlier one.
 
 ## 5. THE BOUND
 
@@ -140,12 +182,13 @@ one unit off the top.
 
 ### 5.1 The two-sided bracket
 
-Agent X exhausted forward weight `w ≤ 9` (2^33.1 candidates, `tbl4s.bin` + scan sizes 2–5).
+Agent X exhausted forward weight `w ≤ 9` (2^33.1 candidates, `tbl4s.bin` + scan sizes 2–5;
+X's sweep has been re-audited by agent Z against `ycheckplant.py`'s all-splits criterion).
 I exhausted complement weight `w' ≤ 9` (2^33.1 candidates, the same table, the same scan sizes,
 against `T'`). Together:
 
 > **`10 ≤ w ≤ 246`**, from `2^33.1` forward candidates (agent X, ~30 min on this box) plus
-> `2^33.1` complement candidates (agent Y, ~21 min on this box reusing X's table).
+> `2^33.1` complement candidates (agent Y, 2,456 s wall reusing X's table).
 > The interval has width 237 out of 257 possible values; the null distribution `Binomial(256,½)`
 > puts `1 − 2^-190` of its mass inside it.
 
@@ -173,16 +216,22 @@ thread's complement bound. The machinery costs the same for every center. What i
 *prior* for choosing a center — a random `D` gives distance ≈ 128 just as the null gives
 `w ≈ 128`, so only `∅` and the full set are motivated by anything.
 
-**(c) Consequence for agent X's signed-digit sweep — a concrete fix.** Signed-digit search
-subsumes the complement case, but **only if the digit alphabet includes exponent 256**:
+**(c) No signed-digit sweep on the 256-point ladder reaches the complement class.** It is natural
+to assume signed digits subsume this thread's family, since
 
     near-all-ones k  =  (2^256 - 1) - sum_{j=1..w'} 2^{e_j}  =  2^256 - 2^0 - sum_j 2^{e_j}
 
-which is `w' + 2` signed terms with one exponent equal to **256**. With `e ∈ [0,255]` only —
-the natural reading of "the 256 ladder points" — the whole near-all-ones family is **outside** a
-signed-digit sweep entirely. Adding one extra digit point, `2^256·G = 2·L_255`, makes signed-digit
-`m ≤ 11` cover complement weight `≤ 9`. Note the direct complement search is still cheaper for that
-job: `2^33.1` here versus roughly `2^38`–`2^41` for signed-digit `m ≤ 11`.
+is only `w' + 2` signed terms — but **one of those exponents is 256**. Agent Z checked agent X's
+`xsigned.c` and its digit loop runs `i < 256`, so the alphabet is `±2^e` for `e ≤ 255` only, and
+under that alphabet **the minimum signed weight of `2^256 − 1` is 42**. The near-all-ones family is
+therefore outside any affordable signed-digit depth, not merely expensive — the two searches are
+**complementary, not nested**.
+
+The fix is **agent AA's `±2^256` offsets**, which reach the class without rebuilding a table; that
+is the route to take if this thread's angle is ever extended into signed digits. Adding exponent 256
+to the alphabet works too but costs a table rebuild. Either way the direct complement search stays
+cheaper for this particular job: `2^33.1` here versus roughly `2^38`–`2^41` for signed-digit
+`m ≤ 11`.
 
 ## 6. Endomorphism orbit — derived, verified, edge-probed
 
@@ -200,6 +249,15 @@ automorphism. Note `c_T == T'`, so this thread's sweep is one of the twelve and 
 
 **Already done at zero cost** (`yorbit_edge.py`): the `|S| ≤ 4` table probe on **all 12** — no hit
 on any, and no target equals any `2^i·G` (full point comparison, 0/256 each).
+
+**`|S| ≤ 8` sweep on the ten targets not already covered** (`T` is X's, `c_T == T'` is this
+thread's): `yorbit_run.sh 4` runs scan sizes 2, 3, 4 per target — `C(256,2)+C(256,3)+C(256,4)` =
+177,588,800 candidates each, covering `|S| = 3…8` with the `|α| ≤ 4` table, and `|S| ≤ 4` already
+closed above. **Launched detached, PID in `yorbit.pid`, renice 19** so it yields to the rest of the
+fleet (box load was 26 on 4 cores when it started). Status accrues in `yorbit.status`; per-target
+results in `rep_orbit_<name>.txt`. **Quote only the targets with a `DONE` line for every one of
+sizes 2, 3, 4.** Extending any target to `|S| ≤ 9` is `./yorbit_run.sh 5` (scan size 5, ~40 min per
+target unloaded).
 
 `ylam.py` derives `beta` (cube root of 1 mod `p`), `lambda` (cube root of 1 mod `N`), verifies
 `phi(x,y) = (beta·x, y) == [lambda]` on random points, and emits engine inputs for **12 targets**:
@@ -239,3 +297,36 @@ then `./yrun.sh`. If `solve_lab/agentX_work/tbl4s.bin` is gone, rebuild it with
 `./ymitm bitmap data_comp.txt tbl4s.bin bm4.bin` (the table ignores the target, so any data file
 works). Nothing here is a `*.pkl`, so a container restart does not wipe it; the 1.9 GB of `.bin`
 lives in `agentX_work/` and is git-ignored.
+
+---
+
+## 8. Status at hand-off
+
+| item | state |
+|---|---|
+| deliverable re-verified | 39,026/39,033, failing `[12231,12270,12350,14584,18673,22044,29125]` |
+| `T'` construction | **verified** (3-way `A`, `T+T'=A`, on curve, order `N`, 12/12 identity trials; reproduced by Z) |
+| table reuse | **validated** (exact key count, sortedness, 60/60 positive, 0/2000 negative) |
+| plant tests | **5/5 PASS**, all-splits criterion, incl. full-range weight-5 |
+| complement `w' ≤ 9` | **EXHAUSTED**, 0 hits, 0 degenerate events, counts exact |
+| **bound** | **`w ≤ 246`** |
+| **bracket with X** | **`10 ≤ w ≤ 246`** |
+| orbit `|S| ≤ 4`, 12 targets | **done, no hit** |
+| orbit `|S| ≤ 8`, 10 targets | **running detached** (`yorbit.pid`, nice 19) — quote per-target `DONE` lines only |
+
+### Highest-value next experiment
+
+**Not another level on either end.** Level 9 → 10 costs 42× on either side and moves the bracket
+from `[10,246]` to `[11,245]` against a null centred at 128 — 2^58 short in both directions, and the
+cost is symmetric so neither end is cheaper to push.
+
+**The experiment that changes something is the one that supplies a centre.** §5.2(b) shows both
+bounds are the `D = ∅` and `D = {0..255}` members of one family: signed-digit MITM against
+`T − fold(D)` at `m ≤ M` proves `hamming_distance(S, D) > M`, at the same cost for every `D`. The
+machinery is built, validated, and centre-agnostic. **What is missing is a prior for `D`, and the
+only source of one is how the instance was constructed — closed by user instruction.** Everything
+else is a 42× treadmill.
+
+Absent that, the best remaining spend is **agent AA's `±2^256`-offset signed-digit route** (§5.2(c)):
+it is the only cheap thing that covers a class neither X's sweep nor mine reaches, and it reaches it
+without a table rebuild.

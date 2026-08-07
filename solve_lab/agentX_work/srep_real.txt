@@ -1,3 +1,9 @@
 DONE signed sz=1 range=[0,512) n=512 zero=0 0.0s
 DONE signed sz=2 range=[0,512) n=130560 zero=0 0.1s
 DONE signed sz=3 range=[0,512) n=22108160 zero=0 13.9s
+DONE signed sz=4 range=[184,512) n=464816016 zero=0 411.5s
+DONE signed sz=4 range=[50,81) n=451197160 zero=0 414.7s
+DONE signed sz=4 range=[81,123) n=473184712 zero=0 425.4s
+DONE signed sz=4 range=[23,50) n=475134528 zero=0 432.0s
+DONE signed sz=4 range=[0,23) n=472198672 zero=0 436.4s
+DONE signed sz=4 range=[123,184) n=460151152 zero=0 474.0s

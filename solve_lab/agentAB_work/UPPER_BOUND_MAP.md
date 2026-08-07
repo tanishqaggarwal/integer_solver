@@ -9,23 +9,169 @@ re-derivation, except where explicitly attributed as *their measurement*.
 → `satisfied 39026/39033 (7 failing) [12231,12270,12350,14584,18673,22044,29125]`.
 
 
-> ## ⚠ CORRECTION NOTICE — READ BEFORE §10
->
-> **Theorem B's numeric table in §10 was WRONG and is retracted below in §13.0. The qualitative
-> conclusion survives; the numbers do not.** I priced a radius-`W` ball at `C(256, W/2)`. The correct
-> per-ball cost is the *cumulative* half-volume `Vol₁₂₈(W/2) = Σ_{j≤W/2} C(128,j)`, which is smaller
-> — by up to **2^65** at large `W`. The break-even moves from **`B = 198` to `B = 148`**. This is the
-> lab's documented failure mode (a number computed under one configuration reported as a property),
-> committed by me, and the coordinator has already circulated the wrong figure. **§13.0 is the
-> retraction; §13.1–13.2 are the new barrier that replaces it.**
->
-> **ROUND 3 (§14): the round-2 fix was itself defective and two more claims are struck.** My
-> `W = 256` certificate returned **2^132.0 where 2^128.0 was required — I printed the miss and moved
-> on**, the same failure mode I had just retracted. Fixed, now exact. **Theorem D's headline
-> (`2^127.5` vs `2^126.5`) is STRUCK** — it crossed models and read as "deciding is harder than
-> solving", which is impossible. In one model it is **2^125.7 ≤ 2^126.5**. And **the rho-crossover
-> shift `56 → 104` does NOT survive memory-awareness**: the realistic crossover is `w ≈ 52–64`.
-> §8's payoff band is *not* doubled. **§14 supersedes §13 wherever they differ.**
+---
+
+# AUTHORITATIVE SUMMARY (final pass)
+
+**This section supersedes everything below it wherever they differ.** Sections 0–12 are round 1,
+§13 is round 2, §14 is round 3; each corrected the last. Read this section; use the others for
+derivations. Scripts: `ab_facts.py`, `ab_cost.py`, `ab_rank.py`, `ab_barrier.py`, `ab_costfix.py`,
+`ab_soft.py`, `ab_mem.py`, `ab_dreg2.py`, `ab_dreg3.py`.
+
+**Tooling note:** **Singular is not installed in this container** — no binary anywhere on the
+filesystem, nothing in dpkg; only `sympy 1.14.0` and `python-flint 0.9.0`. The campaign brief said
+otherwise. The `d_reg` measurement below was therefore done with a Macaulay/XL implementation
+written here over `GF(q)` on python-flint.
+
+## S1. Claims struck, shown struck
+
+Three of my own, in order of how far they travelled:
+
+1. ~~"Break-even `B = 198`: no search-based upper bound below `w ≤ 198` is cheaper than solving."~~
+   **STRUCK (round 2).** I priced a radius-`W` ball at `C(256,W/2)`; the per-ball list is the
+   *cumulative half-volume*. Wrong by up to 2^65 at large `W`. **Correct break-even: `B ≈ 148`.**
+2. ~~"`m ≥ 2^127.5` vs solving 2^126.5 — deciding the weight predicate is *as hard as* solving."~~
+   **STRUCK (round 3).** The two numbers were in different models, and read literally the claim says
+   deciding is *harder* than solving, which is impossible: any solver decides. **In one model:
+   `m ≥ 2^125.7` against solving at 2^126.5.**
+3. ~~"The rho crossover moves from `w ≈ 56` to `w ≈ 104`, nearly doubling §8's payoff band."~~
+   **WITHDRAWN (round 3).** An unbounded-memory artefact. **Realistic crossover `w ≈ 52–64`; the
+   campaign's original `w ≈ 56` stands; §8's band is NOT doubled.**
+
+Also corrected along the way: the `W = 256` self-certificate **failed at 2^132.0 in round 2 and I
+printed the miss** (now exact at 2^128.0000); a floor/ceil error underpricing odd radii by up to 4.6
+bits; a non-monotone cost function; a factor-2-too-tight constant in Theorem D that erred toward
+*overstating* the barrier; and a **leaky sibling model** in the first `d_reg` run whose spurious
+positive-dimensional component would have produced a confident wrong verdict.
+
+## S2. Verdicts
+
+| # | mechanism | verdict |
+|---|---|---|
+| 1 | **complement identity** (agent Y) | **LIVE** — sound; a miss at radius `W` proves `w ≤ 255−W`. Vacuous against the null; **value is the hit branch only** |
+| 2 | bit security / **weight predicate** | **DEAD — a barrier, not an absence.** Theorems C + D |
+| 3 | lattice / LLL | DEAD — density is exactly 1.000, but the real reason is that no integer target exists; given `k₀` the subset-sum is *trivial* |
+| 4 | 2-adic / `v₂(k)` | DEAD by proof — odd prime order ⇒ `[2]` bijective |
+| 5 | endomorphism `λ` | DEAD — measured: `popcount(λk)` for weight-4 `k` is mean 127.41, sd 8.31 |
+| 6 | character sums / analytic | DEAD, structurally: **the stronger the equidistribution result, the less it says about this `T`** |
+| 7 | counting / uniqueness | DEAD; yields only the free unconditional `w ≤ 255` |
+| **8** | **instance-side constraint** (agent Z / agent T's probe) | **LIVE, UNSETTLED, RANK 1 — the last live thread** |
+| 9 | 16 others (PH, Smart, MOV, GHS, index calculus, CM/`j=0`, Cheon, `N`'s expansion, weight-preserving doubling, division polys, Gröbner, kangaroo, multi-target, quantum, masked complement) | all DEAD except quantum (no hardware) |
+
+**Theorem A.** `c − k = c ⊕ k` iff `supp(k) ⊆ supp(c)`, so **`c = 2^256−1` is the unique centre**
+giving an unconditional upper bound (corr −1.0000, vs ≈−0.50 or 0 for every other centre over 4000
+samples). Agent Y's mechanism has no sibling.
+
+**Theorem C.** The only weight-preserving affine self-map of `Z_N` is the identity —
+`k=0 ⇒ b=0`; `k=1 ⇒ a=2^j`; then `k = 2^{256−j}` gives `ak = 2^256 mod N` with **popcount 65 ≠ 1**.
+Verified for all 255 `j`. In the generic model affine is all an algorithm can realise, so **no
+weight-preserving randomised self-reduction exists.**
+
+**Theorem D (corrected, one model).** In the generic group model every held element is
+`σ(α_i+β_i k)`; a collision is one affine equation over the field `Z_N`, hence one root. So
+`Adv ≤ m²/min(|D₀|,|D₁|)`. With the encoding knob inside the statement (`x`-coordinate + GLV
+collapses the order-6 orbit, `AUT = 6`, costing `√6`): **deciding `w ≤ 128` needs `m ≥ 2^125.7`
+against solving at 2^126.5.** No generic shortcut for the weight predicate; the cost is that of
+solving to within the same `√6` the solver itself uses.
+
+**Theorem B (corrected).** Every search-based upper bound is a Hamming-ball covering of `{wt > B}`.
+Per-ball cost `rep(W)·Vol₁₂₈(⌈W/2⌉)` with the **exact** partition factor
+`rep(W) = C(256,128)/(C(W,⌈W/2⌉)·C(256−W,128−⌈W/2⌉))` — which tends to `√(πW/2)` for small `W`
+(`rep(10) = 3.98` vs 3.96) and is **`rep(256) = 1.0000` exactly**, since at full radius every split is
+already balanced — plus a suffix minimum for monotonicity (a radius-`W` ball is searchable by any
+`W' ≥ W` procedure). **Certificate: `W = 256` returns 2^128.0000, exact.** Crossover **`w = 106`**,
+break-even **`B = 148`** (agent Z independently: 106 / 149 — a rounding difference, not an argument).
+
+> **The surviving qualitative claim, unchanged through three corrections: every search-based upper
+> bound on `w` is either vacuous or costs essentially what solving costs — and solving returns `w`
+> exactly. Agent Z's Vandermonde bound `(Vol₁₂₈(w/2))² ≤ Vol₂₅₆(w)` shows MITM never dips below the
+> generic floor and is optimal to within `rep(W) ≤ 2^4` (exactly 1.50 at `B = 20`). There is no room
+> left in the algorithm; class size is the whole story.**
+
+## S3. THE REFERENCE COST TABLE — memory-aware
+
+Time-only figures assume memory equals the half-list, which is the assumption that fails. The right
+low-memory algorithm is **van Oorschot–Wiener golden-collision search**
+(`T = rep·c·L^{1.5}/√M`, `c ≈ 2.5`), which dominates chunked rescanning (`T = rep·L²/M`) for every
+`M < L`. Reach: `L ≤ (T²M/(rep·c)²)^{1/3}`.
+
+**Achievable `w` — plan against this table, not against time alone:**
+
+| time \ memory | **2^30 (this box, 12 GB)** | 2^35 | 2^40 | 2^50 | ~~unbounded~~ |
+|---|---|---|---|---|---|
+| 2^40 | 12 | 12 | 14 | 14 | ~~14~~ |
+| **2^47** | **14** | 16 | 16 | 18 | ~~18~~ |
+| 2^58 | 18 | 20 | 20 | 22 | ~~24~~ |
+| 2^70 | 22 | 24 | 24 | 26 | ~~32~~ |
+| 2^80 | 26 | 28 | 30 | 32 | ~~40~~ |
+| 2^90 | 32 | 32 | 34 | 36 | ~~48~~ |
+| 2^126.5 (= rho) | **52** | 54 | **56** | 60 | ~~106~~ |
+
+**The unbounded-memory column is struck through: it is not reachable by any machine and must not be
+planned against.** It is the column that produced my withdrawn "crossover moves to 104".
+
+* **This box (2^47 time, 2^30 memory): `w ≤ 14`.** The half-list at `w = 18` is 2^44.2 entries,
+  **2^14.2 times this box's memory**.
+* **Memory-aware rho crossover: `w ≤ 52` at 2^30, `56` at 2^40, `64` at 2^60.** Memory enters as a
+  **cube root** — 30 binary orders of magnitude move the crossover by 12 — so **`w ≈ 52–64` for any
+  realistic machine.**
+* **Disk is not a way out.** ~30 GB ≈ 2^31 entries, and vOW's access pattern is random, so
+  disk-backed tables run at seek rate (~10²/s) not memory rate (~10⁸/s): **~2^20 slowdown bought
+  with a 2^1 memory gain.** Reach on this box stays `w ≤ 14`.
+* **Reconciliation worth keeping:** `w ≤ 14` is exactly what `MINIMUM_COST_SEARCH.md` said before any
+  of these corrections. Its time model was pessimistic and it ignored memory; **the two errors
+  cancelled.** A number derived twice from opposite errors is worth more than one never challenged.
+
+## S4. `d_reg` — measured, stated in the weak form
+
+Solving degree of the boolean-selector ECDLP ladder (tight/saturated model; `s`-part multilinear;
+rref over `GF(10007)`; column set restricted to the occurring support, which is exact since all-zero
+columns cannot affect rank; all `n` selectors tested with one augmented rank):
+
+| `n` | vars | generators | **solving degree** |
+|---|---|---|---|
+| 2 | 8 | 11 | **4** |
+| 3 | 13 | 17 | **5** |
+| 4 | 18 | 23 | **PENDING** |
+
+**Weak form — this is the claim, and the only one the data supports:** `d_reg` **increases with `n`**
+over the measured range, rather than saturating at a small constant. **A flat `d_reg` was the only
+way §9.12 could have been wrong, and it is not flat.**
+
+**Not claimed:** the strong form `d_reg ≈ n+2 ⇒ ≈258 at n = 256`. Three points cannot support
+extrapolation to 256. For context only: elimination is affordable only if `d_reg ≲ 11` (Macaulay
+width 2^83.2 columns at `d = 16` ⇒ 2^197.1 at `ω = 2.37`), and **a term order cannot be the missing
+ingredient — `d_reg` is a property of the ideal, not of the order.**
+
+Two model fixes mattered more than the measurement, and either alone would have produced a confident
+wrong verdict: the first model was **leaky** (when `R_j = P_j` the slope is unconstrained ⇒ spurious
+positive-dimensional component ⇒ it reported max-GB-degree 2 and failed to pin selectors), and
+**reduced-GB degree is the wrong statistic** (it is 1 for any unique-solution ideal) — the right one
+is the **solving degree**. The sibling also had to be the ladder, not the boolean modular subset-sum,
+which is trivial once `k₀` is known.
+
+## S5. The one live thread
+
+**§8 — an instance-side constraint on `|S|` — is the only mechanism that escapes Theorem B, because
+it is not a search.** It remains **UNSETTLED**, with its **original** payoff band (`w ≲ 56` to beat
+rho, `w ≲ 24` to be actionable), not the inflated one I briefly claimed.
+
+The fleet has been reading its own evidence backwards: **every confirmed integer-lift closure is at
+`|S| ≤ 64`** (1,2,3,5,6,7,8,17,32,64 → 39,018, identical 15-equation footprint). Those rule out
+*lower*-bound constraints and are **fully consistent with an upper-bound constraint `w ≤ B` for any
+`B ≥ 64`** — the hypothesis in question. The one high-`|S|` probe, `|S| = 128`, **stalled and gave
+up**; and `|S| = 32/64/128` are **nested prefixes of one `random.Random(7)` chain — one correlated
+sample, not three.**
+
+**Agent T's independent-seed probe at high `|S|` (250 first, then 192, then the stalled 128) is what
+prices this, and it is the last live thread on the upper-bound question.**
+
+**Standing caveat.** No infeasibility claim about the instance follows from any of this. Every
+"nothing can do X" carries its knob set: Theorem D is generic-model and average-case **with the
+encoding knob inside the statement**; Theorem B prices ball-covering MITM; S3 assumes vOW
+golden-collision search with random access; Theorem C covers affine maps, which is all the generic
+model can realise. **`w` remains unknown, no non-vacuous upper bound has been established by anyone,
+and §8 is open.**
 
 ---
 

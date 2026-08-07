@@ -34,7 +34,7 @@ lands on a curve whose hardness is the most-studied in the world.
 | # | constraint on `k` | who | model | exhaustive? | verified by X | what would falsify it |
 |---|---|---|---|---|---|---|
 | 1 | **unsigned Hamming weight(`k`) ≥ 10** | X | group, mod `p` | **EXHAUSTIVE for weight ≤ 9.** Table = all 177,589,056 subsets of size ≤ 4; scan = all of size 2,3,4 (177,588,800) and 5 (8,809,549,056); `\|S\| ≤ 4` via the empty-scan table probe; `\|S\| ∈ {0,1}` direct. Range totals sum to exactly `C(256,5)`. **0 hits, 0 degenerate events** | **re-run from cold, mine** | a wrong ladder (`L_i ≠ 2^i·G`), a wrong `T`, or a missed truncation collision — excluded: 64-bit keys, expected false-positive count 0.085 over the whole sweep, and **every planted target was recovered exactly** |
-| 1b | **signed-digit weight(`k`) ≥ 7** | X | group, mod `p` | `k = Σ ε_j 2^{e_j}`, `ε_j ∈ {±1}`. **EXHAUSTIVE for `m ≤ 6`**; `m ≤ 7` in progress. Table = all signed `a ≤ 3` combinations with the leading sign fixed (11,119,616 — WLOG because `x(P) = x(−P)`); scan = all signed `b ≤ 4` (2,818,921,472) | **mine**; planted `m = 3` and `m = 5` signed targets recovered **exactly**, and a planted **run-length** target `2¹⁰⁰ − 2³⁰` (unsigned weight 70) found | sign bookkeeping — tested directly by the planted signed targets, which the unsigned test could not have caught |
+| 1b | **signed-digit weight(`k`) ≥ 8** | X | group, mod `p` | `k = Σ ε_j 2^{e_j}`, `ε_j ∈ {±1}`. **EXHAUSTIVE for `m ≤ 7`** (0 hits, 0 degenerate events; every range total exact). Table = all signed `a ≤ 3` combinations with the leading sign fixed (11,119,616 — WLOG because `x(P) = x(−P)`); scan = all signed `b ≤ 4` (2,818,921,472) | **mine**, validated by `xstest.py` (Z's design, Y's criterion): `m = 5` plants with lowest-digit-negative, all-digits-negative and all-positive each give **exactly 10 HIT lines and 10/10 exact splits — PASS**. My first signed test was **vacuous and Z caught it** (see §5) | sign bookkeeping — now tested directly. **Known gap: the alphabet stops at `2²⁵⁵` (see §5.1); the near-all-ones family is outside this class** |
 | 2 | `k > 2^44` and `N − k > 2^44` | Q | group, mod `p` | exhaustive, BSGS 2²² baby × 2²² giant, both signs | **code-audited**; superseded by row 3 | a bug in Q's `jadd`/`batch_affine_x` |
 | 3 | **`k > 2^52` and `N − k > 2^52`** | **X** | group, mod `p` | exhaustive, BSGS 2²⁶ baby × 2²⁶ giant, both signs, C engine | **re-run from cold, mine**; planted `k₀ = 5·2²⁶+1234567` recovered at exactly `i = 5` | as row 1 |
 | 4 | ON-bits are **not confined to any 34-bit window** | Q | group, mod `p` | exhaustive over `k = a·2^s`, `a < 2³⁴`, `s ≤ 222`; 2,865 s | **code-audited only, not re-executed** — the enumeration and the `sa == sb` join are correct on inspection | a bug in the shift bookkeeping; re-running costs ~1 min with X's C engine |
@@ -197,20 +197,66 @@ Negation is free on the curve, so a sign flip costs nothing beyond the enumerati
 halved for free** by `x(P) = x(−P)`: fixing the sign of the lowest-exponent table term picks exactly
 one representative per `±` pair, and a match on `x` recovers both.
 
-**Validation — the new failure mode is sign bookkeeping, and it was tested directly:**
+**Validation.** My first attempt at this was **worthless and agent Z caught it.** The plant was the
+1-term `k = 2¹⁰⁰ − 2³⁰`; with a table of all signed `a ≤ 3` combinations, `k` plus *any* single signed
+term is a genuine 3-term table entry, so **all 512 scan indices hit regardless of whether sign
+handling is correct**. The test could not fail. Kept, loudly marked, as
+`srep_c_VACUOUS_NOT_EVIDENCE.txt`.
 
-| planted `k` | `m` | unsigned weight | scan run | result |
+**The standing signed validation is now `xstest.py`** — Z's design, agent Y's pass criterion. The
+plant has `m = 5`, so a `b = 2` scan forces the table to supply exactly the other 3 digits, and PASS
+requires the **exact set of `C(5,2) = 10` splits** to appear, not merely that some hit appeared:
+
+| plant (m = 5) | unsigned wt of `k mod N` | HIT lines | exact splits | verdict |
 |---|---|---|---|---|
-| `+2¹⁷ − 2⁸⁸ + 2²⁰¹` | 3 | **114** | full `b = 2` | **recovered exactly** |
-| `+2³ − 2⁴⁰ + 2⁹⁷ − 2¹⁵⁰ + 2²⁰⁰` | 5 | **108** | full `b = 3` | **recovered exactly** |
-| `2¹⁰⁰ − 2³⁰` (a run of ones) | 2 | **70** | `b = 1` | **found** |
+| **lowest digit negative** | 55 | **10** (want 10) | **10 / 10** | **PASS** |
+| **all digits negative** | 191 | **10** | **10 / 10** | **PASS** |
+| all positive (control) | 5 | **10** | **10 / 10** | **PASS** |
 
-Note the unsigned weights: **none of these three is reachable by the weight sweep at any bound this
-box could run.** Table generation was separately checked against Python: `a = 1` block 256/256 exact,
+Sign bookkeeping is therefore exercised and correct. The earlier `m = 3` and `m = 5` all-positive
+plants (unsigned weights 114 and 108) were recovered exactly too, but they did **not** test signs.
+
+**Why fixing the table's leading digit positive is lossless** — two agents nearly tripped over this,
+so it is written down rather than assumed. The table stores only representatives whose lowest-exponent
+digit is `+1`, which is half of all signed sums. It loses nothing because the table stores **only the
+low 64 bits of `x`**, and every leading-negative sum is exactly `−(a leading-positive sum)` with
+`x(−P) = x(P)`. The two key sets coincide. **Verified on 200 random signed 3-term sums, 0 mismatches.**
+
+Table generation was separately checked against Python: `a = 1` block 256/256 exact,
 `a = 2` block 65,280/65,280 exact, `a = 3` 400 random samples with 0 mismatches.
 
-**Result so far:** `m ≤ 6` **exhausted, no solution** (b = 0 probe + scans b = 1,2,3, all with 0 hits
-and 0 degenerate events). `m ≤ 7` running (2,796,682,240 candidates).
+**Result: `m ≤ 7` EXHAUSTED, no solution.** The `b = 0` probe plus scans `b = 1, 2, 3, 4`, each
+count exactly `C(256,b)·2^b`, **0 hits and 0 degenerate events** throughout. The six `b = 4` ranges
+sum to **exactly `C(256,4)·2⁴ = 2,796,682,240`** — checked, not assumed — in 474 s wall.
+An earlier `m ≤ 7` attempt was **killed at 33.37 %** and **claims nothing** — its logs are renamed
+`DEAD_spart*.log` with `spart_PARTIAL.txt` recording the fraction, because a bare in-flight log reads
+like progress.
+
+### 5.1 A REAL COVERAGE GAP in the signed class — exponent 256 is missing
+
+`xsigned.c` builds its alphabet from `for (i = 0; i < 256; i++)`, so the digits available are `±2^e`
+for **`e ∈ [0,255]` only**. Because `k` is determined only **mod `N`**, and `2²⁵⁶ > N`, that missing
+digit is not cosmetic:
+
+| `k` | signed weight with digits ≤ 2²⁵⁵ | with a `±2²⁵⁶` digit |
+|---|---|---|
+| `(2²⁵⁶ − 1) mod N` | **42** | **2** |
+| `(2²⁵⁶ − 2¹) mod N` | 43 | 2 |
+| `(2²⁵⁶ − 2³²) mod N` | 41 | 2 |
+
+**I reproduced agent AA's `reach = 42` independently** (`(2²⁵⁶ − 1) mod N` is a 129-bit number of
+unsigned weight 64 and NAF weight 42). So **the near-all-ones family is outside my sweep at any depth
+this box can afford**, and no increase in `m` fixes it.
+
+**This gap is confined to the signed extension. The unsigned `|S| ≤ 9` exhaustion is unaffected** —
+there the ON-set *is* a subset of the 256 leaves by construction, so exponents `≤ 255` is the complete
+object, not a truncated alphabet.
+
+**The fix is agent AA's `±2²⁵⁶` offsets, and it is AA's to run** — offsetting the base target reaches
+the missing exponent **without rebuilding the table**. My engine already supports it with no code
+change at all: the scan's base point is read from the first line of the data file, so
+`T ± 2²⁵⁶·G` is a one-line substitution and `stbls.bin`/`sbm.bin` are reused as-is. I am **not**
+running it, to avoid duplicating AA.
 
 **Where the wall is, and why.** Costs are `table = C(256,a)·2^{a−1}`, `scan = C(256,b)·2^b`:
 
