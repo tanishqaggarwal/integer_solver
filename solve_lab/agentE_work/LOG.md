@@ -425,3 +425,24 @@ flips), LOG 20 (multiplying one residue class).  All three were the same saturat
 representatives (40 distinct combinations, evaluated by full re-propagation, no linear model):
 best remains 39,005 — but this is a small sample of representatives, not exhaustive, because
 which representative is chosen changes that bit's own pin rows.
+
+## 24. Channel enumeration at cfg0 — exact, complete over the channel lattice
+All 2^3 channel-sets x 2 representatives each = 27 (channel-set, representative) pairs, each
+run through the LOG 16 simultaneous solve and evaluated by full re-propagation
+(`chanenum.py`, `runs/chanenum.log`).  **The empty set wins: 39,005.**  Every activation costs:
+one channel 38,969-38,992, two 38,934-38,959, three 38,872-38,913.  Monotone in the number of
+live channels.  cfg5 (4 channels) and cfg7 running.
+
+## 25. The channel partition — cross-check against the reported root slots
+cfg0 channels are **pairwise disjoint**, sizes 178 / 41 / 21, covering 240 of the 256 booleans
+in the cluster cone; the remaining **16 move nothing at all**.
+
+    41 + 21 = 62      62 + 16 = 78
+
+So the cone's booleans split as **178 | 78**, with the 78 further resolving into two live
+channels (41, 21) and 16 that are inert at this configuration.  Reported root-gate slot
+supports are 178 and 78.  The 178 matches exactly and the 78 is reproduced as
+41 + 21 + 16 — reached from the residual side with no contact.  Reading: my 178-channel is the
+larger root slot; my 41- and 21-channels are subtrees hanging off the 78-side; the 16 inert
+booleans are a branch that is not live at cfg0 (they would be expected to become live at a
+configuration that fires their stage — testable, not yet tested).

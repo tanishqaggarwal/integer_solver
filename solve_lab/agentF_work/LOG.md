@@ -447,3 +447,21 @@ meet-in-the-middle at 2^78 is hopeless, but the enumerable window IS populated: 
 Each inversion step is O(1) by the closed forms in section 26.
 
 ## 35. Steps 2-4 not reached this round.  Evaluator still not built, no search run.
+
+## 36. Handoff verification (run, not asserted)
+All 42 files and both directories named in RESUME_F.md exist.  The rebuild chain runs clean:
+    python3 parse3.py ; python3 circ4.py ; python3 sched.py ; python3 supp.py     -> OK, OK, OK, OK
+The two key-claim commands reproduce their headline numbers from a cold rebuild:
+    python3 fwd.py        -> "nonzero residual atoms (all-free=0): 3 ; failing equations: 28 => 39005"
+    python3 peel_cert.py  -> "certificate verified: True ; 39033 of 39033 ; rank(M)=39033, dim ker(M)=0"
+    checker.py best_F_39024.json -> 39024/39033
+So RESUME_F.md is accurate rather than aspirational, with the single explicit exception that the fold
+evaluator does not exist and is documented as not existing.
+
+## 37. Agent H's withdrawn "rank > deficit" criterion — checked against my own reasoning
+The criterion is withdrawn fleet-wide.  **I never used it.**  My frame analysis (sections 8 and 24) priced
+subsets by INTEGER reachability, computed with the column-HNF solver `intsolve.solve_int`, and explicitly
+contrasted that with rational solvability: "all 924 six-subsets are solvable over Q -- integrality is the
+obstruction", and "max integrally reachable subset size: 5, count by size Counter({5: 1})".  Rational rank
+appears in my log only as the quantity that FAILS to predict, never as a criterion.  So nothing of mine
+needs re-checking on this account, and H's correction is consistent with what I measured independently.

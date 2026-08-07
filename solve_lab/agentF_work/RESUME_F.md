@@ -127,6 +127,17 @@ pass two large nodes; each pass is O(1) per candidate by the formulas in section
    side forward, match in a hash table of <= 2^24 entries.
 4. Then compare channels with agent E's residue classes.
 
+## 6b. HANDOFF VERIFIED (run on the last session, not asserted)
+All 42 files and both directories named below exist.  `python3 parse3.py; python3 circ4.py;
+python3 sched.py; python3 supp.py` runs clean from cold.  `python3 fwd.py` reproduces
+"3 nonzero residual atoms, 28 failing equations => 39005"; `python3 peel_cert.py` reproduces
+"certificate verified: True, 39033 of 39033, rank(M)=39033, dim ker(M)=0"; `checker.py
+best_F_39024.json` reproduces 39024/39033.  The ONE thing this document describes that does not exist is
+the fold evaluator, and it is documented as not existing (section 5).
+Note on a withdrawn fleet-wide criterion: agent H's "rank > deficit" test is retracted.  I never used it --
+my frame pricing is integer reachability via `intsolve.solve_int` (column HNF), and rational rank appears
+in my log only as the quantity that fails to predict.  Nothing of mine needs re-checking on that account.
+
 ## 7. FILES
 Code: `parse*.py circ*.py sched.py supp.py fwd.py full.py jac.py intsolve.py lin.py frame.py gs2.py
 modq.py modm.py crt.py buildM.py peel.py peel_cert.py wiedemann.py cfg_rigid2.py stage_law2.py mux.py`

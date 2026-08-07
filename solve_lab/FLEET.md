@@ -283,3 +283,49 @@ parse them and raises ValueError** — a bare "checker.py says" would be false. 
 | H | Enumerate detach sets (1-, 2-, 3-subsets) — the last unvaried axis; carrier class, selector count, region shape and knob budget are all priced and closed |
 | G | Carry the span argument outward |
 | I | Finish the 66-pair sweep |
+
+---
+
+## FINAL POSITION (coordinator context exhausted — handoff)
+
+**Deliverable: 39,026 / 39,033**, `best/new_instance_partial_39026.json`, failing
+`[12231, 12270, 12350, 14584, 18673, 22044, 29125]`. No agent beat it.
+
+### Established
+- **The instance is a 96-stage binary tree of depth 6** over 256 leaf constants; one degree-3
+  law with one universal constant across all 72 fully-determined stages, zero exceptions; the
+  law is **invertible in closed form**. Reachable space = 2²⁵⁶ − 1 non-empty leaf subsets.
+- **ker(M) = 0** (three independent computations) ⇒ all-atoms-zero is an *equivalence*.
+- **Two independent derivations of the same problem.** F from the circuit: root slots carry
+  leaf supports **178 | 78**. E from the residual congruences: channels **178 | 41 + 21 + 16**.
+  Same split, no contact between them. E's caveat stands — that the 16 inert booleans become
+  live at some configuration is a *prediction*, untested, so the match is suggestive not
+  established.
+- **Contributions saturate**: a channel contributes at most once however many of its bits are
+  on — the residual-side form of "a gate passes its input through when only one input is live."
+
+### Refuted (all by the agents that reported them)
+- The **infeasibility argument** — withdrawn by its author. **No infeasibility claim stands.**
+- **Five barriers**, four of them E's, every one from computing a property over a *filtered
+  knob set* and reporting it as a property of the instance.
+- The **"rank > deficit" criterion** — supplied by H, propagated by the coordinator, then
+  refuted by H: it fires on 3,781 of 3,889 detach sets, all of which zero one row against the
+  witness's five. **Integer reachability of row targets is the binding quantity, not rank.**
+
+### Highest-value next experiment
+Finish F's 56 undecoded slot pairs and the 24 leaf-adjacent literals; build the fold evaluator;
+**validate on ON-set {24601, 2081}** (must predict the fold of those two leaves, *not* the
+target); then invert the target down the 78-side chain through the 88- and 50-support stages to
+a node of leaf support ≤ 24, enumerate forward, match under 2²⁴. The window is populated — 66 of
+96 stages sit in 2..24 (`agentF_work/stage_profile.json`).
+
+### Read these, in this order
+`agentF_work/RESUME_F.md` (136 lines, self-contained) → `agentE_work/RESUME_E.md` (92 lines) →
+`agentA_work/THEOREM.md` → each other `agent*_work/RESUME_*.md`.
+
+### Two standing rules
+1. **Verification**: states above 4,300 decimal digits cannot be parsed by `checker.py` — use
+   `agentE_work/verifyE.py` (raises only the digit cap, calls checker's own loader/evaluator
+   unmodified). A bare "checker.py says" is false for those states.
+2. **Any claim of the form "nothing can move X" must state its knob set AND its selector
+   configuration.** Both have been wrong, repeatedly, and both change the answer.
