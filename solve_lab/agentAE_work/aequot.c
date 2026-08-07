@@ -42,6 +42,7 @@ static inline void fe_sub(fe *r,const fe*a,const fe*b){
     if(br){ u64 cc=RC; for(int i=0;i<4&&cc;i++){ u128 s=(u128)r->v[i]-cc; r->v[i]=(u64)s; cc=(u64)((s>>127)&1);} }
 }
 static inline int fe_iszero(const fe*a){ return !(a->v[0]|a->v[1]|a->v[2]|a->v[3]); }
+static inline int fe_eq(const fe*a,const fe*b){ return a->v[0]==b->v[0]&&a->v[1]==b->v[1]&&a->v[2]==b->v[2]&&a->v[3]==b->v[3]; }
 static void fe_mul(fe *r,const fe*a,const fe*b){
     u64 t[8]; memset(t,0,sizeof(t));
     for(int i=0;i<4;i++){
@@ -89,9 +90,10 @@ static int cmpent(const void*A,const void*B){
 int main(int argc,char**argv){
     if(argc<3){ fprintf(stderr,"usage: %s in out\n",argv[0]); return 2; }
     FILE*f=fopen(argv[1],"r"); if(!f){perror("in");return 2;}
-    fe Gx,Gy,Tx,Ty,BETA;
+    fe Gx,Gy,Tx,Ty,BETA,G2x,G2y,T2x,T2y;
     int LOGM,W;
     if(!rdfe(f,&Gx)||!rdfe(f,&Gy)||!rdfe(f,&Tx)||!rdfe(f,&Ty)||!rdfe(f,&BETA)){fprintf(stderr,"bad hdr\n");return 2;}
+    if(!rdfe(f,&G2x)||!rdfe(f,&G2y)||!rdfe(f,&T2x)||!rdfe(f,&T2y)){fprintf(stderr,"bad dbl\n");return 2;}
     if(fscanf(f,"%d %d",&LOGM,&W)!=2){fprintf(stderr,"bad LOGM/W\n");return 2;}
     u64 M=(u64)1<<LOGM;
     if(M % (u64)W){ fprintf(stderr,"W must divide M\n"); return 2; }
@@ -119,7 +121,14 @@ int main(int argc,char**argv){
         fe ir; fe_inv(&ir,&run);
         for(int j=W-1;j>=0;j--){ if(fe_iszero(&dxs[j])) continue; fe t; fe_mul(&t,&ir,&pref[j]); fe_mul(&ir,&ir,&dxs[j]); dxs[j]=t; }
         for(int j=0;j<W;j++){
-            if(fe_iszero(&dxs[j])){ deg1++; continue; }
+            if(fe_iszero(&dxs[j])){
+                /* P has the same x as the base: P == base (double) or P == -base (infinity).
+                   Only P == base occurs here (a == 1); resolve it with the supplied 2*base. */
+                deg1++;
+                if(fe_eq(&AY[j],&Gy)){ AX[j]=G2x; AY[j]=G2y; }
+                else { fprintf(stderr,"PHASE1_INFINITY lane %d\n",j); return 4; }
+                continue;
+            }
             fe dy,l,nx,ny,t;
             fe_sub(&dy,&Gy,&AY[j]); fe_mul(&l,&dy,&dxs[j]);
             fe_mul(&nx,&l,&l); fe_sub(&nx,&nx,&AX[j]); fe_sub(&nx,&nx,&Gx);
@@ -166,7 +175,12 @@ int main(int argc,char**argv){
         fe ir; fe_inv(&ir,&run);
         for(int j=W-1;j>=0;j--){ if(fe_iszero(&dxs[j])) continue; fe t; fe_mul(&t,&ir,&pref[j]); fe_mul(&ir,&ir,&dxs[j]); dxs[j]=t; }
         for(int j=0;j<W;j++){
-            if(fe_iszero(&dxs[j])){ deg2++; continue; }
+            if(fe_iszero(&dxs[j])){
+                deg2++;
+                if(fe_eq(&BY[j],&Ty)){ BX[j]=T2x; BY[j]=T2y; }
+                else { fprintf(stderr,"PHASE2_INFINITY lane %d\n",j); return 4; }
+                continue;
+            }
             fe dy,l,nx,ny,t;
             fe_sub(&dy,&Ty,&BY[j]); fe_mul(&l,&dy,&dxs[j]);
             fe_mul(&nx,&l,&l); fe_sub(&nx,&nx,&BX[j]); fe_sub(&nx,&nx,&Tx);

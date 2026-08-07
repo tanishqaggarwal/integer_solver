@@ -1,0 +1,9 @@
+DONE data/q_allneg.txt sz=4 range=[262,263) n=2480992 zero=0 13.9s
+DONE data/q_allneg.txt sz=4 range=[262,263) n=2480992 zero=0 7.5s
+DONE data/q_allneg.txt sz=4 range=[262,263) n=2480992 zero=0 15.6s
+DONE data/q_allneg.txt sz=4 range=[262,263) n=2480992 zero=0 7.4s
+DONE data/q_allneg.txt sz=4 range=[262,263) n=2480992 zero=0 9.5s
+DONE data/q_allneg.txt sz=4 range=[262,263) n=2480992 zero=0 6.8s
+DONE data/q_allneg.txt sz=4 range=[262,263) n=2480992 zero=0 9.5s
+HIT 4 137361549593411846 488 16576806765062180157
+DONE data/q_allneg.txt sz=4 range=[262,263) n=2480992 zero=0 8.6s

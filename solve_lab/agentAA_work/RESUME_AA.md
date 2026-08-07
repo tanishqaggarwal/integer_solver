@@ -339,3 +339,80 @@ Specifically now excluded (all with `≥ 6` signed terms of slack):
   rather than a deeper plain search;
 - and by (L1), **not** `2^e ± 2^f` plus 5 corrections for any `e, f ≤ 255`, which the two
   redundant-control offsets confirmed empirically as well as by proof.
+
+
+---
+
+## 7. Check-in 117 follow-up — the approved `m ≤ 8` run on `c0`
+
+### 7.1 Duplicate pruning (coordinator's ruling — agent Y's thread is closed, so I took it)
+
+My own lattice showed the fleet paying more than once for one class. Pruned unilaterally:
+
+| cluster | pairwise distance | **kept** | dropped |
+|---|---|---|---|
+| `ones = 2^256−1`, `2p256 = 2^256`, `p2p256p1 = 2^256+1` | 1 | **`2p256`** | `ones`, `p2p256p1` |
+| `n2p256 = −2^256`, `n2p256m1 = −(2^256−1)` | 1 | **`n2p256`** | `n2p256m1` |
+| `halfN = (N−1)/2`, `inv2 = (N+1)/2` | 1 | **`inv2`** | `halfN` |
+| `lam2 = λ²`, `n_lam = N−λ` (because `λ²+λ+1 ≡ 0`) | 1 | **`lam`** family: keep `lam2` | `n_lam` |
+
+`2p256` and `n2p256` are kept because they are the *pure* exponent-256 terms — the exact centres
+of their clusters, with the others sitting at distance 1. **The precise pruning statement:
+running the representative at depth `m` subsumes every dropped member at depth `m−1`.** All of
+them are already complete at `m ≤ 7`, so nothing is lost; and it means any future depth on
+`2p256` automatically re-covers `ones` one level behind, which is where agent Y's class now lives.
+
+**Per the ruling, no further `2^e` / `2^a ± 2^b` control offsets will be run.** Two were run, they
+behaved exactly as `reach = 1, 2` predicts, and that is the end of it — the rest is a theorem.
+
+### 7.2 Validation FIRST, at the awkward cases (`aa_plant8.py`)
+
+`m = 8` is reachable by **exactly one split**, `|α| = 4 / |β| = 4`, so a plant must be found at
+`b = 4` or not at all. Four cases chosen to be the ones that break if bookkeeping is subtly wrong:
+
+| case | what it stresses | unsigned wt of `k` | result |
+|---|---|---|---|
+| `allneg` | **every sign negative** — table's lowest-exponent term negative, so the match must come out on the `−` branch. *This is the case that caught my own predictor.* | 191 | **predicted line found, bit for bit** |
+| `edges` | exponents **0 and 255** both present — both ends of the ladder | 142 | **found** |
+| `adjacent` | adjacent pairs `(e, e+1)` in **both** halves — stresses `nxt(s) = ((s>>1)+1)<<1`, which is what forbids repeated exponents | 119 | **found** (1,175 hits: the expected carry-representation multiplicity) |
+| `tight` | all eight exponents in a narrow **high** window — stresses the recursion cut `nxt(s) > 512−2·(SZ−1−depth)`, the one place an over-eager prune silently loses answers | 10 | **found** |
+
+All four verified across **8/8 shard passes**, predicted `(sz, code, s_last, key)` computed in
+independent Python before the engine ran, and `k·G == T'` re-checked on the curve.
+`allneg` came out on branch `−1` exactly as predicted.
+
+### 7.3 The run
+
+`aa_deep8.sh`: outer loop = **16 balanced `s0` chunks**, inner loop = **8 table shards**. All eight
+shards of a chunk finish before the next chunk starts, so *"chunks 0..j complete"* is an **exact
+fraction of the m = 8 candidate space**, not a vague partial. Total 2,796,682,240 candidates × 8
+shard passes = 22.4 × 10⁹ candidate-evaluations. Evidence-keyed resume, exit codes tested, stderr
+to `shardlogs8/`.
+
+### 7.4 What it buys, stated against a model rather than as a bound on `w`
+
+Per agent AC's standard, and **not** claimed as progress on bounding `w`, which it is not:
+
+- **Under uniformity:** `|S(0,8)| = 2^56.56` (a 62.4× ball, from `2^50.60`), so
+  `P(hit) = 2^−199.4`. That is the whole story against a random key and it is nothing.
+- **Against the stated alternative `H_W`** — *designer picks the signed-digit weight uniform on
+  `{1..W}`* — a miss at `m ≤ M` removes `M/W` of `H_W`, and the likelihood ratio against `H_W`
+  is `1/(1−M/W)`:
+
+| `W` | `m ≤ 7` (already had) | **`m ≤ 8` (this run)** | marginal gain |
+|---|---|---|---|
+| 8 | 8.00× | **killed outright** | kills it |
+| 10 | 3.33× | **5.00×** | 1.50× |
+| 12 | 2.40× | **3.00×** | 1.25× |
+| 16 | 1.78× | **2.00×** | 1.12× |
+| 20 | 1.54× | **1.67×** | 1.08× |
+| 30 | 1.30× | 1.36× | 1.05× |
+| 60 | 1.13× | 1.15× | 1.02× |
+
+> **So the honest value of this run is: it kills `H_8` outright, and beyond `W ≈ 20` it moves
+> nothing worth reporting.** The `2^50.6 → 2^56.6` sixty-fold growth in covered keys converts to a
+> 1.08× nudge at `W = 20`. That is the exchange rate, and it is why depth stops being worth buying
+> not far past here.
+
+*(Standing prohibition respected: the exchange rate is computed against a stated model of the
+designer's choice. Nothing here investigates how the instance was actually produced.)*

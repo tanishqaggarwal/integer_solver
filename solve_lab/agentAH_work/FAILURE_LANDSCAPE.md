@@ -86,7 +86,26 @@ And those two atoms are the two the construction *pins*: `assignment()` sets
 statement **"the ladder output equals `T`"** — i.e. the ECDLP condition itself.  They are
 nonzero for every `S` that is not the answer, which is why 39,018 is where this construction
 stops.  **39,018 = 39,033 − 15 is the construction's structural ceiling, not a measurement
-of `|S|`.**  A score *below* 39,018 means the closure did not finish; a score above it would
+of `|S|`.**
+
+### The atom count and the equation score are related by an exact, checkable incidence
+
+Agent K's second error was counting atoms where the score counts equations.  The two are not
+interchangeable, but on this construction they are related by a closed form that can be checked:
+
+> **score = 39,033 − |{ equations containing at least one still-nonzero atom }|**
+
+verified against the scorer on the fleet's own closures, not fitted:
+
+| closure | nonzero atoms | predicted score | `checker.py` |
+|---|---|---|---|
+| `close_T32h.json`, `close_M32.json` | 3 (`+ (x3178-(x13720*x21170))`) | 39,033 − 28 = **39,005** | **39,005** ✔ |
+| `close_T32g.json` | 4 (`+ (x23514-(x6677*x23504))`) | 39,033 − 37 = **38,996** | **38,996** ✔ |
+| all 39,018 closures | 2 (the two targets) | 39,033 − 15 = **39,018** | **39,018** ✔ |
+
+and the *failing index sets* agree elementwise, not just in size.  So on this construction the
+atom count is a faithful proxy — but only because the incidence was computed and checked.  Every
+score in §3 is still the scorer's, never the proxy's.  A score *below* 39,018 means the closure did not finish; a score above it would
 mean the selector set solves the instance.
 
 ---
@@ -152,6 +171,36 @@ constraint at high `|S|`, and is not one.**
   (`md5 7da101fc…` and `md5 9f89ffd9…` for plain and fast), at 16 s vs 191 s and 24 s vs 232 s.
 
 Every run in §3 marked `fast` uses it.  Runs marked `plain` do not.
+
+### A second, `|S|`-independent failure mode of the same routine: a memory blowup
+
+At **`|S| = 24`, seed 101** — a *low* `|S|*, well inside the regime the fleet treats as settled —
+the run reached **9.7 GB RSS and was killed by the kernel OOM killer**
+(`dmesg`: `Out of memory: Killed process 30381 (python3) ... anon-rss:9727464kB`; the only
+kernel OOM event on this box, and it named my process).  The log shows it inside the **joint
+two-wire pass**, not the single-wire pass — i.e. in code I did not touch,
+`t_close2wj.joint_rootsets` / `tv_roots`:
+
+```python
+rs = tv_roots(CFo[a], tw, ma, q, min(e, ex[a]), D)
+if ma < m:
+    rs = set(b for b in range(m) if b % ma in rs)     # O(m) residues, m = q^e up to 1.66e7
+...
+out.extend(((b, tw) if flip else (tw, b)) for b in cand)   # then O(|cand|) tuples
+```
+
+`m` here is a prime power dividing the atom's handle cofactor, and this instance's cofactors
+reach 16,595,977.  One such expansion is ~0.5 GB; the surrounding sample loop can hold several.
+
+**This matters twice over.** First, it is a third way for a high-`|S|` probe to end without
+closing that has nothing to do with the instance.  Second, agent T's long-running high-`|S|`
+jobs use the same code path, so the failure is live for the fleet, not just for me.
+
+Every AH run after 22:14 sets `RLIMIT_AS` (3 GB by default, `AH_MEMCAP_GB`) so the blowup
+surfaces as `reason = MEMORY_BLOWUP` in that run's own record instead of an out-of-memory
+event that the kernel resolves by killing whichever process on the box happens to be largest.
+The two runs already in flight when the guard was written are covered by `ah_rsswatch.sh`,
+which kills by PID at 3.2 GB RSS (it identifies processes by PID, never by command line).
 
 ---
 

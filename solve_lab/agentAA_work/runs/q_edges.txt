@@ -1,0 +1,18 @@
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 3.8s
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 4.2s
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 3.7s
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 3.7s
+HIT 4 143554424287133997 510 9749309014480157229
+HIT 4 142991023362212141 508 9749309014480157229
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 3.2s
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 3.6s
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 8.6s
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 6.9s
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 6.7s
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 7.2s
+HIT 4 143554424287133997 510 9749309014480157229
+HIT 4 142991023362212141 508 9749309014480157229
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 6.6s
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 5.5s
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 6.0s
+DONE data/q_edges.txt sz=4 range=[301,302) n=1499680 zero=0 12.5s

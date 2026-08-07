@@ -1,2 +1,3 @@
-A=16409 (fastroots, |S|>=96)
-B=21630 (fastroots, |S|<=64)
+A=16409 driver (|S|=96,128,160,192,224,240,248,252,255 ascending, seeds 101/202/303)
+B2=13871 driver (|S|=255,248,240,224 descending, seeds 101/202/303)
+WD=703 rss watchdog for pre-guard pids 19733,21626

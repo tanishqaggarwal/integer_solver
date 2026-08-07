@@ -15,9 +15,12 @@ def gen(path, Tpt, LOGM, W):
     M = 1 << LOGM
     assert M % W == 0
     chunk = M // W
+    G2 = L.add(L.G, L.G); T2 = L.add(Tpt, Tpt)
     lines = ['%s %s' % (L.hx(L.G[0]), L.hx(L.G[1])),
              '%s %s' % (L.hx(Tpt[0]), L.hx(Tpt[1])),
-             L.hx(L.beta), '%d %d' % (LOGM, W)]
+             L.hx(L.beta),
+             '%s %s %s %s' % (L.hx(G2[0]), L.hx(G2[1]), L.hx(T2[0]), L.hx(T2[1])),
+             '%d %d' % (LOGM, W)]
     for base in (L.G, Tpt):
         D = L.mul(chunk, base)
         P = base           # j=0 -> scalar 1
@@ -51,10 +54,20 @@ def run(tag, Tpt, LOGM, W=1024):
     return dict(tag=tag, M=M, rc=pr.returncode, secs=round(el, 1), done=done,
                 matches=matches, stderr=pr.stderr.strip())
 
-def verify(matches, Tpt):
-    """turn (a,b,e) into verified scalars k with k*G == Tpt"""
-    good = []
+def verify(matches, Tpt, cap=4000):
+    """turn (a,b,e) into verified scalars k with k*G == Tpt.
+
+    A quotient a/b in lowest terms t appears as every (ta,tb) with tb <= M, so a genuine
+    small quotient produces ~M/b matches.  Reduce by gcd and dedupe before verifying, so
+    the cost is one scalar multiplication per DISTINCT scalar, not per match."""
+    from math import gcd
+    red = set()
     for (a, b, e) in matches:
+        g = gcd(a, b)
+        red.add((a // g, b // g, e))
+    red = sorted(red)[:cap]
+    good = []
+    for (a, b, e) in red:
         for s in (1, -1):
             k = (s * a * pow(L.lam, -e, N) * pow(b, -1, N)) % N
             if L.mulG(k) == Tpt:
@@ -68,13 +81,19 @@ if __name__ == '__main__':
         # three plants: plain quotient, lam-twisted, negated
         rng = __import__('random').Random(4242)
         allok = True
-        for i, (e0, s0) in enumerate([(0, 1), (1, 1), (2, -1), (0, -1)]):
+        # the last four are LANE-0 plants: small a and/or small b, which is exactly the
+        # region the first version of this engine got wrong (stuck lane, deg1 = chunk-1).
+        forced = {4: (1, 3), 5: (2, 1), 6: (1, 1 << (LOGM - 1)), 7: (5, 7)}
+        for i, (e0, s0) in enumerate([(0, 1), (1, 1), (2, -1), (0, -1), (0, 1), (1, -1), (2, 1), (0, 1)]):
             a0 = rng.randrange(1, 1 << LOGM); b0 = rng.randrange(1, 1 << LOGM)
+            if i in forced: a0, b0 = forced[i]
             k = (s0 * a0 * pow(L.lam, -e0, N) * pow(b0, -1, N)) % N
             Tp = L.mulG(k)
             r = run('plant%d' % i, Tp, LOGM)
             g = verify(r['matches'], Tp)
-            found = any(a == a0 and b == b0 for (a, b, e, s, kk) in g)
+            from math import gcd as _g
+            gg = _g(a0, b0)
+            found = any(a == a0 // gg and b == b0 // gg for (a, b, e, s, kk) in g)
             recovered = any(kk == k for (a, b, e, s, kk) in g)
             print('plant %d (e=%d,s=%+d) a=%d b=%d : %d matches, exact pair found=%s, k recovered=%s  %s'
                   % (i, e0, s0, a0, b0, len(r['matches']), found, recovered, r['done']))

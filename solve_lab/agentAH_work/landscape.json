@@ -1,0 +1,788 @@
+[
+ {
+  "tag": "n1_s101",
+  "n": 1,
+  "seed": 101,
+  "S": [
+   15064
+  ],
+  "reason": "CLOSED_TARGETS_ONLY",
+  "outer_reached": 0,
+  "outer_max": 16,
+  "budget": 1800,
+  "wall": 1.0,
+  "import_s": 7.7,
+  "nz_atoms": 2,
+  "n_atoms": 9032,
+  "nz_list": [
+   "((x18956-x37892)-x32237)",
+   "((x24468-x13682)-(12354891*x34243))"
+  ],
+  "sampled_root_misses": 0,
+  "exhaustive_root_misses": 0,
+  "trace": [
+   {
+    "outer": 0,
+    "nz": 2,
+    "viol": 2,
+    "hl": 0,
+    "t": 0.3
+   }
+  ],
+  "relift_rounds": 2,
+  "cost": {
+   "nz": 2,
+   "sg3": 4,
+   "sg3_t": 0.09358596801757812,
+   "sg3_maxcombo": 0,
+   "capped": 0
+  },
+  "cap": 0,
+  "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_n1_s101.json",
+  "score": 39018,
+  "nfail": 15,
+  "fails": [
+   4573,
+   7123,
+   7469,
+   9648,
+   11854,
+   16622,
+   17726,
+   21382,
+   25539,
+   28653,
+   29437,
+   31061,
+   32894,
+   32916,
+   34517
+  ],
+  "foot_is_15": true
+ },
+ {
+  "tag": "n1_s101f",
+  "n": 1,
+  "seed": 101,
+  "S": [
+   15064
+  ],
+  "reason": "CLOSED_TARGETS_ONLY",
+  "outer_reached": 0,
+  "outer_max": 16,
+  "budget": 1800,
+  "wall": 0.7,
+  "import_s": 13.0,
+  "nz_atoms": 2,
+  "n_atoms": 9032,
+  "nz_list": [
+   "((x18956-x37892)-x32237)",
+   "((x24468-x13682)-(12354891*x34243))"
+  ],
+  "sampled_root_misses": 0,
+  "exhaustive_root_misses": 0,
+  "trace": [
+   {
+    "outer": 0,
+    "nz": 2,
+    "viol": 2,
+    "hl": 0,
+    "t": 0.2
+   }
+  ],
+  "relift_rounds": 2,
+  "cost": {
+   "nz": 2,
+   "sg3": 4,
+   "sg3_t": 0.06339859962463379,
+   "sg3_maxcombo": 0,
+   "capped": 0
+  },
+  "cap": 0,
+  "fastroots": 1,
+  "root_stats": {
+   "fast": 0,
+   "brute": 0,
+   "fallback": 0,
+   "all": 0
+  },
+  "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_n1_s101f.json",
+  "score": 39018,
+  "nfail": 15,
+  "fails": [
+   4573,
+   7123,
+   7469,
+   9648,
+   11854,
+   16622,
+   17726,
+   21382,
+   25539,
+   28653,
+   29437,
+   31061,
+   32894,
+   32916,
+   34517
+  ],
+  "foot_is_15": true
+ },
+ {
+  "tag": "n2_s101",
+  "n": 2,
+  "seed": 101,
+  "S": [
+   15064,
+   26005
+  ],
+  "reason": "CLOSED_TARGETS_ONLY",
+  "outer_reached": 1,
+  "outer_max": 16,
+  "budget": 1800,
+  "wall": 232.0,
+  "import_s": 6.3,
+  "nz_atoms": 2,
+  "n_atoms": 9032,
+  "nz_list": [
+   "((x18956-x37892)-x32237)",
+   "((x24468-x13682)-(12354891*x34243))"
+  ],
+  "sampled_root_misses": 0,
+  "exhaustive_root_misses": 0,
+  "trace": [
+   {
+    "outer": 0,
+    "nz": 3,
+    "viol": 3,
+    "hl": 0,
+    "t": 3.8
+   },
+   {
+    "outer": 1,
+    "nz": 2,
+    "viol": 2,
+    "hl": 0,
+    "t": 231.1
+   }
+  ],
+  "relift_rounds": 60,
+  "cost": {
+   "nz": 5,
+   "sg3": 12,
+   "sg3_t": 226.60085272789001,
+   "sg3_maxcombo": 0,
+   "capped": 0
+  },
+  "cap": 0,
+  "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_n2_s101.json",
+  "score": 39018,
+  "nfail": 15,
+  "fails": [
+   4573,
+   7123,
+   7469,
+   9648,
+   11854,
+   16622,
+   17726,
+   21382,
+   25539,
+   28653,
+   29437,
+   31061,
+   32894,
+   32916,
+   34517
+  ],
+  "foot_is_15": true
+ },
+ {
+  "tag": "n2_s101f",
+  "n": 2,
+  "seed": 101,
+  "S": [
+   15064,
+   26005
+  ],
+  "reason": "CLOSED_TARGETS_ONLY",
+  "outer_reached": 1,
+  "outer_max": 16,
+  "budget": 3600,
+  "wall": 11.3,
+  "import_s": 9.8,
+  "nz_atoms": 2,
+  "n_atoms": 9032,
+  "nz_list": [
+   "((x18956-x37892)-x32237)",
+   "((x24468-x13682)-(12354891*x34243))"
+  ],
+  "sampled_root_misses": 0,
+  "exhaustive_root_misses": 0,
+  "trace": [
+   {
+    "outer": 0,
+    "nz": 3,
+    "viol": 3,
+    "hl": 0,
+    "t": 7.8
+   },
+   {
+    "outer": 1,
+    "nz": 2,
+    "viol": 2,
+    "hl": 0,
+    "t": 10.2
+   }
+  ],
+  "relift_rounds": 60,
+  "cost": {
+   "nz": 5,
+   "sg3": 12,
+   "sg3_t": 1.3448224067687988,
+   "sg3_maxcombo": 0,
+   "capped": 0
+  },
+  "cap": 0,
+  "fastroots": 1,
+  "root_stats": {
+   "fast": 5,
+   "brute": 0,
+   "fallback": 0,
+   "all": 0
+  },
+  "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_n2_s101f.json",
+  "score": 39018,
+  "nfail": 15,
+  "fails": [
+   4573,
+   7123,
+   7469,
+   9648,
+   11854,
+   16622,
+   17726,
+   21382,
+   25539,
+   28653,
+   29437,
+   31061,
+   32894,
+   32916,
+   34517
+  ],
+  "foot_is_15": true
+ },
+ {
+  "tag": "cal_n4_s101",
+  "n": 4,
+  "seed": 101,
+  "S": [
+   12422,
+   15064,
+   22351,
+   26005
+  ],
+  "reason": "CLOSED_TARGETS_ONLY",
+  "outer_reached": 1,
+  "outer_max": 16,
+  "budget": 900,
+  "wall": 190.6,
+  "import_s": 6.2,
+  "nz_atoms": 2,
+  "n_atoms": 9032,
+  "nz_list": [
+   "((x18956-x37892)-x32237)",
+   "((x24468-x13682)-(12354891*x34243))"
+  ],
+  "sampled_root_misses": 0,
+  "exhaustive_root_misses": 0,
+  "trace": [
+   {
+    "outer": 0,
+    "nz": 5,
+    "viol": 5,
+    "hl": 0,
+    "t": 7.6
+   },
+   {
+    "outer": 1,
+    "nz": 2,
+    "viol": 2,
+    "hl": 0,
+    "t": 190.0
+   }
+  ],
+  "relift_rounds": 60,
+  "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_cal_n4_s101.json",
+  "score": 39018,
+  "nfail": 15,
+  "fails": [
+   4573,
+   7123,
+   7469,
+   9648,
+   11854,
+   16622,
+   17726,
+   21382,
+   25539,
+   28653,
+   29437,
+   31061,
+   32894,
+   32916,
+   34517
+  ],
+  "foot_is_15": true
+ },
+ {
+  "tag": "n4_s101f",
+  "n": 4,
+  "seed": 101,
+  "S": [
+   12422,
+   15064,
+   22351,
+   26005
+  ],
+  "reason": "CLOSED_TARGETS_ONLY",
+  "outer_reached": 1,
+  "outer_max": 16,
+  "budget": 3600,
+  "wall": 16.2,
+  "import_s": 8.1,
+  "nz_atoms": 2,
+  "n_atoms": 9032,
+  "nz_list": [
+   "((x18956-x37892)-x32237)",
+   "((x24468-x13682)-(12354891*x34243))"
+  ],
+  "sampled_root_misses": 0,
+  "exhaustive_root_misses": 0,
+  "trace": [
+   {
+    "outer": 0,
+    "nz": 5,
+    "viol": 5,
+    "hl": 0,
+    "t": 8.5
+   },
+   {
+    "outer": 1,
+    "nz": 2,
+    "viol": 2,
+    "hl": 0,
+    "t": 15.3
+   }
+  ],
+  "relift_rounds": 60,
+  "cost": {
+   "nz": 31,
+   "sg3": 19,
+   "sg3_t": 5.034221887588501,
+   "sg3_maxcombo": 0,
+   "capped": 0
+  },
+  "cap": 0,
+  "fastroots": 1,
+  "root_stats": {
+   "fast": 13,
+   "brute": 16,
+   "fallback": 0,
+   "all": 0
+  },
+  "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_n4_s101f.json",
+  "score": 39018,
+  "nfail": 15,
+  "fails": [
+   4573,
+   7123,
+   7469,
+   9648,
+   11854,
+   16622,
+   17726,
+   21382,
+   25539,
+   28653,
+   29437,
+   31061,
+   32894,
+   32916,
+   34517
+  ],
+  "foot_is_15": true
+ },
+ {
+  "tag": "n8_s101",
+  "n": 8,
+  "seed": 101,
+  "S": [
+   3216,
+   4940,
+   7029,
+   12422,
+   15064,
+   18348,
+   22351,
+   26005
+  ],
+  "reason": "CLOSED_TARGETS_ONLY",
+  "outer_reached": 1,
+  "outer_max": 16,
+  "budget": 1800,
+  "wall": 296.4,
+  "import_s": 6.3,
+  "nz_atoms": 2,
+  "n_atoms": 9032,
+  "nz_list": [
+   "((x18956-x37892)-x32237)",
+   "((x24468-x13682)-(12354891*x34243))"
+  ],
+  "sampled_root_misses": 0,
+  "exhaustive_root_misses": 0,
+  "trace": [
+   {
+    "outer": 0,
+    "nz": 7,
+    "viol": 7,
+    "hl": 0,
+    "t": 12.8
+   },
+   {
+    "outer": 1,
+    "nz": 2,
+    "viol": 2,
+    "hl": 0,
+    "t": 295.6
+   }
+  ],
+  "relift_rounds": 60,
+  "cost": {
+   "nz": 253,
+   "sg3": 26,
+   "sg3_t": 280.623131275177,
+   "sg3_maxcombo": 0,
+   "capped": 0
+  },
+  "cap": 0,
+  "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_n8_s101.json",
+  "score": 39018,
+  "nfail": 15,
+  "fails": [
+   4573,
+   7123,
+   7469,
+   9648,
+   11854,
+   16622,
+   17726,
+   21382,
+   25539,
+   28653,
+   29437,
+   31061,
+   32894,
+   32916,
+   34517
+  ],
+  "foot_is_15": true
+ },
+ {
+  "tag": "n8_s101f",
+  "n": 8,
+  "seed": 101,
+  "S": [
+   3216,
+   4940,
+   7029,
+   12422,
+   15064,
+   18348,
+   22351,
+   26005
+  ],
+  "reason": "CLOSED_TARGETS_ONLY",
+  "outer_reached": 1,
+  "outer_max": 16,
+  "budget": 1800,
+  "wall": 46.8,
+  "import_s": 13.0,
+  "nz_atoms": 2,
+  "n_atoms": 9032,
+  "nz_list": [
+   "((x18956-x37892)-x32237)",
+   "((x24468-x13682)-(12354891*x34243))"
+  ],
+  "sampled_root_misses": 0,
+  "exhaustive_root_misses": 0,
+  "trace": [
+   {
+    "outer": 0,
+    "nz": 7,
+    "viol": 7,
+    "hl": 0,
+    "t": 17.5
+   },
+   {
+    "outer": 1,
+    "nz": 2,
+    "viol": 2,
+    "hl": 0,
+    "t": 45.7
+   }
+  ],
+  "relift_rounds": 60,
+  "cost": {
+   "nz": 253,
+   "sg3": 26,
+   "sg3_t": 25.692702531814575,
+   "sg3_maxcombo": 0,
+   "capped": 0
+  },
+  "cap": 0,
+  "fastroots": 1,
+  "root_stats": {
+   "fast": 19,
+   "brute": 42,
+   "fallback": 0,
+   "all": 0
+  },
+  "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_n8_s101f.json",
+  "score": 39018,
+  "nfail": 15,
+  "fails": [
+   4573,
+   7123,
+   7469,
+   9648,
+   11854,
+   16622,
+   17726,
+   21382,
+   25539,
+   28653,
+   29437,
+   31061,
+   32894,
+   32916,
+   34517
+  ],
+  "foot_is_15": true
+ },
+ {
+  "tag": "n16_s101f",
+  "n": 16,
+  "seed": 101,
+  "S": [
+   3216,
+   4940,
+   7029,
+   8757,
+   10513,
+   12422,
+   15064,
+   17406,
+   18348,
+   21305,
+   22351,
+   24774,
+   25908,
+   26005,
+   35537,
+   38625
+  ],
+  "reason": "CLOSED_TARGETS_ONLY",
+  "outer_reached": 1,
+  "outer_max": 16,
+  "budget": 1800,
+  "wall": 52.8,
+  "import_s": 12.2,
+  "nz_atoms": 2,
+  "n_atoms": 9032,
+  "nz_list": [
+   "((x18956-x37892)-x32237)",
+   "((x24468-x13682)-(12354891*x34243))"
+  ],
+  "sampled_root_misses": 0,
+  "exhaustive_root_misses": 0,
+  "trace": [
+   {
+    "outer": 0,
+    "nz": 8,
+    "viol": 8,
+    "hl": 0,
+    "t": 24.2
+   },
+   {
+    "outer": 1,
+    "nz": 2,
+    "viol": 2,
+    "hl": 0,
+    "t": 52.4
+   }
+  ],
+  "relift_rounds": 60,
+  "cost": {
+   "nz": 279,
+   "sg3": 37,
+   "sg3_t": 25.181687831878662,
+   "sg3_maxcombo": 0,
+   "capped": 0
+  },
+  "cap": 0,
+  "fastroots": 1,
+  "rndseed": 0,
+  "wireord": "desc",
+  "root_stats": {
+   "fast": 30,
+   "brute": 52,
+   "fallback": 0,
+   "all": 0
+  },
+  "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_n16_s101f.json",
+  "score": 39018,
+  "nfail": 15,
+  "fails": [
+   4573,
+   7123,
+   7469,
+   9648,
+   11854,
+   16622,
+   17726,
+   21382,
+   25539,
+   28653,
+   29437,
+   31061,
+   32894,
+   32916,
+   34517
+  ],
+  "foot_is_15": true
+ },
+ {
+  "tag": "n32_s101f",
+  "n": 32,
+  "seed": 101,
+  "S": [
+   1357,
+   3106,
+   3591,
+   5651,
+   5910,
+   7029,
+   7151,
+   8487,
+   11189,
+   12072,
+   12714,
+   14823,
+   14928,
+   15064,
+   17790,
+   19074,
+   20603,
+   21702,
+   22513,
+   22790,
+   24912,
+   27592,
+   28754,
+   29545,
+   29670,
+   30613,
+   30823,
+   32558,
+   32669,
+   33095,
+   33434,
+   33824
+  ],
+  "reason": "CLOSED_TARGETS_ONLY",
+  "outer_reached": 3,
+  "outer_max": 16,
+  "budget": 1800,
+  "wall": 213.8,
+  "import_s": 13.7,
+  "nz_atoms": 2,
+  "n_atoms": 9032,
+  "nz_list": [
+   "((x18956-x37892)-x32237)",
+   "((x24468-x13682)-(12354891*x34243))"
+  ],
+  "sampled_root_misses": 0,
+  "exhaustive_root_misses": 0,
+  "trace": [
+   {
+    "outer": 0,
+    "nz": 25,
+    "viol": 24,
+    "hl": 1,
+    "t": 94.2
+   },
+   {
+    "outer": 1,
+    "nz": 4,
+    "viol": 3,
+    "hl": 1,
+    "t": 203.4
+   },
+   {
+    "outer": 2,
+    "nz": 3,
+    "viol": 3,
+    "hl": 0,
+    "t": 205.3
+   },
+   {
+    "outer": 3,
+    "nz": 2,
+    "viol": 2,
+    "hl": 0,
+    "t": 212.8
+   }
+  ],
+  "relift_rounds": 60,
+  "cost": {
+   "nz": 661,
+   "sg3": 115,
+   "sg3_t": 95.4551043510437,
+   "sg3_maxcombo": 0,
+   "capped": 0
+  },
+  "cap": 0,
+  "fastroots": 1,
+  "rndseed": 0,
+  "wireord": "desc",
+  "root_stats": {
+   "fast": 93,
+   "brute": 174,
+   "fallback": 0,
+   "all": 0
+  },
+  "json": "/home/user/integer_solver/solve_lab/agentAH_work/close_n32_s101f.json",
+  "score": 39018,
+  "nfail": 15,
+  "fails": [
+   4573,
+   7123,
+   7469,
+   9648,
+   11854,
+   16622,
+   17726,
+   21382,
+   25539,
+   28653,
+   29437,
+   31061,
+   32894,
+   32916,
+   34517
+  ],
+  "foot_is_15": true
+ }
+]

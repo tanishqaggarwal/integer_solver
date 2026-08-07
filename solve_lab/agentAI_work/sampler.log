@@ -14,3 +14,10 @@
 21:56:04 availMB=10482 aaMB=11276 xMB=5159 rot=14 shards=84 hits=0 A(30892)=alive B(6881)=alive dregRSSmb=4084 memAvailMB=9349 load=53.51
 22:13:27 availMB=10482 aaMB=11276 xMB=5159 rot=14 shards=88 hits=0 A(30892)=alive B(6881)=alive dregRSSmb=4084 memAvailMB=9029 load=29.52
 22:15:28 availMB=9602 aaMB=11276 xMB=6042 rot=15 shards=90 hits=0 A(30892)=alive B(6881)=alive dregRSSmb=3047 memAvailMB=10047 load=24.18
+22:17:28 availMB=10479 aaMB=11276 xMB=5159 rot=15 shards=90 hits=0 A(30892)=alive B(6881)=alive dregRSSmb=3154 memAvailMB=9747 load=25.41
+22:19:28 availMB=10306 aaMB=11276 xMB=5335 rot=16 shards=96 hits=0 A(30892)=alive B(6881)=alive dregRSSmb=2949 memAvailMB=10251 load=21.00
+22:21:28 availMB=10478 aaMB=11276 xMB=5159 rot=16 shards=96 hits=0 A(30892)=alive B(6881)=alive dregRSSmb=3078 memAvailMB=10077 load=20.63
+22:23:29 availMB=10514 aaMB=11276 xMB=5124 rot=17 shards=102 hits=0 A(30892)=alive B(6881)=alive dregRSSmb=3351 memAvailMB=10177 load=19.74
+22:25:29 availMB=10469 aaMB=11276 xMB=5159 rot=17 shards=102 hits=0 A(30892)=alive B(6881)=alive dregRSSmb=2991 memAvailMB=10356 load=22.94
+22:27:29 availMB=10966 aaMB=11276 xMB=4647 rot=18 shards=108 hits=0 A(30892)=alive B(6881)=alive dregRSSmb=2957 memAvailMB=10329 load=24.03
+22:29:30 availMB=10450 aaMB=11276 xMB=5159 rot=18 shards=108 hits=0 A(30892)=alive B(6881)=alive dregRSSmb=2946 memAvailMB=9976 load=19.81

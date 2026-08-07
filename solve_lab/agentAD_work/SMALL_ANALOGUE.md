@@ -409,10 +409,26 @@ complement mechanism at `W = 32`.**
 The smallest `ρ` observed anywhere in this study, across every curve, size, tree shape,
 coefficient pool and draw — including settings **four times more constraining than the real
 instance** (`frac = 1.0` vs `927/3707 = 0.25`) — is **0.658** (robust fit; **0.266** for a
-single small-sample `n = 8` raw fit, which even taken at face value only reaches `w ≤ 132`). To reach `0.093` you would need
-essentially every congruence to carry a nontrivial modulus whose prime factors are spread over
-all primes up to ≈ 400 (from `ρ ≳ ∏_{ℓ|M}(1 − 1/ℓ)`, itself only a lower bound because the
-lifts repair `A`).
+single small-sample `n = 8` raw fit, which even taken at face value only reaches `w ≤ 132`);
+the sweep over adversarial modulus pools (`{4}`, `{8}`, `{2,4,8}`, `{3,9}`,
+`{2,3,5,7,11,13}`, all at `frac = 1.0`) pushes the robust minimum to about **0.55**, which
+implies `w ≤ 194` at `n = 256`.
+
+**And there is a floor, from the theorem in §5.** A block is absorbing whenever `A` is
+invertible modulo its own modulus `M_b`, so
+
+```
+    rho_b  >=  prod_{l | M_b} (1 - 1/l)
+```
+
+— and this is only a lower bound, because the input lifts can additionally repair a bad `A`.
+By Mertens, `∏_{ℓ≤X}(1−1/ℓ) ≈ e^{−γ}/ln X = 0.5615/ln X`, so `ρ ≤ 0.093` requires the prime
+support of **every block's** modulus to reach `X ≈ 420`. Three moduli per block cannot span
+all primes below 420 unless each has magnitude `≈ 2^170`. **That is a checkable criterion on
+the real instance, and it is nowhere near met:** W's census reports ordinary small `|c| > 1`
+on 288 of the 1 149 congruences. For pure prime-power moduli it is starker still — with
+`M = 2^k`, a block binds only when `A` is even, so `ρ ≥ 1/2` however large `k` is. That is
+exactly the ≈0.55 floor measured at pool `{8}`.
 
 And the right-hand column is the sting: **an instance tight enough to bound `w` this way is an
 instance that is satisfiable only by design, not by accident.** The mechanism eats itself.
@@ -452,9 +468,11 @@ No correlation, and no constraint: §4. The active-condition count runs the othe
   §7 states the threshold the real coefficients would have to meet.
 * The real system has 383 blocks for 255 merges (101 pass-throughs, 27 dead) and 3 707 lift
   conditions against `5 × 383 = 1 915` block atoms, so there are lift conditions I have not
-  modelled (leaf pins, aliases). A `leaf_free` variant (leaf slots carrying their own lift
-  modulus) is implemented in `ad_model.LiftDP`; it only *adds* freedom, so it can only push
-  `ρ` up, i.e. it can only strengthen the negative verdict.
+  modelled (leaf pins, aliases). The obvious one — leaf slots carrying their own lift modulus
+  rather than being pinned exactly — is implemented (`leaf_free` in `ad_model.LiftDP`) and
+  **measured, not assumed**: `ad_measure.py leaffree` gives closure rate `1.0000` at **every**
+  weight, `Bmax = n` in 6/6 draws, in every configuration. Extra lift freedom only pushes `ρ`
+  up, i.e. it can only strengthen the negative verdict.
 * **Equation-level cancellation is not modelled.** W's boundary applies here too: everything
   above classifies solutions of `atoms = 0`, and the real checker requires *equations* — sums
   of ~12 atoms — to vanish, a strictly larger solution set. Larger again means more closure,

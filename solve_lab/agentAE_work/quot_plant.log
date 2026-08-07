@@ -1,0 +1,9 @@
+plant 0 (e=0,s=+1) a=904346 b=995031 : 1 matches, exact pair found=True, k recovered=True  DONE M=1048576 probes=3145728 expect=3145728 matches=1 deg1=1 deg2=1 secs=12.9
+plant 1 (e=1,s=+1) a=435887 b=138158 : 2 matches, exact pair found=True, k recovered=True  DONE M=1048576 probes=3145728 expect=3145728 matches=2 deg1=1 deg2=1 secs=12.4
+plant 2 (e=2,s=-1) a=29834 b=646538 : 3 matches, exact pair found=True, k recovered=True  DONE M=1048576 probes=3145728 expect=3145728 matches=3 deg1=1 deg2=1 secs=11.6
+plant 3 (e=0,s=-1) a=409222 b=397358 : 5 matches, exact pair found=True, k recovered=True  DONE M=1048576 probes=3145728 expect=3145728 matches=5 deg1=1 deg2=1 secs=13.7
+plant 4 (e=0,s=+1) a=1 b=3 : 349525 matches, exact pair found=True, k recovered=True  DONE M=1048576 probes=3145728 expect=3145728 matches=349525 deg1=1 deg2=1 secs=14.0
+plant 5 (e=1,s=-1) a=2 b=1 : 524288 matches, exact pair found=True, k recovered=True  DONE M=1048576 probes=3145728 expect=3145728 matches=524288 deg1=1 deg2=1 secs=13.3
+plant 6 (e=2,s=+1) a=1 b=524288 : 2 matches, exact pair found=True, k recovered=True  DONE M=1048576 probes=3145728 expect=3145728 matches=2 deg1=1 deg2=1 secs=13.5
+plant 7 (e=0,s=+1) a=5 b=7 : 149796 matches, exact pair found=True, k recovered=True  DONE M=1048576 probes=3145728 expect=3145728 matches=149796 deg1=1 deg2=1 secs=10.9
+PLANT VALIDATION: PASS

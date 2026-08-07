@@ -1,0 +1,13 @@
+  (skip inv_3: same 2^44 window as 2N_over_3)
+  (skip pow2_32: same 2^44 window as pow2_16)
+  (skip ones256_modN: same 2^44 window as two256_modN)
+  (skip p_modN: same 2^44 window as two256_modN)
+  (skip neg_lam: same 2^44 window as lam2)
+  (skip neg_lam2: same 2^44 window as lam)
+tier const: 37 families
+  c_N_over_2             R=44 jumps=33554432     dps=262667   dp/cf=1.002  54.5s OK miss
+  c_N_over_3             R=44 jumps=33554432     dps=262428   dp/cf=1.0011  51.6s OK miss
+  c_N_over_4             R=44 jumps=33554432     dps=262638   dp/cf=1.0019  48.6s OK miss
+  c_N_over_5             R=44 jumps=33554432     dps=262958   dp/cf=1.0031  45.7s OK miss
+s
+  c_N_over_6             R=48 jumps=33554432     dps=65192    dp/cf=0.9948  47.7s OK miss

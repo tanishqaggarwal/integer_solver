@@ -80,6 +80,28 @@ table-less run cannot produce this ratio; it produces no `DONE` line at all.
 for 8 ladder indices and `jd_i·G == J_i` for all 32 jump points from the ladder, and exits **3**
 with `SELFTEST_FAIL` otherwise. Every run below printed `SELFTEST_OK`.
 
+## 2.2a A bug the plants missed and a counter caught — worth the space
+
+The first version of the quotient engine (`aequot.c`) reported `deg1 = 1023` and `deg2 = 1023`
+degenerate steps on a table of `W = 1024` lanes with `chunk = 1024`. **Four random planted
+quotients passed anyway** — `(a₀,b₀)` were large, and the damage was confined to lane 0.
+
+`1023 = chunk − 1` is not a plausible count for a `2^-128` event. Reading it against its closed
+form: lane 0 starts at `1·G`, so its first step computes `dx = x(G) − x(G) = 0` — an addition
+that is really a **doubling** — the batch-inversion path skipped it, the lane never advanced, and
+**every entry of lane 0's chunk (`a ∈ [1, 2^15]`, and likewise `b`) was recorded against
+`x(G)`**. About 0.2 % of the pairs, but including `a = 1`, i.e. the entire `k₀ = 1/b` sub-family,
+which is the most interesting part of the family.
+
+Fixed by supplying `2G` and `2T` and resolving the `P == base` case explicitly (the `P == −base`
+case aborts with a non-zero exit; it is unreachable here). After the fix the counter reads
+**`deg1 = deg2 = 1` exactly** — the one genuine doubling — which is itself the closed form. Four
+**deliberate lane-0 plants** (`(a,b) = (1,3), (2,1), (1,2^{19}), (5,7)`) were added and are part of
+the standing validation.
+
+> **The random plants could not have found this and did not. The counter found it.** That is the
+> case for rule 5 stated as concretely as I can state it.
+
 ## 2.3 The failure model, measured
 
 | `c` | plants needing `> c√L` | empirical `P` | `exp(−c/2)` |

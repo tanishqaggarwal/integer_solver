@@ -1,4 +1,4 @@
 MATCH a=44751 b=969807 e=2
 MATCH a=29834 b=646538 e=2
 MATCH a=14917 b=323269 e=2
-DONE M=1048576 probes=3145728 expect=3145728 matches=3 deg1=1023 deg2=1023 secs=9.5
+DONE M=1048576 probes=3145728 expect=3145728 matches=3 deg1=1 deg2=1 secs=11.6

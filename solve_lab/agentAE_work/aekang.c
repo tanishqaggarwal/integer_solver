@@ -320,11 +320,12 @@ int main(int argc,char**argv){
     struct timespec t0,t1; clock_gettime(CLOCK_MONOTONIC,&t0);
     for(int i=0;i<NTH;i++){ ta[i].id=i; ta[i].seed=seed+0x9E3779B97F4A7C15ULL*(i+1); pthread_create(&th[i],NULL,worker,&ta[i]); }
     /* monitor */
+    int tick=0;
     while(!g_stop){
         struct timespec ts={1,0}; nanosleep(&ts,NULL);
         clock_gettime(CLOCK_MONOTONIC,&t1);
         double el=(t1.tv_sec-t0.tv_sec)+1e-9*(t1.tv_nsec-t0.tv_nsec);
-        if((int)el%10==0){
+        if(++tick%10==0){
             fprintf(stderr,"STATUS jumps=%llu dps=%llu cands=%llu t=%.1f rate=%.3fM/s\n",
                 (unsigned long long)g_jumps,(unsigned long long)g_dps,
                 (unsigned long long)g_cands,el,g_jumps/el/1e6);

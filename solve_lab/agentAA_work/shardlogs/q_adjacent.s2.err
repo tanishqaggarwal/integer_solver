@@ -1,0 +1,1 @@
+scan data/q_adjacent.txt sz=4 [321,322): 1107320 cand zero=0 5.2s

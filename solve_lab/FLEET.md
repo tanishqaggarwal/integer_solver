@@ -7135,3 +7135,104 @@ That is the correct standing of the campaign's headline and it is how I will sta
 
 That is the `d_reg` question. `n = 4` is the live experiment, under AI's custody with AB's read-off
 fixed in advance. **Both theorists independently named the same gap as the one worth funding.**
+
+---
+
+## Check-in 119 — AF caps §8: the last live thread cannot deliver anything useful
+
+Deliverable `agentAF_work/LIFT_SUPPORT.md`, 77 MB of 500 budgeted. Baseline re-verified at start and
+end. AF re-derived everything with **its own parser, importing nothing**: the `927/2780` split
+reproduces exactly, as do W's `1149 + 766`, U's `511 / laminar / 178|78`, and W's Jacobian
+`[[A²,0],[B,A]]` — the last obtained **by counting monomials of the exact polynomial expansion rather
+than trusting the formula.** The 927 split into 288 congruence + 192 off-pin + 256 leaf-pin + 191
+difference.
+
+### The correction I verified myself before recording anything else
+
+> **`|S| = 128` is not a stall.**
+
+`agentT_work/close_T128s59.json` and `close_T128s7fix.json` are checker-verified at **39,018/39,033**
+with a footprint **byte-identical** to `close_T64.json`. **I ran all three through `solve_lab/checker.py`
+myself**: all three give `satisfied 39018/39033 (15 failing)` on the identical index set
+`[4573, 7123, 7469, 9648, 11854, 16622, 17726, 21382, 25539, 28653, 29437, 31061, 32894, 32916, 34517]`.
+AF also evaluated all 3,707 conditions on them with its own parse: **0 violated `c>1` conditions.**
+
+T recorded this in `RESUME_T.md` §BD/§BE. **`UPPER_BOUND_MAP.md` §S5 still rests on the stall, and
+so did check-ins 111–118 including my own summaries.** The correlated-seed caveat survives; **the
+stall does not.**
+
+### My "check this first, it may be short" argument — **FAILED**, reported as a negative
+
+**310 of the 927 conditions have selector support ≥ 2, and one has support 256.** §8 does not die by
+locality. That was my nominated shortcut and it is wrong.
+
+### The crux — resolved, and `|S|` *is* visible
+
+Every gate expands to `L_v = OR(I_v) ∧ OR(J_v)`: read-once, disjoint arms, 255/255, **zero NOTs**.
+The 510 slot supports form a 511-node binary tree. Hence
+
+> **Theorem 1: `Σ_v L_v(s) = |S| − 1` exactly, for any binary tree — shape-independent**, proved by
+> induction and verified on 20/20 existing artefacts.
+
+So the system **can** see `|S|`. **But the ledger is flat.** Each block owns exactly 2 free wires
+(766/766 off-pin residuals free and block-confined, measured); at most one congruence and one off-pin
+per block carry `c > 1`; `gcd(c,α) = gcd(c,β) = 1` for all 288. **U's theorem gives `A ≢ 0 mod P`
+everywhere ⇒ `det = A³` is a unit ⇒ the two knobs solve the two mod-`P` rows identically at every
+block for every `S`**, leaving a spare knob for the ≤1 mod-`c` row. Knobs and conditions scale as
+`2(|S|−1)` against `3(|S|−1)`; **no deficit ever appears.**
+
+And a second, independent reason the growth mechanism cannot work:
+
+> **No data variable in the instance is bounded** — 0 of 766 chord wires and 0 of 512 leaf wires
+> carry a booleanity or range atom. **A growth argument needs a bounded variable. There isn't one**,
+> so `R` growing is irrelevant.
+
+**Reconciles with Z rather than contradicting:** the gates are strictly non-linear, so
+`Σ L_v = |S| − 1` is **not** a linear constraint — which is exactly the shape Z predicted any
+`|S|`-dependence would have to take — and the selector space stays at `2^256`. **AF's result
+strengthens Z's from degree 1 to any degree.** The irregular tree shape is decoration for this
+question: Theorem 1 is shape-free, and the 128 constant-gate blocks contribute only always-active
+off-pins on free wires, discharged by 0.
+
+### Theorem 4 — the result that matters, and it does **not** depend on Theorem 5
+
+Block-locality makes any instance-side bound a **downward-closed set condition**, `w ≤ maxS(Bad)`,
+computable by tree DP. The `|S| = 128` closures force `maxS(Bad) ≥ 128`. Therefore:
+
+> **§8 cannot deliver any bound below `w ≤ 128`** — below the null mean of 128, and far above its own
+> payoff band (`≲ 53` to beat rho, `≲ 14` actionable).
+
+Calibration AF supplied unprompted: had the whole 189-block `c>1` congruence family been obstructive
+the bound would have been `w ≤ 17`, **refuted by the `|S| = 32/64/128` closures**; the 121-block
+off-pin family gives 44, **refuted by 64.** So the mechanism is not merely unproven — **its ceiling is
+already pinned above the useful range by evidence the fleet already had.**
+
+**This is the end of the upper-bound question as a research programme.** Every search route is priced
+by the corrected Theorem B and none pays; the one non-search mechanism is now capped at `w ≤ 128`.
+
+### Two further items
+
+**AF hit agent U's §7 bug independently** — over-peeling a body whose leading summand is itself a
+subtraction, which over-merges alias classes — and caught it because **254 of 383 gates collapsed to
+constant 0.** Blast radius measured *before* reporting: the `927/2780` split and the 220 P-aliases
+were unaffected; the gate algebra went from nonsense to correct. **Two agents, two independently
+written parsers, the same trap — this is a permanent entry, not an anecdote.**
+
+Anti-monotonic detail worth keeping: **the only `c>1` lift violation anywhere in the fleet's artefact
+record is at `|S| = 8`**, and two sibling artefacts at the same `|S|` are clean.
+
+### AF's honest gap, and the falsifiable prediction it generates
+
+Theorem 5 is a derivation that the ledger balances locally, **not a construction dumped through
+`checker.py`** — AF was told to derive rather than probe, and says so rather than overclaiming. The
+cheapest thing that settles it is T's `t_close2wj.py` at `|S| = 192` and `250` on independent seeds.
+**T's logs for both exist but the `close_*.json` do not**, so those points are currently unverified —
+which is exactly what T is running now.
+
+> **AF's prediction, recorded before T's result arrives: 39,018/39,033 with the same 15-line
+> footprint.** If T comes back with anything else, Theorem 5 is in trouble and we will know it
+> immediately.
+
+**Direction note AF supplied, and it is the right one:** everything classifies solutions of
+`atoms = 0`, a subset of `equations = 0`. AF's conclusion is a **positive**, so the inclusion runs the
+safe way. **Agent K's two wrong verdicts were both negatives; this is not one.**
