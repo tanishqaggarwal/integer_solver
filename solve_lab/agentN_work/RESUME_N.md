@@ -66,14 +66,36 @@ selector configuration = the witness's own, from `best/new_instance_partial_3902
     python3 drop.py 2                       # collateral-budget sweep
     python3 sweepF.py runs/x.jsonl 3        # resumable layer sweep (skips sets already present)
 
+## CORRECTION (agent T's audit, check-in 74) — read this before reusing my numbers
+`atom_src[37887]` is `S*S` with textually identical operands, so **eq8680 = S⁴**, and `optN.inner`
+strips one level and returns `S²` — a quadratic.  `sqaudit.py` measures the blast radius rather than
+assuming it: a numeric affineness test (probe every knob at steps 1, 2, 3) finds **exactly two
+non-affine rows anywhere in any model** — eq 8680 and eq 13985 — and **zero** after both are stripped
+to their linear cores.
+- **Unaffected**: the witness region (|R|=12) contains neither row, so the 924/924 p-obstruction,
+  OPT = 5, the exhaustive |W| ≤ 2 collateral sweep and the 39,026 optimum all stand (re-derived on
+  the corrected model: kernel dim 14, g = 5 at |W| = 0 and |W| = 1 exhaustive, 0 non-affine pairs).
+- **Corrected**: at |R| = 13 row 8680 *is* in the region and was mis-modelled.  OPT is **6**, not 5;
+  8680 **is** integrally zeroable; **all 16 detach states score 39,026**, not a 39,025/39,026 split.
+- **RETRACTED**: my claim that "the knobs cannot reach S = 0, so detaching `x_28730` is the only
+  way".  They can.  `agentN_work/N_r13_39026.json` is built from `D = []` (no detachment), verified
+  independently by `solve_lab/checker.py` at **39026/39033** with the identical failing set.
+O's Lemma is untouched — what changed is how many ways the frame has to satisfy it.
+
+## The reduction, in agent T's checkable form (adopted)
+A pool variable `v` is defined by an atom `(v − RHS)`, so **witness(v) ≠ gate(v) ⟺ that defining
+atom is nonzero at the deliverable.**  The deliverable has 7 nonzero atoms; exactly 4 pool variables
+have a nonzero defining atom — `{642, 28730, 29854, 31864}`.  T further verified that 0 of the other
+61 reach a witness variable directly, transitively in the pool, or anywhere in the full 30,001-node
+definition DAG — so the 2⁶⁵ lattice has **exactly 16 states by proof**, not by enumeration.
+
 ## Follow-up: O's Lemma cross-check, frame depth, re-orientation (all closed)
 - **O's Lemma confirmed, and it is a SECOND obstruction, not mine.**  `eq_terms[8680] =
   (1, True, [(1, 37887)])`, and `optN.inner` returns the inner form, never its square, so my model
   already carried `T`.  `T = 0` **already holds at the witness**, and eq8680 is **exactly the one
   equation detaching `x_28730` buys** — O's Lemma *is* the 39,025 → 39,026 step.  The witness region
-  excludes 8680, so the 924/924 p-obstruction is independent of it.  New: in the 13-row region the
-  max rows zeroable **subject to 8680 being zeroed is 0**, so the knobs cannot reach `T = 0` at all;
-  detaching `x_28730` is the only way.  (`tcheck.py`)
+  excludes 8680, so the 924/924 p-obstruction is independent of it.  (`tcheck.py`)  [The extra
+  claim I made here — that the knobs cannot reach `S = 0` — was wrong; see the CORRECTION above.]
 - **Frame depth is not a lever.**  Deepening the pool from 65 to its saturation at 116 variables
   (frame free inputs 8,812 → 8,863) leaves the region's knob set at **49 wide / 7 narrow and OPT at
   5 at every depth**.  (`deepen.py`, `runs/deepen.json`)
@@ -84,13 +106,27 @@ selector configuration = the witness's own, from `best/new_instance_partial_3902
   being the empty one**.  Atom 37887 (= T) has **no** legal unit target, so `T` can never be
   structurally forced to zero.  (`orient.py`, `reorient2.py`)
 
+## Wholesale re-orientation (`fwd5.py`, `runs/fwd5.json`) — the 7 survive
+Rebuilt the frame from scratch under 10 global target rules (first / last / lowvar / highvar / 5
+randoms / one aimed at the region).  **No orientation beats the baseline forward score of 39,020**;
+the best alternative (`prefer`) ties it with **the identical 13 failing equations**.  In every
+orientation the failing equations reduce to nonzero atoms drawn from the same nine
+`{22229, 22230, 22231, 35758, 35759, 35760, 35761, 35762, 37887}` — 3 to 5 left nonzero, never none.
+**Atom 37887 is a check in all 10**: it has no legal unit target, so no orientation can ever force
+`S = 0` structurally.  And fewer nonzero atoms is not better — `last` and `random/4` leave only 4 in
+the whole instance yet score 39,006, because those atoms sit in more equations.
+
 ## Single next experiment
 Everything I can vary inside this frame is now closed: the detach lattice exactly (16 states),
 frame depth to saturation, collateral to budget 2, and re-orientation of the region.  The region's
 7 nonzero atoms are `{22229, 22230, 35758, 35759, 35760, 35761, 35762}` and its knob set is 49,
-permanently.  The only untested thing left is a **global** re-orientation: the 10,956 definition
-atoms elsewhere in the circuit that admit another reading decide which equations are auto-satisfied
-OUTSIDE the region.  Rebuild `fwd2.pkl` wholesale under a different target rule, then check whether
-the 7 failing equations still reduce to the same 7 nonzero atoms.  If they do, 39,026 is the frame's
-ceiling under every orientation and the search must move to a different `checks` decomposition
-entirely.
+permanently.  Global re-orientation is now done too and the carriers survive it.  Everything reachable by
+choosing a frame, a detach set, knob values, or collateral up to budget 2 is closed at 39,026.
+The one thing none of it touches: every model here is **linear in the knobs**, and the two rows that
+were not (8680, 13985) turned out to be the only place a genuinely nonlinear response lives.  The
+next experiment is to stop linearising: solve the region's 12 rows as a **polynomial** system in the
+49 knobs — the atoms carry products like `x_26874*x_6947`, so the true response surface is quadratic
+in places and the affine model can only ever find affine solutions.  Concretely: take the witness
+region, keep the exact atom expressions instead of finite differences, and hand the resulting
+integer polynomial system to a Groebner/`msolve` computation over the 7 zero-collateral knobs.  That
+is the only unexplored direction left on this thread.

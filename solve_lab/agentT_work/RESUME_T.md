@@ -855,3 +855,75 @@ which is the strongest cheap evidence available, and considerably more than a se
 `t_meng.py` (materialise + checker + F parse + identity with the deliverable) ·
 `t_meng2.py` (9-subset exactness spot-check) · `t_meng_assign.json` (the engine's own output,
 checker-verified 39,026).  Reproduce: `python3 t_meng.py && python3 t_meng2.py`.
+
+=============================================================================================
+# ELEVENTH PASS — L's closure sweep, run by T   [coordinator check-in 83]
+Scripts handed over in `agentT_work/from_L/`; `closeS4.py`'s global guard (accept a shift only if
+the TOTAL nonzero-atom count strictly decreases, verified by direct recomputation).
+Driver `t_sweep.py`: data load with `agentL_work` as cwd, then **chdir back so the dumps land in
+my directory**.  Launched detached, PID in `job.pid`, liveness by `kill -0`.  Artifacts named
+`close_T2ctl / T3 / T5 / T8.json` — deliberately distinct from L's invalid `close_S3/S5/S8.json`.
+`agentL_work` was not written to.
+
+## AK. RESULT — **the integer lift does NOT close generally.  It closes at 2, 3, 5 and breaks at 8.**
+```
+   |S|  tag     nonzero atoms of 9,032   checker      wall     closes?
+    2   T2ctl            2               39,018      160 s     YES   <- CONTROL, matches audit T24
+    3   T3               2               39,018      171 s     YES
+    5   T5               2               39,018      179 s     YES
+    8   T8               3               39,002      289 s     ** NO **
+```
+**Control passed**: exactly 2 nonzero atoms and 39,018, reproducing the number I established in
+audit T24 — so the global guard does **not** have the leak the scoped guard had (which gave 8).
+
+At `|S| = 2, 3, 5` the only nonzero atoms are the two target congruences, and all three give the
+**identical** failing set `[4573,7123,7469,9648,11854,16622,17726,21382,25539,28653,29437,31061,
+32894,32916,34517]` — the 15-equation footprint of those two atoms, exactly as at `|S|=1,2`.
+
+At `|S| = 8` a **third** atom survives:
+```
+   ((x21408*x10138)-(15333171*x658))        c = 15333171 = 3 * 7 * 19 * 83 * 463
+```
+and the score drops to **39,002 / 31 failing**.  The solver also worked visibly harder (289 s vs
+~175 s) and still did not clear it.  Note the c factors into small primes, so this is **not** the
+large-prime-factor cost case — root-finding was cheap and the obstruction is genuine.
+
+> **Answer to the campaign's last open question: closure is a small-`|S|` phenomenon, not a
+> general one.  The boundary lies between 5 and 8.**
+
+### AK1. What this does and does not establish — read before quoting
+* **One ON-set per size**, drawn by L's own `random.Random(7)` convention, not an exhaustive
+  sweep.  `|S|=8` failing at *this* ON-set does not prove every 8-leaf ON-set fails; `|S|=3,5`
+  closing at *these* ON-sets does not prove every one closes.  **The honest statement is: the
+  first observed failure is at 8, and 3 and 5 were observed to close.**
+* It is **"this solver did not close it"**, not "it cannot be closed".  `closeS4` stops when no
+  single-wire shift strictly decreases the global nonzero count; a residue that needs two wires
+  moved *together* would look identical.  Given that the |S|=17 obstruction was already diagnosed
+  as shared-wire simultaneity, that is the live hypothesis for |S|=8 too.
+* **Next, and it is cheap:** the nested ON-sets mean `T3 ⊂ T5 ⊂ T8`, so re-running `|S| = 6, 7`
+  on the same nested prefix would localise the break to a single added leaf — about 6 minutes,
+  and it would say whether the failure is a property of size or of one particular leaf.
+
+## AL. PARKED — O's seven-way trade, partial, NOT a verdict  (`t_oktrade.py`, `t_oktrade2.py`)
+Superseded in priority by the sweep; recording what I measured so it is not lost.  **This is not
+an audit verdict on O and must not be quoted as one.**
+* **`K` is frame-dependent.** Rebuilding O's `K` in the *default* orientation from F's parse gives
+  **12** free S-carriers (O says 26), **11** free inputs reaching a nonzero region atom (O says
+  15), union **23** (O says 34), overlap **0** (O's numbers imply 7).  O explicitly scopes its
+  theorem to "frame B's orientation", which promotes defined variables to free — the most likely
+  and innocent explanation.  **I did not reproduce frame B, so this is a flag, not a defect.**
+* **The seven-way uniformity is NOT structurally forced.**  I tested the natural reduction — if
+  every knob that moves a failing row also moved `S`, then "every purchase costs exactly eq8680"
+  would be one fact seen seven times.  It is false: **7 knobs** (`x1329, x7068, x8731, x9118,
+  x9413, x10903, x17325`) move a failing row with `dS = 0` exactly.
+* **But that does not contradict O**, and the distinction matters: *moving* a row is not *buying*
+  it.  Restricted to those S-preserving knobs, 6 of the 7 failing rows are individually solvable
+  over ℤ with `S` held at 0 (eq29125 is not) — **but that check ignores collateral**, and O's
+  "buyable" means the score does not drop.  So my result is a **necessary-condition** statement
+  only.  **Conclusion: O's uniformity is a genuine search result resting on its collateral
+  accounting over `K`, not a restatement of N's "eq8680 is what detaching x_28730 buys". Whether
+  that accounting is right is UNAUDITED.**
+
+## AM. NEW FILES (eleventh pass)
+`t_sweep.py` + `t_sweep.log` + `job.pid` · `close_T2ctl.json`, `close_T3.json`, `close_T5.json`,
+`close_T8.json` (all checker-verified above) · `t_oktrade.py`, `t_oktrade2.py` (parked O work).

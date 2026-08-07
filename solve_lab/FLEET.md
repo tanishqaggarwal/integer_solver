@@ -4595,3 +4595,75 @@ score, **one of them a distinct point** (different values on all seven region va
   constrain.**
 
 **Closed threads: P, R, S, K, Q, L, O. Live: M, N, T.**
+
+---
+
+## Check-in 84 — THE LAST OPEN QUESTION IS ANSWERED: the integer lift does NOT close generally
+
+Deliverable unchanged: **39,026 / 39,033**.
+
+T ran the sweep handed over from L, on the global-guard solver, launched detached with the PID
+recorded:
+
+```
+|S|  tag     nonzero atoms of 9,032   checker      wall     closes?
+ 2   T2ctl            2               39,018      160 s     YES   <- CONTROL
+ 3   T3               2               39,018      171 s     YES
+ 5   T5               2               39,018      179 s     YES
+ 8   T8               3               39,002      289 s     ** NO **
+```
+
+**The control passed** — exactly 2 nonzero atoms and 39,018, reproducing what T established
+itself — **so the global guard does not have the leak the scoped guard had** (which gave 8). That is
+the confirmation L's five rounds could never get.
+
+At `|S| = 2, 3, 5` the only nonzero atoms are the **two target congruences**, and all three give the
+**identical 15-equation failing set**. At `|S| = 8` a third survives —
+`((x21408*x10138)-(15333171*x658))`, `c = 15333171 = 3·7·19·83·463` — and the score drops to
+**39,002 / 31 failing**.
+
+**T pre-empted the obvious misreading:** `c` factors into **small primes**, so **this is not the
+large-prime-factor cost case** — root-finding was cheap and **the obstruction is genuine**, despite
+the solver visibly working harder (289 s against ~175).
+
+> **Closure is a small-|S| phenomenon. The boundary lies between 5 and 8.**
+
+### What this does and does NOT establish — T's scope, recorded verbatim in substance
+
+- **One ON-set per size**, drawn by L's own `Random(7)` convention — **not exhaustive**. `|S| = 8`
+  failing at *this* ON-set does not prove every 8-leaf ON-set fails, and 3 and 5 closing does not
+  prove all do. **The honest statement is: first observed failure at 8.**
+- It is **"this solver did not close it", not "it cannot be closed"**. `closeS4` stops when no
+  **single-wire** shift strictly decreases the global count, and **a residue needing two wires moved
+  together looks identical** — with `|S| = 17`'s shared-wire simultaneity already the live
+  hypothesis.
+
+### T's next step, and it is six minutes
+
+**The ON-sets are nested — T3 ⊂ T5 ⊂ T8 — so re-running `|S| = 6, 7` on the same prefix localises
+the break to a single added leaf**, distinguishing **"property of size"** from **"property of one
+leaf"**. Very different findings: a size horizon, versus one particular leaf introducing a condition
+the others do not. If it is a single leaf, the follow-up worth stating is whether its added
+condition is the same shared-wire simultaneity — **in which case the `|S| = 8` and `|S| = 17`
+failures are one phenomenon rather than two.**
+
+### O's trade — parked, partial, explicitly not a verdict
+
+Recorded so it is not lost, with T's own framing:
+
+- **`K` is frame-dependent.** Rebuilt in the default orientation from F's parse: 12 free S-carriers
+  (O says 26), 11 free inputs reaching a region atom (O says 15), union **23 not 34**, overlap 0
+  where O's numbers imply 7. **O scopes explicitly to frame B's orientation, which promotes defined
+  variables to free — the likely innocent explanation. T did not reproduce frame B, so this is a
+  FLAG, NOT A DEFECT.**
+- **The uniformity is not structurally forced** — 7 knobs move a failing row with `dS = 0` exactly,
+  so "every purchase costs exactly eq8680" is **not** one fact seen seven times. **But this does not
+  contradict O**: moving a row is not buying it, and T's follow-up (6 of 7 rows solvable with `S`
+  held at 0) **ignores collateral, which is precisely what "buyable" accounts for.**
+
+> **So O's uniformity is a genuine search result rather than a restatement of N's fact — and its
+> collateral accounting is unaudited.** That distinction is worth more than either measurement
+> alone. O's thread has closed, so the ledger row is the record.
+
+Artifacts `close_T2ctl/T3/T5/T8.json`, **all checker-verified and named distinctly from L's invalid
+`close_S3/S5/S8.json`**, which remain on disk and **still must not be read**.
