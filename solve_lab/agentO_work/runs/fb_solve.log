@@ -1,0 +1,27 @@
+witness in frame B: score 39026  failing [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+knobs (all free in frame B): [642, 1329, 9413, 10903, 17325, 28730, 29854, 31864, 7068, 4432, 8731, 9118]
+columns probed in 0s; nonlinear (knob,check) pairs: 2
+   x_642    touches   2 checks, 0 of them nonlinearly
+   x_1329   touches   1 checks, 0 of them nonlinearly
+   x_9413   touches   1 checks, 0 of them nonlinearly
+   x_10903  touches   1 checks, 0 of them nonlinearly
+   x_17325  touches   1 checks, 0 of them nonlinearly
+   x_28730  touches   3 checks, 1 of them nonlinearly
+   x_29854  touches   2 checks, 0 of them nonlinearly
+   x_31864  touches   2 checks, 0 of them nonlinearly
+   x_7068   touches   3 checks, 0 of them nonlinearly
+   x_4432   touches   4 checks, 1 of them nonlinearly
+   x_8731   touches   1 checks, 0 of them nonlinearly
+   x_9118   touches   1 checks, 0 of them nonlinearly
+checks reachable by the knobs: 12   (nonlinear in some knob: 1)
+checks usable as linear rows: 11
+equations reachable by the knobs: 29  (of which currently failing: 7)
+witness failures inside this set: [12231, 12270, 12350, 14584, 18673, 22044, 29125]
+witness failures OUTSIDE it (unreachable, permanent): []
+rows built: 28   skipped (nonlinear check in the equation): 1
+
+full solve over Z: core infeasible  (0s)
+not integrally solvable on the full row set; measuring the price by dropping rows
+greedy kept 8 of 28 equations
+APPLIED greedy: score 39012  failing [1985, 2554, 5225, 6816, 8124, 8680, 9123, 9421, 10815, 16048, 17784, 17801, 22402, 23667, 24721, 27124, 28737, 29638, 29959, 35935, 37431]
+DONE

@@ -27,3 +27,19 @@ base near-solution: bad=[20215, 28647] fails=28
   x_22595=2   moved=True  newbad=[9071, 9072, 20212, 20391, 20649, 20652] fails=74 -> other rows INFEASIBLE
 [  x_22595=-1] knobs=57 other-rows=54 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (3s)
   x_22595=-1  moved=True  newbad=[9071, 9072, 20212, 20391, 20649, 20652] fails=74 -> other rows INFEASIBLE
+[  x_22595=5] knobs=57 other-rows=54 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (3s)
+  x_22595=5   moved=True  newbad=[9071, 9072, 20212, 20391, 20649, 20652] fails=74 -> other rows INFEASIBLE
+[  x_2779=2] knobs=57 other-rows=53 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (2s)
+  x_2779=2   moved=True  newbad=[2785, 2786, 20212, 20649, 20652, 21067] fails=77 -> other rows INFEASIBLE
+[  x_2779=-1] knobs=57 other-rows=53 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (2s)
+  x_2779=-1  moved=True  newbad=[2785, 2786, 20212, 20649, 20652, 21067] fails=77 -> other rows INFEASIBLE
+[  x_2779=5] knobs=57 other-rows=53 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (3s)
+  x_2779=5   moved=True  newbad=[2785, 2786, 20212, 20649, 20652, 21067] fails=77 -> other rows INFEASIBLE
+[  x_16348=2] knobs=53 other-rows=53 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (0s)
+  x_16348=2   moved=False newbad=[1602, 7389, 10187, 16970, 16971, 26960] fails=93 -> other rows INFEASIBLE
+[  x_16348=-1] knobs=53 other-rows=53 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (0s)
+  x_16348=-1  moved=False newbad=[1602, 7389, 10187, 16970, 16971, 26960] fails=93 -> other rows INFEASIBLE
+[  x_16348=5] knobs=53 other-rows=53 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (0s)
+  x_16348=5   moved=False newbad=[1602, 7389, 10187, 16970, 16971, 26960] fails=93 -> other rows INFEASIBLE
+[  x_13526=2] knobs=57 other-rows=54 target-rows=[20215, 28647]: INFEASIBLE kernel-dim=5 (2s)
+  x_13526=2   moved=True  newbad=[10308, 10309, 10516, 20212, 20649, 20652] fails=76 -> other rows INFEASIBLE

@@ -2527,3 +2527,163 @@ restore them early. Note that closing (d) is exactly what would restore them.
 
 `wt7` **stopped** at **59,899,917 of 177,589,057 side-B tuples = 33.7%**, no hit in that portion,
 recorded in `wt7.log` at its true standing — a group-model measurement. Cores released.
+
+---
+
+## Check-ins 41–44 — three models fail the same way; the degeneracy route is OPEN
+
+Deliverable unchanged: **39,026 / 39,033**, re-verified by R and K. **Nothing above it exists.**
+
+Three agents withdrew a load-bearing result in the same round, all for the same underlying
+reason: **their models assumed the circuit forces wires to carry computed compositions, and it
+does not.**
+
+### K (check-in 43) — THE PARTITION THEOREM IS WITHDRAWN AS A BARRIER
+
+K was told its partition statement was the single condition between this lab and a trivial full
+solve, and asked to establish or attack it. **It attacked it and the premise failed two direct
+tests** (`k37_premise.py`):
+
+- **The composition is on no wire.** For `ON = {e0, e1}` (both A-half, predicted `3G`), scanning
+  **all 38,748 variables** for the predicted X (shifted and raw) and Y: **nothing holds it.** Same
+  for `{e3, e10}` and `{e3, e5}`. Not a wire-naming error — **with only one root half live, the
+  composition is computed nowhere.**
+- **Root slots are not pinned.** Seeded to a **random wrong 256-bit value** before closing, each
+  root slot **keeps that value** through a full closure, at a cost of 1–2 extra nonzero atoms
+  against a baseline of 4.
+
+K's bound constrains *compositions of live leaves*; if slots are not forced to carry compositions,
+**the bound does not apply to them. §4 is conditional, not a barrier.** K also explains its own
+earlier §2 A-half agreements: those runs all had a live leaf on the *other* half, so they never
+demonstrated that subtrees compute compositions internally.
+
+**The arithmetic is still correct** (`2N > 2²⁵⁶−1`; `2²⁵⁶−N < 2¹²⁹`; the measured supports).
+**What is withdrawn is its applicability.**
+
+> **Consequence: the degeneracy route is OPEN, not closed, and should be attacked as reachable.**
+> Q measured that a gadget seeing two equal live inputs has both residuals vanish **regardless of
+> the output**, 383/383. The only argument that this could not be arranged has now been withdrawn
+> by its author.
+
+K also **found and fixed a circularity it had not written down**: its premise is valid only where
+no gadget *below* is degenerate, so it cannot be used to rule out degeneracy. Repair is induction
+on the **minimal-depth** degenerate gadget (§4.0b) — needed regardless.
+
+**Two attacks on the free-output mechanism, both measured, both dead.** *Dead inputs:* all
+selectors off pins every leaf wire to 0, so every gadget sees `a == b == (0,0)` — the cheapest
+coincidence available — but the root gate `x15298 = 0` with the 900 non-leaf booleans at 0, at 1,
+**and** derived; it cannot be switched on (28 failing in all three modes). *Lie at a root slot*
+(cheap per TEST 2): slot pin atoms sit in 11–16 equations each and the pairs touch **51 (A) and
+42 (B)** — far worse than 7.
+
+**K's corrections:** §2's "fold evaluator validated" was over-claimed (conditional on the root gate
+being on); `k33_allpairs.py` superseded; `k34_diverge.py` unusable as written. **The B-half gap is
+subsumed — it was never a closure bug, it was the premise being false.**
+
+### R (check-in 41) — `A` FAILS; the 39,029 roots are WITHDRAWN
+
+R ran the validation and its model failed, so it **withdrew the roots and did not proceed to
+materialisation. Nothing was routed to M.**
+
+The deliverable specifies 3,540 of 38,748 variables. **Exactly 2 of 256 pin variables are nonzero
+(x2081, x24601); all 4 coordinate wires those pins name hold exactly the values `pins.json` names;
+exactly 2 of 256 ladder points appear on wires — leaves 72 and 235, precisely the live ones.**
+**Leaf 0 — R's accumulator seed — is absent**, as are `L72+L235`, `L0+L72`, `L0+L72+L235`. If the
+fold were seeded at `L_0` the ON-set would carry a `2^0` term; it does not. **`A = L_0` is wrong**,
+and no accumulator value of any kind appears: **the deliverable holds the inputs and the target and
+nothing between them.**
+
+R also caught its own second lookup bug (searching for reduced coordinates against unreduced
+~89-digit wire values, the same class as the pins bug) rather than reporting its first 0/256, and
+said plainly that its earlier `fold(k) ≠ T` validation was **nearly vacuous** since almost any wrong
+model yields that.
+
+**Withdrawn:** the four `(t1,t2)` roots including the 39,029 pair; the degree-collapse argument as
+an instance claim; and "relaxing a selector leaves the mux atoms satisfiable" — both resting on a
+mux form that is **model, not measurement**.
+
+**Survives, pure equation-incidence with no group model:** every atom with cost ≤6 is a
+boolean-ness atom; **minimum cost over relational atoms is 7**; atom 3131 is one of the
+deliverable's own live atoms; `|S| = 2` ties at 7 but never beats. **Still the best explanation for
+why every configuration-first search bottoms out at 7.** Also: the disconnected-cheapness trap, the
+arithmetic that 39,029 is a 4-equation-union floor, the `E`-vs-`checker.py` discrepancy, the
+corrected pins lookup.
+
+**R's flagged disagreement with T resolves; neither is wrong.** R measures 2 of 256 pins nonzero in
+the deliverable with the named wires holding named values; T **forced all 256 selectors to 0** and
+found the two leaf values still present. Both true and consistent — **the wires are free variables
+the deliverable assigns**, so zeroing selectors does not clear them, which is also exactly Q's
+`sel·(w − C) − z` explanation.
+
+### M (check-in 42) — the baseline discrepancy is one atom; the pool was wrong; O's target priced
+
+**Baseline discrepancy SOLVED.** All 12 extra equations fail for one reason: **atom 34120**.
+`x_7068` touches only 23616 and 34120; M's un-corruption restores it to its **735-digit**
+definition (34120 nonzero), while L's zeroing leaves it at the deliverable's **90-digit** value
+(34120 zero). **Un-corruption propagates further than zeroing** — L's zeroing is not wrongly leaving
+anything satisfied, and **L's union filter was right and is now justified rather than cautious.**
+
+**Corollary, and it is the sharpest structural fact about the deliverable yet:** its 18 fixes
+decompose as **12** (all via `x_7068` killing atom 34120) **+ 6** (`2554, 6816, 8124, 8680, 9123,
+9421`, via the handle corruptions). **One variable buys 12 of its 18 fixes** — which is why it holds
+`x_7068` small and why that was the sole collateral demotion.
+
+**M corrected its own pool — the second time it caught this exact blind spot.** "32 of 11,307
+(0.28%)" restricted the population to **product/bare-defined** variables, the identical mistake it
+had diagnosed for `x_7068`, at scale. **Over all definer forms: 103 of 30,383 (0.34%).** All 32
+survive, **71 were missing**, and **`C(32,4)` was the wrong space.** The 0.28% figure is withdrawn.
+
+**The stage-check lead is dead, cleanly.** All 98 five-handle supersets priced with a calibrated
+fast tuner (39,008 → 39,026 in 0.4 s, incremental scoring verified exact against full
+re-propagation): `+x23754`, `+x35619`, `+x9629` each **39,026**; distribution 39,026: 89 · 39,012: 1
+· 39,011: 8; **above 39,026: 0**; and **0 of 98 priced out at 0 rows**, so the pool is not padded.
+
+**O's lattice target priced — the region can be made to hold, and it is not free.** M independently
+confirms all four atom expressions, that `x_8731`/`x_9118`/`x_4432` are free **and affine**, that
+the 7 failures are a strict subset of the 13, and that **`x_17499 = p` exactly** — corroborating O's
+elimination account. Solving: **7/7** of the currently-failing → 38,989 with **44 equations** of
+collateral; **13/13** of the region → 38,984 with **49**. Net −37 / −42 against 39,026.
+
+**Critical caveat, M's own: it priced *a* solution, not O's δ₀.** The solution set is a lattice
+coset and M's solver picked a different point — **M's shifts are ~4,200–4,558 bits, O's are
+2,419–2,440.** Collateral plausibly grows with magnitude and cannot be inferred from bit-sizes.
+
+**Coordinator relay:** `DELTA0_FOR_M.json` and `DELTA0_FOR_M.md` copied from `agentO_work/` into
+`agentM_work/` — no agent read another's directory. **And O's file contains the answer to M's
+caveat:** `x_642` enters `x_7068 − x_2099 − 7376877·x_642` with coefficient −7376877 and is
+**private**, so that shift **only matters modulo 7376877 = 3 × 2458959 — a 23-bit condition, not a
+2440-bit one**; and for `x_28730`, only the *difference* of its two directions is a new degree of
+freedom. **M is re-tasked to price δ₀ with minimal representatives.**
+
+### S (check-in 44) — the line is closed honestly
+
+S checked whether its generator could answer the question **before** running the walk: all four
+trade knobs `[14853, 6083, 31339, 18956]` are **already inside** the 54-knob span `lat3.analyse`
+optimises over, so displacing and re-solving cannot change membership. Confirmed empirically — every
+displaced point re-measures to the identical system (54 knobs, 47 rows, kernel dim 7), **1 distinct
+post-solve residual class across 15 attempts.**
+
+**The counting trap, and it is the third instance of the same shape:** the walk *does* report
+"VALID" under the obvious criterion, because the class is measured at the displaced point **before**
+the re-solve washes the displacement out. **A case is an independent test only if the POST-SOLVE
+class differs.** By that criterion the whole walk is **one test repeated**, and anyone reading the
+raw VALID count would overstate the evidence by roughly its length.
+
+| generator | attempts | independent | blocked | solved |
+|---|---|---|---|---|
+| BFS image points | 14 | 2 | 2 | 0 |
+| kernel displacement | 18 | **0** — class fixed by construction | — | — |
+| trade knobs | 15 | **1** — same test repeated | 1 | 0 |
+| relaxed selectors | 6 | **0** — all other-rows-infeasible | 0 | 0 |
+
+**Three independent data points in total, all blocked. That does not establish
+configuration-independence and S does not claim it.** Every cheap generator either cannot move the
+post-solve class or destroys solvability. **"The question may not be answerable by sampling at all"
+is the finding**, and S is closing the line rather than leaving it open-looking.
+
+**S's divergence on R's relaxed-selector lead is settled by R's own withdrawal**: S measured
+`x_12714` breaking 6 atoms including mux atoms `a20212, a20649, a20652, a32148`, not only a
+booleanity atom; R has independently withdrawn that claim as model rather than measurement. Both
+agree. S's remaining bounded question: **relaxed selectors are the only generator that genuinely
+moves the class** (53 knobs / 52 rows / kernel dim 5 against 54/47/7), but the other rows went
+infeasible 6 of 6 — **is that intrinsic to leaving the span, or an artifact of those selectors?**

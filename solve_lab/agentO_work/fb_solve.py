@@ -28,6 +28,7 @@ def say(*a):
 
 
 import frameB
+sys.path.append('/home/user/integer_solver/solve_lab/agentE_work')  # sparse.py lives there
 import sparse
 
 DET = [642, 28730, 29854, 31864]

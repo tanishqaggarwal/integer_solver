@@ -316,3 +316,36 @@ For (b) there is a clean criterion: children of a slot are sums over **disjoint*
 they coincide only if `sum_{S1} 2^i - sum_{S2} 2^i = ±N`.  Both sums are `< 2^256 < 2N`, so no other
 collision is possible.  That is a checkable condition on the particular k, not a generic hazard.
 §15 stays in force: the §9 sweeps regain instance-level standing only when (a) is closed at 383/383.
+
+## 19. (d) CLOSED — THE QUADRANT LAW HOLDS AT 383 / 383 (`qmux2.py`, `qtree.py`, `qlivetree.py`)
+The 195 "unmatched" slots of §17 were a **labelling** artefact, not a different law: `qstages.py`
+picked `(u3,y3)` as `sorted(free)[0],[1]`, which is the X/Y order at some slots and the reverse at
+others.  Letting the matcher try both orders, and requiring **both coordinate muxes to use the
+identical coefficient wires** `cA,cB,cC` (which rules out accidental structural matches):
+
+> **383 / 383 slots confirmed** — 40 with both live bits boolean-pinned, 343 with internal live bits.
+> Zero unmatched.
+
+**The liveness composition is a single tree (`qlivetree.py`).**
+* every one of the 383 slots emits `OR(s1,s2)` of its own two live bits — **383/383**;
+* those ORs give **382 parent<-child edges** among 383 slots, i.e. exactly a tree;
+* **exactly one slot has no parent**, and **all 383 are reachable from it**;
+* **all 256/256 leaf selectors appear under that single root**;
+* the 766 live-bit slots decompose as **256 leaf selectors + 382 child ORs + 128 hard zeros**
+  (the 128 zeros are the dead dummy branches of the pass-through slots — §17's `cB = cC = 0` case).
+
+So the slots are one tree over all 256 leaves, each node computing identity / pass-through-left /
+pass-through-right / sum according to `cA = s1(1-s2)`, `cB = s2(1-s1)`, `cC = s1 s2`.
+**On the liveness side the fold picture is now measured end to end, from the 256 boolean leaf
+selectors to a single root.**
+
+## 20. THE ONE THREAD STILL LOOSE — COORDINATE HAND-OFF
+A slot's mux output wires are **not literally** the next slot's input wires: `qtree.py` finds
+0 / 383 slot outputs feeding another slot directly, and the root pin `x_24468` is not a slot output
+but `x_24468 = x_13682 + 12354891 * x_34243`.  There is an additional additive/aliasing layer
+between a slot's mux output and its parent's input, and between the top slot and the root pin.
+The liveness tree is isomorphic to the point tree and the quadrant law ties coordinates to live bits
+at every slot, so the coordinate composition almost certainly follows the same tree — but
+**I verified the tree on the liveness side, not on the coordinate side**, and I am not going to
+claim the coordinate hand-off on the strength of an isomorphism I did not measure.
+Existence therefore remains conditional on that one layer; §15 stays in force.

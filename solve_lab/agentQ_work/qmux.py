@@ -38,11 +38,15 @@ def root(w,seen=None):
 ST=[x for x in json.load(open('qstages.json'))['stages'] if 'u3' in x]
 res=collections.Counter(); detail=[]
 for g in ST:
-    ua,ub,u3=g['ua'],g['ub'],g['u3']
     ok=False; why='no cC*u3 product'
-    for t in prod_by_factor.get(u3,[]):
+    cand=[(g['ua'],g['ub'],g['u3']),(g['ya'],g['yb'],g['y3']),
+          (g['ua'],g['ub'],g['y3']),(g['ya'],g['yb'],g['u3'])]
+    for ua,ub,u3 in cand:
+      if ok: break
+      for t in prod_by_factor.get(u3,[]):
         u,v=prod[t]; cC = v if u==u3 else u
         # Xout = (cA*Xa + cB*Xb) + cC*u3
+        if ok: break
         cands=set()
         fr=[t]
         for _ in range(3):

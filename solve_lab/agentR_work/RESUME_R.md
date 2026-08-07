@@ -128,6 +128,12 @@ solutions exist at every gap, 10/15 cases, gap 1 sometimes failing and gap 14 su
 **The solve at the REAL 256-bit prime (`solve2.py`): elimination degree 8, not 2^124, and
 `gcd(t^P-t,f)` has degree >=1 for ALL FOUR beating pairs -> ROOTS EXIST**, including 8+132/39,029.
 
+**WITHDRAWN AT CHECK-IN 39 - see LOG.md 17. `A = L_0` is REFUTED: leaf 0 is absent from the
+deliverable while both live leaves are present, so the seed is wrong and the roots below are roots
+of the wrong system. Do not route anything to agent M. What survives is the incidence-only part
+(15.1, 15.2, the 39,029 floor as a 4-equation union); what dies is every claim that it is
+reachable. Original text kept below for the record.**
+
 **STILL NOT A SCORE.** No 38,748-wire assignment, no `checker.py` run. Two unverified things gate
 it: (1) `solve2.py` assumes my ladder-chain model with accumulator seeded at `L_0`; the real
 circuit is a tree, and if its base or gating differs, `A` is wrong and the roots do not transfer -

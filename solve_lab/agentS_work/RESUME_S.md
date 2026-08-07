@@ -319,6 +319,22 @@ the measured system itself — the only thing that can move the membership answe
 x_12714 ∈ {2, −1} the system re-measures to **53 knobs, 52 other rows, kernel dim 5** (vs
 54/47/7) and the target class moves. So the move is genuine, unlike §6g.
 **But the other rows go infeasible**, so it is not yet a valid test case either.
+Counts when I stopped (runs were still going, see `runs_relax.log`): **5 attempts, 5
+other-rows-infeasible, 0 valid cases.** Starvation rate so far 100%.
+
+**Verdict on §8.3 overall: this line is closed for the trade knobs and starving for relaxed
+selectors.** Valid-case counts across all three generators I tried:
+| generator | attempts | valid (independent) cases | blocked | solved |
+|---|---|---|---|---|
+| BFS image points (`kernel2.py`) | 14 | 2 | 2 | 0 |
+| kernel displacement (`kernel.py`) | 18 | **0** (class fixed by construction) | — | — |
+| trade knobs (`trade.py`) | 14 | **1** (same test repeated; 1 distinct post-solve class) | 1 | 0 |
+| relaxed selectors (`relax.py`) | 5 | **0** (all other-rows-infeasible) | 0 | 0 |
+Three independent data points total, all blocked. **That is not enough to claim
+configuration-independence and I am not claiming it.** The honest state: every cheap generator of
+test configurations either cannot move the post-solve class (trade knobs, kernel) or destroys
+solvability (relaxed selectors, random selector flips, BFS image points 12/14). The question is
+not obviously answerable by sampling at all, and that itself is the finding.
 
 **One divergence from R's lead, reported as a divergence and not a refutation** (different parses,
 R's atom indices are not comparable to mine and I imported nothing): R reports that relaxing a

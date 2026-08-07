@@ -494,3 +494,75 @@ Two things must be checked before this is worth anything:
    selectors is needed.
 
 **Nothing above 39,026 is verified. 39,029 is a floor plus a parameter solve, not a score.**
+
+## 17. STEP 1 — validating `A` against the deliverable. IT FAILS. I am withdrawing the roots.
+
+### 17.1 What the deliverable actually contains (`validate_A.py`, `validate_A2.py`, `validate_A3.py`)
+It specifies **3,540 of 38,748** variables, **94 distinct values** after reduction mod P.
+
+| check | result |
+|---|---|
+| pin/selector variables nonzero in the deliverable | **exactly 2 of 256: x2081 and x24601** — my ON-set |
+| the 4 coordinate wires those 2 pins name | **all 4 set, all 4 holding exactly the value `pins.json` names** |
+| the other 505 coordinate wires | unset |
+| ladder points with a coordinate on a wire (reduced mod P) | **2 of 256 — leaves 72 and 235, i.e. exactly the live ones** |
+| target coordinates on wires | **yes** (x on 13682/22162/24468, y on 10156/18956/30213) |
+| **leaf 0** (my accumulator seed) | **absent** |
+| **fold `L72 + L235`**, any frame | **absent** |
+| `L0 + L72`, `L0 + L72 + L235` | **absent** |
+
+(My first pass reported 0/256 ladder points on wires. That was **my own bug** — wire values are
+unreduced ~89-digit integers and I searched for the reduced/shifted coordinate. Same class of
+mistake as the pins lookup. Corrected above; the corrected numbers are the ones that matter.)
+
+### 17.2 The verdict
+Two separate things came out of this, and they point opposite ways:
+
+**Confirmed:** leaf gating is real and my ON-set reading is right. Pin = 1 puts that leaf's two
+coordinates on the two wires `pins.json` names, exactly, and only the two live pins do so. That is
+a direct check of x24601 -> 72 and x2081 -> 235 against wire contents, stronger than my earlier
+`fold(k) != T` test — which, I should say plainly, was nearly **vacuous**: almost any wrong model
+also yields `fold != T`.
+
+**Refuted:** the accumulator. `solve2.py` seeds the chain at `L_0`. **Leaf 0 is absent from the
+deliverable while both live leaves are present** — so if the fold were seeded at `L_0`, the
+deliverable's live-leaf set would be {0, 72, 235} and the ON-set would carry a `2^0` term. It does
+not; four agents independently read it as `2^72 + 2^235`. **`A = L_0` is wrong.**
+
+And no accumulator value of any kind appears: not the fold of the two live leaves, not any partial.
+The deliverable holds *the inputs and the target and nothing between them* — consistent with T's
+and Q's finding that routing is a constraint that is not propagated.
+
+That leaves my model unable to be checked against the only verified object in the lab: it predicts
+wire contents that the deliverable simply does not contain. **A model that makes no prediction the
+one verified point can test cannot be trusted to produce a new one.**
+
+### 17.3 What I am withdrawing, and what survives
+**WITHDRAWN — do not carry forward:**
+* the four `(t1, t2)` root results of §16.5, including the 39,029 pair. They are roots of a system
+  built on `A = L_0`, and that seed is refuted. **Do not route anything to agent M.** Step 2 is
+  not reached, by my own step-1 test.
+* the degree-collapse argument of §16.4 *as an instance claim*. It is still true of the siblings,
+  but the siblings are my own construction and the collapse depends on the same chain model.
+* the claim that relaxing a selector leaves the mux atoms satisfiable — that rests on the mux form
+  `acc' = acc + b·(S − acc)`, which is model, not measurement.
+
+**SURVIVES — pure equation-incidence, no group model involved:**
+* §15.1: every atom with footprint cost ≤ 6 is a boolean-ness atom; **minimum cost over relational
+  atoms is 7**; atom 3131 is one of the deliverable's own live atoms; `|S| = 2` ties at 7 but never
+  beats. This is the explanation for why configuration-first searches bottom out at 7 and it does
+  not depend on any of the above.
+* §15.2: the cheapest atom (8508) is cheap because disconnected — cheapness and load-bearingness
+  anti-correlate.
+* the floor **39,029** for `{x24267, x33095}` as a *4-equation union* — an incidence fact. What
+  dies is the argument that it is reachable, not the arithmetic that it is a floor.
+* §13: the `E` vs `checker.py` discrepancy, and §16.1's corrected pins lookup (validated against
+  x24601 -> 72, x2081 -> 235 by wire contents).
+
+### 17.4 One measurement that disagrees with a relayed claim — reporting, not adjudicating
+I was told T and Q measured that "the deliverable keeps its live leaves with all 256 selectors
+forced to 0". **I measure exactly 2 of the 256 `pins.json` variables nonzero in the deliverable
+(x2081, x24601 = 1), and their 4 named coordinate wires all hold the named values.** Either their
+"selector" is a different variable family than F's `pins.json`, or one of us is wrong. I have not
+read their directories and am not adjudicating — flagging it so someone who can, does. My numbers
+are reproducible from `validate_A2.py` in three lines.
