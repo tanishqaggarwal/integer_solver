@@ -89,3 +89,22 @@ static void fe_inv(u64*r,const u64*a){
     fe_copy(r,res);
 }
 
+
+/* --- checked read-only mmap.  A missing/empty table must ABORT with a clear message, never
+   segfault on first dereference: an unchecked MAP_FAILED once cost another agent six scans. --- */
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+static const void* xmap_ro(const char*path, size_t*nbytes){
+    int fd = open(path, O_RDONLY);
+    if(fd < 0){ fprintf(stderr,"FATAL: cannot open '%s' (missing?)\n", path); exit(2); }
+    struct stat st;
+    if(fstat(fd,&st) != 0 || st.st_size == 0){
+        fprintf(stderr,"FATAL: '%s' is empty or unstattable\n", path); exit(2); }
+    void*m = mmap(NULL, st.st_size, PROT_READ, MAP_SHARED, fd, 0);
+    if(m == MAP_FAILED){ fprintf(stderr,"FATAL: mmap('%s', %lld bytes) failed\n",
+                                 path,(long long)st.st_size); exit(2); }
+    if(nbytes) *nbytes = (size_t)st.st_size;
+    return m;
+}

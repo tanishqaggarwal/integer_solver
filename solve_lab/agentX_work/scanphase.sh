@@ -6,7 +6,7 @@ rm -f cpid_*
 i=0; prev=""
 for x in $B; do
   if [ -n "$prev" ]; then
-    setsid nohup ./xrot scan $DATA $J rt_all.bin rt_bm.bin $REP $prev $x >/dev/null 2>&1 &
+    setsid nohup ./xrot scan $DATA $J xrot_tbl.bin xrot_bm.bin $REP $prev $x >/dev/null 2>&1 &
     echo $! > cpid_$i; i=$((i+1))
   fi
   prev=$x

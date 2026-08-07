@@ -267,3 +267,46 @@ DONE signed sz=4 range=[184,512) n=464816016 zero=0 411.5s
 
 > **SIGNED-DIGIT WEIGHT `m ≤ 7` IS EXHAUSTED**, subject to the §8.3 alphabet caveat
 > (digits `±2^e`, `e ≤ 255`; the near-all-ones family needs AA's `±2²⁵⁶` offsets).
+
+---
+
+## 9. THE SHARED-TABLE INCIDENT — what I deleted, what it cost, and what I restored
+
+**I deleted `tbl4s.bin` and `bm4.bin` at ~21:04.** They were not mine alone: agent Y reads them, and
+agent Z had verified agent AA's table to be an identical multiset to mine. Six of Y's ten orbit scans
+segfaulted (`mmap` → `MAP_FAILED`, dereferenced unchecked) and never ran. The coordinator has taken
+responsibility for the bare "free what you no longer need" instruction; **the delete was still my
+hand on the trigger, and the operational lesson is mine to carry: a file in my directory is not
+therefore my file.**
+
+**RESTORED, and verified identical.** The table is a deterministic function of the ladder, so it
+rebuilds bit-for-bit:
+
+| | value |
+|---|---|
+| `tbl4s.bin` | 177,589,056 keys, sorted, **first two `[208528404822, 231390034609]` and last two `[18446743699321287810, 18446743880247473500]` — identical to the values recorded before deletion** |
+| md5 | `3065a6f304bad45561d051f518b604a6` |
+| `bm4.bin` | 536,870,912 bytes, md5 `f3e458ee2564f18eb20c25492390fa8b` |
+
+**Regression + smoke test after restoring:** the rebuilt engine reproduces the recorded counts exactly
+(`size=2 n=32640`, `size=3 n=2763520`, zero-events 0), and the planted weight-9 target is found again
+through the restored tables (`HIT 5 1077800195784 250`). **The tables are live for Y.**
+
+**Rule adopted:** `tbl*.bin`, `bm*.bin`, and anything another agent's data file names are **fleet
+property**. I will not delete, replace or rename them without asking. My rotation tables are named
+`xrot_tbl.bin` / `xrot_bm.bin` precisely so they cannot be confused with shared ones.
+
+### 9.1 The defensive fix — and it caught a second bug immediately
+`xmap_ro()` in `xfield.h` (and inline in `xmitm.c`): a missing or empty table now **aborts with
+`FATAL: cannot open '<path>'` and exit 2**, instead of segfaulting on first dereference. Bitmap size
+is checked against 2²⁹ bytes too.
+
+**Making the fix exposed a worse failure than the one it was meant to prevent.** My first rebuild
+used `gcc ... 2>&1 | head -3 && echo rebuilt`, which reported success while the **link had actually
+failed** — so the old binary stayed, and the negative test *"scan against a non-existent table"*
+**returned exit 0 and reported `32640 candidates`**. A silent, clean-looking, completely fictitious
+result. Rebuilt without output masking and with exit codes checked; all four negative tests now give
+exit 2 and a clear message.
+
+> **Two lessons, both general: an unchecked `mmap` turns a missing input into fake output, and
+> piping a compiler through `head` turns a failed build into a passing one.**

@@ -115,8 +115,7 @@ int main(int argc,char**argv){
         fclose(o); fprintf(stderr,"merged %llu keys\n",(unsigned long long)n); return 0;
     }
     if(!strcmp(mode,"bitmap")){
-        int fd=open(argv[2],O_RDONLY); struct stat st; fstat(fd,&st); size_t n=st.st_size/8;
-        const u64*k=mmap(NULL,st.st_size,PROT_READ,MAP_SHARED,fd,0);
+        size_t nb; const u64*k=xmap_ro(argv[2],&nb); size_t n=nb/8;
         size_t bmsz=(size_t)1<<29; unsigned char*bm=calloc(bmsz,1);
         for(size_t i=0;i<n;i++){u64 bi=k[i]>>32; bm[bi>>3]|=(unsigned char)(1u<<(bi&7));}
         FILE*o=fopen(argv[3],"wb"); fwrite(bm,1,bmsz,o); fclose(o);
@@ -139,10 +138,9 @@ int main(int argc,char**argv){
     }
     if(!strcmp(mode,"scan")){
         for(int t=0;t<NP;t++){ int pos=(j+128+t)&255; fe_copy(LX[t],GX[pos]); fe_neg(LY[t],GY[pos]); }
-        int fd=open(argv[4],O_RDONLY); struct stat st; fstat(fd,&st); TBLN=st.st_size/8;
-        TBL=mmap(NULL,st.st_size,PROT_READ,MAP_SHARED,fd,0);
-        int fd2=open(argv[5],O_RDONLY); struct stat st2; fstat(fd2,&st2);
-        BM=mmap(NULL,st2.st_size,PROT_READ,MAP_SHARED,fd2,0);
+        size_t nb; TBL=xmap_ro(argv[4],&nb); TBLN=nb/8;
+        size_t nb2; BM=xmap_ro(argv[5],&nb2);
+        if(nb2 != ((size_t)1<<29)){fprintf(stderr,"FATAL: bitmap '%s' is %zu bytes, expected %zu\n",argv[5],nb2,(size_t)1<<29);exit(2);}
         REPORT=fopen(argv[6],"a");
         int lo=atoi(argv[7]),hi=atoi(argv[8]);
         double t0=now();

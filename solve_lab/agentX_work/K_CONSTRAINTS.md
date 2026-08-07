@@ -269,3 +269,44 @@ running it, to avoid duplicating AA.
 
 So `m ≤ 7` is the natural stopping point on 4 cores and 15 GB shared with the rest of the fleet.
 `m ≤ 8` needs either ~12 GB of headroom (then it is ~15 min) or a full day of cores.
+
+---
+
+## 6. `|S| = 10` VIA A 128-ROTATION SPLITTING SYSTEM — a better algorithm, not more budget
+
+The direct route to `|S| ≤ 10` is `a = 4 / b = 6`: a `C(256,6) = 3.685×10¹¹` scan. Instead, put the
+256 positions on a circle and let `A_j = {(j+t) mod 256 : t = 0..127}`, `B_j` its complement.
+
+**Every 10-set has a balanced rotation.** `f(j) = |S ∩ A_j|` changes by at most 1 per step
+(`f(j+1) − f(j) = [j+128 ∈ S] − [j ∈ S]`) and `f(j) + f(j+128) = 10`. If `f` never equalled 5 it
+would be everywhere `≤ 4` or everywhere `≥ 6`, contradicting the pairing. So some `j ∈ [0,128)` has
+`|S ∩ A_j| = |S ∩ B_j| = 5`.
+
+**Cost:** `128 × 2 × C(128,5) = 6.77×10¹⁰` against `3.69×10¹¹` — **5.4× cheaper**, ≈8.3 CPU-hours.
+`L = 128` is optimal: the cost is `C(L,5) + C(256−L,5)`, minimised at the balanced split.
+
+**Why 5|5 and not 4|6** — measured, not assumed. A `+128`-invariant set such as
+`{0,1,2,3,4,128,129,130,131,132}` has `f ≡ 5`, so **no rotation gives a 4|6 split at all**. The
+balanced split is forced.
+
+**Validation of the construction, before trusting any negative from it:**
+
+* 20,000 random 10-sets: **every one** has a balanced rotation (min 1, mean 32.0, max 112).
+* **`S = {0,…,9}` has exactly ONE balanced rotation, `j = 5`** (`f` runs 10,9,8,7,6,**5**,4,…).
+  That is the adversarial case the coordinator asked for: a silent off-by-one in the rotation index
+  would skip it entirely.
+
+**Planted test at that awkward rotation — and its negative control:**
+
+| run | expectation | result |
+|---|---|---|
+| plant `S = {0..9}`, **rotation j = 5** | found | **HIT**, decoding to scan side `{0,1,2,3,4}` and table side `{5,6,7,8,9}` — the exact predicted split |
+| plant `S = {0..9}`, **rotation j = 6** | **not** found | **0 hits**, all six ranges `DONE`, totalling exactly `C(128,5)` |
+
+The pair pins the rotation index: an off-by-one would have inverted it. Each rotation's six scan
+ranges sum to exactly `C(128,5) = 264,566,400`.
+
+**Status: running, 128 rotations.** Partial coverage must be stated correctly — after completing a
+set `R` of rotations the excluded family is `{S : |S| = 10 and ∃ j ∈ R with |S ∩ A_j| = 5}`, **not**
+"a fraction of `|S| = 10`". `|S| = 10` is exhausted **only when all 128 rotations complete**;
+`{0,…,9}`-like sets are covered by exactly one rotation each.

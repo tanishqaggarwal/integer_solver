@@ -88,6 +88,22 @@ static void fe_inv(u64*r,const u64*a){
     fe_copy(r,res);
 }
 
+/* --- checked read-only mmap: a missing/empty table must ABORT with a clear message, never
+   segfault (or silently "succeed") on first dereference.  An unchecked MAP_FAILED once cost
+   another agent six scans. --- */
+static const void* xmap_ro(const char*path, size_t*nbytes){
+    int fd = open(path, O_RDONLY);
+    if(fd < 0){ fprintf(stderr,"FATAL: cannot open '%s' (missing?)\n", path); exit(2); }
+    struct stat st;
+    if(fstat(fd,&st) != 0 || st.st_size == 0){
+        fprintf(stderr,"FATAL: '%s' is empty or unstattable\n", path); exit(2); }
+    void*m = mmap(NULL, st.st_size, PROT_READ, MAP_SHARED, fd, 0);
+    if(m == MAP_FAILED){ fprintf(stderr,"FATAL: mmap('%s', %lld bytes) failed\n",
+                                 path,(long long)st.st_size); exit(2); }
+    if(nbytes) *nbytes = (size_t)st.st_size;
+    return m;
+}
+
 /* ------------------------------------------------------------------ globals */
 static fe LX[256], LY[256];      /* the ladder, 2^i G, possibly negated for scan side */
 static fe BX, BY;                /* base point of the walk (T for scan) */
@@ -247,9 +263,7 @@ int main(int argc,char**argv){
     }
     if(!strcmp(mode,"bitmap")){
         /* argv[3]=sorted key file, argv[4]=out bitmap */
-        int fd=open(argv[3],O_RDONLY); struct stat st; fstat(fd,&st);
-        size_t n=st.st_size/8;
-        const u64*k=mmap(NULL,st.st_size,PROT_READ,MAP_SHARED,fd,0);
+        size_t nb; const u64*k=xmap_ro(argv[3],&nb); size_t n=nb/8;
         size_t bmsz=(size_t)1<<29;   /* 2^32 bits */
         unsigned char*bm=calloc(bmsz,1);
         for(size_t i=0;i<n;i++){ u64 bi=k[i]>>32; bm[bi>>3]|=(unsigned char)(1u<<(bi&7)); }
@@ -288,10 +302,9 @@ int main(int argc,char**argv){
     if(!strcmp(mode,"scan")){
         /* argv[3]=size argv[4]=tablefile argv[5]=bitmapfile argv[6]=reportfile [argv[7]=i0lo argv[8]=i0hi] */
         SZ=atoi(argv[3]);
-        int fd=open(argv[4],O_RDONLY); struct stat st; fstat(fd,&st); TBLN=st.st_size/8;
-        TBL=mmap(NULL,st.st_size,PROT_READ,MAP_SHARED,fd,0);
-        int fd2=open(argv[5],O_RDONLY); struct stat st2; fstat(fd2,&st2);
-        BM=mmap(NULL,st2.st_size,PROT_READ,MAP_SHARED,fd2,0);
+        size_t nb; TBL=xmap_ro(argv[4],&nb); TBLN=nb/8;
+        size_t nb2; BM=xmap_ro(argv[5],&nb2);
+        if(nb2 != ((size_t)1<<29)){fprintf(stderr,"FATAL: bitmap '%s' is %zu bytes, expected %zu\n",argv[5],nb2,(size_t)1<<29);exit(2);}
         REPORT=fopen(argv[6],"a");
         int lo=(argc>7)?atoi(argv[7]):0, hi=(argc>8)?atoi(argv[8]):256;
         double t0=now();

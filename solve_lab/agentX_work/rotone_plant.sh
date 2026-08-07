@@ -26,15 +26,15 @@ done
 sleep 1
 waitpids spid_0 spid_1 spid_2 spid_3 spid_4 spid_5
 # --- merge + bitmap ---
-./xrot merge rt_all.bin rt_0.bin rt_1.bin rt_2.bin rt_3.bin rt_4.bin rt_5.bin 2>/dev/null
+./xrot merge xrot_tbl.bin rt_0.bin rt_1.bin rt_2.bin rt_3.bin rt_4.bin rt_5.bin 2>/dev/null
 rm -f rt_0.bin rt_1.bin rt_2.bin rt_3.bin rt_4.bin rt_5.bin
-./xrot bitmap rt_all.bin rt_bm.bin 2>/dev/null
+./xrot bitmap xrot_tbl.bin xrot_bm.bin 2>/dev/null
 # --- scan phase: 6 sessions ---
 rm -f cpid_*
 i=0; prev=""
 for x in $B; do
   if [ -n "$prev" ]; then
-    setsid nohup ./xrot scan rplant_tight.txt $J rt_all.bin rt_bm.bin $REP $prev $x >/dev/null 2>&1 &
+    setsid nohup ./xrot scan rplant_tight.txt $J xrot_tbl.bin xrot_bm.bin $REP $prev $x >/dev/null 2>&1 &
     echo $! > cpid_$i; i=$((i+1))
   fi
   prev=$x
@@ -42,5 +42,5 @@ done
 sleep 1
 waitpids cpid_0 cpid_1 cpid_2 cpid_3 cpid_4 cpid_5
 while pgrep -x xrot >/dev/null; do sleep 2; done
-rm -f rt_all.bin rt_bm.bin
+rm -f xrot_tbl.bin xrot_bm.bin
 echo "ROTATION $J COMPLETE"

@@ -129,10 +129,9 @@ int main(int argc,char**argv){
     }
     if(!strcmp(mode,"scan")){
         SZ=atoi(argv[3]);
-        int fd=open(argv[4],O_RDONLY); struct stat st; fstat(fd,&st); TBLN=st.st_size/8;
-        TBL=mmap(NULL,st.st_size,PROT_READ,MAP_SHARED,fd,0);
-        int fd2=open(argv[5],O_RDONLY); struct stat st2; fstat(fd2,&st2);
-        BM=mmap(NULL,st2.st_size,PROT_READ,MAP_SHARED,fd2,0);
+        size_t nb; TBL=xmap_ro(argv[4],&nb); TBLN=nb/8;
+        size_t nb2; BM=xmap_ro(argv[5],&nb2);
+        if(nb2 != ((size_t)1<<29)){fprintf(stderr,"FATAL: bitmap '%s' is %zu bytes, expected %zu\n",argv[5],nb2,(size_t)1<<29);exit(2);}
         REPORT=fopen(argv[6],"a");
         int lo=(argc>7)?atoi(argv[7]):0, hi=(argc>8)?atoi(argv[8]):512;
         static fe A1x[512],A1y[512];
