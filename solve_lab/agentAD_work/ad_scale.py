@@ -105,7 +105,10 @@ def main():
                                  '2,3,4,5,7,8,9,11,13:0.25']:
         pool, frac = spec.split(':')
         configs.append((tuple(int(x) for x in pool.split(',')), float(frac)))
-    sizes = [int(k) for k in sorted(cs, key=int) if int(k) <= 20]
+    lim = os.environ.get('AD_SIZES')
+    allow = set(int(x) for x in lim.split(',')) if lim else None
+    sizes = [int(k) for k in sorted(cs, key=int)
+             if int(k) <= 20 and (allow is None or int(k) in allow)]
     out = {}
     for pool, frac in configs:
         print('\n############ pool=%s frac=%s' % (pool, frac))

@@ -246,45 +246,74 @@ p2p257, n2p257, n_a55, n_lam, n_a0001, halfN, a0F, aFFFF, drep, a64_1, p2_128, p
 least one member of **every structural family in `C`**, including both sign branches, both
 exponent-256 branches, and both redundant-control families.
 
-### 6.2 The sweep
+**The 8-shard lookup path was separately validated the same way**, because it is a different
+lookup path and a negative from it would otherwise be unvalidated: plants `c0` and `lam` run through
+all 8 shard passes each produced **5,595 hits — the identical count the monolithic-table run
+produced** — and the predicted `HIT` line is present at both splits and decodes to the planted `k`.
+Two lookup implementations, same answer to the last hit.
 
-**Every negative below is a negative of a search shown to find what it is looking for.**
+### 6.2 The sweep — counted, not claimed
 
-| | offsets | exact scan candidates | hits |
-|---|---|---|---|
-| **exhausted at `m ≤ 6`** | **51 of 51** | complete | **0** |
-| **exhausted at `m ≤ 7`** | **32 of 51** (see 6.3) | complete | **0** |
-| plant runs (validation) | 23 | complete | as predicted |
+**Every negative below is a negative of a search shown to find what it is looking for**, and every
+"exhausted" cell below is a count the engine had to emit, checked against `C(256,b)·2^b`. The full
+per-offset table is `FINAL_TABLE.txt`, produced by `aa_report.py`.
 
-Per offset the exhausted scan sizes are exactly `b = 1: 512`, `b = 2: 130,560`,
-`b = 3: 22,108,160` — checked against `C(256,b)·2^b`, not assumed. **Degenerate `dx = 0` events: 0
-at every offset, every size.** Expected false positives over the whole sweep: **0.054**, so a single
-`HIT` line would have been essentially certain to be real. There were none.
+| | offsets | hits |
+|---|---|---|
+| **exhausted at `m ≤ 7`** | **41 of 51** | **0** |
+| **exhausted at `m ≤ 6`** | **51 of 51** | **0** |
+| never run | **0** | — |
 
-### 6.3 The measured cost model broke, and why — a real finding, not an excuse
+**2,780,952,576 scan candidates counted. Degenerate `dx = 0` events: 0, at every offset and every
+size. Expected false positives over the whole sweep: 0.212** — so a single `HIT` line would have
+been overwhelmingly likely to be real. There were none.
 
-The `a ≤ 4` table's 90× advantage is **contingent on it staying in page cache**. Thirty-two offsets
-ran at 15–30 s each while the fleet left ~12 GB of cache free. Then the box's load went to 26 and
-the resident cache fell below the table's 11.3 GB. Measured on the running process (`/proc/<pid>`,
-PID obtained by walking the process tree from the recorded wrapper PID, never by command matching):
+The 10 offsets that stand at `m ≤ 6` rather than `m ≤ 7` are, deliberately, the least valuable ones:
+`a32_F, a64_1` (reach 8 and 4 — the two most nearly redundant members), `n2p257`, `n_a01`,
+`n_aFF00`, `n_a0001` (tier-2 negations of low-reach constants) and the four tier-3 controls that are
+**provably** redundant anyway. Every high-reach offset, both `±2^256` branches, `c0`, `ones` and all
+five high-reach negations are complete at `m ≤ 7`.
 
-```
-state=R  utime=2113  stime=34946  majflt=690755  (+6,000 major faults per 3 s)
-```
+### 6.3 Two cost-model findings, both measured
 
-**94 % of the time in the kernel servicing major page faults** — every table probe had become a disk
-read, turning a 20 s scan into a projected 50 min one.
+**(a) A MITM table larger than the residual page cache is not a faster table, it is a disk-bound
+one.** Thirty-two offsets ran at 15–30 s each while ~12 GB of cache was free. When the box's load
+reached 26 and cache fell below the table's 11.3 GB, the running process showed
+`utime=2113 stime=34946 majflt=690755`, climbing 6,000 major faults per 3 s — **94 % of its time in
+the kernel servicing page faults**, turning a 20 s scan into a projected 50 min one. (PID obtained
+by walking the process tree from the recorded wrapper PID; never by command-line matching.)
 
-Response: the remaining 19 offsets were completed at `m ≤ 6` against the **89 MB `a ≤ 3` table**,
-which is permanently resident and immune to the pressure — 19 offsets, 422,545,408 candidates,
-**0 hits, ~3 minutes.** The `m ≤ 7` upgrade for those 19 was then re-queued in **descending
-priority** (`c0` first, then the high-reach negations, the low-reach stragglers last), so that
-whatever the budget buys is the most valuable part of it.
+**(b) The fix is to shard the table and pass over it 8 times, and it is *faster* than the monolith
+even when the monolith is warm.** Because `shard = key>>61` partitions the 64-bit key space, eight
+passes against one 1.4 GB shard each have union exactly equal to one pass against the whole table.
+Working set drops from 11.3 GB to **1.4 GB shard + 0.5 GB bitmap**, which stays resident under any
+plausible pressure. Measured: **8.2 s per shard pass, 66 s per offset** — against 20–30 s warm and
+~50 min thrashing for the monolith. It needed **no C change at all**: eight directories of symlinks,
+one real shard and seven zero-length stubs, and the existing `st.st_size ? mmap : NULL` path already
+does the right thing.
 
-> **Recorded as a rule for the fleet: a MITM table larger than the residual page cache is not a
-> faster table, it is a disk-bound one. The break-even is memory residency, not disk capacity.**
+> **Recorded for the fleet: size your MITM table to the resident set, not to the disk. And when it
+> does not fit, shard it — 8× the recursion is cheaper than 1× the page faults.**
 
-### 6.4 Negatives, one line per offset — and each is weak on its own
+### 6.4 Evidence discipline (coordinator's audit response)
+
+`aa_shard.sh` originally had the defect agent AI found fleet-wide: unconditional `echo "SHARD$s"`,
+engine stderr masked to `/dev/null`, and — worse than agent Y's case — **the resume guard keyed on
+that same shell-written marker**, so a crashed shard would have been skipped forever. **Fixed
+before the next batch**: exit code tested, stderr to `shardlogs/<tag>.b<b>.s<s>.err`, nothing but
+the engine writes to the evidence file, and the resume guard keys on the engine's own
+`DONE … n=<count>` line checked against `C(256,b)·2^b`.
+
+**Item 3, the check rather than the expectation:** re-verified the already-marked shards against
+engine output alone — **234 shell markers, 234 engine `DONE` lines carrying an exact closed-form
+count; markers never outran evidence; 9 of 10 offsets cleared 24/24, the tenth (`n2p257`) was
+mid-run at 18/24 and is reported as `m ≤ 6`.** No damage, as AI predicted, but the count is here.
+
+`aa_report.py` **ignores every shell marker by construction** and prints `NEVER RUN` rather than
+omitting a row. The build was also re-done without the `gcc … | head && echo BUILD_OK` mask
+(`gcc exit=0`, tested directly).
+
+### 6.5 Negatives, one line per offset — and each is weak on its own
 
 For every offset `c` in the list, the statement earned is exactly:
 

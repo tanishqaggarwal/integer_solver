@@ -16,3 +16,8 @@ DONE tag=n16_s101f n=16 seed=101 reason=CLOSED_TARGETS_ONLY wall=52.8 nz_atoms=2
 [B] START n24_s101f 21:49:19
 alignment bad (pre-repair): 4
 atoms with exactly 1 handle: 3681 of 9032
+./ah_driver.sh: line 7: 30381 Killed                  python3 ah_run.py "$tag" "$n" "$sd" 16 "$BUD"
+[B] EXIT n24_s101f rc=137 22:11:26
+[B] START n32_s101f 22:11:26
+alignment bad (pre-repair): 4
+atoms with exactly 1 handle: 3681 of 9032

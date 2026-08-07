@@ -24,6 +24,19 @@ sys.path.insert(0, T)
 tag, n, seed, outer_max, budget = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), \
                                   int(sys.argv[4]), int(sys.argv[5])
 
+# ---------------------------------------------------------------- memory guard
+# The fleet's `t_close2wj.joint_rootsets` expands a residue set with
+#   rs = set(b for b in range(m) if b % ma in rs)
+# where m is the atom's handle cofactor -- up to 16,595,977 in this instance -- and then
+# `out.extend(...)` over it.  At |S|=24 seed 101 that reached 9.7 GB RSS and was killed by the
+# kernel OOM killer (dmesg: "Killed process 30381 (python3) ... anon-rss:9727464kB").  A hard
+# RLIMIT_AS turns that into a MemoryError this process reports as MEMORY_BLOWUP instead of an
+# out-of-memory event that can take down another agent's job.
+import resource
+MEMCAP_GB = float(os.environ.get('AH_MEMCAP_GB', '3'))
+_lim = int(MEMCAP_GB*1024**3)
+resource.setrlimit(resource.RLIMIT_AS, (_lim, _lim))
+
 t_import = time.time()
 import t_close2wj as J
 import t_close2w as C
@@ -246,6 +259,15 @@ def close(S, outer_max):
                 log('   joint two-wire pass also stalled -> stop')
                 reason = 'STALL_TWOWIRE'; break
             gen += 1
+    except MemoryError:
+        vv[:] = safe
+        reason = 'MEMORY_BLOWUP'
+        try:
+            log('   *** MemoryError at the %.1f GB cap in outer %d -- rolled back to the '
+                'last guard-consistent state; this is a BLOWUP OF THE ROUTINE, not a '
+                'failure to close' % (MEMCAP_GB, outer_done))
+        except Exception:
+            pass
     except Deadline:
         vv[:] = safe
         reason = 'TIMEOUT'
@@ -279,7 +301,8 @@ if __name__ == '__main__':
             'sampled_root_misses': SAMPLED_MISS[0], 'exhaustive_root_misses': EXHAUST_MISS[0],
             'trace': trace, 'relift_rounds': stats['relift_rounds'],
             'cost': COST, 'cap': CAP, 'fastroots': FASTROOTS,
-            'rndseed': RNDSEED, 'wireord': WIREORD,
+            'rndseed': RNDSEED, 'wireord': WIREORD, 'memcap_gb': MEMCAP_GB,
+            'peak_rss_kb': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
             'root_stats': (AHR.STATS if AHR else None),
             'json': out}
     json.dump(meta, open(os.path.join(AH, 'meta_%s.json' % tag), 'w'), indent=1)

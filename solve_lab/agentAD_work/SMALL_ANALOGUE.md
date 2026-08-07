@@ -29,8 +29,9 @@ Four findings, in the order of how much each one closes:
 2. **The congruence family does depend on `|S|`, but only through a per-live-block
    constant.** Live merge blocks number exactly `|S|−1` (closed form, checked against the
    count for every subset at every size: 0 mismatches). The closure rate behaves as
-   `ρ^{|S|−1}` with `ρ` a per-block constant, measured `0.65 … 1.00` across every curve,
-   size, tree shape, coefficient pool and draw tried.
+   `ρ^{|S|−1}` with `ρ` a per-block constant, measured `0.66 … 1.00` (robust fit) across every
+   curve, size, tree shape, coefficient pool and draw tried — and **flat in `n`** over five
+   sizes, which is what §5 says it must be.
 
 3. **The ABSORBING-BLOCK THEOREM explains why, and caps how bad it can get.** If `A = i1−i2`
    is invertible modulo the block's small modulus `c`, the block's *own* output lifts can
@@ -46,10 +47,11 @@ Four findings, in the order of how much each one closes:
    closure-rate curve is **U-shaped, returning to 1.0000 at `|S| = n`.** Large `|S|` is the
    *easy* end.
 
-**Extrapolation to `n = 256`** (model validated first, see §6): taking the most constraining
-`ρ` seen anywhere and holding it fixed — which the size trend says is conservative — the
-implied bound is **`w ≤ 223`**. The free unconditional bound is `w ≤ 255` (AB §7). §8 needs
-`B ≲ 56` to beat rho and `B ≲ 24` to be actionable. **It is short by ~170.**
+**Extrapolation to `n = 256`** (model validated first, see §6 — it predicts `Bmax` exactly in
+79 of 84 draws and to within 1 in all 84): taking the most constraining `ρ` seen anywhere and
+holding it fixed — which the size trend says is conservative — the implied bound is
+**`w ≤ 224`**. The free unconditional bound is `w ≤ 255` (AB §7). §8 needs `B ≲ 56` to beat
+rho and `B ≲ 24` to be actionable. **It is short by ~170.**
 
 **What would have to be true instead** (§7): a bound `w ≤ 56` needs `ρ ≤ 0.093`, i.e. every
 live block binding with probability `> 90 %`. That is self-defeating: at `ρ = 0.093` the
@@ -329,36 +331,53 @@ repair `A` (T3, `n = 12`, stress):
 `Bmax(n) = max{ w : C(n,w)·ρ^{w−1} ≥ 1 }`. (`ρ` is fitted as the slope of `log(rate)` vs `w`,
 independently per draw.)
 
-**Model validated on the measured points before being used** (`ad_report.py` §1): over every
-draw of every configuration, `model-Bmax − measured-Bmax` is **0 in essentially every draw**
-(see `ad_report.py` output; the tail is `±1`). That is the licence to extrapolate — and it is
-the only licence claimed.
+**Model validated on the measured points before being used** (`ad_report.py` §1): over
+**84 draws** spanning every configuration,
 
-**`ρ` by size** — the question that decides whether the extrapolation is safe:
+```
+model-Bmax - measured-Bmax = 0 : 79 draws (94.0%)
+model-Bmax - measured-Bmax = +1:  5 draws ( 6.0%)
+|error| <= 1                   : 100% of 84 draws
+```
 
-| `n` | `ρ` min | `ρ` median | `n − Bmax` observed |
-|---|---|---|---|
-| 8 | ~0.65 | ~0.78 | 1–2 (stress: 0–2) |
-| 10 | ~0.76 | ~1.00 | 0–1 |
-| 12 | ~0.69 | ~0.85 | 0–2 |
-| 14 | ~0.97 | ~0.99 | 0 |
-| 16 | ~0.67 | ~0.78 | 1–3 |
+That is the licence to extrapolate, and it is the only licence claimed.
 
-**`ρ` is flat in `n`** over five sizes — it is a per-block quantity, as the theorem in §5 says
-it must be. `n − Bmax` stays in `0..3` while `n` doubles; it is not `c·n`, not `n/2`, and not
-anything that reaches `n − 200`.
+**`ρ` by size** — the question that decides whether the extrapolation is safe. Two fits: the
+raw one (every weight with rate in `(0,1)`) and a **robust** one that requires a weight to
+carry `≥ 20` subsets and `≥ 5` closing ones and at least 4 such weights to survive — the raw
+fit at `n = 8` can rest on five points with single-digit counts, and that is exactly where the
+outliers live.
+
+| `n` | draws | raw `ρ` min/med/max | **robust `ρ`** min/med/max | `n − Bmax` |
+|---|---|---|---|---|
+| 8 | 32 | 0.2657 / 0.7846 / 1.0612 | **0.6583** / 0.8163 / 1.0612 | 0–4 |
+| 10 | — | ~0.76 / ~1.00 | (few constrained draws) | 0–1 |
+| 12 | 32 | 0.6853 / 0.8008 / 0.8858 | **0.7102** / 0.8196 / 0.8897 | 1–2 |
+| 14 | — | 0.6653 / ~0.86 | (few constrained draws) | 0–3 |
+| 16 | 20 | 0.6688 / 0.7805 / 0.8877 | **0.6688** / 0.8028 / 0.9128 | 1–4 |
+
+**`ρ` is flat in `n`** over five sizes — it is a per-block quantity, as §5 says it must be.
+`n − Bmax` stays in `0..4` while `n` doubles; it is not `c·n`, not `n/2`, not `n − c` with
+`c` growing, and nothing that reaches `n − 200`.
 
 **Extrapolation** (`ad_report.py` §4), taking the most constraining `ρ` observed *anywhere*
 and holding it fixed — conservative, since the median is far higher:
 
 | `ρ` | implied bound at `n = 256` |
 |---|---|
-| 0.65 (most constraining draw seen) | **`w ≤ 223`** |
-| 0.78 (median) | `w ≤ 239` |
+| **0.6583** (most constraining ROBUST fit anywhere) | **`w ≤ 224`** |
+| 0.6545 (5th percentile, raw) | `w ≤ 223` |
+| 0.7848 (median, raw) | `w ≤ 239` |
 | ≈1.00 (typical at the real instance's `frac = 0.25`) | `w ≤ 256`, i.e. nothing |
+| *0.2657* (single raw outlier: one `n = 8` draw, 5-point fit, counts down to 1) | *`w ≤ 132`* |
+
+**The outlier is reported, not hidden, and it does not change the verdict.** Even if that
+5-point `n = 8` fit were taken at face value and held to `n = 256`, the implied bound is
+`w ≤ 132` — half a σ below the null mean, excluding essentially none of the null mass, and
+still `2.4×` above the `w ≲ 56` needed for §8 to beat rho. Its robust re-fit is 0.66.
 
 The free unconditional bound is `w ≤ 255` (AB §7); the null puts `w ∈ [104,152]` with
-probability 0.998. **`w ≤ 223` is 11.9σ above the null mean: vacuous, and worse than agent Y's
+probability 0.998. **`w ≤ 224` is 12.0σ above the null mean: vacuous, and worse than agent Y's
 complement mechanism at `W = 32`.**
 
 > **How much three-to-five points can support — stated the way AB had to state `d_reg`.**
@@ -388,7 +407,8 @@ complement mechanism at `W = 32`.**
 
 The smallest `ρ` observed anywhere in this study, across every curve, size, tree shape,
 coefficient pool and draw — including settings **four times more constraining than the real
-instance** (`frac = 1.0` vs `927/3707 = 0.25`) — is **0.65**. To reach `0.093` you would need
+instance** (`frac = 1.0` vs `927/3707 = 0.25`) — is **0.658** (robust fit; **0.266** for a
+single small-sample `n = 8` raw fit, which even taken at face value only reaches `w ≤ 132`). To reach `0.093` you would need
 essentially every congruence to carry a nontrivial modulus whose prime factors are spread over
 all primes up to ≈ 400 (from `ρ ≳ ∏_{ℓ|M}(1 − 1/ℓ)`, itself only a lower bound because the
 lifts repair `A`).

@@ -19,8 +19,15 @@ overlap can move the break-even by more than **12 in B**. The quantifier attack 
 every search-based upper bound is a covering of `{wt > B}`, and the counterexample is the low-weight
 sweep the campaign is already running — AB's model overprices it by up to **2^98**. The memory
 attack **succeeds**: `B = 148` and `w = 106` are unbounded-memory numbers that AB corrected
-elsewhere in round 3 and never propagated; **memory-aware at 2^30 the break-even is `B = 201`**, not
-148. Three further arithmetic defects are recorded in §4, all of them in the conservative direction.
+elsewhere in round 3 and never propagated; **memory-aware at 2^30 the dead band is `[54, 200]`**, not
+`[107,147]`. Three further arithmetic defects are recorded in §4, all of them in the conservative
+direction.
+
+**Round 2 (§6a): four of my own claims are struck or corrected, two of them errors of exactly the
+class I convicted AB of.** The one that did not survive is §4.4's *"`cover(B) = 2^128.000` exactly
+for every `B ≤ 148`"* — true only down to `B = 142`, and contradicted by my own §1.3 table. Attacks
+1, 2 and 3 stand as reported; AB conceded 2 and 3 in full and independently reproduced both the
+`rep(W)` fix and the `√Z` floor.
 
 ---
 
@@ -205,13 +212,22 @@ at rho since any ball can be searched by solving outright):
 
 | memory | crossover `w` | **break-even `B`** | dead band |
 |---|---|---|---|
-| **2^30 (this box)** | **52** | **201** | `[53, 200]` |
+| **2^30 (this box)** | ~~52~~ → **53** | **201** | **`[54, 200]`** |
 | 2^35 | 54 | 200 | `[55,199]` |
 | 2^40 | 56 | 198 | `[57,197]` |
 | 2^50 | 60 | 194 | `[61,193]` |
 | 2^60 | 64 | 190 | `[65,189]` |
 | 2^80 | 72 | 181 | `[73,180]` |
 | unbounded | 106 | 148 | `[107,147]` |
+
+> **CORRECTED (round 2): the crossover at 2^30 is 53, not 52. AB is right, and the reason is mine.**
+> I derived the odd-`W` `rep` fix in §4.1 and then **ran my own memory-aware table with the
+> un-fixed `rep`**. Recomputed: `rep_ab` → crossover 52, `rep_tight` → crossover **53**; break-even
+> is 201 under both. At `M = 2^30` the ball time is 2^124.486 at `w = 52` and **2^126.424 at
+> `w = 53`**, still under rho = 2^126.533; `w = 54` costs 2^127.417.
+> **This is a propagation failure of exactly the kind I opened §3 by accusing AB of** — find a fix
+> in one section, fail to carry it into the table in the next. It is recorded rather than quietly
+> patched. **The band is `[54, 200]`.**
 
 * **`B = 201` is +9.1σ on the null.** The corrected barrier is therefore *much* stronger than AB
   published: the cheapest non-vacuous ceiling a real machine can prove is far further out.
@@ -266,15 +282,23 @@ per `W`, max relative error 0.0087 (T1) — a test that could have failed and di
 **Effect:** crossover `106 → 109`, break-even `148 → 145`. AB's error **overcharges the attacker**,
 i.e. it errs toward overstating the barrier — the same direction as the Theorem-D constant Z caught.
 
-### 4.2 The `W = 256` self-certificate cannot fail
+### 4.2 The `W = 256` self-certificate is asymmetric: it can refute, it cannot confirm
 
-AB treats "the fixed model returns 2^128.0000 exactly" as the certificate that round 3's cost model
-is right. **It is structurally incapable of failing** for *any* model of the form
-`rep(W)·Vol₁₂₈(⌈W/2⌉)` whose `rep(256) = 1`, because `Vol₁₂₈(128) = 2^128` identically. It tests one
-boundary value of `rep` and nothing else — in particular it is blind to §4.1's odd-`W` error (256 is
-even) and to the floor/ceil family generally. This is the same defect the coordinator flagged in
-another agent's plant test: *the special case could not have refuted the model.* A certificate that
-*can* fail is §1.3's comparison against `√Z`, which is a different function of `W` entirely.
+> ~~"It is structurally incapable of failing."~~ **AMENDED (round 2) — AB's precision is fair and I
+> adopt it.** The certificate **did** fail, informatively, against round 2's model, which had
+> `rep(256) = 16` and returned 2^132.0. It is not vacuous.
+
+The correct statement is asymmetric:
+
+> The `W = 256` check **can refute any model with `rep(256) ≠ 1`** (round 2's, and it did), but it
+> **cannot confirm a model with `rep(256) = 1`**, because every model of the form
+> `rep(W)·Vol₁₂₈(⌈W/2⌉)` with `rep(256) = 1` returns 2^128 identically — `Vol₁₂₈(128) = 2^128`.
+
+AB used it in the second, unavailable direction: as the certificate that round 3's model is *right*.
+In that direction it is blind to §4.1's odd-`W` error (256 is even) and to the floor/ceil family
+generally. A check that *can* fail in the confirming direction is §1.3's comparison against `√Z`,
+which is a different function of `W` entirely — and §4.4 above is what happens when a boundary is
+sampled rather than scanned.
 
 ### 4.3 A zero-error covering proof costs more than AB charges
 
@@ -282,11 +306,15 @@ another agent's plant test: *the special case could not have refuted the model.*
 set — correct for a **Las Vegas** search. A *proof* must be zero-error, and needs a genuine
 **splitting system**: a fixed family balancing **every** `W`-subset.
 
-Such a system exists and is small: arrange the 256 positions on a cycle and take the 128 contiguous
+Such a system exists and is small: arrange the 256 positions on a cycle and take the contiguous
 windows of length 128. For a fixed `W`-set `D`, `f(i) = |D ∩ window_i|` changes by at most 1 per step
 and satisfies `f(i) + f(i+128) = W`, so by a discrete intermediate-value argument some window holds
 exactly `⌊W/2⌋` or `⌈W/2⌉`. **Exhaustively verified over every `W`-subset for `n = 12, 14, 16`**
 (`ag_verify.py` T3) — a test that could have failed.
+
+> ~~"128 windows"~~ → **129. AB is right.** The IVT path must be evaluated at
+> `i = 0 … 128`, which is **129 window positions**; those induce **128 distinct partitions**, since
+> window `i` and window `i+128` are complementary. Quote 129 evaluations / 128 partitions.
 
 So the deterministic factor is `≤ 128` against AB's `rep ≈ 10`: **AB underprices a zero-error proof
 by at most 2^3.7.** Again conservative for the negative conclusion, but it means the true cost sits
@@ -294,15 +322,33 @@ in `[√Z, 2^3.7·AB]`, a total modelling band of about 2^6.4 — which is still
 
 ### 4.4 The covering curve is FLAT below the break-even — there is no cliff at 148
 
-The minimising `W` for every `B ≤ 148` is the saturated one (one ball = the whole space), so
+> ~~"The minimising `W` for every `B ≤ 148` is the saturated one (one ball = the whole space), so
+> **`cover(B) = 2^128.000` exactly for every `B ≤ 148`**."~~
+> **STRUCK (round 2). AB is right and my own §1.3 table already said so.** The largest `B` with
+> `cover(B) = 2^128.000` exactly is **142**, not 148. `cover(148) = 2^126.854` — the very value
+> printed in §1.3 — and the minimiser there is `W = 106`, not the saturated radius.
+>
+> **How I got it wrong, since it is the same failure mode I charged AB with in §4.2.** My scan
+> printed `B = 148` and then jumped to `B = 140`; I saw 2^128.000 at 140 and below and generalised
+> over the six values 143–147 that the sample skipped. **A sampled scan hiding a boundary is
+> exactly AB's even-`W`-only scan hiding the floor/ceil bug.** I criticised it and then did it.
 
-> **`cover(B) = 2^128.000 exactly for every `B ≤ 148`.**
+**Corrected, recomputed over every `B` (not a sample):**
 
-The entire family of statements "prove `w ≤ B`" for `B ∈ [0, 148]` therefore costs between
-2^126.53 (rho) and 2^128.000 — **a band of 2^1.47**. Proving `w ≤ 0` (i.e. producing `k₀`) is only
-2^1.47 dearer than proving `w ≤ 148`. The word "break-even" invites the reading that something
-changes at 148; nothing does. This *supports* AB's qualitative claim more directly than AB's own
-argument does, and it should be how the result is quoted.
+| B | 143 | 144 | 145 | 146 | 147 | **148** | 149 |
+|---|---|---|---|---|---|---|---|
+| `cover(B)` | 2^127.882 | 2^127.851 | 2^127.401 | 2^127.373 | 2^126.881 | **2^126.854** | 2^126.320 |
+| minimiser `W` | 112 | 110 | 110 | 108 | 108 | 106 | 106 |
+
+`cover(B)` is non-increasing in `B` on `[0,148]` (verified for all 149 values), so
+
+> **`cover(B) ∈ [2^126.854, 2^128.000]` for every `B ≤ 148` — a band of `2^1.146`; quoted against
+> rho as the floor, `[2^126.533, 2^128.000]`, a band of `2^1.467` (AB's phrasing, and the one to
+> use, since rho is the thing being compared against).**
+
+**The substance is unaffected.** Proving `w ≤ 0` (producing `k₀`) is only 2^1.15 dearer than proving
+`w ≤ 148`; the word "break-even" still invites the reading that something changes at 148, and
+nothing does. The conclusion "no cliff" stands; the exact-value phrasing does not.
 
 ### 4.5 Disk — conclusion stands, arithmetic off by ~2^5, premise off by 3×
 
@@ -349,18 +395,79 @@ The coordinator asked precisely this. Dropping one at a time:
 >
 > 1. **(Floor.)** Any such certifier costs `≥ √|{wt>B}|`, independently of overlap, code structure
 >    or shared lists; the best known construction is within **2^2.66** of it.
-> 2. **(Saturation.)** With unbounded memory the cost is **exactly 2^128 for every `B ≤ 148`** —
->    within 2^1.47 of solving outright, which returns `w` exactly. There is no cliff.
-> 3. **(Memory.)** With `M = 2^30` the break-even is `B = 201` (+9.1σ) and the crossover `w = 52`;
->    no `B ∈ [53,200]` admits a certificate cheaper than solving.
-> 4. **(Trichotomy.)** Every search-based upper bound is vacuous, or priced at solving, **or**
->    one-sided — cheap but producing a bound only with the null probability that the bound holds,
->    in which branch it has produced `k₀`.
+> 2. **(Saturation.)** With unbounded memory `cover(B) ∈ [2^126.854, 2^128.000]` for every
+>    `B ≤ 148`, saturating at exactly 2^128.000 from `B = 142` down — within 2^1.47 of solving
+>    outright, which returns `w` exactly. **There is no cliff at 148.**
+> 3. **(Memory.)** With `M = 2^30` the break-even is `B = 201` (+9.1σ) and the crossover `w = 53`;
+>    no `B ∈ [54,200]` admits a certificate cheaper than solving.
+> 4. **(Trichotomy.)** Every search-based upper bound is vacuous, or priced at solving, **or** a
+>    zero-error decider of `[w ≤ B]` that is cheap for `B` far from 128 — and which returns an
+>    *upper* bound only with the null probability that the bound holds, in which branch it has
+>    produced `k₀`. *(Zero-error, per AB: the cheap branch is a decider, not merely one-sided.)*
 > 5. **(Unified law.)** For every `B`, deciding `[w ≤ B]` costs
 >    `Θ(√min(|{w≤B}|,|{w>B}|))`, matching Theorem D's generic bound at **every** `B`.
 >
 > **Not covered by this theorem or by Theorem D:** non-generic certificates that work in the
 > coordinate ring of `E/F_p` rather than through the group law or the Hamming metric.
+
+---
+
+## 6a. ROUND 2 — adjudication against AB
+
+AB replied item by item. **Three concessions to me in full, one with a precision, one rebuttal
+against me that lands.** Everything below was re-run in this directory before being recorded.
+
+### What I withdraw
+
+| my claim | status |
+|---|---|
+| §4.4 "`cover(B) = 2^128.000` exactly for every `B ≤ 148`" | **STRUCK.** Largest such `B` is **142**; `cover(148) = 2^126.854`, which my own §1.3 table printed. Corrected band `[2^126.854, 2^128.000]`. Conclusion "no cliff at 148" survives. |
+| §4.2 "the `W=256` certificate cannot fail" | **AMENDED.** It refuted round 2's model (`rep(256)=16` → 2^132.0). Correct form: **can refute `rep(256) ≠ 1`, cannot confirm `rep(256) = 1`** — and AB used it in the second direction. |
+| §3 crossover **52** at `M = 2^30` | **CORRECTED to 53**, band `[54,200]`. My own odd-`W` fix, which I failed to propagate into my own table. |
+| §4.3 "128 windows" | **CORRECTED to 129 window positions** (128 distinct partitions). |
+
+Two of the four are the *same* error class I convicted AB of — a sampled scan hiding a boundary
+(§4.4) and a fix not propagated one section later (§3). Recorded, not patched over.
+
+### What AB conceded, and what it independently confirmed
+
+* **Memory (Attack 3): conceded in full** — AB: *"I struck the unbounded-memory column in S3 and
+  then quoted `106/148` — values from that column — as the headline one section later."*
+* **Quantifier (Attack 2): conceded, and AB says my concession was too small.** Exhausting
+  `{w ≤ B}` is not merely one-sided — it is a **zero-error decider** (hit ⇒ `w ≤ B`, miss ⇒
+  `w > B`). **So the 2^77.7 overprice at `B = 20` is not attributable to one-sidedness at all.**
+  AB is right; my §2.1 framing understated my own result. The zero-error hypothesis is now inside
+  AB's statement, together with my trichotomy and my `√min(·,·)` law.
+* **Disk: conceded cleanly**, conclusion hardens.
+* **`rep(W)` odd-`W` factor 2: reproduced exactly** from AB's independent code (106 → 109, 148 → 145).
+* **My no-carry step was checked first and then generalised by AB**: disjoint bit support makes
+  `wt(k) = wt(k_H)+wt(k_L)` hold for **any** split, contiguous or not — 20,000 random
+  (split, `S`) pairs including non-contiguous ones, 0 failures. My rectangle model is therefore not
+  tied to the `2^128` split.
+* **My `√Z` floor re-derived by AB via my generic-query route, matching to 0.01 bits at four values
+  of `Z`. Attack 1 fails, and I reported it as failing.**
+
+### Where this landed
+
+Agent AC's exact posterior on `w` gives a 90 % interval `[115, 141]`; the coordinator's join with
+the corrected band is **`P(w ∉ [54,200]) = 2^-67.327`**. My 52-vs-53 dispute moves that by 0.07 bits.
+
+> **With probability `1 − 2^-67.3`, `w` lies inside the band where — by the corrected theorem — no
+> upper bound on `w` is cheaper than solving the instance outright.**
+
+That statement is the product of Attack 3, and it is what the memory correction was worth. It is
+also, note, a statement whose force comes from a *prior* (AC's posterior), not from a proof about
+this instance: it is not an infeasibility claim, and §8 remains open and untouched by any of this.
+
+### The remaining gap, endorsed by AB as the sharpest stated so far
+
+> A **non-generic algebraic certificate** is missed by Theorem B (it is not a covering) and by
+> Theorem D (which excludes the encoding). **Certificate size is never the barrier — `k₀` is itself
+> a 256-bit certificate verifiable by one scalar multiplication — so only *finding* cost can be.**
+
+That is now the `d_reg` question; `n = 4` is computing under agent AI's custody with AB's read-off
+written in advance. **Nothing in this document bears on it**, and it is the one hypothesis of
+Theorem B (§5, row 4) whose removal is not covered by anything the fleet has proved.
 
 ---
 

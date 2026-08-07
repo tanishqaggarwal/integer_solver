@@ -6989,3 +6989,79 @@ sharpest anyone has produced: **a non-generic algebraic certificate is missed by
 covering) and by Theorem D (excludes the encoding), and certificate *size* is never the barrier since
 `k₀` is itself a 256-bit certificate — only finding cost can be.** That is exactly the `d_reg`
 question, measured at `n = 2, 3` only, with `n = 4` running under AI.
+
+---
+
+## Check-in 117 — AA closes the offset sweep: 51 families, 0 hits, and a lattice that prunes the fleet
+
+**Headline:** `FINAL_TABLE.txt` — **41 of 51 offsets exhausted at `m ≤ 7`; 51 of 51 at `m ≤ 6`;
+0 never run. 2,780,952,576 scan candidates counted, 0 degenerate `dx = 0` events, expected false
+positives 0.212. HITS: 0.** The 10 offsets stopping at `m ≤ 6` are **the least valuable by
+construction** (reach 4–32 and the provably-redundant controls); every high-reach offset, both
+`±2^256` branches, `c0`, `ones` and all five high-reach negations are complete at `m ≤ 7`.
+
+### The containment lattice is the durable result, not the sweep
+
+`d(a,b) = w±(a−b)` is a **metric**, and every hypothesis in the family is a ball `S(c,m)`. Hence
+`S(c,m) ⊆ S(0, m + reach(c))`, which **prunes the fleet's own plans**:
+
+- **`c = 2^e` has reach 1; `c = 2^a ± 2^b` has reach 2.** So **`2^255`, `2^128`, and `2^k ± 1` near
+  128 are provably wasted offsets** — *one extra level of the plain search subsumes all 256 of them
+  at once.* AA ran two anyway as controls.
+- **`c = 2^256 − 1` has reach 42, not 2** — because the ladder stops at `2^255`. **That is my
+  off-by-one, found independently here.** AA's fix is the right one and I am adopting it: **offsets,
+  not a longer basis.** An offset `±2^256` at depth `m` covers the `e = 256` branch with `m` further
+  terms; a 257-point basis would need only `m − 1`, but **the offset costs nothing on the table
+  side.**
+- **`c = 0` already contains** unsigned weight ≤ `m`, **any `k` with ≤ 3 runs of ones** (a run is two
+  signed terms), `2^e ± (m−1)` terms, short addition–subtraction chains, and all of these on an
+  unreduced `κ ≥ N` — **reduction is invisible, because the engine works on points.**
+- Packing: **1,222 of 1,275 pairs are at distance > 2m = 14, provably disjoint at `m ≤ 7`**; the 53
+  overlaps are named. The lattice **rediscovered `λ² + λ + 1 ≡ 0`** (so `lam2` and `n_lam` are at
+  distance 1 — one offset wasted, reported rather than buried), and found that **`ones` and `2p256`
+  are at distance 1, so agent Y's complement class and AA's `2^256` family are the same class at this
+  depth.**
+- Honest total: 51 offsets → **34 well-separated clusters, union ≈ 2^55.7 = `2^-200.3` of the
+  keyspace.** That is consistent with AC's independent TV figure of `2^-201.6` for the whole campaign.
+
+Two items I had asked for came back as **results** rather than assumptions: **`c = N` is bit-identical
+to `c = 0`** (same base point; dropped as a duplicate), and **`2N mod 2^256 ≡ −2^256 mod N`**.
+
+### The cost finding worth carrying to every future run
+
+**The table side is offset-independent**, so AA paid once for `a ≤ 4` (1,409,460,736 keys, 11.3 GB,
+196 s + 400 s sort). That moved `m ≤ 7` across the whole 51-offset sweep **from 38 hours to 25
+minutes — a ~90× swing that exists only because the expensive half does not move with `c`.**
+
+And a second, measured: the 11.3 GB table **went disk-bound when the fleet evicted it** — `stime`
+34,946 vs `utime` 2,113, `majflt` 690,755 climbing 6k/3s, **94 % kernel time**, 20 s → projected
+50 min. **The fix is to shard and pass 8 times: 8.2 s/shard, 66 s/offset, working set 1.4 GB —
+faster than the monolith even warm, and it needed no C change** (symlink dirs with 7 zero-length
+stubs; the existing `st.st_size ? mmap : NULL` path handles it). This is the concrete form of AI's
+finding that **memory, not disk, is the binding resource.**
+
+### Validation — PASS, and the failure mode was real
+
+**23 offset classes planted, 2 splits each = 46 predictions, 46 lines present, 46 decodes re-verified
+on the curve**, at planted unsigned weights 40–188. The sign-bookkeeping failure mode AA was told to
+look for **actually fired: 4 of 8 first-round predictions failed, exactly the 4 whose lowest-exponent
+term was negative — AA's predictor was wrong and the engine right.** The **8-shard lookup path was
+validated separately**, correctly, because it is a different lookup path: plants `c0` and `lam` gave
+**5,595 hits each, identical to the monolithic run.** AA's table generator also reproduces agent X's
+`stbls.bin` **bit-for-bit**.
+
+### Audit response — the hazard is closed, with the check rather than the expectation
+
+AA confirms `aa_shard.sh` had **exactly** the defect AI found, **including my third point — the
+resume guard keyed on the unconditional shell marker.** Fixed before the next batch: exit code
+tested, stderr to per-shard logs, **only the engine writes evidence**, and resume now keys on
+`DONE … n=<count>` checked against `C(256,b)·2^b`.
+
+> **The check I asked for, not the expectation: 234 shell markers against 234 engine `DONE` lines
+> with exact closed-form counts — markers never outran evidence. 9 of 10 cleared 24/24; `n2p257` was
+> mid-run at 18/24 and is reported as `m ≤ 6`.**
+
+`aa_report.py` ignores markers by construction and prints **`NEVER RUN` rather than omitting rows.**
+Rebuilt without the `gcc … | head` mask (`gcc exit=0`, tested directly). AA freed 598 MB — **its own
+byte-identical duplicate of X's `stbls.bin`/`sbm.bin`, with X still holding the originals** — and
+deleted nothing else, which is rule 3 applied exactly as intended.

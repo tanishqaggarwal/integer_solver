@@ -1,0 +1,59 @@
+tag         tier  reach  m<=   evidence             candidates     zero  HITS
+a33         1     128    7     full-table           22239232       0     0
+a55         1     111    7     full-table           22239232       0     0
+inv10       1     110    7     full-table           22239232       0     0
+inv5        1     108    7     full-table           22239232       0     0
+inv3        1     104    7     full-table           22239232       0     0
+aAA         1     103    7     full-table           22239232       0     0
+aCC         1     102    7     full-table           22239232       0     0
+cshift      1     92     7     full-table           22239232       0     0
+bcurve      1     90     7     full-table           22239232       0     0
+inv7        1     84     7     full-table           22239232       0     0
+lam2        1     84     7     full-table           22239232       0     0
+lam         1     83     7     full-table           22239232       0     0
+drep        1     80     7     full-table           22239232       0     0
+d1e76       1     68     7     full-table           22239232       0     0
+a11         1     64     7     full-table           22239232       0     0
+a0F         1     64     7     full-table           22239232       0     0
+a05         1     64     7     full-table           22239232       0     0
+a03         1     64     7     full-table           22239232       0     0
+ones        1     42     7     full-table           22239232       0     0
+halfN       1     42     7     full-table           22239232       0     0
+inv2        1     42     7     full-table           22239232       0     0
+pmodN       1     42     7     full-table           22239232       0     0
+2p256       1     42     7     full-table           22239232       0     0
+n2p256      1     42     7     full-table           22239232       0     0
+n2p256m1    1     42     7     full-table           22239232       0     0
+p2p256p1    1     41     7     full-table           22239232       0     0
+d1e38       1     33     7     full-table           22239232       0     0
+a01         1     32     7     full-table           22239232       0     0
+aFF00       1     32     7     full-table           22239232       0     0
+a0001       1     16     7     full-table           22239232       0     0
+aFFFF       1     16     7     full-table           22239232       0     0
+a32_1       1     8      7     full-table           22239232       0     0
+a32_F       1     8      6     a<=3 table           22370304       0     0
+a64_1       1     4      6     a<=3 table           22239232       0     0
+c0          1     0      7     8/8 shard passes     200284160      0     0
+n_a33       2     128    7     8/8 shard passes     200153088      0     0
+n_a55       2     111    7     8/8 shard passes     200153088      0     0
+n_inv3      2     104    7     8/8 shard passes     200153088      0     0
+n_lam       2     83     7     8/8 shard passes     200153088      0     0
+n_d1e76     2     68     7     8/8 shard passes     200153088      0     0
+n_a11       2     64     7     8/8 shard passes     200153088      0     0
+n_a0F       2     64     7     8/8 shard passes     200153088      0     0
+p2p257      2     42     7     8/8 shard passes     200153088      0     0
+n2p257      2     42     6     a<=3 table           67504128       0     0
+n_a01       2     32     6     a<=3 table           22239232       0     0
+n_aFF00     2     32     6     a<=3 table           22239232       0     0
+n_a0001     2     16     6     a<=3 table           22239232       0     0
+p2_128p1    3     2      6     a<=3 table           22239232       0     0
+p2_255_1    3     2      6     a<=3 table           22239232       0     0
+p2_128      3     1      6     a<=3 table           22239232       0     0
+p2_255      3     1      6     a<=3 table           22239232       0     0
+
+EXHAUSTED at m<=7 : 41 of 51 offsets
+EXHAUSTED at m<=6 : 51 of 51 offsets  (all of the above included)
+NEVER RUN         : 0
+total scan candidates (counted, not claimed): 2780952576
+degenerate dx=0 events: 0
+HITS: 0      expected false positives: 0.212

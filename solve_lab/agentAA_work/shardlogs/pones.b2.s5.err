@@ -1,0 +1,1 @@
+scan data/p_ones.txt sz=2 [0,512): 130560 cand zero=0 3.7s
