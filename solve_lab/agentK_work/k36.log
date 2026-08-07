@@ -1,0 +1,10 @@
+liveness/boolean variables (fixpoint): 4258
+gated terms where the selector could not be told from the value: 1195
+SANITY GATE  root A support = 177   root B support = 78   disjoint=True   union=255
+recovery credible: True
+distinct supports: 5480
+supports able to serve as the "+" side (maskval >= N): 0
+disjoint pairs tested: 0
+pairs admitting x - y = N : 0 []
+
+CONCLUSION: no disjoint pair of recovered supports admits a degeneracy

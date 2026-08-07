@@ -1,0 +1,39 @@
+ON exponents [3, 10]  wires with live support: 48
+|supp|  live   wire     x==pred y==pred
+2       1      x1813    True   False 
+2       1      x2099    True   False 
+2       1      x2964    True   False 
+2       1      x4432    False  True  
+2       1      x4738    False  True  
+2       1      x7068    True   False 
+2       1      x9801    False  True  
+2       1      x19964   False  True  
+2       1      x26756   True   False 
+2       1      x37120   True   False 
+3       1      x3613    True   False 
+3       1      x22376   True   False 
+3       1      x24548   False  True  
+3       1      x25442   False  True  
+3       1      x31062   False  True  
+3       1      x36904   False  True  
+5       1      x23238   True   False 
+5       1      x24292   True   False 
+6       1      x9486    True   False 
+6       1      x12985   False  True  
+6       1      x13585   False  True  
+6       1      x26316   True   False 
+6       1      x36462   False  True  
+6       1      x37088   False  True  
+9       1      x2498    True   False 
+9       1      x28057   True   False 
+10      1      x14623   False  True  
+10      1      x27522   False  True  
+11      1      x6449    False  True  
+11      1      x11408   True   False 
+
+wires where the model matches on at least one coordinate: 32 / 48
+wires whose support has >=2 live leaves: 16
+shallowest multi-live wire: x7340  |supp|=20 live=2  x_ok=False y_ok=False
+  its support exponents: [3, 10, 12, 56, 62, 71, 82, 99, 137, 159, 167, 183, 199, 209, 214, 217, 232, 235, 242, 247]
+  live ones: [3, 10]
+  derived by: (x7340-(x32101+x12781))

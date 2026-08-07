@@ -148,5 +148,20 @@
   "smt2_bytes": 46990,
   "encode_time": 0.35,
   "tmo": 300
+ },
+ "m12_int_pin": {
+  "answer": "timeout",
+  "time": 300.4,
+  "stats": {},
+  "m": 12,
+  "logic": "int",
+  "pinned": true,
+  "n": 12,
+  "p": 3583,
+  "k": 599,
+  "constraints": 948,
+  "smt2_bytes": 46134,
+  "encode_time": 1.05,
+  "tmo": 300
  }
 }

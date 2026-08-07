@@ -329,3 +329,63 @@ Everything I have reported remains mod P. "Solve the residual ⇒ full solution"
 conjecture**, and I now know precisely which part is unproved: the 927 `c > 1` divisibilities.
 Knob set unchanged (the 256 selectors, liveness derived). Best verified score unchanged at
 **39,026 / 39,033**; I produced no new assignment.
+
+---
+# CHECK-IN 13 — I did not count the rank. Reporting the failure plainly.
+
+## 25. Item 1: **NOT ANSWERED.** The rank is still uncounted.
+I did not deliver the measurement I named. Stating it without softening: the quarter of the
+reduction that was open before this check-in is **still open**, and I have not moved it.
+
+What I built instead was the machine that would let me count it (`plift2.py`): seed the 256
+selectors, the 512 leaf coordinates and the 764 block law outputs, then walk the SLP with a
+worklist, solving each atom for its single remaining unknown **over ℤ** and recording every
+division that does not come out exactly. Counting the rank needs the derivative system
+`∂(R/P)/∂t_v mod c` over the 927 `c > 1` conditions, and that needs a *complete* lift to
+differentiate around. I do not have one.
+
+## 26. Item 2: partial lift, and the obstruction is **in my tooling, not in the instance**
+This distinction is the whole point of reporting it, so I am putting it first: what stopped
+me is a limitation of my propagation, **not** a property of the file. Nothing below is
+evidence about whether the instance's lift is free.
+
+| configuration | undetermined vars | integer-division obstructions | nonzero atoms | equations failing | score |
+|---|---|---|---|---|---|
+| all selectors OFF | 18,417 | **0** | 194 | 2,645 | **36,388 / 39,033** |
+| one leaf ON | 18,417 | 18 | 234 | 2,815 | **36,218 / 39,033** |
+
+**Both are far below the 39,026 baseline and neither is a competitive assignment.** They are
+incomplete constructions in which 18,417 variables were never determined and defaulted to 0;
+the failures they show are that default, not the instance resisting.
+
+The stall is diagnosed but not fixed: the first nonzero atom is SLP 10834, the `+Q` gate of
+block 192 (`x38494 = x11478 + Q`), and it is nonzero only because `x11478` was still
+undetermined when the worklist drained. The propagation stalls wherever an atom holds **two**
+unknowns at once — a handle and its cofactor, or a mod-P copy target and its handle — and my
+seeding does not cover the copy targets. That is a fixable gap in `plift2.py`, roughly:
+also seed every mod-P copy target to equal its source exactly over ℤ, which forces those
+handles to 0 and unblocks the cascade. I ran out of budget before doing it.
+
+## 27. The one real datum, with its scope stated
+For the all-off configuration the constructor completed with **0 integer-division
+obstructions** — every divisibility it was asked to perform came out exactly. **This is not
+evidence that the lift is free.** That configuration drives essentially every residual `R` to
+0, so it exercises the 927 `c > 1` conditions only trivially. It shows the constructor is
+sound on a degenerate input; nothing more.
+
+## 28. Status of the reduction: **still conditional. I am not stating it unconditionally.**
+Item 1 did not come back clean — it did not come back at all — so the "if and only if" is
+unmet and I am holding the line. Unchanged from check-in 11: 2,780 of 3,707 handles are
+genuinely free at `c = 1`; **927 carry the strictly stronger integer condition `c·P | R`
+whose satisfiability is unproved**, and the rank that would decide it is uncounted. Knob set
+unchanged (256 selectors, liveness derived); everything else remains mod P.
+
+## 29. Best verified score: **39,026 / 39,033**, unchanged, not mine.
+I produced no assignment that beats or approaches it this check-in.
+
+## 30. Next step, concretely
+Fix the seeding gap in §26 (seed mod-P copy targets to their sources over ℤ), confirm a
+complete lift at the all-off and one-leaf configurations, then differentiate: for each of the
+927 `c > 1` conditions compute `∂(R/P)/∂t_v mod c` against the ~766 lift parameters and take
+the rank modulo each prime power dividing the `c`'s. That is the measurement, and it is one
+working lift away.

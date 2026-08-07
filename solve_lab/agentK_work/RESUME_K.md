@@ -188,11 +188,42 @@ outside `J1 u J2` are available to neither side, so the walk can now die mid-way
 the final carry.
 
 * `k32_allstages.py` — the 12 nested supports owning exponent 255, both directions each,
-  the unassigned leaf tried on either side: **all 12 fail.**
-* `k33_allpairs.py` — **does not trust my tree recovery at all.** K32's chain contained two
-  distinct same-size sets, so it is not provably a nest. K33 instead tests *every disjoint pair*
-  of recovered supports, in both directions. Every real stage pair is among them, so extra pairs
-  only make the test stricter. Result in `k33.log`.
+  the unassigned leaf tried on either side: **all 12 fail.** But that pairing comes from my
+  tree recovery, and K32's "chain" contains two *distinct sets of the same size*, so it is not
+  provably a nest and the pairing is not provably the real stage structure.
+* `k33_allpairs.py` — drops the tree: tests *every disjoint pair* of recovered supports (every
+  real stage pair is among them, so extra pairs only make the test stricter), with an exact
+  prune (`x - y = N, y >= 0` forces the "+" side's mask value `>= N`; 161 of 6007 supports
+  qualify). **RESULT: the test FAILS — 262 pairs tested, many admit `x - y = N`.**
+
+### 4d. STATUS OF THE NEGATIVE: closed at the root, NOT closed for interior stages
+
+I am flagging this rather than letting it stand.
+
+* **Root: closed.** The root's two halves partition `{0..255}` exactly (178/78), so the walk has
+  the 2-case form with no forbidden positions, and it fails in both directions. Robust: also
+  fails for all 256 single-exponent reassignments and for **0 of 2000 random 178/78
+  partitions**, so it does not depend on my split being exactly right.
+* **Interior stages: open.** The original argument was wrong (§4b). The repair is sound in
+  principle, but executing it needs *certified per-stage leaf supports*, and mine are
+  **over-approximations**: in a gated mux term `(xA*xB)` my descent could not tell selector from
+  value, so it unioned both cones — and a quadrant gate's selector is a liveness bit of the
+  *sibling* subtree, so sibling leaves leak in. The tell-tale is that supports of size 252–253
+  appear at all; those cannot be children of a root that splits 178/78. So K33's hits are very
+  likely spurious, **but "likely spurious" is not a closed negative** and I am not going to
+  record it as one.
+
+`k36_tight.py` is the attempt to close it: identify liveness/boolean variables by fixpoint and
+take only the non-liveness operand of each gated term, with a **sanity gate — the root must come
+back 178/78 or the recovery is still wrong and its verdict must be discarded**. Result in
+`k36.log`. Until that gate passes *and* the pair test comes back empty, the correct statement is:
+
+> **the degeneracy route is closed at the root and open at interior stages.**
+
+Practical note for whoever picks this up: the deliverable's own trick is a *root* degeneracy, so
+the closed half is the half that matters for reproducing 39,026 honestly. An interior degeneracy
+would still be exploitable (a degenerate stage's output is free and propagates up as a
+pass-through), so the open half is worth closing.
 
 ### 4c. Restated without any premise about how the instance was built
 
