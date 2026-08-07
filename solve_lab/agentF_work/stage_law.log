@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/user/integer_solver/solve_lab/agentF_work/stage_law.py", line 86, in <module>
+    r = try_roles(six, ws, rnd)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/integer_solver/solve_lab/agentF_work/stage_law.py", line 60, in try_roles
+    for idx, val in zip(inB, B): base[six[idx]] = val
+                                      ~~~^^^^^
+IndexError: list index out of range
