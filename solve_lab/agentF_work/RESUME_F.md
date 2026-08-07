@@ -1,15 +1,28 @@
 # RESUME_F — agent F (multi-modular / p-adic lifting).  NO curve/group framing; integer polynomials only.
 
-## HEADLINE:  rank(M) = 39,033 and dim ker(M) = 0  (exact, certificate-verified)
+## READ THIS FIRST — the infeasibility argument is WITHDRAWN.  The instance is OPEN.
+One thing is proved: **rank(M) = 39,033, dim ker(M) = 0** (three independent computations).  That closes
+the "cancelling nonzero residual" route and makes all-atoms-zero *equivalent* to a full solve.
+It does NOT make the instance infeasible.  My section-7 exhaustion assumed at most one ON boolean per
+OR-tree ("link (i)").  A rigorous mod-p rigidity engine (`cfg_rigid2.py`) now shows that assumption is
+UNSUPPORTED: on same-tree pairs it derives no contradiction (45 pairs, 0 conflicts), both booleans' pin
+wires stay forced to their own constants, and the wire that lost its forcing is an ADDER
+`x11317 := x11532 + x14681` that carried the whole selected value in the single-boolean case.  That is an
+accumulator signature.  A numerical run with two same-tree booleans also activates a SECOND gate
+(x24533) with three further checks.  So the reachable set of the selected pair may be far larger than the
+13,884 one-per-tree combinations I enumerated.  **No infeasibility is claimed by me.**
+
+## PROVED:  rank(M) = 39,033 and dim ker(M) = 0  (exact, certificate-verified)
 M = the 39,033 x 39,033 equation-atom incidence matrix (525,982 nonzeros, coefficients from the spine
 decomposition).  A characteristic-free peeling cascade -- a row whose surviving support is a single atom
 forces that atom to 0 -- starts from the unique degree-1 row and **forces all 39,033 atoms to zero**.
 The elimination order is stored as a checkable certificate (`peel_order.npy`) and re-verified by an
 independent pass (`peel_cert.py` -> `certificate verified: True`).  Holds over Z and over every field of
 characteristic > 80.
-Independently confirmed by **Wiedemann over GF(2^31-1)**: minimal-polynomial degree = 39,033 = n with
-trailing coefficient 268435456 != 0, so M is nonsingular (implementation validated first on 4 nonsingular
-and 3 rank-deficient controls).  The pivots of the peeling cascade are all +-1 or +-2, none divisible by
+Independently confirmed by **Wiedemann over two word primes**: q = 2^31-1 gives minpoly degree 39,033 = n
+with trailing coefficient 268435456 != 0, and q = 2147483629 gives degree 39,033 with trailing coefficient
+11716781 != 0 -- M nonsingular both times (implementation validated first on 4 nonsingular and 3
+rank-deficient controls with independently computed true ranks).  The pivots of the peeling cascade are all +-1 or +-2, none divisible by
 any odd prime tested, and three randomized peeling orders all force 39,033/39,033 atoms.
 **Consequence: any assignment satisfying all 39,033 equations must make all 39,033 atoms exactly zero.**
 The all-atoms-zero model is therefore not a restriction but an equivalence; the "cancelling nonzero
@@ -48,13 +61,17 @@ conditional on that model loses that condition.
     python3 frame.py     # frame/lattice analysis helpers ; intsolve.py = exact integer HNF solver
 
 ## Next experiments (in order)
-1. DONE -- ker(M) = 0, see headline.  What remains conditional is now only two MEASURED links:
-   (i) two ON booleans in the same OR-tree are contradictory (exact integer Jacobian, one pair tested);
-   (ii) an ON boolean forces the selected wire to its pin constant mod p (9 boolean choices tested).
-   `modp_uf2.py` shows these cannot be discharged statically: the path from a pin wire to the selected
-   wire runs through bilinear selector products, so it is configuration-dependent by construction.
-   Making (i) exhaustive costs ~600 s of Jacobian per same-tree pair; making (ii) exhaustive costs ~30 s
-   per boolean x 256 booleans.  Those two sweeps would close the infeasibility argument completely.
+1. **Settle the accumulator question** -- this is now the top item and it is a CONSTRUCTIVE opportunity,
+   not a barrier.  With two same-tree booleans ON: does the selected wire equal the SUM of the two
+   per-boolean contributions?  If yes, the selected pair ranges over subset sums of the 256 pin constants
+   and the enumeration that produced "no solution" was over a tiny slice of the real space.
+   Tools ready: `cfg_rigid2.build(bits)` (~15 s, exact, 0 conflicts everywhere so far) and `gs2.solve`.
+   The right experiment: take two same-tree booleans, and instead of letting `gs2` zero the contributions,
+   force the selected wire to C_j1 + C_j2 (mod p) and see whether the residual atoms close.
+   Also characterise the extra gate x24533 that turns on with two same-tree booleans and its 3 new checks.
+2. Finish `sweep_ii.py` (exhaustive link (ii), ~15 s/boolean, checkpointed to `sweep_ii.json`).
+3. Continue `sweep_i.py` only as a diagnostic -- it is currently inconclusive by construction, so treat
+   its coverage percentage as "fraction tested", never as "fraction excluded".
 2. Coset search for a better cancellation frame: the number of the 12 frame rows that cancel is decided by
    the coset of the residual value in the 7-generator lattice (invariants: r1 mod 7376877, r2 mod p,
    r3+r4 mod p, r5-r6 mod p).  Sweep the ON-boolean pair and the break placement to move the coset; a

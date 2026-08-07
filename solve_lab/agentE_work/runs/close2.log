@@ -1,0 +1,11 @@
+start bad [20215, 28647] fails 28
+candidate knobs 276  (non-boolean 22, boolean 254)
+affine knobs 18 of 276 (4s); non-boolean among them: 18
+  affine knobs moving a20215: 2 -> [22820, 31339]
+  affine knobs moving a28647: 2 -> [6083, 14853]
+atoms in the affine system: 19
+FULL AFFINE SYSTEM -> row 28647 unsatisfiable
+max solvable rows 17 of 19   BLOCKING: [20215, 28647]
+   ATOM 20215 x_24530 - x_5647 * x_24908
+   ATOM 28647 x_36433 - (x_36990 + x_19239)
+EXACT: fails=28 score=39005 bad=[20215, 28647]

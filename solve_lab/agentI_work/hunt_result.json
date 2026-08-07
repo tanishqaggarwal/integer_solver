@@ -775,5 +775,90 @@
   "knobs": 10,
   "minfail": null,
   "forced": 0
+ },
+ {
+  "tag": "X10422+X950",
+  "add": [
+   11772,
+   20290
+  ],
+  "nE": 23,
+  "new": 10,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X10422+X15120",
+  "add": [
+   11772,
+   20292
+  ],
+  "nE": 24,
+  "new": 11,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X10422+X35531",
+  "add": [
+   11772,
+   20294
+  ],
+  "nE": 23,
+  "new": 10,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X10422+X18253",
+  "add": [
+   11772,
+   20292,
+   20293
+  ],
+  "nE": 24,
+  "new": 11,
+  "knobs": 11,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X11099+X22526",
+  "add": [
+   11774,
+   11776
+  ],
+  "nE": 26,
+  "new": 13,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X11099+X34868",
+  "add": [
+   11774,
+   11778
+  ],
+  "nE": 28,
+  "new": 15,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
+ },
+ {
+  "tag": "X11099+X950",
+  "add": [
+   11774,
+   20290
+  ],
+  "nE": 25,
+  "new": 12,
+  "knobs": 10,
+  "minfail": null,
+  "forced": 0
  }
 ]
