@@ -1,0 +1,50 @@
+unknowns: [642, 1329, 9413, 10903, 17325, 28730, 29854, 31864]
+equations: [2554, 6816, 8124, 8680, 9123, 9421, 12231, 12270, 12350, 14584, 18673, 22044, 29125]
+rank over Q = 8 (unknowns 8)
+inconsistent dependent rows: [] (empty => unique rational solution satisfies ALL)
+
+unique rational solution — denominators:
+  x_642    denom = 22 bits   numerator 2421 bits
+  x_1329   denom = p   numerator 2428 bits
+  x_9413   denom = p   numerator 2419 bits
+  x_10903  denom = p   numerator 2429 bits
+  x_17325  denom = 278 bits   numerator 2439 bits
+  x_28730  denom = 1   numerator 0 bits
+  x_29854  denom = 1   numerator 2428 bits
+  x_31864  denom = 1   numerator 2428 bits
+
+blocking coordinates: 5
+
+--- are the four conditions independent? residues of each numerator mod its denominator
+  x_642     denom 22 bits (== p: False)  numerator mod denom = 21 bits, zero: False
+  x_1329    denom 256 bits (== p: True)  numerator mod denom = 254 bits, zero: False
+  x_9413    denom 256 bits (== p: True)  numerator mod denom = 255 bits, zero: False
+  x_10903   denom 256 bits (== p: True)  numerator mod denom = 253 bits, zero: False
+  x_17325   denom 278 bits (== p: False)  numerator mod denom = 277 bits, zero: False
+
+--- relations among the residues (all taken mod p where the denominator is p)
+  x_1329 vs x_9413: equal=False  negatives=False  ratio mod p = 746608963517885930510048984197..
+  x_1329 vs x_10903: equal=False  negatives=False  ratio mod p = 967752408798772859134039356794..
+  x_9413 vs x_10903: equal=False  negatives=False  ratio mod p = 114823240251358181107720441789..
+
+--- the non-p denominator
+  x_642 denom = 2458959 (22 bits)
+     gcd(denom, p) = 1
+     small factors: [3]  cofactor 20 bits
+     cofactor == p: False   p | denom: False
+  x_17325 denom = 284727999958901794582548685725978209206968908223438855709900581314503500195397778817 (278 bits)
+     gcd(denom, p) = 115792089237316195423570985008687907853269984665640564039457584007908834671663
+     small factors: [3]  cofactor 276 bits
+     cofactor == p: False   p | denom: True
+
+--- what the conditions mean structurally
+columns divisible by p:
+  x_642    entries [23, 1]  all p-divisible: False
+  x_1329   entries [256]  all p-divisible: True
+  x_9413   entries [256]  all p-divisible: True
+  x_10903  entries [256]  all p-divisible: True
+  x_17325  entries [256]  all p-divisible: True
+  x_28730  entries [1, 1]  all p-divisible: False
+  x_29854  entries [1, 1]  all p-divisible: False
+  x_31864  entries [1, 1]  all p-divisible: False
+DONE

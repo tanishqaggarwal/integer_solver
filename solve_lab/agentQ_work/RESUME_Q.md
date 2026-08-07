@@ -204,11 +204,16 @@ that the selector logic can realise an arbitrary subset of leaves.  So the exist
 This is a strictly smaller and different gap than the one I flagged, but it is real and it is
 load-bearing.  Do not report the existence result as unconditional.
 
-## 13. ON THE CROSS-MODEL TENSION (recorded, not adjudicated)
+## 13. ON THE CROSS-MODEL TENSION (RETRACTED BY ITS AUTHOR - no longer live)
+A residual-side exhaustion result briefly appeared to contradict the existence claim.  Its author
+retracted it: the closure was **base-local**, not global (its base configuration had two selectors
+already on, so a single-selector configuration was three flips away, and configurations generated
+outside the BFS's reach landed outside the closed image).  Nothing in it forbids a satisfying
+assignment.  I record the retraction and take no credit for it; section 11 was measured on its own
+merits and does not depend on this.  For the record, the measurement I ran anyway:
+
 My model predicts the root value is essentially unconstrained: for 300 random **weight-128**
 configurations, the fold equalled `k*G`, was on the curve, and gave **300 distinct values**
 (300/300).  Under the fold model the reachable set of root values is all of Z/N, so no genuine
-*global* closure at a few dozen tuples can exist.  But the honest reading of section 12 is that if
-another agent's exhaustion turns out to be global, the place to look is now the **routing layer**,
-not the stage law — that link is measured and solid.  I make no claim about whether that
-exhaustion is local.
+*global* closure at a few dozen tuples can exist.  Section 12 still stands on its own: the remaining
+unverified link in my chain is the **routing layer**, not the stage law.
