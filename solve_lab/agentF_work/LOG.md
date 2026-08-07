@@ -111,3 +111,45 @@ failing equations".  Each prime/prime-power is checkpointed to its own JSON as i
   the term surjective there.
 => **The integer lift is obstructed at exactly ONE modulus, p, and only at level p^1.**
    Everywhere else the system is not merely solvable but solvable in ~3 seconds by naive propagation.
+
+## 10. Handle structure validated at scale
+Restricting to the genuine divisibility shapes among the 9,032 residual atoms -- 927 of the form
+`A - (M * x_h)` and 3,201 of the form `A - x_h` -- and evaluating x_h under 4 independent random draws of
+all 8,747 free inputs: **3,173 of them have x_h ≡ 0 (mod p) in every draw**.  The 955 exceptions are all
+mis-classified boolean atoms `(X*X)-X` (788) and wire copies `(X-X)` (167), not handles.  In particular
+both unconditional constant pins and every chain row have p-multiple handles.
+=> The "every check is a congruence mod M*p with a free quotient" reading is confirmed structurally,
+   not just on the handful of atoms visible in the Jacobian.
+
+## 11. CRT reconstruction  (`crt.py`, per-prime vectors checkpointed in `crt_sols/`)
+Solved the full system independently modulo 20 distinct 7-digit primes (each: 0 nonzero atoms, 0 failing
+equations, ~3.5 s), then CRT-combined the 20 solution vectors coordinatewise into a single assignment
+modulo Q = product of the 20 primes, **Q of 399 bits**.
+Verification with the mod-Q engine: **0 nonzero residual atoms and 0 of 39,033 equations failing mod Q.**
+(That is exactly what the ring isomorphism Z/Q = prod Z/q_i predicts, and it confirms the per-prime solves
+are genuine.)  So the system has solutions modulo arbitrarily large integers coprime to p.
+Taking balanced representatives of the mod-Q solution gives an integer assignment scoring **38,991/39,033**
+under checker.py (`crt_balanced.json`) -- i.e. CRT reconstruction alone does NOT lift, because the mod-q
+solution spaces are enormous and the 20 chosen solutions are mutually unrelated.  A lift would need the
+per-prime solves steered toward a common integer candidate, and the only thing that pins such a candidate
+is the mod-p condition, which is exactly the obstructed one.
+
+## 12. Summary of the multi-modular picture
+- Solvable, in seconds, modulo: every prime tested from 3 to 2^255-19; every prime power tested
+  (2^100, 3^80, 5^40, 7^25, 11^20, 13^20, 1009^8, 65537^4, 1000003^3, (2^31-1)^2); every handle
+  multiplier M tested; and modulo a 399-bit composite built by CRT.
+- Obstructed at exactly one modulus, p, at level 1 only (a mod-p solution lifts to Z with no further
+  work -- demonstrated by `relaxed_pin.json`).
+- The mod-p condition itself is a single degree-3 congruence tying four of the file's 509 literal pin
+  constants to the two 296-bit literals K1, K2; all 13,884 admissible constant combinations were checked
+  and none satisfies it.  No infeasibility of the instance is claimed -- see the ker(M) caveat in §7.
+
+## 13. Deliverables (all checker-verified)
+| file | score | note |
+|---|---|---|
+| `solve_lab/best/new_instance_partial_39026.json` | 39,026 | shared baseline, re-verified by me |
+| `agentF_work/best_F_39024.json` | 39,024 | best produced by my own pipeline end-to-end |
+| `agentF_work/F_frame.json` | 39,023 | 2 nonzero atoms + break relocated into a definition |
+| `agentF_work/best_F_39022.json` | 39,022 | minimal residual: only 2 nonzero atoms in the whole system |
+| `agentF_work/crt_balanced.json` | 38,991 | balanced representative of the 399-bit mod-Q solution |
+| `agentF_work/relaxed_pin.json` | 39,014 | everything closes over Z once the two constant pins are relaxed |

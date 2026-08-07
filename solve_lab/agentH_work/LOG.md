@@ -52,3 +52,32 @@ search (smallest-atom-support first, freeze each assigned variable).
 with exactly 4 nonzero atoms {30980, 30982, 36185, 40812}.
 Beam search over repairs (`beam2.py`) plateaus at 39,012 and oscillates — the constructive closer
 strictly dominates it.
+
+## Step 6 — reframed task: integer relations over the constant table (all NEGATIVE, measured)
+512 load-pin constants (`leafpins.json`), all distinct mod p, gcd 1.
+- none equals C1 or C2 mod p; none equals C1±K or C2±K mod p
+- all 130,816 pairwise differences: none equals C1 or C2 mod p
+- all 130,816 pairwise sums:       none equals C1 or C2 mod p
+- the additive-subset-sum formulation would have density 256/log2(p) = 1.000, the regime where
+  lattice/low-density relation-finding provably does not apply — AND it is the wrong formulation
+  anyway: the measured combination law is the NONLINEAR pair of polynomial identities in Step 4.
+
+## Step 7 — frame B: the 39,026 witness reconstructed, then attacked with my extra knobs
+`import26.py`: forward-evaluating the witness's free-input values in my frame gives 39,020 and
+differs from the witness in EXACTLY 4 variables: x_642, x_28730, x_29854, x_31864.
+`frameB.py`: detaching those 4 (8,751 free inputs, 12,270 checks) reproduces the witness EXACTLY —
+score 39,026, 7 nonzero atoms {22229,22230,35758..35762}, 7 failing, 0 variables differing.
+`climb.py`: exhaustive single-move scan over ALL 8,751 free inputs x {±1,±2,±p,±2p} = 70,008 moves,
+plus every exact atom-solving root over the 7 nonzero atoms' supports.  **NO improvement.**
+This covers the 1,478 free inputs the lab's prior frame did not have.
+`comp.py`: region = 12 equations, 5 satisfied, 7 failing; exactly ONE atom (22231) has its whole
+equation footprint inside the region and NO zero-collateral free input moves it; exactly NINE
+zero-collateral knobs exist — {642, 1329, 8731, 9118, 9413, 10903, 17325, 29854, 31864}.
+Exhaustive pair scan over those knobs x {±1,±p}: 576 pairs, best still 7 failing.
+**This independently reproduces the lab's region census from a completely different orientation.**
+
+## Step 8 — placement census in my own (non-witness) frame
+`place.py`: all four ways of assigning the two congruence defects to atoms give
+region == failing exactly (no cancellation at all): 15, 16, 22, 22 -> best 39,018.
+`region.py`: that region admits ZERO compensator atoms.  My own frame's placement is strictly
+worse than the witness's, and the witness's is the one my scans confirm at 7.

@@ -168,3 +168,37 @@ integer point's violated set D to contain a code support.
 such atoms.  Setting b = 1 loads  x_T = (H + c2*w)/s ; b = 0 loads 0.  These are the
 instance's conditional constant loads; only their status as constants of EQUATIONS.txt is
 used anywhere in this log.
+
+## EQUATION-LEVEL (OFF-MANIFOLD) WINDOWS — the assumption everyone shared, removed
+My earlier windows took A = atoms of the failing equations and then required the FOREIGN
+atoms of every modelled equation to stay zero.  That is exactly the suppressed cancellation
+freedom.  The fix is the EQUATION closure: A := atoms(eqs(A)), repeated.  Every atom of
+every modelled equation is then itself modelled and free to be nonzero and to cancel.
+
+`eqwin.py` / `eqwin2.py` / `boundary.py`, around the deliverable:
+
+  lev  atoms  eqs  nontrivial rows  knobs  rank  Qincons  violated  vars  excluded
+   0     24    27        15            9     9      0        7        56     47
+   1     51    55        32           15    15      0        7       118    103
+   2     88    94        68           32    32      0        7       202    170
+   3    125   125        91           58    58      0        7       286    228
+   4    163   162       113           80    80      0        7       374    294
+   5    199   198       155          107   107      0        7       456    349
+   6    235   230       163          109   109      0        7       537    428
+
+* Every window is EXACTLY AFFINE with no rescue needed: **zero atoms are nonlinear in the
+  knobs at any level**, so no equation is approximated and no knob is dropped to preserve
+  linearity.  All 428 excluded variables at level 6 are excluded for one reason only —
+  they touch an atom outside the window.  That is the theorem's entire boundary.
+* rank(N) = #knobs and Q-consistency hold at EVERY level, so the uniqueness lemma applies
+  unchanged: the unique rational solution is non-integral, hence every integer point's
+  violated set must contain a code support.
+* The violated count is 7 at every level.  Admitting 211 extra atoms as free cancellers
+  (24 -> 235) and 100 extra knobs (9 -> 109) does not produce a single cheaper point.
+
+## The cancellation lever does not exist where it would matter (`cancel.py`)
+**3,235 atoms occur in exactly one equation, and NONE of them carries a private handle**
+(granularity-1: 0, granularity-p: 0).  So no single-equation atom is independently
+settable anywhere in the instance.  Every atom appearing in the 7 failing equations occurs
+in 6-14 equations; none is a single-equation atom.  Zero equations in the whole instance
+contain a freely-settable single-equation atom.

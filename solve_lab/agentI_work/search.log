@@ -1,0 +1,44 @@
+base support: |E|=12 knobs=7 minfail(greedy)=7
+adjacent atoms: 26  cheapest new-equation counts: [1, 2, 2, 3, 3, 4, 4, 4, 4, 5]
+  +a 23434 newEq=  1 |E|= 13 knobs= 8 minfail=7
+  +a 23435 newEq=  2 |E|= 14 knobs= 8 minfail=7
+  +a 36224 newEq=  2 |E|= 14 knobs= 7 minfail=7
+  +a 23436 newEq=  3 |E|= 15 knobs= 7 minfail=7
+  +a 36223 newEq=  3 |E|= 15 knobs= 8 minfail=7
+  +a  6256 newEq=  4 |E|= 16 knobs= 7 minfail=7
+  +a 23437 newEq=  4 |E|= 16 knobs= 8 minfail=7
+  +a 23438 newEq=  4 |E|= 16 knobs= 7 minfail=7
+  +a 36222 newEq=  4 |E|= 16 knobs= 7 minfail=7
+  +a 36221 newEq=  5 |E|= 17 knobs= 8 minfail=7
+  +a  6255 newEq=  6 |E|= 18 knobs= 8 minfail=7
+  +a 20290 newEq=  6 |E|= 18 knobs= 8 minfail=7
+  +a 20291 newEq=  7 |E|= 19 knobs= 7 minfail=7
+  +a 20292 newEq=  8 |E|= 20 knobs= 8 minfail=7
+  +a  6253 newEq=  9 |E|= 21 knobs= 8 minfail=7
+  +a  6254 newEq=  9 |E|= 21 knobs= 7 minfail=7
+  +a 20293 newEq=  9 |E|= 21 knobs= 7 minfail=7
+  +a 20294 newEq=  9 |E|= 21 knobs= 8 minfail=7
+  +a 20295 newEq=  9 |E|= 21 knobs= 7 minfail=7
+  +a 11772 newEq= 10 |E|= 22 knobs= 8 minfail=7
+  +a 11773 newEq= 10 |E|= 22 knobs= 7 minfail=7
+  +a  6250 newEq= 11 |E|= 23 knobs= 7 minfail=7
+  +a  6252 newEq= 11 |E|= 23 knobs= 7 minfail=7
+  +a  6251 newEq= 12 |E|= 24 knobs= 8 minfail=7
+  +a 11774 newEq= 12 |E|= 24 knobs= 8 minfail=7
+  +a 11775 newEq= 13 |E|= 25 knobs= 7 minfail=7
+
+pairs among the 8 cheapest additions:
+  +a23434,a23435 |E|= 14 knobs= 9 minfail=7
+  +a23434,a36224 |E|= 15 knobs= 8 minfail=7
+  +a23434,a23436 |E|= 15 knobs= 8 minfail=7
+  +a23434,a36223 |E|= 16 knobs= 9 minfail=7
+  +a23434,a6256 |E|= 17 knobs= 8 minfail=7
+  +a23434,a23437 |E|= 16 knobs= 9 minfail=7
+  +a23434,a23438 |E|= 16 knobs= 8 minfail=7
+  +a23435,a36224 |E|= 16 knobs= 8 minfail=7
+  +a23435,a23436 |E|= 15 knobs= 9 minfail=7
+  +a23435,a36223 |E|= 17 knobs= 9 minfail=7
+  +a23435,a6256 |E|= 18 knobs= 8 minfail=7
+  +a23435,a23437 |E|= 16 knobs= 9 minfail=7
+  +a23435,a23438 |E|= 16 knobs= 8 minfail=7
+  +a36224,a23436 |E|= 17 knobs= 7 minfail=7

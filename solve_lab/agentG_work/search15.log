@@ -1,0 +1,6 @@
+all rows: rank 11, cost-free kernel dim 4
+deliverable direction: affine cost 7 ; cubics common root [(fmpz_mod(1, 1157920892373161954235709850086879078532699846
+
+distinct directions with affine cost <= 8 found: 0
+cost histogram: {}
+BEST with a cubic common root: cost none

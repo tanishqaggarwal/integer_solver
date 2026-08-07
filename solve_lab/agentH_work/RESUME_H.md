@@ -1,49 +1,58 @@
-# Agent H — RESUME (decomposition angle).  STOPPED by coordinator.
+# Agent H — RESUME.  Integer/polynomial analysis of EQUATIONS.txt.
 
 ## Best verified score
-39,026 — the inherited deliverable `solve_lab/best/new_instance_partial_39026.json`, re-verified by me
-(`satisfied 39026/39033`, failing [12231,12270,12350,14584,18673,22044,29125]).  I did NOT beat it.
-My own best built from scratch: **39,018** (`scan1.py`, any single bit; 4 nonzero atoms
-{30980,30982,36185,40812}); also 39,014 saved at `E_39014_542_1438.json`.  Nothing of mine >= 39,026.
+**39,026 / 39,033** — `solve_lab/best/new_instance_partial_39026.json`, re-verified by me with
+`solve_lab/checker.py` (failing [12231,12270,12350,14584,18673,22044,29125]).  I did not beat it.
+I *did* reconstruct it exactly inside my own frame (see frame B below), which makes it attackable
+with 1,478 free inputs the lab's earlier frame did not expose — and that attack came back negative.
+My own from-scratch best is 39,018 (`scan1.py`, any single selector).
 
-## THE FRAME (main durable result; see DECOMPOSITION.json)
-Orient every atom of syntactic form `x_t - rest` as the definition `x_t := rest`.
-=> gate DAG is **ACYCLIC**, covers all 38,748 vars, **8,747 free inputs**, 30,001 defined,
-12,266 check atoms.  (Prior sessions' frame: 7,273 free inputs, 1,800 vars in cycles.)
-Forward eval from ALL-ZERO free inputs scores **39,005** with only **5** nonzero check atoms.
-Files: model.py -> fwd2.py -> support.py -> ev.py (exact) / fast.py (incremental, 1.4 ms/move).
+## Durable assets (all kept)
+- `model.py` — independent parse, 42,267 atoms / 39,033 equations.
+- `fwd2.py` — **the frame**: orient every atom of syntactic form `x_t - rest` as `x_t := rest`.
+  ACYCLIC over all 38,748 variables; 8,747 free inputs, 30,001 defined, 12,266 checks, NO cycles.
+  Forward eval from all-zero free inputs = **39,005** with only 5 nonzero check atoms.
+- `frameB.py` — parametrised frame; `Frame([642,28730,29854,31864])` reproduces the 39,026 witness
+  bit-for-bit (0 variables differing) with 8,751 free inputs.
+- `fast.py` / `frameB.State` — incremental exact evaluator, 1.4 ms per move.
+- `close2.py` — bottom-up cascade closer: closes the entire pin tree in ~32 exact assignments with
+  NO search (smallest-atom-support first, freeze each assigned variable).  `close3.py` adds an
+  indirect phase.  This constructs rather than searches, and strictly dominates beam search (39,012).
+- `DECOMPOSITION.json` — the graph census.
 
-## DECOMPOSITION MEASUREMENTS (DECOMPOSITION.json)
-- eq-var bipartite graph: 1 component.  atom-eq graph: 1 giant + 3,234 singletons.
-- Free-input hypergraph (hyperedge = equation): **1 component**, 8,747 vars, 18,248 equations.
-  20,785 equations are identically satisfied by forward eval.
-- Var free-support mean 2.5, max 259; equation free-support mean 5.9, max 282.
-- Residual closure = 6,007 free inputs / 6,026 checks / 9,244 equations.  **No small separator.**
-
-## WHAT THE INSTANCE IS (decompiled, mine, independent)
-Residual = exactly 3 conditions: `OR(256 bits) = 1`, `x_37892 = C1 (mod p)`, `x_13682 = C2 (mod p)`.
-The circuit is a binary MUX TREE over 256 bits.  Each bit b carries a leaf point P_b = its two
-load-pin constants.  At a node where both children fire the free drivers (X3,Y3) are UNPINNED
-(gate `1-L*R`) but three checks of rank 2 force the chord identities
-`(X1+X2+X3+K)(X2-X1)^2 = (Y2-Y1)^2`, `(Y3+Y1)(X2-X1) = (Y2-Y1)(X1-X3)` mod p.
-=> the tree computes an **elliptic-curve multi-addition**.
-Curve (shifted x = X + K/3): y^2 = x^3 + B, B = 6401953368003087640844319876221082905875170063455428218598732582039359852479 4,
-p = 2^256-2^32-977, group order = secp256k1's n, PRIME.  All 256 leaf points and the target are on it.
-**255 of 256 points satisfy 2*P_i = P_j: one doubling chain of length 256 starting at bit x_2779.**
-So P_i = 2^i G and the instance is satisfiable iff `sum_{i in S} 2^i * G = P*`, i.e. **S is the binary
-expansion of the discrete logarithm of P* base G on a 256-bit prime-order curve.**
-No subset of size <= 4 hits P* (exhaustive).
+## Established, in raw terms
+1. **Decomposition hypothesis REFUTED** (my own angle): eq-var graph is one component; the
+   free-input hypergraph is one component (8,747 vars / 18,248 equations); 20,785 equations are
+   identically satisfied by forward eval; the residual closure is 6,007 free inputs / 9,244
+   equations.  No separator, no block decomposition exists.
+2. **Residual = three conditions**: `x_9274 = 1`, `x_37892 = C1 (mod p)`, `x_13682 = C2 (mod p)`,
+   p = 115792089237316195423570985008687907853269984665640564039457584007908834671663.
+3. **Combination law of the 512 load-pin constants, MEASURED**: for two active selectors the
+   delivered pair satisfies, over Z/p,
+   `(X1+X2+X3+K)(X2-X1)^2 = (Y2-Y1)^2` and `(Y3+Y1)(X2-X1) = (Y2-Y1)(X1-X3)`,
+   K = 97553848499418123410591666447050222001188385549510401465815187079080512838891.
+   56/56 confirmations with a 1-off control failing 56/56.  Over Z one extra obligation appears,
+   `2264251 | (x_15286/p)` with 2264251 = 11*43*4787; solving it for one lift parameter closes all
+   three checks EXACTLY over Z (3/3).  **The constants combine nonlinearly — no linear relation
+   among them can express the residual.**
+4. **Integer-relation search over the constant table: negative.** 512 constants, all distinct mod p,
+   gcd 1; no single, no pairwise sum, no pairwise difference equals C1 or C2 (or C1±K, C2±K) mod p.
+   The additive formulation would sit at density 1.000, where lattice relation-finding does not apply.
+5. **39,026 is locally rigid, confirmed from an independent orientation**: region = 12 equations,
+   5 satisfied; exactly one atom (22231) lies wholly inside it and no zero-collateral knob moves it;
+   exactly nine zero-collateral knobs exist {642,1329,8731,9118,9413,10903,17325,29854,31864}.
+   70,008 single moves and 576 zero-collateral pairs: no improvement.
 
 ## Re-entry
 cd solve_lab/agentH_work
-python3 model.py; python3 fwd2.py; python3 support.py   # rebuild caches (~1 min)
-python3 close2.py <u-bit> <w-bit>   # construct+close a branch; python3 scan1.py  # 39,018 states
-python3 ec.py                       # curve/points; expo.json = bit -> exponent i in P_i = 2^i G
+python3 model.py; python3 fwd2.py; python3 support.py     # rebuild caches (~1 min)
+python3 frameB.py     # reproduce the 39,026 witness exactly in the detached frame
+python3 close2.py <u-selector> <w-selector>   # construct + close a branch with no search
 
 ## Single next experiment
-Test whether the discrete log k is weak before conceding: (a) BSGS for k < 2^44,
-(b) meet-in-the-middle for Hamming weight <= 6 over the 256 exponents, (c) runs of consecutive
-set bits (k = 2^a(2^m-1)), (d) k congruent to a small multiple of a subgroup-free structure.
-If all fail, 39,033 requires a 256-bit ECDLP and the correct deliverable stays 39,026.
-UNVERIFIED: my 2-bit test of "delivered point == P_b1 + P_b2" did not confirm, because the closer
-left the three EC checks nonzero (it had the drivers frozen).  Re-run with X3,Y3 unfrozen.
+The only untried lever with real headroom: my closer builds states with FEW nonzero atoms
+(4 at 39,018) while the witness wins with SEVEN (cancellation inside a 12-equation region).
+Run the closer *backwards*: choose a target region of <= 12 equations first, enumerate atom sets
+whose footprint lies inside it, and have close2 construct the atom VALUES to order — instead of
+closing greedily and accepting whatever region falls out.  That is the one thing my constructive
+tool can do that no search in this lab has done.

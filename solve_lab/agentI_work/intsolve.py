@@ -8,7 +8,8 @@ from math import gcd
 
 SMALL_PRIMES = (2, 3, 5, 7, 11, 13, 17, 19, 23, 1000003)
 P256 = 2**256 - 2**32 - 977
-FILTER_PRIMES = SMALL_PRIMES + (P256, 7376877)   # 7376877 = 3*3*819653? just used as modulus
+# prime factors of 7376877 (a modulus that appears in the residual rows) plus p
+FILTER_PRIMES = SMALL_PRIMES + (819653, P256)
 
 
 def _rank_mod(rows, q):

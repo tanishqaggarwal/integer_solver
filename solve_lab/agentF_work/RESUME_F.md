@@ -2,7 +2,7 @@
 
 ## Scores
 - Shared baseline **39,026** re-verified by me (`solve_lab/best/new_instance_partial_39026.json`).
-- My own pipeline's best: **39,024** = `agentF_work/F_best.json` (checker-verified, 9 failing).
+- My own pipeline's best: **39,024** = `agentF_work/best_F_39024.json` (checker-verified, 9 failing).
   Also `best_F_39022.json` (39,022, only 2 nonzero atoms) and `F_frame.json` (39,023).
 - Nothing above 39,026 yet.
 
@@ -37,3 +37,15 @@
    solution (balanced representatives) -- quantify the size gap.
 3. Compute rank(M) (or at least test ker(M) != 0) -- that is the only remaining gate on the all-atoms-zero
    argument, and the only route to a residual that cancels instead of failing.
+
+## Multi-modular results (new)
+- FULL system solved (0 broken atoms, 0 failing equations) modulo: all primes < 110, 1009, 10007, 100003,
+  1000003, 10000019, 10^9+7, 2^31-1, 2^61-1, 2^89-1, 2^127-1, 2^255-19; prime powers 2^64, 2^100, 3^40,
+  3^80, 5^10..5^40, 7^25, 11^20, 13^20, 1009^8, 65537^4, 1000003^3, (2^31-1)^2; and the handle multipliers
+  M themselves.  Checkpoints in `modm_results/`.
+- CRT of 20 independent 7-digit-prime solutions gives a solution modulo a **399-bit** composite Q with
+  0 failing equations mod Q (`crt.py`, vectors in `crt_sols/`, report `crt_report.json`).
+  Its balanced integer representative scores 38,991 (`crt_balanced.json`) -- CRT alone does not lift.
+- Handle structure validated at scale: 3,173 genuine divisibility atoms all have handle ≡ 0 mod p under
+  4 random draws of all free inputs.
+- **Obstruction is at exactly one modulus, p, at level p^1 only.**
