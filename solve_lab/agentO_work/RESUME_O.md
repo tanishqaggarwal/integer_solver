@@ -192,3 +192,13 @@ conditions; a region built on unit-coefficient atoms would not have them.
 - Single- and double-atom growth of the witness region: all fail on eq29125 mod p.
 - (a,b) pairs through `full11.solve_pair`: the first 68 all give **39,013** with residual
   exactly `{20649,20652,32148}`, independent of b.  Low information at that granularity.
+
+## 7. Added in check-in 26 round (files)
+`rate.py` (exact rational solution, denominators), `absorb.py` (H's x_8731/x_9118 in my model —
+makes it worse, |E| 13→39/46, eq29125 still blocks: their shift is not what eq29125 needs),
+`structure.py` (sensitivity of the residues to boundary data; the mod-p part has full rank 4,
+the small-modulus extraction there is unreliable and is superseded by `invert.py`),
+`invert.py` (support search), `tunable.py` (which constants a configuration can move),
+`hitrate.py` (**the rate**), `bscan.py` (**zero variance across 35 configurations**),
+`target.py` + `target.json` (the exact inverted target, verified end-to-end).
+Logs for all of these are in `runs/`.
