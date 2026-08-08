@@ -1,0 +1,1 @@
+DONE data/d_c0.txt sz=4 range=[26,36) n=182041520 zero=0 117.6s

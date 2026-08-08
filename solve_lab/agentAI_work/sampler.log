@@ -55,3 +55,7 @@
 23:33:36 availMB=10459 aaMB=11277 xMB=5159 rot=46 shards=276 hits=0 A(30892)=alive B(6881)=DEAD dregRSSmb=0 memAvailMB=13449 load=14.88
 23:35:37 availMB=10459 aaMB=11277 xMB=5159 rot=47 shards=282 hits=0 A(30892)=alive B(6881)=DEAD dregRSSmb=0 memAvailMB=13768 load=13.86
 23:37:47 availMB=10459 aaMB=11277 xMB=5159 rot=48 shards=288 hits=0 A(30892)=alive B(6881)=DEAD dregRSSmb=0 memAvailMB=4 load=45.27
+23:56:43 availMB=10455 aaMB=11277 xMB=5159 rot=49 shards=294 hits=0 A(30892)=alive B(6881)=DEAD dregRSSmb=0 memAvailMB=13832 load=16.97
+23:58:43 availMB=12727 aaMB=11277 xMB=2895 rot=51 shards=306 hits=0 A(30892)=alive B(6881)=DEAD dregRSSmb=0 memAvailMB=14102 load=13.73
+00:00:43 availMB=10965 aaMB=11277 xMB=4647 rot=52 shards=312 hits=0 A(30892)=alive B(6881)=DEAD dregRSSmb=0 memAvailMB=13171 load=13.97
+00:02:44 availMB=10163 aaMB=11277 xMB=5462 rot=53 shards=318 hits=0 A(30892)=alive B(6881)=DEAD dregRSSmb=0 memAvailMB=14123 load=12.96

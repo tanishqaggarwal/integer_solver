@@ -111,3 +111,19 @@ outer 4: global nonzero 9, violated c-conditions 8, nonzero handle-less 1
      round 0: |group|=1 (0 exact) wires=1 new pairs=0
      folding in collateral: ['((x37880*x1991)-(4254277*x27861))']
      round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     *** (x4230 += p*14523997480163 , x12522 += p*12101655415886) |group|=2  global 9 -> 8
+outer 5: global nonzero 8, violated c-conditions 7, nonzero handle-less 1
+   single-wire pass over 24 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x14928*(x9312-4284318239841522995576896241804596420123  c=7904013
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x30551*x29453)-(10898743*x6881))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     *** (x9312 += p*79614386680029 , x11247 += p*47812866119716) |group|=2  global 8 -> 7
+outer 6: global nonzero 7, violated c-conditions 6, nonzero handle-less 1
+   single-wire pass over 23 wires (max atoms/wire 1)
+   handle-less pass: 1 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x23238-x24292)-(10937191*x33421))  c=10937191
+     round 0: |group|=1 (0 exact) wires=2 new pairs=1
