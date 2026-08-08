@@ -77,12 +77,12 @@ R(a,b,z) = a·b − 2·a·z − 2·b·z + 3·z .
 
 Proof by the 8‑row truth table (also machine‑checked, §5 unit test (b)):
 
-| a | b | z=0 | z=1 |
-|---|---|-----|-----|
-| 0 | 0 |  0  |  3  |
-| 0 | 1 |  0  |  1  |
-| 1 | 0 |  0  |  1  |
-| 1 | 1 |  0  | −1+? |
+| a | b | R(a,b,0) | R(a,b,1) | argmin z = a·b |
+|---|---|----------|----------|----------------|
+| 0 | 0 |    0     |    3     |  z=0 ✓ |
+| 0 | 1 |    0     |    1     |  z=0 ✓ |
+| 1 | 0 |    0     |    1     |  z=0 ✓ |
+| 1 | 1 |    1     |    0     |  z=1 ✓ |
 
 For `a=b=1`: `R = 1 − 2z − 2z + 3z = 1 − z`, so `z=0→1`, `z=1→0`. In every row the
 minimum over `z` is `0`, attained exactly at `z = a·b`; every other value is `≥1`.

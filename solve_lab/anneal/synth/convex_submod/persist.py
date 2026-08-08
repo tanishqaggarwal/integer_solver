@@ -79,42 +79,73 @@ def probe_fix(Q, fixed=None, candidates=None, rounds=3):
     return dom
 
 
-# ---------------------------------------------------- exact ceiling (enumerate)
-def ground_states(p, **kw):
-    """every (full variable assignment) ground state, plus Q,A,B,C."""
+# ---------------------------------------------------- exact ceiling (replay)
+# The encoding is a faithful sum-of-squares + Rosenberg-AND Hamiltonian, so for
+# any (a,b,c) with c == a*b (mod p) there is exactly ONE zero-energy completion
+# (every ancilla -- quotient, carries, adders, ANDs -- is a deterministic
+# function computed by Q.witness).  Enumerating those completions over all valid
+# triples therefore enumerates every ground state, in O(p * 2^s) replays instead
+# of an exponential DFS.  (Cross-checked against verify.zero_states at p=13.)
+def make(p, **kw):
     Q, A, B, C, _ = verify.make(p, **kw)
-    xs = verify.zero_states(Q)
-    return Q, A, B, C, xs
+    return Q, A, B, C
 
 
-def ceiling(Q, xs, restrict=None):
-    """variables constant over the ground-state list xs (optionally the subset
-    consistent with the partial assignment `restrict`). Returns dict v->val."""
-    if restrict:
-        xs = [x for x in xs if all(x[v] == val for v, val in restrict.items())]
-    if not xs:
-        return {}, 0
-    n = Q.n
-    seen0 = [False] * n
-    seen1 = [False] * n
-    for x in xs:
-        for v in range(n):
+def _triples(p, s, pin_a=None):
+    """all (a,b,c): c==ab mod p, c<2^s.  pin_a fixes low bits of a: {bit:val}."""
+    for a in range(p):
+        if pin_a and any(((a >> t) & 1) != v for t, v in pin_a.items()):
+            continue
+        for b in range(p):
+            base = a * b % p
+            c = base
+            while c < (1 << s):
+                yield a, b, c
+                c += p
+
+
+def _seen(Q, A, B, C, p, s, pin_a=None):
+    seen0 = bytearray(Q.n)
+    seen1 = bytearray(Q.n)
+    cnt = 0
+    for a, b, c in _triples(p, s, pin_a):
+        inp = {}
+        for t, v in enumerate(A.bits):
+            inp[v] = (a >> t) & 1
+        for t, v in enumerate(B.bits):
+            inp[v] = (b >> t) & 1
+        for t, v in enumerate(C.bits):
+            inp[v] = (c >> t) & 1
+        x, _ = Q.witness(inp, {'_a': a, '_b': b, '_c': c})
+        for v in range(Q.n):
             if x[v]:
-                seen1[v] = True
+                seen1[v] = 1
             else:
-                seen0[v] = True
-    fix = {v: (1 if seen1[v] else 0) for v in range(n)
+                seen0[v] = 1
+        cnt += 1
+    return seen0, seen1, cnt
+
+
+def ceiling(Q, A, B, C, p, s, pin_a=None):
+    """variables constant over ALL ground states (optionally those with the
+    given low bits of operand a pinned).  Returns (dict v->val, #states)."""
+    seen0, seen1, cnt = _seen(Q, A, B, C, p, s, pin_a)
+    fix = {v: (1 if seen1[v] else 0) for v in range(Q.n)
            if not (seen0[v] and seen1[v])}
-    return fix, len(xs)
+    return fix, cnt
 
 
-def verify_subset(fix, Q, xs, label=""):
-    """gate: every fixed var must hold that value in EVERY ground state."""
-    bad = []
-    for v, val in fix.items():
-        for x in xs:
-            if x[v] != val:
-                bad.append((v, val))
-                break
-    assert not bad, f"UNSOUND {label}: {bad[:10]}"
+def verify_subset(fix, Q, A, B, C, p, s, pin_a=None, label=""):
+    """gate: re-scan every ground state and assert each fixed var is constant."""
+    for a, b, c in _triples(p, s, pin_a):
+        inp = {}
+        for t, v in enumerate(A.bits):
+            inp[v] = (a >> t) & 1
+        for t, v in enumerate(B.bits):
+            inp[v] = (b >> t) & 1
+        for t, v in enumerate(C.bits):
+            inp[v] = (c >> t) & 1
+        x, _ = Q.witness(inp, {'_a': a, '_b': b, '_c': c})
+        for v, val in fix.items():
+            assert x[v] == val, f"UNSOUND {label}: var {v} expected {val} got {x[v]} at a={a},b={b},c={c}"
     return True
