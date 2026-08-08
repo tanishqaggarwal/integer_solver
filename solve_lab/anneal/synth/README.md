@@ -57,15 +57,45 @@ here. Full-precision, fully-connected Ising machines (Fujitsu DA, Toshiba SB)
 clear that wall, and then the *qubit* wall sets μ. Neither machine class brings
 256-bit into range: even a hypothetical 10⁶-qubit machine needs 2²²⁹ runs.
 
-## The two open levers (agents in `synth/mincost/`, `synth/solver/`)
+## The verdict: two walls, and a run count that will not drop
+
+`synth/solver/` settled the decisive question. The encoded landscape has **no
+gradient**: fixing all ancillas, a candidate one digit from the key has the same
+energy as one that differs in every digit (correlation 0.06). Parallel tempering
+and simulated bifurcation — the barrier-crossing solvers — do no better than SA,
+and nothing reaches the ground state past ~6-bit modular multiplies. The solution
+is a needle in a flat haystack.
+
+That changes the run-count arithmetic. The interval split gives **outer runs =
+2^(b-mu)**, and shrinking the encoding raises mu, cutting outer runs — real, and
+the encoding is now ~3x smaller (squeeze/) at the arithmetic floor. But with no
+gradient a single anneal finds a sub-instance's needle only by chance, so
+**anneals per sub-instance ~ 2^mu**, and
+
+> total anneals = 2^(b-mu) . 2^mu = 2^b,  invariant in mu.
+
+Shrinking the window trades outer runs for inner difficulty at a fixed product.
+The annealer gives **no speedup over classical brute force**. So there are two
+independent walls, either one fatal:
+
+1. **Size** (`squeeze/FINDINGS.md`): one 256-bit modmul needs >=4x a 4,400-qubit
+   machine in partial-product ancillas alone; the full ladder is 1.16e7 physical.
+2. **Landscape** (`synth/solver/FINDINGS.md`): even where a sub-instance fits, it
+   is a gradient-free needle search costing ~2^mu anneals.
+
+The run count cannot be pushed below the classical search bound. That is the
+honest, measured answer.
+
+## The encoding lever (still worth its floor: `synth/mincost/`)
+
+Completing the composition still gives the tightest per-window number (it lowers
+OUTER runs and decides what *fits*), even though it cannot beat the landscape:
 
 - **mincost**: compose the measured wins (Toom-3 modmul, pseudo-Mersenne
   reduction, MUX/AND-tree one-hot, signed digits, Montgomery x-only ladder) to
   shrink one window ~3×, which raises every μ above.
-- **solver**: whether a real annealer *converges* on this landscape at all. Prior
-  finding: plain SA cannot pass ~8-bit modular multiplies. If the true cap on
-  bits-per-run is solver reach rather than qubit count, that — not the table
-  above — is the binding constraint. This track charts it honestly.
+- **solver** (done): charted above — no gradient, no speedup. See
+  `synth/solver/FINDINGS.md`.
 
 ## Files
 

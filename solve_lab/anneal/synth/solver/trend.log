@@ -1,2 +1,15 @@
 SA hit-rate per restart vs mu (light budget, trend only)
  mu     n restarts  hits    p(hit)      1/p    2^mu
+  2   238      150     0     <.007     >150       4
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+  File "/home/user/integer_solver/solve_lab/anneal/synth/solver/model.py", line 115, in build_comb
+    xstar, _ = Q.witness(inp, wv0)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/user/integer_solver/solve_lab/anneal/qubo.py", line 272, in witness
+    val = fn(wv); wv[name] = val
+          ^^^^^^
+  File "/home/user/integer_solver/solve_lab/anneal/ladder.py", line 193, in <lambda>
+    dinv = Q.word(f"dinv{j}", s, lambda wv, j=j: pow(wv[f"d{j}"], -1, p))
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: base is not invertible for the given modulus
