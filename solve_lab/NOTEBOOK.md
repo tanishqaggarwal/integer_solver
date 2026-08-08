@@ -1826,3 +1826,31 @@ also why block-decomposition schemes cannot converge.
 Verdict: the encoding is exact and about 10^3-10^4x too large for current hardware,
 4-16 bits short on coupler precision, and on a landscape where annealing measurably
 does no better than guessing. No new information about the witness.
+
+## Session 13 — RNS reformulation: disjoint small QUBOs (S13_RNS_QUBO.md)
+
+Question: turn the instance into a problem that pulls apart into disjoint small QUBOs.
+
+Key move: the file is a PURE straight-line polynomial system over Z (operators only + - *,
+verified `grep -c '[/%]'` = 0). So reduction mod an integer is a ring homomorphism
+Z -> prod_j Z/q_j, and by CRT satisfaction over Z <=> satisfaction mod every q_j when
+prod q_j > 2 max|F_e|. The single dense mod-p QUBO (that REDUCED_PROBLEM.md §4 rejected on a
+512-bit coupler-precision wall) splits into ~20-60 INDEPENDENT systems that share no variables
+and have coefficients < q_j. Coupler width becomes a free parameter 2 log2 q, decoupled from p.
+
+Measured (s13/rns_reduce.py) on the verified 39,026 witness:
+  - satisfied eqs reduce to 0 mod every prime tested; 0 spurious failures anywhere.
+  - the 7-defect is caught exactly for every q >= 31 (q=7 misses 2, q=13 misses 1 -> a single
+    small prime is a probabilistic filter; the ensemble is exact; gcd of the 7 values = 1).
+  - CRT schedule to lift the 296-bit numbers: ~20 sixteen-bit primes (32-bit couplers) or
+    ~60 five-bit-scale moduli (10-bit couplers).
+
+Second axis (s9 DAG): within a prime, ~31,475 gate blocks, each a small QUBO on ~5 residues.
+s13/gate_qubo.py CERTIFIES a GF(7) multiply gate = 12-binary-variable QUBO whose ground states
+(E=0) are exactly the valid residue triples (sound + complete), couplers <= 6 bits.
+
+Net: §4's precision wall is an artifact of a single modulus, not of the instance; the honest
+per-prime object is a sparse network of small low-precision blocks + a brute-forceable 5-unknown
+residual core over GF(q). §4's surviving truth: the arithmetic content is pushed into the
+CRT-lift consistency step, not evaporated. Next: port the mod-p forward+advice solver to a
+generic small q, solve ~20 primes, CRT-lift the 13 numbers, verify with exact-Z checker.py.

@@ -1,5 +1,18 @@
 # RESUME — read this first
 
+## Session 13 — RNS reformulation into disjoint small QUBOs (read `S13_RNS_QUBO.md`)
+The instance is a **pure straight-line polynomial system over ℤ** (operators only `+ − *`,
+verified). So reduction mod an integer is a ring homomorphism `ℤ → ∏_j ℤ/q_j`, and by CRT
+satisfaction over ℤ ⇔ satisfaction mod every small prime `q_j` (when `∏ q_j > 2·max|F_e|`).
+This splits the single dense mod-`p` QUBO — the one `REDUCED_PROBLEM.md` §4 rejected on a
+512-bit coupler-precision wall — into **~20–60 disjoint systems** sharing no variables, with
+coefficients `< q_j`; **coupler width becomes a free parameter `2·log₂q`, decoupled from `p`.**
+Measured (`s13/rns_reduce.py`): on the 39,026 witness, satisfied eqs → 0 mod every prime,
+0 spurious; the 7-defect caught exactly for every `q ≥ 31`. `s13/gate_qubo.py` certifies a GF(7)
+multiply gate as a 12-bit QUBO (sound+complete ground states, ≤6-bit couplers). Deliverable
+39,026 unchanged. **Next: port the mod-`p` forward+advice solver to generic small `q`, solve
+~20 primes, CRT-lift the 13 numbers, verify with exact-ℤ `checker.py`.**
+
 ## Session 12 (Parts XXIV–XXV): the barrier arguments are withdrawn; the instance is thirteen numbers
 
 **Deliverable unchanged: 39,026 / 39,033, checker-verified** (`best/new_instance_partial_39026.json`,
