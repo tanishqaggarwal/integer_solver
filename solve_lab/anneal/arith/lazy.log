@@ -1,0 +1,14 @@
+(1) how much of a modular multiplication is the REDUCTION
+                                     variant       vars      couplers
+              A*B == W (mod p)      kdepth=0    101,683     3,083,744
+              A*B == Wfull over Z   kdepth=0     91,043     2,001,613
+                       --> reduction glue is    +10,640    +1,082,131   (10.5% of the multiply)
+              A*B == W (mod p)      kdepth=4     71,771     1,139,976
+              A*B == Wfull over Z   kdepth=4     58,044       599,782
+                       --> reduction glue is    +13,727      +540,194   (19.1% of the multiply)
+
+(2) what wider operands cost (this is the bill lazy reduction pays)
+       |A| x |B|       vars      couplers        AND  vs 256x256
+         256x256    101,683     3,083,744     65,536       1.00x
+         264x264    107,955     3,316,206     69,696       1.06x
+         288x288    127,765     4,056,149     82,944       1.26x

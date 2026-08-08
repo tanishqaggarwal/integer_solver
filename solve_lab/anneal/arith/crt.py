@@ -172,9 +172,9 @@ if __name__ == '__main__':
     what = sys.argv[1] if len(sys.argv) > 1 else 'cost'
     if what == 'check':
         print("exhaustive check of the CRT/Freivalds modmul gadget")
-        for s, b, ex in ((4, 4, True), (4, 5, True), (5, 5, True),
-                         (4, 3, False), (4, 4, False), (5, 4, False),
-                         (5, 5, False), (5, 6, False)):
+        for s, b, ex in ((4, 4, True), (4, 5, True), (4, 6, True),
+                         (4, 3, False), (4, 4, False), (4, 5, False),
+                         (4, 6, False), (4, 7, False)):
             r = exhaustive(s, b, ex)
             kind = "EXACT " if ex else "FREIVALDS"
             print(f"  s={s} b={b} {kind} r={len(r['mods'])} mods={r['mods']}: "

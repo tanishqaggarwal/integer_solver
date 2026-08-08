@@ -55,6 +55,23 @@ for w in (11, 13):
     GRID.append((f"semaev_w{w}", dict(kind='semaev', w=w, mux=True,
                                       onehot='tree', kdepth=4)))
 GRID.append(("basekara_w9", dict(w=9, mux=False, onehot='square', kdepth=4)))
+# --- round 2: re-tune the chunk knob (available to the BASELINE too), push w ---
+for ch in (32, 64, 128):
+    for w in (8, 9):
+        GRID.append((f"base_w{w}_c{ch}",
+                     dict(w=w, mux=False, onehot='square', kdepth=0, chunk=ch)))
+for w in (12, 13, 14, 15, 16):
+    GRID.append((f"fullc64_w{w}", dict(w=w, mux=True, onehot='tree', kdepth=4,
+                                       signed=True, chunk=64)))
+for w in (13, 14, 15):
+    GRID.append((f"unsc64_w{w}", dict(w=w, mux=True, onehot='tree', kdepth=4,
+                                      chunk=64)))
+GRID.append(("fullc64_w14_km24", dict(w=14, mux=True, onehot='tree', kdepth=4,
+                                      kmin=24, signed=True, chunk=64)))
+GRID.append(("fullc128_w14", dict(w=14, mux=True, onehot='tree', kdepth=4,
+                                  signed=True, chunk=128)))
+GRID.append(("semaevc64_w13", dict(kind='semaev', w=13, mux=True, onehot='tree',
+                                   kdepth=4, chunk=64)))
 
 
 if __name__ == '__main__':

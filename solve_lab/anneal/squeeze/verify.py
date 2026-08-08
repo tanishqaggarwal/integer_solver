@@ -85,20 +85,29 @@ def L1(p, **kw):
     return Q, n_ok, n_bad
 
 
-def L0(p, **kw):
-    """total brute force over every variable.  Only for p with <= ~22 vars."""
+def L0(p, cap=20, **kw):
+    """total brute force over every variable.  Only for tiny p."""
     square = kw.get('square', False)
     Q, A, B, C, _ = make(p, **kw)
     n = Q.n
-    assert n <= 24, f"too many variables for total brute force: {n}"
+    assert n <= cap, f"{n} variables > cap {cap}"
     s = p.bit_length()
+    off = Q.Q.get((), 0)
+    lin = [(m[0], c) for m, c in Q.Q.items() if len(m) == 1]
+    qua = [(m[0], m[1], c) for m, c in Q.Q.items() if len(m) == 2]
     zeros = set()
     for bitsx in range(1 << n):
-        x = [(bitsx >> i) & 1 for i in range(n)]
-        if Q.energy(x) == 0:
-            a = sum(x[v] << t for t, v in enumerate(A.bits))
-            b = sum(x[v] << t for t, v in enumerate(B.bits))
-            c = sum(x[v] << t for t, v in enumerate(C.bits))
+        e = off
+        for v, c in lin:
+            if (bitsx >> v) & 1:
+                e += c
+        for u, v, c in qua:
+            if (bitsx >> u) & 1 and (bitsx >> v) & 1:
+                e += c
+        if e == 0:
+            a = sum(((bitsx >> v) & 1) << t for t, v in enumerate(A.bits))
+            b = sum(((bitsx >> v) & 1) << t for t, v in enumerate(B.bits))
+            c = sum(((bitsx >> v) & 1) << t for t, v in enumerate(C.bits))
             zeros.add((a, b, c))
     truth = set()
     for a in range(1 << s):

@@ -23,12 +23,12 @@ def _prime(s, rnd):
 
 
 def window(s, w, mode='binary', mux=True, kdepth=0, kmin=8, signed=False,
-           onehot='square', chunk=16, seed=1):
+           onehot='square', chunk=16, seed=1, toom=0):
     """one comb window: table look-ups + 3 modular multiplications + linear words."""
     rnd = random.Random(seed)
     p = _prime(s, rnd)
     D = (1 << (w - 1)) if signed else (1 << w)
-    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin)
+    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin, toom=toom)
     Q = L.qb
     zero = lambda wv: 0
 
@@ -131,13 +131,13 @@ def semaev_step(s, w, mode='binary', mux=True, kdepth=0, kmin=8,
     return st
 
 
-def modmul(s, mode='binary', kdepth=0, kmin=8, chunk=16, seed=1, wa=None, wb=None):
+def modmul(s, mode='binary', kdepth=0, kmin=8, chunk=16, seed=1, wa=None, wb=None, toom=0):
     """cost of a single  A*B == W (mod p)  with |A| = wa, |B| = wb bits."""
     rnd = random.Random(seed)
     p = _prime(s, rnd)
     wa = wa or s
     wb = wb or s
-    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin)
+    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin, toom=toom)
     Q = L.qb
     zero = lambda wv: 0
     A = Q.word("A", wa, zero)

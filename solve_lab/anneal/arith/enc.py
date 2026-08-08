@@ -32,10 +32,11 @@ from qubo import QB                       # noqa: E402
 class Ladder2(Ladder):
     """Ladder + Karatsuba multiplication + a zero-ancilla one-hot MUX."""
 
-    def __init__(self, p, chunk=16, mode='binary', kdepth=0, kmin=8):
+    def __init__(self, p, chunk=16, mode='binary', kdepth=0, kmin=8, toom=0):
         super().__init__(p, chunk=chunk, mode=mode)
         self.kdepth = kdepth
         self.kmin = kmin          # stop recursing at or below this operand width
+        self.toom = toom          # how many TOP levels use Toom-3 instead of Karatsuba
         self._kc = 0
 
     # ---------------------------------------------------------- Karatsuba ----
@@ -43,14 +44,119 @@ class Ladder2(Ladder):
         self._kc += 1
         return f"{base}#{self._kc}"
 
-    def _prod_poly(self, A, fA, B, fB, tag, depth):
+    # ------------------------------------------------------------- Toom-3 ----
+    def _toom3_poly(self, A, fA, B, fB, tag, depth, toom):
+        """Toom-Cook 3-way: 5 sub-multiplies of width ~n/3 instead of 9.
+
+        Evaluation points 0, 1, -1, 2, infinity.  A(-1) can be negative, so it is
+        carried biased by 2^h and un-biased linearly.  The interpolation is NOT
+        done by the usual divide-by-2-and-3 sequence: the base-2^h columns
+        c_0..c_4 of the product are all non-negative, so they are materialised as
+        words and the three Vandermonde rows are asserted directly as exact
+        integer identities.  Same result, no exact-division gadgets."""
+        Q = self.qb
+        n = max(len(A), len(B))
+        h = (n + 2) // 3
+        sl = lambda X, i: X[i * h:(i + 1) * h] if i < 2 else X[2 * h:]
+        pc = lambda f, i, hh=h: ((f(wv) >> (i * hh)) & ((1 << hh) - 1))
+
+        def part(f, i):
+            if i < 2:
+                return lambda wv, f=f, i=i, hh=h: (f(wv) >> (i * hh)) & ((1 << hh) - 1)
+            return lambda wv, f=f, hh=h: f(wv) >> (2 * hh)
+
+        A0, A1, A2 = sl(A, 0), sl(A, 1), sl(A, 2)
+        B0, B1, B2 = sl(B, 0), sl(B, 1), sl(B, 2)
+        fa = [part(fA, i) for i in range(3)]
+        fb = [part(fB, i) for i in range(3)]
+        same = (A is B) or (A == B)
+
+        def evalword(P, f, coefs, bias, nm):
+            """word == bias + sum coefs[i]*part_i  (all non-negative)."""
+            nbits = max(1, (bias + sum(c * ((1 << len(P[i])) - 1)
+                                       for i, c in enumerate(coefs)
+                                       if c > 0)).bit_length())
+            W = Q.word(nm, nbits, lambda wv, f=f, c=coefs, b=bias:
+                       b + sum(c[i] * f[i](wv) for i in range(3)))
+            poly = {}
+            for i, c in enumerate(coefs):
+                for t, v in enumerate(P[i]):
+                    poly[(v,)] = poly.get((v,), 0) + c * (1 << t)
+            for t, v in enumerate(W):
+                poly[(v,)] = poly.get((v,), 0) - (1 << t)
+            Q.assert_zero(poly, bias, nm)
+            return W, (lambda wv, nm=nm: wv[nm])
+
+        PA, PB = [A0, A1, A2], [B0, B1, B2]
+        Ap1, fAp1 = evalword(PA, fa, [1, 1, 1], 0, f"t1a:{tag}")
+        Am1, fAm1 = evalword(PA, fa, [1, -1, 1], 1 << h, f"tma:{tag}")
+        Ap2, fAp2 = evalword(PA, fa, [1, 2, 4], 0, f"t2a:{tag}")
+        if same:
+            Bp1, fBp1, Bm1, fBm1, Bp2, fBp2 = Ap1, fAp1, Am1, fAm1, Ap2, fAp2
+        else:
+            Bp1, fBp1 = evalword(PB, fb, [1, 1, 1], 0, f"t1b:{tag}")
+            Bm1, fBm1 = evalword(PB, fb, [1, -1, 1], 1 << h, f"tmb:{tag}")
+            Bp2, fBp2 = evalword(PB, fb, [1, 2, 4], 0, f"t2b:{tag}")
+
+        P0, f0 = self._prod_word(A0, fa[0], B0, fb[0], tag + '0', depth, toom)
+        P1, f1 = self._prod_word(Ap1, fAp1, Bp1, fBp1, tag + '1', depth, toom)
+        PM, fM = self._prod_word(Am1, fAm1, Bm1, fBm1, tag + 'm', depth, toom)
+        P2, f2 = self._prod_word(Ap2, fAp2, Bp2, fBp2, tag + '2', depth, toom)
+        PI, fI = self._prod_word(A2, fa[2], B2, fb[2], tag + 'i', depth, toom)
+
+        # pm1 = A(-1)B(-1) = PM - 2^h (Am1 + Bm1) + 2^{2h}
+        pm1 = {}
+        for t, v in enumerate(PM):
+            pm1[(v,)] = pm1.get((v,), 0) + (1 << t)
+        for W in ((Am1, Bm1) if not same else (Am1, Am1)):
+            for t, v in enumerate(W):
+                pm1[(v,)] = pm1.get((v,), 0) - (1 << (h + t))
+        pm1_c = 1 << (2 * h)
+
+        # c_i = base-2^h columns of the product; all >= 0
+        def col(i):
+            return lambda wv, i=i: sum(fa[j](wv) * fb[i - j](wv)
+                                       for j in range(3) if 0 <= i - j < 3)
+        nb = 2 * h + 3
+        C = [None] * 5
+        C[0], C[4] = P0, PI
+        for i in (1, 2, 3):
+            C[i] = Q.word(f"tc{i}:{tag}", nb, col(i))
+
+        def lin(coefs):
+            poly = {}
+            for i, c in enumerate(coefs):
+                for t, v in enumerate(C[i]):
+                    poly[(v,)] = poly.get((v,), 0) + c * (1 << t)
+            return poly
+
+        def combine(a, b, const=0):
+            poly = dict(a)
+            for m, c in b.items():
+                poly[m] = poly.get(m, 0) - c
+            Q.assert_zero(poly, const, f"toomv:{tag}")
+
+        combine(lin([1, 1, 1, 1, 1]), {(v,): (1 << t) for t, v in enumerate(P1)})
+        combine(lin([1, -1, 1, -1, 1]), pm1, -pm1_c)
+        combine(lin([1, 2, 4, 8, 16]), {(v,): (1 << t) for t, v in enumerate(P2)})
+
+        out = {}
+        for i in range(5):
+            for t, v in enumerate(C[i]):
+                out[(v,)] = out.get((v,), 0) + (1 << (i * h + t))
+        return out
+
+    def _prod_poly(self, A, fA, B, fB, tag, depth, toom=0):
         """Return a poly (dict monomial -> int coef) whose value is exactly the
         integer  fA(wv) * fB(wv).  May create auxiliary words + assertions.
 
+        toom > 0                       -> Toom-3 split (5 sub-multiplies of n/3).
         depth <= 0 (or operands short) -> schoolbook bit-pair poly (quadratic).
         depth > 0                      -> a LINEAR poly over freshly materialised
                                           sub-product words (Karatsuba)."""
         na, nb = len(A), len(B)
+        if toom > 0 and min(na, nb) > max(self.kmin, 6):
+            return self._toom3_poly(A, fA, B, fB, tag, depth, toom - 1)
         if depth <= 0 or min(na, nb) <= self.kmin:
             poly = {}
             for i, u in enumerate(A):
@@ -70,8 +176,8 @@ class Ladder2(Ladder):
         fB1 = lambda wv, f=fB, s=h: f(wv) >> s
         same = (A is B) or (A == B)
 
-        z0, f0 = self._prod_word(A0, fA0, B0, fB0, tag + 'L', depth - 1)
-        z2, f2 = self._prod_word(A1, fA1, B1, fB1, tag + 'H', depth - 1)
+        z0, f0 = self._prod_word(A0, fA0, B0, fB0, tag + 'L', depth - 1, 0)
+        z2, f2 = self._prod_word(A1, fA1, B1, fB1, tag + 'H', depth - 1, 0)
 
         def sumword(lo, hi, flo, fhi, nm):
             n = max(len(lo), len(hi)) + 1
@@ -91,7 +197,7 @@ class Ladder2(Ladder):
             T, fT = S, fS
         else:
             T, fT = sumword(B0, B1, fB0, fB1, f"kt:{tag}")
-        zm, fm = self._prod_word(S, fS, T, fT, tag + 'M', depth - 1)
+        zm, fm = self._prod_word(S, fS, T, fT, tag + 'M', depth - 1, 0)
 
         # MID = zm - z0 - z2 = A0*B1 + A1*B0  (>= 0, < 2^{na+nb-h})
         nmid = na + nb - h
@@ -118,9 +224,9 @@ class Ladder2(Ladder):
             out[(v,)] = out.get((v,), 0) + (1 << (2 * h + t))
         return out
 
-    def _prod_word(self, A, fA, B, fB, tag, depth):
+    def _prod_word(self, A, fA, B, fB, tag, depth, toom=0):
         """Materialise the exact integer product as a word (no mod-p reduction)."""
-        poly = self._prod_poly(A, fA, B, fB, tag, depth)
+        poly = self._prod_poly(A, fA, B, fB, tag, depth, toom)
         Q = self.qb
         nm = f"kw:{tag}"
         W = Q.word(nm, len(A) + len(B), lambda wv, a=fA, b=fB: a(wv) * b(wv))
@@ -133,11 +239,12 @@ class Ladder2(Ladder):
     # -------------------------------------------------- multiplication API ---
     def mul_eq(self, tag, A, B, nameA, nameB, terms, const):
         """A*B == const + sum coef*term   (mod p)."""
-        if self.kdepth <= 0:
+        if self.kdepth <= 0 and self.toom <= 0:
             return super().mul_eq(tag, A, B, nameA, nameB, terms, const)
         fA = lambda wv, n=nameA: wv[n]
         fB = lambda wv, n=nameB: wv[n]
-        poly = dict(self._prod_poly(A, fA, B, fB, self._tag(tag), self.kdepth))
+        poly = dict(self._prod_poly(A, fA, B, fB, self._tag(tag),
+                                    self.kdepth, self.toom))
         for coef, bits, _nm in terms:
             for t, v in enumerate(bits):
                 poly[(v,)] = poly.get((v,), 0) - coef * (1 << t)
