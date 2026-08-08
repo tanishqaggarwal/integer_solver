@@ -64,5 +64,137 @@
   "rate": 0.0,
   "best": 5.0,
   "elapsed": 8.1
+ },
+ "6|mid|tabu": {
+  "s": 6,
+  "effort": "mid",
+  "solver": "tabu",
+  "n_vars": 163,
+  "hits": 1,
+  "n": 18,
+  "rate": 0.05555555555555555,
+  "best": 0.0,
+  "elapsed": 7.2
+ },
+ "6|mid|sb": {
+  "s": 6,
+  "effort": "mid",
+  "solver": "sb",
+  "n_vars": 163,
+  "hits": 0,
+  "n": 49,
+  "rate": 0.0,
+  "best": 7.0,
+  "elapsed": 7.1
+ },
+ "6|high|tabu": {
+  "s": 6,
+  "effort": "high",
+  "solver": "tabu",
+  "n_vars": 163,
+  "hits": 5,
+  "n": 7,
+  "rate": 0.7142857142857143,
+  "best": 0.0,
+  "elapsed": 7.1
+ },
+ "6|high|sb": {
+  "s": 6,
+  "effort": "high",
+  "solver": "sb",
+  "n_vars": 163,
+  "hits": 0,
+  "n": 13,
+  "rate": 0.0,
+  "best": 4.0,
+  "elapsed": 7.0
+ },
+ "7|mid|tabu": {
+  "s": 7,
+  "effort": "mid",
+  "solver": "tabu",
+  "n_vars": 222,
+  "hits": 0,
+  "n": 18,
+  "rate": 0.0,
+  "best": 2.0,
+  "elapsed": 7.3
+ },
+ "7|mid|sb": {
+  "s": 7,
+  "effort": "mid",
+  "solver": "sb",
+  "n_vars": 222,
+  "hits": 0,
+  "n": 44,
+  "rate": 0.0,
+  "best": 13.0,
+  "elapsed": 7.1
+ },
+ "7|high|tabu": {
+  "s": 7,
+  "effort": "high",
+  "solver": "tabu",
+  "n_vars": 222,
+  "hits": 0,
+  "n": 5,
+  "rate": 0.0,
+  "best": 1.0,
+  "elapsed": 8.0
+ },
+ "7|high|sb": {
+  "s": 7,
+  "effort": "high",
+  "solver": "sb",
+  "n_vars": 222,
+  "hits": 0,
+  "n": 12,
+  "rate": 0.0,
+  "best": 11.0,
+  "elapsed": 7.4
+ },
+ "8|mid|tabu": {
+  "s": 8,
+  "effort": "mid",
+  "solver": "tabu",
+  "n_vars": 281,
+  "hits": 0,
+  "n": 17,
+  "rate": 0.0,
+  "best": 2.0,
+  "elapsed": 7.3
+ },
+ "8|mid|sb": {
+  "s": 8,
+  "effort": "mid",
+  "solver": "sb",
+  "n_vars": 281,
+  "hits": 0,
+  "n": 41,
+  "rate": 0.0,
+  "best": 17.0,
+  "elapsed": 7.1
+ },
+ "8|high|tabu": {
+  "s": 8,
+  "effort": "high",
+  "solver": "tabu",
+  "n_vars": 281,
+  "hits": 0,
+  "n": 5,
+  "rate": 0.0,
+  "best": 1.0,
+  "elapsed": 8.0
+ },
+ "8|high|sb": {
+  "s": 8,
+  "effort": "high",
+  "solver": "sb",
+  "n_vars": 281,
+  "hits": 0,
+  "n": 11,
+  "rate": 0.0,
+  "best": 13.0,
+  "elapsed": 7.1
  }
 }

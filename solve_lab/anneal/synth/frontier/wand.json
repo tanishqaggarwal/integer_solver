@@ -1,0 +1,92 @@
+{
+ "wallace|None": {
+  "mode": "wallace",
+  "W_and": null,
+  "s": 7,
+  "hits": 0,
+  "n": 9,
+  "rate": 0.0,
+  "best": 2.0,
+  "n_vars": 231
+ },
+ "wallace|1": {
+  "mode": "wallace",
+  "W_and": 1,
+  "s": 7,
+  "hits": 0,
+  "n": 9,
+  "rate": 0.0,
+  "best": 1.0,
+  "n_vars": 231
+ },
+ "wallace|2": {
+  "mode": "wallace",
+  "W_and": 2,
+  "s": 7,
+  "hits": 5,
+  "n": 10,
+  "rate": 0.5,
+  "best": 0.0,
+  "n_vars": 231
+ },
+ "wallace|4": {
+  "mode": "wallace",
+  "W_and": 4,
+  "s": 7,
+  "hits": 0,
+  "n": 9,
+  "rate": 0.0,
+  "best": 1.0,
+  "n_vars": 231
+ },
+ "wallace|8": {
+  "mode": "wallace",
+  "W_and": 8,
+  "s": 7,
+  "hits": 0,
+  "n": 9,
+  "rate": 0.0,
+  "best": 2.0,
+  "n_vars": 231
+ },
+ "wallace|32": {
+  "mode": "wallace",
+  "W_and": 32,
+  "s": 7,
+  "hits": 0,
+  "n": 9,
+  "rate": 0.0,
+  "best": 2.0,
+  "n_vars": 231
+ },
+ "wallace|128": {
+  "mode": "wallace",
+  "W_and": 128,
+  "s": 7,
+  "hits": 0,
+  "n": 9,
+  "rate": 0.0,
+  "best": 2.0,
+  "n_vars": 231
+ },
+ "binary|2": {
+  "mode": "binary",
+  "W_and": 2,
+  "s": 7,
+  "hits": 1,
+  "n": 10,
+  "rate": 0.1,
+  "best": 0.0,
+  "n_vars": 125
+ },
+ "binary|None": {
+  "mode": "binary",
+  "W_and": null,
+  "s": 7,
+  "hits": 0,
+  "n": 9,
+  "rate": 0.0,
+  "best": 1.0,
+  "n_vars": 125
+ }
+}
