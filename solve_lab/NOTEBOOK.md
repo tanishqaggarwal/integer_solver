@@ -1914,3 +1914,38 @@ divisibility by p (handles absorb mod q); the limb chains see p but only for the
 
 Scope: encoding only. Searchability is untested and NOT claimed; blocks share wires so a
 consensus schedule (BCD/ADMM over the 1.5% interface) is required. Deliverable still 39,026.
+
+## Session 13 part 4 — treewidth, size distribution, and the correctness proof
+
+Q1 "is coupling 80 bits -> 2^80 solves?" NO, and the premise conflates two things.
+max|Q_ij| = 80 is a COEFFICIENT MAGNITUDE (7 bits of analog precision an annealer must
+resolve); it is not a count of coupled variables and implies no 2^80 search. What governs
+exact solve cost is the SEPARATOR/TREEWIDTH of the block graph. MEASURED (s13/blockgraph.py,
+min-degree + min-fill elimination):
+   tier [B'']  229 blocks, 169 shared wires, mean degree 7.0, treewidth UB 10 blocks
+               -> separator ~10 x 16 = ~160 bits -> exact DP ~2^160
+   tier [B']   433 blocks, 328 shared wires, mean degree 8.3, treewidth UB 16 blocks
+               -> separator ~256 bits -> exact DP ~2^256
+So the decomposition makes blocks SMALL and LOW-PRECISION but does NOT reduce search
+complexity: the 256-bit content reappears exactly as separator width. Hardness is conserved.
+
+Q2 size distribution (s13/blockgraph.py): raw sub-blocks are 390-681 binary (51% under 500,
+47% in 500-1000); after packing to the 1,000-5,000 target, [B''] = 50 blocks, 98% in
+4,000-5,000, min 2,279 max 4,997; [B'] = 187 blocks, 98.4% in 4,000-5,000.
+
+Q3 correctness (s13/prove.py). Chain T1 block correctness (brute-forced), T2 composition
+(energies are sums of squares so E=0 iff every block is 0), T3 equations are integer combos
+of atoms, T4 CRT lift needs prod q_j > 2 max|F_e|, T5 exact-Z checker is unconditional ground
+truth. Machine checks:
+  CHECK 1 PASS  4,000 sampled atoms: block-pipeline value == direct value mod q, 0 mismatch.
+  CHECK 2 the lift bound is a REAL hypothesis: max|F_e| = 2454 bits at the current state, so
+          ~307 sixteen-bit primes are needed; 5 primes (80 bits) is NOT enough.
+  CHECK 3 PASS end-to-end round trip on synthetic siblings, feasible AND infeasible.
+
+TWO BUGS FOUND BY THESE TESTS (both fixed):
+ 1. The first round-trip system had NO solutions, so sound+complete passed VACUOUSLY. Rewrote
+    with a feasible and an infeasible variant; a vacuous test proves nothing.
+ 2. With the feasible variant the encoding was INCOMPLETE: when a handle's multiplier is
+    divisible by the modulus the condition is VACUOUS, but the code fell back to coefficient 1
+    and invented a constraint x0 == x1 that does not exist. Fixed by emitting no block in that
+    case -- this mirrors the self-absorbing checks of the real instance.
