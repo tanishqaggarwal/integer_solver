@@ -1979,3 +1979,46 @@ VERDICT: 512 bits of freedom, ~2^160 of block-graph coupling, 234,968 variables 
 far too large for an annealer, while every individual piece is classically trivial. There is
 no block in this decomposition that is both large enough and structurally hard enough to
 require annealing.
+
+## Session 13 part 6 — CAN the treewidth be reduced? Yes, to zero. It was never the obstruction.
+
+Challenged on why the block coupling could not be reduced. Re-examined and found my earlier
+treewidth number was measured on the WRONG OBJECT.
+
+CORRECTIONS TO MY OWN EARLIER CLAIMS (s13/reduce_tw.py):
+ * blockgraph.py measured treewidth over ATOMS and multiplied by 16 bits/wire, reporting
+   "~160-256 bits". The constraint graph for a tree decomposition is over WIRES. Correct
+   baseline: 169 wires, treewidth UB 16 wires = 4,096 bits.
+ * Far more important: a wire DETERMINED by a gate is not state -- it can be substituted away
+   at zero cost. 167 of the 169 wires are determined. Effective treewidth <= 2 unknowns = 512
+   bits, not 4,096. The determined wires were never state.
+ * SPLIT: of 62 cone checks, 43 depend on x9118 only, 2 on x8731 only, 17 on both. The problem
+   very nearly separates into two independent 256-bit halves.
+ * LINEARITY: every cone check is EXACTLY linear mod p in the knobs (verified by predicting at
+   random points, 4/4). So the residual is a LINEAR SYSTEM over GF(p): Gaussian elimination,
+   no search, and treewidth is irrelevant. The coupling dissolves completely.
+
+TWO BUGS IN MY OWN ANALYSIS, both caught by validation and both retracted:
+ 1. The first linearity fit (60/60 linear) used a naive forward evaluator that silently
+    "repaired" the 2 deliberately-broken gates of the 39,026 witness (a35761->x31864,
+    a22229->x7068), changing 109 downstream wires. WITHDRAWN. s13/fwd_frame.py is a
+    block-preserving evaluator whose identity test now disagrees on 0 of 169 wires.
+ 2. I then "achieved" consistency by excluding absorbable checks from the system. That is
+    wrong: a handle absorbs (value)/p only when p | value, so the mod-p congruence still
+    binds. Excluding them deletes the binding rows. Reverted.
+
+HONEST RESULT (s13/solve_linear3.py):
+   WITNESS frame (2 gates frozen): rank 19 of 110 knobs, 1 INCONSISTENT row (a35760) --
+     an artefact of freezing x31864, the wire that should absorb the move.
+   CLEAN frame (all gates hold)  : rank 20 of 110 knobs, 0 inconsistent -> CONSISTENT.
+
+BUT THE CONE IS NOT A CLOSED SYSTEM (s13/build_cand.py): realising the clean-frame solution
+sets advice knobs x6418, x14623, x24548, x31339 to 0 and scores 38,858 (175 failing), WORSE
+than 39,026. The 62 cone checks are satisfied; checks outside the cone are not. So consistency
+within a cone means nothing until the system is closed -- this reproduces the lab's
+"the problem does not localise" finding from an independent direction.
+
+CONCLUSION FOR THE TREEWIDTH QUESTION: the coupling CAN be reduced all the way out (the system
+is linear), so treewidth is not what makes this hard. The obstruction is that the CLOSED
+linear system over GF(p) has no simultaneous solution. Reducing coupling cannot change a
+rank/consistency fact.
