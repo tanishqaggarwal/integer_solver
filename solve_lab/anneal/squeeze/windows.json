@@ -1,74 +1,92 @@
 {
  "OLD-STYLE school/quotient/wallace w=10": {
   "ands": 163712,
-  "carries": 1315378,
+  "carries": 1250098,
   "clique": 5,
-  "couplers": 6831030,
+  "couplers": 6514097,
   "jbits": 10,
-  "secs": 25.4,
-  "vars": 1483985
+  "secs": 24.1,
+  "vars": 1418705
+ },
+ "OLD-STYLE school/quotient/wallace w=6": {
+  "ands": 163712,
+  "carries": 758232,
+  "clique": 5,
+  "couplers": 4167912,
+  "jbits": 10,
+  "secs": 16.6,
+  "vars": 924919
  },
  "OLD-STYLE school/quotient/wallace w=7": {
   "ands": 163712,
-  "carries": 856218,
+  "carries": 790938,
   "clique": 5,
-  "couplers": 4640838,
+  "couplers": 4323905,
   "jbits": 9,
-  "secs": 17.3,
-  "vars": 1023033
+  "secs": 17.0,
+  "vars": 957753
  },
  "OLD-STYLE school/quotient/wallace w=8": {
   "ands": 163712,
-  "carries": 921688,
+  "carries": 856408,
   "clique": 5,
-  "couplers": 4953093,
+  "couplers": 4636160,
   "jbits": 9,
-  "secs": 18.1,
-  "vars": 1088759
+  "secs": 18.0,
+  "vars": 1023479
  },
  "OLD-STYLE school/quotient/wallace w=9": {
   "ands": 163712,
-  "carries": 1052916,
+  "carries": 987636,
   "clique": 5,
-  "couplers": 5579085,
+  "couplers": 5262152,
   "jbits": 10,
-  "secs": 20.7,
-  "vars": 1220499
+  "secs": 20.4,
+  "vars": 1155219
  },
  "SQUEEZED karatsuba(24)/naf/wallace w=10": {
   "ands": 56100,
-  "carries": 555780,
+  "carries": 534424,
   "clique": 5,
-  "couplers": 2853097,
+  "couplers": 2755381,
   "jbits": 9,
-  "secs": 10.5,
-  "vars": 647920
+  "secs": 9.8,
+  "vars": 626564
+ },
+ "SQUEEZED karatsuba(24)/naf/wallace w=6": {
+  "ands": 56100,
+  "carries": 205044,
+  "clique": 5,
+  "couplers": 1170469,
+  "jbits": 8,
+  "secs": 4.6,
+  "vars": 295264
  },
  "SQUEEZED karatsuba(24)/naf/wallace w=7": {
   "ands": 56100,
-  "carries": 248400,
+  "carries": 227044,
   "clique": 5,
-  "couplers": 1374086,
+  "couplers": 1276370,
   "jbits": 9,
-  "secs": 4.3,
-  "vars": 338748
+  "secs": 5.0,
+  "vars": 317392
  },
  "SQUEEZED karatsuba(24)/naf/wallace w=8": {
   "ands": 56100,
-  "carries": 292468,
+  "carries": 271112,
   "clique": 5,
-  "couplers": 1586109,
+  "couplers": 1488393,
   "jbits": 9,
-  "secs": 5.3,
-  "vars": 383072
+  "secs": 5.4,
+  "vars": 361716
  },
  "SQUEEZED karatsuba(24)/naf/wallace w=9": {
   "ands": 56100,
-  "carries": 380472,
+  "carries": 359116,
   "clique": 5,
-  "couplers": 2009473,
+  "couplers": 1911757,
   "jbits": 9,
-  "secs": 6.8,
-  "vars": 471588
+  "secs": 6.6,
+  "vars": 450232
  }
 }

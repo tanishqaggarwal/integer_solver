@@ -29,9 +29,10 @@ from mm import build_modmul                                      # noqa: E402
 
 
 def make(p, mult='schoolbook', leaf=8, red='naf', mode='wallace', square=False,
-         chunk=16, dadda_height=2):
+         chunk=16, dadda_height=2, naf_merge=True):
     s = p.bit_length()
-    Q = MMQB(chunk=chunk, mode=mode, dadda_height=dadda_height)
+    Q = MMQB(chunk=chunk, mode=mode, dadda_height=dadda_height,
+             naf_merge=naf_merge)
     A = Q.mkword('A', s, lambda wv: wv['_a'])
     B = A if square else Q.mkword('B', s, lambda wv: wv['_b'])
     C = Q.mkword('C', s, lambda wv: wv['_c'])

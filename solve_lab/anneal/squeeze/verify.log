@@ -75,9 +75,9 @@ L0  EXHAUSTIVE GROUND STATES -- every zero-energy assignment enumerated,
   p= 5 toom3      fold      dadda    vars=  43  |E=0|= 111  |truth|= 111  FAITHFUL
   p= 5 toom3      fold      unary    vars=  35  |E=0|= 111  |truth|= 111  FAITHFUL
   p= 7 schoolbook quotient  binary   vars=  37  |E=0|=  92  |truth|=  92  FAITHFUL
-  p= 7 schoolbook quotient  wallace  vars=  64  |E=0|=  92  |truth|=  92  FAITHFUL
-  p= 7 schoolbook quotient  dadda    vars=  51  |E=0|=  92  |truth|=  92  FAITHFUL
-  p= 7 schoolbook quotient  unary    vars=  39  |E=0|=  92  |truth|=  92  FAITHFUL
+  p= 7 schoolbook quotient  wallace  vars=  46  |E=0|=  92  |truth|=  92  FAITHFUL
+  p= 7 schoolbook quotient  dadda    vars=  43  |E=0|=  92  |truth|=  92  FAITHFUL
+  p= 7 schoolbook quotient  unary    vars=  34  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 schoolbook naf       binary   vars=  37  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 schoolbook naf       wallace  vars=  46  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 schoolbook naf       dadda    vars=  43  |E=0|=  92  |truth|=  92  FAITHFUL
@@ -87,9 +87,9 @@ L0  EXHAUSTIVE GROUND STATES -- every zero-energy assignment enumerated,
   p= 7 schoolbook fold      dadda    vars=  49  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 schoolbook fold      unary    vars=  42  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 karatsuba  quotient  binary   vars=  37  |E=0|=  92  |truth|=  92  FAITHFUL
-  p= 7 karatsuba  quotient  wallace  vars=  64  |E=0|=  92  |truth|=  92  FAITHFUL
-  p= 7 karatsuba  quotient  dadda    vars=  51  |E=0|=  92  |truth|=  92  FAITHFUL
-  p= 7 karatsuba  quotient  unary    vars=  39  |E=0|=  92  |truth|=  92  FAITHFUL
+  p= 7 karatsuba  quotient  wallace  vars=  46  |E=0|=  92  |truth|=  92  FAITHFUL
+  p= 7 karatsuba  quotient  dadda    vars=  43  |E=0|=  92  |truth|=  92  FAITHFUL
+  p= 7 karatsuba  quotient  unary    vars=  34  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 karatsuba  naf       binary   vars=  37  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 karatsuba  naf       wallace  vars=  46  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 karatsuba  naf       dadda    vars=  43  |E=0|=  92  |truth|=  92  FAITHFUL
@@ -99,9 +99,9 @@ L0  EXHAUSTIVE GROUND STATES -- every zero-energy assignment enumerated,
   p= 7 karatsuba  fold      dadda    vars=  49  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 karatsuba  fold      unary    vars=  42  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 toom3      quotient  binary   vars=  37  |E=0|=  92  |truth|=  92  FAITHFUL
-  p= 7 toom3      quotient  wallace  vars=  64  |E=0|=  92  |truth|=  92  FAITHFUL
-  p= 7 toom3      quotient  dadda    vars=  51  |E=0|=  92  |truth|=  92  FAITHFUL
-  p= 7 toom3      quotient  unary    vars=  39  |E=0|=  92  |truth|=  92  FAITHFUL
+  p= 7 toom3      quotient  wallace  vars=  46  |E=0|=  92  |truth|=  92  FAITHFUL
+  p= 7 toom3      quotient  dadda    vars=  43  |E=0|=  92  |truth|=  92  FAITHFUL
+  p= 7 toom3      quotient  unary    vars=  34  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 toom3      naf       binary   vars=  37  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 toom3      naf       wallace  vars=  46  |E=0|=  92  |truth|=  92  FAITHFUL
   p= 7 toom3      naf       dadda    vars=  43  |E=0|=  92  |truth|=  92  FAITHFUL
@@ -123,157 +123,170 @@ L0  EXHAUSTIVE GROUND STATES -- every zero-energy assignment enumerated,
 L1  EXHAUSTIVE OVER INPUTS -- every (a,b,c) triple, every variant
 ============================================================================================
   p= 13 schoolbook quotient  binary   sq=0  vars=    54 K= 14 |J|=2^8   checked=   2704 bad=0  OK
-  p= 13 schoolbook quotient  binary   sq=1  vars=    40 K= 12 |J|=2^9   checked=    208 bad=0  OK
+  p= 13 schoolbook quotient  binary   sq=1  vars=    37 K= 11 |J|=2^8   checked=    208 bad=0  OK
   p= 13 schoolbook quotient  wallace  sq=0  vars=    87 K=  5 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 schoolbook quotient  wallace  sq=1  vars=    73 K=  5 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 schoolbook quotient  wallace  sq=1  vars=    61 K=  5 |J|=2^6   checked=    208 bad=0  OK
   p= 13 schoolbook quotient  dadda    sq=0  vars=    76 K=  8 |J|=2^7   checked=   2704 bad=0  OK
-  p= 13 schoolbook quotient  dadda    sq=1  vars=    62 K=  8 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 schoolbook quotient  dadda    sq=1  vars=    50 K=  8 |J|=2^7   checked=    208 bad=0  OK
   p= 13 schoolbook quotient  unary    sq=0  vars=    58 K= 17 |J|=2^8   checked=   2704 bad=0  OK
-  p= 13 schoolbook quotient  unary    sq=1  vars=    44 K= 15 |J|=2^9   checked=    208 bad=0  OK
+  p= 13 schoolbook quotient  unary    sq=1  vars=    38 K= 13 |J|=2^7   checked=    208 bad=0  OK
   p= 13 schoolbook naf       binary   sq=0  vars=    54 K= 14 |J|=2^8   checked=   2704 bad=0  OK
-  p= 13 schoolbook naf       binary   sq=1  vars=    40 K= 12 |J|=2^9   checked=    208 bad=0  OK
+  p= 13 schoolbook naf       binary   sq=1  vars=    37 K= 11 |J|=2^8   checked=    208 bad=0  OK
   p= 13 schoolbook naf       wallace  sq=0  vars=    87 K=  5 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 schoolbook naf       wallace  sq=1  vars=    73 K=  5 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 schoolbook naf       wallace  sq=1  vars=    61 K=  5 |J|=2^6   checked=    208 bad=0  OK
   p= 13 schoolbook naf       dadda    sq=0  vars=    76 K=  8 |J|=2^7   checked=   2704 bad=0  OK
-  p= 13 schoolbook naf       dadda    sq=1  vars=    62 K=  8 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 schoolbook naf       dadda    sq=1  vars=    50 K=  8 |J|=2^7   checked=    208 bad=0  OK
   p= 13 schoolbook naf       unary    sq=0  vars=    58 K= 17 |J|=2^8   checked=   2704 bad=0  OK
-  p= 13 schoolbook naf       unary    sq=1  vars=    44 K= 15 |J|=2^9   checked=    208 bad=0  OK
+  p= 13 schoolbook naf       unary    sq=1  vars=    38 K= 13 |J|=2^7   checked=    208 bad=0  OK
   p= 13 schoolbook fold      binary   sq=0  vars=    88 K= 12 |J|=2^7   checked=   2704 bad=0  OK
-  p= 13 schoolbook fold      binary   sq=1  vars=    74 K= 12 |J|=2^8   checked=    208 bad=0  OK
+  p= 13 schoolbook fold      binary   sq=1  vars=    71 K= 12 |J|=2^7   checked=    208 bad=0  OK
   p= 13 schoolbook fold      wallace  sq=0  vars=   120 K=  5 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 schoolbook fold      wallace  sq=1  vars=   106 K=  5 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 schoolbook fold      wallace  sq=1  vars=    94 K=  5 |J|=2^6   checked=    208 bad=0  OK
   p= 13 schoolbook fold      dadda    sq=0  vars=   100 K=  8 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 schoolbook fold      dadda    sq=1  vars=    86 K=  8 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 schoolbook fold      dadda    sq=1  vars=    75 K=  8 |J|=2^6   checked=    208 bad=0  OK
   p= 13 schoolbook fold      unary    sq=0  vars=    82 K= 13 |J|=2^7   checked=   2704 bad=0  OK
-  p= 13 schoolbook fold      unary    sq=1  vars=    68 K= 13 |J|=2^8   checked=    208 bad=0  OK
+  p= 13 schoolbook fold      unary    sq=1  vars=    62 K= 13 |J|=2^6   checked=    208 bad=0  OK
   p= 13 karatsuba  quotient  binary   sq=0  vars=   109 K= 12 |J|=2^7   checked=   2704 bad=0  OK
-  p= 13 karatsuba  quotient  binary   sq=1  vars=    88 K= 12 |J|=2^8   checked=    208 bad=0  OK
+  p= 13 karatsuba  quotient  binary   sq=1  vars=    81 K= 12 |J|=2^7   checked=    208 bad=0  OK
   p= 13 karatsuba  quotient  wallace  sq=0  vars=   155 K=  5 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 karatsuba  quotient  wallace  sq=1  vars=   132 K=  5 |J|=2^6   checked=    208 bad=0  OK
+  p= 13 karatsuba  quotient  wallace  sq=1  vars=   122 K=  5 |J|=2^6   checked=    208 bad=0  OK
   p= 13 karatsuba  quotient  dadda    sq=0  vars=   125 K=  8 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 karatsuba  quotient  dadda    sq=1  vars=   104 K=  8 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 karatsuba  quotient  dadda    sq=1  vars=    97 K=  8 |J|=2^6   checked=    208 bad=0  OK
   p= 13 karatsuba  quotient  unary    sq=0  vars=   105 K= 13 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 karatsuba  quotient  unary    sq=1  vars=    84 K= 13 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 karatsuba  quotient  unary    sq=1  vars=    79 K= 13 |J|=2^6   checked=    208 bad=0  OK
   p= 13 karatsuba  naf       binary   sq=0  vars=   109 K= 12 |J|=2^7   checked=   2704 bad=0  OK
-  p= 13 karatsuba  naf       binary   sq=1  vars=    88 K= 12 |J|=2^8   checked=    208 bad=0  OK
+  p= 13 karatsuba  naf       binary   sq=1  vars=    81 K= 12 |J|=2^7   checked=    208 bad=0  OK
   p= 13 karatsuba  naf       wallace  sq=0  vars=   155 K=  5 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 karatsuba  naf       wallace  sq=1  vars=   132 K=  5 |J|=2^6   checked=    208 bad=0  OK
+  p= 13 karatsuba  naf       wallace  sq=1  vars=   122 K=  5 |J|=2^6   checked=    208 bad=0  OK
   p= 13 karatsuba  naf       dadda    sq=0  vars=   125 K=  8 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 karatsuba  naf       dadda    sq=1  vars=   104 K=  8 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 karatsuba  naf       dadda    sq=1  vars=    97 K=  8 |J|=2^6   checked=    208 bad=0  OK
   p= 13 karatsuba  naf       unary    sq=0  vars=   105 K= 13 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 karatsuba  naf       unary    sq=1  vars=    84 K= 13 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 karatsuba  naf       unary    sq=1  vars=    79 K= 13 |J|=2^6   checked=    208 bad=0  OK
   p= 13 karatsuba  fold      binary   sq=0  vars=   134 K= 12 |J|=2^7   checked=   2704 bad=0  OK
-  p= 13 karatsuba  fold      binary   sq=1  vars=   113 K= 12 |J|=2^8   checked=    208 bad=0  OK
+  p= 13 karatsuba  fold      binary   sq=1  vars=   106 K= 12 |J|=2^7   checked=    208 bad=0  OK
   p= 13 karatsuba  fold      wallace  sq=0  vars=   178 K=  5 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 karatsuba  fold      wallace  sq=1  vars=   155 K=  5 |J|=2^6   checked=    208 bad=0  OK
+  p= 13 karatsuba  fold      wallace  sq=1  vars=   145 K=  5 |J|=2^6   checked=    208 bad=0  OK
   p= 13 karatsuba  fold      dadda    sq=0  vars=   142 K=  8 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 karatsuba  fold      dadda    sq=1  vars=   121 K=  8 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 karatsuba  fold      dadda    sq=1  vars=   114 K=  8 |J|=2^6   checked=    208 bad=0  OK
   p= 13 karatsuba  fold      unary    sq=0  vars=   124 K= 13 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 karatsuba  fold      unary    sq=1  vars=   103 K= 13 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 karatsuba  fold      unary    sq=1  vars=    98 K= 13 |J|=2^6   checked=    208 bad=0  OK
   p= 13 toom3      quotient  binary   sq=0  vars=    54 K= 14 |J|=2^8   checked=   2704 bad=0  OK
-  p= 13 toom3      quotient  binary   sq=1  vars=    40 K= 12 |J|=2^9   checked=    208 bad=0  OK
+  p= 13 toom3      quotient  binary   sq=1  vars=    37 K= 11 |J|=2^8   checked=    208 bad=0  OK
   p= 13 toom3      quotient  wallace  sq=0  vars=    87 K=  5 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 toom3      quotient  wallace  sq=1  vars=    73 K=  5 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 toom3      quotient  wallace  sq=1  vars=    61 K=  5 |J|=2^6   checked=    208 bad=0  OK
   p= 13 toom3      quotient  dadda    sq=0  vars=    76 K=  8 |J|=2^7   checked=   2704 bad=0  OK
-  p= 13 toom3      quotient  dadda    sq=1  vars=    62 K=  8 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 toom3      quotient  dadda    sq=1  vars=    50 K=  8 |J|=2^7   checked=    208 bad=0  OK
   p= 13 toom3      quotient  unary    sq=0  vars=    58 K= 17 |J|=2^8   checked=   2704 bad=0  OK
-  p= 13 toom3      quotient  unary    sq=1  vars=    44 K= 15 |J|=2^9   checked=    208 bad=0  OK
+  p= 13 toom3      quotient  unary    sq=1  vars=    38 K= 13 |J|=2^7   checked=    208 bad=0  OK
   p= 13 toom3      naf       binary   sq=0  vars=    54 K= 14 |J|=2^8   checked=   2704 bad=0  OK
-  p= 13 toom3      naf       binary   sq=1  vars=    40 K= 12 |J|=2^9   checked=    208 bad=0  OK
+  p= 13 toom3      naf       binary   sq=1  vars=    37 K= 11 |J|=2^8   checked=    208 bad=0  OK
   p= 13 toom3      naf       wallace  sq=0  vars=    87 K=  5 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 toom3      naf       wallace  sq=1  vars=    73 K=  5 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 toom3      naf       wallace  sq=1  vars=    61 K=  5 |J|=2^6   checked=    208 bad=0  OK
   p= 13 toom3      naf       dadda    sq=0  vars=    76 K=  8 |J|=2^7   checked=   2704 bad=0  OK
-  p= 13 toom3      naf       dadda    sq=1  vars=    62 K=  8 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 toom3      naf       dadda    sq=1  vars=    50 K=  8 |J|=2^7   checked=    208 bad=0  OK
   p= 13 toom3      naf       unary    sq=0  vars=    58 K= 17 |J|=2^8   checked=   2704 bad=0  OK
-  p= 13 toom3      naf       unary    sq=1  vars=    44 K= 15 |J|=2^9   checked=    208 bad=0  OK
+  p= 13 toom3      naf       unary    sq=1  vars=    38 K= 13 |J|=2^7   checked=    208 bad=0  OK
   p= 13 toom3      fold      binary   sq=0  vars=    88 K= 12 |J|=2^7   checked=   2704 bad=0  OK
-  p= 13 toom3      fold      binary   sq=1  vars=    74 K= 12 |J|=2^8   checked=    208 bad=0  OK
+  p= 13 toom3      fold      binary   sq=1  vars=    71 K= 12 |J|=2^7   checked=    208 bad=0  OK
   p= 13 toom3      fold      wallace  sq=0  vars=   120 K=  5 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 toom3      fold      wallace  sq=1  vars=   106 K=  5 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 toom3      fold      wallace  sq=1  vars=    94 K=  5 |J|=2^6   checked=    208 bad=0  OK
   p= 13 toom3      fold      dadda    sq=0  vars=   100 K=  8 |J|=2^6   checked=   2704 bad=0  OK
-  p= 13 toom3      fold      dadda    sq=1  vars=    86 K=  8 |J|=2^7   checked=    208 bad=0  OK
+  p= 13 toom3      fold      dadda    sq=1  vars=    75 K=  8 |J|=2^6   checked=    208 bad=0  OK
   p= 13 toom3      fold      unary    sq=0  vars=    82 K= 13 |J|=2^7   checked=   2704 bad=0  OK
-  p= 13 toom3      fold      unary    sq=1  vars=    68 K= 13 |J|=2^8   checked=    208 bad=0  OK
-  p= 29 schoolbook quotient  binary   sq=0  vars=    81 K= 17 |J|=2^9   checked=  26912 bad=0  OK
-  p= 29 schoolbook quotient  binary   sq=1  vars=    61 K= 15 |J|=2^10  checked=    928 bad=0  OK
-  p= 29 schoolbook quotient  wallace  sq=0  vars=   134 K=  5 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 schoolbook quotient  wallace  sq=1  vars=   114 K=  5 |J|=2^7   checked=    928 bad=0  OK
-  p= 29 schoolbook quotient  dadda    sq=0  vars=   119 K=  8 |J|=2^7   checked=  26912 bad=0  OK
-  p= 29 schoolbook quotient  dadda    sq=1  vars=    99 K=  8 |J|=2^7   checked=    928 bad=0  OK
-  p= 29 schoolbook quotient  unary    sq=0  vars=    87 K= 22 |J|=2^8   checked=  26912 bad=0  OK
-  p= 29 schoolbook quotient  unary    sq=1  vars=    67 K= 20 |J|=2^9   checked=    928 bad=0  OK
+  p= 13 toom3      fold      unary    sq=1  vars=    62 K= 13 |J|=2^6   checked=    208 bad=0  OK
+  p= 29 schoolbook quotient  binary   sq=0  vars=    79 K= 14 |J|=2^8   checked=  26912 bad=0  OK
+  p= 29 schoolbook quotient  binary   sq=1  vars=    56 K= 11 |J|=2^8   checked=    928 bad=0  OK
+  p= 29 schoolbook quotient  wallace  sq=0  vars=   122 K=  5 |J|=2^6   checked=  26912 bad=0  OK
+  p= 29 schoolbook quotient  wallace  sq=1  vars=    82 K=  5 |J|=2^6   checked=    928 bad=0  OK
+  p= 29 schoolbook quotient  dadda    sq=0  vars=   106 K=  8 |J|=2^7   checked=  26912 bad=0  OK
+  p= 29 schoolbook quotient  dadda    sq=1  vars=    66 K=  8 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 schoolbook quotient  unary    sq=0  vars=    84 K= 19 |J|=2^8   checked=  26912 bad=0  OK
+  p= 29 schoolbook quotient  unary    sq=1  vars=    54 K= 13 |J|=2^7   checked=    928 bad=0  OK
   p= 29 schoolbook naf       binary   sq=0  vars=    79 K= 14 |J|=2^8   checked=  26912 bad=0  OK
-  p= 29 schoolbook naf       binary   sq=1  vars=    59 K= 12 |J|=2^9   checked=    928 bad=0  OK
+  p= 29 schoolbook naf       binary   sq=1  vars=    56 K= 11 |J|=2^8   checked=    928 bad=0  OK
   p= 29 schoolbook naf       wallace  sq=0  vars=   122 K=  5 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 schoolbook naf       wallace  sq=1  vars=   102 K=  5 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 schoolbook naf       wallace  sq=1  vars=    82 K=  5 |J|=2^6   checked=    928 bad=0  OK
   p= 29 schoolbook naf       dadda    sq=0  vars=   106 K=  8 |J|=2^7   checked=  26912 bad=0  OK
-  p= 29 schoolbook naf       dadda    sq=1  vars=    86 K=  8 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 schoolbook naf       dadda    sq=1  vars=    66 K=  8 |J|=2^7   checked=    928 bad=0  OK
   p= 29 schoolbook naf       unary    sq=0  vars=    84 K= 19 |J|=2^8   checked=  26912 bad=0  OK
-  p= 29 schoolbook naf       unary    sq=1  vars=    64 K= 17 |J|=2^9   checked=    928 bad=0  OK
+  p= 29 schoolbook naf       unary    sq=1  vars=    54 K= 13 |J|=2^7   checked=    928 bad=0  OK
   p= 29 schoolbook fold      binary   sq=0  vars=   116 K= 12 |J|=2^8   checked=  26912 bad=0  OK
-  p= 29 schoolbook fold      binary   sq=1  vars=    96 K= 12 |J|=2^9   checked=    928 bad=0  OK
+  p= 29 schoolbook fold      binary   sq=1  vars=    86 K= 12 |J|=2^7   checked=    928 bad=0  OK
   p= 29 schoolbook fold      wallace  sq=0  vars=   167 K=  5 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 schoolbook fold      wallace  sq=1  vars=   147 K=  5 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 schoolbook fold      wallace  sq=1  vars=   127 K=  5 |J|=2^6   checked=    928 bad=0  OK
   p= 29 schoolbook fold      dadda    sq=0  vars=   140 K=  8 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 schoolbook fold      dadda    sq=1  vars=   120 K=  8 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 schoolbook fold      dadda    sq=1  vars=   101 K=  8 |J|=2^6   checked=    928 bad=0  OK
   p= 29 schoolbook fold      unary    sq=0  vars=   109 K= 13 |J|=2^7   checked=  26912 bad=0  OK
-  p= 29 schoolbook fold      unary    sq=1  vars=    89 K= 13 |J|=2^8   checked=    928 bad=0  OK
-  p= 29 karatsuba  quotient  binary   sq=0  vars=   198 K= 13 |J|=2^7   checked=  26912 bad=0  OK
-  p= 29 karatsuba  quotient  binary   sq=1  vars=   160 K= 13 |J|=2^8   checked=    928 bad=0  OK
-  p= 29 karatsuba  quotient  wallace  sq=0  vars=   292 K=  5 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 karatsuba  quotient  wallace  sq=1  vars=   249 K=  5 |J|=2^6   checked=    928 bad=0  OK
-  p= 29 karatsuba  quotient  dadda    sq=0  vars=   234 K=  8 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 karatsuba  quotient  dadda    sq=1  vars=   196 K=  8 |J|=2^7   checked=    928 bad=0  OK
-  p= 29 karatsuba  quotient  unary    sq=0  vars=   197 K= 16 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 karatsuba  quotient  unary    sq=1  vars=   159 K= 16 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 schoolbook fold      unary    sq=1  vars=    79 K= 13 |J|=2^6   checked=    928 bad=0  OK
+  p= 29 karatsuba  quotient  binary   sq=0  vars=   200 K= 11 |J|=2^7   checked=  26912 bad=0  OK
+  p= 29 karatsuba  quotient  binary   sq=1  vars=   149 K= 11 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 karatsuba  quotient  wallace  sq=0  vars=   280 K=  5 |J|=2^6   checked=  26912 bad=0  OK
+  p= 29 karatsuba  quotient  wallace  sq=1  vars=   219 K=  5 |J|=2^6   checked=    928 bad=0  OK
+  p= 29 karatsuba  quotient  dadda    sq=0  vars=   222 K=  8 |J|=2^6   checked=  26912 bad=0  OK
+  p= 29 karatsuba  quotient  dadda    sq=1  vars=   171 K=  8 |J|=2^6   checked=    928 bad=0  OK
+  p= 29 karatsuba  quotient  unary    sq=0  vars=   194 K= 13 |J|=2^6   checked=  26912 bad=0  OK
+  p= 29 karatsuba  quotient  unary    sq=1  vars=   147 K= 13 |J|=2^6   checked=    928 bad=0  OK
   p= 29 karatsuba  naf       binary   sq=0  vars=   200 K= 11 |J|=2^7   checked=  26912 bad=0  OK
-  p= 29 karatsuba  naf       binary   sq=1  vars=   162 K= 11 |J|=2^8   checked=    928 bad=0  OK
+  p= 29 karatsuba  naf       binary   sq=1  vars=   149 K= 11 |J|=2^7   checked=    928 bad=0  OK
   p= 29 karatsuba  naf       wallace  sq=0  vars=   280 K=  5 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 karatsuba  naf       wallace  sq=1  vars=   237 K=  5 |J|=2^6   checked=    928 bad=0  OK
+  p= 29 karatsuba  naf       wallace  sq=1  vars=   219 K=  5 |J|=2^6   checked=    928 bad=0  OK
   p= 29 karatsuba  naf       dadda    sq=0  vars=   222 K=  8 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 karatsuba  naf       dadda    sq=1  vars=   184 K=  8 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 karatsuba  naf       dadda    sq=1  vars=   171 K=  8 |J|=2^6   checked=    928 bad=0  OK
   p= 29 karatsuba  naf       unary    sq=0  vars=   194 K= 13 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 karatsuba  naf       unary    sq=1  vars=   156 K= 13 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 karatsuba  naf       unary    sq=1  vars=   147 K= 13 |J|=2^6   checked=    928 bad=0  OK
   p= 29 karatsuba  fold      binary   sq=0  vars=   223 K= 12 |J|=2^7   checked=  26912 bad=0  OK
-  p= 29 karatsuba  fold      binary   sq=1  vars=   185 K= 12 |J|=2^8   checked=    928 bad=0  OK
+  p= 29 karatsuba  fold      binary   sq=1  vars=   172 K= 12 |J|=2^7   checked=    928 bad=0  OK
   p= 29 karatsuba  fold      wallace  sq=0  vars=   313 K=  5 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 karatsuba  fold      wallace  sq=1  vars=   270 K=  5 |J|=2^6   checked=    928 bad=0  OK
+  p= 29 karatsuba  fold      wallace  sq=1  vars=   252 K=  5 |J|=2^6   checked=    928 bad=0  OK
   p= 29 karatsuba  fold      dadda    sq=0  vars=   246 K=  8 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 karatsuba  fold      dadda    sq=1  vars=   208 K=  8 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 karatsuba  fold      dadda    sq=1  vars=   195 K=  8 |J|=2^6   checked=    928 bad=0  OK
   p= 29 karatsuba  fold      unary    sq=0  vars=   213 K= 13 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 karatsuba  fold      unary    sq=1  vars=   175 K= 13 |J|=2^7   checked=    928 bad=0  OK
-  p= 29 toom3      quotient  binary   sq=0  vars=    81 K= 17 |J|=2^9   checked=  26912 bad=0  OK
-  p= 29 toom3      quotient  binary   sq=1  vars=    61 K= 15 |J|=2^10  checked=    928 bad=0  OK
-  p= 29 toom3      quotient  wallace  sq=0  vars=   134 K=  5 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 toom3      quotient  wallace  sq=1  vars=   114 K=  5 |J|=2^7   checked=    928 bad=0  OK
-  p= 29 toom3      quotient  dadda    sq=0  vars=   119 K=  8 |J|=2^7   checked=  26912 bad=0  OK
-  p= 29 toom3      quotient  dadda    sq=1  vars=    99 K=  8 |J|=2^7   checked=    928 bad=0  OK
-  p= 29 toom3      quotient  unary    sq=0  vars=    87 K= 22 |J|=2^8   checked=  26912 bad=0  OK
-  p= 29 toom3      quotient  unary    sq=1  vars=    67 K= 20 |J|=2^9   checked=    928 bad=0  OK
+  p= 29 karatsuba  fold      unary    sq=1  vars=   166 K= 13 |J|=2^6   checked=    928 bad=0  OK
+  p= 29 toom3      quotient  binary   sq=0  vars=    79 K= 14 |J|=2^8   checked=  26912 bad=0  OK
+  p= 29 toom3      quotient  binary   sq=1  vars=    56 K= 11 |J|=2^8   checked=    928 bad=0  OK
+  p= 29 toom3      quotient  wallace  sq=0  vars=   122 K=  5 |J|=2^6   checked=  26912 bad=0  OK
+  p= 29 toom3      quotient  wallace  sq=1  vars=    82 K=  5 |J|=2^6   checked=    928 bad=0  OK
+  p= 29 toom3      quotient  dadda    sq=0  vars=   106 K=  8 |J|=2^7   checked=  26912 bad=0  OK
+  p= 29 toom3      quotient  dadda    sq=1  vars=    66 K=  8 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 toom3      quotient  unary    sq=0  vars=    84 K= 19 |J|=2^8   checked=  26912 bad=0  OK
+  p= 29 toom3      quotient  unary    sq=1  vars=    54 K= 13 |J|=2^7   checked=    928 bad=0  OK
   p= 29 toom3      naf       binary   sq=0  vars=    79 K= 14 |J|=2^8   checked=  26912 bad=0  OK
-  p= 29 toom3      naf       binary   sq=1  vars=    59 K= 12 |J|=2^9   checked=    928 bad=0  OK
+  p= 29 toom3      naf       binary   sq=1  vars=    56 K= 11 |J|=2^8   checked=    928 bad=0  OK
   p= 29 toom3      naf       wallace  sq=0  vars=   122 K=  5 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 toom3      naf       wallace  sq=1  vars=   102 K=  5 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 toom3      naf       wallace  sq=1  vars=    82 K=  5 |J|=2^6   checked=    928 bad=0  OK
   p= 29 toom3      naf       dadda    sq=0  vars=   106 K=  8 |J|=2^7   checked=  26912 bad=0  OK
-  p= 29 toom3      naf       dadda    sq=1  vars=    86 K=  8 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 toom3      naf       dadda    sq=1  vars=    66 K=  8 |J|=2^7   checked=    928 bad=0  OK
   p= 29 toom3      naf       unary    sq=0  vars=    84 K= 19 |J|=2^8   checked=  26912 bad=0  OK
-  p= 29 toom3      naf       unary    sq=1  vars=    64 K= 17 |J|=2^9   checked=    928 bad=0  OK
+  p= 29 toom3      naf       unary    sq=1  vars=    54 K= 13 |J|=2^7   checked=    928 bad=0  OK
   p= 29 toom3      fold      binary   sq=0  vars=   116 K= 12 |J|=2^8   checked=  26912 bad=0  OK
-  p= 29 toom3      fold      binary   sq=1  vars=    96 K= 12 |J|=2^9   checked=    928 bad=0  OK
+  p= 29 toom3      fold      binary   sq=1  vars=    86 K= 12 |J|=2^7   checked=    928 bad=0  OK
   p= 29 toom3      fold      wallace  sq=0  vars=   167 K=  5 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 toom3      fold      wallace  sq=1  vars=   147 K=  5 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 toom3      fold      wallace  sq=1  vars=   127 K=  5 |J|=2^6   checked=    928 bad=0  OK
   p= 29 toom3      fold      dadda    sq=0  vars=   140 K=  8 |J|=2^6   checked=  26912 bad=0  OK
-  p= 29 toom3      fold      dadda    sq=1  vars=   120 K=  8 |J|=2^7   checked=    928 bad=0  OK
+  p= 29 toom3      fold      dadda    sq=1  vars=   101 K=  8 |J|=2^6   checked=    928 bad=0  OK
   p= 29 toom3      fold      unary    sq=0  vars=   109 K= 13 |J|=2^7   checked=  26912 bad=0  OK
-  p= 29 toom3      fold      unary    sq=1  vars=    89 K= 13 |J|=2^8   checked=    928 bad=0  OK
-  p= 61 schoolbook quotient  binary   sq=0  vars=   104 K= 20 |J|=2^9   checked= 238144 bad=0  OK
-  p= 61 schoolbook quotient  binary   sq=1  vars=    77 K= 17 |J|=2^10  checked=   3904 bad=0  OK
-  p= 61 schoolbook quotient  wallace  sq=0  vars=   191 K=  5 |J|=2^6   checked= 238144 bad=0  OK
-  p= 61 schoolbook quotient  wallace  sq=1  vars=   164 K=  5 |J|=2^7   checked=   3904 bad=0  OK
-  p= 61 schoolbook quotient  dadda    sq=0  vars=   172 K=  8 |J|=2^7   checked= 238144 bad=0  OK
-  p= 61 schoolbook quotient  dadda    sq=1  vars=   145 K=  8 |J|=2^7   checked=   3904 bad=0  OK
-  p= 61 schoolbook quotient  unary    sq=0  vars=   122 K= 28 |J|=2^9   checked= 238144 bad=0  OK
-  p= 61 schoolbook quotient  unary    sq=1  vars=    95 K= 26 |J|=2^10  checked=   3904 bad=0  OK
+  p= 29 toom3      fold      unary    sq=1  vars=    79 K= 13 |J|=2^6   checked=    928 bad=0  OK
+  p= 61 schoolbook quotient  binary   sq=0  vars=   111 K= 16 |J|=2^9   checked= 238144 bad=0  OK
+  p= 61 schoolbook quotient  binary   sq=1  vars=    70 K= 13 |J|=2^8   checked=   3904 bad=0  OK
+  p= 61 schoolbook quotient  wallace  sq=0  vars=   165 K=  5 |J|=2^6   checked= 238144 bad=0  OK
+  p= 61 schoolbook quotient  wallace  sq=1  vars=   108 K=  5 |J|=2^6   checked=   3904 bad=0  OK
+  p= 61 schoolbook quotient  dadda    sq=0  vars=   145 K=  8 |J|=2^7   checked= 238144 bad=0  OK
+  p= 61 schoolbook quotient  dadda    sq=1  vars=    88 K=  8 |J|=2^7   checked=   3904 bad=0  OK
+  p= 61 schoolbook quotient  unary    sq=0  vars=   113 K= 22 |J|=2^8   checked= 238144 bad=0  OK
+  p= 61 schoolbook quotient  unary    sq=1  vars=    71 K= 16 |J|=2^8   checked=   3904 bad=0  OK
   p= 61 schoolbook naf       binary   sq=0  vars=   111 K= 16 |J|=2^9   checked= 238144 bad=0  OK
-  p= 61 schoolbook naf       binary   sq=1  vars=    84 K= 14 |J|=2^10  checked=   3904 bad=0  OK
+  p= 61 schoolbook naf       binary   sq=1  vars=    70 K= 13 |J|=2^8   checked=   3904 bad=0  OK
   p= 61 schoolbook naf       wallace  sq=0  vars=   165 K=  5 |J|=2^6   checked= 238144 bad=0  OK
+  p= 61 schoolbook naf       wallace  sq=1  vars=   108 K=  5 |J|=2^6   checked=   3904 bad=0  OK
+  p= 61 schoolbook naf       dadda    sq=0  vars=   145 K=  8 |J|=2^7   checked= 238144 bad=0  OK
+  p= 61 schoolbook naf       dadda    sq=1  vars=    88 K=  8 |J|=2^7   checked=   3904 bad=0  OK
+  p= 61 schoolbook naf       unary    sq=0  vars=   113 K= 22 |J|=2^8   checked= 238144 bad=0  OK
+  p= 61 schoolbook naf       unary    sq=1  vars=    71 K= 16 |J|=2^8   checked=   3904 bad=0  OK
+  p= 61 schoolbook fold      binary   sq=0  vars=   144 K= 13 |J|=2^8   checked= 238144 bad=0  OK
+  p= 61 schoolbook fold      binary   sq=1  vars=   105 K= 12 |J|=2^7   checked=   3904 bad=0  OK
+  p= 61 schoolbook fold      wallace  sq=0  vars=   210 K=  5 |J|=2^6   checked= 238144 bad=0  OK
+  p= 61 schoolbook fold      wallace  sq=1  vars=   153 K=  5 |J|=2^6   checked=   3904 bad=0  OK
+  p= 61 schoolbook fold      dadda    sq=0  vars=   176 K=  8 |J|=2^6   checked= 238144 bad=0  OK
+  p= 61 schoolbook fold      dadda    sq=1  vars=   120 K=  8 |J|=2^6   checked=   3904 bad=0  OK
+  p= 61 schoolbook fold      unary    sq=0  vars=   138 K= 16 |J|=2^7   checked= 238144 bad=0  OK
+  p= 61 schoolbook fold      unary    sq=1  vars=    96 K= 13 |J|=2^7   checked=   3904 bad=0  OK

@@ -75,9 +75,10 @@ class Wrd:
 class MMQB(QB):
     """QB + signed-term identities + extra carry disciplines."""
 
-    def __init__(self, chunk=16, mode='wallace', dadda_height=2):
+    def __init__(self, chunk=16, mode='wallace', dadda_height=2, naf_merge=True):
         super().__init__(chunk=chunk, mode=mode)
         self.dadda_height = dadda_height
+        self.naf_merge = naf_merge   # False reproduces ../qubo.py exactly
         self.and_lookups = 0        # AND() calls
         self.and_hits = 0           # AND() calls served from the cache
         self.squares = []           # every (lin, const) asserted as a square == 0
@@ -111,10 +112,22 @@ class MMQB(QB):
         """assert  sum_k sign_k * 2^shift_k * mono_k  +  sum consts  == 0  over Z.
            terms:  iterable of (monomial tuple, sign, shift)
            consts: iterable of (sign, shift)"""
-        cols_pos, cols_neg = defaultdict(list), defaultdict(list)
+        # Merge first: k copies of the same monomial at the same shift are one
+        # monomial with coefficient k*2^shift, which costs popcount(k) column
+        # entries, not k.  This is what makes a squaring cheap -- a_i a_j and
+        # a_j a_i are the same monomial, so the pair collapses to a single
+        # entry one column up -- and it lets every accumulated coefficient be
+        # re-expanded in non-adjacent form, which is never worse than binary.
+        acc = defaultdict(int)
         for mono, sg, sh in terms:
+            acc[tuple(sorted(set(mono)))] += sg << sh
+        cols_pos, cols_neg = defaultdict(list), defaultdict(list)
+        for mono, coef in acc.items():
+            if not coef:
+                continue
             v = self.mono_var(mono)
-            (cols_pos if sg > 0 else cols_neg)[sh].append(v)
+            for sg, sh in (best_split(coef) if self.naf_merge else bin_split(coef)):
+                (cols_pos if sg > 0 else cols_neg)[sh].append(v)
         kpos = kneg = 0
         for sg, sh in consts:
             if sg > 0:

@@ -32,7 +32,7 @@ def best(mult, s, p, mode, leaves):
 
 if __name__ == '__main__':
     mode = sys.argv[1] if len(sys.argv) > 1 else 'wallace'
-    leaves = (4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128)
+    leaves = (4, 8, 12, 16, 24, 32, 64)
     print(f"one modular multiplication, mode={mode}, reduction=naf")
     print(f"{'s':>5} {'schoolbook':>12} {'karatsuba':>12} {'leaf':>5} {'ratio':>7} "
           f"{'toom3':>12} {'leaf':>5} {'ratio':>7}")

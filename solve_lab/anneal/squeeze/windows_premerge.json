@@ -1,0 +1,74 @@
+{
+ "OLD-STYLE school/quotient/wallace w=10": {
+  "ands": 163712,
+  "carries": 1315378,
+  "clique": 5,
+  "couplers": 6831030,
+  "jbits": 10,
+  "secs": 25.4,
+  "vars": 1483985
+ },
+ "OLD-STYLE school/quotient/wallace w=7": {
+  "ands": 163712,
+  "carries": 856218,
+  "clique": 5,
+  "couplers": 4640838,
+  "jbits": 9,
+  "secs": 17.3,
+  "vars": 1023033
+ },
+ "OLD-STYLE school/quotient/wallace w=8": {
+  "ands": 163712,
+  "carries": 921688,
+  "clique": 5,
+  "couplers": 4953093,
+  "jbits": 9,
+  "secs": 18.1,
+  "vars": 1088759
+ },
+ "OLD-STYLE school/quotient/wallace w=9": {
+  "ands": 163712,
+  "carries": 1052916,
+  "clique": 5,
+  "couplers": 5579085,
+  "jbits": 10,
+  "secs": 20.7,
+  "vars": 1220499
+ },
+ "SQUEEZED karatsuba(24)/naf/wallace w=10": {
+  "ands": 56100,
+  "carries": 555780,
+  "clique": 5,
+  "couplers": 2853097,
+  "jbits": 9,
+  "secs": 10.5,
+  "vars": 647920
+ },
+ "SQUEEZED karatsuba(24)/naf/wallace w=7": {
+  "ands": 56100,
+  "carries": 248400,
+  "clique": 5,
+  "couplers": 1374086,
+  "jbits": 9,
+  "secs": 4.3,
+  "vars": 338748
+ },
+ "SQUEEZED karatsuba(24)/naf/wallace w=8": {
+  "ands": 56100,
+  "carries": 292468,
+  "clique": 5,
+  "couplers": 1586109,
+  "jbits": 9,
+  "secs": 5.3,
+  "vars": 383072
+ },
+ "SQUEEZED karatsuba(24)/naf/wallace w=9": {
+  "ands": 56100,
+  "carries": 380472,
+  "clique": 5,
+  "couplers": 2009473,
+  "jbits": 9,
+  "secs": 6.8,
+  "vars": 471588
+ }
+}

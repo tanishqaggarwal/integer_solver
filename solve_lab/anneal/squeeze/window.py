@@ -26,12 +26,12 @@ RES = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'windows.json')
 
 
 def window(w, mode='wallace', mult='karatsuba', leaf=24, red='naf',
-           naf_consts=True, chunk=16, p=P, seed=1):
+           naf_consts=True, chunk=16, p=P, seed=1, naf_merge=True):
     s = p.bit_length()
     D = 1 << w
     rnd = random.Random(seed)
     consts = [rnd.randrange(p) for _ in range(2 * D)]
-    Q = MMQB(chunk=chunk, mode=mode)
+    Q = MMQB(chunk=chunk, mode=mode, naf_merge=naf_merge)
     split = best_split if naf_consts else bin_split
 
     sel = [Q.new(f"u{t}", 'input') for t in range(D)]
@@ -95,10 +95,10 @@ if __name__ == '__main__':
     import math
     res = json.load(open(RES)) if os.path.exists(RES) else {}
     cfgs = []
-    for w in (7, 8, 9, 10):
+    for w in (6, 7, 8, 9, 10):
         cfgs.append((f"OLD-STYLE school/quotient/wallace w={w}",
                      dict(w=w, mult='schoolbook', red='quotient', mode='wallace',
-                          naf_consts=False)))
+                          naf_consts=False, naf_merge=False)))
         cfgs.append((f"SQUEEZED karatsuba(24)/naf/wallace w={w}",
                      dict(w=w, mult='karatsuba', leaf=24, red='naf',
                           mode='wallace', naf_consts=True)))

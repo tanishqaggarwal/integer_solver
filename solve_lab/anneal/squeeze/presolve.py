@@ -126,126 +126,6 @@ def gates_of(Q):
     return [(z, i, j) for (i, j), z in Q.andcache.items()]
 
 
-# ------------------------------------------------- 3. roof duality (QPBO)
-class Dinic:
-    def __init__(self, n):
-        self.n = n
-        self.g = [[] for _ in range(n)]
-
-    def add(self, u, v, c):
-        self.g[u].append([v, c, len(self.g[v])])
-        self.g[v].append([u, 0, len(self.g[u]) - 1])
-
-    def maxflow(self, s, t):
-        flow = 0
-        while True:
-            lev = [-1] * self.n
-            lev[s] = 0
-            dq = deque([s])
-            while dq:
-                u = dq.popleft()
-                for e in self.g[u]:
-                    if e[1] > 0 and lev[e[0]] < 0:
-                        lev[e[0]] = lev[u] + 1
-                        dq.append(e[0])
-            if lev[t] < 0:
-                return flow
-            it = [0] * self.n
-
-            def dfs(u, f):
-                if u == t:
-                    return f
-                while it[u] < len(self.g[u]):
-                    e = self.g[u][it[u]]
-                    v = e[0]
-                    if e[1] > 0 and lev[v] == lev[u] + 1:
-                        d = dfs(v, min(f, e[1]))
-                        if d:
-                            e[1] -= d
-                            self.g[v][e[2]][1] += d
-                            return d
-                    it[u] += 1
-                return 0
-            while True:
-                f = dfs(s, 1 << 60)
-                if not f:
-                    break
-                flow += f
-
-
-def qpbo(Qdict, n):
-    """roof duality.  Returns dict v -> persistent value (strong persistency:
-       these values occur in SOME global minimum, and by the standard
-       autarky argument can be fixed without losing optimality)."""
-    # nodes: 0 = source (x=0 side), 1 = sink, 2+2i = x_i, 3+2i = xbar_i
-    N = 2 + 2 * n
-    S, T = 0, 1
-    D = Dinic(N)
-    X = lambda i: 2 + 2 * i                                          # noqa: E731
-    Xb = lambda i: 3 + 2 * i                                         # noqa: E731
-    lin = defaultdict(int)
-    quad = defaultdict(int)
-    for m, c in Qdict.items():
-        if len(m) == 1:
-            lin[m[0]] += c
-        elif len(m) == 2:
-            quad[m] += c
-    for i, c in lin.items():
-        if c > 0:
-            D.add(S, X(i), c)
-            D.add(Xb(i), T, c)
-        elif c < 0:
-            D.add(X(i), T, -c)
-            D.add(S, Xb(i), -c)
-    for (i, j), c in quad.items():
-        h = abs(c) / 2.0
-        h = abs(c)
-        if c > 0:
-            D.add(X(i), Xb(j), h)
-            D.add(X(j), Xb(i), h)
-        else:
-            D.add(S, X(i), h)
-            D.add(Xb(i), T, h)
-            D.add(X(i), X(j), h)
-            D.add(Xb(j), Xb(i), h)
-    D.maxflow(S, T)
-    # residual reachability
-    seen = [False] * N
-    dq = deque([S])
-    seen[S] = True
-    while dq:
-        u = dq.popleft()
-        for e in D.g[u]:
-            if e[1] > 0 and not seen[e[0]]:
-                seen[e[0]] = True
-                dq.append(e[0])
-    rev = [[] for _ in range(N)]
-    for u in range(N):
-        for e in D.g[u]:
-            if e[1] > 0:
-                rev[e[0]].append(u)
-    seenT = [False] * N
-    dq = deque([T])
-    seenT[T] = True
-    while dq:
-        u = dq.popleft()
-        for v in rev[u]:
-            if not seenT[v]:
-                seenT[v] = True
-                dq.append(v)
-    out = {}
-    for i in range(n):
-        if seen[X(i)] and not seen[Xb(i)]:
-            out[i] = 0
-        elif seen[Xb(i)] and not seen[X(i)]:
-            out[i] = 1
-        elif seenT[X(i)] and not seenT[Xb(i)]:
-            out[i] = 1
-        elif seenT[Xb(i)] and not seenT[X(i)]:
-            out[i] = 0
-    return out
-
-
 # ------------------------------------------------- 2. persistency ceiling
 def ceiling(p, **kw):
     """exact: how many variables are constant over ALL ground states.
@@ -293,6 +173,20 @@ def _build256(pin=False, **kw):
     build_modmul(Q, measure.P, A, B, C, **kw)
     Q.finalize()
     return (Q, C.bits) if pin else Q
+
+
+def _build256(pin=False, **kw):
+    import measure
+    from mmqb import MMQB
+    from mm import build_modmul
+    Q = MMQB(chunk=kw.pop('chunk', 16), mode=kw.pop('mode', 'wallace'))
+    A = Q.mkword('A', 256, lambda wv: 0)
+    B = Q.mkword('B', 256, lambda wv: 0)
+    C = Q.mkword('C', 256, lambda wv: 0)
+    build_modmul(Q, measure.P, A, B, C, **kw)
+    Q.finalize()
+    return (Q, C.bits) if pin else Q
+
 
 
 if __name__ == '__main__':
@@ -349,60 +243,5 @@ if __name__ == '__main__':
     and it fixes 266 of 200,699 variables: 0.13%.  In the ladder the product of
     each multiplication is another unknown word, so even that does not apply,
     except at the two final comparisons against T.""")
-
-
-def _build256(pin=False, **kw):
-    import measure
-    from mmqb import MMQB
-    from mm import build_modmul
-    Q = MMQB(chunk=kw.pop('chunk', 16), mode=kw.pop('mode', 'wallace'))
-    A = Q.mkword('A', 256, lambda wv: 0)
-    B = Q.mkword('B', 256, lambda wv: 0)
-    C = Q.mkword('C', 256, lambda wv: 0)
-    build_modmul(Q, measure.P, A, B, C, **kw)
-    Q.finalize()
-    return (Q, C.bits) if pin else Q
-
-
-if __name__ == '__main__':
-    import verify
-    import measure
-    print("=" * 96)
-    print("PRESOLVE -- what a classical pass can remove before the annealer sees it")
-    print("=" * 96)
-    print()
-    print("(a) PERSISTENCY CEILING: variables constant across every ground state")
-    print(f"    {'p':>6} {'vars':>7} {'constant':>9}  (any presolver's hard upper bound)")
-    for p in (13, 29, 61, 127):
-        Q, const = ceiling(p, mult='schoolbook', leaf=8, red='naf', mode='wallace')
-        print(f"    {p:6d} {Q.n:7d} {len(const):9d}")
-    print()
-    print("(b) BOUND PROPAGATION to a fixpoint on the real 256-bit modmul")
-    print(f"    {'variant':>34} {'vars':>9} {'fixed':>8} {'%':>7}")
-    for key, kw in (("school/naf/wallace", dict(mult='schoolbook', red='naf', mode='wallace')),
-                    ("karatsuba(32)/naf/wallace", dict(mult='karatsuba', leaf=32, red='naf',
-                                                       mode='wallace')),
-                    ("school/naf/binary", dict(mult='schoolbook', red='naf', mode='binary'))):
-        Q = _build256(**kw)
-        dom = propagate(Q.squares, gates_of(Q), Q.n)
-        print(f"    {key:>34} {Q.n:9,d} {len(dom):8,d} {100*len(dom)/Q.n:6.2f}%")
-    print()
-    print("(c) SAME, with the product pinned to a constant  (the situation the")
-    print("    factoring literature's table rules were written for: c is known)")
-    print(f"    {'variant':>34} {'vars':>9} {'fixed':>8} {'%':>7}")
-    for key, kw in (("school/naf/wallace", dict(mult='schoolbook', red='naf', mode='wallace')),):
-        Q, Cbits = _build256(pin=True, **kw)
-        val = 0x9d671cd581c69bc5e697f5e45bcd07c6741496c7e6d8a2f0e6d1a2b3c4d5e6f7 % measure.P
-        fixed = {v: (val >> t) & 1 for t, v in enumerate(Cbits)}
-        dom = propagate(Q.squares, gates_of(Q), Q.n, fixed=fixed)
-        print(f"    {key:>34} {Q.n:9,d} {len(dom):8,d} {100*len(dom)/Q.n:6.2f}%")
-    print()
-    print("(d) ROOF DUALITY (QPBO max-flow) vs the ceiling, on instances it can run on")
-    print(f"    {'p':>6} {'vars':>7} {'qpbo fixed':>11} {'ceiling':>9}")
-    for p in (13, 29, 61):
-        Q, A, B, C, _ = verify.make(p, mult='schoolbook', leaf=8, red='naf', mode='wallace')
-        got = qpbo(Q.Q, Q.n)
-        _, const = ceiling(p, mult='schoolbook', leaf=8, red='naf', mode='wallace')
-        print(f"    {p:6d} {Q.n:7d} {len(got):11d} {len(const):9d}")
 
 

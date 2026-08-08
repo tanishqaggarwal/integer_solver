@@ -33,9 +33,16 @@ class Dry(MMQB):
         self.bags = []
 
     def assert_terms(self, terms, consts, tag):
-        pos, neg = defaultdict(list), defaultdict(list)
+        from mmqb import best_split
+        acc = defaultdict(int)
         for mono, sg, sh in terms:
-            (pos if sg > 0 else neg)[sh].append(tuple(sorted(set(mono))))
+            acc[tuple(sorted(set(mono)))] += sg << sh
+        pos, neg = defaultdict(list), defaultdict(list)
+        for mono, coef in acc.items():
+            if not coef:
+                continue
+            for sg, sh in best_split(coef):
+                (pos if sg > 0 else neg)[sh].append(mono)
         self.bags.append((tag, pos, neg))
 
     def mono_var(self, mono):            # never called in dry mode

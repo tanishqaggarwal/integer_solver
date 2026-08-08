@@ -1,0 +1,20 @@
+                                     variant    logical     K    |J|     physical   vs4400      AND     carry
+-------------------------------------------------------------------------------------------------------------
+0 BASELINE (= ../qubo.py) school/quotient/binary    111,627   179 2^21      3,330,206     757x   65,536    45,834
+       1 + merge duplicate monomials /binary     91,163   103 2^19      1,564,965     356x   65,536    25,370
+ 2 + NAF reduction (pseudo-Mersenne) /binary     91,163   103 2^19      1,564,965     356x   65,536    25,370
+    3 + explicit fold instead of NAF /binary     92,968    99 2^19      1,533,972     349x   65,536    26,627
+              4 + Karatsuba(leaf=24) /binary     55,882    29 2^13        270,096      61x   22,711    22,166
+         5 + Toom-3(leaf=64) instead /binary     54,376    29 2^13        262,817      60x   23,804    24,977
+0 BASELINE (= ../qubo.py) school/quotient/wallace    324,853     5 2^9         324,853      74x   65,536   259,060
+      1 + merge duplicate monomials /wallace    199,931     5 2^6         199,931      45x   65,536   134,138
+2 + NAF reduction (pseudo-Mersenne) /wallace    199,931     5 2^6         199,931      45x   65,536   134,138
+   3 + explicit fold instead of NAF /wallace    201,375     5 2^6         201,375      46x   65,536   135,034
+             4 + Karatsuba(leaf=24) /wallace     99,298     5 2^6          99,298      23x   22,711    65,582
+        5 + Toom-3(leaf=64) instead /wallace    106,765     5 2^6         106,765      24x   23,804    77,366
+ S0 SQUARING baseline school/quotient/binary     68,317   140 2^21      1,594,063     362x   32,640    35,420
+               S1 SQUARING school/naf/binary     47,719    63 2^19        501,050     114x   32,640    14,822
+        S2 SQUARING karatsuba(24)/naf/binary     38,816    19 2^9         122,917      28x   10,678    18,232
+S0 SQUARING baseline school/quotient/wallace    226,677     5 2^9         226,677      52x   32,640   193,780
+              S1 SQUARING school/naf/wallace    101,755     5 2^6         101,755      23x   32,640    68,858
+       S2 SQUARING karatsuba(24)/naf/wallace     62,692     5 2^6          62,692      14x   10,678    42,108

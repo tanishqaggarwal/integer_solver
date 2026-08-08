@@ -31,9 +31,10 @@ def phys(v, c):
 
 
 def modmul(mult='schoolbook', leaf=32, red='naf', mode='wallace', square=False,
-           chunk=16, dadda_height=2, s=S, p=P):
+           chunk=16, dadda_height=2, s=S, p=P, naf_merge=True):
     """marginal cost of ONE modular multiplication: A, B, C already exist."""
-    Q = MMQB(chunk=chunk, mode=mode, dadda_height=dadda_height)
+    Q = MMQB(chunk=chunk, mode=mode, dadda_height=dadda_height,
+             naf_merge=naf_merge)
     A = Q.mkword('A', s, lambda wv: wv['_a'])
     B = A if square else Q.mkword('B', s, lambda wv: wv['_b'])
     C = Q.mkword('C', s, lambda wv: wv['_c'])
@@ -84,6 +85,29 @@ def run(key, **kw):
 def main(groups):
     print(HDR)
     print("-" * len(HDR))
+    if 'final' in groups:
+        # the technique ladder, one change at a time, general 256x256 modmul
+        for mode in ('binary', 'wallace'):
+            run(f"0 BASELINE (= ../qubo.py) school/quotient/{mode}",
+                mult='schoolbook', red='quotient', mode=mode, naf_merge=False)
+            run(f"1 + merge duplicate monomials /{mode}",
+                mult='schoolbook', red='quotient', mode=mode, naf_merge=True)
+            run(f"2 + NAF reduction (pseudo-Mersenne) /{mode}",
+                mult='schoolbook', red='naf', mode=mode)
+            run(f"3 + explicit fold instead of NAF /{mode}",
+                mult='schoolbook', red='fold', mode=mode)
+            run(f"4 + Karatsuba(leaf=24) /{mode}",
+                mult='karatsuba', leaf=24, red='naf', mode=mode)
+            run(f"5 + Toom-3(leaf=64) instead /{mode}",
+                mult='toom3', leaf=64, red='naf', mode=mode)
+        for mode in ('binary', 'wallace'):
+            run(f"S0 SQUARING baseline school/quotient/{mode}",
+                mult='schoolbook', red='quotient', mode=mode, square=True,
+                naf_merge=False)
+            run(f"S1 SQUARING school/naf/{mode}", mult='schoolbook', red='naf',
+                mode=mode, square=True)
+            run(f"S2 SQUARING karatsuba(24)/naf/{mode}", mult='karatsuba',
+                leaf=24, red='naf', mode=mode, square=True)
     if 'base' in groups or 'all' in groups:
         # 'unary' is omitted at s=256 on purpose: its cliques are ~500 wide, so
         # the penalty expansion is ~c^2 per column and the build exhausts memory

@@ -1,10 +1,12 @@
                                  configuration      window    K    |J|  windows         LADDER        physical   vs 4400
 --------------------------------------------------------------------------------------------------------------------------
-         OLD-STYLE school/quotient/wallace w=7   1,023,033    5 2^9          37     37,852,221      37,852,221    8,603x
-        SQUEEZED karatsuba(24)/naf/wallace w=7     338,748    5 2^9          37     12,533,676      12,533,676    2,849x
-         OLD-STYLE school/quotient/wallace w=8   1,088,759    5 2^9          32     34,840,288      34,840,288    7,918x
-        SQUEEZED karatsuba(24)/naf/wallace w=8     383,072    5 2^9          32     12,258,304      12,258,304    2,786x
-         OLD-STYLE school/quotient/wallace w=9   1,220,499    5 2^10         29     35,394,471      35,394,471    8,044x
-        SQUEEZED karatsuba(24)/naf/wallace w=9     471,588    5 2^9          29     13,676,052      13,676,052    3,108x
-        OLD-STYLE school/quotient/wallace w=10   1,483,985    5 2^10         26     38,583,610      38,583,610    8,769x
-       SQUEEZED karatsuba(24)/naf/wallace w=10     647,920    5 2^9          26     16,845,920      16,845,920    3,829x
+         OLD-STYLE school/quotient/wallace w=6     924,919    5 2^10         43     39,771,517      39,771,517    9,039x
+        SQUEEZED karatsuba(24)/naf/wallace w=6     295,264    5 2^8          43     12,696,352      12,696,352    2,886x
+         OLD-STYLE school/quotient/wallace w=7     957,753    5 2^9          37     35,436,861      35,436,861    8,054x
+        SQUEEZED karatsuba(24)/naf/wallace w=7     317,392    5 2^9          37     11,743,504      11,743,504    2,669x
+         OLD-STYLE school/quotient/wallace w=8   1,023,479    5 2^9          32     32,751,328      32,751,328    7,443x
+        SQUEEZED karatsuba(24)/naf/wallace w=8     361,716    5 2^9          32     11,574,912      11,574,912    2,631x
+         OLD-STYLE school/quotient/wallace w=9   1,155,219    5 2^10         29     33,501,351      33,501,351    7,614x
+        SQUEEZED karatsuba(24)/naf/wallace w=9     450,232    5 2^9          29     13,056,728      13,056,728    2,967x
+        OLD-STYLE school/quotient/wallace w=10   1,418,705    5 2^10         26     36,886,330      36,886,330    8,383x
+       SQUEEZED karatsuba(24)/naf/wallace w=10     626,564    5 2^9          26     16,290,664      16,290,664    3,702x
