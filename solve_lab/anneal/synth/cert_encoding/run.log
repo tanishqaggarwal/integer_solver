@@ -77,3 +77,5 @@ LINK A CERTIFICATE  --  QUBO E=0  <=>  gadget constraints
   p=13 schoolbook binary   |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL
   p=13 schoolbook wallace  |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL
   p=13 karatsuba  binary   |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL
+  p=13 karatsuba  wallace  |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL
+  p=13 toom3      binary   |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL
