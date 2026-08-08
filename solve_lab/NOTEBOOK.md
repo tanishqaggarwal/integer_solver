@@ -1854,3 +1854,35 @@ per-prime object is a sparse network of small low-precision blocks + a brute-for
 residual core over GF(q). §4's surviving truth: the arithmetic content is pushed into the
 CRT-lift consistency step, not evaporated. Next: port the mod-p forward+advice solver to a
 generic small q, solve ~20 primes, CRT-lift the 13 numbers, verify with exact-Z checker.py.
+
+## Session 13 part 2 — core reduction + minimally-coupled QUBO blocks (S13_CORE_QUBO.md)
+
+Ask: reduce to a small core, decompose into minimally-coupled QUBOs of 1,000-5,000
+binary vars each, budget up to 100,000.
+
+CORE (measured): genuine unknowns = 3,330 binary (13 advice x 256 bits + 2 message bits).
+At the 39,026 witness only TWO checks are nonzero and their ancestor cone is 17 variables /
+13 atoms / 6 free inputs / 2 wide multiplies. Decoded symbolically (core_print.py), with the
+identity wire = p and x1329/x10903 free handles, the ENTIRE residual is two divisibilities:
+    p | x7075*x9118    and    p | x7075*x8731,   x7075 = 1 - x2081*x4287.
+x9118 and x8731 are FREE inputs, so both are reachable in isolation; the difficulty is
+collateral -- core_extend.py measures 328 descendant vars, 109 checks at risk, 28 self-absorbing
+via private p-handles, 81 HARD, whose cone is 6,237 vars / 53 wide multiplies.
+
+DECOMPOSITION: limb/carry chains instead of one dense (a*X-b-k*p)^2. Column j constrains
+s_j = (a*X)_j - b_j - (k*p)_j + c_{j-1} with result limb 0 and carry c_j; couplers ~2L bits and
+column j touches j+1 ONLY via the carry word -> a chain whose prefix/suffix separator is one
+carry word (treewidth = carry width, not operand width).
+qubo_limb.py verify walks the REAL carry chain (not abs(a*X-b-k*m)) and confirms SOUND and
+COMPLETE on 6/6 random moduli.
+
+MEASURED SIZES at 256-bit, L=16: full 256x256 multiply = 16 blocks, min/mean/max 322/2484/4646
+binary, TOTAL 39,750, carry coupling 18-21 bits, 13/16 blocks inside 1k-5k. Known-coefficient
+(linear) congruence = 16 blocks x 50 = 800 binary. Budget: two full multiplies (79,500) or one
+multiply + ~75 linear congruences fit under 100,000.
+
+Reference: whole-instance METIS partition (decompose_metis.py) gives 460 blocks, mean 2,998,
+but 25% interface and a hub x24453 touching 286 blocks -- core-first is far better coupled.
+
+Scope: encoding obstacles of REDUCED_PROBLEM.md §4 (dense 512-bit couplers, 1e5-1e6 monoliths)
+are removed; searchability of the resulting landscape is NOT claimed. Deliverable still 39,026.
