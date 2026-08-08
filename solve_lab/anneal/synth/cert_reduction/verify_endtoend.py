@@ -30,7 +30,8 @@ import checker                      # solve_lab/checker.py
 import synth.cert_reduction.synth_circuit as sc
 from synth.gen import make
 
-SCRATCH = os.environ.get('CERT_SCRATCH', HERE)
+import tempfile
+SCRATCH = os.environ.get('CERT_SCRATCH', tempfile.gettempdir())
 
 
 def _check(eqs_path, v):
