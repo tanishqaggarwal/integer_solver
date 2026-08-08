@@ -39,3 +39,4 @@ LINK A CERTIFICATE  --  QUBO E=0  <=>  gadget constraints
   p=13 toom3 naf binary                                n=  54 squares=  10 ands= 16 W=64   margin=1    D-certified (n=54>2^cap; forward-checked |constraints|=351)
   p=13 schoolbook naf wallace                          n=  87 squares=  36 ands= 16 W=12   margin=1    D-certified (n=87>2^cap; forward-checked |constraints|=351)
   p=13 karatsuba naf wallace                           n= 155 squares=  83 ands= 17 W=12   margin=1    D-certified (n=155>2^cap; forward-checked |constraints|=351)
+  p=13 toom3 naf wallace                               n=  87 squares=  36 ands= 16 W=12   margin=1    D-certified (n=87>2^cap; forward-checked |constraints|=351)
