@@ -292,3 +292,9 @@ L1  EXHAUSTIVE OVER INPUTS -- every (a,b,c) triple, every variant
   p= 61 schoolbook fold      unary    sq=1  vars=    96 K= 13 |J|=2^7   checked=   3904 bad=0  OK
   p= 61 karatsuba  quotient  binary   sq=0  vars=   226 K= 11 |J|=2^7   checked= 238144 bad=0  OK
   p= 61 karatsuba  quotient  binary   sq=1  vars=   167 K= 11 |J|=2^7   checked=   3904 bad=0  OK
+  p= 61 karatsuba  quotient  wallace  sq=0  vars=   308 K=  5 |J|=2^6   checked= 238144 bad=0  OK
+  p= 61 karatsuba  quotient  wallace  sq=1  vars=   239 K=  5 |J|=2^6   checked=   3904 bad=0  OK
+  p= 61 karatsuba  quotient  dadda    sq=0  vars=   244 K=  8 |J|=2^6   checked= 238144 bad=0  OK
+  p= 61 karatsuba  quotient  dadda    sq=1  vars=   185 K=  8 |J|=2^6   checked=   3904 bad=0  OK
+  p= 61 karatsuba  quotient  unary    sq=0  vars=   214 K= 13 |J|=2^6   checked= 238144 bad=0  OK
+  p= 61 karatsuba  quotient  unary    sq=1  vars=   161 K= 13 |J|=2^6   checked=   3904 bad=0  OK

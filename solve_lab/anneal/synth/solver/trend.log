@@ -1,0 +1,2 @@
+SA hit-rate per restart vs mu (light budget, trend only)
+ mu     n restarts  hits    p(hit)      1/p    2^mu

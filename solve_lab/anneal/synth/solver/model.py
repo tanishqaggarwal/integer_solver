@@ -131,8 +131,9 @@ def onehot_start(model, digits=None, rng=None):
     digits = model['digits'] if digits is None else digits
     x0 = [0] * Q.n
     if rng is not None:
+        rbit = (lambda: int(rng.integers(0, 2))) if hasattr(rng, 'integers') else (lambda: rng.randrange(2))
         for i in range(Q.n):
-            x0[i] = rng.randrange(2)
+            x0[i] = rbit()
     for j in range(M):
         for t in range(1 << w):
             x0[U[j][t]] = 1 if t == digits[j] else 0
