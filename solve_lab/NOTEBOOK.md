@@ -1949,3 +1949,33 @@ TWO BUGS FOUND BY THESE TESTS (both fixed):
     divisible by the modulus the condition is VACUOUS, but the code fell back to coefficient 1
     and invented a constraint x0 == x1 that does not exist. Fixed by emitting no block in that
     case -- this mirrors the self-absorbing checks of the real instance.
+
+## Session 13 part 5 — which QUBO needs an annealer? (s13/blocksolve.py)
+
+Answer: NONE of them. Measured, not asserted.
+
+A. INTERNAL TREEWIDTH of the emitted blocks (min-fill UB on the block's own
+   variable-interaction graph):
+     MUL w=16 q=65521 : 729 vars, 10,441 quadratic terms, treewidth 63 -> generic DP ~2^73
+     MUL w=8  q=251   : 277 vars,  2,739 terms,            treewidth 31 -> generic DP ~2^40
+     LIN w=16 (4 terms): 557 vars, 7,038 terms,            treewidth 39 -> generic DP ~2^49
+   So the blocks are NOT low-treewidth. A generic solver treating a block as an opaque
+   quadratic form would face 2^40-2^73. (This corrected an earlier hardcoded claim of
+   "treewidth <= 20, trivial" which contradicted the script's own measurements.)
+
+B. DETERMINISM is what actually makes them easy. A block is a circuit: fix the input wires
+   and output/partial-products/carries are ALL forced. Measured: 200/200 random inputs give a
+   zero-energy state by propagation in 1.47 ms for all 729 variables. So blocks are easy for
+   the RIGHT algorithm (propagate), not for the generic one (DP). Handing one to an annealer
+   would be strictly worse than evaluating it.
+
+C. WHERE THE SEARCH LIVES. Tier [B'']: 169 unknown wires but only TWO are genuinely free
+   (x8731, x9118) = 512 real bits; the other 167 are forced functions of those two, and the
+   234,968 emitted QUBO variables are almost entirely forced auxiliaries. Tier [B']: 4 free
+   inputs = 1,024 bits, 324 derived.
+
+VERDICT: 512 bits of freedom, ~2^160 of block-graph coupling, 234,968 variables against
+~4,400 qubits of current hardware. The composite is simultaneously too wide for exact DP and
+far too large for an annealer, while every individual piece is classically trivial. There is
+no block in this decomposition that is both large enough and structurally hard enough to
+require annealing.
