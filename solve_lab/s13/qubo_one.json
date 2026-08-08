@@ -1,0 +1,58 @@
+[
+ {
+  "stage": "S0 monolithic (nothing assumed)",
+  "unknowns": 38748,
+  "atoms": 42267,
+  "muls": 253421,
+  "binary": 190235202,
+  "kind": "-"
+ },
+ {
+  "stage": "S1 handles eliminated",
+  "unknowns": 37499,
+  "atoms": 42267,
+  "muls": 252172,
+  "binary": 189364649,
+  "kind": "SOUND"
+ },
+ {
+  "stage": "S2 inert booleans dropped (445)",
+  "unknowns": 37498,
+  "atoms": 42267,
+  "muls": 252170,
+  "binary": 189363245,
+  "kind": "SOUND"
+ },
+ {
+  "stage": "S3 dead wires dropped",
+  "unknowns": 36392,
+  "atoms": 41487,
+  "muls": 252170,
+  "binary": 189041349,
+  "kind": "SOUND"
+ },
+ {
+  "stage": "S4 obstruction cone (6 failing checks)",
+  "unknowns": 560,
+  "atoms": 714,
+  "muls": 1492,
+  "binary": 1337802,
+  "kind": "ANCHORED"
+ },
+ {
+  "stage": "S6 linear elimination (rank 20 of 31 knobs)",
+  "unknowns": 11,
+  "atoms": 1,
+  "muls": 3,
+  "binary": 122066,
+  "kind": "SOUND"
+ },
+ {
+  "stage": "S7 concentrated core (A*c^2 == B^2, 4 affine knobs)",
+  "unknowns": 4,
+  "atoms": 1,
+  "muls": 3,
+  "binary": 120274,
+  "kind": "measured"
+ }
+]

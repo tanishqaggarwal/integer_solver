@@ -2081,3 +2081,36 @@ So concentration succeeds as a construction and fails as a strategy: each isolat
 easy, and the difficulty is the SIMULTANEOUS satisfaction. The residual difficulty sits in the
 discrete frame/branch choice (which gates hold, which bits are set), and part 7 axis 1 showed
 those bits are NON-ADDITIVE -- so that part does not concentrate into a QUBO kernel either.
+
+## Session 13 part 8 — ONE QUBO for the whole instance, then reduced (s13/qubo_one.py)
+
+Built a single monolithic QUBO for all 39,033 equations and stripped it stage by stage, with
+every stage labelled SOUND (preserves the solution set) or ANCHORED (assumes verified
+structure). Sizes use the primitives verified in qubo_full.py (MUL 681 binary, 11-bit couplers;
+LIN 362 + 13.8/term).
+
+  stage                                            unknowns  atoms    MULs        binary
+  S0 monolithic (nothing assumed)                    38,748 42,267 253,421   190,235,202
+  S1 handles eliminated                    SOUND     37,499 42,267 252,172   189,364,649
+  S2 inert booleans dropped (445)          SOUND     37,498 42,267 252,170   189,363,245
+  S3 dead wires dropped                    SOUND     36,392 41,487 252,170   189,041,349
+  S4 obstruction cone (6 failing checks) ANCHORED       560    714   1,492     1,337,802
+  S6 linear elimination (rank 20 of 31)    SOUND         11      1       3       122,066
+  S7 concentrated core (A c^2 == B^2)    measured         4      1       3       120,274
+
+ACCOUNTING FIX: the first version reported S6 as 2,816 binary by counting only unknown BITS
+while S7 counted bits PLUS arithmetic, which made the reduction look non-monotone. The `binary`
+column now always counts unknown bits + arithmetic auxiliaries, so stages are comparable.
+
+THE HEADLINE RESULT IS THE NEGATIVE ONE:
+  * FROM SCRATCH, sound reductions only: 190,235,202 -> 189,041,349 = **1.01x**. Essentially
+    NOTHING can be removed. 6,828 of 7,273 free inputs reach some check, only 445 booleans are
+    structurally inert, and almost no wire is dead. The instance has no easy bits to strip.
+  * ANCHORED on the verified 39,026 solution: 190M -> 120,274 = 1,582x -- but the ENTIRE
+    reduction is S4, i.e. it comes from already possessing a solution good to 6 failing checks.
+    It describes the RESIDUAL, not a from-scratch solve.
+
+So "aggressively remove the easy bits" has a measured answer: there are no easy bits. The
+190M-variable monolith is irreducible by sound local reasoning; every shrink is bought with
+prior knowledge of a near-solution. That is consistent with everything else this session --
+each isolated piece is easy, and the difficulty is the joint constraint.
