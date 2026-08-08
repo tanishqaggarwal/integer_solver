@@ -8,8 +8,12 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'squeeze'))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from measure import modmul
 PLANS = [('kara-24 (squeeze best)', dict(mult='karatsuba', leaf=24)),
-         ('toom3(128)>kara(24)', dict(mult=[('toom3',128),('karatsuba',24)], leaf=24)),
-         ('toom3(128)>kara(16)', dict(mult=[('toom3',128),('karatsuba',16)], leaf=16))]
+         ('toom3(128)>kara(24) GENERAL', dict(mult=[('toom3',128),('karatsuba',24)], leaf=24)),
+         ('toom3(128)>kara(24) SQUARE', dict(mult=[('toom3',128),('karatsuba',24)], leaf=24, square=True))]
+
+# current bests (clique 5, |J| 2^6, faithful):
+#   general modular multiply : 96,809  (was 99,298)
+#   squaring a*a mod p       : 60,293  (was 62,692)
 if __name__ == '__main__':
     print(f"{'plan':26} {'vars':>7} {'clique':>6} {'|J|':>5} {'AND':>7} {'carry':>7}")
     for lab, kw in PLANS:
