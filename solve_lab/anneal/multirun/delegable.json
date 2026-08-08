@@ -1,0 +1,175 @@
+{
+ "modmul": [
+  {
+   "p": 7,
+   "vars": 64,
+   "tested": 49,
+   "nonzero_energy": 0
+  },
+  {
+   "p": 11,
+   "vars": 87,
+   "tested": 121,
+   "nonzero_energy": 0
+  },
+  {
+   "p": 13,
+   "vars": 87,
+   "tested": 169,
+   "nonzero_energy": 0
+  },
+  {
+   "p": 17,
+   "vars": 110,
+   "tested": 289,
+   "nonzero_energy": 0
+  },
+  {
+   "p": 19,
+   "vars": 122,
+   "tested": 361,
+   "nonzero_energy": 0
+  }
+ ],
+ "comb_nofinal": [
+  {
+   "p": 97,
+   "B": 3,
+   "m": 4,
+   "vars": 1009,
+   "windows": 2,
+   "w": 2,
+   "digit_assignments": 16,
+   "zero_energy": 15,
+   "degenerate": 1,
+   "k": null,
+   "zero_list": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6,
+    7,
+    8,
+    "..."
+   ]
+  },
+  {
+   "p": 97,
+   "B": 3,
+   "m": 4,
+   "vars": 2680,
+   "windows": 4,
+   "w": 1,
+   "digit_assignments": 16,
+   "zero_energy": 12,
+   "degenerate": 4,
+   "k": null,
+   "zero_list": [
+    0,
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    10,
+    "..."
+   ]
+  },
+  {
+   "p": 97,
+   "B": 3,
+   "m": 6,
+   "vars": 1908,
+   "windows": 3,
+   "w": 2,
+   "digit_assignments": 64,
+   "zero_energy": 56,
+   "degenerate": 8,
+   "k": null,
+   "zero_list": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6,
+    7,
+    8,
+    "..."
+   ]
+  },
+  {
+   "p": 89,
+   "B": 5,
+   "m": 4,
+   "vars": 1066,
+   "windows": 2,
+   "w": 2,
+   "digit_assignments": 16,
+   "zero_energy": 15,
+   "degenerate": 1,
+   "k": null,
+   "zero_list": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6,
+    7,
+    8,
+    "..."
+   ]
+  }
+ ],
+ "comb_final": [
+  {
+   "p": 97,
+   "B": 3,
+   "m": 4,
+   "vars": 1045,
+   "windows": 2,
+   "w": 2,
+   "digit_assignments": 16,
+   "zero_energy": 1,
+   "degenerate": 1,
+   "k": 15,
+   "zero_list": [
+    15
+   ]
+  },
+  {
+   "p": 97,
+   "B": 3,
+   "m": 4,
+   "vars": 2714,
+   "windows": 4,
+   "w": 1,
+   "digit_assignments": 16,
+   "zero_energy": 1,
+   "degenerate": 4,
+   "k": 15,
+   "zero_list": [
+    15
+   ]
+  },
+  {
+   "p": 89,
+   "B": 5,
+   "m": 4,
+   "vars": 1109,
+   "windows": 2,
+   "w": 2,
+   "digit_assignments": 16,
+   "zero_energy": 1,
+   "degenerate": 1,
+   "k": 15,
+   "zero_list": [
+    15
+   ]
+  }
+ ]
+}

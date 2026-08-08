@@ -13,12 +13,12 @@ def cost(fn, mode):
     return st['vars'], st['couplers']
 
 
-def marginal_window(s, w, mode, seed=1, neq=True, want_clique=False):
+def marginal_window(s, w, mode, seed=1, neq=True, want_clique=False, chunk=16):
     """exact marginal cost of one comb window: 2 table look-ups + 4 modmuls + 4 linear words."""
     rnd = random.Random(seed)
     p = (1 << (s - 1)) + 2 * rnd.randrange(1 << (s - 3)) + 1
     D = 1 << w
-    L = Ladder(p, mode=mode)
+    L = Ladder(p, mode=mode, chunk=chunk)
     Q = L.qb
     consts = [rnd.randrange(p) for _ in range(2 * D)]
 

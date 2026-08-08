@@ -1,0 +1,86 @@
+{
+ "modmul_k0": {
+  "vars": 101683,
+  "linear": 101671,
+  "couplers": 3083744,
+  "max_clique": 139,
+  "and_vars": 65536,
+  "word_bits": 1025,
+  "carry_bits": 35634,
+  "max_coef": 1311744,
+  "min_coef": 1,
+  "dynamic_range_bits": 21
+ },
+ "modmul_k1": {
+  "vars": 87774,
+  "linear": 88273,
+  "couplers": 1847963,
+  "max_clique": 58,
+  "and_vars": 49409,
+  "word_bits": 2438,
+  "carry_bits": 36439,
+  "max_coef": 82176,
+  "min_coef": 1,
+  "dynamic_range_bits": 17
+ },
+ "modmul_k2": {
+  "vars": 77749,
+  "linear": 78059,
+  "couplers": 1476227,
+  "max_clique": 57,
+  "and_vars": 37511,
+  "word_bits": 4570,
+  "carry_bits": 36180,
+  "max_coef": 82176,
+  "min_coef": 1,
+  "dynamic_range_bits": 17
+ },
+ "modmul_k3": {
+  "vars": 73274,
+  "linear": 73304,
+  "couplers": 1266946,
+  "max_clique": 57,
+  "and_vars": 28826,
+  "word_bits": 7809,
+  "carry_bits": 37151,
+  "max_coef": 82176,
+  "min_coef": 1,
+  "dynamic_range_bits": 17
+ },
+ "modmul_k4": {
+  "vars": 71771,
+  "linear": 71392,
+  "couplers": 1139976,
+  "max_clique": 57,
+  "and_vars": 22711,
+  "word_bits": 12793,
+  "carry_bits": 36779,
+  "max_coef": 82176,
+  "min_coef": 1,
+  "dynamic_range_bits": 17
+ },
+ "modmul_k5": {
+  "vars": 84627,
+  "linear": 83667,
+  "couplers": 1052774,
+  "max_clique": 57,
+  "and_vars": 18787,
+  "word_bits": 20647,
+  "carry_bits": 45705,
+  "max_coef": 82176,
+  "min_coef": 1,
+  "dynamic_range_bits": 17
+ },
+ "modmul_k6": {
+  "vars": 99842,
+  "linear": 98417,
+  "couplers": 1064964,
+  "max_clique": 57,
+  "and_vars": 17777,
+  "word_bits": 28622,
+  "carry_bits": 53955,
+  "max_coef": 82176,
+  "min_coef": 1,
+  "dynamic_range_bits": 17
+ }
+}

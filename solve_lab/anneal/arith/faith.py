@@ -72,7 +72,7 @@ def chain_ok(table, M, dg, add):
 
 
 def test_comb(p, B, m, w, k, mode='wallace', mux=True, kdepth=0, kmin=8,
-              signed=False, label=""):
+              signed=False, onehot='square', label=""):
     if not signed:
         # pick a k whose reference chain has no degenerate addition (demo_win.py
         # does the same); on a tiny curve this is common, at 256 bits ~2^-247.
@@ -88,7 +88,7 @@ def test_comb(p, B, m, w, k, mode='wallace', mux=True, kdepth=0, kmin=8,
     M, table, Tp = I['M'], I['table'], I['Tp']
     add, mul, G, order = I['add'], I['mul'], I['G'], I['order']
     L, SEL = build_comb(p, B, table, Tp, w, mode=mode, mux=mux,
-                        kdepth=kdepth, kmin=kmin, signed=signed)
+                        kdepth=kdepth, kmin=kmin, signed=signed, onehot=onehot)
     Q = L.qb
     st = Q.stats()
     D = len(table[0])
@@ -100,19 +100,10 @@ def test_comb(p, B, m, w, k, mode='wallace', mux=True, kdepth=0, kmin=8,
             for j, (t, s_) in enumerate(dg):
                 wv[f"_u{j}"] = t
                 wv[f"_s{j}"] = s_
-            inp = {}
-            for j, (u, sg) in enumerate(SEL):
-                for t in range(D):
-                    inp[u[t]] = 1 if t == dg[j][0] else 0
-                inp[sg] = dg[j][1]
-            return wv, inp
+            return wv, {}
         dg = [(kk >> (w * j)) % (1 << w) for j in range(M)]
         wv = {f"_u{j}": dg[j] for j in range(M)}
-        inp = {}
-        for j, (u, _sg) in enumerate(SEL):
-            for t in range(D):
-                inp[u[t]] = 1 if t == dg[j] else 0
-        return wv, inp
+        return wv, {}
 
     def energy_of(kk):
         wv, inp = wv_of(kk)
@@ -136,7 +127,7 @@ def test_comb(p, B, m, w, k, mode='wallace', mux=True, kdepth=0, kmin=8,
     sol = [kk for kk in range(1 << m) if mul(kk % order, G) == T_true]
     ok = set(zeros) <= set(sol)
     tag = (f"[comb w={w}{' signed' if signed else ''}"
-           f"{' mux' if mux else ' sum'} kdepth={kdepth}]")
+           f"{' mux' if mux else ' sum'} kdepth={kdepth} 1hot={onehot}]")
     print(f"{tag} p={p} m={m} M={M} {label}")
     print(f"    {st['vars']} vars, {st['couplers']} couplers, AND={st['and_vars']}, "
           f"|J| 2^{st['dynamic_range_bits']}")
@@ -148,7 +139,7 @@ def test_comb(p, B, m, w, k, mode='wallace', mux=True, kdepth=0, kmin=8,
 
 
 # ------------------------------------------------------------ semaev tests ---
-def test_semaev(p, B, m, w, mode='wallace', mux=True, kdepth=0, verbose=True):
+def test_semaev(p, B, m, w, mode='wallace', mux=True, kdepth=0, onehot='square', verbose=True):
     """Exhaustive over magnitude tuples AND branch-sign patterns."""
     add, mul = curve(p, B)
     G, order = find(p, B)
@@ -193,7 +184,8 @@ def test_semaev(p, B, m, w, mode='wallace', mux=True, kdepth=0, verbose=True):
     xT = Sfin[0]
     T_true = mul(k % order, G)
 
-    L, SEL = build_semaev(p, B, table, xT, w, mode=mode, mux=mux, kdepth=kdepth)
+    L, SEL = build_semaev(p, B, table, xT, w, mode=mode, mux=mux, kdepth=kdepth,
+                          onehot=onehot)
     Q = L.qb
     st = Q.stats()
 
@@ -207,12 +199,8 @@ def test_semaev(p, B, m, w, mode='wallace', mux=True, kdepth=0, verbose=True):
         wv = {f"_u{j}": mags[j] for j in range(M)}
         for j in range(1, M - 1):
             wv[f"_z{j}"] = zs[j - 1]
-        inp = {}
-        for j in range(M):
-            for t in range(D):
-                inp[SEL[j][t]] = 1 if t == mags[j] else 0
         try:
-            x, _ = Q.witness(inp, wv)
+            x, _ = Q.witness({}, wv)
         except Exception:
             return None
         return Q.energy(x)
@@ -264,18 +252,38 @@ if __name__ == '__main__':
         test_comb(97, 3, 4, 2, 9, mux=False)
         test_comb(97, 3, 4, 3, 9, mux=False)
     if which in ('all', 'mux'):
-        print("\n=== one-hot MUX look-up ===")
+        print("\n=== A. one-hot MUX look-up (zero-ancilla table) ===")
         for w in (1, 2, 3, 4):
             test_comb(97, 3, 4, w, 9, mux=True)
+        test_comb(193, 5, 6, 2, 11, mux=True)
+        test_comb(193, 5, 6, 3, 11, mux=True)
+    if which in ('all', 'tree'):
+        print("\n=== B. AND-tree one-hot (no cardinality penalty) ===")
+        for w in (2, 3, 4):
+            test_comb(97, 3, 4, w, 9, mux=True, onehot='tree')
+        test_comb(193, 5, 6, 2, 11, mux=True, onehot='tree')
     if which in ('all', 'kara'):
-        print("\n=== Karatsuba multiplication ===")
+        print("\n=== C. Karatsuba multiplication ===")
         for d in (1, 2, 3):
-            test_comb(97, 3, 4, 2, 9, mux=True, kdepth=d, kmin=1)
+            test_comb(97, 3, 4, 2, 9, mux=True, kdepth=d, kmin=1, onehot='tree')
+        test_comb(193, 5, 6, 2, 11, mux=True, kdepth=2, kmin=1, onehot='tree')
+        test_comb(331, 2, 8, 2, 5, mux=True, kdepth=3, kmin=1, onehot='tree')
     if which in ('all', 'signed'):
-        print("\n=== signed-digit comb ===")
+        print("\n=== D. signed-digit comb ===")
         for w in (1, 2):
             test_comb(97, 3, 4, w, 9, mux=True, signed=True)
         test_comb(97, 3, 4, 2, 9, mux=True, signed=True, kdepth=2, kmin=1)
+        test_comb(193, 5, 6, 2, 11, mux=True, signed=True, onehot='tree')
+        # NOTE the signed-digit rewrite k' = 2k - (2^m - 1) is a bijection only
+        # when the group order is ODD.  The real instance's order n is prime, so
+        # it is; a toy curve of even order genuinely breaks it (see FINDINGS.md).
+        test_comb(331, 2, 8, 2, 5, mux=True, signed=True, onehot='tree',
+                  kdepth=2, kmin=1)
+        test_comb(331, 2, 8, 4, 5, mux=True, signed=True, onehot='tree')
     if which in ('all', 'semaev'):
-        print("\n=== x-only / Semaev S_3 chain ===")
+        print("\n=== E. x-only / Semaev S_3 chain ===")
         test_semaev(97, 3, 4, 2)
+        test_semaev(193, 5, 6, 2)
+        test_semaev(331, 2, 8, 2)
+        test_semaev(331, 2, 8, 2, onehot='tree', kdepth=2)
+        test_semaev(331, 2, 8, 4)

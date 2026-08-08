@@ -1,0 +1,741 @@
+{
+ "note": "all costs measured at the real p = 2^256-2^32-977",
+ "curve": {
+  "binary": [
+   {
+    "mu": 1,
+    "w": 1,
+    "M": 1,
+    "V": 2548,
+    "couplers": 17042,
+    "log2_runs": 255,
+    "log2_RV": 266.32,
+    "fits_4400": true
+   },
+   {
+    "mu": 2,
+    "w": 2,
+    "M": 1,
+    "V": 3078,
+    "couplers": 28158,
+    "log2_runs": 254,
+    "log2_RV": 265.59,
+    "fits_4400": true
+   },
+   {
+    "mu": 3,
+    "w": 3,
+    "M": 1,
+    "V": 3588,
+    "couplers": 44150,
+    "log2_runs": 253,
+    "log2_RV": 264.81,
+    "fits_4400": true
+   },
+   {
+    "mu": 4,
+    "w": 4,
+    "M": 1,
+    "V": 4114,
+    "couplers": 76404,
+    "log2_runs": 252,
+    "log2_RV": 264.01,
+    "fits_4400": true
+   },
+   {
+    "mu": 5,
+    "w": 5,
+    "M": 1,
+    "V": 5908,
+    "couplers": 152808,
+    "log2_runs": 251,
+    "log2_RV": 263.53,
+    "fits_4400": false
+   },
+   {
+    "mu": 6,
+    "w": 6,
+    "M": 1,
+    "V": 10548,
+    "couplers": 291410,
+    "log2_runs": 250,
+    "log2_RV": 263.36,
+    "fits_4400": false
+   },
+   {
+    "mu": 8,
+    "w": 8,
+    "M": 1,
+    "V": 27426,
+    "couplers": 1440526,
+    "log2_runs": 248,
+    "log2_RV": 262.74,
+    "fits_4400": false
+   },
+   {
+    "mu": 10,
+    "w": 10,
+    "M": 1,
+    "V": 91586,
+    "couplers": 11759672,
+    "log2_runs": 246,
+    "log2_RV": 262.48,
+    "fits_4400": false
+   },
+   {
+    "mu": 12,
+    "w": 6,
+    "M": 2,
+    "V": 316107,
+    "couplers": 12193872,
+    "log2_runs": 244,
+    "log2_RV": 262.27,
+    "fits_4400": false
+   },
+   {
+    "mu": 16,
+    "w": 8,
+    "M": 2,
+    "V": 349863,
+    "couplers": 14492104,
+    "log2_runs": 240,
+    "log2_RV": 258.42,
+    "fits_4400": false
+   },
+   {
+    "mu": 20,
+    "w": 10,
+    "M": 2,
+    "V": 478183,
+    "couplers": 35130396,
+    "log2_runs": 236,
+    "log2_RV": 254.87,
+    "fits_4400": false
+   },
+   {
+    "mu": 24,
+    "w": 8,
+    "M": 3,
+    "V": 672300,
+    "couplers": 27543682,
+    "log2_runs": 232,
+    "log2_RV": 251.36,
+    "fits_4400": false
+   },
+   {
+    "mu": 32,
+    "w": 8,
+    "M": 4,
+    "V": 994737,
+    "couplers": 40595260,
+    "log2_runs": 224,
+    "log2_RV": 243.92,
+    "fits_4400": false
+   },
+   {
+    "mu": 40,
+    "w": 10,
+    "M": 4,
+    "V": 1251377,
+    "couplers": 81871844,
+    "log2_runs": 216,
+    "log2_RV": 236.26,
+    "fits_4400": false
+   },
+   {
+    "mu": 48,
+    "w": 10,
+    "M": 5,
+    "V": 1637974,
+    "couplers": 105242568,
+    "log2_runs": 208,
+    "log2_RV": 228.64,
+    "fits_4400": false
+   },
+   {
+    "mu": 64,
+    "w": 8,
+    "M": 8,
+    "V": 2284485,
+    "couplers": 92801572,
+    "log2_runs": 192,
+    "log2_RV": 213.12,
+    "fits_4400": false
+   },
+   {
+    "mu": 80,
+    "w": 10,
+    "M": 8,
+    "V": 2797765,
+    "couplers": 175354740,
+    "log2_runs": 176,
+    "log2_RV": 197.42,
+    "fits_4400": false
+   },
+   {
+    "mu": 96,
+    "w": 9,
+    "M": 11,
+    "V": 3490342,
+    "couplers": 159297026,
+    "log2_runs": 160,
+    "log2_RV": 181.73,
+    "fits_4400": false
+   },
+   {
+    "mu": 112,
+    "w": 9,
+    "M": 13,
+    "V": 4178588,
+    "couplers": 190371222,
+    "log2_runs": 144,
+    "log2_RV": 165.99,
+    "fits_4400": false
+   },
+   {
+    "mu": 120,
+    "w": 10,
+    "M": 12,
+    "V": 4344153,
+    "couplers": 268837636,
+    "log2_runs": 136,
+    "log2_RV": 158.05,
+    "fits_4400": false
+   },
+   {
+    "mu": 128,
+    "w": 10,
+    "M": 13,
+    "V": 4730750,
+    "couplers": 292208360,
+    "log2_runs": 128,
+    "log2_RV": 150.17,
+    "fits_4400": false
+   },
+   {
+    "mu": 129,
+    "w": 10,
+    "M": 13,
+    "V": 4730750,
+    "couplers": 292208360,
+    "log2_runs": 127,
+    "log2_RV": 149.17,
+    "fits_4400": false
+   },
+   {
+    "mu": 144,
+    "w": 9,
+    "M": 16,
+    "V": 5210957,
+    "couplers": 236982516,
+    "log2_runs": 112,
+    "log2_RV": 134.31,
+    "fits_4400": false
+   },
+   {
+    "mu": 160,
+    "w": 10,
+    "M": 16,
+    "V": 5890541,
+    "couplers": 362320532,
+    "log2_runs": 96,
+    "log2_RV": 118.49,
+    "fits_4400": false
+   },
+   {
+    "mu": 176,
+    "w": 9,
+    "M": 20,
+    "V": 6587449,
+    "couplers": 299130908,
+    "log2_runs": 80,
+    "log2_RV": 102.65,
+    "fits_4400": false
+   },
+   {
+    "mu": 192,
+    "w": 9,
+    "M": 22,
+    "V": 7275695,
+    "couplers": 330205104,
+    "log2_runs": 64,
+    "log2_RV": 86.79,
+    "fits_4400": false
+   },
+   {
+    "mu": 208,
+    "w": 10,
+    "M": 21,
+    "V": 7823526,
+    "couplers": 479174152,
+    "log2_runs": 48,
+    "log2_RV": 70.9,
+    "fits_4400": false
+   },
+   {
+    "mu": 224,
+    "w": 9,
+    "M": 25,
+    "V": 8308064,
+    "couplers": 376816398,
+    "log2_runs": 32,
+    "log2_RV": 54.99,
+    "fits_4400": false
+   },
+   {
+    "mu": 240,
+    "w": 10,
+    "M": 24,
+    "V": 8983317,
+    "couplers": 549286324,
+    "log2_runs": 16,
+    "log2_RV": 39.1,
+    "fits_4400": false
+   },
+   {
+    "mu": 256,
+    "w": 9,
+    "M": 29,
+    "V": 9684556,
+    "couplers": 438964790,
+    "log2_runs": 0,
+    "log2_RV": 23.21,
+    "fits_4400": false
+   }
+  ],
+  "wallace": [
+   {
+    "mu": 1,
+    "w": 1,
+    "M": 1,
+    "V": 6028,
+    "couplers": 21378,
+    "log2_runs": 255,
+    "log2_RV": 267.56,
+    "fits_4400": false
+   },
+   {
+    "mu": 2,
+    "w": 2,
+    "M": 1,
+    "V": 7982,
+    "couplers": 30918,
+    "log2_runs": 254,
+    "log2_RV": 266.96,
+    "fits_4400": false
+   },
+   {
+    "mu": 3,
+    "w": 3,
+    "M": 1,
+    "V": 10106,
+    "couplers": 40890,
+    "log2_runs": 253,
+    "log2_RV": 266.3,
+    "fits_4400": false
+   },
+   {
+    "mu": 4,
+    "w": 4,
+    "M": 1,
+    "V": 15220,
+    "couplers": 65580,
+    "log2_runs": 252,
+    "log2_RV": 265.89,
+    "fits_4400": false
+   },
+   {
+    "mu": 5,
+    "w": 5,
+    "M": 1,
+    "V": 24354,
+    "couplers": 109286,
+    "log2_runs": 251,
+    "log2_RV": 265.57,
+    "fits_4400": false
+   },
+   {
+    "mu": 6,
+    "w": 6,
+    "M": 1,
+    "V": 41804,
+    "couplers": 195136,
+    "log2_runs": 250,
+    "log2_RV": 265.35,
+    "fits_4400": false
+   },
+   {
+    "mu": 8,
+    "w": 8,
+    "M": 1,
+    "V": 140962,
+    "couplers": 725324,
+    "log2_runs": 248,
+    "log2_RV": 265.1,
+    "fits_4400": false
+   },
+   {
+    "mu": 10,
+    "w": 10,
+    "M": 1,
+    "V": 538780,
+    "couplers": 3590116,
+    "log2_runs": 246,
+    "log2_RV": 265.04,
+    "fits_4400": false
+   },
+   {
+    "mu": 12,
+    "w": 6,
+    "M": 2,
+    "V": 970734,
+    "couplers": 4385861,
+    "log2_runs": 244,
+    "log2_RV": 263.89,
+    "fits_4400": false
+   },
+   {
+    "mu": 16,
+    "w": 8,
+    "M": 2,
+    "V": 1169050,
+    "couplers": 5446237,
+    "log2_runs": 240,
+    "log2_RV": 260.16,
+    "fits_4400": false
+   },
+   {
+    "mu": 20,
+    "w": 10,
+    "M": 2,
+    "V": 1964686,
+    "couplers": 11175821,
+    "log2_runs": 236,
+    "log2_RV": 256.91,
+    "fits_4400": false
+   },
+   {
+    "mu": 24,
+    "w": 8,
+    "M": 3,
+    "V": 2197138,
+    "couplers": 10167150,
+    "log2_runs": 232,
+    "log2_RV": 253.07,
+    "fits_4400": false
+   },
+   {
+    "mu": 32,
+    "w": 8,
+    "M": 4,
+    "V": 3225226,
+    "couplers": 14888063,
+    "log2_runs": 224,
+    "log2_RV": 245.62,
+    "fits_4400": false
+   },
+   {
+    "mu": 40,
+    "w": 8,
+    "M": 5,
+    "V": 4253314,
+    "couplers": 19608976,
+    "log2_runs": 216,
+    "log2_RV": 238.02,
+    "fits_4400": false
+   },
+   {
+    "mu": 48,
+    "w": 8,
+    "M": 6,
+    "V": 5281402,
+    "couplers": 24329889,
+    "log2_runs": 208,
+    "log2_RV": 230.33,
+    "fits_4400": false
+   },
+   {
+    "mu": 64,
+    "w": 8,
+    "M": 8,
+    "V": 7337578,
+    "couplers": 33771715,
+    "log2_runs": 192,
+    "log2_RV": 214.81,
+    "fits_4400": false
+   },
+   {
+    "mu": 80,
+    "w": 8,
+    "M": 10,
+    "V": 9393754,
+    "couplers": 43213541,
+    "log2_runs": 176,
+    "log2_RV": 199.16,
+    "fits_4400": false
+   },
+   {
+    "mu": 96,
+    "w": 8,
+    "M": 12,
+    "V": 11449930,
+    "couplers": 52655367,
+    "log2_runs": 160,
+    "log2_RV": 183.45,
+    "fits_4400": false
+   },
+   {
+    "mu": 112,
+    "w": 8,
+    "M": 14,
+    "V": 13506106,
+    "couplers": 62097193,
+    "log2_runs": 144,
+    "log2_RV": 167.69,
+    "fits_4400": false
+   },
+   {
+    "mu": 120,
+    "w": 8,
+    "M": 15,
+    "V": 14534194,
+    "couplers": 66818106,
+    "log2_runs": 136,
+    "log2_RV": 159.79,
+    "fits_4400": false
+   },
+   {
+    "mu": 128,
+    "w": 8,
+    "M": 16,
+    "V": 15562282,
+    "couplers": 71539019,
+    "log2_runs": 128,
+    "log2_RV": 151.89,
+    "fits_4400": false
+   },
+   {
+    "mu": 129,
+    "w": 9,
+    "M": 15,
+    "V": 16546654,
+    "couplers": 79284306,
+    "log2_runs": 127,
+    "log2_RV": 150.98,
+    "fits_4400": false
+   },
+   {
+    "mu": 144,
+    "w": 8,
+    "M": 18,
+    "V": 17618458,
+    "couplers": 80980845,
+    "log2_runs": 112,
+    "log2_RV": 136.07,
+    "fits_4400": false
+   },
+   {
+    "mu": 160,
+    "w": 8,
+    "M": 20,
+    "V": 19674634,
+    "couplers": 90422671,
+    "log2_runs": 96,
+    "log2_RV": 120.23,
+    "fits_4400": false
+   },
+   {
+    "mu": 176,
+    "w": 8,
+    "M": 22,
+    "V": 21730810,
+    "couplers": 99864497,
+    "log2_runs": 80,
+    "log2_RV": 104.37,
+    "fits_4400": false
+   },
+   {
+    "mu": 192,
+    "w": 8,
+    "M": 24,
+    "V": 23786986,
+    "couplers": 109306323,
+    "log2_runs": 64,
+    "log2_RV": 88.5,
+    "fits_4400": false
+   },
+   {
+    "mu": 208,
+    "w": 8,
+    "M": 26,
+    "V": 25843162,
+    "couplers": 118748149,
+    "log2_runs": 48,
+    "log2_RV": 72.62,
+    "fits_4400": false
+   },
+   {
+    "mu": 224,
+    "w": 8,
+    "M": 28,
+    "V": 27899338,
+    "couplers": 128189975,
+    "log2_runs": 32,
+    "log2_RV": 56.73,
+    "fits_4400": false
+   },
+   {
+    "mu": 240,
+    "w": 8,
+    "M": 30,
+    "V": 29955514,
+    "couplers": 137631801,
+    "log2_runs": 16,
+    "log2_RV": 40.84,
+    "fits_4400": false
+   },
+   {
+    "mu": 256,
+    "w": 8,
+    "M": 32,
+    "V": 32011690,
+    "couplers": 147073627,
+    "log2_runs": 0,
+    "log2_RV": 24.93,
+    "fits_4400": false
+   }
+  ]
+ },
+ "verdict": {
+  "binary": {
+   "add": 296015,
+   "mul": 111627,
+   "col": 217.17315175097275,
+   "max_mu_under_4400": 4,
+   "V_at_max_mu": 4114,
+   "log2_runs": 252
+  },
+  "wallace": {
+   "add": 889158,
+   "mul": 324853,
+   "col": 632.0097276264592,
+   "max_mu_under_4400": 0,
+   "V_at_max_mu": null,
+   "log2_runs": 256
+  }
+ },
+ "idealised_table_mu": 11,
+ "hardware_fit": [
+  {
+   "mode": "binary",
+   "mu": 1,
+   "V": 2548,
+   "couplers": 17042,
+   "avg_degree": 13.4,
+   "jbits": 10
+  },
+  {
+   "mode": "binary",
+   "mu": 2,
+   "V": 3078,
+   "couplers": 28158,
+   "avg_degree": 18.3,
+   "jbits": 11
+  },
+  {
+   "mode": "binary",
+   "mu": 3,
+   "V": 3588,
+   "couplers": 44150,
+   "avg_degree": 24.6,
+   "jbits": 11
+  },
+  {
+   "mode": "binary",
+   "mu": 4,
+   "V": 4114,
+   "couplers": 76404,
+   "avg_degree": 37.1,
+   "jbits": 11
+  },
+  {
+   "mode": "binary",
+   "mu": 5,
+   "V": 5908,
+   "couplers": 152808,
+   "avg_degree": 51.7,
+   "jbits": 13
+  },
+  {
+   "mode": "binary",
+   "mu": 6,
+   "V": 10548,
+   "couplers": 291410,
+   "avg_degree": 55.3,
+   "jbits": 15
+  },
+  {
+   "mode": "wallace",
+   "mu": 1,
+   "V": 6028,
+   "couplers": 21378,
+   "avg_degree": 7.1,
+   "jbits": 9
+  },
+  {
+   "mode": "wallace",
+   "mu": 2,
+   "V": 7982,
+   "couplers": 30918,
+   "avg_degree": 7.7,
+   "jbits": 9
+  },
+  {
+   "mode": "wallace",
+   "mu": 3,
+   "V": 10106,
+   "couplers": 40890,
+   "avg_degree": 8.1,
+   "jbits": 9
+  },
+  {
+   "mode": "wallace",
+   "mu": 4,
+   "V": 15220,
+   "couplers": 65580,
+   "avg_degree": 8.6,
+   "jbits": 9
+  },
+  {
+   "mode": "wallace",
+   "mu": 5,
+   "V": 24354,
+   "couplers": 109286,
+   "avg_degree": 9.0,
+   "jbits": 9
+  },
+  {
+   "mode": "wallace",
+   "mu": 6,
+   "V": 41804,
+   "couplers": 195136,
+   "avg_degree": 9.3,
+   "jbits": 9
+  }
+ ],
+ "crossover": {
+  "binary": {
+   "V_mu128": 4730750,
+   "w": 10,
+   "V_mu129": 4730750,
+   "V_wallclock": 5117347
+  },
+  "wallace": {
+   "V_mu128": 15562282,
+   "w": 8,
+   "V_mu129": 16546654,
+   "V_wallclock": 17618458
+  },
+  "wallclock_mu": 137.96578428466208
+ }
+}

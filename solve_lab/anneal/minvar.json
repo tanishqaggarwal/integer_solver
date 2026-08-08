@@ -1,0 +1,50 @@
+{
+ "w7_chunked": {
+  "vars": 280429,
+  "couplers": 8446480,
+  "jbits": 21,
+  "clique": 139
+ },
+ "w7_uncompressed": {
+  "vars": 185461,
+  "couplers": 31663274,
+  "jbits": 19,
+  "clique": 401
+ },
+ "w8_chunked": {
+  "vars": 291527,
+  "couplers": 9209205,
+  "jbits": 21,
+  "clique": 139
+ },
+ "w8_uncompressed": {
+  "vars": 186276,
+  "couplers": 32184182,
+  "jbits": 19,
+  "clique": 401
+ },
+ "w9_chunked": {
+  "vars": 312987,
+  "couplers": 11352577,
+  "jbits": 21,
+  "clique": 139
+ },
+ "w9_uncompressed": {
+  "vars": 187334,
+  "couplers": 33348893,
+  "jbits": 19,
+  "clique": 401
+ },
+ "w10_chunked": {
+  "vars": 355324,
+  "couplers": 18143479,
+  "jbits": 23,
+  "clique": 204
+ },
+ "w10_uncompressed": {
+  "vars": 188901,
+  "couplers": 36051547,
+  "jbits": 21,
+  "clique": 587
+ }
+}

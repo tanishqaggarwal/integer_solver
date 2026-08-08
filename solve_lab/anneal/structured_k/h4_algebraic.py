@@ -168,12 +168,12 @@ def candidates():
             yield v // c, f"{nm}//{c}"
             yield v * c % n, f"{nm}*{c}"
             yield pow(v, c, n), f"{nm}^{c} mod n"
-        yield pow(v % n, -1, n), f"{nm}^-1 mod n"
+        if v % n: yield pow(v % n, -1, n), f"{nm}^-1 mod n"
     for x, y in itertools.permutations(base, 2):
         for op, fn in (('+', lambda u, v: u + v), ('-', lambda u, v: u - v),
                        ('*', lambda u, v: u * v), ('^', lambda u, v: u ^ v)):
             yield fn(base[x], base[y]) % n, f"{x}{op}{y}"
-        yield base[x] * pow(base[y] % n, -1, n) % n, f"{x}/{y}"
+        if base[y] % n: yield base[x] * pow(base[y] % n, -1, n) % n, f"{x}/{y}"
     # 13. hashes of the instance's own points (the "k = H(G)" construction)
     blobs = {'Gx': G[0].to_bytes(32, 'big'), 'Gy': G[1].to_bytes(32, 'big'),
              'Tx': T[0].to_bytes(32, 'big'), 'Ty': T[1].to_bytes(32, 'big'),
@@ -192,7 +192,7 @@ def candidates():
     for c in range(1, 8193):
         yield c * LAM % n, f"{c}*lambda"
         yield c * pow(LAM, 2, n) % n, f"{c}*lambda^2"
-        yield pow(c, -1, n) if c % n else 0, f"1/{c} mod n"
+        yield (pow(c, -1, n) if c % n else 0), f"1/{c} mod n"
 
 # ---------------------------------------------------------------- driver
 if __name__ == '__main__':

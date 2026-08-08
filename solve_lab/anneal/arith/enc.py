@@ -203,10 +203,64 @@ class Ladder2(Ladder):
             return self.mux_word(name, sel, consts, fn)
         return self.sum_word(name, sel, selnames, consts, fn)
 
+    # ------------------------------------------------- one-hot digit vectors -
+    def onehot_square(self, pre, w, digitname):
+        """the ORIGINAL selector: D free bits + a squared cardinality constraint.
+        D variables, D(D-1)/2 couplers -- the D^2 is what caps the window width."""
+        Q = self.qb
+        D = 1 << w
+        u = [Q.new(f"{pre}_{t}", 'input') for t in range(D)]
+        for t, v in enumerate(u):
+            Q.trace.append(('word', f"{pre}_{t}", [v],
+                            (lambda wv, dn=digitname, t=t: 1 if wv[dn] == t else 0)))
+        Q.add_square({v: 1 for v in u}, -1)
+        return u
+
+    def _lit_tree(self, pre, w, digitname, lo):
+        """one-hot over w bits, built as a tree of ANDs of literals.
+        Structurally one-hot -- no cardinality penalty at all."""
+        Q = self.qb
+        outs = [None]                       # None == the constant 1
+        for i in range(w):
+            d = Q.new(f"{pre}d{i}", 'input')
+            nd = Q.new(f"{pre}n{i}", 'input')
+            Q.trace.append(('word', f"{pre}d{i}", [d],
+                            (lambda wv, dn=digitname, k=lo + i: (wv[dn] >> k) & 1)))
+            Q.trace.append(('word', f"{pre}n{i}", [nd],
+                            (lambda wv, dn=digitname, k=lo + i: 1 - ((wv[dn] >> k) & 1)))),
+            Q.add_square({d: 1, nd: 1}, -1)          # nd == 1 - d
+            zero = [(nd if v is None else Q.AND(v, nd)) for v in outs]
+            one = [(d if v is None else Q.AND(v, d)) for v in outs]
+            outs = zero + one
+        return outs
+
+    def onehot_tree(self, pre, w, digitname):
+        """D one-hot indicators from w binary digit bits.
+
+        Split the digit in half and cross-multiply the two literal trees:
+        ~D + 4*2^{w/2} AND variables, ~4D couplers, and NO cardinality penalty
+        (exactly one indicator is 1 by construction).  This is what makes a wide
+        window affordable once the look-up itself is free."""
+        Q = self.qb
+        if w == 0:
+            return [None]
+        w1 = w // 2
+        w2 = w - w1
+        if w1 == 0:
+            return self._lit_tree(pre, w, digitname, 0)
+        lo = self._lit_tree(pre + "L", w1, digitname, 0)
+        hi = self._lit_tree(pre + "H", w2, digitname, w1)
+        out = []
+        for b in range(1 << w2):
+            for a in range(1 << w1):
+                out.append(Q.AND(lo[a], hi[b]))
+        return out
+
 
 # ============================================================ windowed comb ==
 def build_comb(p, B, table, T, w, chunk=16, mode='binary',
-               mux=True, kdepth=0, kmin=8, signed=False, verbose=False):
+               mux=True, kdepth=0, kmin=8, signed=False, onehot='square',
+               verbose=False):
     """Windowed comb, three-multiplication affine step, d != 0 gadget.
 
     unsigned (signed=False):
@@ -225,13 +279,14 @@ def build_comb(p, B, table, T, w, chunk=16, mode='binary',
     Q = L.qb
     s = L.s
 
+    dw = (w - 1) if signed else w
+    assert D == 1 << dw
     SEL = []
     for j in range(M):
-        u = [Q.new(f"u{j}_{t}", 'input') for t in range(D)]
-        for t, v in enumerate(u):
-            Q.trace.append(('word', f"u{j}_{t}", [v],
-                            (lambda wv, j=j, t=t: 1 if wv[f"_u{j}"] == t else 0)))
-        Q.add_square({v: 1 for v in u}, -1)
+        if onehot == 'tree':
+            u = L.onehot_tree(f"u{j}", dw, f"_u{j}")
+        else:
+            u = L.onehot_square(f"u{j}", dw, f"_u{j}")
         sg = None
         if signed:
             sg = Q.new(f"sg{j}", 'input')
@@ -316,7 +371,7 @@ def s3(X1, X2, X3, Bc, p):
 
 
 def build_semaev(p, Bc, table, xT, w, chunk=16, mode='binary',
-                 mux=True, kdepth=0, kmin=8, verbose=False):
+                 mux=True, kdepth=0, kmin=8, onehot='square', verbose=False):
     """x-only comb: no y coordinate anywhere, no inversion, no division.
 
     table[j][t] = x( (2t+1) * 2^{wj} G ),  t = 0..2^{w-1}-1  (magnitudes only;
@@ -338,11 +393,10 @@ def build_semaev(p, Bc, table, xT, w, chunk=16, mode='binary',
 
     SEL = []
     for j in range(M):
-        u = [Q.new(f"u{j}_{t}", 'input') for t in range(D)]
-        for t, v in enumerate(u):
-            Q.trace.append(('word', f"u{j}_{t}", [v],
-                            (lambda wv, j=j, t=t: 1 if wv[f"_u{j}"] == t else 0)))
-        Q.add_square({v: 1 for v in u}, -1)
+        if onehot == 'tree':
+            u = L.onehot_tree(f"u{j}", w - 1, f"_u{j}")
+        else:
+            u = L.onehot_square(f"u{j}", w - 1, f"_u{j}")
         SEL.append(u)
 
     def lookup(name, j):

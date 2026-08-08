@@ -1,0 +1,9 @@
+w= 7       chunked: vars=  280,429 coupl=   8,446,480 clique=  139 |J|=2^21  (22s)
+w= 7  uncompressed: vars=  185,461 coupl=  31,663,274 clique=  401 |J|=2^19  (110s)
+w= 8       chunked: vars=  291,527 coupl=   9,209,205 clique=  139 |J|=2^21  (27s)
+w= 8  uncompressed: vars=  186,276 coupl=  32,184,182 clique=  401 |J|=2^19  (81s)
+w= 9       chunked: vars=  312,987 coupl=  11,352,577 clique=  139 |J|=2^21  (31s)
+w= 9  uncompressed: vars=  187,334 coupl=  33,348,893 clique=  401 |J|=2^19  (90s)
+w=10       chunked: vars=  355,324 coupl=  18,143,479 clique=  204 |J|=2^23  (51s)
+w=10  uncompressed: vars=  188,901 coupl=  36,051,547 clique=  587 |J|=2^21  (106s)
+done

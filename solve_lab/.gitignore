@@ -173,3 +173,6 @@ s10/*.jsonl
 # agent working dirs: parse caches and bytecode
 bitconstraints/cache.pkl
 **/__pycache__/
+anneal/structured_k/*.out
+anneal/structured_k/*.err
+anneal/*/__pycache__/

@@ -106,9 +106,9 @@ static void build_baby(const pt *Base, u64 M) {
 }
 
 /* =================== weight / signed-weight MITM =================== */
-static pt   GEN[512];
-static int  GIDX[512];      /* bit index i of the generator (+-2^i * G) */
-static int  GSGN[512];
+static pt   GEN[32768];
+static int  GIDX[32768];    /* group id: at most one generator per group */
+static int  GSGN[32768];
 static int  NGEN;
 static int  MAXHALF;
 static int  PASS;
@@ -122,6 +122,16 @@ static u64 encode(const int *gi, int cnt) {
     u64 v = 0;
     for (int z = 0; z < cnt; z++) v |= ((u64)(gi[z] & 0x1FF)) << (9*z);
     v |= ((u64)cnt) << 54;
+    return v;
+}
+
+/* gweight encoding: 15 bits per generator index (<=32768 generators),
+ * term count in bits 60..63. */
+static int  GW = 0;
+static u64 encode15(const int *gi, int cnt) {
+    u64 v = 0;
+    for (int z = 0; z < cnt; z++) v |= ((u64)(gi[z] & 0x7FFF)) << (15*z);
+    v |= ((u64)cnt) << 60;
     return v;
 }
 
@@ -151,7 +161,7 @@ static void wrec(const pt *cum, int depth, int lastbit) {
         for (int t = 0; t < m; t++) {
             if (res[t].inf) continue;
             CURIDX[depth] = bg[t];
-            ht_put(res[t].x.v[0], encode(CURIDX, depth+1));
+            ht_put(res[t].x.v[0], GW ? encode15(CURIDX, depth+1) : encode(CURIDX, depth+1));
         }
     } else {
         pt *qres = (pt*)malloc(sizeof(pt)*m);
@@ -165,7 +175,7 @@ static void wrec(const pt *cum, int depth, int lastbit) {
         }
         for (int t = 0; t < m; t++) {
             CURIDX[depth] = bg[t];
-            u64 qc = encode(CURIDX, depth+1);
+            u64 qc = GW ? encode15(CURIDX, depth+1) : encode(CURIDX, depth+1);
             if (qres[t].inf) { printf("WHITEXACT q=%llu\n", (unsigned long long)qc); fflush(stdout); NHITS++; }
             else { u64 v; if (ht_get(qres[t].x.v[0], &v)) {
                 printf("WHIT q=%llu t=%llu\n", (unsigned long long)qc, (unsigned long long)v); fflush(stdout); NHITS++; } }
@@ -325,6 +335,42 @@ int main(int argc, char **argv) {
         fprintf(stderr, "[rational] b-scan 1..%llu in %.1fs\n", (unsigned long long)(L*(u64)nch), t2-t1);
         if (q.found == 0) printf("NOHIT amax=%llu bmax=%llu\n", (unsigned long long)M, (unsigned long long)(L*(u64)nch));
         printf("DONE amax=%llu bmax=%llu\n", (unsigned long long)M, (unsigned long long)(L*(u64)nch));
+        return 0;
+    }
+
+    if (!strcmp(mode, "gweight")) {
+        /* ptsfile lines: "<groupid> <x> <y>" for each generator, then "T <x> <y>".
+         * Combinations take at most one generator per group id, group ids strictly
+         * increasing, so each combination is enumerated exactly once. */
+        FILE *f = fopen(argv[2], "r");
+        if (!f) { perror("ptsfile"); return 1; }
+        char sx[100], sy[100], tag[64];
+        NGEN = 0; GW = 1;
+        int havet = 0;
+        while (fscanf(f, "%63s %99s %99s", tag, sx, sy) == 3) {
+            if (!strcmp(tag, "T")) { read_pt(&WTGT, sx, sy); havet = 1; }
+            else {
+                if (NGEN >= 32768) { fprintf(stderr, "too many generators\n"); return 1; }
+                read_pt(&GEN[NGEN], sx, sy);
+                GIDX[NGEN] = atoi(tag); GSGN[NGEN] = 1; NGEN++;
+            }
+        }
+        fclose(f);
+        if (!havet) { fprintf(stderr, "no T in ptsfile\n"); return 1; }
+        MAXHALF = atoi(argv[3]);
+        u64 capbits = strtoull(argv[4], NULL, 10);
+        fprintf(stderr, "[gweight] %d generators, maxhalf=%d, cap=2^%llu\n",
+                NGEN, MAXHALF, (unsigned long long)capbits);
+        ht_init(capbits);
+        pt zero; zero.inf = 1; fe_set_u64(&zero.x,0); fe_set_u64(&zero.y,0);
+        for (PASS = 0; PASS < 2; PASS++) {
+            double t0 = now(); NPOINTS = 0;
+            if (PASS == 1) { u64 v; if (ht_get(WTGT.x.v[0], &v)) { printf("WHIT q=%llu t=%llu\n", 0ULL, (unsigned long long)v); NHITS++; } }
+            wrec(&zero, 0, -1);
+            fprintf(stderr, "[gweight] pass %d: %llu points, %.1fs, table=%llu\n", PASS,
+                    (unsigned long long)NPOINTS, now()-t0, (unsigned long long)HCNT);
+        }
+        printf("WDONE gens=%d maxhalf=%d hits=%d\n", NGEN, MAXHALF, NHITS);
         return 0;
     }
 

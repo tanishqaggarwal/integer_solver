@@ -1,0 +1,17 @@
+{
+ "spec": "bytes",
+ "radix_bits": 8,
+ "positions": 32,
+ "digit_values": 255,
+ "generators": 8160,
+ "maxhalf": 2,
+ "covers_nonzero_digits": 4,
+ "control_ok": true,
+ "real": {
+  "seconds": 29.4,
+  "raw_hits": 0,
+  "solutions": [],
+  "stderr": "[gweight] 8160 generators, maxhalf=2, cap=2^26\n[gweight] pass 0: 32260560 points, 10.8s, table=32260560\n[gweight] pass 1: 32260560 points, 18.6s, table=32260560",
+  "ngen": 8160
+ }
+}

@@ -1,0 +1,38 @@
+{
+ "sweep": [
+  {
+   "s": 8,
+   "binary": 19,
+   "wallace": 6
+  },
+  {
+   "s": 16,
+   "binary": 19,
+   "wallace": 6
+  },
+  {
+   "s": 32,
+   "binary": 19,
+   "wallace": 6
+  },
+  {
+   "s": 64,
+   "binary": 19,
+   "wallace": 6
+  },
+  {
+   "s": 128,
+   "binary": 19,
+   "wallace": 6
+  },
+  {
+   "s": 256,
+   "binary": 19,
+   "wallace": 6
+  }
+ ],
+ "real_p": {
+  "binary": 21,
+  "wallace": 9
+ }
+}

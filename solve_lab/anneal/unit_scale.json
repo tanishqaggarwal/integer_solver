@@ -1,0 +1,10 @@
+[
+ {
+  "s": 10,
+  "sweeps": 100000,
+  "clamped_hits": 3,
+  "clamped_best": 0.0,
+  "free_hits": 0,
+  "free_best": 2.0
+ }
+]

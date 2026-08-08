@@ -1,0 +1,6 @@
+nibbles: radix 2^4, 64 digit positions, 15 digit values, 960 generators; MITM half=3 covers <= 6 nonzero digits
+  control 2179873: RECOVERED (0.3s)
+  real: raw_hits=0 solutions=[] (133.4s)
+  [gweight] 960 generators, maxhalf=3, cap=2^28
+  [gweight] pass 0: 141070560 points, 48.1s, table=141070560
+  [gweight] pass 1: 141070560 points, 84.7s, table=141070560

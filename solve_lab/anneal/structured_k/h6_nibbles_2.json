@@ -1,0 +1,17 @@
+{
+ "spec": "nibbles",
+ "radix_bits": 4,
+ "positions": 64,
+ "digit_values": 15,
+ "generators": 960,
+ "maxhalf": 2,
+ "covers_nonzero_digits": 4,
+ "control_ok": true,
+ "real": {
+  "seconds": 0.4,
+  "raw_hits": 0,
+  "solutions": [],
+  "stderr": "[gweight] 960 generators, maxhalf=2, cap=2^22\n[gweight] pass 0: 454560 points, 0.2s, table=454560\n[gweight] pass 1: 454560 points, 0.2s, table=454560",
+  "ngen": 960
+ }
+}
