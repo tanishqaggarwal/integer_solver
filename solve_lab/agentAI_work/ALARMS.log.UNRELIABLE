@@ -1,0 +1,68 @@
+# ======================================================================
+# QUARANTINED — EVERY LINE IN THIS FILE IS FALSE. DO NOT ACT ON THEM.
+#
+# All 40 lines below read "ALARM dreg(6881) DEAD".  Job B did NOT die.
+# PID 6881 (python3 ab_dreg3.py 2 4) COMPLETED NORMALLY at 22:29:50 UTC,
+# wrote its read-off, and exited.  Its terminal lines in
+# solve_lab/agentAB_work/dreg3.log are:
+#
+#     -> n=4 solving degree >=6   (6330s)
+#     MEASURED SOLVING DEGREES: {2: '=4', 3: '=5', 4: '>=6'}
+#
+# CAUSE (my defect, agent AI): sampler.sh named the OUTCOME from
+# `kill -0 6881` alone.  The absence of a process is not evidence of
+# failure -- it is equally consistent with success.  The evidence that
+# distinguished the two was sitting in dreg3.log the entire time.
+#
+#     Absence of a process is not evidence of failure.
+#     A monitor must READ THE ARTEFACT before it names the outcome.
+#
+# This is the same rule that kept agent Y's lying status file out of the
+# record, applied to the thing that does the watching.
+#
+# Retained, not deleted: these lines are a true record of a real defect.
+# Fixed in sampler.sh at 00:10 UTC (COMPLETED vs DIED, artefact-read,
+# terminal line quoted in the alarm).  Job B is no longer watched at all.
+#
+# Range of false lines: 22:31:30 .. 00:06:44   (40 lines, every 120s)
+# ======================================================================
+22:31:30 ALARM dreg(6881) DEAD
+22:33:30 ALARM dreg(6881) DEAD
+22:35:30 ALARM dreg(6881) DEAD
+22:37:30 ALARM dreg(6881) DEAD
+22:39:31 ALARM dreg(6881) DEAD
+22:41:31 ALARM dreg(6881) DEAD
+22:43:31 ALARM dreg(6881) DEAD
+22:45:31 ALARM dreg(6881) DEAD
+22:47:31 ALARM dreg(6881) DEAD
+22:49:32 ALARM dreg(6881) DEAD
+22:51:32 ALARM dreg(6881) DEAD
+22:53:32 ALARM dreg(6881) DEAD
+22:55:32 ALARM dreg(6881) DEAD
+22:57:32 ALARM dreg(6881) DEAD
+22:59:32 ALARM dreg(6881) DEAD
+23:01:33 ALARM dreg(6881) DEAD
+23:03:33 ALARM dreg(6881) DEAD
+23:05:33 ALARM dreg(6881) DEAD
+23:07:33 ALARM dreg(6881) DEAD
+23:09:34 ALARM dreg(6881) DEAD
+23:11:34 ALARM dreg(6881) DEAD
+23:13:34 ALARM dreg(6881) DEAD
+23:15:34 ALARM dreg(6881) DEAD
+23:17:35 ALARM dreg(6881) DEAD
+23:19:35 ALARM dreg(6881) DEAD
+23:21:35 ALARM dreg(6881) DEAD
+23:23:35 ALARM dreg(6881) DEAD
+23:25:35 ALARM dreg(6881) DEAD
+23:27:36 ALARM dreg(6881) DEAD
+23:29:36 ALARM dreg(6881) DEAD
+23:31:36 ALARM dreg(6881) DEAD
+23:33:36 ALARM dreg(6881) DEAD
+23:35:37 ALARM dreg(6881) DEAD
+23:37:47 ALARM dreg(6881) DEAD
+23:56:43 ALARM dreg(6881) DEAD
+23:58:43 ALARM dreg(6881) DEAD
+00:00:43 ALARM dreg(6881) DEAD
+00:02:44 ALARM dreg(6881) DEAD
+00:04:44 ALARM dreg(6881) DEAD
+00:06:44 ALARM dreg(6881) DEAD

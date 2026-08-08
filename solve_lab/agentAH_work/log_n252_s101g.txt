@@ -63,3 +63,24 @@ S(seed=101,n=252) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357,
 outer 0: global nonzero 152, violated c-conditions 146, nonzero handle-less 6
    single-wire pass over 685 wires (max atoms/wire 2)
      [hb] wire 216/685  nz-guard evals=903  sg3 calls=216  sg3 time=103s  accepted=44  t=444s
+     [hb] wire 275/685  nz-guard evals=2340  sg3 calls=275  sg3 time=245s  accepted=53  t=592s
+     [hb] wire 464/685  nz-guard evals=3067  sg3 calls=464  sg3 time=348s  accepted=83  t=712s
+     [hb] wire 682/685  nz-guard evals=3851  sg3 calls=672  sg3 time=454s  accepted=116  t=838s
+   single-wire pass: 116 accepted
+outer 1: global nonzero 21, violated c-conditions 15, nonzero handle-less 6
+   single-wire pass over 21 wires (max atoms/wire 1)
+   handle-less pass: 6 nonzero handle-less atom(s)
+      *** x13454 += p*13189448 zeroes (x12827-(x31566*x24511)) (exact, recomputed)
+      *** x36038 += p*605517349896 zeroes (x11231-(x8233*x21728)) (exact, recomputed)
+outer 2: global nonzero 19, violated c-conditions 15, nonzero handle-less 4
+   single-wire pass over 21 wires (max atoms/wire 1)
+   handle-less pass: 4 nonzero handle-less atom(s)
+   single-wire STALLED -> joint two-wire pass
+  atom ((x29327*(x36128-359702590479861189598273782415394539357  c=1514949
+     round 0: |group|=1 (0 exact) wires=1 new pairs=0
+     folding in collateral: ['((x31778*x19594)-(9401079*x17407))']
+     round 1: |group|=2 (0 exact) wires=6 new pairs=15
+     (x6930  ,x14052 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x24221 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x25477 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)
+     (x6930  ,x27486 ) |group|=2 NO JOINT ROOT mod 3 (exhaustive)

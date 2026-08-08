@@ -28,6 +28,7 @@ SAMPW = 400          # t_w samples above it
 TRIES = 200          # CRT combinations tested per group
 ROUNDS = 4           # collateral-refinement rounds per atom
 PAIRCAP = 40         # wire pairs examined per round
+OUTCAP  = 4000       # T39: max joint roots carried per prime power -- see joint_rootsets
 rnd = random.Random(20260807)
 
 def binom_mod(t, k, m):
@@ -78,8 +79,16 @@ def joint_rootsets(CF, GROUP, q, e):
                 if not cand:
                     break
             if cand:
+                # T39: OUTCAP.  When the collapsed polynomial vanishes IDENTICALLY mod q^e,
+                # tv_roots returns all q^e residues; over an exhaustive t_w loop that is m^2
+                # tuples -- up to 3.6e9 at EXCAP=60000.  This is what OOM-killed the |S|=192 run
+                # at 14.6 GB RSS (and, earlier, the first |S|=128 run, losing its dump).  The
+                # root SET is unchanged; only how many representatives we carry forward is
+                # capped, and TRIES=200 of them are tested anyway.
+                if len(cand) > OUTCAP:
+                    cand = sorted(cand)[:OUTCAP]
                 out.extend(((b, tw) if flip else (tw, b)) for b in cand)
-                if not exhaustive and len(out) > 40:
+                if len(out) > OUTCAP or (not exhaustive and len(out) > 40):
                     break
         return out
 

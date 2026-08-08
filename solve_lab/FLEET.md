@@ -7649,3 +7649,88 @@ waiting **by PID**, which **refuses to write a verdict unless `jumps == 2^33`, `
 `cands == 0`.** Two abandoned runs are recorded in a ledger as **NOT evidence**. `ae_verify.py` —
 independent Jacobian, fixed-window, extended-Euclid, parameters re-read from X's file — **exists and
 self-tests PASS, built before any hit could occur.**
+
+---
+
+## Check-in 126 — AI fixes the monitor, and finds a real alarm the false ones were burying
+
+**The 40 false lines are quarantined, not deleted.** `ALARMS.log.UNRELIABLE` opens by stating that
+every line in it is false, with the cause and Job B's true terminal output; `ALARMS_QUARANTINE_README.md`
+carries the notice, following Y's `.UNRELIABLE` pattern. **They are a true record of a real defect and
+are kept as such.**
+
+### The find — a genuine alarm was hiding under the noise
+
+`ALARMS.log` now holds **exactly one** line, and it survives scrutiny:
+
+> **`23:37:47 ALARM memAvailable=4MB < 1024`** — a genuine near-OOM.
+
+**4 MB available on a 16 GB box with no swap.** AI separated it out rather than sweeping the whole
+file, which is the only reason we know about it. Had the file been cleared, or had the 40 false lines
+simply been left to accumulate, **this would have been lost in them.** That is the concrete cost of a
+noisy monitor and it very nearly ran here.
+
+**Cause unattributed, and AI says so rather than guessing:** Job B had already exited, so it was not
+AB; the sampler logged `memAvailMB` but **no per-process RSS for other agents, so the evidence to
+identify the cause was never captured.** AI records that it cannot tell rather than inferring a
+culprit from timing. **Correct call** — and the instrumentation gap is now the finding.
+
+**The structural risk has probably already passed, for an unrelated reason.** AA's monolithic 11.3 GB
+table was resident until AA switched to **8 shard passes with a 1.4 GB working set** (check-in 117,
+adopted because the monolith went disk-bound at 94 % kernel time). That change removed the largest
+single resident set on the box. `MemAvailable` is now 14.1 GB.
+
+### The second defect, which AI identified without being asked
+
+> **One wrong inference got restated 40 times and acquired the look of 40 observations.**
+
+AI has **latched** the alarms so a single condition reports once. That is a distinct failure from the
+first one and a sharper observation than my instruction contained: repetition manufactures apparent
+corroboration out of a single unchecked claim.
+
+**The fix itself:** on the PID going absent the sampler now greps `rotdone.txt` for
+`ALL 128 ROTATIONS ATTEMPTED`, emits `JOB A COMPLETED` only if present and `JOB A DIED` only if
+absent, **quotes the line either way**, and appends the right next action. **Tested on both branches
+against synthetic inputs** (clean completion, death partway, completion with an INCOMPLETE rotation,
+missing file) and **replayed against the actual failure before deploying** — it now returns
+`COMPLETED`. Job B is no longer watched; new sampler PID 21216.
+
+AI states the diagnosis against its own name in `CUSTODY.md` §6 rather than around it:
+
+> `kill -0` returning false establishes only that the process is gone, **which is equally consistent
+> with success and failure.** I turned that into `DEAD` — a claim about an outcome, asserted without
+> reading the evidence, when a completion line carrying a `6330s` timing and a rank pair only a real
+> elimination can produce was sitting in `dreg3.log` the whole time. **That is the exact failure I
+> was appointed to catch, and I built it into the instrument.**
+
+**AI checked its own PID handles against AA's rule** (check-in 122) unprompted: the sampler tracks
+**30892 = `rotall.sh`, the parent**, which persists for the whole sweep, and the six `./xrot` workers
+**respawn every rotation and are deliberately never tracked by PID** — so it is not exposed to the
+stale-worker defect. A **PID-reuse guard** was added anyway, reporting `REUSED` rather than `alive` if
+30892 ever stops referring to `rotall.sh`.
+
+### Job A
+
+**58/128, invariant holds on every completed rotation.** All 57 verified at 00:11 — `delta = +0`,
+per-shard closed form matching on **every** shard, 0 INCOMPLETE, 0 `HIT`. Rate degraded to
+**182 s/rotation** (the first 8 ran at 135 s under different load), ETA ≈ 03:45 UTC and likely
+pessimistic as load eases. `nice = 0` on 30892 confirmed from `/proc`, so it has priority over AA's
+reniced subtree as ruled.
+
+**Still not claimable as `|S| ≤ 10`.** The honest statement remains: every `|S| = 10` set with a
+balanced 5|5 split at one of rotations 0–57 is excluded.
+
+### One stale claim, corrected
+
+AI reports the §5 audit findings as **"remain unrouted"**, naming `agentAA_work/aa_shard.sh:11-12` as
+still live. **That is out of date and the correction is mine to make, since AI could not have known.**
+It was routed to AA immediately (check-in 115), AA confirmed the defect **including the third point
+about the resume guard**, and fixed it before its next batch (check-in 117). **Verified here now:**
+`aa_shard.sh` carries an `EVIDENCE DISCIPLINE` header citing both Y's `yorbit.status` and AI's audit,
+stderr goes to per-shard logs, **nothing is written to the evidence file by the shell**, exit codes
+are tested, and the resume guard keys on the engine's own `DONE … n=<count>` checked against
+`C(256,b)·2^b`. **36 `shardlogs8/*.err` files exist**, so the path is in use and not merely written.
+AA's own comment states the safety direction explicitly: *"A shard that crashes therefore looks
+incomplete on resume, which is the direction that is safe."*
+
+Disk 9.4 GB at the sawtooth trough, above the 6 GB threshold. AI footprint 1 MB, nothing deleted.
