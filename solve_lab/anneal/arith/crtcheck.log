@@ -1,1 +1,2 @@
 exhaustive check of the CRT/Freivalds modmul gadget
+  s=4 b=4 EXACT  r=4 mods=[13, 11, 7, 5]: true=398 zero-energy=398 spurious=0 missed=0
