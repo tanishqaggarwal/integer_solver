@@ -1,0 +1,51 @@
+                                     variant    logical     K    |J|     physical   vs4400      AND     carry
+-------------------------------------------------------------------------------------------------------------
+             BASELINE school/quotient/binary    111,627   179 2^21      3,330,206     757x   65,536    45,834
+            BASELINE school/quotient/wallace    324,853     5 2^9         324,853      74x   65,536   259,060
+              BASELINE school/quotient/dadda    323,837     8 2^9         431,783      98x   65,536   258,044
+             karatsuba(leaf=128)/naf/wallace    144,935     5 2^6         144,935      33x   45,445    97,296
+              karatsuba(leaf=64)/naf/wallace    116,226     5 2^6         116,226      26x   33,621    77,790
+              karatsuba(leaf=32)/naf/wallace    102,548     5 2^6         102,548      23x   25,610    68,078
+              karatsuba(leaf=16)/naf/wallace    103,112     5 2^6         103,112      23x   20,479    67,446
+               karatsuba(leaf=8)/naf/wallace    120,747     5 2^6         120,747      27x   17,777    77,308
+               karatsuba(leaf=4)/naf/wallace    165,449     5 2^6         165,449      38x   17,928   103,108
+              karatsuba(leaf=128)/naf/binary     71,048    57 2^17        674,956     153x   45,445    23,409
+               karatsuba(leaf=64)/naf/binary     61,612    35 2^15        359,403      82x   33,621    23,176
+               karatsuba(leaf=32)/naf/binary     57,572    29 2^13        278,265      63x   25,610    23,102
+               karatsuba(leaf=16)/naf/binary     61,934    25 2^9         258,058      59x   20,479    26,268
+                karatsuba(leaf=8)/naf/binary     80,437    15 2^8         201,092      46x   17,777    36,998
+                karatsuba(leaf=4)/naf/binary    114,991    14 2^7         268,312      61x   17,928    52,650
+                  toom3(leaf=86)/naf/wallace    115,419     5 2^6         115,419      26x   29,104    82,056
+                  toom3(leaf=64)/naf/wallace    107,641     5 2^6         107,641      24x   23,804    78,242
+                  toom3(leaf=32)/naf/wallace    111,858     5 2^6         111,858      25x   22,481    82,352
+                  toom3(leaf=16)/naf/wallace    130,712     5 2^6         130,712      30x   18,659    99,692
+                   toom3(leaf=8)/naf/wallace    243,786     5 2^6         243,786      55x   24,365   187,418
+                   toom3(leaf=86)/naf/binary     57,333    45 2^17        429,998      98x   29,104    23,970
+                   toom3(leaf=64)/naf/binary     54,358    29 2^13        262,730      60x   23,804    24,959
+                   toom3(leaf=32)/naf/binary     56,189    29 2^13        271,580      62x   22,481    26,683
+                   toom3(leaf=16)/naf/binary     64,814    24 2^9         259,256      59x   18,659    33,794
+                    toom3(leaf=8)/naf/binary    132,123    21 2^9         462,430     105x   24,365    75,755
+                          school/naf/wallace    199,931     5 2^6         199,931      45x   65,536   134,138
+                            school/naf/dadda    198,914     8 2^7         265,219      60x   65,536   133,121
+                            school/naf/unary    132,861   781 2^13     17,294,074   3,930x   65,536    67,068
+                       school/naf/dadda(h=2)    198,914     8 2^7         265,219      60x   65,536   133,121
+                       school/naf/dadda(h=3)    198,411    11 2^8         363,754      83x   65,536   132,618
+                       school/naf/dadda(h=4)    197,396    12 2^8         394,792      90x   65,536   131,603
+                       school/naf/dadda(h=6)    195,376    14 2^8         455,877     104x   65,536   129,583
+                  school/naf/binary(chunk=4)    119,761   215 2^19      4,291,436     975x   65,536    53,968
+                  school/naf/binary(chunk=8)    103,430   151 2^19      2,602,988     592x   65,536    37,637
+                 school/naf/binary(chunk=16)     91,163   103 2^19      1,564,965     356x   65,536    25,370
+                 school/naf/binary(chunk=64)     77,831    85 2^21      1,102,606     251x   65,536    12,038
+               school/naf/binary(chunk=1024)     69,959   280 2^19      3,264,753     742x   65,536     4,166
+                      s=32 school/naf/binary      1,726    31 2^15          8,918       2x    1,024       669
+                     s=32 school/naf/wallace      3,235     5 2^6           3,235       1x    1,024     2,178
+                       s=32 school/naf/dadda      3,171     5 2^6           3,171       1x    1,024     2,114
+                       s=32 school/naf/unary      2,146   100 2^10         35,767       8x    1,024     1,089
+                      s=64 school/naf/binary      6,283    38 2^15         39,792       9x    4,096     2,122
+                     s=64 school/naf/wallace     12,855     5 2^6          12,855       3x    4,096     8,694
+                       s=64 school/naf/dadda     12,602     8 2^7          16,803       4x    4,096     8,441
+                       s=64 school/naf/unary      8,508   199 2^11        282,182      64x    4,096     4,347
+                   SQUARE school/naf/wallace    167,035     5 2^7         167,035      38x   32,640   134,138
+       SQUARE karatsuba(leaf=16)/naf/wallace     87,493     5 2^7          87,493      20x    9,337    64,518
+                    SQUARE school/naf/binary     58,267   103 2^19      1,000,250     227x   32,640    25,370
+        SQUARE karatsuba(leaf=16)/naf/binary     47,779    17 2^10        135,374      31x    9,337    24,804

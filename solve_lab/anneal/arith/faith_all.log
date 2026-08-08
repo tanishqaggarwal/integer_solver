@@ -1,81 +1,98 @@
 === baseline reproduced through Ladder2 (mux off, no Karatsuba) ===
-[comb w=2 sum kdepth=0 1hot=square] p=97 m=4 M=2 
+[comb w=2 sum kdepth=0 toom=0 pm=0 1hot=square] p=97 m=4 M=2 
     1039 vars, 3725 couplers, AND=119, |J| 2^6
     zero-energy k: [9]  true solutions: [9]  degenerate: 1/16  -- FAITHFUL
-[comb w=3 sum kdepth=0 1hot=square] p=97 m=4 M=2 
+[comb w=3 sum kdepth=0 toom=0 pm=0 1hot=square] p=97 m=4 M=2 
     1152 vars, 4248 couplers, AND=119, |J| 2^6
     zero-energy k: [9]  true solutions: [9]  degenerate: 1/16  -- FAITHFUL
 
 === A. one-hot MUX look-up (zero-ancilla table) ===
-[comb w=1 mux kdepth=0 1hot=square] p=97 m=4 M=4 
+[comb w=1 mux kdepth=0 toom=0 pm=0 1hot=square] p=97 m=4 M=4 
     2485 vars, 9171 couplers, AND=357, |J| 2^6
     zero-energy k: [0]  true solutions: [0]  degenerate: 4/16  -- FAITHFUL
-[comb w=2 mux kdepth=0 1hot=square] p=97 m=4 M=2 
+[comb w=2 mux kdepth=0 toom=0 pm=0 1hot=square] p=97 m=4 M=2 
     862 vars, 3196 couplers, AND=119, |J| 2^6
     zero-energy k: [9]  true solutions: [9]  degenerate: 1/16  -- FAITHFUL
-[comb w=3 mux kdepth=0 1hot=square] p=97 m=4 M=2 
+[comb w=3 mux kdepth=0 toom=0 pm=0 1hot=square] p=97 m=4 M=2 
     880 vars, 3378 couplers, AND=119, |J| 2^6
     zero-energy k: [9]  true solutions: [9]  degenerate: 1/16  -- FAITHFUL
-[comb w=4 mux kdepth=0 1hot=square] p=97 m=4 M=1 
+[comb w=4 mux kdepth=0 toom=0 pm=0 1hot=square] p=97 m=4 M=1 
     54 vars, 410 couplers, AND=0, |J| 2^4
     zero-energy k: [9]  true solutions: [9]  degenerate: 0/16  -- FAITHFUL
-[comb w=2 mux kdepth=0 1hot=square] p=193 m=6 M=3 
+[comb w=2 mux kdepth=0 toom=0 pm=0 1hot=square] p=193 m=6 M=3 
     2023 vars, 7615 couplers, AND=312, |J| 2^6
     zero-energy k: [0]  true solutions: [0]  degenerate: 5/64  -- FAITHFUL
-[comb w=3 mux kdepth=0 1hot=square] p=193 m=6 M=2 
+[comb w=3 mux kdepth=0 toom=0 pm=0 1hot=square] p=193 m=6 M=2 
     1046 vars, 4062 couplers, AND=156, |J| 2^6
     zero-energy k: [11]  true solutions: [11]  degenerate: 1/64  -- FAITHFUL
 
 === B. AND-tree one-hot (no cardinality penalty) ===
-[comb w=2 mux kdepth=0 1hot=tree] p=97 m=4 M=2 
+[comb w=2 mux kdepth=0 toom=0 pm=0 1hot=tree] p=97 m=4 M=2 
     870 vars, 3212 couplers, AND=127, |J| 2^7
     zero-energy k: [9]  true solutions: [9]  degenerate: 1/16  -- FAITHFUL
-[comb w=3 mux kdepth=0 1hot=tree] p=97 m=4 M=2 
+[comb w=3 mux kdepth=0 toom=0 pm=0 1hot=tree] p=97 m=4 M=2 
     900 vars, 3400 couplers, AND=143, |J| 2^7
     zero-energy k: [9]  true solutions: [9]  degenerate: 1/16  -- FAITHFUL
-[comb w=4 mux kdepth=0 1hot=tree] p=97 m=4 M=1 
+[comb w=4 mux kdepth=0 toom=0 pm=0 1hot=tree] p=97 m=4 M=1 
     70 vars, 366 couplers, AND=24, |J| 2^7
     zero-energy k: [9]  true solutions: [9]  degenerate: 0/16  -- FAITHFUL
-[comb w=2 mux kdepth=0 1hot=tree] p=193 m=6 M=3 
+[comb w=2 mux kdepth=0 toom=0 pm=0 1hot=tree] p=193 m=6 M=3 
     2035 vars, 7639 couplers, AND=324, |J| 2^7
     zero-energy k: [0]  true solutions: [0]  degenerate: 5/64  -- FAITHFUL
 
 === C. Karatsuba multiplication ===
-[comb w=2 mux kdepth=1 1hot=tree] p=97 m=4 M=2 
+[comb w=2 mux kdepth=1 toom=0 pm=0 1hot=tree] p=97 m=4 M=2 
     1251 vars, 4320 couplers, AND=127, |J| 2^7
     zero-energy k: [9]  true solutions: [9]  degenerate: 1/16  -- FAITHFUL
-[comb w=2 mux kdepth=2 1hot=tree] p=97 m=4 M=2 
+[comb w=2 mux kdepth=2 toom=0 pm=0 1hot=tree] p=97 m=4 M=2 
     1874 vars, 6089 couplers, AND=147, |J| 2^7
     zero-energy k: [9]  true solutions: [9]  degenerate: 1/16  -- FAITHFUL
-[comb w=2 mux kdepth=3 1hot=tree] p=97 m=4 M=2 
+[comb w=2 mux kdepth=3 toom=0 pm=0 1hot=tree] p=97 m=4 M=2 
     3001 vars, 9231 couplers, AND=197, |J| 2^7
     zero-energy k: [9]  true solutions: [9]  degenerate: 1/16  -- FAITHFUL
-[comb w=2 mux kdepth=2 1hot=tree] p=193 m=6 M=3 
+[comb w=2 mux kdepth=2 toom=0 pm=0 1hot=tree] p=193 m=6 M=3 
     3963 vars, 13033 couplers, AND=304, |J| 2^7
     zero-energy k: [0]  true solutions: [0]  degenerate: 5/64  -- FAITHFUL
-[comb w=2 mux kdepth=3 1hot=tree] p=331 m=8 M=4 
+[comb w=2 mux kdepth=3 toom=0 pm=0 1hot=tree] p=331 m=8 M=4 
     11650 vars, 37343 couplers, AND=751, |J| 2^7
     zero-energy k: [5]  true solutions: [5]  degenerate: 22/256  -- FAITHFUL
 
 === D. signed-digit comb ===
-[comb w=1 signed mux kdepth=0 1hot=square] p=97 m=4 M=4 
+[comb w=1 signed mux kdepth=0 toom=0 pm=0 1hot=square] p=97 m=4 M=4 
     2763 vars, 10021 couplers, AND=385, |J| 2^6
     zero-energy k: [9]  true solutions: [9]  degenerate: 0/16  -- FAITHFUL
-[comb w=2 signed mux kdepth=0 1hot=square] p=97 m=4 M=2 
+[comb w=2 signed mux kdepth=0 toom=0 pm=0 1hot=square] p=97 m=4 M=2 
     999 vars, 3583 couplers, AND=133, |J| 2^6
     zero-energy k: [9]  true solutions: [9]  degenerate: 0/16  -- FAITHFUL
-[comb w=2 signed mux kdepth=2 1hot=square] p=97 m=4 M=2 
+[comb w=2 signed mux kdepth=2 toom=0 pm=0 1hot=square] p=97 m=4 M=2 
     2003 vars, 6460 couplers, AND=153, |J| 2^6
     zero-energy k: [9]  true solutions: [9]  degenerate: 0/16  -- FAITHFUL
-[comb w=2 signed mux kdepth=0 1hot=tree] p=193 m=6 M=3 
+[comb w=2 signed mux kdepth=0 toom=0 pm=0 1hot=tree] p=193 m=6 M=3 
     2255 vars, 8272 couplers, AND=336, |J| 2^6
     zero-energy k: [11]  true solutions: [11]  degenerate: 0/64  -- FAITHFUL
-[comb w=2 signed mux kdepth=2 1hot=tree] p=331 m=8 M=4 
+[comb w=2 signed mux kdepth=2 toom=0 pm=0 1hot=tree] p=331 m=8 M=4 
     7838 vars, 26797 couplers, AND=597, |J| 2^6
     zero-energy k: [5]  true solutions: [5]  degenerate: 0/256  -- FAITHFUL
-[comb w=4 signed mux kdepth=0 1hot=tree] p=331 m=8 M=2 
+[comb w=4 signed mux kdepth=0 toom=0 pm=0 1hot=tree] p=331 m=8 M=2 
     1608 vars, 6305 couplers, AND=240, |J| 2^7
     zero-energy k: [5]  true solutions: [5]  degenerate: 0/256  -- FAITHFUL
+
+=== F. Toom-3 and pseudo-Mersenne reduction ===
+[comb w=2 mux kdepth=0 toom=1 pm=2 1hot=tree] p=127 m=6 M=3 
+    4430 vars, 15936 couplers, AND=374, |J| 2^7
+    zero-energy k: [5]  true solutions: [5]  degenerate: 5/64  -- FAITHFUL
+[comb w=2 signed mux kdepth=2 toom=1 pm=2 1hot=tree] p=127 m=6 M=3 
+    8616 vars, 28010 couplers, AND=531, |J| 2^6
+    zero-energy k: [5]  true solutions: [5]  degenerate: 0/64  -- FAITHFUL
+[comb w=3 mux kdepth=0 toom=1 pm=2 1hot=tree] p=127 m=6 M=2 
+    2251 vars, 8181 couplers, AND=205, |J| 2^7
+    zero-energy k: [5]  true solutions: [5]  degenerate: 1/64  -- FAITHFUL
+[comb w=3 signed mux kdepth=2 toom=1 pm=2 1hot=tree] p=127 m=6 M=2 
+    4380 vars, 14290 couplers, AND=277, |J| 2^7
+    zero-energy k: [5]  true solutions: [5]  degenerate: 0/64  -- FAITHFUL
+[semaev w=2 mux=True kdepth=0] p=127 m=6 M=3 k=0
+    2592 vars, 9492 couplers, AND=378, |J| 2^6
+    magnitude tuples: 8 total, zero-energy 1, of which genuine 1, SPURIOUS 0, no-witness 0
 
 === E. x-only / Semaev S_3 chain ===
 [semaev w=2 mux=True kdepth=0] p=97 m=4 M=2 k=0

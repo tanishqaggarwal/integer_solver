@@ -18,17 +18,25 @@ from ladder import not_equal              # noqa: E402
 from enc import Ladder2                   # noqa: E402
 
 
-def _prime(s, rnd):
+def _prime(s, rnd, p=None):
+    if p is not None:
+        return p
     return (1 << (s - 1)) + 2 * rnd.randrange(1 << (s - 3)) + 1
 
 
+def real_p():
+    from instance import p as P
+    return P
+
+
 def window(s, w, mode='binary', mux=True, kdepth=0, kmin=8, signed=False,
-           onehot='square', chunk=16, seed=1, toom=0):
+           onehot='square', chunk=16, seed=1, toom=0, pm=0, p=None):
     """one comb window: table look-ups + 3 modular multiplications + linear words."""
     rnd = random.Random(seed)
-    p = _prime(s, rnd)
+    p = _prime(s, rnd, p)
     D = (1 << (w - 1)) if signed else (1 << w)
-    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin, toom=toom)
+    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin, toom=toom,
+                pm=pm)
     Q = L.qb
     zero = lambda wv: 0
 
@@ -80,13 +88,14 @@ def window(s, w, mode='binary', mux=True, kdepth=0, kmin=8, signed=False,
 
 
 def semaev_step(s, w, mode='binary', mux=True, kdepth=0, kmin=8,
-                onehot='square', chunk=16, seed=1):
+                onehot='square', chunk=16, seed=1, toom=0, pm=0, p=None):
     """one S_3 chain step: one x-only table look-up + 6 modular multiplications."""
     rnd = random.Random(seed)
-    p = _prime(s, rnd)
+    p = _prime(s, rnd, p)
     Bc = rnd.randrange(p)
     D = 1 << (w - 1)
-    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin)
+    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin, toom=toom,
+                pm=pm)
     Q = L.qb
     zero = lambda wv: 0
 
@@ -131,13 +140,15 @@ def semaev_step(s, w, mode='binary', mux=True, kdepth=0, kmin=8,
     return st
 
 
-def modmul(s, mode='binary', kdepth=0, kmin=8, chunk=16, seed=1, wa=None, wb=None, toom=0):
+def modmul(s, mode='binary', kdepth=0, kmin=8, chunk=16, seed=1, wa=None,
+           wb=None, toom=0, pm=0, p=None):
     """cost of a single  A*B == W (mod p)  with |A| = wa, |B| = wb bits."""
     rnd = random.Random(seed)
-    p = _prime(s, rnd)
+    p = _prime(s, rnd, p)
     wa = wa or s
     wb = wb or s
-    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin, toom=toom)
+    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin, toom=toom,
+                pm=pm)
     Q = L.qb
     zero = lambda wv: 0
     A = Q.word("A", wa, zero)

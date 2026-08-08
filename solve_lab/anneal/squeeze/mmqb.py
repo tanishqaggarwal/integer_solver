@@ -80,6 +80,14 @@ class MMQB(QB):
         self.dadda_height = dadda_height
         self.and_lookups = 0        # AND() calls
         self.and_hits = 0           # AND() calls served from the cache
+        self.squares = []           # every (lin, const) asserted as a square == 0
+        self.orders = []            # (u, v) meaning v <= u  (thermometer carries)
+
+    # --- record the equations, for the presolver -------------------------
+    def add_square(self, lin, const, tgt=None):
+        if tgt is None:
+            self.squares.append((dict(lin), const))
+        return super().add_square(lin, const, tgt)
 
     # --- instrumented AND cache -----------------------------------------
     def AND(self, i, j):
@@ -208,10 +216,11 @@ class MMQB(QB):
             nb = co_hi - co_lo                 # unary: one variable per level
             cvars = [self.new(f"ucarry:{tag}:{c}:{t}", 'carry') for t in range(nb)]
             self.n_carry += nb
-            for t in range(nb - 1):            # thermometer order
-                self.add_square({cvars[t]: 0}, 0) if False else None
+            for t in range(nb - 1):            # thermometer order: c_{t+1} <= c_t
                 self.pen[(cvars[t + 1],)] += 1
                 self.pen[(min(cvars[t], cvars[t + 1]), max(cvars[t], cvars[t + 1]))] += -1
+                self.orders.append((cvars[t], cvars[t + 1]))
+                self.max_clique = max(self.max_clique, 2)
             lin2 = dict(lin)
             for v in cvars:
                 lin2[v] = lin2.get(v, 0) - 2

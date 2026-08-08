@@ -72,7 +72,7 @@ def chain_ok(table, M, dg, add):
 
 
 def test_comb(p, B, m, w, k, mode='wallace', mux=True, kdepth=0, kmin=8,
-              signed=False, onehot='square', label=""):
+              signed=False, onehot='square', toom=0, pm=0, label=""):
     if not signed:
         # pick a k whose reference chain has no degenerate addition (demo_win.py
         # does the same); on a tiny curve this is common, at 256 bits ~2^-247.
@@ -88,7 +88,8 @@ def test_comb(p, B, m, w, k, mode='wallace', mux=True, kdepth=0, kmin=8,
     M, table, Tp = I['M'], I['table'], I['Tp']
     add, mul, G, order = I['add'], I['mul'], I['G'], I['order']
     L, SEL = build_comb(p, B, table, Tp, w, mode=mode, mux=mux,
-                        kdepth=kdepth, kmin=kmin, signed=signed, onehot=onehot)
+                        kdepth=kdepth, kmin=kmin, signed=signed, onehot=onehot,
+                        toom=toom, pm=pm)
     Q = L.qb
     st = Q.stats()
     D = len(table[0])
@@ -127,7 +128,8 @@ def test_comb(p, B, m, w, k, mode='wallace', mux=True, kdepth=0, kmin=8,
     sol = [kk for kk in range(1 << m) if mul(kk % order, G) == T_true]
     ok = set(zeros) <= set(sol)
     tag = (f"[comb w={w}{' signed' if signed else ''}"
-           f"{' mux' if mux else ' sum'} kdepth={kdepth} 1hot={onehot}]")
+           f"{' mux' if mux else ' sum'} kdepth={kdepth} toom={toom} pm={pm}"
+           f" 1hot={onehot}]")
     print(f"{tag} p={p} m={m} M={M} {label}")
     print(f"    {st['vars']} vars, {st['couplers']} couplers, AND={st['and_vars']}, "
           f"|J| 2^{st['dynamic_range_bits']}")
@@ -139,7 +141,8 @@ def test_comb(p, B, m, w, k, mode='wallace', mux=True, kdepth=0, kmin=8,
 
 
 # ------------------------------------------------------------ semaev tests ---
-def test_semaev(p, B, m, w, mode='wallace', mux=True, kdepth=0, onehot='square', verbose=True):
+def test_semaev(p, B, m, w, mode='wallace', mux=True, kdepth=0, onehot='square',
+                toom=0, pm=0, verbose=True):
     """Exhaustive over magnitude tuples AND branch-sign patterns."""
     add, mul = curve(p, B)
     G, order = find(p, B)
@@ -185,7 +188,7 @@ def test_semaev(p, B, m, w, mode='wallace', mux=True, kdepth=0, onehot='square',
     T_true = mul(k % order, G)
 
     L, SEL = build_semaev(p, B, table, xT, w, mode=mode, mux=mux, kdepth=kdepth,
-                          onehot=onehot)
+                          onehot=onehot, toom=toom, pm=pm)
     Q = L.qb
     st = Q.stats()
 
@@ -280,6 +283,15 @@ if __name__ == '__main__':
         test_comb(331, 2, 8, 2, 5, mux=True, signed=True, onehot='tree',
                   kdepth=2, kmin=1)
         test_comb(331, 2, 8, 4, 5, mux=True, signed=True, onehot='tree')
+    if which in ('all', 'toompm'):
+        print("\n=== F. Toom-3 and pseudo-Mersenne reduction ===")
+        # pseudo-Mersenne toy fields: p = 2^n - c with small c, ODD group order
+        for (pp, BB, mm, ww) in ((2**7 - 1, 3, 6, 2), (2**7 - 1, 3, 6, 3)):
+            test_comb(pp, BB, mm, ww, 5, mux=True, onehot='tree', toom=1, pm=2,
+                      kmin=2)
+            test_comb(pp, BB, mm, ww, 5, mux=True, onehot='tree', toom=1, pm=2,
+                      kdepth=2, kmin=2, signed=True)
+        test_semaev(2**7 - 1, 3, 6, 2, onehot='tree', toom=1, pm=2)
     if which in ('all', 'semaev'):
         print("\n=== E. x-only / Semaev S_3 chain ===")
         test_semaev(97, 3, 4, 2)

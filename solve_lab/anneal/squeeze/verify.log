@@ -1,0 +1,48 @@
+============================================================================================
+L0  EXHAUSTIVE GROUND STATES -- every zero-energy assignment enumerated,
+    compared against the truth set { (a,b,c) : a*b == c (mod p) }.
+============================================================================================
+  p= 3 schoolbook quotient  binary   vars=  21  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 schoolbook quotient  wallace  vars=  33  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 schoolbook quotient  dadda    vars=  23  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 schoolbook quotient  unary    vars=  20  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 schoolbook naf       binary   vars=  21  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 schoolbook naf       wallace  vars=  33  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 schoolbook naf       dadda    vars=  23  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 schoolbook naf       unary    vars=  20  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 schoolbook fold      binary   vars=  21  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 schoolbook fold      wallace  vars=  33  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 schoolbook fold      dadda    vars=  23  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 schoolbook fold      unary    vars=  20  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  quotient  binary   vars=  21  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  quotient  wallace  vars=  33  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  quotient  dadda    vars=  23  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  quotient  unary    vars=  20  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  naf       binary   vars=  21  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  naf       wallace  vars=  33  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  naf       dadda    vars=  23  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  naf       unary    vars=  20  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  fold      binary   vars=  21  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  fold      wallace  vars=  33  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  fold      dadda    vars=  23  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 karatsuba  fold      unary    vars=  20  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      quotient  binary   vars=  21  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      quotient  wallace  vars=  33  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      quotient  dadda    vars=  23  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      quotient  unary    vars=  20  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      naf       binary   vars=  21  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      naf       wallace  vars=  33  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      naf       dadda    vars=  23  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      naf       unary    vars=  20  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      fold      binary   vars=  21  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      fold      wallace  vars=  33  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      fold      dadda    vars=  23  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 3 toom3      fold      unary    vars=  20  |E=0|=  28  |truth|=  28  FAITHFUL
+  p= 5 schoolbook quotient  binary   vars=  40  |E=0|= 111  |truth|= 111  FAITHFUL
+  p= 5 schoolbook quotient  wallace  vars=  50  |E=0|= 111  |truth|= 111  FAITHFUL
+  p= 5 schoolbook quotient  dadda    vars=  43  |E=0|= 111  |truth|= 111  FAITHFUL
+  p= 5 schoolbook quotient  unary    vars=  35  |E=0|= 111  |truth|= 111  FAITHFUL
+  p= 5 schoolbook naf       binary   vars=  40  |E=0|= 111  |truth|= 111  FAITHFUL
+  p= 5 schoolbook naf       wallace  vars=  50  |E=0|= 111  |truth|= 111  FAITHFUL
+  p= 5 schoolbook naf       dadda    vars=  43  |E=0|= 111  |truth|= 111  FAITHFUL
+  p= 5 schoolbook naf       unary    vars=  35  |E=0|= 111  |truth|= 111  FAITHFUL

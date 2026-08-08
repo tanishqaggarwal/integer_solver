@@ -183,7 +183,11 @@ if __name__ == '__main__':
     else:
         print("one 256x256 modular multiplication through RNS channels (exact)")
         print(f"{'b':>4} {'r':>4} {'vars':>10} {'couplers':>12} {'AND':>9} {'|J|':>6}")
-        for b in (8, 12, 16, 24, 32, 48, 64):
-            st = rns_modmul_cost(256, b)
+        for b in (8, 10, 12, 16, 20, 24, 32, 48, 64, 96):
+            try:
+                st = rns_modmul_cost(256, b)
+            except ValueError as ex:
+                print(f"{b:4d}    - {ex}", flush=True)
+                continue
             print(f"{b:4d} {st['nmods']:4d} {st['vars']:10,d} {st['couplers']:12,d} "
                   f"{st['and_vars']:9,d} 2^{st['dynamic_range_bits']}", flush=True)

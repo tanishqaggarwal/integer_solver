@@ -85,7 +85,10 @@ def main(groups):
     print(HDR)
     print("-" * len(HDR))
     if 'base' in groups or 'all' in groups:
-        for mode in ('binary', 'wallace', 'dadda', 'unary'):
+        # 'unary' is omitted at s=256 on purpose: its cliques are ~500 wide, so
+        # the penalty expansion is ~c^2 per column and the build exhausts memory
+        # before it can be measured.  See the 'small' group for what it costs.
+        for mode in ('binary', 'wallace', 'dadda'):
             run(f"BASELINE school/quotient/{mode}", mult='schoolbook',
                 red='quotient', mode=mode)
     if 'reduce' in groups or 'all' in groups:
@@ -111,6 +114,25 @@ def main(groups):
         for ch in (4, 8, 16, 64, 1024):
             run(f"school/naf/binary(chunk={ch})", mult='schoolbook', red='naf',
                 mode='binary', chunk=ch)
+    if 'hybrid' in groups or 'all' in groups:
+        for leaf in (20, 24, 28, 40, 48):
+            run(f"karatsuba(leaf={leaf})/naf/wallace", mult='karatsuba',
+                leaf=leaf, red='naf', mode='wallace')
+        for top, lf in ((86, 32), (86, 16), (86, 24), (64, 32), (64, 16), (64, 24)):
+            run(f"toom3(>{top})+karatsuba({lf})/naf/wallace",
+                mult=[('toom3', top), ('karatsuba', lf)], red='naf', mode='wallace')
+        for top, lf in ((86, 32), (86, 16), (64, 24)):
+            run(f"toom3(>{top})+karatsuba({lf})/naf/binary",
+                mult=[('toom3', top), ('karatsuba', lf)], red='naf', mode='binary')
+        for top, lf in ((128, 32), (128, 16)):
+            run(f"karatsuba(>{top})+toom3({lf})/naf/wallace",
+                mult=[('karatsuba', top), ('toom3', lf)], red='naf', mode='wallace')
+    if 'small' in groups or 'all' in groups:
+        from crossover import PM
+        for s in (32, 64):
+            for mode in ('binary', 'wallace', 'dadda', 'unary'):
+                run(f"s={s} school/naf/{mode}", mult='schoolbook', red='naf',
+                    mode=mode, s=s, p=PM[s])
     if 'sq' in groups or 'all' in groups:
         for mode in ('wallace', 'binary'):
             run(f"SQUARE school/naf/{mode}", mult='schoolbook', red='naf',

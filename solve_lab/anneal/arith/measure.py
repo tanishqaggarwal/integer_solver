@@ -72,6 +72,28 @@ GRID.append(("fullc128_w14", dict(w=14, mux=True, onehot='tree', kdepth=4,
                                   signed=True, chunk=128)))
 GRID.append(("semaevc64_w13", dict(kind='semaev', w=13, mux=True, onehot='tree',
                                    kdepth=4, chunk=64)))
+# --- round 3: the REAL p, Toom-3, and pseudo-Mersenne reduction ---
+sys.path.insert(0, os.path.dirname(HERE))
+from instance import p as REALP            # noqa: E402
+assert REALP == 2 ** 256 - 2 ** 32 - 977
+if REALP:
+    for w in (8, 9, 10):
+        GRID.append((f"realbase_w{w}", dict(w=w, mux=False, onehot='square',
+                                            kdepth=0, p=REALP)))
+    for w in (12, 13, 14):
+        GRID.append((f"realmux_w{w}", dict(w=w, mux=True, onehot='tree',
+                                           kdepth=4, signed=True, chunk=64,
+                                           p=REALP)))
+    for w in (12, 13, 14, 15, 16):
+        GRID.append((f"best_w{w}", dict(w=w, mux=True, onehot='tree', toom=2,
+                                        pm=2, signed=True, chunk=64, p=REALP)))
+    for w in (13, 14, 15, 16):
+        GRID.append((f"bestc128_w{w}", dict(w=w, mux=True, onehot='tree', toom=2,
+                                            pm=2, signed=True, chunk=128,
+                                            p=REALP)))
+    GRID.append(("semaevbest_w13", dict(kind='semaev', w=13, mux=True,
+                                        onehot='tree', toom=2, pm=2, chunk=64,
+                                        p=REALP)))
 
 
 if __name__ == '__main__':

@@ -1,0 +1,14 @@
+                                     variant    logical     K    |J|     physical   vs4400      AND     carry
+-------------------------------------------------------------------------------------------------------------
+             karatsuba(leaf=128)/naf/wallace    144,944     5 2^6         144,944      33x   45,445    97,302
+              karatsuba(leaf=64)/naf/wallace    116,256     5 2^6         116,256      26x   33,621    77,808
+              karatsuba(leaf=32)/naf/wallace    102,645     5 2^6         102,645      23x   25,610    68,134
+              karatsuba(leaf=16)/naf/wallace    103,414     5 2^6         103,414      24x   20,479    67,618
+               karatsuba(leaf=8)/naf/wallace    121,672     5 2^6         121,672      28x   17,777    77,832
+               karatsuba(leaf=4)/naf/wallace    168,255     5 2^6         168,255      38x   17,928   104,694
+              karatsuba(leaf=128)/naf/binary     71,057    57 2^17        675,042     153x   45,445    23,415
+               karatsuba(leaf=64)/naf/binary     61,648    35 2^15        359,613      82x   33,621    23,200
+               karatsuba(leaf=32)/naf/binary     57,695    29 2^13        278,859      63x   25,610    23,184
+               karatsuba(leaf=16)/naf/binary     62,324    25 2^9         259,683      59x   20,479    26,528
+                karatsuba(leaf=8)/naf/binary     81,640    15 2^8         204,100      46x   17,777    37,800
+                karatsuba(leaf=4)/naf/binary    118,651    14 2^7         276,852      63x   17,928    55,090

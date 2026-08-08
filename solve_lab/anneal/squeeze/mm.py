@@ -62,29 +62,44 @@ def _mul_word(Q, name, A, B, mult, leaf, tag, counter):
 
 
 def product_terms(Q, A, B, mult='schoolbook', leaf=32, tag='m', counter=None):
-    """signed power-of-two terms whose value is exactly A*B."""
+    """signed power-of-two terms whose value is exactly A*B.
+
+    `mult` is either a single method name, or a PLAN: a list of (method, leaf)
+    applied top-down, e.g. [('toom3', 86), ('karatsuba', 16)] means Toom-3
+    while the operand is wider than 86 bits, Karatsuba from there down to 16,
+    schoolbook below that."""
     if counter is None:
         counter = [0]
+    if isinstance(mult, (list, tuple)):
+        plan = list(mult)
+        while plan and max(len(A), len(B)) <= plan[0][1]:
+            plan.pop(0)
+        if not plan:
+            return school_terms(A, B)
+        mult, leaf = plan[0][0], plan[0][1]
+        rest = plan
+    else:
+        rest = mult
     n = max(len(A), len(B))
     if mult == 'schoolbook' or n <= leaf or min(len(A), len(B)) <= 2:
         return school_terms(A, B)
     counter[0] += 1
     tg = f"{tag}.{counter[0]}"
     if mult == 'karatsuba':
-        return _kara(Q, A, B, leaf, tg, counter)
+        return _kara(Q, A, B, leaf, tg, counter, rest)
     if mult == 'toom3':
-        # Toom-3's evaluation words are h+3 bits wide; recursion only pays if
-        # that is strictly narrower than the input, otherwise fall back.
-        h = (n + 2) // 3
-        if h + 4 >= n:
+        # Toom-3's widest evaluation word is a(3) = a0 + 3a1 + 9a2; recursion
+        # only pays if that is strictly narrower than the input.
+        if _toom_evw(A) >= n or _toom_evw(B) >= n:
             counter[0] -= 1
             return school_terms(A, B)
-        return _toom3(Q, A, B, leaf, tg, counter)
+        return _toom3(Q, A, B, leaf, tg, counter, rest)
     raise ValueError(mult)
 
 
 # ----------------------------------------------------------- Karatsuba
-def _kara(Q, A, B, leaf, tag, counter):
+def _kara(Q, A, B, leaf, tag, counter, sub=None):
+    sub = sub if sub is not None else 'karatsuba'
     n = max(len(A), len(B))
     h = n // 2
     A0, A1 = A.slice(0, min(h, len(A))), A.slice(h, len(A)) if len(A) > h else _zero()
@@ -94,13 +109,16 @@ def _kara(Q, A, B, leaf, tag, counter):
                   max(len(A0), len(A1)) + 1, f"ku{tag}")
     V = U if same else _add_word(Q, f"kv{tag}", [(B0, 1, 0), (B1, 1, 0)],
                                  max(len(B0), len(B1)) + 1, f"kv{tag}")
-    P0 = _mul_word(Q, f"kp0{tag}", A0, B0, 'karatsuba', leaf, f"kp0{tag}", counter)
-    P1 = _mul_word(Q, f"kp1{tag}", A1, B1, 'karatsuba', leaf, f"kp1{tag}", counter)
-    P2 = _mul_word(Q, f"kp2{tag}", U, V, 'karatsuba', leaf, f"kp2{tag}", counter)
+    P0 = _mul_word(Q, f"kp0{tag}", A0, B0, sub, leaf, f"kp0{tag}", counter)
+    P1 = _mul_word(Q, f"kp1{tag}", A1, B1, sub, leaf, f"kp1{tag}", counter)
+    P2 = _mul_word(Q, f"kp2{tag}", U, V, sub, leaf, f"kp2{tag}", counter)
     # Mid = P2 - P0 - P1 >= 0, materialised so every coefficient stays a single
     # power of two (folding the subtraction into a coefficient would turn one
     # term into h column entries).
-    Mid = Q.mkword(f"kmid{tag}", len(P2),
+    # Mid = a0b1 + a1b0, one bit narrower than P2 = (a0+a1)(b0+b1).
+    mx = lambda W: (1 << len(W)) - 1                                  # noqa: E731
+    midbits = max(1, (mx(A0) * mx(B1) + mx(A1) * mx(B0)).bit_length())
+    Mid = Q.mkword(f"kmid{tag}", min(len(P2), midbits),
                    lambda wv, P0=P0, P1=P1, P2=P2: P2.val(wv) - P0.val(wv) - P1.val(wv))
     terms = []
     for w, sg in ((P0, 1), (P1, 1), (Mid, 1), (P2, -1)):
@@ -121,20 +139,29 @@ def _zero():
 # ----------------------------------------------------------- Toom-Cook 3
 # evaluation points 0, 1, 2, 3, infinity -- all non-negative, so every word in
 # the tree stays unsigned and the existing column balancer is reused verbatim.
-def _toom3(Q, A, B, leaf, tag, counter):
+def _toom_parts(W, h):
+    return [W.slice(k * h, min((k + 1) * h, len(W))) if k * h < len(W) else _zero()
+            for k in range(3)]
+
+
+def _toom_evw(W):
+    """bit width of the widest Toom-3 evaluation word a(3) = a0 + 3a1 + 9a2."""
+    h = (max(len(W), 1) + 2) // 3
+    ws = _toom_parts(W, h)
+    return sum(3 ** k * ((1 << len(ws[k])) - 1) for k in range(3)).bit_length()
+
+
+def _toom3(Q, A, B, leaf, tag, counter, sub=None):
+    sub = sub if sub is not None else 'toom3'
     n = max(len(A), len(B))
     h = (n + 2) // 3
-    def part(W, k):
-        lo, hi = k * h, min((k + 1) * h, len(W))
-        return W.slice(lo, hi) if lo < len(W) else _zero()
-    a = [part(A, k) for k in range(3)]
-    b = [part(B, k) for k in range(3)]
+    a = _toom_parts(A, h)
+    b = _toom_parts(B, h)
     same = A.bits == B.bits
     # a(x) = a0 + a1 x + a2 x^2  at x = 1,2,3
     def ev(ws, pt, nm):
-        parts = [(ws[k], 1, 0) for k in range(3) if len(ws[k])]
         coeffs = [pt ** k for k in range(3)]
-        nbits = max(len(ws[k]) + coeffs[k].bit_length() for k in range(3) if len(ws[k])) + 2
+        nbits = sum(coeffs[k] * ((1 << len(ws[k])) - 1) for k in range(3)).bit_length()
         prts = []
         for k in range(3):
             if not len(ws[k]):
@@ -145,10 +172,10 @@ def _toom3(Q, A, B, leaf, tag, counter):
     av = {pt: ev(a, pt, f"ta{tag}_{pt}") for pt in (1, 2, 3)}
     bv = av if same else {pt: ev(b, pt, f"tb{tag}_{pt}") for pt in (1, 2, 3)}
     W = {}
-    W[0] = _mul_word(Q, f"tw0{tag}", a[0], b[0], 'toom3', leaf, f"tw0{tag}", counter)
-    W[4] = _mul_word(Q, f"tw4{tag}", a[2], b[2], 'toom3', leaf, f"tw4{tag}", counter)
+    W[0] = _mul_word(Q, f"tw0{tag}", a[0], b[0], sub, leaf, f"tw0{tag}", counter)
+    W[4] = _mul_word(Q, f"tw4{tag}", a[2], b[2], sub, leaf, f"tw4{tag}", counter)
     for pt in (1, 2, 3):
-        W[pt + 10] = _mul_word(Q, f"tw{pt}{tag}", av[pt], bv[pt], 'toom3', leaf,
+        W[pt + 10] = _mul_word(Q, f"tw{pt}{tag}", av[pt], bv[pt], sub, leaf,
                                f"tw{pt}{tag}", counter)
     # C(x) = c0 + c1 x + c2 x^2 + c3 x^3 + c4 x^4 ; c0 = W0, c4 = W4.
     # W(1) = c0+c1+c2+c3+c4 ; W(2) = c0+2c1+4c2+8c3+16c4 ; W(3) = c0+3c1+9c2+27c3+81c4
@@ -164,7 +191,10 @@ def _toom3(Q, A, B, leaf, tag, counter):
             c1 = y1 - c2 - c3
             return (c1, c2, c3)[k - 1]
         return f
-    nb = len(A) + len(B)
+    # c1 = a0b1+a1b0, c2 = a0b2+a1b1+a2b0, c3 = a1b2+a2b1 -- at most 3 products
+    # of h-bit limbs, so 2h+2 bits, not the 4h+2 of the whole product.
+    lim = max(len(a[k]) for k in range(3)), max(len(b[k]) for k in range(3))
+    nb = (3 * ((1 << lim[0]) - 1) * ((1 << lim[1]) - 1)).bit_length()
     c1 = Q.mkword(f"tc1{tag}", nb, cval(1))
     c2 = Q.mkword(f"tc2{tag}", nb, cval(2))
     c3 = Q.mkword(f"tc3{tag}", nb, cval(3))
@@ -269,15 +299,16 @@ def _register_bits(Q):
 
 def _fold_value(Q, terms):
     _register_bits(Q)
-    items = []
-    for mono, sg, sh in terms:
-        assert len(mono) == 1, "fold value needs linearised terms"
-        items.append((_BITOWNER[(id(Q), mono[0])], sg, sh))
+    items = [(tuple(_BITOWNER[(id(Q), v)] for v in mono), sg, sh)
+             for mono, sg, sh in terms]
 
     def f(wv, items=items):
         tot = 0
-        for (nm, t), sg, sh in items:
-            tot += sg * (((wv[nm] >> t) & 1) << sh)
+        for owners, sg, sh in items:
+            bit = 1
+            for nm, t in owners:
+                bit &= (wv[nm] >> t) & 1
+            tot += sg * (bit << sh)
         return tot
     return f
 

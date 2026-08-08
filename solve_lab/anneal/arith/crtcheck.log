@@ -1,2 +1,9 @@
 exhaustive check of the CRT/Freivalds modmul gadget
   s=4 b=4 EXACT  r=4 mods=[13, 11, 7, 5]: true=398 zero-energy=398 spurious=0 missed=0
+  s=4 b=5 EXACT  r=3 mods=[31, 29, 23]: true=398 zero-energy=398 spurious=0 missed=0
+  s=4 b=6 EXACT  r=2 mods=[61, 59]: true=398 zero-energy=398 spurious=0 missed=0
+  s=4 b=3 FREIVALDS r=1 mods=[7]: true=398 zero-energy=4096 spurious=3698 missed=0
+  s=4 b=4 FREIVALDS r=1 mods=[13]: true=398 zero-energy=4096 spurious=3698 missed=0
+  s=4 b=5 FREIVALDS r=1 mods=[31]: true=398 zero-energy=4096 spurious=3698 missed=0
+  s=4 b=6 FREIVALDS r=1 mods=[61]: true=398 zero-energy=2175 spurious=1777 missed=0
+  s=4 b=7 FREIVALDS r=1 mods=[127]: true=398 zero-energy=1098 spurious=700 missed=0

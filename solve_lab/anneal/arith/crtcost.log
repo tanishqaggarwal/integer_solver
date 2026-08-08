@@ -1,0 +1,8 @@
+one 256x256 modular multiplication through RNS channels (exact)
+   b    r       vars     couplers       AND    |J|
+   8    - primes below 2^8 multiply to only 2^335 < 2^515: an exact check is impossible at b=8
+  10   54    126,949    4,997,130     5,400 2^19
+  12   44    125,668    5,171,552     6,336 2^19
+  16   33    125,945    5,313,316     8,448 2^19
+  20   26    122,565    5,000,020    10,400 2^19
+  24   22    122,983    4,839,390    12,672 2^17

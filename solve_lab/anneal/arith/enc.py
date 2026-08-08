@@ -32,11 +32,14 @@ from qubo import QB                       # noqa: E402
 class Ladder2(Ladder):
     """Ladder + Karatsuba multiplication + a zero-ancilla one-hot MUX."""
 
-    def __init__(self, p, chunk=16, mode='binary', kdepth=0, kmin=8, toom=0):
+    def __init__(self, p, chunk=16, mode='binary', kdepth=0, kmin=8, toom=0,
+                 pm=0):
         super().__init__(p, chunk=chunk, mode=mode)
         self.kdepth = kdepth
         self.kmin = kmin          # stop recursing at or below this operand width
         self.toom = toom          # how many TOP levels use Toom-3 instead of Karatsuba
+        self.pm = pm              # pseudo-Mersenne folding rounds (0 = off)
+        self.c = (1 << self.s) - p        # p = 2^s - c ; small c makes folding cheap
         self._kc = 0
 
     # ---------------------------------------------------------- Karatsuba ----
@@ -239,12 +242,14 @@ class Ladder2(Ladder):
     # -------------------------------------------------- multiplication API ---
     def mul_eq(self, tag, A, B, nameA, nameB, terms, const):
         """A*B == const + sum coef*term   (mod p)."""
-        if self.kdepth <= 0 and self.toom <= 0:
+        if self.kdepth <= 0 and self.toom <= 0 and self.pm <= 0:
             return super().mul_eq(tag, A, B, nameA, nameB, terms, const)
         fA = lambda wv, n=nameA: wv[n]
         fB = lambda wv, n=nameB: wv[n]
-        poly = dict(self._prod_poly(A, fA, B, fB, self._tag(tag),
-                                    self.kdepth, self.toom))
+        tg = self._tag(tag)
+        if self.pm > 0:
+            return self._mul_eq_pm(tg, A, fA, B, fB, nameA, nameB, terms, const)
+        poly = dict(self._prod_poly(A, fA, B, fB, tg, self.kdepth, self.toom))
         for coef, bits, _nm in terms:
             for t, v in enumerate(bits):
                 poly[(v,)] = poly.get((v,), 0) - coef * (1 << t)
@@ -252,6 +257,60 @@ class Ladder2(Ladder):
         def val(wv, a=nameA, b=nameB, terms=terms, const=const):
             return wv[a] * wv[b] - const - sum(c * wv[nm] for c, _bits, nm in terms)
         self.congruent(poly, -const, f"eq:{tag}", val)
+
+    # ------------------------------------------- pseudo-Mersenne reduction ---
+    def _mul_eq_pm(self, tg, A, fA, B, fB, nameA, nameB, terms, const):
+        """A*B == const + sum coef*term (mod p) with p = 2^s - c, c small.
+
+        The generic route asserts  <bit-pairs> - <terms> - p*q == 0  with q a
+        FULL s-bit quotient word, and q's contribution to the columns is
+        s * popcount(p) unit terms -- about 64,000 of them at s = 256, which is
+        where 10-19% of a modular multiplication goes.
+
+        Here the product is materialised as a 2s-bit word P = H*2^s + L (H and L
+        are just bit slices, free) and  2^s == c (mod p)  is applied literally:
+                c*H + L  ==  const + sum coef*term   (mod p)
+        The left side is < 2^{s + |c|}, so the quotient word is |c| + O(1) bits
+        instead of s.  Repeating the fold (pm >= 2) shrinks it again."""
+        Q = self.qb
+        s = self.s
+        c = self.c
+        P, fP = self._prod_word(A, fA, B, fB, tg + 'p', self.kdepth, self.toom)
+        cur, fcur, ncur = P, fP, len(P)
+        for r in range(self.pm):
+            if ncur <= s:
+                break
+            H, L = cur[s:], cur[:s]
+            nm = f"pmf:{tg}:{r}"
+            nb = max(s, (c * ((1 << (ncur - s)) - 1) + (1 << s) - 1).bit_length())
+            if r == self.pm - 1:
+                break
+            W = Q.word(nm, nb, lambda wv, f=fcur, s=s, c=c:
+                       c * (f(wv) >> s) + (f(wv) & ((1 << s) - 1)))
+            poly = {}
+            for t, v in enumerate(H):
+                poly[(v,)] = poly.get((v,), 0) + c * (1 << t)
+            for t, v in enumerate(L):
+                poly[(v,)] = poly.get((v,), 0) + (1 << t)
+            for t, v in enumerate(W):
+                poly[(v,)] = poly.get((v,), 0) - (1 << t)
+            Q.assert_zero(poly, 0, nm)
+            cur, fcur, ncur = W, (lambda wv, nm=nm: wv[nm]), nb
+        H, L = cur[s:], cur[:s]
+        poly = {}
+        for t, v in enumerate(H):
+            poly[(v,)] = poly.get((v,), 0) + c * (1 << t)
+        for t, v in enumerate(L):
+            poly[(v,)] = poly.get((v,), 0) + (1 << t)
+        for coef, bits, _nm in terms:
+            for t, v in enumerate(bits):
+                poly[(v,)] = poly.get((v,), 0) - coef * (1 << t)
+
+        def val(wv, f=fcur, s=s, c=c, terms=terms, const=const):
+            u = f(wv)
+            return (c * (u >> s) + (u & ((1 << s) - 1)) - const
+                    - sum(cf * wv[nm] for cf, _b, nm in terms))
+        self.congruent(poly, -const, f"pm:{tg}", val)
 
     # ------------------------------------------------------ generic helpers --
     def lin_word(self, name, terms, const, fn):
@@ -367,7 +426,7 @@ class Ladder2(Ladder):
 # ============================================================ windowed comb ==
 def build_comb(p, B, table, T, w, chunk=16, mode='binary',
                mux=True, kdepth=0, kmin=8, signed=False, onehot='square',
-               verbose=False):
+               toom=0, pm=0, verbose=False):
     """Windowed comb, three-multiplication affine step, d != 0 gadget.
 
     unsigned (signed=False):
@@ -382,7 +441,8 @@ def build_comb(p, B, table, T, w, chunk=16, mode='binary',
     """
     M = len(table)
     D = len(table[0])
-    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin)
+    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin,
+                toom=toom, pm=pm)
     Q = L.qb
     s = L.s
 
@@ -478,7 +538,8 @@ def s3(X1, X2, X3, Bc, p):
 
 
 def build_semaev(p, Bc, table, xT, w, chunk=16, mode='binary',
-                 mux=True, kdepth=0, kmin=8, onehot='square', verbose=False):
+                 mux=True, kdepth=0, kmin=8, onehot='square', toom=0, pm=0,
+                 verbose=False):
     """x-only comb: no y coordinate anywhere, no inversion, no division.
 
     table[j][t] = x( (2t+1) * 2^{wj} G ),  t = 0..2^{w-1}-1  (magnitudes only;
@@ -494,7 +555,8 @@ def build_semaev(p, Bc, table, xT, w, chunk=16, mode='binary',
     """
     M = len(table)
     D = len(table[0])
-    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin)
+    L = Ladder2(p, chunk=chunk, mode=mode, kdepth=kdepth, kmin=kmin,
+                toom=toom, pm=pm)
     Q = L.qb
     s = L.s
 
