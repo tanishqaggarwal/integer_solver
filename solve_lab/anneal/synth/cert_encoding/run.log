@@ -79,3 +79,14 @@ LINK A CERTIFICATE  --  QUBO E=0  <=>  gadget constraints
   p=13 karatsuba  binary   |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL
   p=13 karatsuba  wallace  |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL
   p=13 toom3      binary   |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL
+  p=13 toom3      wallace  |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL
+
+[4] LADDER ONE-HOT WINDOW INSTANCE (base QB, sequential-counter gadget)
+  build_win p=97 m=4 w=2: n=1181 squares=587 ands=168 W=12 margin=1
+    decomposition identity Q == sum(squares)+W*sum(AND): OK
+    W_and rigidity  W > max local load (11): OK
+    true-scalar witness energy: 0  (E=0): OK
+
+============================================================================================
+TOTAL FAILURES: 0
+============================================================================================
