@@ -2055,3 +2055,29 @@ LOW-DEGREE UNIVARIATE POLYNOMIAL mod p once three of the four knobs are fixed. U
 mod p are polynomial time (Cantor-Zassenhaus), so the concentrated block does NOT need an
 annealer. s13/solve_core.py implements the polynomial arithmetic mod p, builds the univariate
 polynomial per knob, finds its roots, realises each root and re-checks exactly.
+
+### Session 13 part 7 (result): the concentrated core IS SOLVED -- and it does not pay
+
+s13/solve_core.py ran to completion. The affine model was verified at a random point, then the
+univariate polynomial A*c^2 - B^2 was built and rooted for each of the four knobs:
+
+  knob x14853: degree 1, 1 root  -> core solved, realised score 38,976
+  knob x16742: degree 2, 2 roots -> core solved, realised score 38,966
+  knob x22162: degree 3, 1 root  -> core solved, realised score 38,982
+  knob x22649: degree 3, 3 roots -> core solved, realised score 38,965
+
+All seven roots VERIFIED to give A*c^2 - B^2 == 0 (mod p) exactly. Total runtime 7 SECONDS.
+Exact checker on core_root_x14853.json: 38,976/39,033 (57 failing) -- confirmed, and WORSE than
+the 39,026 deliverable.
+
+CONCLUSION, and it is the honest answer to "concentrate the hardness into the blocks":
+ 1. The hardness CAN be concentrated -- into one GF(p) quadratic condition whose inputs are
+    affine in four 256-bit knobs (~119,250 binary as a QUBO).
+ 2. But once concentrated, that object is ALGEBRAICALLY EASY: Cantor-Zassenhaus solves it in
+    7 seconds. It never needed an annealer.
+ 3. And solving it does not solve the instance: every root costs more collateral than it buys
+    (38,965-38,982 against 39,026).
+So concentration succeeds as a construction and fails as a strategy: each isolated piece is
+easy, and the difficulty is the SIMULTANEOUS satisfaction. The residual difficulty sits in the
+discrete frame/branch choice (which gates hold, which bits are set), and part 7 axis 1 showed
+those bits are NON-ADDITIVE -- so that part does not concentrate into a QUBO kernel either.
