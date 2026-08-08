@@ -16,27 +16,64 @@ LINK A CERTIFICATE  --  QUBO E=0  <=>  gadget constraints
     and {E=0} == {constraints} by independent 2^n brute where feasible.
   p=2 schoolbook naf binary                            n=  18 squares=   5 ands=  4 W=24   margin=1    E ok (2^18 brute, |set|=32)
   p=2 schoolbook quotient binary                       n=  18 squares=   5 ands=  4 W=24   margin=1    E ok (2^18 brute, |set|=32)
-  p=2 schoolbook naf wallace                           n=  23 squares=  10 ands=  4 W=12   margin=1    D-certified (n=23>2^cap; forward-checked |constraints|=32)
-  p=2 schoolbook quotient wallace                      n=  23 squares=  10 ands=  4 W=12   margin=1    D-certified (n=23>2^cap; forward-checked |constraints|=32)
+  p=2 schoolbook naf wallace                           n=  23 squares=  10 ands=  4 W=12   margin=1    D-certified; forward-checked |constraints|=32
+  p=2 schoolbook quotient wallace                      n=  23 squares=  10 ands=  4 W=12   margin=1    D-certified; forward-checked |constraints|=32
   p=3 schoolbook naf binary                            n=  21 squares=   6 ands=  4 W=30   margin=1    E ok (2^21 brute, |set|=28)
   p=3 schoolbook quotient binary                       n=  21 squares=   6 ands=  4 W=30   margin=1    E ok (2^21 brute, |set|=28)
-  p=3 schoolbook naf wallace                           n=  33 squares=  15 ands=  4 W=12   margin=1    D-certified (n=33>2^cap; forward-checked |constraints|=28)
-  p=3 schoolbook quotient wallace                      n=  33 squares=  15 ands=  4 W=12   margin=1    D-certified (n=33>2^cap; forward-checked |constraints|=28)
-  p=5 schoolbook naf binary                            n=  40 squares=   9 ands=  9 W=52   margin=1    D-certified (n=40>2^cap; forward-checked |constraints|=111)
-  p=5 karatsuba naf binary                             n=  40 squares=   9 ands=  9 W=52   margin=1    D-certified (n=40>2^cap; forward-checked |constraints|=111)
-  p=5 toom3 naf binary                                 n=  40 squares=   9 ands=  9 W=52   margin=1    D-certified (n=40>2^cap; forward-checked |constraints|=111)
-  p=5 schoolbook naf wallace                           n=  50 squares=  21 ands=  9 W=12   margin=1    D-certified (n=50>2^cap; forward-checked |constraints|=111)
-  p=5 karatsuba naf wallace                            n=  50 squares=  21 ands=  9 W=12   margin=1    D-certified (n=50>2^cap; forward-checked |constraints|=111)
-  p=5 toom3 naf wallace                                n=  50 squares=  21 ands=  9 W=12   margin=1    D-certified (n=50>2^cap; forward-checked |constraints|=111)
-  p=7 schoolbook naf binary                            n=  37 squares=   8 ands=  9 W=50   margin=1    D-certified (n=37>2^cap; forward-checked |constraints|=92)
-  p=7 karatsuba naf binary                             n=  37 squares=   8 ands=  9 W=50   margin=1    D-certified (n=37>2^cap; forward-checked |constraints|=92)
-  p=7 toom3 naf binary                                 n=  37 squares=   8 ands=  9 W=50   margin=1    D-certified (n=37>2^cap; forward-checked |constraints|=92)
-  p=7 schoolbook naf wallace                           n=  46 squares=  19 ands=  9 W=12   margin=1    D-certified (n=46>2^cap; forward-checked |constraints|=92)
-  p=7 karatsuba naf wallace                            n=  46 squares=  19 ands=  9 W=12   margin=1    D-certified (n=46>2^cap; forward-checked |constraints|=92)
-  p=7 toom3 naf wallace                                n=  46 squares=  19 ands=  9 W=12   margin=1    D-certified (n=46>2^cap; forward-checked |constraints|=92)
-  p=13 schoolbook naf binary                           n=  54 squares=  10 ands= 16 W=64   margin=1    D-certified (n=54>2^cap; forward-checked |constraints|=351)
-  p=13 karatsuba naf binary                            n= 109 squares=  39 ands= 17 W=24   margin=1    D-certified (n=109>2^cap; forward-checked |constraints|=351)
-  p=13 toom3 naf binary                                n=  54 squares=  10 ands= 16 W=64   margin=1    D-certified (n=54>2^cap; forward-checked |constraints|=351)
-  p=13 schoolbook naf wallace                          n=  87 squares=  36 ands= 16 W=12   margin=1    D-certified (n=87>2^cap; forward-checked |constraints|=351)
-  p=13 karatsuba naf wallace                           n= 155 squares=  83 ands= 17 W=12   margin=1    D-certified (n=155>2^cap; forward-checked |constraints|=351)
-  p=13 toom3 naf wallace                               n=  87 squares=  36 ands= 16 W=12   margin=1    D-certified (n=87>2^cap; forward-checked |constraints|=351)
+  p=3 schoolbook naf wallace                           n=  33 squares=  15 ands=  4 W=12   margin=1    D-certified; forward-checked |constraints|=28
+  p=3 schoolbook quotient wallace                      n=  33 squares=  15 ands=  4 W=12   margin=1    D-certified; forward-checked |constraints|=28
+  p=5 schoolbook naf binary                            n=  40 squares=   9 ands=  9 W=52   margin=1    D-certified; forward-checked |constraints|=111
+  p=5 karatsuba naf binary                             n=  40 squares=   9 ands=  9 W=52   margin=1    D-certified; forward-checked |constraints|=111
+  p=5 toom3 naf binary                                 n=  40 squares=   9 ands=  9 W=52   margin=1    D-certified; forward-checked |constraints|=111
+  p=5 schoolbook naf wallace                           n=  50 squares=  21 ands=  9 W=12   margin=1    D-certified; forward-checked |constraints|=111
+  p=5 karatsuba naf wallace                            n=  50 squares=  21 ands=  9 W=12   margin=1    D-certified; forward-checked |constraints|=111
+  p=5 toom3 naf wallace                                n=  50 squares=  21 ands=  9 W=12   margin=1    D-certified; forward-checked |constraints|=111
+  p=7 schoolbook naf binary                            n=  37 squares=   8 ands=  9 W=50   margin=1    D-certified; forward-checked |constraints|=92
+  p=7 karatsuba naf binary                             n=  37 squares=   8 ands=  9 W=50   margin=1    D-certified; forward-checked |constraints|=92
+  p=7 toom3 naf binary                                 n=  37 squares=   8 ands=  9 W=50   margin=1    D-certified; forward-checked |constraints|=92
+  p=7 schoolbook naf wallace                           n=  46 squares=  19 ands=  9 W=12   margin=1    D-certified; forward-checked |constraints|=92
+  p=7 karatsuba naf wallace                            n=  46 squares=  19 ands=  9 W=12   margin=1    D-certified; forward-checked |constraints|=92
+  p=7 toom3 naf wallace                                n=  46 squares=  19 ands=  9 W=12   margin=1    D-certified; forward-checked |constraints|=92
+  p=13 schoolbook naf binary                           n=  54 squares=  10 ands= 16 W=64   margin=1    D-certified; forward-checked |constraints|=351
+  p=13 karatsuba naf binary                            n= 109 squares=  39 ands= 17 W=24   margin=1    D-certified; forward-checked |constraints|=351
+  p=13 toom3 naf binary                                n=  54 squares=  10 ands= 16 W=64   margin=1    D-certified; forward-checked |constraints|=351
+  p=13 schoolbook naf wallace                          n=  87 squares=  36 ands= 16 W=12   margin=1    D-certified; forward-checked |constraints|=351
+  p=13 karatsuba naf wallace                           n= 155 squares=  83 ands= 17 W=12   margin=1    D-certified; forward-checked |constraints|=351
+  p=13 toom3 naf wallace                               n=  87 squares=  36 ands= 16 W=12   margin=1    D-certified; forward-checked |constraints|=351
+  p=29 schoolbook naf wallace                          n= 122 squares=  50 ands= 25 W=12   margin=1    D+S-certified (identity proves {E=0}=={constraints})
+  p=61 schoolbook naf wallace                          n= 165 squares=  66 ands= 36 W=12   margin=1    D+S-certified (identity proves {E=0}=={constraints})
+  p=127 schoolbook naf wallace                         n= 190 squares=  71 ands= 49 W=12   margin=1    D+S-certified (identity proves {E=0}=={constraints})
+  p=251 schoolbook naf wallace                         n= 259 squares=  98 ands= 64 W=12   margin=1    D+S-certified (identity proves {E=0}=={constraints})
+
+[2b] LARGER p, independent input-exhaustive cross-check via verify.L1
+     (every (a,b); correct c plus wrong c; no spurious E=0 admitted).
+  p= 29 schoolbook naf binary   checked= 26912 bad=0  OK
+  p= 29 schoolbook naf wallace  checked= 26912 bad=0  OK
+  p= 61 schoolbook naf binary   checked=238144 bad=0  OK
+  p= 61 schoolbook naf wallace  checked=238144 bad=0  OK
+  p=127 schoolbook naf wallace  checked=145161 bad=0  OK
+  p=251 schoolbook naf wallace  checked=567009 bad=0  OK
+
+[3] FAITHFULNESS  --  {constraints}|_(a,b,c) == {a*b==c (mod p)},
+    cross-checked against verify.L0X.
+  p= 3 schoolbook binary   |constraints|-proj=  28  |truth|=  28  verify-agrees=True  FAITHFUL
+  p= 3 schoolbook wallace  |constraints|-proj=  28  |truth|=  28  verify-agrees=True  FAITHFUL
+  p= 3 karatsuba  binary   |constraints|-proj=  28  |truth|=  28  verify-agrees=True  FAITHFUL
+  p= 3 karatsuba  wallace  |constraints|-proj=  28  |truth|=  28  verify-agrees=True  FAITHFUL
+  p= 3 toom3      binary   |constraints|-proj=  28  |truth|=  28  verify-agrees=True  FAITHFUL
+  p= 3 toom3      wallace  |constraints|-proj=  28  |truth|=  28  verify-agrees=True  FAITHFUL
+  p= 5 schoolbook binary   |constraints|-proj= 111  |truth|= 111  verify-agrees=True  FAITHFUL
+  p= 5 schoolbook wallace  |constraints|-proj= 111  |truth|= 111  verify-agrees=True  FAITHFUL
+  p= 5 karatsuba  binary   |constraints|-proj= 111  |truth|= 111  verify-agrees=True  FAITHFUL
+  p= 5 karatsuba  wallace  |constraints|-proj= 111  |truth|= 111  verify-agrees=True  FAITHFUL
+  p= 5 toom3      binary   |constraints|-proj= 111  |truth|= 111  verify-agrees=True  FAITHFUL
+  p= 5 toom3      wallace  |constraints|-proj= 111  |truth|= 111  verify-agrees=True  FAITHFUL
+  p= 7 schoolbook binary   |constraints|-proj=  92  |truth|=  92  verify-agrees=True  FAITHFUL
+  p= 7 schoolbook wallace  |constraints|-proj=  92  |truth|=  92  verify-agrees=True  FAITHFUL
+  p= 7 karatsuba  binary   |constraints|-proj=  92  |truth|=  92  verify-agrees=True  FAITHFUL
+  p= 7 karatsuba  wallace  |constraints|-proj=  92  |truth|=  92  verify-agrees=True  FAITHFUL
+  p= 7 toom3      binary   |constraints|-proj=  92  |truth|=  92  verify-agrees=True  FAITHFUL
+  p= 7 toom3      wallace  |constraints|-proj=  92  |truth|=  92  verify-agrees=True  FAITHFUL
+  p=13 schoolbook binary   |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL
+  p=13 schoolbook wallace  |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL
+  p=13 karatsuba  binary   |constraints|-proj= 351  |truth|= 351  verify-agrees=True  FAITHFUL

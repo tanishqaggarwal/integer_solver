@@ -31,7 +31,7 @@ bits  mu/run  runs-to-hit  worst 2^(b-mu)  recovered=planted
   36    16         1           2^20             YES
 ```
 
-**2. The scheme is sound.** Scanning *all* `2^(b−μ)` prefixes, exactly one yields
+**2. The scheme is sound.** Scanning *all* `2^(b−μ)` prefixes, one or two yield
 the planted key (the "two hits" at some sizes are `k` and `k+n`, identical mod n):
 
 ```

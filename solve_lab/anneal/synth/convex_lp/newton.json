@@ -1,0 +1,118 @@
+{
+ "product_of_simplices": [
+  {
+   "label": "Newt(A*B) s=2",
+   "n_monomials": 4,
+   "ambient": 4,
+   "affine_dim": 2,
+   "n_vertices": 4,
+   "n_facets": 4,
+   "volume_normalized": 2.0,
+   "expected_dim_Delta_x_Delta": 2,
+   "expected_vertices": 4,
+   "matches_product_of_simplices": true
+  },
+  {
+   "label": "Newt(A*B) s=3",
+   "n_monomials": 9,
+   "ambient": 6,
+   "affine_dim": 4,
+   "n_vertices": 9,
+   "n_facets": 22,
+   "volume_normalized": 0.75,
+   "expected_dim_Delta_x_Delta": 4,
+   "expected_vertices": 9,
+   "matches_product_of_simplices": true
+  },
+  {
+   "label": "Newt(A*B) s=4",
+   "n_monomials": 16,
+   "ambient": 8,
+   "affine_dim": 6,
+   "n_vertices": 16,
+   "n_facets": 122,
+   "volume_normalized": 0.111111,
+   "expected_dim_Delta_x_Delta": 6,
+   "expected_vertices": 16,
+   "matches_product_of_simplices": true
+  },
+  {
+   "label": "Newt(A*B) s=5",
+   "n_monomials": 25,
+   "ambient": 10,
+   "affine_dim": 8,
+   "n_vertices": 25,
+   "n_facets": 586,
+   "volume_normalized": 0.008681,
+   "expected_dim_Delta_x_Delta": 8,
+   "expected_vertices": 25,
+   "matches_product_of_simplices": true
+  }
+ ],
+ "minkowski": [
+  {
+   "s": 2,
+   "minkowski_sum_size": 4,
+   "monomial_set_size": 4,
+   "equal": true
+  },
+  {
+   "s": 3,
+   "minkowski_sum_size": 9,
+   "monomial_set_size": 9,
+   "equal": true
+  },
+  {
+   "s": 4,
+   "minkowski_sum_size": 16,
+   "monomial_set_size": 16,
+   "equal": true
+  },
+  {
+   "s": 5,
+   "minkowski_sum_size": 25,
+   "monomial_set_size": 25,
+   "equal": true
+  }
+ ],
+ "comb_windows": [
+  {
+   "label": "comb window w=1 (D=2)",
+   "n_monomials": 2,
+   "ambient": 2,
+   "affine_dim": 1,
+   "n_vertices": 2,
+   "is_standard_simplex": true
+  },
+  {
+   "label": "comb window w=2 (D=4)",
+   "n_monomials": 4,
+   "ambient": 4,
+   "affine_dim": 3,
+   "n_vertices": 4,
+   "n_facets": 4,
+   "volume_normalized": 0.333333,
+   "is_standard_simplex": true
+  },
+  {
+   "label": "comb window w=3 (D=8)",
+   "n_monomials": 8,
+   "ambient": 8,
+   "affine_dim": 7,
+   "n_vertices": 8,
+   "n_facets": 8,
+   "volume_normalized": 0.000561,
+   "is_standard_simplex": true
+  },
+  {
+   "label": "comb window w=4 (D=16)",
+   "n_monomials": 16,
+   "ambient": 16,
+   "affine_dim": 15,
+   "n_vertices": 16,
+   "n_facets": 16,
+   "volume_normalized": 0.0,
+   "is_standard_simplex": true
+  }
+ ]
+}

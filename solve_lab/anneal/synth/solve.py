@@ -22,7 +22,8 @@ except Exception:
 
 
 def _residual_dlog(c, G, n, Tres, mu):
-    """the perfect annealer: the unique x in [0,2^mu) with x*G == Tres, or None."""
+    """the perfect annealer: an x in [0,2^mu) with x*G == Tres, or None. (May not be
+    unique across the full scalar range: k and k+n both map to T when k+n < 2^b.)"""
     # baby-step giant-step over [0, 2^mu)
     import math
     if Tres is None: return 0
@@ -83,7 +84,8 @@ if __name__ == '__main__':
               f"{'YES' if ok else 'NO':>12} {res['secs']:6.1f}")
 
     print()
-    print("Exhaustive uniqueness check (small high part): exactly ONE prefix yields k")
+    print("Solution-count check (small high part): 1 or 2 prefixes yield a valid k")
+    print("  (k and k+n both map to T when k+n < 2^b; unique iff dlog >= 2^b - n)")
     inst = make(24, seed=3); mu = 16
     c, G, n, T, k = inst.curve, inst.G, inst.n, inst.T, inst.k
     hits = []

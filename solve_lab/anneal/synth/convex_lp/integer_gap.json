@@ -1,0 +1,28 @@
+[
+ {
+  "p": 13,
+  "s": 4,
+  "n": 87,
+  "n_internal": 79,
+  "integer_determined": 79,
+  "integer_undetermined": 0,
+  "undet_kinds": {},
+  "lp_determined": 18,
+  "convex_gap": 61,
+  "soundness_mismatch": 0,
+  "witness_unique": true
+ },
+ {
+  "p": 251,
+  "s": 8,
+  "n": 259,
+  "n_internal": 243,
+  "integer_determined": 243,
+  "integer_undetermined": 0,
+  "undet_kinds": {},
+  "lp_determined": 64,
+  "convex_gap": 179,
+  "soundness_mismatch": 0,
+  "witness_unique": true
+ }
+]

@@ -16,7 +16,7 @@ for b in have:
     print(f"{b:5d} {mu:7d} {r['runs']:12d} {('2^%d'%(b-mu)):>15} {'YES' if ok else 'NO':>22} {r['secs']:6.2f}")
 
 print()
-print("UNIQUENESS: over ALL 2^(b-mu) prefixes, exactly one yields the planted k")
+print("SOLUTION COUNT: over ALL 2^(b-mu) prefixes, 1 or 2 yield a valid k (k and k+n)")
 for b in [bb for bb in have if bb <= 28]:
     inst = get(b); mu = min(12, b); c,G,n,T,k = inst.curve,inst.G,inst.n,inst.T,inst.k
     hits = 0; rec = None

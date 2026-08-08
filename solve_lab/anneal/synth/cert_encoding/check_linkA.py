@@ -284,8 +284,13 @@ class Fail(Exception):
     pass
 
 
-def certify_instance(Q, label, brute_cap=21, project=None):
-    """Run (D),(S) always; (E) full-brute if n<=brute_cap; return a report line."""
+def certify_instance(Q, label, brute_cap=21, enumerate_constraints=True):
+    """Run (D),(S) always; (E) full-brute if n<=brute_cap; return a report line.
+
+    (D) is a mathematical identity that proves {E=0}=={constraints} at ANY size,
+    so the constraint enumeration is only extra confidence.  For large instances
+    the constraint set carries range-slack ancilla multiplicity and can be huge;
+    pass enumerate_constraints=False there and rely on (D)."""
     # (S) structural
     if not check_squares_integral(Q):
         raise Fail(f"{label}: a square gadget has non-integer coefficients")
@@ -305,21 +310,24 @@ def certify_instance(Q, label, brute_cap=21, project=None):
     W, maxload, margin = wand_audit(Q)
     if margin < 1:
         raise Fail(f"{label}: W_and={W} <= max local load {maxload}; NOT RIGID")
-    # constraint enumeration (all sizes)
-    csts = constraint_states(Q)
-    for x in csts:
-        if Q.energy(list(x)) != 0:
-            raise Fail(f"{label}: a gadget-constraint state has E != 0")
-    tag = "D+S ok"
-    # (E) independent full brute for small n
-    if Q.n <= brute_cap:
-        zs = brute_zero_states(Q)
-        if zs != csts:
-            raise Fail(f"{label}: {{E=0}} != {{constraints}} "
-                       f"(|E=0|={len(zs)} |constraints|={len(csts)})")
-        tag = f"E ok (2^{Q.n} brute, |set|={len(csts)})"
+    csts = None
+    if enumerate_constraints:
+        # constraint enumeration + forward check every state has E=0
+        csts = constraint_states(Q)
+        for x in csts:
+            if Q.energy(list(x)) != 0:
+                raise Fail(f"{label}: a gadget-constraint state has E != 0")
+        # (E) independent full brute for small n
+        if Q.n <= brute_cap:
+            zs = brute_zero_states(Q)
+            if zs != csts:
+                raise Fail(f"{label}: {{E=0}} != {{constraints}} "
+                           f"(|E=0|={len(zs)} |constraints|={len(csts)})")
+            tag = f"E ok (2^{Q.n} brute, |set|={len(csts)})"
+        else:
+            tag = (f"D-certified; forward-checked |constraints|={len(csts)}")
     else:
-        tag = f"D-certified (n={Q.n}>2^cap; forward-checked |constraints|={len(csts)})"
+        tag = "D+S-certified (identity proves {E=0}=={constraints})"
     return csts, (f"  {label:52s} n={Q.n:4d} squares={len(get_squares(Q)):4d} "
                   f"ands={len(Q.andcache):3d} W={W:<4d} margin={margin:<4d} {tag}")
 
@@ -425,12 +433,33 @@ def main():
     for (p, mult, red, mode) in modmul_specs:
         Q, A, B, C, base = verify.make(p, mult=mult, leaf=3, red=red, mode=mode)
         label = f"p={p} {mult} {red} {mode}"
+        # enumerate the constraint set only when it is cheap (small p); for
+        # larger p the decomposition identity (D) already proves set equality.
+        enum = p <= 13
         try:
-            csts, line = certify_instance(Q, label)
+            csts, line = certify_instance(Q, label, enumerate_constraints=enum)
             print(line)
         except Fail as ex:
             print(f"  *** FAIL *** {ex}")
             fails += 1
+
+    print("\n[2b] LARGER p, independent input-exhaustive cross-check via verify.L1")
+    print("     (every (a,b); correct c plus wrong c; no spurious E=0 admitted).")
+    for p in (29, 61):
+        for mode in ('binary', 'wallace'):
+            _, ok, bad = verify.L1(p, mult='schoolbook', leaf=3, red='naf',
+                                   mode=mode)
+            if bad:
+                fails += 1
+            print(f"  p={p:3d} schoolbook naf {mode:7s}  checked={ok + bad:6d} "
+                  f"bad={bad}  {'OK' if bad == 0 else '*** FAIL ***'}")
+    for p in (127, 251):
+        _, ok, bad = verify.L1(p, sample=8, mult='schoolbook', leaf=3, red='naf',
+                               mode='wallace')
+        if bad:
+            fails += 1
+        print(f"  p={p:3d} schoolbook naf wallace  checked={ok + bad:6d} "
+              f"bad={bad}  {'OK' if bad == 0 else '*** FAIL ***'}")
 
     print("\n[3] FAITHFULNESS  --  {constraints}|_(a,b,c) == {a*b==c (mod p)},")
     print("    cross-checked against verify.L0X.")
