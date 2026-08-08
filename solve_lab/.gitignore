@@ -169,3 +169,7 @@ s10/runs/
 
 # resumable sweep checkpoints (regenerable; see s10/chunk.py)
 s10/*.jsonl
+
+# agent working dirs: parse caches and bytecode
+bitconstraints/cache.pkl
+**/__pycache__/

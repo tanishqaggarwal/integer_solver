@@ -1,0 +1,22 @@
+{
+ "control_ok": true,
+ "control": {
+  "mode": "weight",
+  "maxhalf": 4,
+  "seconds": 0.8,
+  "raw_hits": 70,
+  "solutions": [
+   72603205239304
+  ],
+  "stderr": "[weight] 48 chain points, maxhalf=4, cap=2^24\n[weight] pass 0: 213052 points, 0.4s, table=213052\n[weight] pass 1: 213052 points, 0.4s, table=213052"
+ },
+ "real": {
+  "mode": "weight",
+  "maxhalf": 4,
+  "seconds": 260.8,
+  "raw_hits": 0,
+  "solutions": [],
+  "stderr": "[weight] 256 chain points, maxhalf=4, cap=2^28\n[weight] pass 0: 177589056 points, 92.2s, table=177589056\n[weight] pass 1: 177589056 points, 168.3s, table=177589056"
+ },
+ "covers": "Hamming weight <= 8"
+}
