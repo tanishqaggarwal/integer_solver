@@ -1,0 +1,5 @@
+[free] s= 6 n=  153 tabu  14/55    rate=25.455% best=E0 (75.2s)
+[free] s= 7 n=  231 tabu   0/47    rate= 0.000% best=E1 (76.4s)
+[free] s= 8 n=  255 tabu   1/48    rate= 2.083% best=E0 (75.3s)
+[free] s= 9 n=  353 tabu   0/46    rate= 0.000% best=E3 (76.1s)
+[free] s=10 n=  359 tabu   0/46    rate= 0.000% best=E3 (76.2s)

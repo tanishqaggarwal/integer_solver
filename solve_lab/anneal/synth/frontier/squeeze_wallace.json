@@ -1,0 +1,68 @@
+{
+ "4|mid|tabu": {
+  "s": 4,
+  "effort": "mid",
+  "solver": "tabu",
+  "n_vars": 87,
+  "hits": 82,
+  "n": 83,
+  "rate": 0.9879518072289156,
+  "best": 0.0,
+  "elapsed": 8.1
+ },
+ "4|mid|sb": {
+  "s": 4,
+  "effort": "mid",
+  "solver": "sb",
+  "n_vars": 87,
+  "hits": 0,
+  "n": 64,
+  "rate": 0.0,
+  "best": 3.0,
+  "elapsed": 8.1
+ },
+ "4|high|tabu": {
+  "s": 4,
+  "effort": "high",
+  "solver": "tabu",
+  "n_vars": 87,
+  "hits": 82,
+  "n": 82,
+  "rate": 1.0,
+  "best": 0.0,
+  "elapsed": 8.0
+ },
+ "4|high|sb": {
+  "s": 4,
+  "effort": "high",
+  "solver": "sb",
+  "n_vars": 87,
+  "hits": 0,
+  "n": 17,
+  "rate": 0.0,
+  "best": 2.0,
+  "elapsed": 8.4
+ },
+ "5|mid|tabu": {
+  "s": 5,
+  "effort": "mid",
+  "solver": "tabu",
+  "n_vars": 122,
+  "hits": 16,
+  "n": 27,
+  "rate": 0.5925925925925926,
+  "best": 0.0,
+  "elapsed": 8.3
+ },
+ "5|mid|sb": {
+  "s": 5,
+  "effort": "mid",
+  "solver": "sb",
+  "n_vars": 122,
+  "hits": 0,
+  "n": 59,
+  "rate": 0.0,
+  "best": 5.0,
+  "elapsed": 8.1
+ }
+}

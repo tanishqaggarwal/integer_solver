@@ -1,0 +1,4 @@
+FRONTIER: largest field s whose modmul reaches E=0 (best solvers, free search)
+  s     n    pt hits/N  tabu hits/N  best E
+  4    73     40/40        40/40          0
+  6   153      8/40         2/40          0

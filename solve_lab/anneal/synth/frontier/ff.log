@@ -1,0 +1,7 @@
+FRONTIER (PT R=10 sweeps=3000 N=20; tabu 30k N=20):
+  s     n  pt/20  tabu/20  bestE
+  5   107      2       10      0
+  6   153      0        1      0
+  7   231      0        0      2
+  8   255      0        0      1
+done

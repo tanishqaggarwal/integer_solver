@@ -1,0 +1,52 @@
+{
+ "free|6": {
+  "s": 6,
+  "n_vars": 153,
+  "hits": 14,
+  "n": 55,
+  "rate": 0.2545454545454545,
+  "best": 0.0,
+  "elapsed": 75.2,
+  "clamp": "free"
+ },
+ "free|7": {
+  "s": 7,
+  "n_vars": 231,
+  "hits": 0,
+  "n": 47,
+  "rate": 0.0,
+  "best": 1.0,
+  "elapsed": 76.4,
+  "clamp": "free"
+ },
+ "free|8": {
+  "s": 8,
+  "n_vars": 255,
+  "hits": 1,
+  "n": 48,
+  "rate": 0.020833333333333332,
+  "best": 0.0,
+  "elapsed": 75.3,
+  "clamp": "free"
+ },
+ "free|9": {
+  "s": 9,
+  "n_vars": 353,
+  "hits": 0,
+  "n": 46,
+  "rate": 0.0,
+  "best": 3.0,
+  "elapsed": 76.1,
+  "clamp": "free"
+ },
+ "free|10": {
+  "s": 10,
+  "n_vars": 359,
+  "hits": 0,
+  "n": 46,
+  "rate": 0.0,
+  "best": 3.0,
+  "elapsed": 76.2,
+  "clamp": "free"
+ }
+}

@@ -1,0 +1,15 @@
+
+##### SECTION A: core solver x s x effort  (+0s) #####
+[core] s= 4 n=   73 low     sa          1/25   rate= 0.040 best=    0 ( 4.2s)
+[core] s= 4 n=   73 low     pt          7/12   rate= 0.583 best=    0 ( 6.7s)
+[core] s= 4 n=   73 low     tabu      141/250  rate= 0.564 best=    0 (13.2s)
+[core] s= 4 n=   73 low     sb          0/300  rate= 0.000 best=    2 ( 6.5s)
+[core] s= 4 n=   73 mid     sa          0/9    rate= 0.000 best=    1 (15.0s)
+[core] s= 4 n=   73 mid     pt         10/10   rate= 1.000 best=    0 (15.6s)
+[core] s= 4 n=   73 mid     tabu      155/159  rate= 0.975 best=    0 (15.3s)
+[core] s= 4 n=   73 mid     sb          0/129  rate= 0.000 best=    1 (15.0s)
+[core] s= 4 n=   73 high    sa          0/3    rate= 0.000 best=    1 (20.2s)
+[core] s= 4 n=   73 high    pt          4/4    rate= 1.000 best=    0 (18.2s)
+[core] s= 4 n=   73 high    tabu      152/152  rate= 1.000 best=    0 (15.3s)
+[core] s= 4 n=   73 high    sb          0/34   rate= 0.000 best=    2 (15.0s)
+[core] s= 4 n=   73 extreme sa          0/1    rate= 0.000 best=    1 (20.8s)
