@@ -215,26 +215,41 @@ def _toom3(Q, A, B, leaf, tag, counter, sub=None):
 
 
 # ------------------------------------------------------------- reduction
-def build_modmul(Q, p, A, B, C, mult='schoolbook', leaf=32, red='naf', tag='mm'):
-    """assert A*B == C (mod p).  A, B, C are Wrd.  Returns nothing."""
+def build_modmul(Q, p, A, B, C, mult='schoolbook', leaf=32, red='naf', tag='mm',
+                 const=0):
+    """assert  A*B == sum(rhs) + const  (mod p).
+
+    C is a Wrd, or a list of (Wrd, sign) -- the ladder needs the second form
+    (lam^2 == x3 + x1 + x2) and never materialises the product."""
+    rhs = [(C, 1)] if not isinstance(C, list) else list(C)
     counter = [0]
     terms = product_terms(Q, A, B, mult, leaf, tag, counter)
     if red == 'fold':
-        return _fold_reduce(Q, p, terms, len(A) + len(B), C, tag)
+        assert len(rhs) == 1 and const == 0, "fold reduction takes a single word"
+        return _fold_reduce(Q, p, terms, len(A) + len(B), rhs[0][0], tag)
     split = best_split(p) if red == 'naf' else bin_split(p)
-    hi = ((1 << len(A)) - 1) * ((1 << len(B)) - 1)
-    lo = -((1 << len(C)) - 1)
+    hi = ((1 << len(A)) - 1) * ((1 << len(B)) - 1) - const
+    lo = -const
+    for W, sg in rhs:
+        if sg > 0:
+            hi -= 0
+            lo -= (1 << len(W)) - 1
+        else:
+            hi += (1 << len(W)) - 1
     qlo, qhi = lo // p, hi // p
     nb = max(0, (qhi - qlo).bit_length())
-    q = Q.mkword(f"q:{tag}", nb,
-                 lambda wv, A=A, B=B, C=C, p=p, qlo=qlo:
-                 (A.val(wv) * B.val(wv) - C.val(wv)) // p - qlo)
-    for t, b in enumerate(C.bits):
-        terms.append(((b,), -1, t))
+
+    def qval(wv, A=A, B=B, rhs=rhs, p=p, qlo=qlo, const=const):
+        return (A.val(wv) * B.val(wv) - const
+                - sum(sg * W.val(wv) for W, sg in rhs)) // p - qlo
+    q = Q.mkword(f"q:{tag}", nb, qval)
+    for W, sg in rhs:
+        for t, b in enumerate(W.bits):
+            terms.append(((b,), -sg, t))
     for t, b in enumerate(q.bits):
         for sg, sh in split:
             terms.append(((b,), -sg, sh + t))
-    Q.assert_terms(terms, bin_split(-p * qlo), tag)
+    Q.assert_terms(terms, bin_split(-p * qlo) + bin_split(-const), tag)
 
 
 def _fold_reduce(Q, p, terms, nb_prod, C, tag):
@@ -247,6 +262,8 @@ def _fold_reduce(Q, p, terms, nb_prod, C, tag):
     csplit = best_split(c)
     cur, curbits, stage = terms, nb_prod, 0
     while curbits > k + 2:
+        if max(k, (curbits - k) + c.bit_length()) + 1 >= curbits:
+            break                       # folding no longer shrinks anything
         stage += 1
         hi_bits = curbits - k
         lo = Q.mkword(f"fl{tag}{stage}", k, lambda wv: 0)   # values patched below

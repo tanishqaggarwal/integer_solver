@@ -1,0 +1,10 @@
+                                 configuration      window    K    |J|  windows         LADDER        physical   vs 4400
+--------------------------------------------------------------------------------------------------------------------------
+         OLD-STYLE school/quotient/wallace w=7   1,023,033    5 2^9          37     37,852,221      37,852,221    8,603x
+        SQUEEZED karatsuba(24)/naf/wallace w=7     338,748    5 2^9          37     12,533,676      12,533,676    2,849x
+         OLD-STYLE school/quotient/wallace w=8   1,088,759    5 2^9          32     34,840,288      34,840,288    7,918x
+        SQUEEZED karatsuba(24)/naf/wallace w=8     383,072    5 2^9          32     12,258,304      12,258,304    2,786x
+         OLD-STYLE school/quotient/wallace w=9   1,220,499    5 2^10         29     35,394,471      35,394,471    8,044x
+        SQUEEZED karatsuba(24)/naf/wallace w=9     471,588    5 2^9          29     13,676,052      13,676,052    3,108x
+        OLD-STYLE school/quotient/wallace w=10   1,483,985    5 2^10         26     38,583,610      38,583,610    8,769x
+       SQUEEZED karatsuba(24)/naf/wallace w=10     647,920    5 2^9          26     16,845,920      16,845,920    3,829x

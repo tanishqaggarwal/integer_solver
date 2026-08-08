@@ -1,0 +1,18 @@
+                                     variant    logical     K    |J|     physical   vs4400      AND     carry
+-------------------------------------------------------------------------------------------------------------
+              karatsuba(leaf=20)/naf/wallace     99,298     5 2^6          99,298      23x   22,711    65,582
+              karatsuba(leaf=24)/naf/wallace     99,298     5 2^6          99,298      23x   22,711    65,582
+              karatsuba(leaf=28)/naf/wallace     99,298     5 2^6          99,298      23x   22,711    65,582
+              karatsuba(leaf=40)/naf/wallace    106,016     5 2^6         106,016      24x   28,826    70,750
+              karatsuba(leaf=48)/naf/wallace    106,016     5 2^6         106,016      24x   28,826    70,750
+        toom3(>86)+karatsuba(32)/naf/wallace    102,458     5 2^6         102,458      23x   22,329    72,998
+        toom3(>86)+karatsuba(16)/naf/wallace    101,930     5 2^6         101,930      23x   17,848    71,842
+        toom3(>86)+karatsuba(24)/naf/wallace    100,269     5 2^6         100,269      23x   20,134    71,272
+        toom3(>64)+karatsuba(32)/naf/wallace    106,444     5 2^6         106,444      24x   22,670    77,316
+        toom3(>64)+karatsuba(16)/naf/wallace    104,497     5 2^6         104,497      24x   17,818    75,238
+        toom3(>64)+karatsuba(24)/naf/wallace    102,742     5 2^6         102,742      23x   18,788    74,368
+         toom3(>86)+karatsuba(32)/naf/binary     53,643    29 2^13        259,274      59x   22,329    24,183
+         toom3(>86)+karatsuba(16)/naf/binary     55,573    25 2^9         231,554      53x   17,848    25,485
+         toom3(>64)+karatsuba(24)/naf/binary     52,028    29 2^13        251,469      57x   18,788    23,654
+       karatsuba(>128)+toom3(32)/naf/wallace    118,972     5 2^6         118,972      27x   22,324    87,206
+       karatsuba(>128)+toom3(16)/naf/wallace    159,487     5 2^6         159,487      36x   21,041   120,802

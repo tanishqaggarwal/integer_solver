@@ -1,0 +1,10 @@
+                                     variant    logical     K    |J|     physical   vs4400      AND     carry
+-------------------------------------------------------------------------------------------------------------
+       SQUARE karatsuba(leaf=32)/naf/wallace     86,596     5 2^7          86,596      20x   12,238    66,376
+       SQUARE karatsuba(leaf=24)/naf/wallace     84,048     5 2^7          84,048      19x   10,678    63,464
+       SQUARE karatsuba(leaf=20)/naf/wallace     84,048     5 2^7          84,048      19x   10,678    63,464
+       SQUARE karatsuba(leaf=12)/naf/wallace     89,797     5 2^7          89,797      20x    8,329    65,094
+        SQUARE karatsuba(leaf=8)/naf/wallace    102,757     5 2^7         102,757      23x    7,404    72,404
+ SQUARE toom3(>86)+karatsuba(24)/naf/wallace     84,920     5 2^7          84,920      19x    9,511    67,578
+              SQUARE school/quotient/wallace    291,957     5 2^9         291,957      66x   32,640   259,060
+               SQUARE school/quotient/binary     78,731   179 2^21      2,348,808     534x   32,640    45,834

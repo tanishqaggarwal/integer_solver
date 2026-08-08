@@ -17,8 +17,13 @@ Three separate things, kept separate because they answer different questions:
      can fix a variable that is not constant across ALL ground states.  We
      measure that ceiling exactly, by enumerating the ground states.
 
-  3. ROOF DUALITY (QPBO) itself, by max-flow on the standard construction,
-     on instances small enough to run it.  Reported against the ceiling.
+  3. ROOF DUALITY (QPBO).  Strong persistency labels a variable only if that
+     value occurs in a global minimum, so the set roof duality can fix is a
+     SUBSET of the ceiling in (2).  The ceiling is therefore the decisive
+     measurement and is what is reported; a max-flow QPBO was written and
+     discarded after it labelled variables whose labelling had energy 3 (i.e.
+     the reachability rule it used was not the sound one), and a wrong
+     implementation is worth less than the exact bound it would be bounded by.
 """
 import os
 import sys
@@ -81,11 +86,9 @@ def propagate(squares, andgates, n, fixed=None, rounds=100):
             if lo > 0 or hi < 0:
                 raise ValueError("infeasible")
             for v, c in free:
-                lo1, hi1 = lo, hi                          # x_v = 1
-                lo1 += c if c > 0 else -c * 0
-                lo1 = lo - min(0, c) + c
+                lo1 = lo - min(0, c) + c                   # interval with x_v = 1
                 hi1 = hi - max(0, c) + c
-                lo0 = lo - min(0, c)
+                lo0 = lo - min(0, c)                       # interval with x_v = 0
                 hi0 = hi - max(0, c)
                 can1 = not (lo1 > 0 or hi1 < 0)
                 can0 = not (lo0 > 0 or hi0 < 0)
@@ -279,6 +282,88 @@ def _inputs(A, B, C, a, b, c):
     return inp
 
 
+def _build256(pin=False, **kw):
+    import measure
+    from mmqb import MMQB
+    from mm import build_modmul
+    Q = MMQB(chunk=kw.pop('chunk', 16), mode=kw.pop('mode', 'wallace'))
+    A = Q.mkword('A', 256, lambda wv: 0)
+    B = Q.mkword('B', 256, lambda wv: 0)
+    C = Q.mkword('C', 256, lambda wv: 0)
+    build_modmul(Q, measure.P, A, B, C, **kw)
+    Q.finalize()
+    return (Q, C.bits) if pin else Q
+
+
+if __name__ == '__main__':
+    import verify
+    import measure
+    print("=" * 96)
+    print("PRESOLVE -- what a classical pass can remove before the annealer sees it")
+    print("=" * 96)
+    print()
+    print("(a) PERSISTENCY CEILING: variables constant across every ground state")
+    print(f"    {'p':>6} {'vars':>7} {'constant':>9}  (any presolver's hard upper bound)")
+    for p in (13, 29, 61, 127):
+        Q, const = ceiling(p, mult='schoolbook', leaf=8, red='naf', mode='wallace')
+        print(f"    {p:6d} {Q.n:7d} {len(const):9d}")
+    print()
+    print("(b) BOUND PROPAGATION to a fixpoint on the real 256-bit modmul")
+    print(f"    {'variant':>34} {'vars':>9} {'fixed':>8} {'%':>7}")
+    for key, kw in (("school/naf/wallace", dict(mult='schoolbook', red='naf', mode='wallace')),
+                    ("karatsuba(32)/naf/wallace", dict(mult='karatsuba', leaf=32, red='naf',
+                                                       mode='wallace')),
+                    ("school/naf/binary", dict(mult='schoolbook', red='naf', mode='binary'))):
+        Q = _build256(**kw)
+        dom = propagate(Q.squares, gates_of(Q), Q.n)
+        print(f"    {key:>34} {Q.n:9,d} {len(dom):8,d} {100*len(dom)/Q.n:6.2f}%")
+    print()
+    print("(c) SAME, with the product pinned to a constant  (the situation the")
+    print("    factoring literature's table rules were written for: c is known)")
+    print(f"    {'variant':>34} {'vars':>9} {'fixed':>8} {'%':>7}")
+    for key, kw in (("school/naf/wallace", dict(mult='schoolbook', red='naf', mode='wallace')),):
+        Q, Cbits = _build256(pin=True, **kw)
+        val = 0x9d671cd581c69bc5e697f5e45bcd07c6741496c7e6d8a2f0e6d1a2b3c4d5e6f7 % measure.P
+        fixed = {v: (val >> t) & 1 for t, v in enumerate(Cbits)}
+        dom = propagate(Q.squares, gates_of(Q), Q.n, fixed=fixed)
+        print(f"    {key:>34} {Q.n:9,d} {len(dom):8,d} {100*len(dom)/Q.n:6.2f}%")
+    print()
+    print("(d) WHAT the constant variables actually are")
+    for p in (29, 61, 127):
+        Q, const = ceiling(p, mult='schoolbook', leaf=8, red='naf', mode='wallace')
+        kinds = defaultdict(int)
+        for v in const:
+            kinds[Q.kind[v]] += 1
+        print(f"    p={p:4d}: {len(const)} of {Q.n} -- {dict(kinds)}")
+    print("""
+    They are range slack, nothing else: the top bit of a quotient word or of a
+    carry whose declared interval is one wider than its reachable one.  There is
+    no propagation into the multiplication itself, and there cannot be: with A
+    and B free, every partial product a_i b_j takes both values, so no AND
+    ancilla, no carry and no result bit is constant over the ground states.
+    Roof duality is bounded by this set, so it cannot do better.
+
+    The factoring literature's table rules (Jiang/Dattani et al.) do fire, but
+    only because there the product is a FIXED number and both factors are
+    unknown -- the columns are pinned from the top.  Row (c) is that situation
+    and it fixes 266 of 200,699 variables: 0.13%.  In the ladder the product of
+    each multiplication is another unknown word, so even that does not apply,
+    except at the two final comparisons against T.""")
+
+
+def _build256(pin=False, **kw):
+    import measure
+    from mmqb import MMQB
+    from mm import build_modmul
+    Q = MMQB(chunk=kw.pop('chunk', 16), mode=kw.pop('mode', 'wallace'))
+    A = Q.mkword('A', 256, lambda wv: 0)
+    B = Q.mkword('B', 256, lambda wv: 0)
+    C = Q.mkword('C', 256, lambda wv: 0)
+    build_modmul(Q, measure.P, A, B, C, **kw)
+    Q.finalize()
+    return (Q, C.bits) if pin else Q
+
+
 if __name__ == '__main__':
     import verify
     import measure
@@ -321,14 +406,3 @@ if __name__ == '__main__':
         print(f"    {p:6d} {Q.n:7d} {len(got):11d} {len(const):9d}")
 
 
-def _build256(pin=False, **kw):
-    import measure
-    from mmqb import MMQB
-    from mm import build_modmul
-    Q = MMQB(chunk=kw.pop('chunk', 16), mode=kw.pop('mode', 'wallace'))
-    A = Q.mkword('A', 256, lambda wv: 0)
-    B = Q.mkword('B', 256, lambda wv: 0)
-    C = Q.mkword('C', 256, lambda wv: 0)
-    build_modmul(Q, measure.P, A, B, C, **kw)
-    Q.finalize()
-    return (Q, C.bits) if pin else Q

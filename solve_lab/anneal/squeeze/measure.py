@@ -133,6 +133,17 @@ def main(groups):
             for mode in ('binary', 'wallace', 'dadda', 'unary'):
                 run(f"s={s} school/naf/{mode}", mult='schoolbook', red='naf',
                     mode=mode, s=s, p=PM[s])
+    if 'sq2' in groups or 'all' in groups:
+        for leaf in (32, 24, 20, 12, 8):
+            run(f"SQUARE karatsuba(leaf={leaf})/naf/wallace", mult='karatsuba',
+                leaf=leaf, red='naf', mode='wallace', square=True)
+        run("SQUARE toom3(>86)+karatsuba(24)/naf/wallace",
+            mult=[('toom3', 86), ('karatsuba', 24)], red='naf', mode='wallace',
+            square=True)
+        run("SQUARE school/quotient/wallace", mult='schoolbook', red='quotient',
+            mode='wallace', square=True)
+        run("SQUARE school/quotient/binary", mult='schoolbook', red='quotient',
+            mode='binary', square=True)
     if 'sq' in groups or 'all' in groups:
         for mode in ('wallace', 'binary'):
             run(f"SQUARE school/naf/{mode}", mult='schoolbook', red='naf',
