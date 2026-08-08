@@ -127,3 +127,9 @@ outer 6: global nonzero 7, violated c-conditions 6, nonzero handle-less 1
    single-wire STALLED -> joint two-wire pass
   atom ((x23238-x24292)-(10937191*x33421))  c=10937191
      round 0: |group|=1 (0 exact) wires=2 new pairs=1
+     (x18197 ,x23238 ) |group|=1 200 candidate(s) verified, guard rejected all
+     folding in collateral: ['((x10284*x37719)-(15049145*x6202))', '((x32116*x25444)-(10696593*x23555))']
+     round 1: |group|=3 (0 exact) wires=12 new pairs=65
+     (x2096  ,x2964  ) |group|=3 NO JOINT ROOT mod 449 (exhaustive)
+     (x2096  ,x8239  ) |group|=3 NO JOINT ROOT mod 449 (exhaustive)
+     (x2096  ,x8557  ) |group|=3 NO JOINT ROOT mod 449 (exhaustive)

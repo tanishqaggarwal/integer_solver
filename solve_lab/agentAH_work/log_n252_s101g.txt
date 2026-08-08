@@ -46,3 +46,15 @@ S(seed=101,n=252) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357,
    [pre] relift round 44: 147 bad atoms, 145 fixed, t=228s
    [pre] relift round 45: 148 bad atoms, 145 fixed, t=236s
    [pre] relift round 46: 149 bad atoms, 147 fixed, t=244s
+   [pre] relift round 47: 148 bad atoms, 145 fixed, t=250s
+   [pre] relift round 48: 149 bad atoms, 146 fixed, t=253s
+   [pre] relift round 49: 149 bad atoms, 146 fixed, t=262s
+   [pre] relift round 50: 146 bad atoms, 144 fixed, t=266s
+   [pre] relift round 51: 149 bad atoms, 146 fixed, t=271s
+   [pre] relift round 52: 148 bad atoms, 145 fixed, t=275s
+   [pre] relift round 53: 147 bad atoms, 143 fixed, t=280s
+   [pre] relift round 54: 148 bad atoms, 145 fixed, t=283s
+   [pre] relift round 55: 148 bad atoms, 146 fixed, t=290s
+   [pre] relift round 56: 146 bad atoms, 142 fixed, t=298s
+   [pre] relift round 57: 147 bad atoms, 145 fixed, t=305s
+   [pre] relift round 58: 147 bad atoms, 143 fixed, t=313s
