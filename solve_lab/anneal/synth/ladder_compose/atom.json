@@ -1,0 +1,20 @@
+{
+ "GENERAL": {
+  "leaf": 18,
+  "vars": 99298,
+  "clique": 5,
+  "jbits": 6,
+  "couplers": 394406,
+  "ands": 22711,
+  "secs": 2.2
+ },
+ "SQUARING": {
+  "leaf": 32,
+  "vars": 62120,
+  "clique": 5,
+  "jbits": 6,
+  "couplers": 243143,
+  "ands": 12238,
+  "secs": 1.5
+ }
+}

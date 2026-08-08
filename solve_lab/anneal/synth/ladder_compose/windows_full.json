@@ -1,0 +1,83 @@
+{
+ "w10": {
+  "ands": 56100,
+  "carries": 534424,
+  "clique": 5,
+  "couplers": 2755381,
+  "jbits": 9,
+  "secs": 19.8,
+  "vars": 626564
+ },
+ "w11": {
+  "ands": 56100,
+  "carries": 885566,
+  "clique": 5,
+  "couplers": 4444988,
+  "jbits": 9,
+  "secs": 27.1,
+  "vars": 979754
+ },
+ "w12": {
+  "ands": 56100,
+  "carries": 1588898,
+  "clique": 5,
+  "couplers": 7829064,
+  "jbits": 8,
+  "secs": 55.1,
+  "vars": 1687182
+ },
+ "w4": {
+  "ands": 56100,
+  "carries": 188438,
+  "clique": 5,
+  "couplers": 1090657,
+  "jbits": 9,
+  "secs": 10.8,
+  "vars": 278562
+ },
+ "w5": {
+  "ands": 56100,
+  "carries": 193976,
+  "clique": 5,
+  "couplers": 1117192,
+  "jbits": 8,
+  "secs": 8.7,
+  "vars": 284132
+ },
+ "w6": {
+  "ands": 56100,
+  "carries": 205044,
+  "clique": 5,
+  "couplers": 1170469,
+  "jbits": 8,
+  "secs": 7.7,
+  "vars": 295264
+ },
+ "w7": {
+  "ands": 56100,
+  "carries": 227044,
+  "clique": 5,
+  "couplers": 1276370,
+  "jbits": 9,
+  "secs": 7.3,
+  "vars": 317392
+ },
+ "w8": {
+  "ands": 56100,
+  "carries": 271112,
+  "clique": 5,
+  "couplers": 1488393,
+  "jbits": 9,
+  "secs": 8.9,
+  "vars": 361716
+ },
+ "w9": {
+  "ands": 56100,
+  "carries": 359116,
+  "clique": 5,
+  "couplers": 1911757,
+  "jbits": 9,
+  "secs": 12.8,
+  "vars": 450232
+ }
+}

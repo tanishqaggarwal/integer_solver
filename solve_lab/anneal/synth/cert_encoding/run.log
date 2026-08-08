@@ -1,0 +1,41 @@
+============================================================================================
+LINK A CERTIFICATE  --  QUBO E=0  <=>  gadget constraints
+============================================================================================
+
+[1] GADGET UNIT CERTIFICATIONS (each type in isolation, full brute)
+  (a) add_square  (2a+3b+c-1)^2 >= 0, =0 iff form=0 ....... OK
+  (b) AND penalty  z=ab, W*(ab-2az-2bz+3z) >= 0 .......... OK
+  (c) one-hot/seq-counter  D=2: {E=0}|_sel == one-hot . OK
+  (c) one-hot/seq-counter  D=3: {E=0}|_sel == one-hot . OK
+  (c) one-hot/seq-counter  D=4: {E=0}|_sel == one-hot . OK
+  (c) one-hot/seq-counter  D=5: {E=0}|_sel == one-hot . OK
+  (c) one-hot/seq-counter  D=6: {E=0}|_sel == one-hot . OK
+  (c) one-hot/seq-counter  D=8: {E=0}|_sel == one-hot . OK
+
+[2] MODMUL INSTANCES  --  decomposition identity, W_and audit,
+    and {E=0} == {constraints} by independent 2^n brute where feasible.
+  p=2 schoolbook naf binary                            n=  18 squares=   5 ands=  4 W=24   margin=1    E ok (2^18 brute, |set|=32)
+  p=2 schoolbook quotient binary                       n=  18 squares=   5 ands=  4 W=24   margin=1    E ok (2^18 brute, |set|=32)
+  p=2 schoolbook naf wallace                           n=  23 squares=  10 ands=  4 W=12   margin=1    D-certified (n=23>2^cap; forward-checked |constraints|=32)
+  p=2 schoolbook quotient wallace                      n=  23 squares=  10 ands=  4 W=12   margin=1    D-certified (n=23>2^cap; forward-checked |constraints|=32)
+  p=3 schoolbook naf binary                            n=  21 squares=   6 ands=  4 W=30   margin=1    E ok (2^21 brute, |set|=28)
+  p=3 schoolbook quotient binary                       n=  21 squares=   6 ands=  4 W=30   margin=1    E ok (2^21 brute, |set|=28)
+  p=3 schoolbook naf wallace                           n=  33 squares=  15 ands=  4 W=12   margin=1    D-certified (n=33>2^cap; forward-checked |constraints|=28)
+  p=3 schoolbook quotient wallace                      n=  33 squares=  15 ands=  4 W=12   margin=1    D-certified (n=33>2^cap; forward-checked |constraints|=28)
+  p=5 schoolbook naf binary                            n=  40 squares=   9 ands=  9 W=52   margin=1    D-certified (n=40>2^cap; forward-checked |constraints|=111)
+  p=5 karatsuba naf binary                             n=  40 squares=   9 ands=  9 W=52   margin=1    D-certified (n=40>2^cap; forward-checked |constraints|=111)
+  p=5 toom3 naf binary                                 n=  40 squares=   9 ands=  9 W=52   margin=1    D-certified (n=40>2^cap; forward-checked |constraints|=111)
+  p=5 schoolbook naf wallace                           n=  50 squares=  21 ands=  9 W=12   margin=1    D-certified (n=50>2^cap; forward-checked |constraints|=111)
+  p=5 karatsuba naf wallace                            n=  50 squares=  21 ands=  9 W=12   margin=1    D-certified (n=50>2^cap; forward-checked |constraints|=111)
+  p=5 toom3 naf wallace                                n=  50 squares=  21 ands=  9 W=12   margin=1    D-certified (n=50>2^cap; forward-checked |constraints|=111)
+  p=7 schoolbook naf binary                            n=  37 squares=   8 ands=  9 W=50   margin=1    D-certified (n=37>2^cap; forward-checked |constraints|=92)
+  p=7 karatsuba naf binary                             n=  37 squares=   8 ands=  9 W=50   margin=1    D-certified (n=37>2^cap; forward-checked |constraints|=92)
+  p=7 toom3 naf binary                                 n=  37 squares=   8 ands=  9 W=50   margin=1    D-certified (n=37>2^cap; forward-checked |constraints|=92)
+  p=7 schoolbook naf wallace                           n=  46 squares=  19 ands=  9 W=12   margin=1    D-certified (n=46>2^cap; forward-checked |constraints|=92)
+  p=7 karatsuba naf wallace                            n=  46 squares=  19 ands=  9 W=12   margin=1    D-certified (n=46>2^cap; forward-checked |constraints|=92)
+  p=7 toom3 naf wallace                                n=  46 squares=  19 ands=  9 W=12   margin=1    D-certified (n=46>2^cap; forward-checked |constraints|=92)
+  p=13 schoolbook naf binary                           n=  54 squares=  10 ands= 16 W=64   margin=1    D-certified (n=54>2^cap; forward-checked |constraints|=351)
+  p=13 karatsuba naf binary                            n= 109 squares=  39 ands= 17 W=24   margin=1    D-certified (n=109>2^cap; forward-checked |constraints|=351)
+  p=13 toom3 naf binary                                n=  54 squares=  10 ands= 16 W=64   margin=1    D-certified (n=54>2^cap; forward-checked |constraints|=351)
+  p=13 schoolbook naf wallace                          n=  87 squares=  36 ands= 16 W=12   margin=1    D-certified (n=87>2^cap; forward-checked |constraints|=351)
+  p=13 karatsuba naf wallace                           n= 155 squares=  83 ands= 17 W=12   margin=1    D-certified (n=155>2^cap; forward-checked |constraints|=351)

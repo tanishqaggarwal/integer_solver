@@ -1,0 +1,221 @@
+==============================================================================
+EXHAUSTIVE FAITHFULNESS OF THE SQUEEZED LADDER  (demo_win.py protocol)
+==============================================================================
+  p=127 m=4 w=1 windows=4 wallace/schoolbook(leaf=4)/naf/naf-consts
+    2441 vars, 8434 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 4/16  -- FAITHFUL
+  p=127 m=4 w=1 windows=4 wallace/schoolbook(leaf=4)/naf
+    2441 vars, 8434 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 4/16  -- FAITHFUL
+  p=127 m=4 w=1 windows=4 wallace/karatsuba(leaf=4)/naf/naf-consts
+    4172 vars, 13315 couplers, K=5, |J|=2^6, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 4/16  -- FAITHFUL
+  p=127 m=4 w=1 windows=4 wallace/karatsuba(leaf=4)/naf
+    4172 vars, 13315 couplers, K=5, |J|=2^6, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 4/16  -- FAITHFUL
+  p=127 m=4 w=1 windows=4 binary/schoolbook(leaf=4)/naf/naf-consts
+    1382 vars, 10841 couplers, K=18, |J|=2^9, 0.0s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=127 m=4 w=1 windows=4 binary/schoolbook(leaf=4)/naf
+    1382 vars, 10841 couplers, K=18, |J|=2^9, 0.0s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=127 m=4 w=1 windows=4 binary/karatsuba(leaf=4)/naf/naf-consts
+    2720 vars, 14849 couplers, K=12, |J|=2^7, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=127 m=4 w=1 windows=4 binary/karatsuba(leaf=4)/naf
+    2720 vars, 14849 couplers, K=12, |J|=2^7, 0.0s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=127 m=4 w=2 windows=2 wallace/schoolbook(leaf=4)/naf/naf-consts
+    947 vars, 3213 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=127 m=4 w=2 windows=2 wallace/schoolbook(leaf=4)/naf
+    947 vars, 3213 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=127 m=4 w=2 windows=2 wallace/karatsuba(leaf=4)/naf/naf-consts
+    1524 vars, 4840 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=127 m=4 w=2 windows=2 wallace/karatsuba(leaf=4)/naf
+    1524 vars, 4840 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=127 m=4 w=2 windows=2 binary/schoolbook(leaf=4)/naf/naf-consts
+    523 vars, 3948 couplers, K=18, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=127 m=4 w=2 windows=2 binary/schoolbook(leaf=4)/naf
+    523 vars, 3948 couplers, K=18, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=127 m=4 w=2 windows=2 binary/karatsuba(leaf=4)/naf/naf-consts
+    969 vars, 5284 couplers, K=12, |J|=2^7, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=127 m=4 w=2 windows=2 binary/karatsuba(leaf=4)/naf
+    969 vars, 5284 couplers, K=12, |J|=2^7, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=127 m=4 w=3 windows=2 wallace/schoolbook(leaf=4)/naf/naf-consts
+    1057 vars, 3674 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=127 m=4 w=3 windows=2 wallace/schoolbook(leaf=4)/naf
+    1057 vars, 3674 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=127 m=4 w=3 windows=2 wallace/karatsuba(leaf=4)/naf/naf-consts
+    1634 vars, 5301 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=127 m=4 w=3 windows=2 wallace/karatsuba(leaf=4)/naf
+    1634 vars, 5301 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=127 m=4 w=3 windows=2 binary/schoolbook(leaf=4)/naf/naf-consts
+    557 vars, 4352 couplers, K=18, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=127 m=4 w=3 windows=2 binary/schoolbook(leaf=4)/naf
+    557 vars, 4352 couplers, K=18, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=127 m=4 w=3 windows=2 binary/karatsuba(leaf=4)/naf/naf-consts
+    1003 vars, 5688 couplers, K=12, |J|=2^7, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=127 m=4 w=3 windows=2 binary/karatsuba(leaf=4)/naf
+    1003 vars, 5688 couplers, K=12, |J|=2^7, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=1 windows=4 wallace/schoolbook(leaf=4)/naf/naf-consts
+    3200 vars, 11585 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 4/16  -- FAITHFUL
+  p=251 m=4 w=1 windows=4 wallace/schoolbook(leaf=4)/naf
+    3200 vars, 11585 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 4/16  -- FAITHFUL
+  p=251 m=4 w=1 windows=4 wallace/karatsuba(leaf=4)/naf/naf-consts
+    4796 vars, 15950 couplers, K=5, |J|=2^6, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 4/16  -- FAITHFUL
+  p=251 m=4 w=1 windows=4 wallace/karatsuba(leaf=4)/naf
+    4796 vars, 15950 couplers, K=5, |J|=2^6, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 4/16  -- FAITHFUL
+  p=251 m=4 w=1 windows=4 binary/schoolbook(leaf=4)/naf/naf-consts
+    1703 vars, 15652 couplers, K=20, |J|=2^9, 0.0s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=1 windows=4 binary/schoolbook(leaf=4)/naf
+    1703 vars, 15652 couplers, K=20, |J|=2^9, 0.0s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=1 windows=4 binary/karatsuba(leaf=4)/naf/naf-consts
+    3050 vars, 18274 couplers, K=13, |J|=2^7, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=1 windows=4 binary/karatsuba(leaf=4)/naf
+    3050 vars, 18274 couplers, K=13, |J|=2^7, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=2 windows=2 wallace/schoolbook(leaf=4)/naf/naf-consts
+    1212 vars, 4336 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=251 m=4 w=2 windows=2 wallace/schoolbook(leaf=4)/naf
+    1212 vars, 4336 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=251 m=4 w=2 windows=2 wallace/karatsuba(leaf=4)/naf/naf-consts
+    1744 vars, 5791 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=251 m=4 w=2 windows=2 wallace/karatsuba(leaf=4)/naf
+    1744 vars, 5791 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=251 m=4 w=2 windows=2 binary/schoolbook(leaf=4)/naf/naf-consts
+    643 vars, 5716 couplers, K=20, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=2 windows=2 binary/schoolbook(leaf=4)/naf
+    643 vars, 5716 couplers, K=20, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=2 windows=2 binary/karatsuba(leaf=4)/naf/naf-consts
+    1092 vars, 6590 couplers, K=13, |J|=2^7, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=2 windows=2 binary/karatsuba(leaf=4)/naf
+    1092 vars, 6590 couplers, K=13, |J|=2^7, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=3 windows=2 wallace/schoolbook(leaf=4)/naf/naf-consts
+    1328 vars, 4828 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=251 m=4 w=3 windows=2 wallace/schoolbook(leaf=4)/naf
+    1328 vars, 4828 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=251 m=4 w=3 windows=2 wallace/karatsuba(leaf=4)/naf/naf-consts
+    1860 vars, 6283 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=251 m=4 w=3 windows=2 wallace/karatsuba(leaf=4)/naf
+    1860 vars, 6283 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/16  -- FAITHFUL
+  p=251 m=4 w=3 windows=2 binary/schoolbook(leaf=4)/naf/naf-consts
+    672 vars, 6119 couplers, K=20, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=3 windows=2 binary/schoolbook(leaf=4)/naf
+    672 vars, 6119 couplers, K=20, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=3 windows=2 binary/karatsuba(leaf=4)/naf/naf-consts
+    1121 vars, 6993 couplers, K=13, |J|=2^7, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=251 m=4 w=3 windows=2 binary/karatsuba(leaf=4)/naf
+    1121 vars, 6993 couplers, K=13, |J|=2^7, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 15/16  -- FAITHFUL
+  p=1021 m=5 w=1 windows=5 wallace/schoolbook(leaf=4)/naf/naf-consts
+    6269 vars, 22996 couplers, K=5, |J|=2^6, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 8/32  -- FAITHFUL
+  p=1021 m=5 w=1 windows=5 wallace/schoolbook(leaf=4)/naf
+    6269 vars, 22996 couplers, K=5, |J|=2^6, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 8/32  -- FAITHFUL
+  p=1021 m=5 w=1 windows=5 wallace/karatsuba(leaf=4)/naf/naf-consts
+    10401 vars, 34120 couplers, K=5, |J|=2^6, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 8/32  -- FAITHFUL
+  p=1021 m=5 w=1 windows=5 wallace/karatsuba(leaf=4)/naf
+    10401 vars, 34120 couplers, K=5, |J|=2^6, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 8/32  -- FAITHFUL
+  p=1021 m=5 w=1 windows=5 binary/schoolbook(leaf=4)/naf/naf-consts
+    3146 vars, 31125 couplers, K=22, |J|=2^9, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 31/32  -- FAITHFUL
+  p=1021 m=5 w=1 windows=5 binary/schoolbook(leaf=4)/naf
+    3146 vars, 31125 couplers, K=22, |J|=2^9, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 31/32  -- FAITHFUL
+  p=1021 m=5 w=1 windows=5 binary/karatsuba(leaf=4)/naf/naf-consts
+    6606 vars, 37825 couplers, K=14, |J|=2^7, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 31/32  -- FAITHFUL
+  p=1021 m=5 w=1 windows=5 binary/karatsuba(leaf=4)/naf
+    6606 vars, 37825 couplers, K=14, |J|=2^7, 0.1s build
+    zero-energy k: [0]  true solutions: [0]  degenerate-chain k: 31/32  -- FAITHFUL
+  p=1021 m=5 w=2 windows=3 wallace/schoolbook(leaf=4)/naf/naf-consts
+    3279 vars, 12027 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 3/32  -- FAITHFUL
+  p=1021 m=5 w=2 windows=3 wallace/schoolbook(leaf=4)/naf
+    3279 vars, 12027 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 3/32  -- FAITHFUL
+  p=1021 m=5 w=2 windows=3 wallace/karatsuba(leaf=4)/naf/naf-consts
+    5345 vars, 17589 couplers, K=5, |J|=2^6, 0.1s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 3/32  -- FAITHFUL
+  p=1021 m=5 w=2 windows=3 wallace/karatsuba(leaf=4)/naf
+    5345 vars, 17589 couplers, K=5, |J|=2^6, 0.1s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 3/32  -- FAITHFUL
+  p=1021 m=5 w=2 windows=3 binary/schoolbook(leaf=4)/naf/naf-consts
+    1631 vars, 16007 couplers, K=22, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 31/32  -- FAITHFUL
+  p=1021 m=5 w=2 windows=3 binary/schoolbook(leaf=4)/naf
+    1631 vars, 16007 couplers, K=22, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 31/32  -- FAITHFUL
+  p=1021 m=5 w=2 windows=3 binary/karatsuba(leaf=4)/naf/naf-consts
+    3361 vars, 19357 couplers, K=14, |J|=2^7, 0.1s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 31/32  -- FAITHFUL
+  p=1021 m=5 w=2 windows=3 binary/karatsuba(leaf=4)/naf
+    3361 vars, 19357 couplers, K=14, |J|=2^7, 0.1s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 31/32  -- FAITHFUL
+  p=1021 m=5 w=3 windows=2 wallace/schoolbook(leaf=4)/naf/naf-consts
+    1857 vars, 6841 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/32  -- FAITHFUL
+  p=1021 m=5 w=3 windows=2 wallace/schoolbook(leaf=4)/naf
+    1857 vars, 6841 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/32  -- FAITHFUL
+  p=1021 m=5 w=3 windows=2 wallace/karatsuba(leaf=4)/naf/naf-consts
+    2890 vars, 9622 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/32  -- FAITHFUL
+  p=1021 m=5 w=3 windows=2 wallace/karatsuba(leaf=4)/naf
+    2890 vars, 9622 couplers, K=5, |J|=2^6, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 1/32  -- FAITHFUL
+  p=1021 m=5 w=3 windows=2 binary/schoolbook(leaf=4)/naf/naf-consts
+    918 vars, 9079 couplers, K=22, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 31/32  -- FAITHFUL
+  p=1021 m=5 w=3 windows=2 binary/schoolbook(leaf=4)/naf
+    918 vars, 9079 couplers, K=22, |J|=2^9, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 31/32  -- FAITHFUL
+  p=1021 m=5 w=3 windows=2 binary/karatsuba(leaf=4)/naf/naf-consts
+    1783 vars, 10754 couplers, K=14, |J|=2^7, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 31/32  -- FAITHFUL
+  p=1021 m=5 w=3 windows=2 binary/karatsuba(leaf=4)/naf
+    1783 vars, 10754 couplers, K=14, |J|=2^7, 0.0s build
+    zero-energy k: [9]  true solutions: [9]  degenerate-chain k: 31/32  -- FAITHFUL
+
+all variants faithful
