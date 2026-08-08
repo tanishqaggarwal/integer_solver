@@ -1776,3 +1776,53 @@ changed is the explanation, and the canonical frame moved 38,996 → 39,016.
 **Ledger.** Satisfy the p-group → the cluster costs 24 (17 after the beam).
 Satisfy the cluster → the p-group costs 7. The deliverable takes the cheaper side.
 That is why 7 is invariant across placements.
+
+## Session — quantum-annealer encoding of the core
+
+Task: encode the instance minimally on an annealer, ignoring prior interpretation.
+Everything lives in `solve_lab/anneal/`; the design write-up is `anneal/ENCODING.md`.
+
+**Re-derived the core from the raw constants** (`reduce.py`, `structure.py`), taking
+nothing from earlier sessions' notes: the 256 selector bits each gate two ~296-bit
+constants; reduced mod `p = 2^256-2^32-977` all 256 pairs lie on one cubic
+`y^2 = x^3 + a2 x^2 + a4 x + a6`; depressing gives `A = 0` and `B/7` a sixth power,
+so the curve is F_p-isomorphic to `y^2 = x^3+7`; `n*P = O` for all 257 points with
+`n` = the secp256k1 order, which is prime; and the 256 points form a single doubling
+chain `P_i = 2^i P_0`. Core = `k*G = T`, one 256-bit ECDLP. Prime order rules out any
+Pohlig-Hellman-style decomposition across annealer runs.
+
+**Built a QUBO compiler** (`qubo.py`, `ladder.py`) and proved it faithful by
+exhaustively enumerating every candidate scalar on scaled instances
+(`demo.py`, `demo_win.py`): the zero-energy set is exactly the set of true discrete
+logs, for both carry disciplines and every window width tested.
+
+Minimisations that paid off, each measured:
+- signed/offset digits => every step is an unconditional addition (no identity, no MUX)
+- comb windows with one-hot digits => table look-ups cost zero multiplications
+- **3-multiplication affine step**: `lam*d=e`, `lam^2=x3+x1+x2`, `lam*(x1-x3)=y3+y1`
+  plus a linear `d != 0` gadget (~9 ancillas) instead of a modular-inverse witness.
+  This also closes the degenerate-division loophole documented in CIRCUIT_STRUCTURE.md
+  (section 1, "weak division wires") -- 27% smaller than the 4-multiplication form.
+- integer identities `LHS-RHS-p*q=0` with explicit quotient words; no product word is
+  ever materialised, nothing is reduced mod p as a separate step
+- column balancing instead of squaring big linear forms; AND penalty weight scoped to
+  AND variables' own coupling load (2^13 -> 2^6 dynamic range at small s)
+
+**Measured, not modelled** (`measure256.py`, `measure_w.py`, `report.py`), building
+real windows at s=256: optimum is **9.06e6 logical qubits** (binary carries, w=9,
+coupler range 2^21) or **2.66e7** (Wallace carries, w=8, range 2^9). Smallest
+indivisible piece = one 256x256 modular multiplication, 8e4..2.2e5 qubits.
+
+**Multiple executions** (ENCODING.md section 5): only the interval split is exact, and
+it must carry >=128 bits (>=16 windows, ~4.7e6 qubits) or the classical outer loop is
+the whole search. Ladder-split is BSGS; hybrid LNS and mod-m relaxation are unsound.
+
+**Annealability** (`unit_probe.py`, `sa_probe.py`): SA cannot settle a single modular
+multiplication past 8-bit words, and on a 4-bit ladder with the answer digits clamped
+to the known solution it fails to fill the uniquely-determined ancillas at 2k, 20k and
+100k sweeps (best E 74 -> 50 -> 40). The landscape has no gradient toward k, which is
+also why block-decomposition schemes cannot converge.
+
+Verdict: the encoding is exact and about 10^3-10^4x too large for current hardware,
+4-16 bits short on coupler precision, and on a landscape where annealing measurably
+does no better than guessing. No new information about the witness.

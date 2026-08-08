@@ -1,0 +1,72 @@
+{
+ "binary_w1": {
+  "vars": 266615,
+  "couplers": 7901903,
+  "jbits": 21
+ },
+ "binary_w8": {
+  "vars": 291272,
+  "couplers": 9231493,
+  "jbits": 21
+ },
+ "binary_w10": {
+  "vars": 354301,
+  "couplers": 18622845,
+  "jbits": 23
+ },
+ "wallace_w1": {
+  "vars": 697922,
+  "couplers": 3091343,
+  "jbits": 9
+ },
+ "wallace_w8": {
+  "vars": 830576,
+  "couplers": 3753244,
+  "jbits": 9
+ },
+ "wallace_w10": {
+  "vars": 1223166,
+  "couplers": 6105637,
+  "jbits": 9
+ },
+ "binary_w4": {
+  "vars": 267935,
+  "couplers": 7951158,
+  "jbits": 21
+ },
+ "binary_w6": {
+  "vars": 274485,
+  "couplers": 8151351,
+  "jbits": 21
+ },
+ "binary_w7": {
+  "vars": 280302,
+  "couplers": 8449930,
+  "jbits": 21
+ },
+ "binary_w9": {
+  "vars": 312476,
+  "couplers": 11461689,
+  "jbits": 21
+ },
+ "binary_w11": {
+  "vars": 437731,
+  "couplers": 43850813,
+  "jbits": 25
+ },
+ "wallace_w6": {
+  "vars": 731260,
+  "couplers": 3251843,
+  "jbits": 9
+ },
+ "wallace_w7": {
+  "vars": 764107,
+  "couplers": 3413734,
+  "jbits": 9
+ },
+ "wallace_w9": {
+  "vars": 961585,
+  "couplers": 4472505,
+  "jbits": 9
+ }
+}

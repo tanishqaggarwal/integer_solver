@@ -1,0 +1,5 @@
+binary   w= 4: vars=  267,935 couplers=   7,951,158 |J|=2^21 (22s)
+binary   w= 6: vars=  274,485 couplers=   8,151,351 |J|=2^21 (23s)
+binary   w= 7: vars=  280,302 couplers=   8,449,930 |J|=2^21 (23s)
+binary   w= 9: vars=  312,476 couplers=  11,461,689 |J|=2^21 (36s)
+binary   w=11: vars=  437,731 couplers=  43,850,813 |J|=2^25 (116s)

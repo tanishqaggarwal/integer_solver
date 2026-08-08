@@ -1,0 +1,38 @@
+[
+ {
+  "s": 6,
+  "p": 41,
+  "vars": 153,
+  "clamped_hits": 3,
+  "clamped_best": 0.0,
+  "free_hits": 0,
+  "free_best": 1.0
+ },
+ {
+  "s": 8,
+  "p": 163,
+  "vars": 255,
+  "clamped_hits": 2,
+  "clamped_best": 0.0,
+  "free_hits": 0,
+  "free_best": 2.0
+ },
+ {
+  "s": 10,
+  "p": 641,
+  "vars": 359,
+  "clamped_hits": 0,
+  "clamped_best": 3.0,
+  "free_hits": 0,
+  "free_best": 5.0
+ },
+ {
+  "s": 12,
+  "p": 2539,
+  "vars": 627,
+  "clamped_hits": 0,
+  "clamped_best": 9.0,
+  "free_hits": 0,
+  "free_best": 10.0
+ }
+]

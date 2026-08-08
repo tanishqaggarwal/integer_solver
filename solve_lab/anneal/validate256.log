@@ -1,0 +1,4 @@
+wallace s=256 w=1: vars=957215 couplers=4238574 |J|=2^9 (21s)
+wallace s=256 w=8: vars=1089869 couplers=4900475 |J|=2^9 (23s)
+binary  s=256 w=1: vars=367893 couplers=10959847 |J|=2^21 (36s)
+binary  s=256 w=8: vars=392550 couplers=12289437 |J|=2^21 (40s)

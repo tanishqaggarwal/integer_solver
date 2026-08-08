@@ -1,0 +1,6 @@
+binary   s=256 w= 1 neq: vars=  266,615 couplers=  7,901,903 |J|=2^21 (24s)
+binary   s=256 w= 8 neq: vars=  291,272 couplers=  9,231,493 |J|=2^21 (26s)
+binary   s=256 w=10 neq: vars=  354,301 couplers= 18,622,845 |J|=2^23 (50s)
+wallace  s=256 w= 1 neq: vars=  697,922 couplers=  3,091,343 |J|=2^9 (14s)
+wallace  s=256 w= 8 neq: vars=  830,576 couplers=  3,753,244 |J|=2^9 (13s)
+wallace  s=256 w=10 neq: vars=1,223,166 couplers=  6,105,637 |J|=2^9 (24s)

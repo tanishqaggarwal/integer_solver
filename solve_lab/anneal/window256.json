@@ -1,0 +1,26 @@
+{
+ "wallace_w1": {
+  "vars": 957215,
+  "couplers": 4238574,
+  "jbits": 9,
+  "secs": 21.0
+ },
+ "wallace_w8": {
+  "vars": 1089869,
+  "couplers": 4900475,
+  "jbits": 9,
+  "secs": 23.2
+ },
+ "binary_w1": {
+  "vars": 367893,
+  "couplers": 10959847,
+  "jbits": 21,
+  "secs": 35.7
+ },
+ "binary_w8": {
+  "vars": 392550,
+  "couplers": 12289437,
+  "jbits": 21,
+  "secs": 40.0
+ }
+}

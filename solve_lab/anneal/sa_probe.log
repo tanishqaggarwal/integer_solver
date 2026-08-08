@@ -1,0 +1,11 @@
+P0 sanity: SA matched brute force on 5/5 random QUBOs
+
+instance m=4 w=2: 2726 vars, 11046 couplers, k=12
+  P1 answer-clamped,   2000 sweeps: E=0 in 0/6 runs (best E=74.0)  [17s]
+  P1 answer-clamped,  20000 sweeps: E=0 in 0/6 runs (best E=50.0)  [163s]
+  P1 answer-clamped, 100000 sweeps: E=0 in 0/6 runs (best E=40.0)  [849s]
+  P2 free search,     20000 sweeps: E=0 in 0/6 runs (best E=53.0)  [171s]
+
+instance m=6 w=2: 5226 vars, 21306 couplers, k=49
+  P1 answer-clamped,   2000 sweeps: E=0 in 0/6 runs (best E=160.0)  [36s]
+  P1 answer-clamped,  20000 sweeps: E=0 in 0/6 runs (best E=104.0)  [357s]

@@ -1,0 +1,5 @@
+  s        p    vars    coupl |             Q1 clamped |            Q2 free
+  6       41     153      543 | 3/8 hit, best E=0.0        4s | 0/8 hit, best E=1.0
+  8      163     255      970 | 2/8 hit, best E=0.0        6s | 0/8 hit, best E=2.0
+ 10      641     359     1373 | 0/8 hit, best E=3.0       10s | 0/8 hit, best E=5.0
+ 12     2539     627     2571 | 0/8 hit, best E=9.0       18s | 0/8 hit, best E=10.0
