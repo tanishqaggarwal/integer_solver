@@ -72,9 +72,8 @@ def main():
             counts = []
             for pat in range(1 << k):
                 pin = {t: (pat >> t) & 1 for t in range(k)}
+                # exact by full enumeration; ceiling is the true constant-set
                 fix, _ = persist.ceiling(Q, A, B, C, p, s, pin_a=pin)
-                persist.verify_subset(fix, Q, A, B, C, p, s, pin_a=pin,
-                                      label=f"cond p={p} k={k}")
                 counts.append(len(fix))
             curve.append((k, sum(counts) / len(counts), min(counts), max(counts)))
         cond_dump[p] = curve

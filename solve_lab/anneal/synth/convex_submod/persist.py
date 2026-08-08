@@ -92,14 +92,19 @@ def make(p, **kw):
 
 
 def _triples(p, s, pin_a=None):
-    """all (a,b,c): c==ab mod p, c<2^s.  pin_a fixes low bits of a: {bit:val}."""
-    for a in range(p):
+    """all ground-state triples: operands a,b are FREE s-bit words (range
+    [0,2^s)), c is an s-bit word with c == a*b (mod p).  Each such triple has
+    exactly one zero-energy completion (the encoding is a deterministic function
+    of (a,b,c); verified by DFS at p=13), so iterating them enumerates every
+    ground state.  pin_a fixes low bits of operand a: {bit:val}."""
+    N = 1 << s
+    for a in range(N):
         if pin_a and any(((a >> t) & 1) != v for t, v in pin_a.items()):
             continue
-        for b in range(p):
+        for b in range(N):
             base = a * b % p
             c = base
-            while c < (1 << s):
+            while c < N:
                 yield a, b, c
                 c += p
 

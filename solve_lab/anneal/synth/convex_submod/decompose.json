@@ -1,0 +1,98 @@
+[
+  {
+    "n": 265,
+    "nsub": 609,
+    "nsup": 360,
+    "vars_in_super": 264,
+    "vars_pure_sub": 1,
+    "pure_sub_kinds": {
+      "and": 1
+    },
+    "super_kinds": {
+      "word": 33,
+      "and": 63,
+      "adder": 168
+    },
+    "s": 8
+  },
+  {
+    "n": 1043,
+    "nsub": 2637,
+    "nsup": 1621,
+    "vars_in_super": 1042,
+    "vars_pure_sub": 1,
+    "pure_sub_kinds": {
+      "and": 1
+    },
+    "super_kinds": {
+      "word": 65,
+      "and": 255,
+      "adder": 722
+    },
+    "s": 16
+  },
+  {
+    "n": 3977,
+    "nsub": 10403,
+    "nsup": 6453,
+    "vars_in_super": 3973,
+    "vars_pure_sub": 4,
+    "pure_sub_kinds": {
+      "word": 4
+    },
+    "super_kinds": {
+      "word": 125,
+      "and": 1024,
+      "adder": 2824
+    },
+    "s": 32
+  },
+  {
+    "n": 15517,
+    "nsub": 41441,
+    "nsup": 25827,
+    "vars_in_super": 15515,
+    "vars_pure_sub": 2,
+    "pure_sub_kinds": {
+      "word": 2
+    },
+    "super_kinds": {
+      "word": 255,
+      "and": 4096,
+      "adder": 11164
+    },
+    "s": 64
+  },
+  {
+    "n": 60473,
+    "nsub": 163009,
+    "nsup": 101438,
+    "vars_in_super": 60472,
+    "vars_pure_sub": 1,
+    "pure_sub_kinds": {
+      "and": 1
+    },
+    "super_kinds": {
+      "word": 513,
+      "and": 16383,
+      "adder": 43576
+    },
+    "s": 128
+  },
+  {
+    "n": 200699,
+    "nsub": 532475,
+    "nsup": 332288,
+    "vars_in_super": 200693,
+    "vars_pure_sub": 6,
+    "pure_sub_kinds": {
+      "word": 6
+    },
+    "super_kinds": {
+      "word": 1019,
+      "and": 65536,
+      "adder": 134138
+    },
+    "s": 256
+  }
+]

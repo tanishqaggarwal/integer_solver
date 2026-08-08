@@ -6,6 +6,135 @@
     "sub": 609,
     "sup": 360,
     "subpct": 62.84829721362229,
-    "build_s": 0.005491971969604492,
+    "build_s": 0.005541801452636719,
     "sup_kinds": {
-      
+      "andxand": 25,
+      "adderxadder": 158,
+      "adderxand": 63,
+      "andxword": 6,
+      "adderxword": 35,
+      "wordxword": 73
+    },
+    "sub_kinds": {
+      "adderxand": 127,
+      "adderxadder": 284,
+      "adderxword": 70,
+      "andxword": 128
+    }
+  },
+  {
+    "s": 16,
+    "vars": 1043,
+    "couplers": 4258,
+    "sub": 2637,
+    "sup": 1621,
+    "subpct": 61.93048379520902,
+    "build_s": 0.013316154479980469,
+    "sup_kinds": {
+      "andxand": 117,
+      "adderxadder": 791,
+      "adderxand": 255,
+      "adderxword": 157,
+      "andxword": 8,
+      "wordxword": 293
+    },
+    "sub_kinds": {
+      "adderxand": 511,
+      "adderxadder": 1344,
+      "adderxword": 270,
+      "andxword": 512
+    }
+  },
+  {
+    "s": 32,
+    "vars": 3977,
+    "couplers": 16856,
+    "sub": 10403,
+    "sup": 6453,
+    "subpct": 61.71689606074988,
+    "build_s": 0.05141782760620117,
+    "sup_kinds": {
+      "andxword": 34,
+      "adderxadder": 3310,
+      "adderxword": 472,
+      "andxand": 475,
+      "adderxand": 1025,
+      "wordxword": 1137
+    },
+    "sub_kinds": {
+      "adderxword": 852,
+      "adderxand": 2048,
+      "adderxadder": 5455,
+      "andxword": 2048
+    }
+  },
+  {
+    "s": 64,
+    "vars": 15517,
+    "couplers": 67268,
+    "sub": 41441,
+    "sup": 25827,
+    "subpct": 61.60581554379497,
+    "build_s": 0.25122714042663574,
+    "sup_kinds": {
+      "andxword": 64,
+      "adderxadder": 13516,
+      "adderxword": 1645,
+      "andxand": 1974,
+      "adderxand": 4096,
+      "wordxword": 4532
+    },
+    "sub_kinds": {
+      "adderxword": 3116,
+      "adderxand": 8192,
+      "adderxadder": 21941,
+      "andxword": 8192
+    }
+  },
+  {
+    "s": 128,
+    "vars": 60473,
+    "couplers": 264447,
+    "sub": 163009,
+    "sup": 101438,
+    "subpct": 61.64146312871766,
+    "build_s": 1.3981077671051025,
+    "sup_kinds": {
+      "andxand": 8037,
+      "adderxadder": 53574,
+      "adderxand": 16387,
+      "andxword": 124,
+      "adderxword": 5761,
+      "wordxword": 17555
+    },
+    "sub_kinds": {
+      "adderxand": 32767,
+      "adderxadder": 86382,
+      "adderxword": 11092,
+      "andxword": 32768
+    }
+  },
+  {
+    "s": 256,
+    "vars": 200699,
+    "couplers": 864763,
+    "sub": 532475,
+    "sup": 332288,
+    "subpct": 61.57467421709763,
+    "build_s": 7.413755416870117,
+    "sup_kinds": {
+      "andxword": 145,
+      "adderxadder": 166016,
+      "adderxword": 1809,
+      "andxand": 32511,
+      "adderxand": 65645,
+      "wordxword": 66162
+    },
+    "sub_kinds": {
+      "adderxword": 3590,
+      "adderxand": 131072,
+      "adderxadder": 266741,
+      "andxword": 131072
+    }
+  }
+]
