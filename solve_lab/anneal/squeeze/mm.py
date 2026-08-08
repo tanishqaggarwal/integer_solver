@@ -94,6 +94,12 @@ def product_terms(Q, A, B, mult='schoolbook', leaf=32, tag='m', counter=None):
             counter[0] -= 1
             return school_terms(A, B)
         return _toom3(Q, A, B, leaf, tg, counter, rest)
+    if mult == 'toom4':
+        # Toom-4's widest evaluation word is a(5) = a0+5a1+25a2+125a3.
+        if _toom4_evw(A) >= n or _toom4_evw(B) >= n:
+            counter[0] -= 1
+            return school_terms(A, B)
+        return _toom4(Q, A, B, leaf, tg, counter, rest)
     raise ValueError(mult)
 
 
@@ -210,6 +216,108 @@ def _toom3(Q, A, B, leaf, tag, counter, sub=None):
     out = []
     for k, cw in ((0, W[0]), (1, c1), (2, c2), (3, c3), (4, W[4])):
         for t, bb in enumerate(cw.bits):
+            out.append(((bb,), 1, t + k * h))
+    return out
+
+
+# ----------------------------------------------------------- Toom-Cook 4
+# evaluation points 0, 1, 2, 3, 4, 5, infinity -- all non-negative, so every
+# word in the tree stays unsigned and the existing column balancer is reused
+# verbatim.  Degree-6 product C(x) = c0 + c1 x + ... + c6 x^6 with c0 = W0,
+# c6 = W6; the five interior coefficients are materialised as words and pinned
+# by asserting each finite evaluation as an exact integer identity (no division
+# gadget -- the witness solves the 5x5 Vandermonde with exact rationals, the
+# Hamiltonian only ever sees the multiply-out W(pt) = sum_k pt^k c_k).
+_T4PTS = (1, 2, 3, 4, 5)
+
+
+def _toom4_parts(W, h):
+    return [W.slice(k * h, min((k + 1) * h, len(W))) if k * h < len(W) else _zero()
+            for k in range(4)]
+
+
+def _toom4_evw(W):
+    """bit width of the widest Toom-4 evaluation word a(5) = a0+5a1+25a2+125a3."""
+    h = (max(len(W), 1) + 3) // 4
+    ws = _toom4_parts(W, h)
+    return sum(5 ** k * ((1 << len(ws[k])) - 1) for k in range(4)).bit_length()
+
+
+def _solve_vander(pts, ys):
+    """exact integer solve of  sum_{k=1..n} pt^k c_k = y_pt  for c1..cn."""
+    from fractions import Fraction
+    n = len(pts)
+    M = [[Fraction(pts[i] ** (k + 1)) for k in range(n)] for i in range(n)]
+    v = [Fraction(y) for y in ys]
+    for col in range(n):
+        piv = next(r for r in range(col, n) if M[r][col] != 0)
+        M[col], M[piv] = M[piv], M[col]
+        v[col], v[piv] = v[piv], v[col]
+        pv = M[col][col]
+        for r in range(n):
+            if r != col and M[r][col] != 0:
+                f = M[r][col] / pv
+                for cc in range(col, n):
+                    M[r][cc] -= f * M[col][cc]
+                v[r] -= f * v[col]
+    return [int(v[i] / M[i][i]) for i in range(n)]
+
+
+def _toom4(Q, A, B, leaf, tag, counter, sub=None):
+    sub = sub if sub is not None else 'toom4'
+    n = max(len(A), len(B))
+    h = (n + 3) // 4
+    a = _toom4_parts(A, h)
+    b = _toom4_parts(B, h)
+    same = A.bits == B.bits
+
+    def ev(ws, pt, nm):
+        coeffs = [pt ** k for k in range(4)]
+        nbits = sum(coeffs[k] * ((1 << len(ws[k])) - 1) for k in range(4)).bit_length()
+        prts = []
+        for k in range(4):
+            if not len(ws[k]):
+                continue
+            for sg, sh in bin_split(coeffs[k]):
+                prts.append((ws[k], sg, sh))
+        return _add_word(Q, nm, prts, nbits, nm)
+    av = {pt: ev(a, pt, f"qa{tag}_{pt}") for pt in _T4PTS}
+    bv = av if same else {pt: ev(b, pt, f"qb{tag}_{pt}") for pt in _T4PTS}
+    W = {}
+    W[0] = _mul_word(Q, f"qw0{tag}", a[0], b[0], sub, leaf, f"qw0{tag}", counter)
+    W[6] = _mul_word(Q, f"qw6{tag}", a[3], b[3], sub, leaf, f"qw6{tag}", counter)
+    for pt in _T4PTS:
+        W[pt] = _mul_word(Q, f"qw{pt}{tag}", av[pt], bv[pt], sub, leaf,
+                          f"qw{pt}{tag}", counter)
+
+    # c_k = sum_{i+j=k} a_i b_j ; number of limb products by degree k=1..5
+    nterms = {1: 2, 2: 3, 3: 4, 4: 3, 5: 2}
+    lim = (max(len(a[k]) for k in range(4)), max(len(b[k]) for k in range(4)))
+    prod = ((1 << lim[0]) - 1) * ((1 << lim[1]) - 1)
+
+    def make_cval(kk):
+        def f(wv, kk=kk):
+            w0, w6 = W[0].val(wv), W[6].val(wv)
+            ys = [W[pt].val(wv) - w0 - w6 * (pt ** 6) for pt in _T4PTS]
+            return _solve_vander(_T4PTS, ys)[kk - 1]
+        return f
+    cw = {}
+    for kk in range(1, 6):
+        nb = (nterms[kk] * prod).bit_length()
+        cw[kk] = Q.mkword(f"qc{kk}{tag}", nb, make_cval(kk))
+    allc = {0: W[0], 6: W[6], 1: cw[1], 2: cw[2], 3: cw[3], 4: cw[4], 5: cw[5]}
+    for pt in _T4PTS:
+        terms = []
+        for t, bb in enumerate(W[pt].bits):
+            terms.append(((bb,), -1, t))
+        for k in range(7):
+            for sg, sh in bin_split(pt ** k):
+                for t, bb in enumerate(allc[k].bits):
+                    terms.append(((bb,), sg, t + sh))
+        Q.assert_terms(terms, [], f"qi{tag}_{pt}")
+    out = []
+    for k in range(7):
+        for t, bb in enumerate(allc[k].bits):
             out.append(((bb,), 1, t + k * h))
     return out
 
