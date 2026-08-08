@@ -1,0 +1,200 @@
+{
+ "binary": {
+  "mul": {
+   "vars": 111627,
+   "couplers": 4401217,
+   "jbits": 21
+  },
+  "lin": {
+   "vars": 1034,
+   "couplers": 12961,
+   "jbits": 11
+  },
+  "neq": {
+   "vars": 174,
+   "couplers": 8072,
+   "jbits": 17
+  },
+  "add": {
+   "vars": 296015,
+   "couplers": 11618504,
+   "jbits": 21
+  },
+  "add_inv": {
+   "vars": 407492,
+   "couplers": 15991545,
+   "jbits": 21
+  },
+  "final": {
+   "vars": 1004,
+   "couplers": 7452,
+   "jbits": 9
+  },
+  "col": {
+   "vars": 217.17315175097275,
+   "couplers": 8562.678988326848,
+   "jbits": 21,
+   "ncol": 514
+  },
+  "sel1": {
+   "vars": 772,
+   "couplers": 4795,
+   "jbits": 10
+  },
+  "sel2": {
+   "vars": 1037,
+   "couplers": 10353,
+   "jbits": 11
+  },
+  "sel4": {
+   "vars": 1555,
+   "couplers": 34476,
+   "jbits": 11
+  },
+  "sel6": {
+   "vars": 4772,
+   "couplers": 141979,
+   "jbits": 15
+  },
+  "sel8": {
+   "vars": 13211,
+   "couplers": 716537,
+   "jbits": 19
+  },
+  "sel10": {
+   "vars": 45291,
+   "couplers": 5876110,
+   "jbits": 23
+  },
+  "sel12": {
+   "vars": 171998,
+   "couplers": 70002914,
+   "jbits": 27
+  },
+  "_secs": 285.1,
+  "sel3": {
+   "vars": 1292,
+   "couplers": 18349,
+   "jbits": 11
+  },
+  "sel5": {
+   "vars": 2452,
+   "couplers": 72678,
+   "jbits": 13
+  },
+  "sel7": {
+   "vars": 7688,
+   "couplers": 305818,
+   "jbits": 17
+  },
+  "sel9": {
+   "vars": 24054,
+   "couplers": 1959297,
+   "jbits": 21
+  },
+  "sel11": {
+   "vars": 87557,
+   "couplers": 19529917,
+   "jbits": 25
+  }
+ },
+ "wallace": {
+  "mul": {
+   "vars": 324853,
+   "couplers": 1458995,
+   "jbits": 9
+  },
+  "lin": {
+   "vars": 2801,
+   "couplers": 11645,
+   "jbits": 9
+  },
+  "neq": {
+   "vars": 534,
+   "couplers": 2572,
+   "jbits": 3
+  },
+  "add": {
+   "vars": 889158,
+   "couplers": 4002659,
+   "jbits": 9
+  },
+  "add_inv": {
+   "vars": 1212701,
+   "couplers": 5454111,
+   "jbits": 9
+  },
+  "final": {
+   "vars": 2032,
+   "couplers": 7070,
+   "jbits": 9
+  },
+  "col": {
+   "vars": 632.0097276264592,
+   "couplers": 2838.511673151751,
+   "jbits": 9,
+   "ncol": 514
+  },
+  "sel1": {
+   "vars": 1998,
+   "couplers": 7154,
+   "jbits": 9
+  },
+  "sel2": {
+   "vars": 2975,
+   "couplers": 11924,
+   "jbits": 9
+  },
+  "sel4": {
+   "vars": 6594,
+   "couplers": 29255,
+   "jbits": 9
+  },
+  "sel6": {
+   "vars": 19886,
+   "couplers": 94033,
+   "jbits": 9
+  },
+  "sel8": {
+   "vars": 69465,
+   "couplers": 359127,
+   "jbits": 9
+  },
+  "sel10": {
+   "vars": 268374,
+   "couplers": 1791523,
+   "jbits": 9
+  },
+  "sel12": {
+   "vars": 1060218,
+   "couplers": 13400920,
+   "jbits": 9
+  },
+  "_secs": 99.0,
+  "sel3": {
+   "vars": 4037,
+   "couplers": 16910,
+   "jbits": 9
+  },
+  "sel5": {
+   "vars": 11161,
+   "couplers": 51108,
+   "jbits": 9
+  },
+  "sel7": {
+   "vars": 36593,
+   "couplers": 179089,
+   "jbits": 9
+  },
+  "sel9": {
+   "vars": 136547,
+   "couplers": 774667,
+   "jbits": 9
+  },
+  "sel11": {
+   "vars": 532251,
+   "couplers": 4612292,
+   "jbits": 9
+  }
+ }
+}

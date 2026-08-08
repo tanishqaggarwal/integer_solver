@@ -41,6 +41,7 @@ class QB:
         self.trace = []                  # ops replayed by witness()
         self.chunk = chunk
         self.W_and = None
+        self.max_clique = 0
         self.n_and = 0
         self.n_carry = 0
         self.n_word = 0
@@ -55,8 +56,12 @@ class QB:
         if c: tgt[mono] += c
 
     def add_square(self, lin, const, tgt=None):
-        """add (sum lin[v]*v + const)^2 ; v binary so v^2 = v."""
+        """add (sum lin[v]*v + const)^2 ; v binary so v^2 = v.
+        Each such square makes a clique on its support, so the largest one is the
+        binding constraint for minor-embedding: a K_c needs ~c^2/4 physical qubits
+        on a Pegasus/Zephyr graph."""
         tgt = self.pen if tgt is None else tgt
+        if tgt is self.pen and len(lin) > self.max_clique: self.max_clique = len(lin)
         vs = sorted(lin)
         self._add(tgt, (), const * const)
         for v in vs:
@@ -248,7 +253,7 @@ class QB:
         lin = sum(1 for m in self.Q if len(m) == 1)
         quad = sum(1 for m in self.Q if len(m) == 2)
         mags = [abs(c) for m, c in self.Q.items() if m]
-        return dict(vars=self.n, linear=lin, couplers=quad,
+        return dict(vars=self.n, linear=lin, couplers=quad, max_clique=self.max_clique,
                     and_vars=self.n_and, word_bits=self.n_word, carry_bits=self.n_carry,
                     max_coef=max(mags), min_coef=min(mags),
                     dynamic_range_bits=(max(mags) // max(1, min(mags))).bit_length())

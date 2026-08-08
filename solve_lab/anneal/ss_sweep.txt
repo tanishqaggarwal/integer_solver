@@ -1,0 +1,17 @@
+modular subset-sum over 256 relations mod a 256-bit prime
+(256 binary variables are information-theoretically REQUIRED: with m relations
+ there are 2^m subsets against 2^256 targets, so m < 256 has no solution)
+
+    mode  chunk    qubits    couplers  avg deg     |J|
+  binary      2     2,371     461,661    389.4    2^17
+  binary      4    27,584   1,832,815    132.9    2^19
+  binary      8    18,928   1,074,269    113.5    2^19
+  binary     16    12,955     658,091    101.6    2^19
+  binary     64     6,376     398,065    124.9    2^19
+  binary   1024     2,371     461,661    389.4    2^17
+ wallace      2    67,739     321,234      9.5     2^9
+ wallace      4    67,739     321,234      9.5     2^9
+ wallace      8    67,739     321,234      9.5     2^9
+ wallace     16    67,739     321,234      9.5     2^9
+ wallace     64    67,739     321,234      9.5     2^9
+ wallace   1024    67,739     321,234      9.5     2^9

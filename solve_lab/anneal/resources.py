@@ -13,7 +13,7 @@ def cost(fn, mode):
     return st['vars'], st['couplers']
 
 
-def marginal_window(s, w, mode, seed=1, neq=True):
+def marginal_window(s, w, mode, seed=1, neq=True, want_clique=False):
     """exact marginal cost of one comb window: 2 table look-ups + 4 modmuls + 4 linear words."""
     rnd = random.Random(seed)
     p = (1 << (s - 1)) + 2 * rnd.randrange(1 << (s - 3)) + 1
@@ -35,7 +35,13 @@ def marginal_window(s, w, mode, seed=1, neq=True):
 
     # --- the two table look-ups (one-hot MUX) ---
     sel = [Q.new(f"u{t}", 'input') for t in range(D)]
-    Q.add_square({v: 1 for v in sel}, -1)
+    prev = None
+    for t, v in enumerate(sel[:-1]):                 # sequential-counter one-hot
+        pv = Q.new(f"p{t}", 'onehot')
+        _lf = {pv: -1, v: 1}
+        if prev is not None: _lf[prev] = 1
+        Q.add_square(_lf, 0); prev = pv
+    Q.add_square({prev: 1, sel[-1]: 1}, -1)
     x2 = lin("x2", [(consts[t], [sel[t]]) for t in range(D)], 0)
     y2 = lin("y2", [(consts[D + t], [sel[t]]) for t in range(D)], 0)
     # --- previous accumulator ---
@@ -59,6 +65,8 @@ def marginal_window(s, w, mode, seed=1, neq=True):
     Q.finalize()
     st = Q.stats()
     # subtract the two carry-in registers x1,y1 that really belong to the previous window
+    if want_clique:
+        return st['vars'] - 2 * s, st['couplers'], st['dynamic_range_bits'], st['max_clique']
     return st['vars'] - 2 * s, st['couplers'], st['dynamic_range_bits']
 
 

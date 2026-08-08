@@ -134,7 +134,21 @@ def build_win(p, B, table, T, w, chunk=16, mode='binary', neq=False, verbose=Fal
         u = [Q.new(f"u{j}_{t}", 'input') for t in range(D)]
         for t, v in enumerate(u):
             Q.trace.append(('word', f"u{j}_{t}", [v], (lambda wv, j=j, t=t: wv[f"_u{j}"] == t and 1 or 0)))
-        Q.add_square({v: 1 for v in u}, -1)          # exactly one digit
+        # "exactly one digit", encoded as a sequential counter rather than
+        # (sum u - 1)^2.  The naive square makes a K_D -- with D = 2^w that clique
+        # alone dominates minor-embedding.  The prefix chain p_t = p_{t-1} + u_t
+        # says the same thing with 3-term penalties, so the largest clique in the
+        # whole Hamiltonian drops to the arithmetic's own width.
+        prev = None
+        for t, v in enumerate(u[:-1]):
+            pv = Q.new(f"p{j}_{t}", 'onehot')
+            Q.trace.append(('word', f"p{j}_{t}", [pv],
+                            (lambda wv, j=j, t=t: 1 if wv[f"_u{j}"] <= t else 0)))
+            lin = {pv: -1, v: 1}
+            if prev is not None: lin[prev] = 1
+            Q.add_square(lin, 0)
+            prev = pv
+        Q.add_square({prev: 1, u[-1]: 1}, -1)        # the last prefix must reach 1
         U.append(u)
 
     def W(name, terms, const, fn):

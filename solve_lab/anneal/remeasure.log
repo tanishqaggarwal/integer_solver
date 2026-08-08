@@ -1,0 +1,11 @@
+binary   w= 6: vars=  274,548 coupl=  8,151,168 |J|=2^21 clique=139 (18s)
+binary   w= 7: vars=  280,429 coupl=  8,446,480 |J|=2^21 clique=139 (19s)
+binary   w= 8: vars=  291,527 coupl=  9,209,205 |J|=2^21 clique=139 (21s)
+binary   w= 9: vars=  312,987 coupl= 11,352,577 |J|=2^21 clique=139 (28s)
+binary   w=10: vars=  355,324 coupl= 18,143,479 |J|=2^23 clique=204 (41s)
+wallace  w= 6: vars=  731,323 coupl=  3,250,456 |J|=2^9 clique=5 (19s)
+wallace  w= 7: vars=  764,234 coupl=  3,406,889 |J|=2^9 clique=5 (21s)
+wallace  w= 8: vars=  830,831 coupl=  3,723,187 |J|=2^9 clique=5 (18s)
+wallace  w= 9: vars=  962,096 coupl=  4,346,921 |J|=2^9 clique=5 (16s)
+wallace  w=10: vars=1,224,189 coupl=  5,592,399 |J|=2^9 clique=5 (21s)
+done

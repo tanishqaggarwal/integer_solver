@@ -1,0 +1,2 @@
+[rational] a-table 1..67108864 in 18.1s
+[rational] b-scan 1..67108864 in 17.5s

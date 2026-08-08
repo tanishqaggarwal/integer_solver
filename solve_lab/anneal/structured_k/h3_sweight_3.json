@@ -1,0 +1,22 @@
+{
+ "control_ok": true,
+ "control": {
+  "mode": "sweight",
+  "maxhalf": 3,
+  "seconds": 2.6,
+  "raw_hits": 20,
+  "solutions": [
+   115792089237316195423570985008687907852837564279074904382605163141484871434057
+  ],
+  "stderr": "[sweight] 48 chain points, maxhalf=3, cap=2^24\n[sweight] pass 0: 142976 points, 2.4s, table=63022\n[sweight] pass 1: 142976 points, 0.2s, table=63022"
+ },
+ "real": {
+  "mode": "sweight",
+  "maxhalf": 3,
+  "seconds": 41.7,
+  "raw_hits": 0,
+  "solutions": [],
+  "stderr": "[sweight] 256 chain points, maxhalf=3, cap=2^25\n[sweight] pass 0: 22239232 points, 16.0s, table=10861550\n[sweight] pass 1: 22239232 points, 25.6s, table=10861550"
+ },
+ "covers": "signed-digit weight <= 6"
+}

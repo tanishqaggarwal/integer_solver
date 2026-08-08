@@ -1,0 +1,5 @@
+control scalar (8 terms over 48 bit positions): 72603205239304
+  control: RECOVERED  raw_hits=70 (2.1s)
+  [weight] 48 chain points, maxhalf=4, cap=2^24
+  [weight] pass 0: 213052 points, 1.7s, table=213052
+  [weight] pass 1: 213052 points, 0.5s, table=213052

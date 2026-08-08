@@ -1,0 +1,62 @@
+{
+ "binary_w6": {
+  "vars": 274548,
+  "couplers": 8151168,
+  "jbits": 21,
+  "clique": 139
+ },
+ "binary_w7": {
+  "vars": 280429,
+  "couplers": 8446480,
+  "jbits": 21,
+  "clique": 139
+ },
+ "binary_w8": {
+  "vars": 291527,
+  "couplers": 9209205,
+  "jbits": 21,
+  "clique": 139
+ },
+ "binary_w9": {
+  "vars": 312987,
+  "couplers": 11352577,
+  "jbits": 21,
+  "clique": 139
+ },
+ "binary_w10": {
+  "vars": 355324,
+  "couplers": 18143479,
+  "jbits": 23,
+  "clique": 204
+ },
+ "wallace_w6": {
+  "vars": 731323,
+  "couplers": 3250456,
+  "jbits": 9,
+  "clique": 5
+ },
+ "wallace_w7": {
+  "vars": 764234,
+  "couplers": 3406889,
+  "jbits": 9,
+  "clique": 5
+ },
+ "wallace_w8": {
+  "vars": 830831,
+  "couplers": 3723187,
+  "jbits": 9,
+  "clique": 5
+ },
+ "wallace_w9": {
+  "vars": 962096,
+  "couplers": 4346921,
+  "jbits": 9,
+  "clique": 5
+ },
+ "wallace_w10": {
+  "vars": 1224189,
+  "couplers": 5592399,
+  "jbits": 9,
+  "clique": 5
+ }
+}
