@@ -1,0 +1,32 @@
+==========================================================================
+THE REDUCTION, BUILT WITH THE TRAPDOOR (best possible case)
+==========================================================================
+correctness (16-bit): reduction target = k = 48170; recovered subset -> 48170; exact = True
+
+(a) CONSTRUCTIBILITY without the trapdoor:
+    the reduction needs l_j = dlog_G(Q_j) for the factor base.  We used the
+    doubling chain, whose logs l_i = 2^i are free -- but that gives back the
+    ORIGINAL bit-decomposition, i.e. the direct DLP, no new leverage.
+    Any OTHER factor base that could shrink the search needs its logs, and
+    computing dlog_G(Q_j) is itself an ECDLP of the SAME size.  For a size-k
+    base that is k ECDLPs to reduce one ECDLP -- circular. For prime fields
+    there is no index calculus to get the logs another way.  => NOT constructible.
+
+(b) ANNEALABILITY, granting all logs for free:
+    m (bits)   vars  corr(dist,E)  tabu hits/reps
+          12     41         0.030 8/8             
+          16     57         0.262 8/8             
+          24    161         0.027 0/8             
+          32    351         0.034 0/8             
+
+    corr ~ 0 and 0 hits at m>=16: even WITH every log handed over, the modular
+    subset-sum is itself a needle -- mod-n reduction makes the sum pseudorandom in
+    the bits.  So the reduction fails test (b) too.
+
+VERDICT: the only reduction that could make the full problem solvable fails BOTH
+tests -- it is not constructible in the attack direction, and it does not anneal
+even when constructed.  There is no reduction to make.  The interval-split
+reduction (synth/solve.py) remains the only one that yields a correct full solver,
+and it gives no speedup (2^b total anneals).  Per the instruction's condition --
+"make the reduction IF it means the full problem would be solvable" -- the
+condition is not met, so no such reduction is made.
