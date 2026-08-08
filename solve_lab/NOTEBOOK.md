@@ -1886,3 +1886,31 @@ but 25% interface and a hub x24453 touching 286 blocks -- core-first is far bett
 
 Scope: encoding obstacles of REDUCED_PROBLEM.md §4 (dense 512-bit couplers, 1e5-1e6 monoliths)
 are removed; searchability of the resulting landscape is NOT claimed. Deliverable still 39,026.
+
+## Session 13 part 3 — the complete QUBO set (S13_QUBO_SET.md)
+
+Built s13/qubo_full.py: real QUBO emitter ({(i,j):coeff}), three primitive block types,
+all brute-force VERIFIED sound+complete (MUL at (w,q)=(2,3),(3,5),(3,7),(4,11),(4,13); LIN at
+(3,5),(3,7),(4,11)).
+
+BUG FOUND AND FIXED: the naive (x*y - out - k*q)^2 column chain is SOUND but INCOMPLETE --
+its column sums go negative while binary carries cannot represent that, so valid assignments
+have no zero-energy state (2/4 cases failed). Fix: write x*y = out + k*q and build TWO
+NON-NEGATIVE carry chains equated bit by bit. Completeness 5/5, and max coupler fell from
+5,120 (13 bits) to 80 (7 bits), independent of the modulus. Also fixed the LIN cost model
+(the carry chain is a per-ATOM overhead, not per-term: measured 362 fixed + 13.8/term).
+
+CENSUS at q=65521, w=16, band 1,000-5,000:
+  [A] full instance      42,267 atoms, 253,421 MULs, 189,647,046 binary, 39,909 blocks, 100% in band
+  [B] core-anchored       5,317 atoms,   5,300 MULs,   5,716,077 binary,  1,205 blocks, 100% in band
+  [B'] constant-folded      433 atoms,   1,010 MULs,     879,087 binary,    187 blocks, 186/187
+  [B''] branched (x8731,x9118 only; 2 selector bits enumerated outside = 4 cases)
+                            229 atoms,     187 MULs,     234,968 binary/branch, 50 blocks, 50/50
+  [C] p-divisibility core (limb/carry, verified)          79,500 binary, fits one sub-100k QUBO
+Coupling: 5,359 shared wires x 16 bits = 85,744 interface vs 5,716,077 internal = 1.5%.
+
+Two layers are complementary: RNS covers all 39,033 equations cheaply but is BLIND to
+divisibility by p (handles absorb mod q); the limb chains see p but only for the core.
+
+Scope: encoding only. Searchability is untested and NOT claimed; blocks share wires so a
+consensus schedule (BCD/ADMM over the 1.5% interface) is required. Deliverable still 39,026.

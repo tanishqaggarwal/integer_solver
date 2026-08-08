@@ -1,0 +1,1 @@
+{"q": 65521, "w": 16, "full": {"atoms": 42267, "muls": 253421, "total_binary": 189647046, "blocks": 39909}, "core": {"atoms": 5317, "muls": 5300, "total_binary": 5716077, "blocks": 1205, "block_min": 390, "block_max": 4997, "in_band": 1204}, "layerB_binary": 79500, "mul_block_size": 681, "mul_max_coeff": 1280, "shared_wires": 5359}
