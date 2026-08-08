@@ -58,3 +58,8 @@ S(seed=101,n=252) = [15064, 5910, 32669, 3106, 32558, 19074, 11189, 28754, 1357,
    [pre] relift round 56: 146 bad atoms, 142 fixed, t=298s
    [pre] relift round 57: 147 bad atoms, 145 fixed, t=305s
    [pre] relift round 58: 147 bad atoms, 143 fixed, t=313s
+   [pre] relift round 59: 148 bad atoms, 143 fixed, t=322s
+   [pre] fixpoint done in 322s (60 rounds)
+outer 0: global nonzero 152, violated c-conditions 146, nonzero handle-less 6
+   single-wire pass over 685 wires (max atoms/wire 2)
+     [hb] wire 216/685  nz-guard evals=903  sg3 calls=216  sg3 time=103s  accepted=44  t=444s

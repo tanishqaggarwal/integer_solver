@@ -322,3 +322,15 @@ DONE rot=53 range=[25,38) n=43591977 zero=0 38.6s
 DONE rot=53 range=[10,17) n=46798731 zero=0 39.5s
 DONE rot=53 range=[0,5) n=48495006 zero=0 41.9s
 DONE rot=53 range=[38,128) n=43949268 zero=0 42.2s
+DONE rot=54 range=[5,10) n=41107956 zero=0 38.7s
+DONE rot=54 range=[17,25) n=40623462 zero=0 40.3s
+DONE rot=54 range=[25,38) n=43591977 zero=0 40.6s
+DONE rot=54 range=[38,128) n=43949268 zero=0 40.9s
+DONE rot=54 range=[10,17) n=46798731 zero=0 42.1s
+DONE rot=54 range=[0,5) n=48495006 zero=0 43.7s
+DONE rot=55 range=[5,10) n=41107956 zero=0 37.5s
+DONE rot=55 range=[25,38) n=43591977 zero=0 38.5s
+DONE rot=55 range=[17,25) n=40623462 zero=0 40.4s
+DONE rot=55 range=[10,17) n=46798731 zero=0 41.3s
+DONE rot=55 range=[38,128) n=43949268 zero=0 41.5s
+DONE rot=55 range=[0,5) n=48495006 zero=0 43.3s
