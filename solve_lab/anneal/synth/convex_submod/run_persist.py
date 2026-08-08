@@ -1,103 +1,93 @@
 #!/usr/bin/env python3
 """run_persist.py -- exact persistency on small modmuls + the conditioned curve.
 
-Everything is gated: no fix is reported unless it holds in every enumerated
-ground state."""
+Gated: no fix is reported unless it holds in every enumerated ground state."""
 import os, sys, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import persist
-from collections import defaultdict, Counter
-
+from collections import Counter
 
 KW = dict(mult='schoolbook', leaf=8, red='naf', mode='wallace')
 
 
 def kindcount(Q, fix):
-    c = Counter(Q.kind[v] for v in fix)
-    return dict(c)
+    return dict(Counter(Q.kind[v] for v in fix))
 
 
-def one_prime(p):
-    Q, A, B, C, xs = persist.ground_states(p, **KW)
-    nstates = len(xs)
-    # unconditional exact ceiling
-    ceil, _ = persist.ceiling(Q, xs)
-    persist.verify_subset(ceil, Q, xs, f"ceiling p={p}")
-    # constructive
-    prop = persist.prop_fix(Q)
-    persist.verify_subset(prop, Q, xs, f"prop p={p}")
-    prob = persist.probe_fix(Q)
-    persist.verify_subset(prob, Q, xs, f"probe p={p}")
-    return dict(p=p, n=Q.n, states=nstates,
-                ceil=len(ceil), prop=len(prop), probe=len(prob),
-                ceil_kinds=kindcount(Q, ceil),
-                probe_kinds=kindcount(Q, prob),
-                A=A, B=B, xs=xs, Q=Q, ceilmap=ceil)
-
-
-def conditioned(res, kbits):
-    """ceiling conditioned on pinning the low k bits of operand a (A) to their
-    value in a canonical ground state -- averaged over the distinct patterns
-    present in the solution set."""
-    Q, A, xs = res['Q'], res['A'], res['xs']
-    s = len(A.bits)
-    out = []
-    for k in kbits:
-        if k > s:
-            continue
-        # group ground states by the low-k pattern of A, take mean fixed count
-        counts = []
-        patterns = set()
-        for x in xs:
-            pat = tuple(x[A.bits[t]] for t in range(k))
-            patterns.add(pat)
-        for pat in patterns:
-            restrict = {A.bits[t]: pat[t] for t in range(k)}
-            fix, m = persist.ceiling(Q, xs, restrict=restrict)
-            persist.verify_subset(fix, Q,
-                                  [x for x in xs if all(x[v] == vv for v, vv in restrict.items())],
-                                  f"cond p={res['p']} k={k}")
-            counts.append(len(fix))
-        out.append((k, sum(counts) / len(counts), min(counts), max(counts),
-                    len(patterns)))
-    return out
+def crosscheck_p13():
+    import verify
+    Q, A, B, C = persist.make(13, **KW)
+    s = (13).bit_length()
+    fix, cnt = persist.ceiling(Q, A, B, C, 13, s)
+    xs = verify.zero_states(Q)
+    seen0 = bytearray(Q.n); seen1 = bytearray(Q.n)
+    for x in xs:
+        for v in range(Q.n):
+            (seen1 if x[v] else seen0)[v] = 1
+    dfs_fix = {v: (1 if seen1[v] else 0) for v in range(Q.n)
+               if not (seen0[v] and seen1[v])}
+    ok = (fix == dfs_fix)
+    print(f"CROSS-CHECK p=13: replay-ceiling={len(fix)} dfs-ceiling={len(dfs_fix)} "
+          f"replay-states={cnt} dfs-states={len(xs)} -> {'MATCH' if ok else 'MISMATCH'}")
+    assert ok
 
 
 def main():
+    sys.setrecursionlimit(1000000)
+    crosscheck_p13()
     primes = [13, 29, 61, 127, 251]
-    print("EXACT PERSISTENCY on small modmuls (schoolbook/naf/wallace)")
-    print(f"{'p':>5} {'vars':>6} {'#gnd':>7} {'ceiling':>8} {'prop':>6} "
+    print("\nEXACT PERSISTENCY on small modmuls (schoolbook/naf/wallace)")
+    print(f"{'p':>5} {'s':>2} {'vars':>6} {'#gnd':>7} {'ceiling':>8} {'prop':>6} "
           f"{'probe':>6}   ceiling-kinds")
     results = []
     for p in primes:
-        try:
-            r = one_prime(p)
-        except AssertionError as e:
-            print(f"  p={p}: {e}")
-            raise
-        results.append(r)
-        print(f"{p:>5} {r['n']:>6} {r['states']:>7} {r['ceil']:>8} "
-              f"{r['prop']:>6} {r['probe']:>6}   {r['ceil_kinds']}")
+        s = p.bit_length()
+        Q, A, B, C = persist.make(p, **KW)
+        fix, cnt = persist.ceiling(Q, A, B, C, p, s)
+        persist.verify_subset(fix, Q, A, B, C, p, s, label=f"ceiling p={p}")
+        prop = persist.prop_fix(Q)
+        persist.verify_subset(prop, Q, A, B, C, p, s, label=f"prop p={p}")
+        if Q.n <= 400:
+            prob = persist.probe_fix(Q)
+            persist.verify_subset(prob, Q, A, B, C, p, s, label=f"probe p={p}")
+            probn = len(prob)
+        else:
+            probn = None
+        results.append(dict(p=p, s=s, n=Q.n, states=cnt, ceil=len(fix),
+                            prop=len(prop), probe=probn,
+                            ceil_kinds=kindcount(Q, fix),
+                            Q=Q, A=A, B=B, C=C))
+        pv = probn if probn is not None else '-'
+        print(f"{p:>5} {s:>2} {Q.n:>6} {cnt:>7} {len(fix):>8} {len(prop):>6} "
+              f"{str(pv):>6}   {kindcount(Q, fix)}")
 
-    print("\nCONDITIONED CEILING vs # pinned operand-a bits (exact, per prime)")
-    print("  (mean fixed vars over the distinct low-k patterns; k=s means a fully pinned)")
+    print("\nCONDITIONED CEILING vs # pinned low bits of operand a (exact)")
+    print("  fixed vars, averaged over the 2^k pin patterns; k=s => a fully known")
     cond_dump = {}
     for r in results:
-        curve = conditioned(r, [0, 1, 2, 4, r['Q'] and len(r['A'].bits)])
-        cond_dump[r['p']] = curve
-        s = len(r['A'].bits)
-        cells = "  ".join(f"k={k}:{mean:.0f}[{lo}-{hi}]" for k, mean, lo, hi, np in curve)
-        print(f"  p={r['p']:>4} (s={s}, {r['n']} vars): {cells}")
+        Q, A, B, C, s, p = r['Q'], r['A'], r['B'], r['C'], r['s'], r['p']
+        ks = sorted(set([0, 1, 2, 4, s]))
+        curve = []
+        for k in ks:
+            counts = []
+            for pat in range(1 << k):
+                pin = {t: (pat >> t) & 1 for t in range(k)}
+                fix, _ = persist.ceiling(Q, A, B, C, p, s, pin_a=pin)
+                persist.verify_subset(fix, Q, A, B, C, p, s, pin_a=pin,
+                                      label=f"cond p={p} k={k}")
+                counts.append(len(fix))
+            curve.append((k, sum(counts) / len(counts), min(counts), max(counts)))
+        cond_dump[p] = curve
+        cells = "  ".join(f"k={k}:{m:.0f}[{lo}-{hi}]" for k, m, lo, hi in curve)
+        print(f"  p={p:>4} (s={s}, {Q.n} vars): {cells}")
 
-    dump = [{kk: vv for kk, vv in r.items()
-             if kk in ('p', 'n', 'states', 'ceil', 'prop', 'probe',
-                       'ceil_kinds', 'probe_kinds')} for r in results]
+    dump = [{kk: r[kk] for kk in ('p', 's', 'n', 'states', 'ceil', 'prop',
+                                  'probe', 'ceil_kinds')} for r in results]
     with open(os.path.join(os.path.dirname(__file__), 'persist_small.json'), 'w') as f:
         json.dump({'unconditional': dump,
-                   'conditioned': {str(k): v for k, v in cond_dump.items()}}, f, indent=2)
-    return results
+                   'conditioned': {str(k): v for k, v in cond_dump.items()}},
+                  f, indent=2)
 
 
 if __name__ == '__main__':
-    sys.setrecursionlimit(1000000)
     main()
