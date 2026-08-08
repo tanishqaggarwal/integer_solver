@@ -2022,3 +2022,36 @@ CONCLUSION FOR THE TREEWIDTH QUESTION: the coupling CAN be reduced all the way o
 is linear), so treewidth is not what makes this hard. The obstruction is that the CLOSED
 linear system over GF(p) has no simultaneous solution. Reducing coupling cannot change a
 rank/consistency fact.
+
+## Session 13 part 7 — CONCENTRATING the hardness (s13/concentrate.py, concentrate2.py, solve_core.py)
+
+Goal restated: do not try to remove hardness from the blocks; CONCENTRATE it into them so the
+blocks are worth solving. Two candidate axes were measured.
+
+AXIS 1 -- the message bits (s13/concentrate.py). If bits load residues additively, the
+obstruction would be affine in b and the instance would concentrate into a MODULAR SUBSET-SUM
+(256 binary unknowns, a few 256-bit congruences) -- ideal annealer shape.
+MEASURED: of 40 sampled boolean free inputs only 2 move the obstruction, and the tested pair
+is NOT additive. So the bits interact; there is no subset-sum kernel. This independently
+reproduces the lab's "bits are non-additive" finding. AXIS REJECTED.
+
+AXIS 2 -- the algebraic core (s13/concentrate2.py). Clean frame: score 38,996 with 6
+obstruction checks [a7930, a29539, a35759, a35760, a40826, a41512]. The witness sits in the
+DEGENERATE branch u = w = 0 (so S = T = 0 trivially); the non-degenerate branch requires
+    A*c^2 == B^2 (mod p),  A=x33469, B=x27713, c=x1326.
+At this state A*c^2 - B^2 is NONZERO but Legendre (A|p) = +1, i.e. A IS a quadratic residue,
+so a square root exists and the branch is OPEN here. (REDUCED_PROBLEM.md section 3 reported A a
+NON-residue at the forced configuration -- different state, different values, no contradiction.)
+MEASURED AND VERIFIED: A, B and c are AFFINE mod p in exactly four knobs x14853, x16742,
+x22162, x22649 (4/4 additive; the affine model also predicts correctly at a random point).
+
+CONCENTRATED OBJECT: one quadratic congruence over GF(p) whose inputs are affine in four
+256-bit unknowns -- 1,024 bits of true freedom, ~119,250 binary as a QUBO in ~48 blocks, with
+everything around it linear and eliminable. That is the hardness moved INTO a block instead of
+into the coupling.
+
+CONSEQUENCE (and the real payoff): affine inputs + a quadratic condition means the core is a
+LOW-DEGREE UNIVARIATE POLYNOMIAL mod p once three of the four knobs are fixed. Univariate roots
+mod p are polynomial time (Cantor-Zassenhaus), so the concentrated block does NOT need an
+annealer. s13/solve_core.py implements the polynomial arithmetic mod p, builds the univariate
+polynomial per knob, finds its roots, realises each root and re-checks exactly.
